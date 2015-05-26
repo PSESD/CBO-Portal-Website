@@ -27,7 +27,7 @@ RUN /usr/bin/easy_install superlance
 ADD /config/supervisord.conf /etc/supervisord.conf
 
 # Publish port
-EXPOSE 443
+EXPOSE 80 443
 
 CMD ["/usr/local/bin/supervisord","-n"]
 
