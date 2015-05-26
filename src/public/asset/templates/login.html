@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+        <!-- Login Form -->
+        <form class="form-signin" name="loginForm" role="form" ng-submit="loginMe(login.username, login.password)">
+
+            <h2 style="padding-top: 70px;" class="form-signin-heading">Please sign in</h2>
+
+            <input style="margin-top: 40px;" type="username" class="form-control" ng-model="login.username" name="username" placeholder="Username" required autofocus>
+            <input style="margin-top: 10px;" type="password" class="form-control" ng-model="login.password" name="password" placeholder="Password" required>
+            <button style="margin-top: 40px;" class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="login.working">Sign in</button>
+
+            <p style="text-align: center; padding-top: 20px;">
+                For Demo use <br/>
+                Username: Admin <br/>
+                Password: Admin
+            </p>
+        </form>
+    </div>
+
+    <div class="col-md-4"></div>
+</div>
