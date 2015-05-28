@@ -2,8 +2,10 @@
 
 var base_url = "https://auth.cbo.upward.st/api/";
 var globalConfig = {
-    client_id: 'demo',
-    client_secret: '3bee96066c816947075f046fa8896b9835c8aab5b5eedd0c9eb6e892a985'
+    client_id: 'cbo_ut',
+    client_secret: '52bb61bef84ce263279fa18d7e16d89aa3efd60ef9f39e88090f7b60ea22',
+    response_type: 'code',
+    client_uri: '*.cbo.upward.st/#/cb'
 };
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
@@ -53,6 +55,10 @@ app.config(function ($routeProvider) {
                 controller: 'HeartbeatController',
                 access: { requiredAuthentication: true }
             }).
+            when('/cb', {
+                templateUrl: 'asset/templates/cb.html',
+                controller: 'CbController'
+            }).
             when('/login', {
                 templateUrl: 'asset/templates/login.html',
                 controller: 'LoginController'
@@ -94,17 +100,21 @@ app.factory('AuthenticationService', function()
 app.factory('CookieStore', function ($rootScope, $window, $cookieStore, AuthenticationService)
 {
     return {
-        setData: function(token, name, username, password) {
+        put: function(name, value)
+        {
+            $cookieStore.put(name, value);
+        },
+        get: function(name)
+        {
+            $cookieStore.get(name);
+        },
+        setData: function(token, name) {
             $cookieStore.put('cboAdmin_cookie_token', token);
             $cookieStore.put('cboAdmin_cookie_name', name);
-            $cookieStore.put('cboAdmin_cookie_username', username);
-            $cookieStore.put('cboAdmin_cookie_password', password);
 
             AuthenticationService.isAuthenticated = true;
             AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
             AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
-            AuthenticationService.username = $cookieStore.get('cboAdmin_cookie_username');
-            AuthenticationService.password = $cookieStore.get('cboAdmin_cookie_password');
             $rootScope.showNavBar = true;
 
         },
@@ -114,8 +124,6 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
                 AuthenticationService.isAuthenticated = true;
                 AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
                 AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
-                AuthenticationService.username = $cookieStore.get('cboAdmin_cookie_username');
-                AuthenticationService.password = $cookieStore.get('cboAdmin_cookie_password');
                 $rootScope.showNavBar = true;
                 return true;
             }
@@ -124,8 +132,6 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
                 AuthenticationService.isAuthenticated = false;
                 AuthenticationService.name = null;
                 AuthenticationService.token = null;
-                AuthenticationService.username = null;
-                AuthenticationService.password = null;
                 $rootScope.showNavBar = false;
                 return false;
             }
@@ -133,13 +139,9 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         clearData: function() {
             $cookieStore.remove('cboAdmin_cookie_token');
             $cookieStore.remove('cboAdmin_cookie_name');
-            $cookieStore.remove('cboAdmin_cookie_username');
-            $cookieStore.remove('cboAdmin_cookie_password');
             AuthenticationService.isAuthenticated = false;
             AuthenticationService.name = null;
             AuthenticationService.token = null;
-            AuthenticationService.username = null;
-            AuthenticationService.password = null;
             $rootScope.showNavBar = false;
             return true;
         }
@@ -299,6 +301,17 @@ app.controller('HeartbeatController', ['$rootScope', '$scope',
     }
 ]);
 
+app.controller('CbController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.doingResolve = false;
+        var code = $location.search();
+        CookieStore.setData( code.code, 'demo' );
+        $location.path( '/' );
+
+    }
+]);
+
 app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
@@ -307,9 +320,9 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
         $scope.loginMe = function(username, password) {
 
             var auth = base64_encode( username+':'+password );
-            var client_id = encodeURIComponent(globalConfig.client_id);
-            var response_type = encodeURIComponent('code');
-            var redirect_uri = encodeURIComponent('http://demo_web.com');
+            var client_id = encodeURIComponent( globalConfig.client_id );
+            var response_type = encodeURIComponent( globalConfig.response_type );
+            var redirect_uri = encodeURIComponent( globalConfig.client_uri );
             var uri = base_url+'oauth2/authorize?client_id='+client_id+'&response_type='+response_type+'&redirect_uri='+redirect_uri;
 
             $http.get( uri , {
@@ -330,35 +343,37 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                         console.log(response);
                         if(response.indexOf('<') > -1)
                         {
-                            jQuery('#form_auth').html( response );
 
-                            if (confirm('Authorization Needed, Do you approve??'))
-                            {
-
-                                var data = {
-                                    transaction_id: jQuery( "input[name='transaction_id']").val()
-                                };
-
-                                $http.post( base_url+'oauth2/authorize', $.param(data), {
-                                    headers: {
-                                        'Authorization': 'Basic '+auth
-                                    }
-                                })
-                                    .success(function(response) {
-
-                                        console.log(response);
-
-                                    })
-                                    .error(function(response) {
-                                        $scope.working = false;
-                                        showError('Failed to connect', 1);
-                                    });
-
-                            }
-                            else
-                            {
-                                // Do nothing!
-                            }
+                            window.location = base_url+'oauth2/authorize?client_id='+client_id+'&response_type='+response_type+'&redirect_uri='+redirect_uri;
+//                            jQuery('#form_auth').html( response );
+//
+//                            if (confirm('Authorization Needed, Do you approve??'))
+//                            {
+//
+//                                var data = {
+//                                    transaction_id: jQuery( "input[name='transaction_id']").val()
+//                                };
+//
+//                                $http.post( base_url+'oauth2/authorize', $.param(data), {
+//                                    headers: {
+//                                        'Authorization': 'Basic '+auth
+//                                    }
+//                                })
+//                                    .success(function(response) {
+//
+//                                        console.log(response);
+//
+//                                    })
+//                                    .error(function(response) {
+//                                        $scope.working = false;
+//                                        showError('Failed to connect', 1);
+//                                    });
+//
+//                            }
+//                            else
+//                            {
+//                                // Do nothing!
+//                            }
                         }
                         else
                         {
