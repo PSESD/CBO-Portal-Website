@@ -1,11 +1,12 @@
 'use strict';
 
 var base_url = "https://auth.cbo.upward.st/api/";
+
 var globalConfig = {
     client_id: 'cbo_ut',
-    client_secret: '52bb61bef84ce263279fa18d7e16d89aa3efd60ef9f39e88090f7b60ea22',
+    client_secret: 'd3ecbfeab20d0be323bb069ff6bee7ccccefefcc80a8f9d2b62c6b81909d',
     response_type: 'code',
-    client_uri: '*.cbo.upward.st/#/cb'
+    client_uri: 'https://any.cbo.upward.st#/cb'
 };
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
@@ -306,7 +307,20 @@ app.controller('CbController', ['$rootScope', '$scope', '$http', '$location', 'A
 
         $rootScope.doingResolve = false;
         var code = $location.search();
-        CookieStore.setData( code.code, 'demo' );
+        var absUrl = $location.absUrl();
+        if(typeof code.code !== 'undefined' && code.code)
+        {
+            CookieStore.setData( code.code, 'demo' );
+        }
+        else
+        {
+            var getFirst = absUrl.indexOf("code");
+            var getLast = absUrl.indexOf("#");
+            var getCodeString = absUrl.substring(getFirst, getLast);
+            var getCode = getCodeString.replace('code=', '');
+            CookieStore.setData( getCode, "demo" );
+        }
+
         $location.path( '/' );
 
     }
@@ -345,35 +359,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                         {
 
                             window.location = base_url+'oauth2/authorize?client_id='+client_id+'&response_type='+response_type+'&redirect_uri='+redirect_uri;
-//                            jQuery('#form_auth').html( response );
-//
-//                            if (confirm('Authorization Needed, Do you approve??'))
-//                            {
-//
-//                                var data = {
-//                                    transaction_id: jQuery( "input[name='transaction_id']").val()
-//                                };
-//
-//                                $http.post( base_url+'oauth2/authorize', $.param(data), {
-//                                    headers: {
-//                                        'Authorization': 'Basic '+auth
-//                                    }
-//                                })
-//                                    .success(function(response) {
-//
-//                                        console.log(response);
-//
-//                                    })
-//                                    .error(function(response) {
-//                                        $scope.working = false;
-//                                        showError('Failed to connect', 1);
-//                                    });
-//
-//                            }
-//                            else
-//                            {
-//                                // Do nothing!
-//                            }
+
                         }
                         else
                         {
