@@ -1,9 +1,24 @@
 'use strict';
 
-var base_url = "/";
-var image_url = "/";
+var base_url = "https://auth.cbo.upward.st/api/";
+var globalConfig = {
+    client_id: 'demo',
+    client_secret: '3bee96066c816947075f046fa8896b9835c8aab5b5eedd0c9eb6e892a985'
+};
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
+
+app.config(['$httpProvider', function ($httpProvider) {
+    //Reset headers to avoid OPTIONS request (aka preflight)
+    $httpProvider.defaults.headers.common = {};
+    $httpProvider.defaults.headers.get = {};
+    $httpProvider.defaults.headers.post = {};
+    $httpProvider.defaults.headers.put = {};
+    $httpProvider.defaults.headers.patch = {};
+    $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+    $httpProvider.defaults.headers.common['Accept'] = '*/*';
+
+}]);
 
 app.config(function ($routeProvider) {
 
@@ -13,9 +28,19 @@ app.config(function ($routeProvider) {
                 controller: 'HomeController',
                 access: { requiredAuthentication: true }
             }).
+            when('/user/add', {
+                templateUrl: 'asset/templates/user/add.html',
+                controller: 'UserAddController',
+                access: { requiredAuthentication: true }
+            }).
             when('/user', {
                 templateUrl: 'asset/templates/user/list.html',
                 controller: 'UserController',
+                access: { requiredAuthentication: true }
+            }).
+            when('/client/add', {
+                templateUrl: 'asset/templates/client/add.html',
+                controller: 'ClientAddController',
                 access: { requiredAuthentication: true }
             }).
             when('/client', {
@@ -57,7 +82,9 @@ app.factory('AuthenticationService', function()
     var auth = {
         isAuthenticated: false,
         token: null,
-        name: null
+        name: null,
+        username: null,
+        password: null
     };
 
     return auth;
@@ -67,13 +94,17 @@ app.factory('AuthenticationService', function()
 app.factory('CookieStore', function ($rootScope, $window, $cookieStore, AuthenticationService)
 {
     return {
-        setData: function(token, name) {
+        setData: function(token, name, username, password) {
             $cookieStore.put('cboAdmin_cookie_token', token);
             $cookieStore.put('cboAdmin_cookie_name', name);
+            $cookieStore.put('cboAdmin_cookie_username', username);
+            $cookieStore.put('cboAdmin_cookie_password', password);
 
             AuthenticationService.isAuthenticated = true;
             AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
             AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
+            AuthenticationService.username = $cookieStore.get('cboAdmin_cookie_username');
+            AuthenticationService.password = $cookieStore.get('cboAdmin_cookie_password');
             $rootScope.showNavBar = true;
 
         },
@@ -83,6 +114,8 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
                 AuthenticationService.isAuthenticated = true;
                 AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
                 AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
+                AuthenticationService.username = $cookieStore.get('cboAdmin_cookie_username');
+                AuthenticationService.password = $cookieStore.get('cboAdmin_cookie_password');
                 $rootScope.showNavBar = true;
                 return true;
             }
@@ -91,6 +124,8 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
                 AuthenticationService.isAuthenticated = false;
                 AuthenticationService.name = null;
                 AuthenticationService.token = null;
+                AuthenticationService.username = null;
+                AuthenticationService.password = null;
                 $rootScope.showNavBar = false;
                 return false;
             }
@@ -98,9 +133,13 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         clearData: function() {
             $cookieStore.remove('cboAdmin_cookie_token');
             $cookieStore.remove('cboAdmin_cookie_name');
+            $cookieStore.remove('cboAdmin_cookie_username');
+            $cookieStore.remove('cboAdmin_cookie_password');
             AuthenticationService.isAuthenticated = false;
             AuthenticationService.name = null;
             AuthenticationService.token = null;
+            AuthenticationService.username = null;
+            AuthenticationService.password = null;
             $rootScope.showNavBar = false;
             return true;
         }
@@ -143,8 +182,69 @@ app.controller('HomeController', ['$rootScope', '$scope',
 app.controller('UserController', ['$rootScope', '$scope',
     function ($rootScope, $scope) {
 
-        console.log($scope);
         $rootScope.doingResolve = false;
+
+        var auth = base64_encode( AuthenticationService.username+':'.AuthenticationService.password );
+
+        $http.post( base_url+'users', $.param(user), {
+            headers: {
+                'Authorization': 'Basic '+auth
+            }
+        })
+            .success(function(response) {
+
+                if( typeof response.id !== 'undefined' && response.id )
+                {
+                    // Success to get user
+                    $scope.working = false;
+                    $location.path( "/user" );
+                }
+                else
+                {
+                    console.log(response);
+                    $scope.working = false;
+                    showError(response.message, 1);
+                }
+            })
+            .error(function(response) {
+                $scope.working = false;
+                showError('Failed to connect', 1);
+            });
+
+    }
+]);
+
+app.controller('UserAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService',
+    function ($rootScope, $scope, $http, $location, AuthenticationService) {
+
+        $rootScope.doingResolve = false;
+        $scope.working = false;
+
+        $scope.addUser = function (user) {
+
+            $scope.working = true;
+
+            $http.post( base_url+'users', $.param(user), { })
+                .success(function(response) {
+
+                    if( typeof response.id !== 'undefined' && response.id )
+                    {
+                        // Success go to user
+                        $location.path( "/user" );
+                    }
+                    else
+                    {
+                        console.log(response);
+                        $scope.working = false;
+                        showError(response.message, 1);
+                    }
+                })
+                .error(function(response) {
+                    $scope.working = false;
+                    showError('Failed to connect', 1);
+                });
+
+        }
 
     }
 ]);
@@ -154,6 +254,38 @@ app.controller('ClientController', ['$rootScope', '$scope',
 
         console.log($scope);
         $rootScope.doingResolve = false;
+
+    }
+]);
+
+app.controller('ClientAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService',
+    function ($rootScope, $scope, $http, $location, AuthenticationService) {
+
+        $rootScope.doingResolve = false;
+        $scope.working = false;
+
+        $scope.addClient = function (client) {
+
+            $scope.working = true;
+
+            var auth = base64_encode( AuthenticationService.username+':'.AuthenticationService.password );
+
+            $http.post( base_url+'clients', $.param(client), {
+                headers: {
+                    'Authorization': 'Basic '+auth
+                }
+            })
+                .success(function(response) {
+
+                    console.log(response);
+
+                })
+                .error(function(response) {
+                    $scope.working = false;
+                    showError('Failed to connect', 1);
+                });
+
+        }
 
     }
 ]);
@@ -174,23 +306,75 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
         $scope.loginMe = function(username, password) {
 
-            $scope.login.working = true;
+            var auth = base64_encode( username+':'+password );
+            var client_id = encodeURIComponent(globalConfig.client_id);
+            var response_type = encodeURIComponent('code');
+            var redirect_uri = encodeURIComponent('http://demo_web.com');
+            var uri = base_url+'oauth2/authorize?client_id='+client_id+'&response_type='+response_type+'&redirect_uri='+redirect_uri;
 
-            var sendData = {
-                username: username,
-                password: password
-            };
+            $http.get( uri , {
+                headers: {
+                    'Authorization': 'Basic '+auth
+                }
+            })
+                .success(function(response) {
 
-            if( sendData.username == 'admin' && sendData.password == 'admin' )
-            {
-                CookieStore.setData(123456789, username);
-                $location.path( "/" );
-            }
-            else
-            {
-                $scope.login.working = false;
-                showError('Wrong username or password', 1);
-            }
+                    console.log(response);
+                    if( typeof response.id !== 'undefined' && response.id )
+                    {
+                        // Success go to user
+                        $location.path( "/" );
+                    }
+                    else
+                    {
+                        console.log(response);
+                        if(response.indexOf('<') > -1)
+                        {
+                            jQuery('#form_auth').html( response );
+
+                            if (confirm('Authorization Needed, Do you approve??'))
+                            {
+
+                                var data = {
+                                    transaction_id: jQuery( "input[name='transaction_id']").val()
+                                };
+
+                                $http.post( base_url+'oauth2/authorize', $.param(data), {
+                                    headers: {
+                                        'Authorization': 'Basic '+auth
+                                    }
+                                })
+                                    .success(function(response) {
+
+                                        console.log(response);
+
+                                    })
+                                    .error(function(response) {
+                                        $scope.working = false;
+                                        showError('Failed to connect', 1);
+                                    });
+
+                            }
+                            else
+                            {
+                                // Do nothing!
+                            }
+                        }
+                        else
+                        {
+                            showError(response, 1);
+                        }
+
+                    }
+
+
+                })
+                .error(function(response) {
+
+                    console.log(response);
+                    showError('Failed to connect', 1);
+
+                });
 
         }
 
@@ -212,4 +396,51 @@ function showError(message, alert)
         jQuery('.alert').remove();
     }, 3000);
 
+}
+
+function base64_encode(data) {
+    //  discuss at: http://phpjs.org/functions/base64_encode/
+    // original by: Tyler Akins (http://rumkin.com)
+    // improved by: Bayron Guevara
+    // improved by: Thunder.m
+    // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // improved by: Rafał Kukawski (http://kukawski.pl)
+    // bugfixed by: Pellentesque Malesuada
+    //   example 1: base64_encode('Kevin van Zonneveld');
+    //   returns 1: 'S2V2aW4gdmFuIFpvbm5ldmVsZA=='
+    //   example 2: base64_encode('a');
+    //   returns 2: 'YQ=='
+
+    var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+    var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
+        ac = 0,
+        enc = '',
+        tmp_arr = [];
+
+    if (!data) {
+        return data;
+    }
+
+    do { // pack three octets into four hexets
+        o1 = data.charCodeAt(i++);
+        o2 = data.charCodeAt(i++);
+        o3 = data.charCodeAt(i++);
+
+        bits = o1 << 16 | o2 << 8 | o3;
+
+        h1 = bits >> 18 & 0x3f;
+        h2 = bits >> 12 & 0x3f;
+        h3 = bits >> 6 & 0x3f;
+        h4 = bits & 0x3f;
+
+        // use hexets to index into b64, and append result to encoded string
+        tmp_arr[ac++] = b64.charAt(h1) + b64.charAt(h2) + b64.charAt(h3) + b64.charAt(h4);
+    } while (i < data.length);
+
+    enc = tmp_arr.join('');
+
+    var r = data.length % 3;
+
+    return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
 }
