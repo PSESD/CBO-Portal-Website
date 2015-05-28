@@ -1,1 +1,32 @@
-<h1>User Data</h1>
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-header">
+            Users
+            <a href="#/user/add" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add User</a>
+        </h1>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th width="35%">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>
+                        <a class="btn btn-default" ng-href="#/user/view/{{ user.username }}"><i class="fa fa-eye"></i> View</a>
+                        <a class="btn btn-default" ng-href="#/user/edit/{{ user.username }}"><i class="fa fa-edit"></i> Edit</a>
+                        <a class="btn btn-danger" ng-click="DeleteUser(user.username, $index)"><i class="fa fa-remove"></i> Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,9 +1,21 @@
 'use strict';
 
-var base_url = "/";
-var image_url = "/";
+var base_url = "http://localhost:4000/";
+var base_url = "https://auth.cbo.upward.st/api/";
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
+
+app.config(['$httpProvider', function ($httpProvider) {
+    //Reset headers to avoid OPTIONS request (aka preflight)
+    $httpProvider.defaults.headers.common = {};
+    $httpProvider.defaults.headers.get = {};
+    $httpProvider.defaults.headers.post = {};
+    $httpProvider.defaults.headers.put = {};
+    $httpProvider.defaults.headers.patch = {};
+    $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
+    $httpProvider.defaults.headers.common['Accept'] = '*/*';
+
+}]);
 
 app.config(function ($routeProvider) {
 
@@ -11,6 +23,11 @@ app.config(function ($routeProvider) {
             when('/', {
                 templateUrl: 'asset/templates/home.html',
                 controller: 'HomeController',
+                access: { requiredAuthentication: true }
+            }).
+            when('/user/add', {
+                templateUrl: 'asset/templates/user/add.html',
+                controller: 'UserAddController',
                 access: { requiredAuthentication: true }
             }).
             when('/user', {
@@ -149,6 +166,41 @@ app.controller('UserController', ['$rootScope', '$scope',
     }
 ]);
 
+app.controller('UserAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService',
+    function ($rootScope, $scope, $http, $location, AuthenticationService) {
+
+        $rootScope.doingResolve = false;
+        $scope.working = false;
+
+        $scope.addUser = function (user) {
+
+            $scope.working = true;
+
+            $http.post( base_url+'users', $.param(user), { })
+                .success(function(response) {
+
+                    if( typeof response.id !== 'undefined' && response.id )
+                    {
+                        // Success go to user
+                        $location.path( "/user" );
+                    }
+                    else
+                    {
+                        console.log(response);
+                        $scope.working = false;
+                        showError(response.message, 1);
+                    }
+                })
+                .error(function(response) {
+                    $scope.working = false;
+                    showError('Failed to connect', 1);
+                });
+
+        }
+
+    }
+]);
+
 app.controller('ClientController', ['$rootScope', '$scope',
     function ($rootScope, $scope) {
 
@@ -191,6 +243,36 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                 $scope.login.working = false;
                 showError('Wrong username or password', 1);
             }
+
+//            $http.post( base_url+'user', $.param(sendData), {
+//            })
+//                .success(function(response) {
+//
+//                    if(response.code == 200)
+//                    {
+//                        // Success go to home
+//                        console.log(response);
+//                        CookieStore.setData(response.token, response.username);
+//                        $location.path( "/" );
+//                    }
+//                    else
+//                    {
+//                        CookieStore.clearData();
+//
+//                        $scope.login.working = false;
+//                        console.log(response);
+//                        showError(response.message.message, 1);
+//
+//                    }
+//
+//                })
+//                .error(function(response) {
+//
+//                    $scope.login.working = false;
+//                    console.log(response);
+//                    showError('Failed to connect', 1);
+//
+//                });
 
         }
 
