@@ -3,7 +3,7 @@
 var base_url = "https://auth.cbo.upward.st/api/";
 var globalConfig = {
     client_id: 'demo',
-    client_secret: 'c6be1b2dc8b9a766a2ad7eb04335741ed4f194cb830e2a6066789fec5b08'
+    client_secret: '3bee96066c816947075f046fa8896b9835c8aab5b5eedd0c9eb6e892a985'
 };
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
@@ -306,10 +306,13 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
         $scope.loginMe = function(username, password) {
 
-            $scope.login.working = true;
+            var auth = base64_encode( username+':'+password );
+            var client_id = encodeURIComponent(globalConfig.client_id);
+            var response_type = encodeURIComponent('code');
+            var redirect_uri = encodeURIComponent('http://demo_web.com');
+            var uri = base_url+'oauth2/authorize?client_id='+client_id+'&response_type='+response_type+'&redirect_uri='+redirect_uri;
 
-            var auth = base64_encode( username+':'.password );
-            $http.get( base_url+'oauth2/authorize?client_id='+globalConfig.client_id+'&response_type=code&redirect_uri=demo_web.com', {
+            $http.get( uri , {
                 headers: {
                     'Authorization': 'Basic '+auth
                 }
@@ -317,30 +320,57 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                 .success(function(response) {
 
                     console.log(response);
-                    /*
-                    if(response.code == 200)
+                    if( typeof response.id !== 'undefined' && response.id )
                     {
-                        // Success go to home
-                        console.log(response);
-                        CookieStore.setData(response.token, response.username);
+                        // Success go to user
                         $location.path( "/" );
                     }
                     else
                     {
-                        CookieStore.clearData();
-
-                        $scope.login.working = false;
                         console.log(response);
-                        showError(response.message.message, 1);
+                        if(response.indexOf('<') > -1)
+                        {
+                            jQuery('#form_auth').html( response );
+
+                            if (confirm('Authorization Needed, Do you approve??'))
+                            {
+
+                                var data = {
+                                    transaction_id: jQuery( "input[name='transaction_id']").val()
+                                };
+
+                                $http.post( base_url+'oauth2/authorize', $.param(data), {
+                                    headers: {
+                                        'Authorization': 'Basic '+auth
+                                    }
+                                })
+                                    .success(function(response) {
+
+                                        console.log(response);
+
+                                    })
+                                    .error(function(response) {
+                                        $scope.working = false;
+                                        showError('Failed to connect', 1);
+                                    });
+
+                            }
+                            else
+                            {
+                                // Do nothing!
+                            }
+                        }
+                        else
+                        {
+                            showError(response, 1);
+                        }
 
                     }
-                    */
-                    $scope.login.working = false;
+
 
                 })
                 .error(function(response) {
 
-                    $scope.login.working = false;
                     console.log(response);
                     showError('Failed to connect', 1);
 
