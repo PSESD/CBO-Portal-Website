@@ -1,12 +1,11 @@
 'use strict';
 
 var base_url = "https://auth.cbo.upward.st/api/";
-
 var globalConfig = {
-    client_id: 'cbo_ut',
-    client_secret: 'd3ecbfeab20d0be323bb069ff6bee7ccccefefcc80a8f9d2b62c6b81909d',
+    client_id: 'cbo_ut_new',
+    client_secret: '1833acd52689e43cf5a2bd02b5cdcd57a61e792f2326ab0b8c84e07fadae',
     response_type: 'code',
-    client_uri: 'https://any.cbo.upward.st#/cb'
+    client_uri: '(*.)\.cbo\.upward\.st'
 };
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
