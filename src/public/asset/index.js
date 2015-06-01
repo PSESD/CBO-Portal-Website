@@ -10,7 +10,7 @@ var base_url = "https://auth.cbo.upward.st/api/";
 //};
 var globalConfig = {
     client_id: 'cbo_ut_new_1',
-    client_secret: '8daef5c4f53ec0efc0c6b48f202c5f6b428c110ef8d27691a06964a3c4f4',
+    client_secret: '820540f39a6b33c90ce57601eac18eed1e9937069a594df3ae1d40e7bcd8',
     response_type: 'code',
     grant_type: 'password',
     client_uri: 'https://any.cbo.upward.st/#/cb'
