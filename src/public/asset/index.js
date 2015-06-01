@@ -2,20 +2,20 @@
 
 var auth_url = "https://auth.cbo.upward.st/api/";
 var api_url = "https://api.cbo.upward.st/";
-var globalConfig = {
-    client_id: 'demo_localhost',
-    client_secret: 'fc4e75fecf1b7fa2478aaaa19f32e865e2ddb77004363ebff2b60d0aa34b',
-    response_type: 'code',
-    grant_type: 'password',
-    client_uri: 'http://localhost/CBO-Portal-Website/src/public/#/cb'
-};
 //var globalConfig = {
-//    client_id: 'cbo_ut_new_1',
-//    client_secret: '820540f39a6b33c90ce57601eac18eed1e9937069a594df3ae1d40e7bcd8',
+//    client_id: 'demo_localhost',
+//    client_secret: 'fc4e75fecf1b7fa2478aaaa19f32e865e2ddb77004363ebff2b60d0aa34b',
 //    response_type: 'code',
 //    grant_type: 'password',
-//    client_uri: 'https://any.cbo.upward.st/#/cb'
+//    client_uri: 'http://localhost/CBO-Portal-Website/src/public/#/cb'
 //};
+var globalConfig = {
+    client_id: 'cbo_ut_new_1',
+    client_secret: '820540f39a6b33c90ce57601eac18eed1e9937069a594df3ae1d40e7bcd8',
+    response_type: 'code',
+    grant_type: 'password',
+    client_uri: 'https://any.cbo.upward.st/#/cb'
+};
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
 
