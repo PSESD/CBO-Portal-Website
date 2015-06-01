@@ -1,20 +1,21 @@
 'use strict';
 
-var base_url = "https://auth.cbo.upward.st/api/";
-//var globalConfig = {
-//    client_id: 'demo_localhost',
-//    client_secret: '660d4a5b65b5dffc55d62537e0d7632cd3b99de64d6c23c94f3487c85fba',
-//    response_type: 'code',
-//    grant_type: 'password',
-//    client_uri: 'http://localhost/CBO-Portal-Website/src/public/#/cb'
-//};
+var auth_url = "https://auth.cbo.upward.st/api/";
+var api_url = "https://api.cbo.upward.st/";
 var globalConfig = {
-    client_id: 'cbo_ut_new_1',
-    client_secret: '820540f39a6b33c90ce57601eac18eed1e9937069a594df3ae1d40e7bcd8',
+    client_id: 'demo_localhost',
+    client_secret: 'fc4e75fecf1b7fa2478aaaa19f32e865e2ddb77004363ebff2b60d0aa34b',
     response_type: 'code',
     grant_type: 'password',
-    client_uri: 'https://any.cbo.upward.st/#/cb'
+    client_uri: 'http://localhost/CBO-Portal-Website/src/public/#/cb'
 };
+//var globalConfig = {
+//    client_id: 'cbo_ut_new_1',
+//    client_secret: '820540f39a6b33c90ce57601eac18eed1e9937069a594df3ae1d40e7bcd8',
+//    response_type: 'code',
+//    grant_type: 'password',
+//    client_uri: 'https://any.cbo.upward.st/#/cb'
+//};
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
 
@@ -96,9 +97,7 @@ app.factory('AuthenticationService', function()
     var auth = {
         isAuthenticated: false,
         token: null,
-        name: null,
-        username: null,
-        password: null
+        organization_id: null
     };
 
     return auth;
@@ -116,40 +115,40 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         {
             $cookieStore.get(name);
         },
-        setData: function(token, name) {
+        setData: function(token, organization_id) {
             $cookieStore.put('cboAdmin_cookie_token', token);
-            $cookieStore.put('cboAdmin_cookie_name', name);
+            $cookieStore.put('cboAdmin_cookie_organization_id', organization_id);
 
             AuthenticationService.isAuthenticated = true;
-            AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
             AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
+            AuthenticationService.organization_id = $cookieStore.get('cboAdmin_cookie_organization_id');
             $rootScope.showNavBar = true;
 
         },
         getData: function() {
-            if( typeof $cookieStore.get('cboAdmin_cookie_token') !== 'undefined' && $cookieStore.get('cboAdmin_cookie_token') && typeof $cookieStore.get('cboAdmin_cookie_name') !== 'undefined' && $cookieStore.get('cboAdmin_cookie_name') )
+            if( typeof $cookieStore.get('cboAdmin_cookie_token') !== 'undefined' && $cookieStore.get('cboAdmin_cookie_token') && typeof $cookieStore.get('cboAdmin_cookie_organization_id') !== 'undefined' && $cookieStore.get('cboAdmin_cookie_organization_id') )
             {
                 AuthenticationService.isAuthenticated = true;
-                AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
                 AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
+                AuthenticationService.organization_id = $cookieStore.get('cboAdmin_cookie_organization_id');
                 $rootScope.showNavBar = true;
                 return true;
             }
             else
             {
                 AuthenticationService.isAuthenticated = false;
-                AuthenticationService.name = null;
                 AuthenticationService.token = null;
+                AuthenticationService.organization_id = null;
                 $rootScope.showNavBar = false;
                 return false;
             }
         },
         clearData: function() {
             $cookieStore.remove('cboAdmin_cookie_token');
-            $cookieStore.remove('cboAdmin_cookie_name');
+            $cookieStore.remove('cboAdmin_cookie_organization_id');
             AuthenticationService.isAuthenticated = false;
-            AuthenticationService.name = null;
             AuthenticationService.token = null;
+            AuthenticationService.organization_id = null;
             $rootScope.showNavBar = false;
             return true;
         }
@@ -173,12 +172,13 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                 token: AuthenticationService.token
             };
 
-            $http.post( base_url+'logout', $.param(logout), {
+            $http.post( auth_url+'logout', $.param(logout), {
 
             })
                 .success( function (response) {
 
                     console.log(response);
+
                     CookieStore.clearData();
                     showError('Success Logout', 2);
                     $location.path("/login");
@@ -193,14 +193,14 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     }
                     else
                     {
-                        showError(response, 2);
+                        showError(response, 1);
                     }
 
-                });
+                    CookieStore.clearData();
+                    showError('Success Logout', 2);
+                    $location.path("/login");
 
-            CookieStore.clearData();
-            showError('Success Logout', 2);
-            $location.path("/login");
+                });
 
         };
 
@@ -225,7 +225,7 @@ app.controller('UserController', ['$rootScope', '$scope',
 
         var auth = base64_encode( AuthenticationService.username+':'.AuthenticationService.password );
 
-        $http.post( base_url+'users', $.param(user), {
+        $http.post( auth_url+'users', $.param(user), {
             headers: {
                 'Authorization': 'Basic '+auth
             }
@@ -263,7 +263,7 @@ app.controller('UserAddController', ['$rootScope', '$scope', '$http', '$location
 
             $scope.working = true;
 
-            $http.post( base_url+'users', $.param(user), { })
+            $http.post( auth_url+'users', $.param(user), { })
                 .success(function(response) {
 
                     if( typeof response.id !== 'undefined' && response.id )
@@ -309,7 +309,7 @@ app.controller('ClientAddController', ['$rootScope', '$scope', '$http', '$locati
 
             var auth = base64_encode( AuthenticationService.username+':'.AuthenticationService.password );
 
-            $http.post( base_url+'clients', $.param(client), {
+            $http.post( auth_url+'clients', $.param(client), {
                 headers: {
                     'Authorization': 'Basic '+auth
                 }
@@ -369,9 +369,11 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
         $scope.loginMe = function(username, password) {
 
+            $scope.login.working = true;
+
             var auth = base64_encode( globalConfig.client_id+':'+globalConfig.client_secret );
             var grant_type = encodeURIComponent( globalConfig.grant_type );
-            var uri = base_url+'oauth2/token';
+            var uri = auth_url+'oauth2/token';
             var send = {
                 grant_type: grant_type,
                 username: username,
@@ -385,33 +387,52 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
             })
                 .success(function(response) {
 
-                    console.log(response);
-
-                    $http.get( base_url+'clients' , {
+                    $http.get( api_url+'organizations' , {
                         headers: {
-                            'Authorization': 'Basic '+auth
+                            'Authorization': 'Bearer '+response.access_token
                         }
                     })
                         .success(function(responseClient) {
 
-                            console.log(responseClient);
+                            var get_hosting_name = $location.host();
+                            var grand_access = false;
+                            var get_id = false;
 
-                            CookieStore.setData( response.access_token, response.token_type );
-                            $location.path( '/' );
+                            if(responseClient.length > 0)
+                            {
+                                for(var i=0; i<responseClient.length; i++)
+                                {
+                                    if(get_hosting_name == responseClient[i].url)
+                                    {
+                                        grand_access = true;
+                                        get_id = responseClient[i]._id;
+                                    }
+                                }
+                            }
+
+                            if(grand_access)
+                            {
+                                CookieStore.setData( response.access_token, get_id );
+                                $location.path( '/' );
+                            }
+                            else
+                            {
+                                showError("You don't have any permission to access this page", 1);
+                                $scope.login.working = false;
+                            }
 
                         })
                         .error(function(responseClient) {
 
-                            CookieStore.setData( response.access_token, response.token_type );
-                            $location.path( '/' );
+                            $scope.login.working = false;
 
                         });
 
                 })
                 .error(function(response) {
 
-                    console.log(response);
                     showError('Failed to connect', 1);
+                    $scope.login.working = false;
 
                 });
 
