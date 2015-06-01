@@ -1,11 +1,19 @@
 'use strict';
 
 var base_url = "https://auth.cbo.upward.st/api/";
+//var globalConfig = {
+//    client_id: 'demo_localhost',
+//    client_secret: '660d4a5b65b5dffc55d62537e0d7632cd3b99de64d6c23c94f3487c85fba',
+//    response_type: 'code',
+//    grant_type: 'password',
+//    client_uri: 'http://localhost/CBO-Portal-Website/src/public/#/cb'
+//};
 var globalConfig = {
-    client_id: 'cbo_ut_new',
-    client_secret: '1833acd52689e43cf5a2bd02b5cdcd57a61e792f2326ab0b8c84e07fadae',
+    client_id: 'cbo_ut_new_1',
+    client_secret: '8daef5c4f53ec0efc0c6b48f202c5f6b428c110ef8d27691a06964a3c4f4',
     response_type: 'code',
-    client_uri: '(*.)\.cbo\.upward\.st'
+    grant_type: 'password',
+    client_uri: 'https://any.cbo.upward.st/#/cb'
 };
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
@@ -24,48 +32,48 @@ app.config(['$httpProvider', function ($httpProvider) {
 
 app.config(function ($routeProvider) {
 
-        $routeProvider.
-            when('/', {
-                templateUrl: 'asset/templates/home.html',
-                controller: 'HomeController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/user/add', {
-                templateUrl: 'asset/templates/user/add.html',
-                controller: 'UserAddController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/user', {
-                templateUrl: 'asset/templates/user/list.html',
-                controller: 'UserController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/client/add', {
-                templateUrl: 'asset/templates/client/add.html',
-                controller: 'ClientAddController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/client', {
-                templateUrl: 'asset/templates/client/list.html',
-                controller: 'ClientController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/heartbeat', {
-                templateUrl: 'asset/templates/heartbeat/list.html',
-                controller: 'HeartbeatController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/cb', {
-                templateUrl: 'asset/templates/cb.html',
-                controller: 'CbController'
-            }).
-            when('/login', {
-                templateUrl: 'asset/templates/login.html',
-                controller: 'LoginController'
-            }).
-            otherwise({
-                redirectTo: '/'
-            });
+    $routeProvider.
+        when('/', {
+            templateUrl: 'asset/templates/home.html',
+            controller: 'HomeController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/user/add', {
+            templateUrl: 'asset/templates/user/add.html',
+            controller: 'UserAddController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/user', {
+            templateUrl: 'asset/templates/user/list.html',
+            controller: 'UserController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/client/add', {
+            templateUrl: 'asset/templates/client/add.html',
+            controller: 'ClientAddController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/client', {
+            templateUrl: 'asset/templates/client/list.html',
+            controller: 'ClientController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/heartbeat', {
+            templateUrl: 'asset/templates/heartbeat/list.html',
+            controller: 'HeartbeatController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/cb', {
+            templateUrl: 'asset/templates/cb.html',
+            controller: 'CbController'
+        }).
+        when('/login', {
+            templateUrl: 'asset/templates/login.html',
+            controller: 'LoginController'
+        }).
+        otherwise({
+            redirectTo: '/'
+        });
 
 });
 
@@ -150,8 +158,8 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
 
 
-app.controller('BodyController', ['$rootScope', '$scope', '$location', 'CookieStore',
-    function ($rootScope, $scope, $location, CookieStore) {
+app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
+    function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService) {
 
         $scope.isActive = function(route) {
 
@@ -160,6 +168,35 @@ app.controller('BodyController', ['$rootScope', '$scope', '$location', 'CookieSt
         };
 
         $scope.logoutMe = function() {
+
+            var logout = {
+                token: AuthenticationService.token
+            };
+
+            $http.post( base_url+'logout', $.param(logout), {
+
+            })
+                .success( function (response) {
+
+                    console.log(response);
+                    CookieStore.clearData();
+                    showError('Success Logout', 2);
+                    $location.path("/login");
+
+                })
+                .error( function (response) {
+
+                    console.log(response);
+                    if( typeof response.message !== 'undefined' && response.message )
+                    {
+                        showError(response.message, 2);
+                    }
+                    else
+                    {
+                        showError(response, 2);
+                    }
+
+                });
 
             CookieStore.clearData();
             showError('Success Logout', 2);
@@ -332,13 +369,16 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
         $scope.loginMe = function(username, password) {
 
-            var auth = base64_encode( username+':'+password );
-            var client_id = encodeURIComponent( globalConfig.client_id );
-            var response_type = encodeURIComponent( globalConfig.response_type );
-            var redirect_uri = encodeURIComponent( globalConfig.client_uri );
-            var uri = base_url+'oauth2/authorize?client_id='+client_id+'&response_type='+response_type+'&redirect_uri='+redirect_uri;
+            var auth = base64_encode( globalConfig.client_id+':'+globalConfig.client_secret );
+            var grant_type = encodeURIComponent( globalConfig.grant_type );
+            var uri = base_url+'oauth2/token';
+            var send = {
+                grant_type: grant_type,
+                username: username,
+                password: password
+            };
 
-            $http.get( uri , {
+            $http.post( uri , $.param(send), {
                 headers: {
                     'Authorization': 'Basic '+auth
                 }
@@ -346,27 +386,26 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                 .success(function(response) {
 
                     console.log(response);
-                    if( typeof response.id !== 'undefined' && response.id )
-                    {
-                        // Success go to user
-                        $location.path( "/" );
-                    }
-                    else
-                    {
-                        console.log(response);
-                        if(response.indexOf('<') > -1)
-                        {
 
-                            window.location = base_url+'oauth2/authorize?client_id='+client_id+'&response_type='+response_type+'&redirect_uri='+redirect_uri;
-
+                    $http.get( base_url+'clients' , {
+                        headers: {
+                            'Authorization': 'Basic '+auth
                         }
-                        else
-                        {
-                            showError(response, 1);
-                        }
+                    })
+                        .success(function(responseClient) {
 
-                    }
+                            console.log(responseClient);
 
+                            CookieStore.setData( response.access_token, response.token_type );
+                            $location.path( '/' );
+
+                        })
+                        .error(function(responseClient) {
+
+                            CookieStore.setData( response.access_token, response.token_type );
+                            $location.path( '/' );
+
+                        });
 
                 })
                 .error(function(response) {
