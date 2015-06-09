@@ -180,15 +180,15 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                 })
                 .error( function (response) {
 
-                    console.log(response);
-                    if( typeof response.message !== 'undefined' && response.message )
-                    {
-                        showError(response.message, 2);
-                    }
-                    else
-                    {
-                        showError(response, 1);
-                    }
+//                    console.log(response);
+//                    if( typeof response.message !== 'undefined' && response.message )
+//                    {
+//                        showError(response.message, 2);
+//                    }
+//                    else
+//                    {
+//                        showError(response, 1);
+//                    }
 
                     CookieStore.clearData();
                     showError('Success Logout', 2);
