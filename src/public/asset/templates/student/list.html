@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-md-12">
         <h1 class="page-header">
-            Student
-            <a href="#/student/add" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add User</a>
+            Students
+            <a href="#/student/add" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add Student</a>
         </h1>
         <div class="table-responsive">
             <table class="table table-striped">
@@ -26,6 +26,7 @@
                     <td>{{ student.created | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
                     <td>{{ student.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
                     <td>
+                        <a class="btn btn-default" ng-href="#/student/detail/{{ student._id }}"><i class="fa fa-eye"></i> Detail</a>
                         <a class="btn btn-default" ng-href="#/student/backpacks/{{ student._id }}"><i class="fa fa-eye"></i> Backpacks</a>
                         <a class="btn btn-danger" ng-click="deleteStudent(student._id, $index)" ng-disabled="working"><i class="fa fa-remove"></i> Delete</a>
                     </td>

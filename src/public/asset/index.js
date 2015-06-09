@@ -47,6 +47,11 @@ app.config(function ($routeProvider) {
             controller: 'StudentBackpackController',
             access: { requiredAuthentication: true }
         }).
+        when('/student/detail/:student_id', {
+            templateUrl: 'asset/templates/student/detail.html',
+            controller: 'StudentDetailController',
+            access: { requiredAuthentication: true }
+        }).
         when('/student', {
             templateUrl: 'asset/templates/student/list.html',
             controller: 'StudentController',
@@ -209,6 +214,37 @@ app.controller('HomeController', ['$rootScope', '$scope',
 
 
 app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routeParams', '$http', 'AuthenticationService',
+    function ($rootScope, $scope, $routeParams, $http, AuthenticationService) {
+
+        $scope.student = {};
+
+        var student_id = $routeParams.student_id;
+
+        $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/backpack', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                console.log(response);
+                $scope.student = response
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response) {
+
+                console.log(response);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+
+            });
+
+    }
+]);
+
+
+app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams', '$http', 'AuthenticationService',
     function ($rootScope, $scope, $routeParams, $http, AuthenticationService) {
 
         $scope.student = {};
