@@ -1,45 +1,39 @@
 <div class="row">
     <div class="col-md-12">
         <h1 class="page-header">
-            Add User
+            Add Student
         </h1>
 
-        <form class="form-horizontal" role="form" ng-submit="addUser(user)">
+        <form class="form-horizontal" role="form" ng-submit="addStudent(student)">
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="username">Username:</label>
+                <label class="col-sm-3 control-label" for="first_name">First Name:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" ng-model="user.username" name="username" id="username" placeholder="Username" required autofocus>
+                    <input type="text" class="form-control" ng-model="student.first_name" id="first_name" required autofocus>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="password">Password:</label>
+                <label class="col-sm-3 control-label" for="last_name">Last Name:</label>
                 <div class="col-sm-9">
-                    <input type="password" class="form-control" ng-model="user.password" name="password" id="password" placeholder="Password" required>
+                    <input type="text" class="form-control" ng-model="student.last_name" id="last_name" required>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="email">Email:</label>
+                <label class="col-sm-3 control-label" for="district_student_id">District Student ID:</label>
                 <div class="col-sm-9">
-                    <input type="email" class="form-control" ng-model="user.email" name="email" id="email" placeholder="Email">
+                    <input type="text" class="form-control" ng-model="student.district_student_id" id="district_student_id" required>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="name">Name:</label>
+                <label class="col-sm-3 control-label" for="district_student_name">District Student Name:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" ng-model="user.name" name="name" id="name" placeholder="Name">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="name">Last Name:</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" ng-model="user.last_name" name="last_name" id="last_name" placeholder="Last Name" required>
+                    <input type="text" class="form-control" ng-model="student.district_student_name" id="district_student_name" required>
                 </div>
             </div>
             <div class="form-actions">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9">
                     <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                    <a href="#/user" class="btn btn-default">Back</a>
+                    <a href="#/student" class="btn btn-default">Back</a>
                 </div>
             </div>
         </form>

@@ -43,7 +43,7 @@ app.config(function ($routeProvider) {
             access: { requiredAuthentication: true }
         }).
         when('/student/add', {
-            templateUrl: 'asset/templates/student/list.html',
+            templateUrl: 'asset/templates/student/add.html',
             controller: 'StudentAddController',
             access: { requiredAuthentication: true }
         }).
@@ -207,6 +207,7 @@ app.controller('HomeController', ['$rootScope', '$scope',
     }
 ]);
 
+
 app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routeParams', '$http', 'AuthenticationService',
     function ($rootScope, $scope, $routeParams, $http, AuthenticationService) {
 
@@ -222,7 +223,7 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
             .success(function(response) {
 
                 console.log(response);
-                $scope.student = response;
+                $scope.student = response
                 $rootScope.doingResolve = false;
 
             })
@@ -237,13 +238,17 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
     }
 ]);
 
+
 app.controller('StudentAddController', ['$rootScope', '$scope', '$http', 'AuthenticationService',
     function ($rootScope, $scope, $routeParams, $http, AuthenticationService) {
 
-        $scope.AddStudent = function(student)
+        $rootScope.doingResolve = false;
+
+        $scope.addStudent = function(student)
         {
             if(student)
             {
+                console.log(AuthenticationService);
                 $scope.working = true;
                 $http.post( api_url+AuthenticationService.organization_id+'/students', $.param(student), {
                     headers: {
@@ -270,12 +275,13 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', 'Authen
     }
 ]);
 
+
 app.controller('StudentController', ['$rootScope', '$scope', '$http', 'AuthenticationService',
     function ($rootScope, $scope, $http, AuthenticationService) {
 
         $scope.students = [];
 
-        $scope.DeleteStudent = function(id, index)
+        $scope.deleteStudent = function(id, index)
         {
             if(id)
             {
@@ -310,7 +316,14 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', 'Authentic
             .success(function(response) {
 
                 console.log(response);
-                $scope.students = response;
+                if(response.success == true && response.total > 0)
+                {
+                    $scope.students = response.data;
+                }
+                else
+                {
+                    showError(response.error.message, 1);
+                }
                 $rootScope.doingResolve = false;
 
             })
@@ -321,41 +334,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', 'Authentic
                 $rootScope.doingResolve = false;
 
             });
-
-    }
-]);
-
-app.controller('UserAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService',
-    function ($rootScope, $scope, $http, $location, AuthenticationService) {
-
-        $rootScope.doingResolve = false;
-        $scope.working = false;
-
-        $scope.addUser = function (user) {
-
-            $scope.working = true;
-
-            $http.post( auth_url+'users', $.param(user), { })
-                .success(function(response) {
-
-                    if( typeof response.id !== 'undefined' && response.id )
-                    {
-                        // Success go to user
-                        $location.path( "/user" );
-                    }
-                    else
-                    {
-                        console.log(response);
-                        $scope.working = false;
-                        showError(response.message, 1);
-                    }
-                })
-                .error(function(response) {
-                    $scope.working = false;
-                    showError('Failed to connect', 1);
-                });
-
-        }
 
     }
 ]);
