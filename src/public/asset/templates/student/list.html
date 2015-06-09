@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-header">
+            Students
+            <a href="#/student/add" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add Student</a>
+        </h1>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>School District</th>
+                    <th>Created</th>
+                    <th>Last Update</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="student in students">
+                    <td>{{ student._id }}</td>
+                    <td>{{ student.first_name }}</td>
+                    <td>{{ student.last_name }}</td>
+                    <td>{{ student.school_district }}</td>
+                    <td>{{ student.created | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
+                    <td>{{ student.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
+                    <td>
+                        <a class="btn btn-default" ng-href="#/student/detail/{{ student._id }}"><i class="fa fa-eye"></i> Detail</a>
+                        <a class="btn btn-default" ng-href="#/student/backpacks/{{ student._id }}"><i class="fa fa-eye"></i> Backpacks</a>
+                        <a class="btn btn-danger" ng-click="deleteStudent(student._id, $index)" ng-disabled="working"><i class="fa fa-remove"></i> Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
