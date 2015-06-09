@@ -6,15 +6,13 @@ var api_url = "https://api.cbo.upward.st/";
 //    client_id: 'demo_localhost',
 //    client_secret: '18e7b1925431df5882bcc3f12d1a14b4f9a523bb2d4c6b42a42d5e77110b',
 //    response_type: 'code',
-//    grant_type: 'password',
-//    client_uri: 'http://localhost/CBO-Portal-Website/src/public/#/cb'
+//    grant_type: 'password'
 //};
 var globalConfig = {
-    client_id: 'cbo_ut_new_1',
-    client_secret: '820540f39a6b33c90ce57601eac18eed1e9937069a594df3ae1d40e7bcd8',
+    client_id: 'cbo_client_demo',
+    client_secret: '7e98a24f4fe91535348f6e87cde866dca9134b50fc029abefdc7278369f2',
     response_type: 'code',
-    grant_type: 'password',
-    client_uri: 'https://any.cbo.upward.st/#/cb'
+    grant_type: 'password'
 };
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
@@ -347,14 +345,14 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             var grand_access = false;
                             var get_id = false;
 
-                            if(responseClient.length > 0)
+                            if(responseClient.success == true && responseClient.total > 0)
                             {
-                                for(var i=0; i<responseClient.length; i++)
+                                for(var i=0; i<responseClient.total; i++)
                                 {
-                                    if(get_hosting_name == responseClient[i].url)
+                                    if(get_hosting_name == responseClient.data[i].url)
                                     {
                                         grand_access = true;
-                                        get_id = responseClient[i]._id;
+                                        get_id = responseClient.data[i]._id;
                                     }
                                 }
                             }

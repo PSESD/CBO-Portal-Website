@@ -61,5 +61,66 @@
             </div>
         </form>
 
+        <h3 class="page-header">
+            Address
+        </h3>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Venue</th>
+                    <th>Address</th>
+                    <th>ZIP</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Country</th>
+                    <th>Address</th>
+                    <th>Location Accuracy</th>
+                    <th>Location Longitude & Latitude</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="addresses in student.addresses">
+                    <td>{{ addresses.venue }}</td>
+                    <td>{{ addresses.address_line }}</td>
+                    <td>{{ addresses.zip }}</td>
+                    <td>{{ addresses.city }}</td>
+                    <td>{{ addresses.state }}</td>
+                    <td>{{ addresses.country }}</td>
+                    <td>{{ addresses.address_type }}</td>
+                    <td>{{ addresses.location.accuracy }}</td>
+                    <td>{{ addresses.location.longitude }} {{ addresses.location.latitude }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="page-header">
+            Programs
+        </h3>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Program</th>
+                    <th>Active</th>
+                    <th>Created</th>
+                    <th>Last Update</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="programs in student.programs">
+                    <td>{{ programs.program }}</td>
+                    <td>
+                        <span ng-if="programs.active === true">Active</span>
+                        <span ng-if="programs.active !== true">Non Active</span>
+                    </td>
+                    <td>{{ programs.created }}</td>
+                    <td>{{ programs.last_updated }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
