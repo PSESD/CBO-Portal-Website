@@ -15,7 +15,7 @@ var globalConfig = {
     grant_type: 'password'
 };
 
-var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
+var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson']);
 
 app.config(['$httpProvider', function ($httpProvider) {
     //Reset headers to avoid OPTIONS request (aka preflight)
