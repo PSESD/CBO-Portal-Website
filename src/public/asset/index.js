@@ -237,10 +237,70 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
     }
 ]);
 
+app.controller('StudentAddController', ['$rootScope', '$scope', '$http', 'AuthenticationService',
+    function ($rootScope, $scope, $routeParams, $http, AuthenticationService) {
+
+        $scope.AddStudent = function(student)
+        {
+            if(student)
+            {
+                $scope.working = true;
+                $http.post( api_url+AuthenticationService.organization_id+'/students', $.param(student), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        console.log(response);
+                        $scope.students.splice(index, 1);
+                        $scope.working = false;
+
+                    })
+                    .error(function(response) {
+
+                        console.log(response);
+                        showError(response, 1);
+                        $scope.working = false;
+
+                    });
+            }
+        };
+
+    }
+]);
+
 app.controller('StudentController', ['$rootScope', '$scope', '$http', 'AuthenticationService',
     function ($rootScope, $scope, $http, AuthenticationService) {
 
         $scope.students = [];
+
+        $scope.DeleteStudent = function(id, index)
+        {
+            if(id)
+            {
+                $scope.working = true;
+                $http.delete( api_url+AuthenticationService.organization_id+'/students/'+id, {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        console.log(response);
+                        $scope.students.splice(index, 1);
+                        $scope.working = false;
+
+                    })
+                    .error(function(response) {
+
+                        console.log(response);
+                        showError(response, 1);
+                        $scope.working = false;
+
+                    });
+            }
+        };
 
         $http.get( api_url+AuthenticationService.organization_id+'/students', {
             headers: {

@@ -27,7 +27,7 @@
                     <td>{{ student.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
                     <td>
                         <a class="btn btn-default" ng-href="#/student/backpacks/{{ student._id }}"><i class="fa fa-eye"></i> Backpacks</a>
-                        <a class="btn btn-danger" ng-click="DeleteStudent(student._id, $index)"><i class="fa fa-remove"></i> Delete</a>
+                        <a class="btn btn-danger" ng-click="DeleteStudent(student._id, $index)" ng-disabled="working"><i class="fa fa-remove"></i> Delete</a>
                     </td>
                 </tr>
                 </tbody>
