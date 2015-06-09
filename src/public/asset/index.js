@@ -424,11 +424,13 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             var get_hosting_name = $location.host();
                             var grand_access = false;
                             var get_id = false;
+                            console.log(get_hosting_name);
 
                             if(responseClient.success == true && responseClient.total > 0)
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
+                                    console.log(responseClient.data[i].url);
                                     if(get_hosting_name == responseClient.data[i].url)
                                     {
                                         grand_access = true;
