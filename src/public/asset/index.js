@@ -4,7 +4,7 @@ var auth_url = "https://auth.cbo.upward.st/api/";
 var api_url = "https://api.cbo.upward.st/";
 //var globalConfig = {
 //    client_id: 'demo_localhost',
-//    client_secret: 'fc4e75fecf1b7fa2478aaaa19f32e865e2ddb77004363ebff2b60d0aa34b',
+//    client_secret: '18e7b1925431df5882bcc3f12d1a14b4f9a523bb2d4c6b42a42d5e77110b',
 //    response_type: 'code',
 //    grant_type: 'password',
 //    client_uri: 'http://localhost/CBO-Portal-Website/src/public/#/cb'
@@ -39,34 +39,25 @@ app.config(function ($routeProvider) {
             controller: 'HomeController',
             access: { requiredAuthentication: true }
         }).
-        when('/user/add', {
-            templateUrl: 'asset/templates/user/add.html',
-            controller: 'UserAddController',
+        when('/student/backpacks/:student_id', {
+            templateUrl: 'asset/templates/student/backpacks.html',
+            controller: 'StudentBackpackController',
             access: { requiredAuthentication: true }
         }).
-        when('/user', {
-            templateUrl: 'asset/templates/user/list.html',
-            controller: 'UserController',
+        when('/student/add', {
+            templateUrl: 'asset/templates/student/list.html',
+            controller: 'StudentAddController',
             access: { requiredAuthentication: true }
         }).
-        when('/client/add', {
-            templateUrl: 'asset/templates/client/add.html',
-            controller: 'ClientAddController',
-            access: { requiredAuthentication: true }
-        }).
-        when('/client', {
-            templateUrl: 'asset/templates/client/list.html',
-            controller: 'ClientController',
+        when('/student', {
+            templateUrl: 'asset/templates/student/list.html',
+            controller: 'StudentController',
             access: { requiredAuthentication: true }
         }).
         when('/heartbeat', {
             templateUrl: 'asset/templates/heartbeat/list.html',
             controller: 'HeartbeatController',
             access: { requiredAuthentication: true }
-        }).
-        when('/cb', {
-            templateUrl: 'asset/templates/cb.html',
-            controller: 'CbController'
         }).
         when('/login', {
             templateUrl: 'asset/templates/login.html',
@@ -218,36 +209,59 @@ app.controller('HomeController', ['$rootScope', '$scope',
     }
 ]);
 
-app.controller('UserController', ['$rootScope', '$scope',
-    function ($rootScope, $scope) {
+app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routeParams', '$http', 'AuthenticationService',
+    function ($rootScope, $scope, $routeParams, $http, AuthenticationService) {
 
-        $rootScope.doingResolve = false;
+        $scope.student = {};
 
-        var auth = base64_encode( AuthenticationService.username+':'.AuthenticationService.password );
+        var student_id = $routeParams.student_id;
 
-        $http.post( auth_url+'users', $.param(user), {
+        $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id, {
             headers: {
-                'Authorization': 'Basic '+auth
+                'Authorization': 'Bearer '+AuthenticationService.token
             }
         })
             .success(function(response) {
 
-                if( typeof response.id !== 'undefined' && response.id )
-                {
-                    // Success to get user
-                    $scope.working = false;
-                    $location.path( "/user" );
-                }
-                else
-                {
-                    console.log(response);
-                    $scope.working = false;
-                    showError(response.message, 1);
-                }
+                console.log(response);
+                $scope.student = response;
+                $rootScope.doingResolve = false;
+
             })
             .error(function(response) {
-                $scope.working = false;
-                showError('Failed to connect', 1);
+
+                console.log(response);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+
+            });
+
+    }
+]);
+
+app.controller('StudentController', ['$rootScope', '$scope', '$http', 'AuthenticationService',
+    function ($rootScope, $scope, $http, AuthenticationService) {
+
+        $scope.students = [];
+
+        $http.get( api_url+AuthenticationService.organization_id+'/students', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                console.log(response);
+                $scope.students = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response) {
+
+                console.log(response);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+
             });
 
     }
@@ -288,76 +302,11 @@ app.controller('UserAddController', ['$rootScope', '$scope', '$http', '$location
     }
 ]);
 
-app.controller('ClientController', ['$rootScope', '$scope',
-    function ($rootScope, $scope) {
-
-        console.log($scope);
-        $rootScope.doingResolve = false;
-
-    }
-]);
-
-app.controller('ClientAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService',
-    function ($rootScope, $scope, $http, $location, AuthenticationService) {
-
-        $rootScope.doingResolve = false;
-        $scope.working = false;
-
-        $scope.addClient = function (client) {
-
-            $scope.working = true;
-
-            var auth = base64_encode( AuthenticationService.username+':'.AuthenticationService.password );
-
-            $http.post( auth_url+'clients', $.param(client), {
-                headers: {
-                    'Authorization': 'Basic '+auth
-                }
-            })
-                .success(function(response) {
-
-                    console.log(response);
-
-                })
-                .error(function(response) {
-                    $scope.working = false;
-                    showError('Failed to connect', 1);
-                });
-
-        }
-
-    }
-]);
-
 app.controller('HeartbeatController', ['$rootScope', '$scope',
     function ($rootScope, $scope) {
 
         console.log($scope);
         $rootScope.doingResolve = false;
-
-    }
-]);
-
-app.controller('CbController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
-
-        $rootScope.doingResolve = false;
-        var code = $location.search();
-        var absUrl = $location.absUrl();
-        if(typeof code.code !== 'undefined' && code.code)
-        {
-            CookieStore.setData( code.code, 'demo' );
-        }
-        else
-        {
-            var getFirst = absUrl.indexOf("code");
-            var getLast = absUrl.indexOf("#");
-            var getCodeString = absUrl.substring(getFirst, getLast);
-            var getCode = getCodeString.replace('code=', '');
-            CookieStore.setData( getCode, "demo" );
-        }
-
-        $location.path( '/' );
 
     }
 ]);
@@ -424,6 +373,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                         })
                         .error(function(responseClient) {
 
+                            showError(responseClient, 1);
                             $scope.login.working = false;
 
                         });
@@ -431,7 +381,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                 })
                 .error(function(response) {
 
-                    showError('Failed to connect', 1);
+                    showError(response, 1);
                     $scope.login.working = false;
 
                 });
