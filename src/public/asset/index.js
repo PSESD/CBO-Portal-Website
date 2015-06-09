@@ -1,11 +1,18 @@
 'use strict';
 
-var base_url = "https://auth.cbo.upward.st/api/";
+var auth_url = "https://auth.cbo.upward.st/api/";
+var api_url = "https://api.cbo.upward.st/";
+//var globalConfig = {
+//    client_id: 'demo_localhost',
+//    client_secret: '18e7b1925431df5882bcc3f12d1a14b4f9a523bb2d4c6b42a42d5e77110b',
+//    response_type: 'code',
+//    grant_type: 'password'
+//};
 var globalConfig = {
-    client_id: 'cbo_ut_new',
-    client_secret: '1833acd52689e43cf5a2bd02b5cdcd57a61e792f2326ab0b8c84e07fadae',
+    client_id: 'cbo_client_demo',
+    client_secret: '7e98a24f4fe91535348f6e87cde866dca9134b50fc029abefdc7278369f2',
     response_type: 'code',
-    client_uri: '(*.)\.cbo\.upward\.st'
+    grant_type: 'password'
 };
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies']);
@@ -24,48 +31,44 @@ app.config(['$httpProvider', function ($httpProvider) {
 
 app.config(function ($routeProvider) {
 
-        $routeProvider.
-            when('/', {
-                templateUrl: 'asset/templates/home.html',
-                controller: 'HomeController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/user/add', {
-                templateUrl: 'asset/templates/user/add.html',
-                controller: 'UserAddController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/user', {
-                templateUrl: 'asset/templates/user/list.html',
-                controller: 'UserController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/client/add', {
-                templateUrl: 'asset/templates/client/add.html',
-                controller: 'ClientAddController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/client', {
-                templateUrl: 'asset/templates/client/list.html',
-                controller: 'ClientController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/heartbeat', {
-                templateUrl: 'asset/templates/heartbeat/list.html',
-                controller: 'HeartbeatController',
-                access: { requiredAuthentication: true }
-            }).
-            when('/cb', {
-                templateUrl: 'asset/templates/cb.html',
-                controller: 'CbController'
-            }).
-            when('/login', {
-                templateUrl: 'asset/templates/login.html',
-                controller: 'LoginController'
-            }).
-            otherwise({
-                redirectTo: '/'
-            });
+    $routeProvider.
+        when('/', {
+            templateUrl: 'asset/templates/home.html',
+            controller: 'HomeController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/student/add', {
+            templateUrl: 'asset/templates/student/add.html',
+            controller: 'StudentAddController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/student/backpacks/:student_id', {
+            templateUrl: 'asset/templates/student/backpacks.html',
+            controller: 'StudentBackpackController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/student/detail/:student_id', {
+            templateUrl: 'asset/templates/student/detail.html',
+            controller: 'StudentDetailController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/student', {
+            templateUrl: 'asset/templates/student/list.html',
+            controller: 'StudentController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/heartbeat', {
+            templateUrl: 'asset/templates/heartbeat/list.html',
+            controller: 'HeartbeatController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/login', {
+            templateUrl: 'asset/templates/login.html',
+            controller: 'LoginController'
+        }).
+        otherwise({
+            redirectTo: '/'
+        });
 
 });
 
@@ -88,9 +91,7 @@ app.factory('AuthenticationService', function()
     var auth = {
         isAuthenticated: false,
         token: null,
-        name: null,
-        username: null,
-        password: null
+        organization_id: null
     };
 
     return auth;
@@ -108,40 +109,40 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         {
             $cookieStore.get(name);
         },
-        setData: function(token, name) {
+        setData: function(token, organization_id) {
             $cookieStore.put('cboAdmin_cookie_token', token);
-            $cookieStore.put('cboAdmin_cookie_name', name);
+            $cookieStore.put('cboAdmin_cookie_organization_id', organization_id);
 
             AuthenticationService.isAuthenticated = true;
-            AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
             AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
+            AuthenticationService.organization_id = $cookieStore.get('cboAdmin_cookie_organization_id');
             $rootScope.showNavBar = true;
 
         },
         getData: function() {
-            if( typeof $cookieStore.get('cboAdmin_cookie_token') !== 'undefined' && $cookieStore.get('cboAdmin_cookie_token') && typeof $cookieStore.get('cboAdmin_cookie_name') !== 'undefined' && $cookieStore.get('cboAdmin_cookie_name') )
+            if( typeof $cookieStore.get('cboAdmin_cookie_token') !== 'undefined' && $cookieStore.get('cboAdmin_cookie_token') && typeof $cookieStore.get('cboAdmin_cookie_organization_id') !== 'undefined' && $cookieStore.get('cboAdmin_cookie_organization_id') )
             {
                 AuthenticationService.isAuthenticated = true;
-                AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
                 AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
+                AuthenticationService.organization_id = $cookieStore.get('cboAdmin_cookie_organization_id');
                 $rootScope.showNavBar = true;
                 return true;
             }
             else
             {
                 AuthenticationService.isAuthenticated = false;
-                AuthenticationService.name = null;
                 AuthenticationService.token = null;
+                AuthenticationService.organization_id = null;
                 $rootScope.showNavBar = false;
                 return false;
             }
         },
         clearData: function() {
             $cookieStore.remove('cboAdmin_cookie_token');
-            $cookieStore.remove('cboAdmin_cookie_name');
+            $cookieStore.remove('cboAdmin_cookie_organization_id');
             AuthenticationService.isAuthenticated = false;
-            AuthenticationService.name = null;
             AuthenticationService.token = null;
+            AuthenticationService.organization_id = null;
             $rootScope.showNavBar = false;
             return true;
         }
@@ -150,8 +151,8 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
 
 
-app.controller('BodyController', ['$rootScope', '$scope', '$location', 'CookieStore',
-    function ($rootScope, $scope, $location, CookieStore) {
+app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
+    function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService) {
 
         $scope.isActive = function(route) {
 
@@ -161,9 +162,39 @@ app.controller('BodyController', ['$rootScope', '$scope', '$location', 'CookieSt
 
         $scope.logoutMe = function() {
 
-            CookieStore.clearData();
-            showError('Success Logout', 2);
-            $location.path("/login");
+            var logout = {
+                token: AuthenticationService.token
+            };
+
+            $http.post( auth_url+'logout', $.param(logout), {
+
+            })
+                .success( function (response) {
+
+                    console.log(response);
+
+                    CookieStore.clearData();
+                    showError('Success Logout', 2);
+                    $location.path("/login");
+
+                })
+                .error( function (response) {
+
+//                    console.log(response);
+//                    if( typeof response.message !== 'undefined' && response.message )
+//                    {
+//                        showError(response.message, 2);
+//                    }
+//                    else
+//                    {
+//                        showError(response, 1);
+//                    }
+
+                    CookieStore.clearData();
+                    showError('Success Logout', 2);
+                    $location.path("/login");
+
+                });
 
         };
 
@@ -175,119 +206,201 @@ app.controller('BodyController', ['$rootScope', '$scope', '$location', 'CookieSt
 app.controller('HomeController', ['$rootScope', '$scope',
     function ($rootScope, $scope) {
 
-        console.log($scope);
         $rootScope.doingResolve = false;
 
     }
 ]);
 
-app.controller('UserController', ['$rootScope', '$scope',
-    function ($rootScope, $scope) {
 
-        $rootScope.doingResolve = false;
+app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
-        var auth = base64_encode( AuthenticationService.username+':'.AuthenticationService.password );
+        $scope.student = {};
 
-        $http.post( base_url+'users', $.param(user), {
+        var student_id = $routeParams.student_id;
+
+        $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/backpack', {
             headers: {
-                'Authorization': 'Basic '+auth
+                'Authorization': 'Bearer '+AuthenticationService.token
             }
         })
             .success(function(response) {
 
-                if( typeof response.id !== 'undefined' && response.id )
-                {
-                    // Success to get user
-                    $scope.working = false;
-                    $location.path( "/user" );
-                }
-                else
-                {
-                    console.log(response);
-                    $scope.working = false;
-                    showError(response.message, 1);
-                }
+                console.log(response);
+                $scope.student = response
+                $rootScope.doingResolve = false;
+
             })
             .error(function(response) {
-                $scope.working = false;
-                showError('Failed to connect', 1);
+
+                console.log(response);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
             });
 
     }
 ]);
 
-app.controller('UserAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService',
-    function ($rootScope, $scope, $http, $location, AuthenticationService) {
 
-        $rootScope.doingResolve = false;
-        $scope.working = false;
+app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
-        $scope.addUser = function (user) {
+        $scope.student = {};
 
-            $scope.working = true;
+        var student_id = $routeParams.student_id;
 
-            $http.post( base_url+'users', $.param(user), { })
-                .success(function(response) {
+        $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
 
-                    if( typeof response.id !== 'undefined' && response.id )
-                    {
-                        // Success go to user
-                        $location.path( "/user" );
-                    }
-                    else
-                    {
-                        console.log(response);
-                        $scope.working = false;
-                        showError(response.message, 1);
-                    }
-                })
-                .error(function(response) {
-                    $scope.working = false;
-                    showError('Failed to connect', 1);
-                });
+                console.log(response);
+                $scope.student = response
+                $rootScope.doingResolve = false;
 
-        }
-
-    }
-]);
-
-app.controller('ClientController', ['$rootScope', '$scope',
-    function ($rootScope, $scope) {
-
-        console.log($scope);
-        $rootScope.doingResolve = false;
-
-    }
-]);
-
-app.controller('ClientAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService',
-    function ($rootScope, $scope, $http, $location, AuthenticationService) {
-
-        $rootScope.doingResolve = false;
-        $scope.working = false;
-
-        $scope.addClient = function (client) {
-
-            $scope.working = true;
-
-            var auth = base64_encode( AuthenticationService.username+':'.AuthenticationService.password );
-
-            $http.post( base_url+'clients', $.param(client), {
-                headers: {
-                    'Authorization': 'Basic '+auth
-                }
             })
-                .success(function(response) {
+            .error(function(response) {
 
-                    console.log(response);
+                console.log(response);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
 
+            });
+
+    }
+]);
+
+
+app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.doingResolve = false;
+
+        $scope.addStudent = function(student)
+        {
+            if(student)
+            {
+                $scope.working = true;
+                $http.post( api_url+AuthenticationService.organization_id+'/students', $.param(student), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
                 })
-                .error(function(response) {
-                    $scope.working = false;
-                    showError('Failed to connect', 1);
-                });
+                    .success(function(response) {
 
-        }
+                        console.log(response.success);
+                        if(response.success == true)
+                        {
+                            showError(response.message, 2);
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+                        $scope.working = false;
+
+                    })
+                    .error(function(response) {
+
+                        console.log(response);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
+
+    }
+]);
+
+
+app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+
+        $scope.students = [];
+
+        $scope.deleteStudent = function(id, index)
+        {
+            if(id)
+            {
+                $scope.working = true;
+                $http.delete( api_url+AuthenticationService.organization_id+'/students/'+id, {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        console.log(response);
+                        $scope.students.splice(index, 1);
+                        $scope.working = false;
+
+                    })
+                    .error(function(response) {
+
+                        console.log(response);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
+
+        $http.get( api_url+AuthenticationService.organization_id+'/students', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                console.log(response);
+                if(response.success == true && response.total > 0)
+                {
+                    $scope.students = response.data;
+                }
+                else
+                {
+                    showError(response.error.message, 1);
+                }
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
 
     }
 ]);
@@ -301,30 +414,6 @@ app.controller('HeartbeatController', ['$rootScope', '$scope',
     }
 ]);
 
-app.controller('CbController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
-
-        $rootScope.doingResolve = false;
-        var code = $location.search();
-        var absUrl = $location.absUrl();
-        if(typeof code.code !== 'undefined' && code.code)
-        {
-            CookieStore.setData( code.code, 'demo' );
-        }
-        else
-        {
-            var getFirst = absUrl.indexOf("code");
-            var getLast = absUrl.indexOf("#");
-            var getCodeString = absUrl.substring(getFirst, getLast);
-            var getCode = getCodeString.replace('code=', '');
-            CookieStore.setData( getCode, "demo" );
-        }
-
-        $location.path( '/' );
-
-    }
-]);
-
 app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
@@ -332,47 +421,73 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
         $scope.loginMe = function(username, password) {
 
-            var auth = base64_encode( username+':'+password );
-            var client_id = encodeURIComponent( globalConfig.client_id );
-            var response_type = encodeURIComponent( globalConfig.response_type );
-            var redirect_uri = encodeURIComponent( globalConfig.client_uri );
-            var uri = base_url+'oauth2/authorize?client_id='+client_id+'&response_type='+response_type+'&redirect_uri='+redirect_uri;
+            $scope.login.working = true;
 
-            $http.get( uri , {
+            var auth = base64_encode( globalConfig.client_id+':'+globalConfig.client_secret );
+            var grant_type = encodeURIComponent( globalConfig.grant_type );
+            var uri = auth_url+'oauth2/token';
+            var send = {
+                grant_type: grant_type,
+                username: username,
+                password: password
+            };
+
+            $http.post( uri , $.param(send), {
                 headers: {
                     'Authorization': 'Basic '+auth
                 }
             })
                 .success(function(response) {
 
-                    console.log(response);
-                    if( typeof response.id !== 'undefined' && response.id )
-                    {
-                        // Success go to user
-                        $location.path( "/" );
-                    }
-                    else
-                    {
-                        console.log(response);
-                        if(response.indexOf('<') > -1)
-                        {
-
-                            window.location = base_url+'oauth2/authorize?client_id='+client_id+'&response_type='+response_type+'&redirect_uri='+redirect_uri;
-
+                    $http.get( api_url+'organizations' , {
+                        headers: {
+                            'Authorization': 'Bearer '+response.access_token
                         }
-                        else
-                        {
-                            showError(response, 1);
-                        }
+                    })
+                        .success(function(responseClient) {
 
-                    }
+                            var get_hosting_name = $location.host();
+                            var grand_access = false;
+                            var get_id = false;
+                            console.log(get_hosting_name);
 
+                            if(responseClient.success == true && responseClient.total > 0)
+                            {
+                                for(var i=0; i<responseClient.total; i++)
+                                {
+                                    console.log(responseClient.data[i].url);
+                                    if(get_hosting_name == responseClient.data[i].url)
+                                    {
+                                        grand_access = true;
+                                        get_id = responseClient.data[i]._id;
+                                    }
+                                }
+                            }
+
+                            if(grand_access)
+                            {
+                                CookieStore.setData( response.access_token, get_id );
+                                $location.path( '/' );
+                            }
+                            else
+                            {
+                                showError("You don't have any permission to access this page", 1);
+                                $scope.login.working = false;
+                            }
+
+                        })
+                        .error(function(responseClient) {
+
+                            showError(responseClient, 1);
+                            $scope.login.working = false;
+
+                        });
 
                 })
                 .error(function(response) {
 
-                    console.log(response);
-                    showError('Failed to connect', 1);
+                    showError(response.error_description, 1);
+                    $scope.login.working = false;
 
                 });
 
