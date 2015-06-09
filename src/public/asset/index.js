@@ -206,15 +206,14 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 app.controller('HomeController', ['$rootScope', '$scope',
     function ($rootScope, $scope) {
 
-        console.log($scope);
         $rootScope.doingResolve = false;
 
     }
 ]);
 
 
-app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routeParams', '$http', 'AuthenticationService',
-    function ($rootScope, $scope, $routeParams, $http, AuthenticationService) {
+app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
         $scope.student = {};
 
@@ -237,6 +236,11 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
                 console.log(response);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
 
             });
 
@@ -244,8 +248,8 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
 ]);
 
 
-app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams', '$http', 'AuthenticationService',
-    function ($rootScope, $scope, $routeParams, $http, AuthenticationService) {
+app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
         $scope.student = {};
 
@@ -268,6 +272,11 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 console.log(response);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
 
             });
 
@@ -275,8 +284,8 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 ]);
 
 
-app.controller('StudentAddController', ['$rootScope', '$scope', '$http', 'AuthenticationService',
-    function ($rootScope, $scope, $http, AuthenticationService) {
+app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
         $rootScope.doingResolve = false;
 
@@ -309,6 +318,11 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', 'Authen
                         console.log(response);
                         showError(response, 1);
                         $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
 
                     });
             }
@@ -318,8 +332,8 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', 'Authen
 ]);
 
 
-app.controller('StudentController', ['$rootScope', '$scope', '$http', 'AuthenticationService',
-    function ($rootScope, $scope, $http, AuthenticationService) {
+app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
         $scope.students = [];
 
@@ -345,6 +359,11 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', 'Authentic
                         console.log(response);
                         showError(response, 1);
                         $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
 
                     });
             }
@@ -369,11 +388,17 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', 'Authentic
                 $rootScope.doingResolve = false;
 
             })
-            .error(function(response) {
+            .error(function(response, status) {
 
                 console.log(response);
+                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
 
             });
 
@@ -461,7 +486,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                 })
                 .error(function(response) {
 
-                    showError(response, 1);
+                    showError(response.error_description, 1);
                     $scope.login.working = false;
 
                 });
