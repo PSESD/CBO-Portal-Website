@@ -106,7 +106,8 @@ app.factory('AuthenticationService', function()
     var auth = {
         isAuthenticated: false,
         token: null,
-        organization_id: null
+        organization_id: null,
+        redirect_url: null
     };
 
     return auth;
@@ -124,13 +125,15 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         {
             $cookieStore.get(name);
         },
-        setData: function(token, organization_id) {
+        setData: function(token, organization_id, redirect_url) {
             $cookieStore.put('cboAdmin_cookie_token', token);
             $cookieStore.put('cboAdmin_cookie_organization_id', organization_id);
+            $cookieStore.put('cboAdmin_cookie_redirect_url', redirect_url);
 
             AuthenticationService.isAuthenticated = true;
             AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
             AuthenticationService.organization_id = $cookieStore.get('cboAdmin_cookie_organization_id');
+            AuthenticationService.redirect_url = $cookieStore.get('cboAdmin_cookie_redirect_url');
             $rootScope.showNavBar = true;
 
         },
@@ -140,6 +143,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
                 AuthenticationService.isAuthenticated = true;
                 AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
                 AuthenticationService.organization_id = $cookieStore.get('cboAdmin_cookie_organization_id');
+                AuthenticationService.redirect_url = $cookieStore.get('cboAdmin_cookie_redirect_url');
                 $rootScope.showNavBar = true;
                 return true;
             }
@@ -148,6 +152,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
                 AuthenticationService.isAuthenticated = false;
                 AuthenticationService.token = null;
                 AuthenticationService.organization_id = null;
+                AuthenticationService.redirect_url = null;
                 $rootScope.showNavBar = false;
                 return false;
             }
@@ -158,6 +163,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             AuthenticationService.isAuthenticated = false;
             AuthenticationService.token = null;
             AuthenticationService.organization_id = null;
+            AuthenticationService.redirect_url = null;
             $rootScope.showNavBar = false;
             return true;
         }
@@ -422,6 +428,8 @@ app.controller('UserAddController', ['$rootScope', '$scope', '$http', '$location
         {
             if(user)
             {
+                user.redirect_url = AuthenticationService.redirect_url;
+
                 $scope.working = true;
                 $http.post( auth_url+'/user/invite', $.param(user), {
                     headers: {
@@ -622,7 +630,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             var get_hosting_name = $location.host();
                             var grand_access = false;
                             var get_id = false;
-                            console.log(get_hosting_name);
+                            var get_redirect_url = false;
 
                             if(responseClient.success == true && responseClient.total > 0)
                             {
@@ -633,13 +641,14 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                     {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
+                                        get_redirect_url = responseClient.data[i].url;
                                     }
                                 }
                             }
 
                             if(grand_access)
                             {
-                                CookieStore.setData( response.access_token, get_id );
+                                CookieStore.setData( response.access_token, get_id, get_redirect_url );
                                 $location.path( '/' );
                             }
                             else
