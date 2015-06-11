@@ -596,76 +596,73 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
             $scope.login.working = true;
 
-            CookieStore.setData( 'iT7SWw0DTplyvaWoKIbm2t6tIxkVJgzi20lmT0ZtORYvKooVtQeRjAOeRXtCBf5zd8KhvxPmNSNVSlmwluJgsPg9Kt89cVxkbhRx5bjtB9bmivCps322VI9OSrBFJM9L4KccaiYj8fvHa9kAjRRhr50En1KTEZWOYaZb9wd7a45scBBNdjTeyG2MiJG2oZmnPngLYjycmPih2yhVHrJLYIVhu8K7SFH7sy77xAELPP7Sz9hb3D0ERgiEyrxlDOz7', '556d00e517aac10c2bbcaa8d' );
-            $location.path( '/' );
+            var auth = base64_encode( globalConfig.client_id+':'+globalConfig.client_secret );
+            var grant_type = encodeURIComponent( globalConfig.grant_type );
+            var uri = auth_url+'oauth2/token';
+            var send = {
+                grant_type: grant_type,
+                username: username,
+                password: password
+            };
 
-//            var auth = base64_encode( globalConfig.client_id+':'+globalConfig.client_secret );
-//            var grant_type = encodeURIComponent( globalConfig.grant_type );
-//            var uri = auth_url+'oauth2/token';
-//            var send = {
-//                grant_type: grant_type,
-//                username: username,
-//                password: password
-//            };
-//
-//            $http.post( uri , $.param(send), {
-//                headers: {
-//                    'Authorization': 'Basic '+auth
-//                }
-//            })
-//                .success(function(response) {
-//
-//                    $http.get( api_url+'organizations' , {
-//                        headers: {
-//                            'Authorization': 'Bearer '+response.access_token
-//                        }
-//                    })
-//                        .success(function(responseClient) {
-//
-//                            var get_hosting_name = $location.host();
-//                            var grand_access = false;
-//                            var get_id = false;
-//                            console.log(get_hosting_name);
-//
-//                            if(responseClient.success == true && responseClient.total > 0)
-//                            {
-//                                for(var i=0; i<responseClient.total; i++)
-//                                {
-//                                    console.log(responseClient.data[i].url);
-//                                    if(get_hosting_name == responseClient.data[i].url)
-//                                    {
-//                                        grand_access = true;
-//                                        get_id = responseClient.data[i]._id;
-//                                    }
-//                                }
-//                            }
-//
-//                            if(grand_access)
-//                            {
-//                                CookieStore.setData( response.access_token, get_id );
-//                                $location.path( '/' );
-//                            }
-//                            else
-//                            {
-//                                showError("You don't have any permission to access this page", 1);
-//                                $scope.login.working = false;
-//                            }
-//
-//                        })
-//                        .error(function(responseClient) {
-//
-//                            showError(responseClient, 1);
-//                            $scope.login.working = false;
-//
-//                        });
-//
-//                })
-//                .error(function(response) {
-//
-//                    showError(response.error_description, 1);
-//                    $scope.login.working = false;
-//
-//                });
+            $http.post( uri , $.param(send), {
+                headers: {
+                    'Authorization': 'Basic '+auth
+                }
+            })
+                .success(function(response) {
+
+                    $http.get( api_url+'organizations' , {
+                        headers: {
+                            'Authorization': 'Bearer '+response.access_token
+                        }
+                    })
+                        .success(function(responseClient) {
+
+                            var get_hosting_name = $location.host();
+                            var grand_access = false;
+                            var get_id = false;
+                            console.log(get_hosting_name);
+
+                            if(responseClient.success == true && responseClient.total > 0)
+                            {
+                                for(var i=0; i<responseClient.total; i++)
+                                {
+                                    console.log(responseClient.data[i].url);
+                                    if(get_hosting_name == responseClient.data[i].url)
+                                    {
+                                        grand_access = true;
+                                        get_id = responseClient.data[i]._id;
+                                    }
+                                }
+                            }
+
+                            if(grand_access)
+                            {
+                                CookieStore.setData( response.access_token, get_id );
+                                $location.path( '/' );
+                            }
+                            else
+                            {
+                                showError("You don't have any permission to access this page", 1);
+                                $scope.login.working = false;
+                            }
+
+                        })
+                        .error(function(responseClient) {
+
+                            showError(responseClient, 1);
+                            $scope.login.working = false;
+
+                        });
+
+                })
+                .error(function(response) {
+
+                    showError(response.error_description, 1);
+                    $scope.login.working = false;
+
+                });
 
         }
 
