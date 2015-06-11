@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-header">
+            Invite User
+        </h1>
+
+        <form class="form-horizontal" role="form" ng-submit="addUser(user)">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="name">Name:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" ng-model="user.name" id="name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="last_name">Last Name:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" ng-model="user.last_name" id="last_name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="email">Email:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" ng-model="user.email" id="email" required>
+                </div>
+            </div>
+            <div class="form-actions">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
+                    <a href="#/user" class="btn btn-default">Back</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
