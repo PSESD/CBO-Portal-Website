@@ -438,8 +438,7 @@ app.controller('UserAddController', ['$rootScope', '$scope', '$http', '$location
                 })
                     .success(function(response) {
 
-                        console.log(response.success);
-                        if(response.success == true)
+                        if(response.status == true)
                         {
                             showError(response.message, 2);
                         }
@@ -483,15 +482,7 @@ app.controller('UserDetailController', ['$rootScope', '$scope', '$routeParams', 
         })
             .success(function(response) {
 
-                console.log(response);
-                if(response.success == true && response.total > 0)
-                {
-                    $scope.user = response.data;
-                }
-                else
-                {
-                    showError(response.error.message, 1);
-                }
+                $scope.user = response;
                 $rootScope.doingResolve = false;
 
             })
