@@ -1,42 +1,36 @@
 <div class="row">
     <div class="col-md-12">
         <h1 class="page-header">
-            {{ user.last_name }}
+            Detail Program: {{ program.last_name }}
         </h1>
 
         <form class="form-horizontal" role="form">
             <div class="form-actions">
                 <div class="col-sm-12">
-                    <a href="#/user" class="btn btn-default">Back</a>
+                    <a href="#/program" class="btn btn-default">Back</a>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="last_name">Last Name:</label>
+                <label class="col-sm-3 control-label" for="name">Name:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" ng-model="user.last_name" id="last_name" readonly>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="email">Email:</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" ng-model="user.email" id="email" readonly>
+                    <input type="text" class="form-control" ng-model="program.name" id="name" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="created">Created:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" ng-model="user.created" id="created" readonly>
+                    <input type="text" class="form-control" ng-model="program.created" id="created" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="last_updated">Last Update:</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" ng-model="user.last_updated" id="last_updated" readonly>
+                    <input type="text" class="form-control" ng-model="program.last_updated" id="last_updated" readonly>
                 </div>
             </div>
             <div class="form-actions">
                 <div class="col-sm-12">
-                    <a href="#/user" class="btn btn-default">Back</a>
+                    <a href="#/program" class="btn btn-default">Back</a>
                 </div>
             </div>
         </form>

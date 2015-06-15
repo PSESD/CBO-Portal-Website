@@ -57,6 +57,26 @@ app.config(function ($routeProvider) {
             controller: 'StudentController',
             access: { requiredAuthentication: true }
         }).
+        when('/program/add', {
+            templateUrl: 'asset/templates/program/add.html',
+            controller: 'ProgramAddController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/program/detail/:program_id', {
+            templateUrl: 'asset/templates/program/detail.html',
+            controller: 'ProgramDetailController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/program/edit/:program_id', {
+            templateUrl: 'asset/templates/program/edit.html',
+            controller: 'ProgramEditController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/program', {
+            templateUrl: 'asset/templates/program/list.html',
+            controller: 'ProgramsController',
+            access: { requiredAuthentication: true }
+        }).
         when('/user/add', {
             templateUrl: 'asset/templates/user/add.html',
             controller: 'UserAddController',
@@ -65,6 +85,11 @@ app.config(function ($routeProvider) {
         when('/user/detail/:user_id', {
             templateUrl: 'asset/templates/user/detail.html',
             controller: 'UserDetailController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/user/edit/:user_id', {
+            templateUrl: 'asset/templates/user/edit.html',
+            controller: 'UserEditController',
             access: { requiredAuthentication: true }
         }).
         when('/user', {
@@ -393,6 +418,241 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 if(response.success == true && response.total > 0)
                 {
                     $scope.students = response.data;
+                }
+                else
+                {
+                    showError(response.error.message, 1);
+                }
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+    }
+]);
+
+
+app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.doingResolve = false;
+
+        $scope.addProgram = function(program)
+        {
+            if(program)
+            {
+                program.redirect_url = AuthenticationService.redirect_url;
+
+                $scope.working = true;
+                $http.post( auth_url+'/program/invite', $.param(program), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        if(response.status == true)
+                        {
+                            showError(response.message, 2);
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+                        $scope.working = false;
+
+                    })
+                    .error(function(response) {
+
+                        console.log(response);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
+
+    }
+]);
+
+
+app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.doingResolve = false;
+
+        var program_id = $routeParams.program_id;
+
+        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                $scope.program = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+    }
+]);
+
+
+app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.doingResolve = false;
+
+        var program_id = $routeParams.program_id;
+
+        $scope.editProgram = function(program)
+        {
+            if(program)
+            {
+                program.redirect_url = AuthenticationService.redirect_url;
+
+                $scope.working = true;
+                $http.put( api_url+AuthenticationService.organization_id+'/program/'+program_id, $.param(program), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        if(response.status == true)
+                        {
+                            showError(response.message, 2);
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+                        $scope.working = false;
+
+                    })
+                    .error(function(response) {
+
+                        console.log(response);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
+
+        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                $scope.program = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+    }
+]);
+
+
+app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+
+        $scope.programs = [];
+
+        $scope.deleteProgram = function(id, index)
+        {
+            if(id)
+            {
+                $scope.working = true;
+                $http.delete( api_url+AuthenticationService.organization_id+'/programs/'+id, {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        console.log(response);
+                        $scope.programs.splice(index, 1);
+                        $scope.working = false;
+
+                    })
+                    .error(function(response) {
+
+                        console.log(response);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
+
+        $http.get( api_url+AuthenticationService.organization_id+'/programs', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                console.log(response);
+                if(response.success == true && response.total > 0)
+                {
+                    $scope.programs = response.data;
                 }
                 else
                 {
