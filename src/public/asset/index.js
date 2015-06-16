@@ -644,15 +644,14 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
             .success(function(response) {
 
                 console.log(response);
-                $scope.programs = response;
-//                if(response.success == true && response.total > 0)
-//                {
-//                    $scope.programs = response.data;
-//                }
-//                else
-//                {
-//                    showError(response.error.message, 1);
-//                }
+                if(response.success == true && response.total > 0)
+                {
+                    $scope.programs = response.data;
+                }
+                else
+                {
+                    showError(response.error.message, 1);
+                }
                 $rootScope.doingResolve = false;
 
             })
