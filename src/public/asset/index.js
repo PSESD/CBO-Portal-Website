@@ -33,8 +33,8 @@ app.config(function ($routeProvider) {
 
     $routeProvider.
         when('/', {
-            templateUrl: 'asset/templates/home.html',
-            controller: 'HomeController',
+            templateUrl: 'asset/templates/student/list.html',
+            controller: 'StudentController',
             access: { requiredAuthentication: true }
         }).
         when('/student/add', {
