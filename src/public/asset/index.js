@@ -500,7 +500,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
         })
             .success(function(response) {
 
-                $scope.program = response[0];
+                $scope.program = response;
                 $rootScope.doingResolve = false;
 
             })
@@ -544,14 +544,6 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
                     .success(function(response) {
 
                         showError(response.message, 2);
-//                        if(response.status == true)
-//                        {
-//                            showError(response.message, 2);
-//                        }
-//                        else
-//                        {
-//                            showError(response.message, 1);
-//                        }
                         $scope.working = false;
 
                     })
