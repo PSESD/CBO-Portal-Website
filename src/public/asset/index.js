@@ -185,6 +185,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         clearData: function() {
             $cookieStore.remove('cboAdmin_cookie_token');
             $cookieStore.remove('cboAdmin_cookie_organization_id');
+            $cookieStore.remove('cboAdmin_cookie_redirect_url');
             AuthenticationService.isAuthenticated = false;
             AuthenticationService.token = null;
             AuthenticationService.organization_id = null;
