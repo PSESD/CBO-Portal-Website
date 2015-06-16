@@ -569,7 +569,7 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
         })
             .success(function(response) {
 
-                $scope.program = response[0];
+                $scope.program = response;
                 $rootScope.doingResolve = false;
 
             })
