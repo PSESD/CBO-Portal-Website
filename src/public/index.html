@@ -61,6 +61,19 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li ng-class="{ active: isActive('/profile') }">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-expanded="false">
+                            {{ completeName }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#/profile">My Account</a>
+                            </li>
+                            <li>
+                                <a href="#/profile/edit">Edit My Account</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li ng-class="{ active: isActive('/logout') }">
                         <a href="javascript:void(0)" ng-click="logoutMe()">Logout</a>
                     </li>
