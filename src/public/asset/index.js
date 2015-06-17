@@ -2,12 +2,6 @@
 
 var auth_url = "https://auth.cbo.upward.st/api/";
 var api_url = "https://api.cbo.upward.st/";
-//var globalConfig = {
-//    client_id: 'demo_localhost',
-//    client_secret: '18e7b1925431df5882bcc3f12d1a14b4f9a523bb2d4c6b42a42d5e77110b',
-//    response_type: 'code',
-//    grant_type: 'password'
-//};
 var globalConfig = {
     client_id: 'cbo_client_demo',
     client_secret: '7e98a24f4fe91535348f6e87cde866dca9134b50fc029abefdc7278369f2',
@@ -15,7 +9,7 @@ var globalConfig = {
     grant_type: 'password'
 };
 
-var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson']);
+var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date']);
 
 app.config(['$httpProvider', function ($httpProvider) {
     //Reset headers to avoid OPTIONS request (aka preflight)
@@ -50,6 +44,16 @@ app.config(function ($routeProvider) {
         when('/student/detail/:student_id', {
             templateUrl: 'asset/templates/student/detail.html',
             controller: 'StudentDetailController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/student/programs/:student_id/add', {
+            templateUrl: 'asset/templates/student/program_add.html',
+            controller: 'StudentProgramAddController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/student/programs/:student_id', {
+            templateUrl: 'asset/templates/student/program_list.html',
+            controller: 'StudentProgramController',
             access: { requiredAuthentication: true }
         }).
         when('/student', {
@@ -203,7 +207,10 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
         $scope.isActive = function(route) {
 
-            return route === $location.path();
+            var route_length = route.length;
+            var path = $location.path();
+            var new_path = path.substr(0, route_length);
+            return route === new_path;
 
         };
 
@@ -218,16 +225,15 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
             })
                 .success( function (response) {
 
-                    console.log(response);
-
                     CookieStore.clearData();
                     showError('Success Logout', 2);
                     $location.path("/login");
 
                 })
-                .error( function (response) {
+                .error( function (response, status) {
 
                     console.log(response);
+                    console.log(status);
 
                     CookieStore.clearData();
                     showError('Success Logout', 2);
@@ -251,6 +257,54 @@ app.controller('HomeController', ['$rootScope', '$scope',
 ]);
 
 
+app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.doingResolve = false;
+
+        $scope.addStudent = function(student)
+        {
+            if(student)
+            {
+                $scope.working = true;
+                $http.post( api_url+AuthenticationService.organization_id+'/students', $.param(student), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        if(response.success == true)
+                        {
+                            showError(response.message, 2);
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+                        $scope.working = false;
+
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
+
+    }
+]);
+
+
 app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
@@ -265,14 +319,14 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
         })
             .success(function(response) {
 
-                console.log(response);
-                $scope.student = response
+                $scope.student = response;
                 $rootScope.doingResolve = false;
 
             })
-            .error(function(response) {
+            .error(function(response, status) {
 
                 console.log(response);
+                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -301,14 +355,14 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
         })
             .success(function(response) {
 
-                console.log(response);
-                $scope.student = response
+                $scope.student = response;
                 $rootScope.doingResolve = false;
 
             })
-            .error(function(response) {
+            .error(function(response, status) {
 
                 console.log(response);
+                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -323,24 +377,25 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 ]);
 
 
-app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
         $rootScope.doingResolve = false;
 
-        $scope.addStudent = function(student)
+        var student_id = $routeParams.student_id;
+
+        $scope.addProgramStudent = function(program)
         {
-            if(student)
+            if(program)
             {
                 $scope.working = true;
-                $http.post( api_url+AuthenticationService.organization_id+'/students', $.param(student), {
+                $http.post( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/programs', $.param(program), {
                     headers: {
                         'Authorization': 'Bearer '+AuthenticationService.token
                     }
                 })
                     .success(function(response) {
 
-                        console.log(response.success);
                         if(response.success == true)
                         {
                             showError(response.message, 2);
@@ -352,9 +407,10 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                         $scope.working = false;
 
                     })
-                    .error(function(response) {
+                    .error(function(response, status) {
 
                         console.log(response);
+                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -366,6 +422,173 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                     });
             }
         };
+
+        $scope.program = {
+            active: true
+        };
+
+        $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                $scope.student = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+        $http.get( api_url+AuthenticationService.organization_id+'/programs', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                if(response.success == true && response.total > 0)
+                {
+                    $scope.list_program = response.data;
+                }
+                else
+                {
+                    showError(response.error.message, 1);
+                }
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+    }
+]);
+
+
+app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.doingResolve = false;
+
+        var student_id = $routeParams.student_id;
+        var list_program = [];
+
+        $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                $scope.student = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+        $http.get( api_url+AuthenticationService.organization_id+'/programs', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                if(response.success == true && response.total > 0)
+                {
+                    list_program = response.data;
+
+                    $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/programs', {
+                        headers: {
+                            'Authorization': 'Bearer '+AuthenticationService.token
+                        }
+                    })
+                        .success(function(response) {
+
+                            for(var i=0; i<response.length; i++)
+                            {
+                                for(var j=0; j<list_program.length; j++)
+                                {
+                                    if(response[i].program == list_program[j]._id)
+                                    {
+                                        response[i].name = list_program[j].name;
+                                    }
+                                }
+                            }
+
+                            $scope.programs = response;
+                            $rootScope.doingResolve = false;
+
+                        })
+                        .error(function(response, status) {
+
+                            console.log(response);
+                            console.log(status);
+                            showError(response, 1);
+                            $rootScope.doingResolve = false;
+                            if(status == 401)
+                            {
+                                CookieStore.clearData();
+                                $location.path( '/login' );
+                            }
+
+                        });
+
+                }
+                else
+                {
+                    showError(response.error.message, 1);
+                }
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
 
     }
 ]);
@@ -388,14 +611,14 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 })
                     .success(function(response) {
 
-                        console.log(response);
                         $scope.students.splice(index, 1);
                         $scope.working = false;
 
                     })
-                    .error(function(response) {
+                    .error(function(response, status) {
 
                         console.log(response);
+                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -415,7 +638,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         })
             .success(function(response) {
 
-                console.log(response);
                 if(response.success == true && response.total > 0)
                 {
                     $scope.students = response.data;
@@ -468,9 +690,10 @@ app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$locat
                         $scope.working = false;
 
                     })
-                    .error(function(response) {
+                    .error(function(response, status) {
 
                         console.log(response);
+                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -548,9 +771,10 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
                         $scope.working = false;
 
                     })
-                    .error(function(response) {
+                    .error(function(response, status) {
 
                         console.log(response);
+                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -609,14 +833,14 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
                 })
                     .success(function(response) {
 
-                        console.log(response);
                         $scope.programs.splice(index, 1);
                         $scope.working = false;
 
                     })
-                    .error(function(response) {
+                    .error(function(response, status) {
 
                         console.log(response);
+                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -636,7 +860,6 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
         })
             .success(function(response) {
 
-                console.log(response);
                 if(response.success == true && response.total > 0)
                 {
                     $scope.programs = response.data;
@@ -696,9 +919,10 @@ app.controller('UserAddController', ['$rootScope', '$scope', '$http', '$location
                         $scope.working = false;
 
                     })
-                    .error(function(response) {
+                    .error(function(response, status) {
 
                         console.log(response);
+                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -768,14 +992,14 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                 })
                     .success(function(response) {
 
-                        console.log(response);
                         $scope.users.splice(index, 1);
                         $scope.working = false;
 
                     })
-                    .error(function(response) {
+                    .error(function(response, status) {
 
                         console.log(response);
+                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -795,7 +1019,6 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
         })
             .success(function(response) {
 
-                console.log(response);
                 if(response.success == true && response.total > 0)
                 {
                     $scope.users = response.data;
@@ -827,7 +1050,6 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
 app.controller('HeartbeatController', ['$rootScope', '$scope',
     function ($rootScope, $scope) {
 
-        console.log($scope);
         $rootScope.doingResolve = false;
 
     }
@@ -874,7 +1096,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-                                    console.log(responseClient.data[i].url);
                                     if(get_hosting_name == responseClient.data[i].url)
                                     {
                                         grand_access = true;
@@ -925,7 +1146,7 @@ function showError(message, alert)
         passingClass = 'alert-success'
     }
 
-    var message_alert = '<div class="alert '+passingClass+' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+message.toString()+'</div>';
+    var message_alert = '<div class="alert '+passingClass+' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+message+'</div>';
     jQuery("#error-container").append(message_alert);
     setTimeout(function() {
         jQuery('.alert').remove();

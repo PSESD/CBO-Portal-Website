@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="page-header">
+            {{ student.first_name }} {{ student.last_name }} Programs
+            <a href="#/student/programs/{{ student._id }}/add" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add Program</a>
+        </h1>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Participation Start Date</th>
+                    <th>Participation End Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="program in programs">
+                    <td>{{ program.name }}</td>
+                    <td>{{ program.active ? 'Active' : 'Nonactive' }}</td>
+                    <td>{{ program.participation_start_date | date : 'yyyy-MM-dd' : timezone }}</td>
+                    <td>{{ program.participation_end_date | date : 'yyyy-MM-dd' : timezone }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
