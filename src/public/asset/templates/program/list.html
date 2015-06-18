@@ -23,6 +23,7 @@
                     <td>{{ program.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
                     <td>
                         <a class="btn btn-default" ng-href="#/program/detail/{{ program._id }}"><i class="fa fa-eye"></i> Detail</a>
+                        <a class="btn btn-default" ng-href="#/program/students/{{ program._id }}"><i class="fa fa-list-alt"></i> Students</a>
                         <a class="btn btn-default" ng-href="#/program/edit/{{ program._id }}"><i class="fa fa-pencil"></i> Edit</a>
                         <a class="btn btn-danger" ng-click="deleteProgram(program._id, $index)" ng-disabled="working"><i class="fa fa-remove"></i> Delete</a>
                     </td>
