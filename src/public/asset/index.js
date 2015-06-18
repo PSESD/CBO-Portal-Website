@@ -87,6 +87,16 @@ app.config(function ($routeProvider) {
             controller: 'ProgramEditController',
             access: { requiredAuthentication: true }
         }).
+        when('/program/students/:program_id/add', {
+            templateUrl: 'asset/templates/program/student_add.html',
+            controller: 'ProgramStudentAddController',
+            access: { requiredAuthentication: true }
+        }).
+        when('/program/students/:program_id', {
+            templateUrl: 'asset/templates/program/student_list.html',
+            controller: 'ProgramStudentController',
+            access: { requiredAuthentication: true }
+        }).
         when('/program', {
             templateUrl: 'asset/templates/program/list.html',
             controller: 'ProgramController',
@@ -945,6 +955,185 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
             .success(function(response) {
 
                 $scope.program = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+    }
+]);
+
+
+app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.doingResolve = false;
+
+        var program_id = $routeParams.program_id;
+
+        $scope.addProgramStudent = function(program)
+        {
+            if(program)
+            {
+                $scope.working = true;
+                $http.post( api_url+AuthenticationService.organization_id+'/programs/'+program_id+'/students', $.param(program), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        if(response.success == true)
+                        {
+                            showError(response.message, 2);
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+                        $scope.working = false;
+
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
+
+        $scope.program = {
+            active: true
+        };
+
+        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                $scope.program = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+        $http.get( api_url+AuthenticationService.organization_id+'/students', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                if(response.success == true && response.total > 0)
+                {
+                    $scope.list_student = response.data;
+                }
+                else
+                {
+                    showError(response.error.message, 1);
+                }
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+    }
+]);
+
+
+app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.doingResolve = false;
+
+        var program_id = $routeParams.program_id;
+
+        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                $scope.program = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id+'/students', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                if(response.success == true && response.total > 0)
+                {
+                    $scope.students = response.data;
+                }
+                else
+                {
+                    showError('Data Empty', 1);
+                }
                 $rootScope.doingResolve = false;
 
             })
