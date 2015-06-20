@@ -102,9 +102,9 @@ app.config(function ($routeProvider) {
             controller: 'ProgramController',
             access: { requiredAuthentication: true }
         }).
-        when('/user/add', {
-            templateUrl: 'asset/templates/user/add.html',
-            controller: 'UserAddController',
+        when('/user/invite', {
+            templateUrl: 'asset/templates/user/invite.html',
+            controller: 'UserInviteController',
             access: { requiredAuthentication: true }
         }).
         when('/user/detail/:user_id', {
@@ -1228,12 +1228,12 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
 ]);
 
 
-app.controller('UserAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
+app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
         $rootScope.doingResolve = false;
 
-        $scope.addUser = function(user)
+        $scope.inviteUser = function(user)
         {
             if(user)
             {

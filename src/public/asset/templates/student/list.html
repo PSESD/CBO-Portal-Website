@@ -28,7 +28,7 @@
                     <td>
                         <a class="btn btn-default" ng-href="#/student/detail/{{ student._id }}"><i class="fa fa-eye"></i> Detail</a>
                         <a class="btn btn-default" ng-href="#/student/programs/{{ student._id }}"><i class="fa fa-list-alt"></i> Programs</a>
-                        <a class="btn btn-default" ng-href="#/student/backpacks/{{ student._id }}"><i class="fa fa-list-alt"></i> Backpacks</a>
+                        <a ng-hide="(student.district_student_id+'').length <= 0" class="btn btn-default" ng-href="#/student/backpacks/{{ student._id }}"><i class="fa fa-list-alt"></i> Backpacks</a>
                         <a class="btn btn-danger" ng-click="deleteStudent(student._id, $index)" ng-disabled="working"><i class="fa fa-remove"></i> Delete</a>
                     </td>
                 </tr>
