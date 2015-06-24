@@ -160,7 +160,7 @@ app.factory('AuthenticationService', function()
         user_id: null,
         email: null,
         name: null,
-        keep_email: null
+        keep_email: false
     };
 
     return auth;
@@ -176,7 +176,11 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         },
         get: function(name)
         {
-            $cookieStore.get(name);
+            return $cookieStore.get(name);
+        },
+        put_remember: function(value)
+        {
+            $cookieStore.put('cboAdmin_cookie_remember', value);
         },
         setData: function(token, organization_id, redirect_url, user_id, email, name) {
             $cookieStore.put('cboAdmin_cookie_token', token);
@@ -213,12 +217,21 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             }
             else
             {
+                var remember = $cookieStore.get('cboAdmin_cookie_remember');
+                if(remember == true)
+                {
+
+                }
+                else
+                {
+                    AuthenticationService.email = null;
+                }
+
                 AuthenticationService.isAuthenticated = false;
                 AuthenticationService.token = null;
                 AuthenticationService.organization_id = null;
                 AuthenticationService.redirect_url = null;
                 AuthenticationService.user_id = null;
-                AuthenticationService.email = null;
                 AuthenticationService.name = null;
                 $rootScope.showNavBar = false;
                 $rootScope.completeName = false;
@@ -226,18 +239,28 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             }
         },
         clearData: function() {
+
+            var remember = $cookieStore.get('cboAdmin_cookie_remember');
+            if(remember == true)
+            {
+
+            }
+            else
+            {
+                $cookieStore.remove('cboAdmin_cookie_email');
+                AuthenticationService.email = null;
+            }
+
             $cookieStore.remove('cboAdmin_cookie_token');
             $cookieStore.remove('cboAdmin_cookie_organization_id');
             $cookieStore.remove('cboAdmin_cookie_redirect_url');
             $cookieStore.remove('cboAdmin_cookie_user_id');
-            $cookieStore.remove('cboAdmin_cookie_email');
             $cookieStore.remove('cboAdmin_cookie_name');
             AuthenticationService.isAuthenticated = false;
             AuthenticationService.token = null;
             AuthenticationService.organization_id = null;
             AuthenticationService.redirect_url = null;
             AuthenticationService.user_id = null;
-            AuthenticationService.email = null;
             AuthenticationService.name = null;
             $rootScope.showNavBar = false;
             $rootScope.completeName = false;
@@ -1425,7 +1448,16 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
         $rootScope.full_screen = true;
         $rootScope.doingResolve = false;
 
-        $scope.loginMe = function(username, password) {
+        var getRemember = CookieStore.get('cboAdmin_cookie_remember');
+        if(getRemember == true)
+        {
+            $scope.login = {
+                username: CookieStore.get('cboAdmin_cookie_email'),
+                remember_username: true
+            };
+        }
+
+        $scope.loginMe = function(username, password, remmember) {
 
             $scope.login.working = true;
 
@@ -1506,6 +1538,16 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                             if(find)
                                             {
                                                 CookieStore.setData( response.access_token, get_id, get_redirect_url, id, send.username, complete_name );
+
+                                                if(typeof remmember !== 'undefined' && remmember == true)
+                                                {
+                                                    CookieStore.put_remember(true);
+                                                }
+                                                else
+                                                {
+                                                    CookieStore.put_remember(false);
+                                                }
+
                                             }
                                             $location.path( '/' );
                                         }
