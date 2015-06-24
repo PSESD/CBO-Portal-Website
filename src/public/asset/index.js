@@ -159,7 +159,8 @@ app.factory('AuthenticationService', function()
         redirect_url: null,
         user_id: null,
         email: null,
-        name: null
+        name: null,
+        keep_email: null
     };
 
     return auth;
@@ -250,6 +251,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
     function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService) {
 
+        $rootScope.full_screen = false;
         $scope.isActive = function(route) {
 
             var route_length = route.length;
@@ -296,6 +298,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 app.controller('HomeController', ['$rootScope', '$scope',
     function ($rootScope, $scope) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
     }
@@ -305,6 +308,7 @@ app.controller('HomeController', ['$rootScope', '$scope',
 app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         $scope.addStudent = function(student)
@@ -353,6 +357,7 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
 app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $scope.student = {};
 
         var student_id = $routeParams.student_id;
@@ -389,6 +394,7 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
 app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $scope.student = {};
 
         var student_id = $routeParams.student_id;
@@ -425,6 +431,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         $scope.editProfile = function(user)
@@ -510,6 +517,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
 app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         $http.get( api_url+AuthenticationService.organization_id+'/users/'+AuthenticationService.user_id, {
@@ -544,6 +552,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
 app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         var student_id = $routeParams.student_id;
@@ -655,6 +664,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
 app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         var student_id = $routeParams.student_id;
@@ -761,6 +771,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
 app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $scope.students = [];
 
         $scope.deleteStudent = function(id, index)
@@ -834,6 +845,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         $scope.addProgram = function(program)
@@ -877,6 +889,7 @@ app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$locat
 app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         var program_id = $routeParams.program_id;
@@ -913,6 +926,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
 app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         var program_id = $routeParams.program_id;
@@ -983,6 +997,7 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
 app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         var program_id = $routeParams.program_id;
@@ -1094,6 +1109,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
 app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         var program_id = $routeParams.program_id;
@@ -1162,6 +1178,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
 app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $scope.programs = [];
 
         $scope.deleteProgram = function(id, index)
@@ -1235,6 +1252,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
 app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         $scope.inviteUser = function(user)
@@ -1285,6 +1303,7 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
 app.controller('UserDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
         var user_id = $routeParams.user_id;
@@ -1321,6 +1340,7 @@ app.controller('UserDetailController', ['$rootScope', '$scope', '$routeParams', 
 app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = false;
         $scope.users = [];
 
         $scope.deleteUser = function(id, index)
@@ -1393,6 +1413,7 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
 app.controller('HeartbeatController', ['$rootScope', '$scope',
     function ($rootScope, $scope) {
 
+        $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
     }
@@ -1401,6 +1422,7 @@ app.controller('HeartbeatController', ['$rootScope', '$scope',
 app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
 
+        $rootScope.full_screen = true;
         $rootScope.doingResolve = false;
 
         $scope.loginMe = function(username, password) {
@@ -1439,12 +1461,12 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-//                                    if(get_hosting_name == responseClient.data[i].url)
-//                                    {
+                                    if(get_hosting_name == responseClient.data[i].url)
+                                    {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
-//                                    }
+                                    }
                                 }
                             }
 
