@@ -1,37 +1,53 @@
 <div class="row">
     <div class="col-md-12">
-        <h1 class="page-header">
-            Users
-            <a href="#/user/invite" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Invite User</a>
-        </h1>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Created</th>
-                    <th>Last Update</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="user in users">
-                    <td>{{ user._id }}</td>
-                    <td>{{ user.first_name }}</td>
-                    <td>{{ user.last_name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.created | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
-                    <td>{{ user.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
-                    <td>
-                        <a class="btn btn-default" ng-href="#/user/detail/{{ user._id }}"><i class="fa fa-eye"></i> Detail</a>
-                        <a class="btn btn-danger" ng-click="deleteUser(user._id, $index)" ng-disabled="working"><i class="fa fa-remove"></i> Delete</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+
+        <div class="card">
+            <div class="col-md-12">
+
+                <div class="title">
+                    <h1><a href="#/user/invite"><i class="glyphicon glyphicon-plus"></i> Invite User</a></h1>
+                    <hr>
+                </div>
+
+                <div class="content">
+
+                    <h1 class="bold">Users</h1>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Created</th>
+                                <th>Last Update</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="user in users">
+                                <td>{{ user._id }}</td>
+                                <td>{{ user.first_name }}</td>
+                                <td>{{ user.last_name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.created | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
+                                <td>{{ user.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
+                                <td>
+                                    <a class="btn btn-default" ng-href="#/user/detail/{{ user._id }}"><i class="fa fa-eye"></i> Detail</a>
+                                    <a class="btn btn-danger" ng-click="deleteUser(user._id, $index)" ng-disabled="working"><i class="fa fa-remove"></i> Delete</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
         </div>
+
     </div>
 </div>
