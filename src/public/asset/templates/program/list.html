@@ -1,35 +1,50 @@
 <div class="row">
+
     <div class="col-md-12">
-        <h1 class="page-header">
-            Programs
-            <a href="#/program/add" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Add Program</a>
-        </h1>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Created</th>
-                    <th>Last Update</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="program in programs">
-                    <td>{{ program._id }}</td>
-                    <td>{{ program.name }}</td>
-                    <td>{{ program.created | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
-                    <td>{{ program.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
-                    <td>
-                        <a class="btn btn-default" ng-href="#/program/detail/{{ program._id }}"><i class="fa fa-eye"></i> Detail</a>
-                        <a class="btn btn-default" ng-href="#/program/students/{{ program._id }}"><i class="fa fa-list-alt"></i> Students</a>
-                        <a class="btn btn-default" ng-href="#/program/edit/{{ program._id }}"><i class="fa fa-pencil"></i> Edit</a>
-                        <a class="btn btn-danger" ng-click="deleteProgram(program._id, $index)" ng-disabled="working"><i class="fa fa-remove"></i> Delete</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+
+        <div class="card">
+            <div class="col-md-12">
+                <div class="title">
+                    <h1><a href="#/program/add"><i class="glyphicon glyphicon-plus"></i> Add Program</a></h1>
+                    <hr>
+                </div>
+                <div class="content">
+
+                    <h1 class="bold">Programs</h1>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Created</th>
+                                <th>Last Update</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="program in programs">
+                                <td>{{ program._id }}</td>
+                                <td>{{ program.name }}</td>
+                                <td>{{ program.created | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
+                                <td>{{ program.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
+                                <td>
+                                    <a class="btn btn-default" ng-href="#/program/detail/{{ program._id }}"><i class="fa fa-eye"></i> Detail</a>
+                                    <a class="btn btn-default" ng-href="#/program/students/{{ program._id }}"><i class="fa fa-list-alt"></i> Students</a>
+                                    <a class="btn btn-default" ng-href="#/program/edit/{{ program._id }}"><i class="fa fa-pencil"></i> Edit</a>
+                                    <a class="btn btn-danger" ng-click="deleteProgram(program._id, $index)" ng-disabled="working"><i class="fa fa-remove"></i> Delete</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
         </div>
+
     </div>
+
 </div>
