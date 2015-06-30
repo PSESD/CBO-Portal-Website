@@ -817,18 +817,18 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                     })
                         .success(function(response) {
 
-                            for(var i=0; i<response.length; i++)
+                            for(var i=0; i<response.data.length; i++)
                             {
                                 for(var j=0; j<list_program.length; j++)
                                 {
-                                    if(response[i].program == list_program[j]._id)
+                                    if(response.data[i].program == list_program[j]._id)
                                     {
-                                        response[i].name = list_program[j].name;
+                                        response.data[i].name = list_program[j].name;
                                     }
                                 }
                             }
 
-                            $scope.programs = response;
+                            $scope.programs = response.data;
                             $rootScope.doingResolve = false;
 
                         })
