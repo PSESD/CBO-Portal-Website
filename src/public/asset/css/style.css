@@ -173,7 +173,9 @@ table h1
     color: #FFFFFF;
 }
 #login-container .card h1,
-#forget-container .card h1
+#forget-container .card h1,
+#login-container .card p,
+#forget-container .card p
 {
     color: #FFFFFF;
 }
