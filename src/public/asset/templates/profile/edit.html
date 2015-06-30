@@ -1,55 +1,63 @@
 <div class="row">
-
     <div class="col-md-12">
 
         <div class="card">
             <div class="col-md-12">
+
                 <div class="title">
                     <h1>
-                        Add Student
+                        Edit Profile {{ user.first_name }} {{ user.last_name }}
                     </h1>
                     <hr>
                 </div>
+
                 <div class="content">
 
-                    <form class="form-horizontal" role="form" ng-submit="addStudent(student)">
+                    <form class="form-horizontal" role="form" ng-submit="editProfile(user)">
                         <div class="form-actions form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
                                 <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#/student" class="btn btn-default">Back</a>
+                                <a href="#/profile" class="btn btn-default">Back</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="first_name">First Name:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.first_name" id="first_name" required autofocus>
+                                <input type="text" class="form-control" ng-model="user.first_name" id="first_name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="middle_name">Middle Name:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="user.middle_name" id="middle_name">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="last_name">Last Name:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.last_name" id="last_name" required>
+                                <input type="text" class="form-control" ng-model="user.last_name" id="last_name" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="district_student_id">District Student ID:</label>
+                            <label class="col-sm-3 control-label" for="email">Email:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.district_student_id" id="district_student_id">
+                                <input type="text" class="form-control" ng-model="user.email" id="email" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="school_district">District Student Name:</label>
+                            <label class="col-sm-3 control-label" for="password">Password:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.school_district" id="school_district">
+                                <input type="text" class="form-control" ng-model="user.password" id="password">
+                                <p class="help-block">Leave it empty, if you doesn't want change the password</p>
                             </div>
                         </div>
                         <div class="form-actions form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
                                 <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#/student" class="btn btn-default">Back</a>
+                                <a href="#/profile" class="btn btn-default">Back</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -57,9 +65,11 @@
 
                 </div>
             </div>
+
             <div class="clearfix"></div>
+
         </div>
 
     </div>
-
 </div>
+
