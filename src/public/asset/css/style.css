@@ -10,6 +10,7 @@ I ALL
   3a.Login/Forget Form
 4.Footer
 5.Utility
+6.Form
 
 II MEDIA
 @media (max-width:767px)
@@ -36,6 +37,12 @@ body
 }
 li{
     list-style:none;
+}
+a,
+a:focus,
+a:hover
+{
+    color: #000;
 }
 /*- Typography -*/
 *{
@@ -139,13 +146,42 @@ p{
     margin: 10px 0;
 }
 
+table h1
+{
+    font-size: 16px;
+    font-weight: bold;
+}
+
 
 /*
 ===============================================
 ============= 3a.Login/Forget Form ============
 ===============================================
 */
-
+#login-container,
+#forget-container
+{
+    position: absolute;
+    top: 30%;
+}
+#login-container,
+#login-container .card,
+#forget-container,
+#forget-container .card
+{
+    background-color: #404040;
+    color: #FFFFFF;
+}
+#login-container .card h1,
+#forget-container .card h1
+{
+    color: #FFFFFF;
+}
+#login-container .card .title hr,
+#forget-container .card .title hr
+{
+    border-top: solid 2px #FFFFFF;
+}
 
 /*
 ===============================================
@@ -177,7 +213,10 @@ p{
 .bold{
     font-weight: 700;
 }
-
+.font16
+{
+    font-size: 16px;
+}
 .subhead{
     text-transform:uppercase;
 }
@@ -215,46 +254,15 @@ p{
 
 
 
-
-/*- Buttons -*/
-.button{
-    font-family:'quicksand';
-    font-weight: 700;
-    background:transparent;
-    font-size:1em;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: #555;
-    border: solid 2px;
-    padding: 3px 25px;
-    border-radius: 3px;
-    margin: 10px 0;
-    outline:0px !important;
-    -webkit-appearance:none;
-}
-
-.button:hover{
-    border-bottom:solid 3px;
-    color: #555;
-    text-decoration: none;
-}
-
-.button:active{
-    border-bottom:solid 2px rgba(0,0,0,0.0);
-    background: rgba(0,0,0,0.1);
-    color: #555;
-    text-decoration: none;
-}
-
-.button:visted{
-    box-shadow: none;
-}
-
 .colour{
     width: 100%;
     height: 10px;
     margin-bottom: 20px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+}
+.label-checkbox
+{
+    display: inline-block;
 }
 .ng-hide
 {
@@ -286,6 +294,98 @@ p{
         -webkit-transform: rotate(359deg);
         transform: rotate(359deg);
     }
+}
+
+
+/*
+===============================================
+=================== 6.Form ====================
+===============================================
+*/
+.form-control
+{
+    border: 0 !important;
+    box-shadow: none !important;
+    border-bottom: 1px #000 solid !important;
+    border-radius: 0 !important;
+}
+.form-inline
+{
+    padding-bottom: 40px;
+}
+
+
+/*- Buttons -*/
+.button{
+    font-family:'quicksand';
+    font-weight: 700;
+    background:transparent;
+    font-size:1em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #555;
+    border: solid 2px;
+    padding: 3px 25px;
+    border-radius: 3px;
+    margin: 10px 0;
+    outline:0px !important;
+    -webkit-appearance:none;
+    min-height: 30px;
+}
+a.button
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.button:hover{
+    /*
+    border-bottom:solid 3px;
+    */
+    color: #555;
+    text-decoration: none;
+}
+
+.button:active{
+    /*
+    border-bottom:solid 2px rgba(0,0,0,0.0);
+    background: rgba(0,0,0,0.1);
+    color: #555;
+    text-decoration: none;
+    */
+}
+
+.button:visted{
+    box-shadow: none;
+}
+
+#login-container input,
+#forget-container input
+{
+    background: transparent;
+    border-bottom: 1px #FFFFFF solid !important;
+    color: #FFFFFF;
+}
+#login-container input::-webkit-input-placeholder, /* WebKit browsers */
+#forget-container input::-webkit-input-placeholder,
+#login-container input:-moz-placeholder, /* Mozilla Firefox 4 to 18 */
+#forget-container input:-moz-placeholder,
+#login-container input::-moz-placeholder, /* Mozilla Firefox 19+ */
+#forget-container input::-moz-placeholder,
+#login-container input:-ms-input-placeholder, /* Internet Explorer 10+ */
+#forget-container input:-ms-input-placeholder
+{
+    color: #FFFFFF;
+}
+#login-container .card .help-block.label-checkbox
+{
+    color: #FFFFFF;
+}
+#login-container .button,
+#forget-container .button
+{
+    color: #FFFFFF;
+    border-color: #FFFFFF;
 }
 
 
@@ -397,6 +497,7 @@ p{
     #navbar
     {
         padding: 35px 10px 10px 10px;
+        border-radius: 0;
         overflow-x: hidden;
     }
     .navbar-header
@@ -443,5 +544,17 @@ p{
     ================== 5.Utility ==================
     ===============================================
     */
+
+}
+
+
+@media (max-height:600px) {
+
+    #login-container,
+    #forget-container
+    {
+        position: absolute;
+        top: 10%;
+    }
 
 }

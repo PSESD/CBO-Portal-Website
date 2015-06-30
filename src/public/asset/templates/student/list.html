@@ -5,11 +5,10 @@
         <div class="card">
             <div class="col-md-12">
                 <div class="title">
-                    <h1><a href="#/student/add"><i class="glyphicon glyphicon-plus"></i> Add A Student</a></h1>
-                    <hr>
-                    <form class="form-horizontal" role="form" ng-submit="searchStudent(student)">
-                        <input type="text" ng-model="student.search" name="search" id="search" placeholder="Search Student"/>
-                        <input type="submit" value="FILTER"/>
+                    <h1><a href="#/student/add"><i class="glyphicon glyphicon-plus font16"></i> Add A Student</a></h1>
+                    <form class="form-inline" role="form" ng-submit="searchStudent(student)">
+                        <input type="text" class="form-control" ng-model="student.search" name="search" id="search" placeholder="Search Student"/>
+                        <input type="submit" value="FILTER" class="button"/>
                     </form>
                 </div>
                 <div class="content">
