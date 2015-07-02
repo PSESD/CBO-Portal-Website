@@ -16,7 +16,8 @@ $(document).ready(function () {
     var slidewidth = '80%';
     var menuneg = '-200%';
     var slideneg = '-80%';
-
+	var isCollapse = false;
+	
 
     $("#navbar").on("click", toggler, function (e) {
 
@@ -60,13 +61,22 @@ $(document).ready(function () {
             $(selected).removeClass('slide-active');
         }
 
-
-
     });
-
-
-
-
+	$('.collapse-icon').on("click",function(){
+		if(isCollapse == false){
+			$(".navbar").animate({width:"45px"});
+			$(".navbar-header").hide();
+			$("#slidemenu").hide();
+			isCollapse = true;
+		}else if(isCollapse==true){
+			$(".navbar").animate({width:"290px"});
+			$(".navbar-header").show();
+			$("#slidemenu").show();
+			isCollapse = false;
+		}
+	});
+	
+	
 });
 
 function hideContent(curr)

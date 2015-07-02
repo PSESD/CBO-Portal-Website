@@ -112,7 +112,6 @@ p{
     box-shadow: none;
 }
 
-
 /*
 ===============================================
 ================= 3.Container =================
@@ -151,7 +150,6 @@ table h1
     font-size: 16px;
     font-weight: bold;
 }
-
 
 /*
 ===============================================
@@ -298,6 +296,15 @@ table h1
     }
 }
 
+/*- Sidebar Collapse Icon -*/
+
+.collapse-icon{
+color:white;
+}
+
+.collapse-icon:hover{
+cursor:pointer;
+}
 
 /*
 ===============================================
