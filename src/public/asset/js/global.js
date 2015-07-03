@@ -64,15 +64,17 @@ $(document).ready(function () {
     });
 	$('.collapse-icon').on("click",function(){
 		if(isCollapse == false){
-			$(".navbar").animate({width:"45px"});
+			$(".navbar").width("45px");
 			$(".navbar-header").hide();
 			$("#slidemenu").hide();
 			isCollapse = true;
+			$(".card").css('margin-left','-220px');
 		}else if(isCollapse==true){
-			$(".navbar").animate({width:"290px"});
+			$(".navbar").width("266px");
 			$(".navbar-header").show();
 			$("#slidemenu").show();
 			isCollapse = false;
+			$(".card").css('margin-left','');
 		}
 	});
 	

@@ -112,6 +112,12 @@ p{
     box-shadow: none;
 }
 
+a:hover
+{
+	text-decoration:none;
+	color:#3572b0;
+}
+
 /*
 ===============================================
 ================= 3.Container =================
@@ -143,6 +149,16 @@ p{
     width:30px;
     border-top: solid 2px #555;
     margin: 10px 0;
+}
+
+.flexible-card{
+  background: #fff;
+  padding: 24px 50px;
+  border-bottom: solid 5px rgba(0,0,0,0.1);
+  border-radius: 2px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+  margin: 10px 0;
+  margin-left: 100px;
 }
 
 table h1
@@ -473,10 +489,11 @@ a.button
     ===============================================
     */
     .container-with-menu
-    {
+      {
         width: calc(100% - 75px);
         margin-left: 75px;
     }
+
 
 }
 
