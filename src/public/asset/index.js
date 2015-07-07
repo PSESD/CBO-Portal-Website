@@ -502,6 +502,8 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
         $scope.student = {};
 
         var student_id = $routeParams.student_id;
+		
+		var list_program = [];
 
         $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id, {
             headers: {
@@ -527,6 +529,42 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 }
 
             });
+			
+			 $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/programs', {
+                        headers: {
+                            'Authorization': 'Bearer '+AuthenticationService.token
+                        }
+                    })
+                        .success(function(response) {
+
+                            for(var i=0; i<response.data.length; i++)
+                            {
+                                for(var j=0; j<list_program.length; j++)
+                                {
+                                    if(response.data[i].program == list_program[j]._id)
+                                    {
+                                        response.data[i].name = list_program[j].name;
+                                    }
+                                }
+                            }
+
+                            $scope.programs = response.data;
+                            $rootScope.doingResolve = false;
+							console.log(response.data.name);
+                        })
+                        .error(function(response, status) {
+
+                            console.log(response);
+                            console.log(status);
+                            showError(response, 1);
+                            $rootScope.doingResolve = false;
+                            if(status == 401)
+                            {
+                                CookieStore.clearData();
+                                $location.path( '/login' );
+                            }
+
+                        });
 
     }
 ]);
@@ -968,6 +1006,7 @@ app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$locat
 
                         showError(response.message, 2);
                         $scope.working = false;
+						$location.path( '/program' );
 
                     })
                     .error(function(response, status) {
@@ -997,6 +1036,37 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
         $rootScope.doingResolve = false;
 
         var program_id = $routeParams.program_id;
+		
+		$scope.deleteProgram = function(id, index)
+        {
+            if(id)
+            {
+                $scope.working = true;
+                $http.delete( api_url+AuthenticationService.organization_id+'/programs/'+id, {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+                        $scope.working = false;
+						$location.path( '/program' )
+
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
 
         $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
             headers: {
@@ -1287,6 +1357,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
 
         $scope.deleteProgram = function(id, index)
         {
+			
             if(id)
             {
                 $scope.working = true;
@@ -1296,9 +1367,9 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
                     }
                 })
                     .success(function(response) {
-
                         $scope.programs.splice(index, 1);
                         $scope.working = false;
+						$location.path( '/program' )
 
                     })
                     .error(function(response, status) {
@@ -1678,6 +1749,21 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
     }
 ]);
+
+app.directive('ngConfirmClick', [
+        function(){
+            return {
+                link: function (scope, element, attr) {
+                    var msg = attr.ngConfirmClick || "Are you sure?";
+                    var clickAction = attr.confirmedClick;
+                    element.bind('click',function (event) {
+                        if ( window.confirm(msg) ) {
+                            scope.$eval(clickAction)
+                        }
+                    });
+                }
+            };
+    }])
 
 
 function showError(message, alert)

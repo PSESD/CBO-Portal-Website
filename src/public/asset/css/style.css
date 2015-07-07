@@ -116,6 +116,7 @@ a:hover
 {
 	text-decoration:none;
 	color:#3572b0;
+	cursor:pointer;
 }
 
 /*
@@ -212,6 +213,12 @@ table h1
 ================== 5.Utility ==================
 ===============================================
 */
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
 .btn-expand
 {
     position: absolute;
