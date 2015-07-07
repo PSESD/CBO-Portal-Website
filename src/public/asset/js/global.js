@@ -16,7 +16,8 @@ $(document).ready(function () {
     var slidewidth = '80%';
     var menuneg = '-200%';
     var slideneg = '-80%';
-
+	var isCollapse = false;
+	
 
     $("#navbar").on("click", toggler, function (e) {
 
@@ -60,13 +61,24 @@ $(document).ready(function () {
             $(selected).removeClass('slide-active');
         }
 
-
-
     });
-
-
-
-
+	$('.collapse-icon').on("click",function(){
+		if(isCollapse == false){
+			$(".navbar").width("45px");
+			$(".navbar-header").hide();
+			$("#slidemenu").hide();
+			isCollapse = true;
+			$(".card").css('margin-left','-220px');
+		}else if(isCollapse==true){
+			$(".navbar").width("266px");
+			$(".navbar-header").show();
+			$("#slidemenu").show();
+			isCollapse = false;
+			$(".card").css('margin-left','');
+		}
+	});
+	
+	
 });
 
 function hideContent(curr)

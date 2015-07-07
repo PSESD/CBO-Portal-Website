@@ -166,16 +166,17 @@
     </div>
 
     <div class="col-md-3">
-        <div class="card pencil">
+        <div class="card">
+		<a ng-href="#/student/programs/{{ student._id }}" class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></a>
             <div class="title">
                 <h1>PROGRAM PARTICIPATION</h1>
                 <hr>
             </div>
             <div class="content">
                 <p class="subhead">PROGRAMS</p>
-                <b>[[ Math Tutoring ]]</b> <br/>
-                <b>[[ After School Basketball ]]</b> <br/>
-                <b>[[ Chemistry Tutoring ]]</b> <br/>
+				<div ng-repeat="program in programs">
+                <b>{{program.name}}</b> <br/>
+				</div>
             </div>
             <a class="btn-expand button">EXPAND</a>
         </div>
