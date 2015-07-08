@@ -125,7 +125,7 @@ app.config(function ($routeProvider) {
         when('/user/detail/:user_id', {
             templateUrl: 'asset/templates/user/detail.html',
             controller: 'UserDetailController',
-            access: { requiredAuthentication: true, requiredAdmin: true }
+            access: { requiredAuthentication: true }
         }).
         when('/user', {
             templateUrl: 'asset/templates/user/list.html',
@@ -1669,6 +1669,10 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
             if(AuthenticationService.user_id == id)
             {
                 showError('Cannot Remove your own data', 1);
+            }
+            else if(AuthenticationService.role == 'case-worker')
+            {
+                showError("You don't have any permission to access this page", 1);
             }
             else if(id)
             {
