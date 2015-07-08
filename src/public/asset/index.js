@@ -375,6 +375,7 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                         if(response.success == true)
                         {
                             showError(response.message, 2);
+							$location.path( '/student' );
                         }
                         else
                         {
@@ -463,6 +464,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                         if(response.success == true)
                         {
                             showError(response.message, 2);
+							$location.path( '/student' );
                         }
                         else
                         {
@@ -521,9 +523,8 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
         $rootScope.full_screen = false;
         $scope.student = {};
-
+		$scope.programs = [];
         var student_id = $routeParams.student_id;
-		
 		var list_program = [];
 
         $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id, {
@@ -535,7 +536,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
                 $scope.student = response;
                 $rootScope.doingResolve = false;
-
+				
             })
             .error(function(response, status) {
 
@@ -557,7 +558,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                         }
                     })
                         .success(function(response) {
-
+							/*
                             for(var i=0; i<response.data.length; i++)
                             {
                                 for(var j=0; j<list_program.length; j++)
@@ -568,10 +569,41 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                                     }
                                 }
                             }
-
-                            $scope.programs = response.data;
+							*/
+							for(var i=0;i<response.data.length;i++)
+							{
+								list_program[i] = response.data[i].program;
+							}
                             $rootScope.doingResolve = false;
-							console.log(response.data.name);
+							for(var i=0;i<list_program.length;i++)
+							{
+
+								$http.get( api_url+AuthenticationService.organization_id+'/programs/'+list_program[i], {
+									headers: {
+										'Authorization': 'Bearer '+AuthenticationService.token
+									}
+								})
+								.success(function(response) {
+
+									$scope.programs.push(response);
+									$rootScope.doingResolve = false;
+
+								})
+								.error(function(response, status) {
+
+									console.log(response);
+									console.log(status);
+									showError(response, 1);
+									$rootScope.doingResolve = false;
+									if(status == 401)
+									{
+										CookieStore.clearData();
+										$location.path( '/login' );
+									}
+
+								});
+								
+							}
                         })
                         .error(function(response, status) {
 
@@ -586,7 +618,8 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                             }
 
                         });
-
+						
+						
     }
 ]);
 
@@ -842,7 +875,6 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
 
                 $scope.student = response;
                 $rootScope.doingResolve = false;
-
             })
             .error(function(response, status) {
 
@@ -1142,7 +1174,7 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
 
                         showError(response.message, 2);
                         $scope.working = false;
-
+						$location.path( '/program' );
                     })
                     .error(function(response, status) {
 
@@ -1212,6 +1244,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                         if(response.success == true)
                         {
                             showError(response.message, 2);
+							$location.path( '/program/students/'+program_id );
                         }
                         else
                         {
@@ -1799,12 +1832,12 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-                                    if(get_hosting_name == responseClient.data[i].url)
-                                    {
+                                    //if(get_hosting_name == responseClient.data[i].url)
+                                    //{
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
-                                    }
+                                    //}
                                 }
                             }
 
