@@ -47,8 +47,15 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="password">Password:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.password" id="password">
+                                <input type="password" class="form-control" ng-model="user.password" id="password">
                                 <p class="help-block">Leave it empty if you don't want to change it</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9">
+                                <input type="checkbox" ng-model="user.role_checkbox" id="role_checkbox">
+                                <label for="role_checkbox">Case Worker</label>
                             </div>
                         </div>
                         <div class="form-actions form-group">
