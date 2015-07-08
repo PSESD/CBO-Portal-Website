@@ -110,7 +110,17 @@ app.config(function ($routeProvider) {
         when('/user/invite', {
             templateUrl: 'asset/templates/user/invite.html',
             controller: 'UserInviteController',
+            access: { requiredAuthentication: true, requiredAdmin: true }
+        }).
+        when('/user/group/:user_id', {
+            templateUrl: 'asset/templates/user/group.html',
+            controller: 'UserGroupController',
             access: { requiredAuthentication: true }
+        }).
+        when('/user/edit/:user_id', {
+            templateUrl: 'asset/templates/user/edit.html',
+            controller: 'UserEditController',
+            access: { requiredAuthentication: true, requiredAdmin: true }
         }).
         when('/user/detail/:user_id', {
             templateUrl: 'asset/templates/user/detail.html',
@@ -151,6 +161,10 @@ app.run(function($rootScope, $http, $location, $window, AuthenticationService, C
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             $location.path("/login");
         }
+        if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAdmin && AuthenticationService.role == 'case-worker') {
+            showError("You don't have any permission to access this page", 1);
+            event.preventDefault();
+        }
     });
 });
 
@@ -165,6 +179,7 @@ app.factory('AuthenticationService', function()
         user_id: null,
         email: null,
         name: null,
+        role: null,
         keep_email: false
     };
 
@@ -187,13 +202,14 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         {
             $cookieStore.put('cboAdmin_cookie_remember', value);
         },
-        setData: function(token, organization_id, redirect_url, user_id, email, name) {
+        setData: function(token, organization_id, redirect_url, user_id, email, name, role) {
             $cookieStore.put('cboAdmin_cookie_token', token);
             $cookieStore.put('cboAdmin_cookie_organization_id', organization_id);
             $cookieStore.put('cboAdmin_cookie_redirect_url', redirect_url);
             $cookieStore.put('cboAdmin_cookie_user_id', user_id);
             $cookieStore.put('cboAdmin_cookie_email', email);
             $cookieStore.put('cboAdmin_cookie_name', name);
+            $cookieStore.put('cboAdmin_cookie_role', role);
 
             AuthenticationService.isAuthenticated = true;
             AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
@@ -202,6 +218,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             AuthenticationService.user_id = $cookieStore.get('cboAdmin_cookie_user_id');
             AuthenticationService.email = $cookieStore.get('cboAdmin_cookie_email');
             AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
+            AuthenticationService.role = $cookieStore.get('cboAdmin_cookie_role');
             $rootScope.showNavBar = true;
             $rootScope.completeName = AuthenticationService.name;
 
@@ -216,6 +233,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
                 AuthenticationService.user_id = $cookieStore.get('cboAdmin_cookie_user_id');
                 AuthenticationService.email = $cookieStore.get('cboAdmin_cookie_email');
                 AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
+                AuthenticationService.role = $cookieStore.get('cboAdmin_cookie_role');
                 $rootScope.showNavBar = true;
                 $rootScope.completeName = AuthenticationService.name;
                 return true;
@@ -238,6 +256,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
                 AuthenticationService.redirect_url = null;
                 AuthenticationService.user_id = null;
                 AuthenticationService.name = null;
+                AuthenticationService.role = null;
                 $rootScope.showNavBar = false;
                 $rootScope.completeName = false;
                 return false;
@@ -261,12 +280,14 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             $cookieStore.remove('cboAdmin_cookie_redirect_url');
             $cookieStore.remove('cboAdmin_cookie_user_id');
             $cookieStore.remove('cboAdmin_cookie_name');
+            $cookieStore.remove('cboAdmin_cookie_role');
             AuthenticationService.isAuthenticated = false;
             AuthenticationService.token = null;
             AuthenticationService.organization_id = null;
             AuthenticationService.redirect_url = null;
             AuthenticationService.user_id = null;
             AuthenticationService.name = null;
+            AuthenticationService.role = null;
             $rootScope.showNavBar = false;
             $rootScope.completeName = false;
             return true;
@@ -1508,6 +1529,131 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
 ]);
 
 
+app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.full_screen = false;
+        $rootScope.doingResolve = false;
+
+        var user_id = $routeParams.user_id;
+
+        $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                console.log(response);
+
+                $scope.students = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+    }
+]);
+
+
+app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.full_screen = false;
+        $rootScope.doingResolve = false;
+
+        var user_id = $routeParams.user_id;
+
+        $scope.editUser = function(user)
+        {
+            if(user)
+            {
+                if(user.role_checkbox == true)
+                    user.role = 'case-worker';
+                else
+                    user.role = 'admin';
+
+                $scope.working = true;
+                $http.put( api_url+AuthenticationService.organization_id+'/users/'+user_id, $.param(user), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        if(response.success == true)
+                        {
+                            showError(response.message, 2);
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+                        $scope.working = false;
+
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
+
+        $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                if(response.role == 'case-worker')
+                    response.role_checkbox = true;
+                else
+                    response.role_checkbox = false;
+
+                $scope.user = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+    }
+]);
+
+
 app.controller('UserDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
@@ -1553,7 +1699,15 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
 
         $scope.deleteUser = function(id, index)
         {
-            if(id)
+            if(AuthenticationService.user_id == id)
+            {
+                showError('Cannot Remove your own data', 1);
+            }
+            else if(AuthenticationService.role == 'case-worker')
+            {
+                showError("You don't have any permission to access this page", 1);
+            }
+            else if(id)
             {
                 $scope.working = true;
                 $http.delete( api_url+AuthenticationService.organization_id+'/users/'+id, {
@@ -1702,6 +1856,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                             var data = responseUser.data;
                                             var id = false;
                                             var complete_name = '';
+                                            var role = 'case-worker';
                                             for(var i=0; i<responseUser.total; i++)
                                             {
                                                 if(data[i].email == send.username)
@@ -1716,13 +1871,15 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                                         complete_name += data[i].last_name;
                                                     }
 
+                                                    role = data[i].role;
+
                                                     $rootScope.completeName = complete_name;
                                                     find = true;
                                                 }
                                             }
                                             if(find)
                                             {
-                                                CookieStore.setData( response.access_token, get_id, get_redirect_url, id, send.username, complete_name );
+                                                CookieStore.setData( response.access_token, get_id, get_redirect_url, id, send.username, complete_name, role );
 
                                                 if(typeof remmember !== 'undefined' && remmember == true)
                                                 {

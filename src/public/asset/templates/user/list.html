@@ -32,6 +32,8 @@
                                 <!--<td>{{ user.created | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>-->
                                 <!--<td>{{ user.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>-->
                                 <td class="text-center">
+                                    <a href="#/user/edit/{{ user._id }}" class="glyphicon glyphicon-pencil" ng-disabled="working"></a>
+                                    <a href="#/user/group/{{ user._id }}" class="glyphicon glyphicon-user" ng-disabled="working"></a>
                                     <a class="glyphicon glyphicon-trash" confirmed-click="deleteUser(user._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
                                 </td>
                             </tr>
