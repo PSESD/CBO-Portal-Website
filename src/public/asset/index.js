@@ -115,7 +115,7 @@ app.config(function ($routeProvider) {
         when('/user/group/:user_id', {
             templateUrl: 'asset/templates/user/group.html',
             controller: 'UserGroupController',
-            access: { requiredAuthentication: true }
+            access: { requiredAuthentication: true, requiredAdmin: true }
         }).
         when('/user/edit/:user_id', {
             templateUrl: 'asset/templates/user/edit.html',
