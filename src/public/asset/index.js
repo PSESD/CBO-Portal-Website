@@ -412,13 +412,13 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
 
         var student_id = $routeParams.student_id;
 
-        $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/backpack', {
+        $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/xsre', {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
             }
         })
             .success(function(response) {
-
+				console.log(response);
                 $scope.student = response;
                 $rootScope.doingResolve = false;
 
@@ -618,6 +618,31 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                             }
 
                         });
+						
+					$http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/xsre', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+				console.log(response);
+                $scope.student = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });	
 						
 						
     }
