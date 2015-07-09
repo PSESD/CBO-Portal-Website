@@ -112,6 +112,11 @@ app.config(function ($routeProvider) {
             controller: 'UserInviteController',
             access: { requiredAuthentication: true, requiredAdmin: true }
         }).
+//        when('/user/group/:user_id/add', {
+//            templateUrl: 'asset/templates/user/group_add.html',
+//            controller: 'UserGroupAddController',
+//            access: { requiredAuthentication: true, requiredAdmin: true }
+//        }).
         when('/user/group/:user_id', {
             templateUrl: 'asset/templates/user/group.html',
             controller: 'UserGroupController',
@@ -1554,6 +1559,48 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
 ]);
 
 
+app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.full_screen = false;
+        $rootScope.doingResolve = false;
+
+        var user_id = $routeParams.user_id;
+
+        $scope.AddStudent = function(student)
+        {
+            $http.post( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students', {
+                headers: {
+                    'Authorization': 'Bearer '+AuthenticationService.token
+                }
+            })
+                .success(function(response) {
+
+                    console.log(response);
+
+                    $scope.students = response.data;
+                    $rootScope.doingResolve = false;
+
+                })
+                .error(function(response, status) {
+
+                    console.log(response);
+                    console.log(status);
+                    showError(response, 1);
+                    $rootScope.doingResolve = false;
+                    if(status == 401)
+                    {
+                        CookieStore.clearData();
+                        $location.path( '/login' );
+                    }
+
+                });
+        };
+
+    }
+]);
+
+
 app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
@@ -1571,7 +1618,7 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
 
                 console.log(response);
 
-                $scope.students = response;
+                $scope.students = response.data;
                 $rootScope.doingResolve = false;
 
             })
@@ -1605,11 +1652,6 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
         {
             if(user)
             {
-                if(user.role_checkbox == true)
-                    user.role = 'case-worker';
-                else
-                    user.role = 'admin';
-
                 $scope.working = true;
                 $http.put( api_url+AuthenticationService.organization_id+'/users/'+user_id, $.param(user), {
                     headers: {
@@ -1651,11 +1693,6 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
             }
         })
             .success(function(response) {
-
-                if(response.role == 'case-worker')
-                    response.role_checkbox = true;
-                else
-                    response.role_checkbox = false;
 
                 $scope.user = response;
                 $rootScope.doingResolve = false;
@@ -1857,12 +1894,12 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-                                    //if(get_hosting_name == responseClient.data[i].url)
-                                    //{
+                                    if(get_hosting_name == responseClient.data[i].url)
+                                    {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
-                                    //}
+                                    }
                                 }
                             }
 

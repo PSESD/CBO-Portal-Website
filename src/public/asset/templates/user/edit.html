@@ -44,6 +44,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-3 control-label" for="role">Role:</label>
+                            <div class="col-sm-9">
+                                <select type="checkbox" ng-model="user.role" id="role">
+                                    <option value="admin">Admin</option>
+                                    <option value="case-worker">Case Worker</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="user.role == 'case-worker'">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
                                 <input type="checkbox" ng-model="user.role_checkbox" id="role_checkbox">
