@@ -90,6 +90,16 @@ $(document).ready(function () {
 		}
 	});
 	
+	$('#school-history-close').on('click',function(){
+		$('#academic').show();
+		
+		
+	});
+	
+	$('#school-history-open').on('click',function(){
+		
+		$('#school-history').show();
+	});
 	
 });
 

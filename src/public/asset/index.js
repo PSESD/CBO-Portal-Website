@@ -423,7 +423,6 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
             }
         })
             .success(function(response) {
-				console.log(response);
                 $scope.student = response;
                 $rootScope.doingResolve = false;
 
@@ -531,7 +530,42 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 		$scope.programs = [];
         var student_id = $routeParams.student_id;
 		var list_program = [];
-
+		$scope.sch_history =false;
+		$scope.academic =true;
+		
+		$scope.attendance = "col-md-3";
+		$scope.attendance_table = false;
+		$scope.attendance_expand_btn = true;
+		$scope.attendance_close_btn = false;
+		
+		$scope.expandAttendance = function()
+		{
+			$scope.attendance = "col-md-6";
+			$scope.attendance_table = true;
+			$scope.attendance_expand_btn = false;
+			$scope.attendance_close_btn = true;
+		};
+		
+		$scope.closeAttendance = function()
+		{
+			$scope.attendance = "col-md-3";
+			$scope.attendance_table = false;
+			$scope.attendance_expand_btn = true;
+			$scope.attendance_close_btn = false;
+		};
+		
+		$scope.showSchoolHistory = function()
+		{
+			$scope.sch_history =true;
+			$scope.academic =false;
+		};
+		
+		$scope.closeSchoolHistory = function()
+		{
+			$scope.academic = true;
+			$scope.sch_history = false;
+			
+		};
         $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id, {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
@@ -624,14 +658,14 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
                         });
 						
-					$http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/xsre', {
+					$http.get(api_url+AuthenticationService.organization_id+'/students/'+student_id+'/xsre', {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
             }
         })
             .success(function(response) {
-				console.log(response);
-                $scope.student = response;
+				console.log(response);		
+                $scope.studentdetails = response;
                 $rootScope.doingResolve = false;
 
             })
@@ -1117,8 +1151,49 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
+		$rootScope.editable = false;
 
         var program_id = $routeParams.program_id;
+		
+		$scope.activateEditable = function(){
+			$rootScope.editable = true;
+		};
+		
+		$scope.editProgram = function(program)
+        {
+            if(program)
+            {
+                program.redirect_url = AuthenticationService.redirect_url;
+
+                $scope.working = true;
+                $http.put( api_url+AuthenticationService.organization_id+'/programs/'+program_id, $.param(program), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        showError(response.message, 2);
+                        $scope.working = false;
+						$location.path( 'program/detail/'+program_id );
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+			
+			$rootScope.editable = false;
+        };
 		
 		$scope.deleteProgram = function(id, index)
         {
@@ -2017,6 +2092,55 @@ app.directive('ngConfirmClick', [
             };
     }])
 
+app.directive('contenteditable', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, elm, attrs, ctrl) {
+            // view -> model
+			var clickAction = attrs.confirmedAction;
+            elm.bind('blur', function() {
+                scope.$apply(function() {
+                    ctrl.$setViewValue(elm.html());
+                });
+				scope.$eval(clickAction);
+            });
+
+            // model -> view
+            ctrl.render = function(value) {
+                elm.html(value);
+            };
+
+            // load init value from DOM
+            ctrl.$setViewValue(elm.html());
+
+            elm.bind('keydown', function(event) {
+                var esc = event.which == 27,
+                    el = event.target;
+
+                if (esc) {
+                        ctrl.$setViewValue(elm.html());
+                        el.blur();
+                        event.preventDefault();                        
+                    }
+                    
+            });
+            
+        }
+    };
+});
+
+app.directive('a', function() {
+    return {
+        restrict: 'E',
+        link: function(scope, elem, attrs) {
+            if(attrs.ngClick || attrs.href === '' || attrs.href === '#'){
+                elem.on('click', function(e){
+                    e.preventDefault();
+                });
+            }
+        }
+   };
+});
 
 function showError(message, alert)
 {
