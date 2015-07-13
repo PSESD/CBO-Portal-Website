@@ -693,7 +693,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
-
+		
         $scope.editProfile = function(user)
         {
             if(user)
@@ -779,14 +779,18 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
-
+		$rootScope.editable = false;
+		
+		$scope.activateEditable = function(){
+			$rootScope.editable = true;
+		};
+		
         $http.get( api_url+AuthenticationService.organization_id+'/users/'+AuthenticationService.user_id, {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
             }
         })
             .success(function(response) {
-
                 $scope.user = response;
                 $rootScope.doingResolve = false;
 
@@ -804,6 +808,61 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                 }
 
             });
+			
+			$scope.editProfile = function(user)
+        {
+            if(user)
+            {
+                $scope.working = true;
+                $http.put( api_url+AuthenticationService.organization_id+'/users/'+AuthenticationService.user_id, $.param(user), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        if(response.success == true)
+                        {
+							$scope.working = false;
+							$location.path( '/profile' );
+							console.log("Successfully updated");
+							 $rootScope.doingResolve = false;
+                            showError(response.message, 2);
+                            var complete_name = '';
+                            if(typeof user.first_name !== 'undefined' && user.first_name)
+                            {
+                                complete_name += user.first_name+' ';
+                            }
+                            if(typeof user.last_name !== 'undefined' && user.last_name)
+                            {
+                                complete_name += user.last_name;
+                            }
+
+                            $rootScope.completeName = complete_name;
+
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+                        $scope.working = false;
+						
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
 
     }
 ]);
@@ -2128,6 +2187,8 @@ app.directive('contenteditable', function() {
         }
     };
 });
+
+
 
 app.directive('a', function() {
     return {
