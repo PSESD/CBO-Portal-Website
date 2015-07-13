@@ -1505,6 +1505,8 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
         $rootScope.doingResolve = false;
 
         var program_id = $routeParams.program_id;
+		
+		
 
         $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
             headers: {
@@ -1562,6 +1564,44 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                 }
 
             });
+			
+			$scope.deleteStudent = function(id, index)
+			{
+            if(id)
+            {
+                $scope.working = true;
+                $http.delete( api_url+AuthenticationService.organization_id+'/programs/'+ program_id + '/students/' + id, {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+						
+						console.log(response);
+						if(response.success)
+						{
+							$scope.programs.splice(index, 1);
+							$scope.working = false;
+							$location.path( '/program/students/' + program_id )
+						}
+                        
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+					
+            }
+        };
 
     }
 ]);
@@ -1912,10 +1952,10 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                     }
                 })
                     .success(function(response) {
-
+						
                         $scope.users.splice(index, 1);
                         $scope.working = false;
-
+						
                     })
                     .error(function(response, status) {
 
@@ -2028,12 +2068,12 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-                                    if(get_hosting_name == responseClient.data[i].url)
-                                    {
+                                    //if(get_hosting_name == responseClient.data[i].url)
+                                    //{
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
-                                    }
+                                    //}
                                 }
                             }
 
@@ -2158,9 +2198,11 @@ app.directive('contenteditable', function() {
             // view -> model
 			var clickAction = attrs.confirmedAction;
             elm.bind('blur', function() {
-                scope.$apply(function() {
+                var html = elm.html();
+				scope.$apply(function() {
                     ctrl.$setViewValue(elm.html());
                 });
+				elm.html(html);
 				scope.$eval(clickAction);
             });
 
