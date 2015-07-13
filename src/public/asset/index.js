@@ -112,11 +112,11 @@ app.config(function ($routeProvider) {
             controller: 'UserInviteController',
             access: { requiredAuthentication: true, requiredAdmin: true }
         }).
-//        when('/user/group/:user_id/add', {
-//            templateUrl: 'asset/templates/user/group_add.html',
-//            controller: 'UserGroupAddController',
-//            access: { requiredAuthentication: true, requiredAdmin: true }
-//        }).
+        when('/user/group/:user_id/add', {
+            templateUrl: 'asset/templates/user/group_add.html',
+            controller: 'UserGroupAddController',
+            access: { requiredAuthentication: true, requiredAdmin: true }
+        }).
         when('/user/group/:user_id', {
             templateUrl: 'asset/templates/user/group.html',
             controller: 'UserGroupController',
@@ -1512,8 +1512,6 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
         $rootScope.doingResolve = false;
 
         var program_id = $routeParams.program_id;
-		
-		
 
         $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
             headers: {
@@ -1748,35 +1746,69 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
 
         var user_id = $routeParams.user_id;
 
-        $scope.AddStudent = function(student)
+        $scope.students = [];
+
+        $scope.addUserStudent = function(student)
         {
-            $http.post( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students', {
-                headers: {
-                    'Authorization': 'Bearer '+AuthenticationService.token
-                }
-            })
-                .success(function(response) {
 
-                    console.log(response);
-
-                    $scope.students = response.data;
-                    $rootScope.doingResolve = false;
-
-                })
-                .error(function(response, status) {
-
-                    console.log(response);
-                    console.log(status);
-                    showError(response, 1);
-                    $rootScope.doingResolve = false;
-                    if(status == 401)
-                    {
-                        CookieStore.clearData();
-                        $location.path( '/login' );
-                    }
-
-                });
         };
+
+        $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                $scope.user = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+        $http.get( api_url+AuthenticationService.organization_id+'/students', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                if(response.success == true && response.total > 0)
+                {
+                    $scope.students = response.data;
+                }
+                else
+                {
+                    showError(response.error.message, 1);
+                }
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
 
     }
 ]);
@@ -1789,6 +1821,31 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
         $rootScope.doingResolve = false;
 
         var user_id = $routeParams.user_id;
+
+        $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                $scope.user = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
 
         $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students', {
             headers: {
@@ -1959,10 +2016,10 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                     }
                 })
                     .success(function(response) {
-						
+
                         $scope.users.splice(index, 1);
                         $scope.working = false;
-						
+
                     })
                     .error(function(response, status) {
 

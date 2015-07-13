@@ -1,45 +1,41 @@
 <div class="row">
+
     <div class="col-md-12">
 
         <div class="card">
             <div class="col-md-12">
-
                 <div class="title">
-                    <h1><a href="#/user/group/add"><i class="glyphicon glyphicon-plus font16"></i> Add Student</a></h1>
+                    <h1>
+                        Add {{ user.first_name }} {{ user.lat_name }} Student
+                    </h1>
+                    <hr>
                 </div>
-
                 <div class="content">
 
-                    <h1 class="bold">Students</h1>
-
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th><h1>Name</h1></th>
-                                <th><h1>School ID</h1></th>
-                                <th><h1>School District</h1></th>
-                                <th class="text-center">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="student in students">
-                                <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.first_name }} {{ student.last_name }}</a></td>
-                                <td>{{student._id}}</td>
-                                <td>{{ student.school_district }}</td>
-                                <td class="text-center">
-                                    <a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <form class="form-horizontal" role="form" ng-submit="addUserStudent(student)">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="studentId">Student:</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" ng-model="student.studentId" id="studentId" required autofocus
+                                        ng-options="student._id as student.first_name+' '+student.last_name for student in students">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-actions form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
+                                <a href="#/user" class="btn btn-default">Back</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
 
                 </div>
-
             </div>
             <div class="clearfix"></div>
         </div>
 
     </div>
+
 </div>
