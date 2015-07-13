@@ -1750,7 +1750,39 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
 
         $scope.addUserStudent = function(student)
         {
+            if(student)
+            {
+                $scope.working = true;
+                $http.post( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students', $.param(student), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                }).success(function(response) {
 
+                        if(response.success)
+                        {
+                            showError(response.message, 2);
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
         };
 
         $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id, {
