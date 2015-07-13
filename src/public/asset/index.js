@@ -2132,12 +2132,12 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-                                    //if(get_hosting_name == responseClient.data[i].url)
-                                    //{
+                                    if(get_hosting_name == responseClient.data[i].url)
+                                    {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
-                                    //}
+                                    }
                                 }
                             }
 
@@ -2234,9 +2234,10 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
         $scope.forgotPassword = function(user)
         {
+			
             if(user)
             {
-                user.redirect_url = AuthenticationService.redirect_url;
+                user.redirect_url = window.location.origin;
 
                 $scope.working = true;
                 $http.post( auth_url+'/user/send/forgotpassword', $.param(user), {
