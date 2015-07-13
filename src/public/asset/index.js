@@ -1750,7 +1750,39 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
 
         $scope.addUserStudent = function(student)
         {
+            if(student)
+            {
+                $scope.working = true;
+                $http.post( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students', $.param(student), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                }).success(function(response) {
 
+                        if(response.success)
+                        {
+                            showError(response.message, 2);
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
         };
 
         $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id, {
@@ -2132,12 +2164,12 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-                                    //if(get_hosting_name == responseClient.data[i].url)
-                                    //{
+                                    if(get_hosting_name == responseClient.data[i].url)
+                                    {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
-                                    //}
+                                    }
                                 }
                             }
 
