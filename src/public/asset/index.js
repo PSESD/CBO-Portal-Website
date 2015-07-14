@@ -883,6 +883,10 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
 
         var student_id = $routeParams.student_id;
 
+        $scope.program = {
+            active: true
+        };
+
         $scope.addProgramStudent = function(program)
         {
             if(program)
@@ -920,10 +924,6 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
 
                     });
             }
-        };
-
-        $scope.program = {
-            active: true
         };
 
         $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id, {
@@ -1412,7 +1412,6 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                 program.cohort = rawCohart;
 
                 console.log(program);
-                /*
                 $scope.working = true;
                 $http.post( api_url+AuthenticationService.organization_id+'/programs/'+program_id+'/students', $.param(program), {
                     headers: {
@@ -1446,7 +1445,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                         }
 
                     });
-*/
+
             }
         };
 
@@ -1482,7 +1481,18 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
         })
             .success(function(response) {
 
-                console.log(response);
+                var availableTags = [];
+                for(var i=0; i<response.data.length; i++)
+                {
+                    availableTags.push(response.data[i].name);
+                }
+
+                jQuery(document).ready(function() {
+                    jQuery("#cohort").tagit({
+                        availableTags: availableTags
+                    });
+                });
+
                 $rootScope.doingResolve = false;
 
             })
@@ -2264,12 +2274,12 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-//                                    if(get_hosting_name == responseClient.data[i].url)
-//                                    {
+                                    if(get_hosting_name == responseClient.data[i].url)
+                                    {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
-//                                    }
+                                    }
                                 }
                             }
 
