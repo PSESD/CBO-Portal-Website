@@ -383,7 +383,6 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                     }
                 })
                     .success(function(response) {
-						console.log(response);
                         if(response.success == true)
                         {
                             showError(response.message, 2);
@@ -644,7 +643,6 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             .success(function(response) {
 
                 $scope.student = response;
-				console.log(response);
                 $rootScope.doingResolve = false;
 				
             })
