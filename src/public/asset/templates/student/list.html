@@ -22,7 +22,7 @@
                                 <th><h1>Name</h1></th>
                                 <th><h1>School ID</h1></th>
                                 <th><h1>School District</h1></th>
-                                <th class="text-center" colspan="2"><h1>Action</h1></th>
+                                <th class="text-center"><h1>Action</h1></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -32,11 +32,6 @@
                                 <td>{{ student.school_district }}</td>
                                 <td class="text-center">
                                     <a class="glyphicon glyphicon-pencil" ng-href="#/student/edit/{{ student._id }}"></a>
-                                    
-                                </td>
-								<td class="text-center">
-                                    <!--<a class="btn btn-default" ng-href="#/student/programs/{{ student._id }}"><i class="fa fa-list-alt"></i> Programs</a>-->
-                                    <!--<a ng-hide="(student.district_student_id+'').length <= 0" class="btn btn-default" ng-href="#/student/backpacks/{{ student._id }}"><i class="fa fa-list-alt"></i> Backpacks</a>-->
 									<a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
                                 </td>
                             </tr>

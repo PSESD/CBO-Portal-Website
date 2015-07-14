@@ -4,10 +4,10 @@
         <div class="card">
 
             <div class="col-md-12">
-                <h1>
+                <h2>
                     {{ student.first_name }} {{ student.last_name }}
                     <span class="pull-right small">LAST UPDATE {{ student.last_updated | date : 'dd/MM/yy' : timezone }}</span>
-                </h1>
+                </h2>
             </div>
 
             <div class="col-md-5 data-content">
@@ -28,9 +28,9 @@
                         <hr>
                     </div>
                     <div class="content">
-                        N/A <br/>
-                        N/A <br/>
-                        N/A
+                         {{student.email}} <br/>
+                         {{student.phone}} <br/>
+                         {{student.address}}
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -39,16 +39,16 @@
                         <hr>
                     </div>
                     <div class="content">
-                        <b>N/A</b> <br/>
-                        N/A<br/>
-                        N/A<br/>
-                        N/A
+                        <b>{{student.emergency1_name}}</b> <br/>
+                            {{student.emergency1_relationship}}<br/>
+						    {{student.emergency1_email}}<br/>
+							{{student.emergency1_phone}}
                     </div>
                     <div class="content">
-                        <b>N/A</b> <br/>
-                        N/A<br/>
-                        N/A<br/>
-                        N/A
+                        <b>{{student.emergency2_name}}</b> <br/>
+                           {{student.emergency2_relationship}}<br/>
+							{{student.emergency2_email}}<br/>
+							{{student.emergency2_phone}}
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -57,8 +57,8 @@
                         <hr>
                     </div>
                     <div class="content">
-                        <span>N/A</span> <br/>
-                        <span>N/A</span> <br/>
+                        <span>{{student.mentor1_name}}</span> <br/>
+                        <span>{{student.mentor2_name}}</span> <br/>
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@
                         <b>Expected Graduation Year</b> {{studentdetails.transcriptTerm.schoolYear}} <br/>
                         <b>Grade level</b> N/A<br/>
                     </div>
-                    <a href="#" class="button" ng-click="showSchoolHistory()">SEE SCHOOL HISTORY</a>
+                    <a href="#" class="button" ng-click="showSchoolHistory()" style="display:inline-block">SEE SCHOOL HISTORY</a>
                 </div>
 
                 <div class="col-md-4">
@@ -96,11 +96,11 @@
 
                 <div class="col-md-4">
                     <div class="title">
-                        <p class="subhead">CURRENT COURSES</p>
+                        <p class="subhead">CURRENT COURSES - <b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
                         <hr>
                     </div>
                     <div class="content">
-					<div ng-repeat="course in studentdetails.transcriptTerm.courses.course">
+					<div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
                         <span>{{course.courseTitle}}</span> <br/>
 					</div>
                     </div>
@@ -116,12 +116,25 @@
                     </div>
                     <div class="content">
 				<table class='table table-condensed table-bordered'>
-				<tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm">
+				<thead>
+					<th>School Name</th>
+					<th>School Year</th>
+					<th>Start Date</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm">
 					<td>
-					<p>{{data.schoolYear}}</p>
-					<p>{{data.school.schoolName}}</p>
+					{{data.school.schoolName}}
+					</td>
+					<td>
+					{{data.school.schoolYear}}
+					</td>
+					<td>
+					{{studentdetails.transcriptTerm.session.startDate}}
 					</td>
 				</tr>
+				</tbody>
+				
 				</table>
 				
 				</div>
@@ -144,65 +157,110 @@
     <div ng-class="attendance">
         <div class="card lock">
             <div class="title">
-                <h1>ATTENDANCE</h1>
+                <h4>ATTENDANCE</h4>
                 <hr>
             </div>
             <div class="content">
-                <p class="subhead">DAYS MISSED IN YEAR</p>
-                <hr/>
-                <p>{{(studentdetails.attendance.summaries.summary.daysInAttendance - studentdetails.attendance.summaries.summary.daysAbsent) /studentdetails.attendance.summaries.summary.daysInAttendance * 100 | number:0}} %</p>
+                <p><b>Attendance % : </b>{{studentdetails.attendance.summaries.summary.daysInAttendance /(studentdetails.attendance.summaries.summary.daysInAttendance + studentdetails.attendance.summaries.summary.daysAbsent) | number:0}} %</p>
+				<p><b>Attendance Start Date : </b>{{studentdetails.summaries.summary.startDate}}</p>
+				<p><b>Days in Attendance : </b>{{studentdetails.attendance.summaries.summary.daysInAttendance}}</p>
+				<p><b>Days Absent : </b>{{studentdetails.attendance.summaries.summary.daysAbsent}}</p>
 				<div ng-show="attendance_table" style="height:350px; overflow:scroll;">
 				<table class='table table-bordered table-condensed'>
-				<tr ng-repeat="data in studentdetails.attendance.events.event">
+				<thead>
+					<th>Event Date</th>
+					<th>Attendance Status</th>
+					<th>Event Type</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="data in studentdetails.attendance.events.event">
 					<td>
 					<p>{{data.calendarEventDate}}</p>
+					</td>
+					<td>
 					<p>{{data.dailyAttendanceStatus}}</p>
 					</td>
+					<td>
+					<p>{{data.attendanceEventType}}</p>
+					</td>
 				</tr>
+				</tbody>
+				
 				</table>
 				</div>
             </div>
             <a class="btn-expand button" ng-click="expandAttendance()" ng-show="attendance_expand_btn">EXPAND</a>
-            <a class="btn-expand button" ng-click="closeAttendance()" ng-show="attendance_close_btn">CLOSE</a>
+            <a class="btn-expand button" ng-click="closeAttendance()" ng-show="attendance_close_btn" style=" bottom:15px;">CLOSE</a>
         </div>
     </div>
-
-    <div class="col-md-3">
+<!--
+    <div ng-class="behavior">
         <div class="card lock">
             <div class="title">
-                <h1>BEHAVIOR</h1>
+                <h4>BEHAVIOR</h4>
                 <hr>
             </div>
             <div class="content">
                 <p class="subhead">#4 DETENTION</p>
                 <span>N/A <br/> N/A</span>
             </div>
-            <a class="btn-expand button">EXPAND</a>
+            <a class="btn-expand button" ng-click="expandBehavior()" ng-show="behavior_expand_btn">EXPAND</a>
+            <a class="btn-expand button" ng-click="closeBehavior()" ng-show="behavior_close_btn">CLOSE</a>
         </div>
     </div>
-
-    <div class="col-md-3">
+-->
+   <div ng-class="courses">
         <div class="card lock">
             <div class="title">
-                <h1>COURSES</h1>
+                <h4>COURSES</h4>
                 <hr>
             </div>
             <div class="content">
-                <p class="subhead">ON TRACK TO GRADUATE</p>
-                <b>N/A</b> Credits Earned <br/>
+                <p class="subhead">On Track to Graduate : N/A</p>
+                <!--
+				<b>N/A</b> Credits Earned <br/>
                 <b>N/A</b> Credits Attempted <br/>
                 <b>N/A</b> Credits Expected <br/>
                 <b>N/A</b> 11 <br/>
+				-->
+				<div ng-show="courses_table" style="height:350px; overflow:scroll;">
+				<table class='table table-bordered table-condensed'>
+				<thead>
+					<th>School Year</th>
+					<th>Course Title</th>
+					<th>Subject</th>
+					<th>Final Mark</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | flattenRows">
+					<td>
+					{{data.schoolYear}}
+					</td>
+					<td>
+					{{data.courseTitle}}
+					</td>
+					<td>
+					{{data.subject}}
+					</td>
+					<td>
+					{{data.finalMarkValue}}
+					</td>
+				</tr>
+				</tbody>
+				
+				</table>
+				</div>
             </div>
-            <a class="btn-expand button">EXPAND</a>
+            <a class="btn-expand button" ng-click="expandCourses()" ng-show="courses_expand_btn">EXPAND</a>
+            <a class="btn-expand button" ng-click="closeCourses()" ng-show="courses_close_btn">CLOSE</a>
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div ng-class="program">
         <div class="card">
-		<a ng-href="#/student/programs/{{ student._id }}" class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></a>
+		<a ng-href="#/student/programs/{{ student._id }}" class="glyphicon glyphicon-pencil pull-right" aria-hidden="true" style="margin-left:10px;position:relative;left:25px;top:-10px;"></a>
             <div class="title">
-                <h1>PROGRAM PARTICIPATION</h1>
+                <h4>PROGRAM PARTICIPATION</h4>
                 <hr>
             </div>
             <div class="content">
@@ -211,7 +269,8 @@
                 <b>{{program.name}}</b><br/>
 				</div>
             </div>
-            <a class="btn-expand button">EXPAND</a>
+            <a class="btn-expand button" ng-click="expandProgram()" ng-show="program_expand_btn">EXPAND</a>
+            <a class="btn-expand button" ng-click="closeProgram()" ng-show="program_close_btn">CLOSE</a>
         </div>
     </div>
 
