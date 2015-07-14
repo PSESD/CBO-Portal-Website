@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="col-md-12">
+
+                <div class="title">
+                    <h1><a href="#/user/group/{{ user._id }}/add"><i class="glyphicon glyphicon-plus font16"></i> Add Student</a></h1>
+                </div>
+
+                <div class="content">
+
+                    <h1 class="bold">{{ user.first_name }} {{ user.lat_name }} Students</h1>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th><h1>Name</h1></th>
+                                <th><h1>School ID</h1></th>
+                                <th><h1>School District</h1></th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="student in students">
+                                <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.first_name }} {{ student.last_name }}</a></td>
+                                <td>{{student._id}}</td>
+                                <td>{{ student.school_district }}</td>
+                                <td class="text-center">
+                                    <a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>

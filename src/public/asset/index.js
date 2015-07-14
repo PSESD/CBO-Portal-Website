@@ -110,7 +110,22 @@ app.config(function ($routeProvider) {
         when('/user/invite', {
             templateUrl: 'asset/templates/user/invite.html',
             controller: 'UserInviteController',
-            access: { requiredAuthentication: true }
+            access: { requiredAuthentication: true, requiredAdmin: true }
+        }).
+        when('/user/group/:user_id/add', {
+            templateUrl: 'asset/templates/user/group_add.html',
+            controller: 'UserGroupAddController',
+            access: { requiredAuthentication: true, requiredAdmin: true }
+        }).
+        when('/user/group/:user_id', {
+            templateUrl: 'asset/templates/user/group.html',
+            controller: 'UserGroupController',
+            access: { requiredAuthentication: true, requiredAdmin: true }
+        }).
+        when('/user/edit/:user_id', {
+            templateUrl: 'asset/templates/user/edit.html',
+            controller: 'UserEditController',
+            access: { requiredAuthentication: true, requiredAdmin: true }
         }).
         when('/user/detail/:user_id', {
             templateUrl: 'asset/templates/user/detail.html',
@@ -141,6 +156,13 @@ app.config(function ($routeProvider) {
 
 });
 
+app.run(['$window', '$rootScope', 
+function ($window ,  $rootScope) {
+  $rootScope.goBack = function(){
+    $window.history.back();
+  }
+}]);
+
 
 app.run(function($rootScope, $http, $location, $window, AuthenticationService, CookieStore) {
 
@@ -150,6 +172,10 @@ app.run(function($rootScope, $http, $location, $window, AuthenticationService, C
         //redirect only if both isAuthenticated is false and no token is set
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             $location.path("/login");
+        }
+        if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAdmin && AuthenticationService.role == 'case-worker') {
+            showError("You don't have any permission to access this page", 1);
+            event.preventDefault();
         }
     });
 });
@@ -165,6 +191,7 @@ app.factory('AuthenticationService', function()
         user_id: null,
         email: null,
         name: null,
+        role: null,
         keep_email: false
     };
 
@@ -187,13 +214,14 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         {
             $cookieStore.put('cboAdmin_cookie_remember', value);
         },
-        setData: function(token, organization_id, redirect_url, user_id, email, name) {
+        setData: function(token, organization_id, redirect_url, user_id, email, name, role) {
             $cookieStore.put('cboAdmin_cookie_token', token);
             $cookieStore.put('cboAdmin_cookie_organization_id', organization_id);
             $cookieStore.put('cboAdmin_cookie_redirect_url', redirect_url);
             $cookieStore.put('cboAdmin_cookie_user_id', user_id);
             $cookieStore.put('cboAdmin_cookie_email', email);
             $cookieStore.put('cboAdmin_cookie_name', name);
+            $cookieStore.put('cboAdmin_cookie_role', role);
 
             AuthenticationService.isAuthenticated = true;
             AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
@@ -202,6 +230,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             AuthenticationService.user_id = $cookieStore.get('cboAdmin_cookie_user_id');
             AuthenticationService.email = $cookieStore.get('cboAdmin_cookie_email');
             AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
+            AuthenticationService.role = $cookieStore.get('cboAdmin_cookie_role');
             $rootScope.showNavBar = true;
             $rootScope.completeName = AuthenticationService.name;
 
@@ -216,6 +245,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
                 AuthenticationService.user_id = $cookieStore.get('cboAdmin_cookie_user_id');
                 AuthenticationService.email = $cookieStore.get('cboAdmin_cookie_email');
                 AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
+                AuthenticationService.role = $cookieStore.get('cboAdmin_cookie_role');
                 $rootScope.showNavBar = true;
                 $rootScope.completeName = AuthenticationService.name;
                 return true;
@@ -238,6 +268,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
                 AuthenticationService.redirect_url = null;
                 AuthenticationService.user_id = null;
                 AuthenticationService.name = null;
+                AuthenticationService.role = null;
                 $rootScope.showNavBar = false;
                 $rootScope.completeName = false;
                 return false;
@@ -261,12 +292,14 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             $cookieStore.remove('cboAdmin_cookie_redirect_url');
             $cookieStore.remove('cboAdmin_cookie_user_id');
             $cookieStore.remove('cboAdmin_cookie_name');
+            $cookieStore.remove('cboAdmin_cookie_role');
             AuthenticationService.isAuthenticated = false;
             AuthenticationService.token = null;
             AuthenticationService.organization_id = null;
             AuthenticationService.redirect_url = null;
             AuthenticationService.user_id = null;
             AuthenticationService.name = null;
+            AuthenticationService.role = null;
             $rootScope.showNavBar = false;
             $rootScope.completeName = false;
             return true;
@@ -354,6 +387,7 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                         if(response.success == true)
                         {
                             showError(response.message, 2);
+							$location.path( '/student' );
                         }
                         else
                         {
@@ -390,13 +424,12 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
 
         var student_id = $routeParams.student_id;
 
-        $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/backpack', {
+        $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/xsre', {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
             }
         })
             .success(function(response) {
-
                 $scope.student = response;
                 $rootScope.doingResolve = false;
 
@@ -442,6 +475,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                         if(response.success == true)
                         {
                             showError(response.message, 2);
+							$location.path( '/student' );
                         }
                         else
                         {
@@ -500,9 +534,45 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
         $rootScope.full_screen = false;
         $scope.student = {};
-
+		$scope.programs = [];
         var student_id = $routeParams.student_id;
-
+		var list_program = [];
+		$scope.sch_history =false;
+		$scope.academic =true;
+		
+		$scope.attendance = "col-md-3";
+		$scope.attendance_table = false;
+		$scope.attendance_expand_btn = true;
+		$scope.attendance_close_btn = false;
+		
+		$scope.expandAttendance = function()
+		{
+			$scope.attendance = "col-md-6";
+			$scope.attendance_table = true;
+			$scope.attendance_expand_btn = false;
+			$scope.attendance_close_btn = true;
+		};
+		
+		$scope.closeAttendance = function()
+		{
+			$scope.attendance = "col-md-3";
+			$scope.attendance_table = false;
+			$scope.attendance_expand_btn = true;
+			$scope.attendance_close_btn = false;
+		};
+		
+		$scope.showSchoolHistory = function()
+		{
+			$scope.sch_history =true;
+			$scope.academic =false;
+		};
+		
+		$scope.closeSchoolHistory = function()
+		{
+			$scope.academic = true;
+			$scope.sch_history = false;
+			
+		};
         $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id, {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
@@ -511,6 +581,98 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             .success(function(response) {
 
                 $scope.student = response;
+                $rootScope.doingResolve = false;
+				
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+			
+			 $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/programs', {
+                        headers: {
+                            'Authorization': 'Bearer '+AuthenticationService.token
+                        }
+                    })
+                        .success(function(response) {
+							/*
+                            for(var i=0; i<response.data.length; i++)
+                            {
+                                for(var j=0; j<list_program.length; j++)
+                                {
+                                    if(response.data[i].program == list_program[j]._id)
+                                    {
+                                        response.data[i].name = list_program[j].name;
+                                    }
+                                }
+                            }
+							*/
+							for(var i=0;i<response.data.length;i++)
+							{
+								list_program[i] = response.data[i].program;
+							}
+                            $rootScope.doingResolve = false;
+							for(var i=0;i<list_program.length;i++)
+							{
+
+								$http.get( api_url+AuthenticationService.organization_id+'/programs/'+list_program[i], {
+									headers: {
+										'Authorization': 'Bearer '+AuthenticationService.token
+									}
+								})
+								.success(function(response) {
+
+									$scope.programs.push(response);
+									$rootScope.doingResolve = false;
+
+								})
+								.error(function(response, status) {
+
+									console.log(response);
+									console.log(status);
+									showError(response, 1);
+									$rootScope.doingResolve = false;
+									if(status == 401)
+									{
+										CookieStore.clearData();
+										$location.path( '/login' );
+									}
+
+								});
+								
+							}
+                        })
+                        .error(function(response, status) {
+
+                            console.log(response);
+                            console.log(status);
+                            showError(response, 1);
+                            $rootScope.doingResolve = false;
+                            if(status == 401)
+                            {
+                                CookieStore.clearData();
+                                $location.path( '/login' );
+                            }
+
+                        });
+						
+					$http.get(api_url+AuthenticationService.organization_id+'/students/'+student_id+'/xsre', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+				console.log(response);		
+                $scope.studentdetails = response;
                 $rootScope.doingResolve = false;
 
             })
@@ -526,8 +688,9 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                     $location.path( '/login' );
                 }
 
-            });
-
+            });	
+						
+						
     }
 ]);
 
@@ -537,7 +700,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
-
+		
         $scope.editProfile = function(user)
         {
             if(user)
@@ -623,14 +786,18 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
-
+		$rootScope.editable = false;
+		
+		$scope.activateEditable = function(){
+			$rootScope.editable = true;
+		};
+		
         $http.get( api_url+AuthenticationService.organization_id+'/users/'+AuthenticationService.user_id, {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
             }
         })
             .success(function(response) {
-
                 $scope.user = response;
                 $rootScope.doingResolve = false;
 
@@ -648,6 +815,61 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                 }
 
             });
+			
+			$scope.editProfile = function(user)
+        {
+            if(user)
+            {
+                $scope.working = true;
+                $http.put( api_url+AuthenticationService.organization_id+'/users/'+AuthenticationService.user_id, $.param(user), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        if(response.success == true)
+                        {
+							$scope.working = false;
+							$location.path( '/profile' );
+							console.log("Successfully updated");
+							 $rootScope.doingResolve = false;
+                            showError(response.message, 2);
+                            var complete_name = '';
+                            if(typeof user.first_name !== 'undefined' && user.first_name)
+                            {
+                                complete_name += user.first_name+' ';
+                            }
+                            if(typeof user.last_name !== 'undefined' && user.last_name)
+                            {
+                                complete_name += user.last_name;
+                            }
+
+                            $rootScope.completeName = complete_name;
+
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+                        $scope.working = false;
+						
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
 
     }
 ]);
@@ -783,7 +1005,6 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
 
                 $scope.student = response;
                 $rootScope.doingResolve = false;
-
             })
             .error(function(response, status) {
 
@@ -968,6 +1189,7 @@ app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$locat
 
                         showError(response.message, 2);
                         $scope.working = false;
+						$location.path( '/program' );
 
                     })
                     .error(function(response, status) {
@@ -995,8 +1217,80 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
+		$rootScope.editable = false;
 
         var program_id = $routeParams.program_id;
+		
+		$scope.activateEditable = function(){
+			$rootScope.editable = true;
+		};
+		
+		$scope.editProgram = function(program)
+        {
+            if(program)
+            {
+                program.redirect_url = AuthenticationService.redirect_url;
+
+                $scope.working = true;
+                $http.put( api_url+AuthenticationService.organization_id+'/programs/'+program_id, $.param(program), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        showError(response.message, 2);
+                        $scope.working = false;
+						$location.path( 'program/detail/'+program_id );
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+			
+			$rootScope.editable = false;
+        };
+		
+		$scope.deleteProgram = function(id, index)
+        {
+            if(id)
+            {
+                $scope.working = true;
+                $http.delete( api_url+AuthenticationService.organization_id+'/programs/'+id, {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+                        $scope.working = false;
+						$location.path( '/program' )
+
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
 
         $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
             headers: {
@@ -1051,7 +1345,7 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
 
                         showError(response.message, 2);
                         $scope.working = false;
-
+						$location.path( '/program' );
                     })
                     .error(function(response, status) {
 
@@ -1121,6 +1415,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                         if(response.success == true)
                         {
                             showError(response.message, 2);
+							$location.path( '/program/students/'+program_id );
                         }
                         else
                         {
@@ -1274,6 +1569,44 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                 }
 
             });
+			
+			$scope.deleteStudent = function(id, index)
+			{
+            if(id)
+            {
+                $scope.working = true;
+                $http.delete( api_url+AuthenticationService.organization_id+'/programs/'+ program_id + '/students/' + id, {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+						
+						console.log(response);
+						if(response.success)
+						{
+							$scope.students.splice(index, 1);
+							$scope.working = false;
+							$location.path( '/program/students/' + program_id )
+						}
+                        
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+					
+            }
+        };
 
     }
 ]);
@@ -1287,6 +1620,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
 
         $scope.deleteProgram = function(id, index)
         {
+			
             if(id)
             {
                 $scope.working = true;
@@ -1296,9 +1630,9 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
                     }
                 })
                     .success(function(response) {
-
                         $scope.programs.splice(index, 1);
                         $scope.working = false;
+						$location.path( '/program' )
 
                     })
                     .error(function(response, status) {
@@ -1404,6 +1738,254 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
 ]);
 
 
+app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.full_screen = false;
+        $rootScope.doingResolve = false;
+
+        var user_id = $routeParams.user_id;
+
+        $scope.students = [];
+
+        $scope.addUserStudent = function(student)
+        {
+            if(student)
+            {
+                $scope.working = true;
+                $http.post( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students', $.param(student), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                }).success(function(response) {
+
+                        if(response.success)
+                        {
+                            showError(response.message, 2);
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
+
+        $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                $scope.user = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+        $http.get( api_url+AuthenticationService.organization_id+'/students', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                if(response.success == true && response.total > 0)
+                {
+                    $scope.students = response.data;
+                }
+                else
+                {
+                    showError(response.error.message, 1);
+                }
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+    }
+]);
+
+
+app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.full_screen = false;
+        $rootScope.doingResolve = false;
+
+        var user_id = $routeParams.user_id;
+
+        $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                $scope.user = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+        $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                console.log(response);
+
+                $scope.students = response.data;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+    }
+]);
+
+
+app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.full_screen = false;
+        $rootScope.doingResolve = false;
+
+        var user_id = $routeParams.user_id;
+
+        $scope.editUser = function(user)
+        {
+            if(user)
+            {
+                $scope.working = true;
+                $http.put( api_url+AuthenticationService.organization_id+'/users/'+user_id, $.param(user), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        if(response.success == true)
+                        {
+                            showError(response.message, 2);
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+                        $scope.working = false;
+
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+        };
+
+        $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                $scope.user = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+    }
+]);
+
+
 app.controller('UserDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
 
@@ -1449,7 +2031,15 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
 
         $scope.deleteUser = function(id, index)
         {
-            if(id)
+            if(AuthenticationService.user_id == id)
+            {
+                showError('Cannot Remove your own data', 1);
+            }
+            else if(AuthenticationService.role == 'case-worker')
+            {
+                showError("You don't have any permission to access this page", 1);
+            }
+            else if(id)
             {
                 $scope.working = true;
                 $http.delete( api_url+AuthenticationService.organization_id+'/users/'+id, {
@@ -1598,6 +2188,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                             var data = responseUser.data;
                                             var id = false;
                                             var complete_name = '';
+                                            var role = 'case-worker';
                                             for(var i=0; i<responseUser.total; i++)
                                             {
                                                 if(data[i].email == send.username)
@@ -1612,13 +2203,15 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                                         complete_name += data[i].last_name;
                                                     }
 
+                                                    role = data[i].role;
+
                                                     $rootScope.completeName = complete_name;
                                                     find = true;
                                                 }
                                             }
                                             if(find)
                                             {
-                                                CookieStore.setData( response.access_token, get_id, get_redirect_url, id, send.username, complete_name );
+                                                CookieStore.setData( response.access_token, get_id, get_redirect_url, id, send.username, complete_name, role );
 
                                                 if(typeof remmember !== 'undefined' && remmember == true)
                                                 {
@@ -1671,14 +2264,119 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
         };
 
-        $scope.forgotPassword = function(data)
+        $scope.forgotPassword = function(user)
         {
-            console.log(data);
+			
+            if(user)
+            {
+                user.redirect_url = window.location.origin;
+
+                $scope.working = true;
+                $http.post( auth_url+'/user/send/forgotpassword', $.param(user), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+						
+                        if(response.status == true)
+                        {
+                            showError(response.message, 2);
+                        }
+                        else
+                        {
+                            showError(response.message, 1);
+                        }
+                        $scope.working = false;
+
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
         };
 
     }
 ]);
 
+app.directive('ngConfirmClick', [
+        function(){
+            return {
+                link: function (scope, element, attr) {
+                    var msg = attr.ngConfirmClick || "Are you sure?";
+                    var clickAction = attr.confirmedClick;
+                    element.bind('click',function (event) {
+                        if ( window.confirm(msg) ) {
+                            scope.$eval(clickAction)
+                        }
+                    });
+                }
+            };
+    }])
+
+app.directive('contenteditable', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, elm, attrs, ctrl) {
+            // view -> model
+			var clickAction = attrs.confirmedAction;
+            elm.bind('blur', function() {
+                var html = elm.html();
+				scope.$apply(function() {
+                    ctrl.$setViewValue(elm.html());
+                });
+				elm.html(html);
+				scope.$eval(clickAction);
+            });
+
+            // model -> view
+            ctrl.render = function(value) {
+                elm.html(value);
+            };
+
+            // load init value from DOM
+            ctrl.$setViewValue(elm.html());
+
+            elm.bind('keydown', function(event) {
+                var esc = event.which == 27,
+                    el = event.target;
+
+                if (esc) {
+                        ctrl.$setViewValue(elm.html());
+                        el.blur();
+                        event.preventDefault();                        
+                    }
+                    
+            });
+            
+        }
+    };
+});
+
+
+
+app.directive('a', function() {
+    return {
+        restrict: 'E',
+        link: function(scope, elem, attrs) {
+            if(attrs.ngClick || attrs.href === '' || attrs.href === '#'){
+                elem.on('click', function(e){
+                    e.preventDefault();
+                });
+            }
+        }
+   };
+});
 
 function showError(message, alert)
 {

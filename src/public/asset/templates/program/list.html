@@ -5,8 +5,7 @@
         <div class="card">
             <div class="col-md-12">
                 <div class="title">
-                    <h1><a href="#/program/add"><i class="glyphicon glyphicon-plus"></i> Add Program</a></h1>
-                    <hr>
+                    <h1><a href="#/program/add"><i class="glyphicon glyphicon-plus font16"></i> Add Program</a></h1>
                 </div>
                 <div class="content">
 
@@ -16,24 +15,22 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Created</th>
-                                <th>Last Update</th>
-                                <th>Action</th>
+                                <!--<th>ID</th>-->
+                                <th>Program Name</th>
+                                <!--<th>Created</th>-->
+                                <!--<th>Last Update</th>-->
+                                <th class="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="program in programs">
-                                <td>{{ program._id }}</td>
-                                <td>{{ program.name }}</td>
-                                <td>{{ program.created | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
-                                <td>{{ program.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>
-                                <td>
-                                    <a class="btn btn-default" ng-href="#/program/detail/{{ program._id }}"><i class="fa fa-eye"></i> Detail</a>
-                                    <a class="btn btn-default" ng-href="#/program/students/{{ program._id }}"><i class="fa fa-list-alt"></i> Students</a>
-                                    <a class="btn btn-default" ng-href="#/program/edit/{{ program._id }}"><i class="fa fa-pencil"></i> Edit</a>
-                                    <a class="btn btn-danger" ng-click="deleteProgram(program._id, $index)" ng-disabled="working"><i class="fa fa-remove"></i> Delete</a>
+                                <!--<td>{{ program._id }}</td>-->
+                                <td><a ng-href="#/program/detail/{{ program._id }}">{{ program.name }}</a></td>
+                                <!--<td>{{ program.created | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>-->
+                                <!--<td>{{ program.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>-->
+                                <td class="text-center">
+                                    <a class="glyphicon glyphicon-user" ng-href="#/program/students/{{ program._id }}"></a>
+									<a class="glyphicon glyphicon-trash" confirmed-click="deleteProgram(program._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
                                 </td>
                             </tr>
                             </tbody>

@@ -6,13 +6,13 @@
             <div class="col-md-12">
                 <div class="title">
                     <h1>
-                        Add Student
+                        Add {{ user.first_name }} {{ user.lat_name }} Student
                     </h1>
                     <hr>
                 </div>
                 <div class="content">
 
-                    <form class="form-horizontal" role="form" ng-submit="addStudent(student)">
+                    <form class="form-horizontal" role="form" ng-submit="addUserStudent(student)">
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="first_name">First Name:</label>
                             <div class="col-sm-9">
@@ -41,7 +41,7 @@
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
                                 <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#/student" class="btn btn-default">Back</a>
+                                <a href="#/user" class="btn btn-default">Back</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>

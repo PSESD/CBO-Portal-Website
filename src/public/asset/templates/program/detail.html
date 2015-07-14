@@ -12,8 +12,18 @@
                 </div>
                 <div class="content">
 
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" ng-submit="editProgram(program)">
                         <div class="form-actions form-group">
+						<div class="row no-gutter">
+						<div class="col-md-2 pull-right">
+								<a class="btn btn-default" ng-href="#/program/students/{{ program._id }}/add">
+									<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add
+								</a>
+								<a class="btn btn-default" confirmed-click="deleteProgram(program._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+								</a>
+						</div>
+						</div>
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
                                 <a href="#/program" class="btn btn-default">Back</a>
@@ -23,7 +33,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="name">Name:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="program.name" id="name" readonly>
+                                <div confirmed-action="editProgram(program)" ng-click="activateEditable()" contentEditable={{editable}} type="text" class="form-control" ng-model="program.name" id="name">{{program.name}}</div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -38,10 +48,11 @@
                                 <input type="text" class="form-control" ng-model="program.last_updated" id="last_updated" readonly>
                             </div>
                         </div>
-                        <div class="form-actions form-group">
+						
+						<div class="form-actions form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
-                                <a href="#/program" class="btn btn-default">Back</a>
+								 <button type="submit" class="btn btn-primary" ng-disabled="working">Save</button>
                             </div>
                             <div class="clearfix"></div>
                         </div>

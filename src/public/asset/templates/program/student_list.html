@@ -20,12 +20,14 @@
                             <tr>
                                 <th>First Name</th>
                                 <th>Last Name</th>
+								<th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="student in students">
-                                <td>{{ student.first_name }}</td>
+                                <td><a href="#/student/edit/{{student._id}}">{{ student.first_name }}</a></td>
                                 <td>{{ student.last_name }}</td>
+								<td><a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a></td>
                             </tr>
                             </tbody>
                         </table>

@@ -19,18 +19,18 @@
                     </div>
                     <div class="content">
                         <b>District ID</b> {{ student.district_student_id }} <br/>
-                        <b>Birthday</b> [[ 9/15/1999 ]]<br/>
-                        <b>Race/Ethnicity</b> [[ Asian ]] <br/>
-                        <b>Gender</b> [[ Female ]]
+                        <b>Birthday</b> {{studentdetails.demographics.birthDate}}<br/>
+                        <b>Race/Ethnicity</b> {{studentdetails.demographics.races.race.race}} <br/>
+                        <b>Gender</b> {{studentdetails.demographics.sex}}
                     </div>
                     <div class="title">
-                        <p class="subhead">PERSONAL INFO</p>
+                        <p class="subhead">PERSONAL CONTACT</p>
                         <hr>
                     </div>
                     <div class="content">
-                        [[ 206.556.7788 ]] <br/>
-                        [[ NAMERSON@GMAIL.COM ]] <br/>
-                        [[ 5555 Street Ave New. ]]
+                        N/A <br/>
+                        N/A <br/>
+                        N/A
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -39,16 +39,16 @@
                         <hr>
                     </div>
                     <div class="content">
-                        <b>[[ Mom Namerson ]]</b> <br/>
-                        [[ 206.556.7788 ]]<br/>
-                        [[ momNAMERSON@GMAIL.COM ]]<br/>
-                        [[ 5555 Street Ave New. ]]
+                        <b>N/A</b> <br/>
+                        N/A<br/>
+                        N/A<br/>
+                        N/A
                     </div>
                     <div class="content">
-                        <b>[[ Dad Namerson ]]</b> <br/>
-                        [[ 206.556.7788 ]]<br/>
-                        [[ dadNAMERSON@GMAIL.COM ]]<br/>
-                        [[ 5555 Street Ave New. ]]
+                        <b>N/A</b> <br/>
+                        N/A<br/>
+                        N/A<br/>
+                        N/A
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -57,8 +57,8 @@
                         <hr>
                     </div>
                     <div class="content">
-                        <span>[[ Bob Hardwork ]]</span> <br/>
-                        <span>[[ Casey Manger ]]</span> <br/>
+                        <span>N/A</span> <br/>
+                        <span>N/A</span> <br/>
                     </div>
                 </div>
 
@@ -66,18 +66,18 @@
 
             </div>
             <div class="col-md-7 data-content">
-
+				<div ng-show="academic">
                 <div class="row col-md-4">
                     <div class="title">
                         <p class="subhead">ACADEMIC</p>
                         <hr>
                     </div>
-                    <div class="content">
-                        <b>Current School</b> [[ Learning High School ]] <br/>
-                        <b>Expected Graduation Year</b> [[ 2016 ]] <br/>
-                        <b>Grade level</b> [[ 11 ]]<br/>
+                    <div class="content" style="margin-bottom:20px;">
+                        <b>Current School</b> {{studentdetails.transcriptTerm.school.schoolName}} <br/>
+                        <b>Expected Graduation Year</b> {{studentdetails.transcriptTerm.schoolYear}} <br/>
+                        <b>Grade level</b> N/A<br/>
                     </div>
-                    <a href="javascript:void(0)" class="button">SEE SCHOOL HISTORY</a>
+                    <a href="#" class="button" ng-click="showSchoolHistory()">SEE SCHOOL HISTORY</a>
                 </div>
 
                 <div class="col-md-4">
@@ -85,12 +85,12 @@
                         <p class="subhead">&nbsp;</p>
                     </div>
                     <div class="content">
-                        <b>U.S. Immigrations Status</b> [[ U.S. Citizen ]] <br/>
-                        <b>Language Spoken at Home</b> English<br/>
-                        <b>IEP</b> No<br/>
-                        <b>S504</b> No<br/>
-                        <b>Free or Reduced Lunch</b> Yes<br/>
-                        <b>3rd Grade Reading Level</b> Yes<br/>
+                        <b>U.S. Immigrations Status</b> N/A <br/>
+                        <b>Language Spoken at Home</b> N/A<br/>
+                        <b>IEP</b> N/A<br/>
+                        <b>S504</b> N/A<br/>
+                        <b>Free or Reduced Lunch</b> N/A<br/>
+                        <b>3rd Grade Reading Level</b> N/A<br/>
                     </div>
                 </div>
 
@@ -100,16 +100,38 @@
                         <hr>
                     </div>
                     <div class="content">
-                        <span>[[ HISTORY 2 ]]</span> <br/>
-                        <span>[[ SPANISH 3 ]]</span> <br/>
-                        <span>[[ LANGUAGE ARTS ]]</span> <br/>
-                        <span>[[ ARTS 2 ]]</span> <br/>
+					<div ng-repeat="course in studentdetails.transcriptTerm.courses.course">
+                        <span>{{course.courseTitle}}</span> <br/>
+					</div>
                     </div>
                 </div>
 
                 <div class="clearfix"></div>
-
+				</div>
+				
+				<div ng-show="sch_history" style="height:250px;overflow:scroll;">
+               
+                <div class="title">
+                        <p class="subhead">School History</p>
+                    </div>
+                    <div class="content">
+				<table class='table table-condensed table-bordered'>
+				<tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm">
+					<td>
+					<p>{{data.schoolYear}}</p>
+					<p>{{data.school.schoolName}}</p>
+					</td>
+				</tr>
+				</table>
+				
+				</div>
+				
+                <div class="clearfix"></div>
+				</div>
+				<a href="#" class="button pull-right" ng-click="closeSchoolHistory()" ng-show="sch_history">Close</a>
             </div>
+			
+			
             <div class="clearfix"></div>
 
             <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up" style="display: block;"><i class="glyphicon glyphicon-menu-up"></i></a>
@@ -119,7 +141,7 @@
 
     </div>
 
-    <div class="col-md-3">
+    <div ng-class="attendance">
         <div class="card lock">
             <div class="title">
                 <h1>ATTENDANCE</h1>
@@ -128,9 +150,20 @@
             <div class="content">
                 <p class="subhead">DAYS MISSED IN YEAR</p>
                 <hr/>
-                <p>[[ 3% ]]</p>
+                <p>{{(studentdetails.attendance.summaries.summary.daysInAttendance - studentdetails.attendance.summaries.summary.daysAbsent) /studentdetails.attendance.summaries.summary.daysInAttendance * 100 | number:0}} %</p>
+				<div ng-show="attendance_table" style="height:350px; overflow:scroll;">
+				<table class='table table-bordered table-condensed'>
+				<tr ng-repeat="data in studentdetails.attendance.events.event">
+					<td>
+					<p>{{data.calendarEventDate}}</p>
+					<p>{{data.dailyAttendanceStatus}}</p>
+					</td>
+				</tr>
+				</table>
+				</div>
             </div>
-            <a class="btn-expand button">EXPAND</a>
+            <a class="btn-expand button" ng-click="expandAttendance()" ng-show="attendance_expand_btn">EXPAND</a>
+            <a class="btn-expand button" ng-click="closeAttendance()" ng-show="attendance_close_btn">CLOSE</a>
         </div>
     </div>
 
@@ -142,7 +175,7 @@
             </div>
             <div class="content">
                 <p class="subhead">#4 DETENTION</p>
-                <span>[[ 9/24/15 ]] <br/> [[ Disruption ]]</span>
+                <span>N/A <br/> N/A</span>
             </div>
             <a class="btn-expand button">EXPAND</a>
         </div>
@@ -156,26 +189,27 @@
             </div>
             <div class="content">
                 <p class="subhead">ON TRACK TO GRADUATE</p>
-                <b>[[ 18 ]]</b> Credits Earned <br/>
-                <b>[[ 20 ]]</b> Credits Attempted <br/>
-                <b>[[ 20 ]]</b> Credits Expected <br/>
-                <b>[[ Grade Level ]]</b> 11 <br/>
+                <b>N/A</b> Credits Earned <br/>
+                <b>N/A</b> Credits Attempted <br/>
+                <b>N/A</b> Credits Expected <br/>
+                <b>N/A</b> 11 <br/>
             </div>
             <a class="btn-expand button">EXPAND</a>
         </div>
     </div>
 
     <div class="col-md-3">
-        <div class="card pencil">
+        <div class="card">
+		<a ng-href="#/student/programs/{{ student._id }}" class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></a>
             <div class="title">
                 <h1>PROGRAM PARTICIPATION</h1>
                 <hr>
             </div>
             <div class="content">
                 <p class="subhead">PROGRAMS</p>
-                <b>[[ Math Tutoring ]]</b> <br/>
-                <b>[[ After School Basketball ]]</b> <br/>
-                <b>[[ Chemistry Tutoring ]]</b> <br/>
+				<div ng-repeat="program in programs">
+                <b>{{program.name}}</b><br/>
+				</div>
             </div>
             <a class="btn-expand button">EXPAND</a>
         </div>

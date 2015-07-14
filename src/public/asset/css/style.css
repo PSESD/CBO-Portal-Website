@@ -112,6 +112,12 @@ p{
     box-shadow: none;
 }
 
+a:hover
+{
+	text-decoration:none;
+	color:#3572b0;
+	cursor:pointer;
+}
 
 /*
 ===============================================
@@ -146,12 +152,21 @@ p{
     margin: 10px 0;
 }
 
+.flexible-card{
+  background: #fff;
+  padding: 24px 50px;
+  border-bottom: solid 5px rgba(0,0,0,0.1);
+  border-radius: 2px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+  margin: 10px 0;
+  margin-left: 100px;
+}
+
 table h1
 {
     font-size: 16px;
     font-weight: bold;
 }
-
 
 /*
 ===============================================
@@ -185,6 +200,10 @@ table h1
     border-top: solid 2px #FFFFFF;
 }
 
+select{
+-webkit-appearance: none;
+}
+
 /*
 ===============================================
 =================== 4.Footer ==================
@@ -192,12 +211,29 @@ table h1
 */
 
 
-
 /*
 ===============================================
 ================== 5.Utility ==================
 ===============================================
 */
+
+div[contentEditable] {
+  cursor: pointer;
+  background-color: white;
+    padding: .2em;
+}
+div[contentEditable]:focus {
+  cursor: pointer;
+  background-color: #D0D0D0;
+    border: 1px solid red;
+  padding: .2em;
+}
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
 .btn-expand
 {
     position: absolute;
@@ -298,6 +334,15 @@ table h1
     }
 }
 
+/*- Sidebar Collapse Icon -*/
+
+.collapse-icon{
+color:white;
+}
+
+.collapse-icon:hover{
+cursor:pointer;
+}
 
 /*
 ===============================================
@@ -466,10 +511,11 @@ a.button
     ===============================================
     */
     .container-with-menu
-    {
+      {
         width: calc(100% - 75px);
         margin-left: 75px;
     }
+
 
 }
 
