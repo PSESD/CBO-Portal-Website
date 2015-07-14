@@ -544,6 +544,21 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 		$scope.attendance_table = false;
 		$scope.attendance_expand_btn = true;
 		$scope.attendance_close_btn = false;
+
+        $scope.behavior = "col-md-3";
+        $scope.behavior_table = false;
+        $scope.behavior_expand_btn = true;
+        $scope.behavior_close_btn = false;
+
+        $scope.courses = "col-md-3";
+        $scope.courses_table = false;
+        $scope.courses_expand_btn = true;
+        $scope.courses_close_btn = false;
+
+        $scope.program = "col-md-3";
+        $scope.program_table = false;
+        $scope.program_expand_btn = true;
+        $scope.program_close_btn = false;
 		
 		$scope.expandAttendance = function()
 		{
@@ -560,6 +575,54 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 			$scope.attendance_expand_btn = true;
 			$scope.attendance_close_btn = false;
 		};
+
+        $scope.expandBehavior = function()
+        {
+            $scope.behavior = "col-md-6";
+            $scope.behavior_table = true;
+            $scope.behavior_expand_btn = false;
+            $scope.behavior_close_btn = true;
+        };
+
+        $scope.closeBehavior = function()
+        {
+            $scope.behavior = "col-md-3";
+            $scope.behavior_table = false;
+            $scope.behavior_expand_btn = true;
+            $scope.behavior_close_btn = false;
+        };
+
+        $scope.expandCourses = function()
+        {
+            $scope.courses = "col-md-6";
+            $scope.courses_table = true;
+            $scope.courses_expand_btn = false;
+            $scope.courses_close_btn = true;
+        };
+
+        $scope.closeCourses = function()
+        {
+            $scope.courses = "col-md-3";
+            $scope.courses_table = false;
+            $scope.courses_expand_btn = true;
+            $scope.courses_close_btn = false;
+        };
+
+        $scope.expandProgram = function()
+        {
+            $scope.program = "col-md-6";
+            $scope.program_table = true;
+            $scope.program_expand_btn = false;
+            $scope.program_close_btn = true;
+        };
+
+        $scope.closeProgram = function()
+        {
+            $scope.program = "col-md-3";
+            $scope.program_table = false;
+            $scope.program_expand_btn = true;
+            $scope.program_close_btn = false;
+        };
 		
 		$scope.showSchoolHistory = function()
 		{
@@ -692,7 +755,23 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 						
 						
     }
-]);
+]).filter('flattenRows', function() {
+    return function(transcriptTerm) {
+        var flatten = [];
+        var subrows ="";
+        angular.forEach(transcriptTerm, function(row) {
+            subrows = row.courses.course;
+            flatten.push(row);
+            if (subrows) {
+                angular.forEach(subrows, function(subrow) {
+                    flatten.push(angular.extend(subrow, {subrow: true}));
+                });
+            }
+        });
+        return flatten;
+
+    }
+});
 
 
 app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
@@ -727,6 +806,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
                             }
 
                             $rootScope.completeName = complete_name;
+                            $location.path( '/profile' );
 
                         }
                         else
@@ -2079,6 +2159,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                         if(response.success == true)
                         {
                             showError(response.message, 2);
+                            $location.path( '/user' );
                         }
                         else
                         {
@@ -2249,6 +2330,24 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
 
     }
 ]);
+
+
+app.filter('unique', function() {
+    return function(collection, keyname) {
+        var output = [],
+            keys = [];
+
+        angular.forEach(collection, function(item) {
+            var key = item[keyname];
+            if(keys.indexOf(key) === -1) {
+                keys.push(key);
+                output.push(item);
+            }
+        });
+
+        return output;
+    };
+});
 
 app.controller('HeartbeatController', ['$rootScope', '$scope',
     function ($rootScope, $scope) {
