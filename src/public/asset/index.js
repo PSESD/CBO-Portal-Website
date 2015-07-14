@@ -371,7 +371,7 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
-		$scope.student.college_bound = 'Yes';
+
         $scope.addStudent = function(student)
         {
             if(student)
@@ -383,6 +383,7 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                     }
                 })
                     .success(function(response) {
+
                         if(response.success == true)
                         {
                             showError(response.message, 2);
@@ -544,21 +545,6 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 		$scope.attendance_expand_btn = true;
 		$scope.attendance_close_btn = false;
 		
-		$scope.behavior = "col-md-3";
-		$scope.behavior_table = false;
-		$scope.behavior_expand_btn = true;
-		$scope.behavior_close_btn = false;
-		
-		$scope.courses = "col-md-3";
-		$scope.courses_table = false;
-		$scope.courses_expand_btn = true;
-		$scope.courses_close_btn = false;
-		
-		$scope.program = "col-md-3";
-		$scope.program_table = false;
-		$scope.program_expand_btn = true;
-		$scope.program_close_btn = false;
-		
 		$scope.expandAttendance = function()
 		{
 			$scope.attendance = "col-md-6";
@@ -573,54 +559,6 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 			$scope.attendance_table = false;
 			$scope.attendance_expand_btn = true;
 			$scope.attendance_close_btn = false;
-		};
-		
-		$scope.expandBehavior = function()
-		{
-			$scope.behavior = "col-md-6";
-			$scope.behavior_table = true;
-			$scope.behavior_expand_btn = false;
-			$scope.behavior_close_btn = true;
-		};
-		
-		$scope.closeBehavior = function()
-		{
-			$scope.behavior = "col-md-3";
-			$scope.behavior_table = false;
-			$scope.behavior_expand_btn = true;
-			$scope.behavior_close_btn = false;
-		};
-		
-		$scope.expandCourses = function()
-		{
-			$scope.courses = "col-md-6";
-			$scope.courses_table = true;
-			$scope.courses_expand_btn = false;
-			$scope.courses_close_btn = true;
-		};
-		
-		$scope.closeCourses = function()
-		{
-			$scope.courses = "col-md-3";
-			$scope.courses_table = false;
-			$scope.courses_expand_btn = true;
-			$scope.courses_close_btn = false;
-		};
-		
-		$scope.expandProgram = function()
-		{
-			$scope.program = "col-md-6";
-			$scope.program_table = true;
-			$scope.program_expand_btn = false;
-			$scope.program_close_btn = true;
-		};
-		
-		$scope.closeProgram = function()
-		{
-			$scope.program = "col-md-3";
-			$scope.program_table = false;
-			$scope.program_expand_btn = true;
-			$scope.program_close_btn = false;
 		};
 		
 		$scope.showSchoolHistory = function()
@@ -754,24 +692,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 						
 						
     }
-])
-.filter('flattenRows', function() {
-    return function(transcriptTerm) {
-      var flatten = [];
-	  var subrows ="";
-      angular.forEach(transcriptTerm, function(row) {
-        subrows = row.courses.course;
-        flatten.push(row);
-        if (subrows) {
-          angular.forEach(subrows, function(subrow) {
-            flatten.push(angular.extend(subrow, {subrow: true}));
-          });
-        }
-      });
-      return flatten;
-	  
-    }
-  });
+]);
 
 
 app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
@@ -806,8 +727,6 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
                             }
 
                             $rootScope.completeName = complete_name;
-							
-							$location.path( '/profile' );
 
                         }
                         else
@@ -1480,10 +1399,20 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
         $rootScope.doingResolve = false;
 
         var program_id = $routeParams.program_id;
+
+        $scope.program = {
+            active: true
+        };
+
         $scope.addProgramStudent = function(program)
         {
             if(program)
             {
+                var rawCohart = program.cohort.split(',');
+                program.cohort = rawCohart;
+
+                console.log(program);
+                /*
                 $scope.working = true;
                 $http.post( api_url+AuthenticationService.organization_id+'/programs/'+program_id+'/students', $.param(program), {
                     headers: {
@@ -1517,11 +1446,8 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                         }
 
                     });
+*/
             }
-        };
-
-        $scope.program = {
-            active: true
         };
 
         $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
@@ -1532,6 +1458,31 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
             .success(function(response) {
 
                 $scope.program = response;
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+        $http.get( api_url+AuthenticationService.organization_id+'/tags', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                console.log(response);
                 $rootScope.doingResolve = false;
 
             })
@@ -1786,11 +1737,10 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
                     }
                 })
                     .success(function(response) {
-					
-                        if(response.success == true)
+
+                        if(response.status == true)
                         {
                             showError(response.message, 2);
-							$location.path( '/user' );
                         }
                         else
                         {
@@ -1828,42 +1778,81 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
         var user_id = $routeParams.user_id;
 
         $scope.students = [];
+        $scope.new_student = false;
 
-        $scope.addUserStudent = function(student)
+        $scope.addUserStudent = function(student, new_student)
         {
+            console.log(student);
+            console.log(new_student);
             if(student)
             {
                 $scope.working = true;
-                $http.post( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students', $.param(student), {
-                    headers: {
-                        'Authorization': 'Bearer '+AuthenticationService.token
-                    }
-                }).success(function(response) {
-
-                        if(response.success)
-                        {
-                            showError(response.message, 2);
-							$location.path( '/user' );
+                if(new_student == true)
+                {
+                    $http.post( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students', $.param(student), {
+                        headers: {
+                            'Authorization': 'Bearer '+AuthenticationService.token
                         }
-                        else
-                        {
-                            showError(response.message, 1);
+                    }).success(function(response) {
+
+                            $scope.working = false;
+                            if(response.success)
+                            {
+                                showError(response.message, 2);
+                            }
+                            else
+                            {
+                                showError(response.message, 1);
+                            }
+
+                        })
+                        .error(function(response, status) {
+
+                            console.log(response);
+                            console.log(status);
+                            showError(response, 1);
+                            $scope.working = false;
+                            if(status == 401)
+                            {
+                                CookieStore.clearData();
+                                $location.path( '/login' );
+                            }
+
+                        });
+                }
+                else
+                {
+                    $http.put( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students/'+student.student_id, {}, {
+                        headers: {
+                            'Authorization': 'Bearer '+AuthenticationService.token
                         }
+                    }).success(function(response) {
 
-                    })
-                    .error(function(response, status) {
+                            $scope.working = false;
+                            if(response.success)
+                            {
+                                showError(response.message, 2);
+                            }
+                            else
+                            {
+                                showError(response.message, 1);
+                            }
 
-                        console.log(response);
-                        console.log(status);
-                        showError(response, 1);
-                        $scope.working = false;
-                        if(status == 401)
-                        {
-                            CookieStore.clearData();
-                            $location.path( '/login' );
-                        }
+                        })
+                        .error(function(response, status) {
 
-                    });
+                            console.log(response);
+                            console.log(status);
+                            showError(response, 1);
+                            $scope.working = false;
+                            if(status == 401)
+                            {
+                                CookieStore.clearData();
+                                $location.path( '/login' );
+                            }
+
+                        });
+                }
             }
         };
 
@@ -1901,7 +1890,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
 
                 if(response.success == true && response.total > 0)
                 {
-                    $scope.students = response.data;
+                    $scope.list_student = response.data;
                 }
                 else
                 {
@@ -1935,6 +1924,35 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
         $rootScope.doingResolve = false;
 
         var user_id = $routeParams.user_id;
+
+        $scope.deleteStudent = function(student_id, index)
+        {
+            $http.delete( api_url+AuthenticationService.organization_id+'/users/'+user_id+'/students/'+student_id, {
+                headers: {
+                    'Authorization': 'Bearer '+AuthenticationService.token
+                }
+            })
+                .success(function(response) {
+
+                    console.log(response);
+                    $scope.students.splice(index, 1);
+                    $scope.working = false;
+
+                })
+                .error(function(response, status) {
+
+                    console.log(response);
+                    console.log(status);
+                    showError(response, 1);
+                    $scope.working = false;
+                    if(status == 401)
+                    {
+                        CookieStore.clearData();
+                        $location.path( '/login' );
+                    }
+
+                });
+        };
 
         $http.get( api_url+AuthenticationService.organization_id+'/users/'+user_id, {
             headers: {
@@ -2005,7 +2023,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
             if(user)
             {
                 $scope.working = true;
-                $http.put( api_url+AuthenticationService.organization_id+'/users/'+user_id, $.param(user), {
+                $http.put( api_url+'user/role/'+user_id, $.param(user), {
                     headers: {
                         'Authorization': 'Bearer '+AuthenticationService.token
                     }
@@ -2015,7 +2033,6 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                         if(response.success == true)
                         {
                             showError(response.message, 2);
-							$location.path( '/user' );
                         }
                         else
                         {
@@ -2247,12 +2264,12 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-                                    if(get_hosting_name == responseClient.data[i].url)
-                                    {
+//                                    if(get_hosting_name == responseClient.data[i].url)
+//                                    {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
-                                    }
+//                                    }
                                 }
                             }
 
@@ -2364,11 +2381,11 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 						
                         if(response.status == true)
                         {
-                            showError(response.message, 1);
+                            showError(response.message, 2);
                         }
                         else
                         {
-                            showError(response.message, 2);
+                            showError(response.message, 1);
                         }
                         $scope.working = false;
 
@@ -2446,22 +2463,7 @@ app.directive('contenteditable', function() {
     };
 });
 
-app.filter('unique', function() {
-   return function(collection, keyname) {
-      var output = [], 
-          keys = [];
 
-      angular.forEach(collection, function(item) {
-          var key = item[keyname];
-          if(keys.indexOf(key) === -1) {
-              keys.push(key);
-              output.push(item);
-          }
-      });
-
-      return output;
-   };
-});
 
 app.directive('a', function() {
     return {

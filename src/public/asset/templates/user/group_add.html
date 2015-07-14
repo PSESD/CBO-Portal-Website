@@ -12,26 +12,41 @@
                 </div>
                 <div class="content">
 
-                    <form class="form-horizontal" role="form" ng-submit="addUserStudent(student)">
+                    <form class="form-horizontal" role="form" ng-submit="addUserStudent(student, new_student)" novalidate>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="first_name">First Name:</label>
+                            <div class="col-sm-3"></div>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.first_name" id="first_name" required autofocus>
+                                <input type="checkbox" ng-model="new_student" id="new_student">
+                                <label for="new_student">New Student</label>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-show="new_student == false">
+                            <label class="col-sm-3 control-label" for="studentId">Student:</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" ng-model="student.student_id" id="studentId" required
+                                        ng-options="student._id as student.first_name+' '+student.last_name for student in list_student">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="new_student == true">
+                            <label class="col-sm-3 control-label" for="first_name">First Name:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="student.first_name" id="first_name">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="new_student == true">
                             <label class="col-sm-3 control-label" for="last_name">Last Name:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" ng-model="student.last_name" id="last_name" required>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-show="new_student == true">
                             <label class="col-sm-3 control-label" for="district_student_id">District Student ID:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" ng-model="student.district_student_id" id="district_student_id">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-show="new_student == true">
                             <label class="col-sm-3 control-label" for="school_district">District Student Name:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" ng-model="student.school_district" id="school_district">
@@ -41,7 +56,7 @@
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
                                 <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#/user" class="btn btn-default">Back</a>
+                                <a href="#/user/group/{{user._id}}" class="btn btn-default">Back</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>
