@@ -951,6 +951,42 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
 
             });
 
+        $http.get( api_url+AuthenticationService.organization_id+'/tags', {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+
+                var availableTags = [];
+                for(var i=0; i<response.data.length; i++)
+                {
+                    availableTags.push(response.data[i].name);
+                }
+
+                jQuery(document).ready(function() {
+                    jQuery("#cohort").tagit({
+                        availableTags: availableTags
+                    });
+                });
+
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
         $http.get( api_url+AuthenticationService.organization_id+'/programs', {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
