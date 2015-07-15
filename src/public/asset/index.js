@@ -2149,6 +2149,12 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
             if(user)
             {
                 $scope.working = true;
+
+                if(user.is_special_case_worker2 == true)
+                    user.is_special_case_worker = false;
+                else
+                    user.is_special_case_worker = true
+
                 $http.put( api_url+'user/role/'+user_id, $.param(user), {
                     headers: {
                         'Authorization': 'Bearer '+AuthenticationService.token
@@ -2190,6 +2196,11 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
             }
         })
             .success(function(response) {
+
+                if(response.is_special_case_worker == true)
+                    response.is_special_case_worker2 = false;
+                else
+                    response.is_special_case_worker2 = true
 
                 $scope.user = response;
                 $rootScope.doingResolve = false;
