@@ -10,7 +10,7 @@ var globalConfig = {
     grant_type: 'password'
 };
 
-var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date']);
+var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date','anguFixedHeaderTable']);
 
 app.config(['$httpProvider', function ($httpProvider) {
     //Reset headers to avoid OPTIONS request (aka preflight)
@@ -734,7 +734,9 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             }
         })
             .success(function(response) {
-				console.log(response);		
+				console.log(response);
+				$scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
+				$scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
                 $scope.studentdetails = response;
                 $rootScope.doingResolve = false;
 
@@ -2409,12 +2411,12 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-                                    if(get_hosting_name == responseClient.data[i].url)
-                                    {
+                                    //if(get_hosting_name == responseClient.data[i].url)
+                                    //{
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
-                                    }
+                                    //}
                                 }
                             }
 
@@ -2607,8 +2609,6 @@ app.directive('contenteditable', function() {
         }
     };
 });
-
-
 
 app.directive('a', function() {
     return {

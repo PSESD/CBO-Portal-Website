@@ -217,6 +217,10 @@ select{
 ===============================================
 */
 
+.table{
+	height:350px;	
+}
+
 div[contentEditable] {
   cursor: pointer;
   background-color: white;

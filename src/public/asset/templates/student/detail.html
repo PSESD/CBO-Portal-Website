@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <h2>
                     {{ student.first_name }} {{ student.last_name }}
-                    <span class="pull-right small">LAST UPDATE {{ student.last_updated | date : 'dd/MM/yy' : timezone }}</span>
+                    <span class="pull-right small">LAST UPDATE {{ student.last_updated | date : 'MM/dd/yyyy' : timezone }}</span>
                 </h2>
             </div>
 
@@ -19,7 +19,7 @@
                     </div>
                     <div class="content">
                         <b>District ID</b> {{ student.district_student_id }} <br/>
-                        <b>Birthday</b> {{studentdetails.demographics.birthDate}}<br/>
+                        <b>Birthday</b> {{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}<br/>
                         <b>Race/Ethnicity</b> {{studentdetails.demographics.races.race.race}} <br/>
                         <b>Gender</b> {{studentdetails.demographics.sex}}
                     </div>
@@ -85,12 +85,10 @@
                         <p class="subhead">&nbsp;</p>
                     </div>
                     <div class="content">
-                        <b>U.S. Immigrations Status</b> N/A <br/>
                         <b>Language Spoken at Home</b> N/A<br/>
                         <b>IEP</b> N/A<br/>
                         <b>S504</b> N/A<br/>
                         <b>Free or Reduced Lunch</b> N/A<br/>
-                        <b>3rd Grade Reading Level</b> N/A<br/>
                     </div>
                 </div>
 
@@ -109,28 +107,25 @@
                 <div class="clearfix"></div>
 				</div>
 				
-				<div ng-show="sch_history" style="height:250px;overflow:scroll;">
+				<div ng-show="sch_history">
                
                 <div class="title">
                         <p class="subhead">School History</p>
                     </div>
                     <div class="content">
-				<table class='table table-condensed table-bordered'>
+				<table ng-if="!sch_history" class='table table-bordered condensed'>
+				<table ng-if="sch_history" class='table table-bordered condensed' fixed-header>
 				<thead>
 					<th>School Name</th>
 					<th>School Year</th>
-					<th>Start Date</th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm">
+					<tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear'">
 					<td>
 					{{data.school.schoolName}}
 					</td>
 					<td>
-					{{data.school.schoolYear}}
-					</td>
-					<td>
-					{{studentdetails.transcriptTerm.session.startDate}}
+					{{data.schoolYear}}
 					</td>
 				</tr>
 				</tbody>
@@ -161,27 +156,34 @@
                 <hr>
             </div>
             <div class="content">
-                <p><b>Attendance % : </b>{{studentdetails.attendance.summaries.summary.daysInAttendance /(studentdetails.attendance.summaries.summary.daysInAttendance + studentdetails.attendance.summaries.summary.daysAbsent) | number:0}} %</p>
-				<p><b>Attendance Start Date : </b>{{studentdetails.summaries.summary.startDate}}</p>
-				<p><b>Days in Attendance : </b>{{studentdetails.attendance.summaries.summary.daysInAttendance}}</p>
-				<p><b>Days Absent : </b>{{studentdetails.attendance.summaries.summary.daysAbsent}}</p>
-				<div ng-show="attendance_table" style="height:350px; overflow:scroll;">
-				<table class='table table-bordered table-condensed'>
+                <p><b>Attendance % : </b>{{daysAttendance/(daysAttendance + daysAbsent) * 100 | number:0}} %</p>
+				<p><b>Attendance Start Date : </b>{{studentdetails.attendance.summaries.summary.startDate._ | date : 'MM/dd/yyyy' : timezone}}</p>
+				<p><b>Days in Attendance : </b>{{daysAttendance}}</p>
+				<p><b>Days Absent : </b>{{daysAbsent}}</p>
+				<div ng-show="attendance_table">
+				<table ng-if="!attendance_table" class='table table-bordered condensed'>
+				<table ng-if="attendance_table" class='table table-bordered condensed' fixed-header>
 				<thead>
+				<tr>
 					<th>Event Date</th>
 					<th>Attendance Status</th>
 					<th>Event Type</th>
+					<th>Attendance Category</th>
+				</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="data in studentdetails.attendance.events.event">
+					<tr ng-repeat="data in studentdetails.attendance.events.event | orderBy: 'calendarEventDate'">
 					<td>
-					<p>{{data.calendarEventDate}}</p>
+					{{data.calendarEventDate}}
 					</td>
 					<td>
-					<p>{{data.dailyAttendanceStatus}}</p>
+					{{data.dailyAttendanceStatus}}
 					</td>
 					<td>
-					<p>{{data.attendanceEventType}}</p>
+					{{data.attendanceEventType}}
+					</td>
+					<td>
+					{{data.absentAttendanceCategory}}
 					</td>
 				</tr>
 				</tbody>
@@ -190,7 +192,7 @@
 				</div>
             </div>
             <a class="btn-expand button" ng-click="expandAttendance()" ng-show="attendance_expand_btn">EXPAND</a>
-            <a class="btn-expand button" ng-click="closeAttendance()" ng-show="attendance_close_btn" style=" bottom:15px;">CLOSE</a>
+            <a class="btn-expand button" ng-click="closeAttendance()" ng-show="attendance_close_btn" style=" bottom:10px;">CLOSE</a>
         </div>
     </div>
 <!--
@@ -223,13 +225,16 @@
                 <b>N/A</b> Credits Expected <br/>
                 <b>N/A</b> 11 <br/>
 				-->
-				<div ng-show="courses_table" style="height:350px; overflow:scroll;">
-				<table class='table table-bordered table-condensed'>
-				<thead>
+				<div ng-show="courses_table">
+				<table ng-if="!courses_table" class='table table-bordered condensed'>
+				<table ng-if="courses_table" class='table table-bordered condensed' fixed-header>
+		        <thead>
+				<tr>
 					<th>School Year</th>
 					<th>Course Title</th>
 					<th>Subject</th>
 					<th>Final Mark</th>
+				</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | flattenRows">
