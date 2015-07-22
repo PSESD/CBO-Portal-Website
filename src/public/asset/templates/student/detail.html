@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="title">
-                        <p class="subhead">CBO MENTORS</p>
+                        <p class="subhead">Case Workers</p>
                         <hr>
                     </div>
                     <div class="content">
@@ -237,7 +237,7 @@
 				</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | flattenRows">
+					<tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear' | flattenRows ">
 					<td>
 					{{data.schoolYear}}
 					</td>
@@ -272,6 +272,26 @@
                 <p class="subhead">PROGRAMS</p>
 				<div ng-repeat="program in programs">
                 <b>{{program.name}}</b><br/>
+				</div>
+				<div ng-show="program_table">
+				<table ng-if="!program_table" class='table table-bordered condensed'>
+				<table ng-if="program_table" class='table table-bordered condensed' fixed-header>
+		        <thead>
+				<tr>
+					<th>Program Name</th>
+					<th>Active</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Cohorts</th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr>
+						
+					</tr>
+				</tbody>
+				
+				</table>
 				</div>
             </div>
             <a class="btn-expand button" ng-click="expandProgram()" ng-show="program_expand_btn">EXPAND</a>

@@ -97,6 +97,11 @@ app.config(function ($routeProvider) {
             controller: 'ProgramStudentAddController',
             access: { requiredAuthentication: true }
         }).
+		when('/program/students/:program_id/edit/:student_id', {
+            templateUrl: 'asset/templates/program/student_edit.html',
+            controller: 'ProgramStudentEditController',
+            access: { requiredAuthentication: true }
+        }).
         when('/program/students/:program_id', {
             templateUrl: 'asset/templates/program/student_list.html',
             controller: 'ProgramStudentController',
@@ -535,8 +540,14 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
         $rootScope.full_screen = false;
         $scope.student = {};
 		$scope.programs = [];
+		$scope.list_programs = [];
         var student_id = $routeParams.student_id;
 		var list_program = [];
+		var program_name = '';
+		var active_status = '';
+		var start_date = '';
+		var end_date = '';
+		var cohort = '';
 		$scope.sch_history =false;
 		$scope.academic =true;
 		
@@ -642,7 +653,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             }
         })
             .success(function(response) {
-
+				console.log(response);
                 $scope.student = response;
                 $rootScope.doingResolve = false;
 				
@@ -667,18 +678,6 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                         }
                     })
                         .success(function(response) {
-							/*
-                            for(var i=0; i<response.data.length; i++)
-                            {
-                                for(var j=0; j<list_program.length; j++)
-                                {
-                                    if(response.data[i].program == list_program[j]._id)
-                                    {
-                                        response.data[i].name = list_program[j].name;
-                                    }
-                                }
-                            }
-							*/
 							for(var i=0;i<response.data.length;i++)
 							{
 								list_program[i] = response.data[i].program;
@@ -686,17 +685,15 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                             $rootScope.doingResolve = false;
 							for(var i=0;i<list_program.length;i++)
 							{
-
 								$http.get( api_url+AuthenticationService.organization_id+'/programs/'+list_program[i], {
 									headers: {
 										'Authorization': 'Bearer '+AuthenticationService.token
 									}
 								})
 								.success(function(response) {
-
 									$scope.programs.push(response);
+									program_name = response.name;
 									$rootScope.doingResolve = false;
-
 								})
 								.error(function(response, status) {
 
@@ -711,7 +708,6 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 									}
 
 								});
-								
 							}
                         })
                         .error(function(response, status) {
@@ -734,7 +730,6 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             }
         })
             .success(function(response) {
-				console.log(response);
 				$scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
 				$scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
                 $scope.studentdetails = response;
@@ -1169,7 +1164,6 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
 
                             $scope.programs = response.data;
                             $rootScope.doingResolve = false;
-
                         })
                         .error(function(response, status) {
 
@@ -1207,6 +1201,95 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
 
             });
 
+    }
+]);
+
+app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+
+        $rootScope.full_screen = false;
+        $rootScope.doingResolve = false;
+
+        var student_id = $routeParams.student_id;
+        var program_id = $routeParams.program_id;
+		var cohort = '';
+		var active_status = '';
+		var start_date = '';
+		var end_date = ''
+        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id+'/students/'+student_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+				console.log(response);
+						angular.forEach(response.programs, function(v, k) {
+							active_status = v.active;
+							start_date = v.participation_start_date;
+							end_date = v.participation_end_date;
+							angular.forEach(v.cohort, function(v, k) {
+								 cohort += v + ', '; 
+							});
+							cohort = cohort.replace(/,\s*$/, "");
+						});
+						
+					$scope.student = {
+						"_id":response._id,	
+						"name": response.first_name +' '+ response.last_name,
+						"active":active_status,
+						"participation_start_date":start_date,
+						"participation_end_date":end_date,
+						"cohort":cohort
+					};
+                $rootScope.doingResolve = false;
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+		$scope.editProgramStudent = function(student)
+        {
+            if(student)
+            {
+                $scope.working = true;
+				
+                $http.put( api_url+AuthenticationService.organization_id+'/programs/'+program_id+'/students/'+student_id, $.param(student), {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(response) {
+
+                        showError(response.message, 2);
+                        $scope.working = false;
+						$location.path( '/program/students/'+program_id );
+                    })
+                    .error(function(response, status) {
+
+                        console.log(response);
+                        console.log(status);
+                        showError(response, 1);
+                        $scope.working = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+            }
+			
+			$rootScope.editable = false;
+        };
     }
 ]);
 
@@ -1669,16 +1752,19 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
-
         var program_id = $routeParams.program_id;
-
+		var active_status = '';
+		var start_date = '';
+		var end_date = '';
+		var cohort = '';
+		$scope.students = [];
         $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
             }
         })
             .success(function(response) {
-
+				
                 $scope.program = response;
                 $rootScope.doingResolve = false;
 
@@ -1706,11 +1792,32 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
 
                 if(response.success == true && response.total > 0)
                 {
-                    $scope.students = response.data;
-                }
-                else
-                {
-                    showError('Data Empty', 1);
+					
+					angular.forEach(response.data, function(value, key) {
+						cohort='';
+						angular.forEach(value.programs, function(v, k) {
+							active_status = v.active;
+							start_date = v.participation_start_date;
+							end_date = v.participation_end_date;
+							angular.forEach(v.cohort, function(v, k) {
+								cohort += v + ', '; 
+							});
+							cohort = cohort.replace(/,\s*$/, "");
+						});
+						
+					var student = {
+						"_id":value._id,	
+						"name": value.first_name +' '+ value.last_name,
+						"active":active_status,
+						"start_date":start_date,
+						"end_date":end_date,
+						"cohort":cohort
+					};
+							
+					$scope.students.push(student);
+						
+					});
+					console.log($scope.students);
                 }
                 $rootScope.doingResolve = false;
 
@@ -1741,7 +1848,6 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                 })
                     .success(function(response) {
 						
-						console.log(response);
 						if(response.success)
 						{
 							$scope.students.splice(index, 1);
@@ -1868,11 +1974,11 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
 
                         if(response.status == true)
                         {
-                            showError(response.message, 2);
+                            showError(response.message, 1);
                         }
                         else
                         {
-                            showError(response.message, 1);
+                            showError(response.message, 2);
                         }
                         $scope.working = false;
 

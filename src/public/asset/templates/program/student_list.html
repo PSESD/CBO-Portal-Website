@@ -6,9 +6,8 @@
             <div class="col-md-12">
                 <div class="title">
                     <h1>
-                        <a href="#/program/students/{{ program._id }}/add"><i class="glyphicon glyphicon-plus"></i> Add Student</a>
+                        <a href="#/program/students/{{ program._id }}/add"><i class="glyphicon glyphicon-plus font16"></i> Add Student To {{program.name}}</a>
                     </h1>
-                    <hr>
 					<form class="form-inline" role="form" ng-submit="searchStudent(student)">
                         <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="Search Student"/>
                         <input type="submit" value="FILTER" class="button"/>
@@ -22,15 +21,21 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
+                                <th>Name</th>
+								<th>Active</th>
+								<th>Start Date</th>
+								<th>End Date</th>
+								<th>Cohorts</th>
 								<th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="student in students | filter:search">
-                                <td><a href="#/student/edit/{{student._id}}">{{ student.first_name }}</a></td>
-                                <td>{{ student.last_name }}</td>
+                                <td><a href="#/program/students/{{program._id}}/edit/{{student._id}}">{{ student.name }}</a></td>
+								<td><input type="checkbox" ng-model="student.active" ng-disabled="true"/></td>
+								<td>{{student.start_date | date : 'MM/dd/yyyy' : timezone}}</td>
+								<td>{{student.end_date | date : 'MM/dd/yyyy' : timezone}}</td>
+								<td>{{student.cohort}}</td>
 								<td><a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a></td>
                             </tr>
                             </tbody>
