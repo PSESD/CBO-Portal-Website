@@ -239,7 +239,7 @@
 				<div ng-show="courses_table">
                     <scrollable-table watch="visibleProjects">
 
-                        <table class="table table-striped table-bordered">
+                        <table ng-if="courses_table" class="table table-striped table-bordered">
 
                         <thead>
                         <tr>
@@ -250,7 +250,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear'">
+                            <tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear' | flattenRows ">
                                 <td>
                                 {{data.schoolYear}}
                                 </td>
@@ -307,13 +307,13 @@
                                         <input type="checkbox" ng-model="program.active" ng-disabled="true"/>
                                     </td>
                                     <td>
-                                        {{program.start_date | date : 'MM/dd/yyyy' : timezone}}
+                                        {{program.participation_start_date | date : 'MM/dd/yyyy' : timezone}}
                                     </td>
                                     <td>
-                                        {{program.end_date | date : 'MM/dd/yyyy' : timezone}}
+                                        {{program.participation_end_date | date : 'MM/dd/yyyy' : timezone}}
                                     </td>
                                     <td>
-                                        {{program.cohort}}
+                                        {{program.cohort.join()}}
                                     </td>
                                 </tr>
                             </tbody>

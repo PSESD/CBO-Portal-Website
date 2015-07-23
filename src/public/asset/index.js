@@ -655,8 +655,54 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             .success(function(response) {
 				console.log(response);
                 $scope.student = response;
+
+                var temp_program = [];
+                var temp_single_program = '';
+                for(var i=0; i<response.programs.length; i++)
+                {
+                    temp_single_program = response.programs[i];
+                    var program_id = temp_single_program._id;
+                    if(program_id.toString().length > 0)
+                    {
+                        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
+                            headers: {
+                                'Authorization': 'Bearer '+AuthenticationService.token
+                            }
+                        })
+                            .success(function(response_program) {
+
+                                var temp = {
+                                    name: response_program.name,
+                                    active: temp_single_program.active,
+                                    participation_start_date: temp_single_program.participation_start_date,
+                                    participation_end_date: temp_single_program.participation_end_date,
+                                    cohort: temp_single_program.cohort.join()
+                                };
+
+                                temp_program.push(temp);
+
+                            })
+                            .error(function(response, status) {
+
+                                console.log(response);
+                                console.log(status);
+                                showError(response, 1);
+                                $rootScope.doingResolve = false;
+                                if(status == 401)
+                                {
+                                    CookieStore.clearData();
+                                    $location.path( '/login' );
+                                }
+
+                            });
+                    }
+
+                    $scope.programs = temp_program;
+
+                }
+
                 $rootScope.doingResolve = false;
-				
+
             })
             .error(function(response, status) {
 
@@ -672,33 +718,6 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
             });
 			
-			 $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/programs', {
-                headers: {
-                    'Authorization': 'Bearer '+AuthenticationService.token
-                }
-            })
-                 .success(function(response) {
-
-                     if(response.success == true)
-                     {
-                         $scope.programs = response.data;
-                     }
-
-                })
-                .error(function(response, status) {
-
-                    console.log(response);
-                    console.log(status);
-                    showError(response, 1);
-                    $rootScope.doingResolve = false;
-                    if(status == 401)
-                    {
-                        CookieStore.clearData();
-                        $location.path( '/login' );
-                    }
-
-                });
-
         $http.get(api_url+AuthenticationService.organization_id+'/students/'+student_id+'/xsre', {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
