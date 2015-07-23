@@ -1215,33 +1215,15 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 		var cohort = '';
 		var active_status = '';
 		var start_date = '';
-		var end_date = ''
-        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id+'/students/'+student_id, {
+		var end_date = '';
+
+        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
             }
         })
             .success(function(response) {
-				console.log(response);
-						angular.forEach(response.programs, function(v, k) {
-							active_status = v.active;
-							start_date = v.participation_start_date;
-							end_date = v.participation_end_date;
-							angular.forEach(v.cohort, function(v, k) {
-								 cohort += v + ', '; 
-							});
-							cohort = cohort.replace(/,\s*$/, "");
-						});
-						
-					$scope.student = {
-						"_id":response._id,	
-						"name": response.first_name +' '+ response.last_name,
-						"active":active_status,
-						"participation_start_date":start_date,
-						"participation_end_date":end_date,
-						"cohort":cohort
-					};
-                $rootScope.doingResolve = false;
+                $scope.program = response;
             })
             .error(function(response, status) {
 
@@ -1256,6 +1238,91 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                 }
 
             });
+
+        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id+'/students/'+student_id, {
+            headers: {
+                'Authorization': 'Bearer '+AuthenticationService.token
+            }
+        })
+            .success(function(response) {
+				console.log(response);
+                angular.forEach(response.programs, function(v, k) {
+
+                    if(program_id == v.program)
+                    {
+                        active_status = v.active;
+                        start_date = v.participation_start_date;
+                        end_date = v.participation_end_date;
+                        angular.forEach(v.cohort, function(v, k) {
+                            cohort += v + ', ';
+                        });
+                        cohort = cohort.replace(/,\s*$/, "");
+                    }
+
+                });
+
+                $scope.student = {
+                    "_id":response._id,
+                    "name": response.first_name +' '+ response.last_name,
+                    "active":active_status,
+                    "participation_start_date":start_date,
+                    "participation_end_date":end_date,
+                    "cohort":cohort
+                };
+
+
+                $http.get( api_url+AuthenticationService.organization_id+'/tags', {
+                    headers: {
+                        'Authorization': 'Bearer '+AuthenticationService.token
+                    }
+                })
+                    .success(function(responseTag) {
+
+                        var availableTags = [];
+                        for(var i=0; i<responseTag.data.length; i++)
+                        {
+                            availableTags.push(responseTag.data[i].name);
+                        }
+
+                        jQuery(document).ready(function() {
+                            jQuery("#cohort").tagit({
+                                availableTags: availableTags
+                            });
+                        });
+
+                    })
+                    .error(function(responseTag, statusTag) {
+
+                        console.log(responseTag);
+                        console.log(statusTag);
+                        showError(responseTag, 1);
+                        $rootScope.doingResolve = false;
+                        if(status == 401)
+                        {
+                            CookieStore.clearData();
+                            $location.path( '/login' );
+                        }
+
+                    });
+
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function(response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if(status == 401)
+                {
+                    CookieStore.clearData();
+                    $location.path( '/login' );
+                }
+
+            });
+
+
 		$scope.editProgramStudent = function(student)
         {
             if(student)
@@ -2528,12 +2595,12 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-                                    //if(get_hosting_name == responseClient.data[i].url)
-                                    //{
+                                    if(get_hosting_name == responseClient.data[i].url)
+                                    {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
-                                    //}
+                                    }
                                 }
                             }
 
