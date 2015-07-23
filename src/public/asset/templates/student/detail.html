@@ -251,19 +251,19 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear' | flattenRows ">
-                            <td>
-                            {{data.schoolYear}}
-                            </td>
-                            <td>
-                            {{data.courseTitle}}
-                            </td>
-                            <td>
-                            {{data.subject}}
-                            </td>
-                            <td>
-                            {{data.finalMarkValue}}
-                            </td>
-                        </tr>
+                                <td>
+                                {{data.schoolYear}}
+                                </td>
+                                <td>
+                                {{data.courseTitle}}
+                                </td>
+                                <td>
+                                {{data.subject}}
+                                </td>
+                                <td>
+                                {{data.finalMarkValue}}
+                                </td>
+                            </tr>
                         </tbody>
 
                         </table>
@@ -302,8 +302,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-
+                                <tr ng-repeat="program in programs | orderBy: '-program.name' | flattenRows ">
+                                    <td>
+                                        {{program.name}}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" ng-model="program.active" ng-disabled="true"/>
+                                    </td>
+                                    <td>
+                                        {{program.start_date | date : 'MM/dd/yyyy' : timezone}}
+                                    </td>
+                                    <td>
+                                        {{program.end_date | date : 'MM/dd/yyyy' : timezone}}
+                                    </td>
+                                    <td>
+                                        {{program.cohort}}
+                                    </td>
                                 </tr>
                             </tbody>
 
