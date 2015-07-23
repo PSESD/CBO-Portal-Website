@@ -661,7 +661,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 for(var i=0; i<response.programs.length; i++)
                 {
                     temp_single_program = response.programs[i];
-                    var program_id = temp_single_program._id;
+                    var program_id = temp_single_program.program;
                     if(program_id.toString().length > 0)
                     {
                         $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
@@ -671,12 +671,13 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                         })
                             .success(function(response_program) {
 
+                                var cohort = temp_single_program.cohort;
                                 var temp = {
                                     name: response_program.name,
                                     active: temp_single_program.active,
                                     participation_start_date: temp_single_program.participation_start_date,
                                     participation_end_date: temp_single_program.participation_end_date,
-                                    cohort: temp_single_program.cohort.join()
+                                    cohort: cohort.join()
                                 };
 
                                 temp_program.push(temp);
