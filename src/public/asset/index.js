@@ -10,7 +10,7 @@ var globalConfig = {
     grant_type: 'password'
 };
 
-var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date','anguFixedHeaderTable']);
+var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date','anguFixedHeaderTable', 'scrollable-table']);
 
 app.config(['$httpProvider', function ($httpProvider) {
     //Reset headers to avoid OPTIONS request (aka preflight)
@@ -723,16 +723,28 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                             }
 
                         });
-						
-					$http.get(api_url+AuthenticationService.organization_id+'/students/'+student_id+'/xsre', {
+
+        $http.get(api_url+AuthenticationService.organization_id+'/students/'+student_id+'/xsre', {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
             }
         })
             .success(function(response) {
-				$scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
-				$scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
-                $scope.studentdetails = response;
+                console.log(response);
+                if(typeof response.success !== 'undefined' && response.success == false)
+                {
+                    console.log("fail to get");
+                }
+                else
+                {
+                    if(typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries)
+                    {
+                        $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
+                        $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
+                    }
+
+                    $scope.studentdetails = response;
+                }
                 $rootScope.doingResolve = false;
 
             })
@@ -748,7 +760,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                     $location.path( '/login' );
                 }
 
-            });	
+            });
 						
 						
     }
