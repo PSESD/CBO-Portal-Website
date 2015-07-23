@@ -2401,7 +2401,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                 {
                     for(var j=0; j<response.permissions.length; j++)
                     {
-                        if(response.permissions[j].organization == get_id)
+                        if(response.permissions[j].organization == AuthenticationService.organization_id)
                         {
                             set_role = response.permissions[j].role;
                             if(response.permissions[j].is_special_case_worker == true)
