@@ -10,7 +10,7 @@ var globalConfig = {
     grant_type: 'password'
 };
 
-var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date','anguFixedHeaderTable', 'scrollable-table']);
+var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'scrollable-table']);
 
 app.config(['$httpProvider', function ($httpProvider) {
     //Reset headers to avoid OPTIONS request (aka preflight)
@@ -2037,6 +2037,10 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
+        $scope.user = {
+            role: 'case-worker'
+        };
+
         $scope.inviteUser = function(user)
         {
             if(user)
@@ -2337,12 +2341,18 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
             {
                 $scope.working = true;
 
-                if(user.is_special_case_worker2 == true)
-                    user.is_special_case_worker = false;
+                if(user.is_special_case_worker == true)
+                    user.is_special_case_worker2 = false;
                 else
-                    user.is_special_case_worker = true
+                    user.is_special_case_worker2 = true
 
-                $http.put( api_url+'user/role/'+user_id, $.param(user), {
+
+                var passing_data = {
+                    role: user.role,
+                    is_special_case_worker: user.is_special_case_worker2
+                };
+
+                $http.put( api_url+'user/role/'+user_id, $.param(passing_data), {
                     headers: {
                         'Authorization': 'Bearer '+AuthenticationService.token
                     }
@@ -2384,12 +2394,28 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
         })
             .success(function(response) {
 
-                if(response.is_special_case_worker == true)
-                    response.is_special_case_worker2 = false;
-                else
-                    response.is_special_case_worker2 = true
+                var set_role = '';
+                var is_special_case_worker = '';
 
-                $scope.user = response;
+                if(response.permissions.length > 0)
+                {
+                    for(var j=0; j<response.permissions.length; j++)
+                    {
+                        if(response.permissions[j].organization == get_id)
+                        {
+                            set_role = response.permissions[j].role;
+                            if(response.permissions[j].is_special_case_worker == true)
+                                is_special_case_worker = false;
+                            else
+                                is_special_case_worker = true;
+                        }
+                    }
+                }
+
+                $scope.user = {
+                    role: set_role,
+                    is_special_case_worker: is_special_case_worker
+                };
                 $rootScope.doingResolve = false;
 
             })
@@ -2646,7 +2672,16 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                                         complete_name += data[i].last_name;
                                                     }
 
-                                                    role = data[i].role;
+                                                    if(data[i].permissions.length > 0)
+                                                    {
+                                                        for(var j=0; j<data[i].permissions.length; j++)
+                                                        {
+                                                            if(data[i].permissions[j].organization == get_id)
+                                                            {
+                                                                role = data[i].permissions[j].role;
+                                                            }
+                                                        }
+                                                    }
 
                                                     $rootScope.completeName = complete_name;
                                                     find = true;
