@@ -299,7 +299,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="program in programs">
+                                <tr ng-repeat="program in programs | orderBy: '-program.name' | flattenRows ">
                                     <td>
                                         {{program.name}}
                                     </td>
