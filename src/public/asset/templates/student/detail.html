@@ -250,7 +250,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear' | flattenRows ">
+                            <tr ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear'">
                                 <td>
                                 {{data.schoolYear}}
                                 </td>
@@ -299,7 +299,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="program in programs | orderBy: '-program.name' | flattenRows ">
+                                <tr ng-repeat="program in programs">
                                     <td>
                                         {{program.name}}
                                     </td>

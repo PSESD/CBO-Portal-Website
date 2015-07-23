@@ -673,56 +673,31 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             });
 			
 			 $http.get( api_url+AuthenticationService.organization_id+'/students/'+student_id+'/programs', {
-                        headers: {
-                            'Authorization': 'Bearer '+AuthenticationService.token
-                        }
-                    })
-                        .success(function(response) {
-							for(var i=0;i<response.data.length;i++)
-							{
-								list_program[i] = response.data[i].program;
-							}
-                            $rootScope.doingResolve = false;
-							for(var i=0;i<list_program.length;i++)
-							{
-								$http.get( api_url+AuthenticationService.organization_id+'/programs/'+list_program[i], {
-									headers: {
-										'Authorization': 'Bearer '+AuthenticationService.token
-									}
-								})
-								.success(function(response) {
-									$scope.programs.push(response);
-									program_name = response.name;
-									$rootScope.doingResolve = false;
-								})
-								.error(function(response, status) {
+                headers: {
+                    'Authorization': 'Bearer '+AuthenticationService.token
+                }
+            })
+                 .success(function(response) {
 
-									console.log(response);
-									console.log(status);
-									showError(response, 1);
-									$rootScope.doingResolve = false;
-									if(status == 401)
-									{
-										CookieStore.clearData();
-										$location.path( '/login' );
-									}
+                     if(response.success == true)
+                     {
+                         $scope.programs = response.data;
+                     }
 
-								});
-							}
-                        })
-                        .error(function(response, status) {
+                })
+                .error(function(response, status) {
 
-                            console.log(response);
-                            console.log(status);
-                            showError(response, 1);
-                            $rootScope.doingResolve = false;
-                            if(status == 401)
-                            {
-                                CookieStore.clearData();
-                                $location.path( '/login' );
-                            }
+                    console.log(response);
+                    console.log(status);
+                    showError(response, 1);
+                    $rootScope.doingResolve = false;
+                    if(status == 401)
+                    {
+                        CookieStore.clearData();
+                        $location.path( '/login' );
+                    }
 
-                        });
+                });
 
         $http.get(api_url+AuthenticationService.organization_id+'/students/'+student_id+'/xsre', {
             headers: {
