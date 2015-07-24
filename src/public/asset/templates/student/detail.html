@@ -57,8 +57,11 @@
                         <hr>
                     </div>
                     <div class="content">
-                        <span>{{student.mentor1_name}}</span> <br/>
-                        <span>{{student.mentor2_name}}</span> <br/>
+                        
+							<div ng-repeat="person in case_workers">
+								<span>{{person.fullname}}</span> <br/>
+							</div>
+						
                     </div>
                 </div>
 

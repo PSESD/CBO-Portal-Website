@@ -31,7 +31,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
-	$httpProvider.interceptors.push('headerInjector');
+	//$httpProvider.interceptors.push('headerInjector');
 
 }]);
 
@@ -189,10 +189,12 @@ app.run(function($rootScope, $http, $location, $window, AuthenticationService, C
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             $location.path("/login");
         }
+		
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAdmin && AuthenticationService.role == 'case-worker') {
             showError("You don't have any permission to access this page", 1);
             event.preventDefault();
         }
+		
     });
 });
 
@@ -664,9 +666,8 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             }
         })
             .success(function(response) {
-				console.log(response);
                 $scope.student = response;
-
+				$scope.case_worker = response;
                 var temp_program = [];
                 var temp_single_program = '';
                 for(var i=0; i<response.programs.length; i++)
@@ -736,7 +737,8 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             }
         })
             .success(function(response) {
-                console.log(response);
+				$scope.case_workers = response._embedded.users;
+				console.log($scope.case_workers);
                 if(typeof response.success !== 'undefined' && response.success == false)
                 {
                     console.log("fail to get");

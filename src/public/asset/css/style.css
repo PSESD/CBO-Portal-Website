@@ -352,7 +352,8 @@ div[contentEditable]:focus {
 /*- Sidebar Collapse Icon -*/
 
 .collapse-icon{
-color:white;
+  color: white;
+  
 }
 
 .collapse-icon:hover{

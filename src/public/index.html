@@ -27,27 +27,21 @@
     <![endif]-->
 
     <link href="asset/css/style.css" rel="stylesheet">
+    <link href="asset/css/component.css" rel="stylesheet">
     <link href="asset/tag-it/css/jquery.tagit.css" rel="stylesheet">
     <link href="asset/tag-it/css/tagit.ui-zendesk.css" rel="stylesheet">
     <link href="asset/angular-scrollable-table/scrollable-table.css" rel="stylesheet">
 
 </head>
-<body ng-controller="BodyController">
-<nav class="navbar navbar-inverse" ng-show="showNavBar" id="navbar">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-		<div class="pull-right">
-		<span id="slide-menu" class="collapse-icon glyphicon glyphicon-remove" aria-hidden="true"></span>
-		</div>
-		<div class="clearfix"></div>
-        <div class="navbar-header">
-            <a type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-			<ul class="nav navbar-nav navbar-right">
+<body ng-controller="BodyController" class="cbp-spmenu-push">
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<nav class="navbar-inverse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" ng-show="showNavBar" id="cbp-spmenu-s1">
+				<span id="showLeftPush" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+				<div class="clearfix"></div>
+				<ul class="nav navbar-nav navbar-right">
                 <li ng-class="{ active: isActive('/profile') }">
                     <a class="navbar-brand dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-expanded="false">
                         {{ completeName }} <span class="caret"></span>
@@ -62,11 +56,8 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
-        </div>
-
-        <div id="slidemenu">
-            <ul class="nav navbar-nav">
+				</ul>
+				<ul class="nav navbar-nav">
                 <li ng-class="{ active: isActive('/user') }">
                     <a ng-href="#/user">Users</a>
                 </li>
@@ -82,32 +73,28 @@
                     <a href="javascript:void(0)" ng-click="logoutMe()">Logout</a>
                 </li>
             </ul>
+			</nav>
+			
+			<div class="content" style="padding-left:70px;">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="error-container">
 
-        </div>
+					</div>
+				</div>
+			</div>
+			
+				<ng-view ng-hide="doingResolve"></ng-view>
 
-    </div><!-- /.container-fluid -->
+				<div class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
+					<h2><span class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
 
-</nav>
-<nav class="navbar navbar-inverse" style="width:55px;" id="dashboard-menu">
-    <div class="container-fluid">
-		<span style="margin-top:35px;" id="slide-menu" class="collapse-icon glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-    </div><!-- /.container-fluid -->
-</nav>
-<div class="{{ full_screen ? 'container-fluid' : 'container-fluid container-with-menu' }}">
-    <div class="row">
-        <div class="col-md-12">
-            <div id="error-container">
 
-            </div>
-        </div>
-    </div>
-    <ng-view ng-hide="doingResolve"></ng-view>
-
-    <div class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
-        <h2><span class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
-    </div>
-
-</div>
 <script src="asset/js/jquery-1.11.3.min.js"></script>
 <script src="asset/js/jquery-ui.min.js"></script>
 
@@ -127,6 +114,10 @@
 <script src="asset/js/global.js"></script>
 
 <script src="asset/js/angu-fixed-header-table.js"></script>
+
+<script src="asset/js/classie.js"></script>
+
+<script src="asset/js/custom-slide.js"></script>
 
 <script src="asset/index.js"></script>
 
