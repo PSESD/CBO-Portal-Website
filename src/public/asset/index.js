@@ -12,6 +12,16 @@ var globalConfig = {
 
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table']);
 
+app.factory('headerInjector',[function(SessionService) {  
+    var headerInjector = {
+        request: function(config) {
+                config.headers['X-Cbo-Client-Url'] = 'http://helpinghand.cbo.upward.st';
+            return config;
+        }
+    };
+    return headerInjector;
+}]);
+
 app.config(['$httpProvider', function ($httpProvider) {
     //Reset headers to avoid OPTIONS request (aka preflight)
     $httpProvider.defaults.headers.common = {};
@@ -21,6 +31,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
+	$httpProvider.interceptors.push('headerInjector');
 
 }]);
 
