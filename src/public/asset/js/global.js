@@ -64,12 +64,15 @@ $(document).ready(function () {
 			$('#slide-menu').removeAttr('class');
 			$('#slide-menu').addClass('collapse-icon glyphicon glyphicon-remove');
 			$('#slide-menu').show();
+            $('#sign_in_button').removeClass('button btn-block');
+            $('#sign_in_button').addClass('button');
         }
 		else if ($(window).width() < 767)
 		{
 			$('#dashboard-menu').hide();
 			$('#slide-menu').hide();
 			$('#navbar').show();
+            $('#sign_in_button').addClass('btn-block');
 		}
 
 

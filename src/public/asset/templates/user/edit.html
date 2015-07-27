@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" style="padding-left: 65px;">
     <div class="col-md-12">
 
         <div class="card">
@@ -15,7 +15,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="role">Role:</label>
                             <div class="col-sm-9">
-                                <select class="form-control" type="checkbox" ng-model="user.role" id="role">
+                                <select class="form-control" type="checkbox" ng-model="user.role" id="role" ng-disabled="disable_select">
                                     <option value="admin">Admin</option>
                                     <option value="case-worker">Case Worker</option>
                                 </select>
