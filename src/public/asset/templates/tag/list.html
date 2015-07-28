@@ -1,0 +1,44 @@
+<div class="row" style="padding-left: 65px;">
+
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="col-md-12">
+                <div class="title">
+                    <h1><a href="#/tag/add"><i class="glyphicon glyphicon-plus font16"></i> Add Tag</a></h1>
+					<form class="form-inline" role="form" ng-submit="searchTag(student)">
+                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="Search Tags"/>
+                        <input type="submit" value="FILTER" class="button"/>
+                    </form>
+                </div>
+                <div class="content">
+
+                    <h1 class="bold">Tags</h1>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Tag Name</th>                                
+                                <th class="text-center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="tag in tags | filter:search">
+                                <td><a href="#/tag/edit/{{ tag._id }}">{{ tag.name }}</a></td>
+                                <td class="text-center">
+									<a class="glyphicon glyphicon-trash" confirmed-click="deleteTag(tag._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+</div>

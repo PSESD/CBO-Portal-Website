@@ -58,11 +58,14 @@
                 </li>
 				</ul>
 				<ul class="nav navbar-nav">
-                <li ng-class="{ active: isActive('/user') }">
+                <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
                     <a ng-href="#/user">Users</a>
                 </li>
                 <li ng-class="{ active: isActive('/program') }">
                     <a ng-href="#/program">Program</a>
+                </li>
+				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
+                    <a ng-href="#/tag">Tags</a>
                 </li>
                 <li ng-class="{ active: isActive('/student') }">
                     <a ng-href="#/student">Students</a>

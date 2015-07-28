@@ -319,7 +319,7 @@ div[contentEditable]:focus {
 }
 .ng-hide
 {
-    display: none;
+    display: none !important;
 }
 .glyphicon-spin
 {
