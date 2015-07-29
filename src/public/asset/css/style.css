@@ -273,7 +273,9 @@ div[contentEditable]:focus {
 .subhead{
     text-transform:uppercase;
 }
-
+#collapse-sidebarmenu:hover{
+	cursor:pointer;
+}
 /*- Flags -*/
 
 .flag{

@@ -14,6 +14,7 @@
     <link href="asset/ng-prettyjson/ng-prettyjson.min.css" rel="stylesheet">
 
     <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="asset/bootstrap/css/custom-bootstrap.css">
     <link rel="stylesheet" href="asset/bootstrap/css/bootstrap.min.css">
     <!-- Optional theme -->
     <link rel="stylesheet" href="asset/bootstrap/css/bootstrap-theme.min.css">
@@ -36,7 +37,7 @@
 <body ng-controller="BodyController" class="cbp-spmenu-push">
 
 <div class="container-fluid">
-	<div class="row">
+	<div id="mobile" class="row" style="display:none">
 		<div class="col-md-12">
 			<nav class="navbar-inverse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" ng-show="showNavBar" id="cbp-spmenu-s1">
 				<span id="showLeftPush" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
@@ -48,10 +49,10 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="#/profile">My Account</a>
+                            <a  href="#/profile">My Account</a>
                         </li>
                         <li>
-                            <a href="#/profile/edit">Change password</a>
+                            <a  href="#/profile/edit">Change password</a>
 							
                         </li>
                     </ul>
@@ -79,7 +80,7 @@
 			</nav>
 			
 			<!--<div class="content" style="padding-left:70px;">-->
-			<div class="content">
+			<div class="content" style="padding-left:65px;">
 			<div class="row">
 				<div class="col-md-12">
 					<div ng-if="showNavBar">
@@ -92,7 +93,6 @@
 					</div>
 				</div>
 			</div>
-			
 				<ng-view ng-hide="doingResolve"></ng-view>
 					<div ng-if="showNavBar">
 					<div style="margin-left:70px;" class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
@@ -107,8 +107,81 @@
 			</div>
 		</div>
 	</div>
-  </div>
+    </div>
+  
+  <div id="desktop" class="row" style="display:none">
+	<div id="desktop-nav" class="custom-col-md-2 navbar-inverse" ng-show="showNavBar" style="margin-right:0!important;padding-right:0!important;">
+		<div class="sidebar-nav navbar-inverse" style="position:fixed;height:100%;width:inherit;">
+			<div class="clearfix"></div>
+				<ul class="nav navbar-nav navbar-right">
+                <li ng-class="{ active: isActive('/profile') }">
+                    <a class="navbar-brand dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-expanded="false">
+                        {{ completeName }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#/profile">My Account</a>
+                        </li>
+                        <li>
+                            <a href="#/profile/edit">Change password</a>
+							
+                        </li>
+                    </ul>
+                </li>
+				</ul>
+				<ul class="nav navbar-nav">
+                <li ng-show="users_link" ng-class="{ active: isActive('/user') }" >
+                    <a ng-href="#/user" >Users </a>
+                </li>
+                <li ng-class="{ active: isActive('/program') }">
+                    <a ng-href="#/program">Program {{users_link}}</a>
+                </li>
+				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
+                    <a ng-href="#/tag">Tags</a>
+                </li>
+                <li ng-class="{ active: isActive('/student') }">
+                    <a ng-href="#/student">Students</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-class="{ active: isActive('/logout') }">
+                    <a href="javascript:void(0)" ng-click="logoutMe()">Logout</a>
+                </li>
+            </ul>
+		</div>
+	</div>
+	<div class="custom-col-md-1 navbar-inverse" ng-show="showNavBar" style="margin-left:0!important;padding-left:0!important;">
+		<div class="sidebar-nav navbar-inverse" style="position:fixed;height:100%;width:inherit;">
+			<span id="collapse-sidebarmenu" style="color:white;position:relative;left:35px;top:35px;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		</div>
+	</div>
+	<div id="desktop-content" class="custom-col-md-21" style="padding-right:35px;">
+		<div class="row">
+				<div class="col-md-12">
+					<div ng-if="showNavBar">
+						<div id="error-container">
 
+						</div>
+					</div>
+					<div id="error-container">
+
+					</div>
+				</div>
+			</div>
+				<ng-view ng-hide="doingResolve"></ng-view>
+					<div ng-if="showNavBar">
+					<div style="margin-left:70px;" class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
+						<h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
+					</div>
+					</div>
+					<div ng-if="!showNavBar">
+					<div class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
+						<h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
+					</div>
+					</div>
+	</div>
+  </div>
+</div><!--End Container-fluid-->
 
 <script src="asset/js/jquery-1.11.3.min.js"></script>
 <script src="asset/js/jquery-ui.min.js"></script>

@@ -2,6 +2,15 @@
 
 $(document).ready(function () {
 	
+	if($(window).width()<767){
+			$("#mobile").css({"display":""});
+			$("#desktop").css({"display":"none"});
+		}
+	else if($(window).width()>767){
+			$("#mobile").css({"display":"none"});
+			$("#desktop").css({"display":""});
+	}
+	
 	$('#dashboard-menu').hide();
 
     //stick in the fixed 100% height behind the navbar but don't wrap it
@@ -56,7 +65,7 @@ $(document).ready(function () {
 
 
     $(window).on("resize", function () {
-
+		/*
         if ($(window).width() > 767 && $('.navbar-toggle').is(':hidden')) {
             $(selected2).removeAttr('style');
             $(selected).removeClass('slide-active');
@@ -74,7 +83,15 @@ $(document).ready(function () {
 			$('#navbar').show();
             $('#sign_in_button').addClass('btn-block');
 		}
-
+		*/
+		if($(window).width()<767){
+			$("#mobile").css({"display":""});
+			$("#desktop").css({"display":"none"});
+		}
+		else if($(window).width()>767){
+			$("#mobile").css({"display":"none"});
+			$("#desktop").css({"display":""});
+		}
 
     });
 	$('.collapse-icon').on("click",function(){
