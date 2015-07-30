@@ -1,16 +1,19 @@
 'use strict';
 
 $(document).ready(function () {
-	
-	if($(window).width()<767){
+		
+		if($(window).width()<776){
 			$("#mobile").css({"display":""});
 			$("#desktop").css({"display":"none"});
+			$(document.body).find('#login-container').removeClass('login-page');
 		}
-	else if($(window).width()>767){
+		else if($(window).width()>776){
 			$("#mobile").css({"display":"none"});
 			$("#desktop").css({"display":""});
-	}
+			$(document.body).find('#login-container').addClass("login-page");
+		}
 	
+
 	$('#dashboard-menu').hide();
 
     //stick in the fixed 100% height behind the navbar but don't wrap it
@@ -84,13 +87,24 @@ $(document).ready(function () {
             $('#sign_in_button').addClass('btn-block');
 		}
 		*/
-		if($(window).width()<767){
+		
+		if($(window).width() < 776){
 			$("#mobile").css({"display":""});
 			$("#desktop").css({"display":"none"});
+			$(".col-md-offset-4.col-md-5").removeClass("login-page");
 		}
-		else if($(window).width()>767){
+		else if($(window).width()>776){
 			$("#mobile").css({"display":"none"});
 			$("#desktop").css({"display":""});
+			$(".col-md-offset-4.col-md-5").addClass("login-page");
+		}
+		
+		if($(window).width() > 990 && $(window).width() < 1600)
+		{
+			$("a#forgot_button").addClass("btn-block");
+		}else
+		{
+			$("a#forgot_button").removeClass("btn-block");
 		}
 
     });

@@ -228,10 +228,26 @@ select{
 ===============================================
 */
 
+.row.vertical-divider {
+  overflow: hidden;
+}
+.row.vertical-divider > div[class^="col-"] {
+  padding-bottom: 100px;
+  margin-bottom: -100px;
+  border-left: 2px solid #F2F7F9;
+  border-right: 2px solid #F2F7F9;
+}
+.row.vertical-divider div[class^="col-"]:first-child {
+  border-left: none;
+}
+.row.vertical-divider div[class^="col-"]:last-child {
+  border-right: none;
+}
+/*
 .table{
 	height:350px;	
 }
-
+*/
 div[contentEditable] {
   cursor: pointer;
   background-color: white;
@@ -248,7 +264,13 @@ div[contentEditable]:focus {
     padding-right:0;
     padding-left:0;
 }
-
+.login-page{
+	margin-top:250px!important;
+	left:50px;
+}
+.login-page-mobile{
+	left:-30px;
+}
 .btn-expand
 {
     position: absolute;

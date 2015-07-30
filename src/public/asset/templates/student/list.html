@@ -19,10 +19,11 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th><h1>Name</h1></th>
-                                <th><h1>School ID</h1></th>
-                                <th><h1>School District</h1></th>
-                                <th class="text-center"><h1>Action</h1></th>
+                                <th>Name</th>
+                                <th>School ID</th>
+                                <th>School District</th>
+                                <th class="text-center" style="width:5%;">Edit</th>
+                                <th class="text-center" style="width:5%;">Delete</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -32,6 +33,8 @@
                                 <td>{{ student.school_district }}</td>
                                 <td class="text-center">
                                     <a class="glyphicon glyphicon-pencil" ng-href="#/student/edit/{{ student._id }}"></a>
+									</td>
+									<td class="text-center">
 									<a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
                                 </td>
                             </tr>

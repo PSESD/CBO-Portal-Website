@@ -192,6 +192,15 @@ function ($window ,  $rootScope) {
   $rootScope.goBack = function(){
     $window.history.back();
   }
+  var element = angular.element("#login-container");
+  if($window.innerWidth > 767)
+  {
+	  $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
+  }
+  else if($window.innerWidth < 767)
+  {
+	  $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
+  }
 }]);
 
 
@@ -344,8 +353,17 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
 app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
     function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService) {
-
+		
         $rootScope.full_screen = false;
+		if(CookieStore.get('cboAdmin_cookie_role') == 'admin')
+		{
+			$rootScope.users_link = true;
+			$rootScope.tags_link = true;
+		}else
+		{
+			$rootScope.users_link = false;
+			$rootScope.tags_link = false;
+		}
         $scope.isActive = function(route) {
 
             var route_length = route.length;
@@ -684,7 +702,10 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             }
         })
             .success(function(response) {
+				
                 $scope.student = response;
+				
+				/*
 				$scope.case_worker = response;
                 var temp_program = [];
                 var temp_single_program = '';
@@ -700,7 +721,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                             }
                         })
                             .success(function(response_program) {
-
+								
                                 var cohort = temp_single_program.cohort;
                                 var temp = {
                                     name: response_program.name,
@@ -728,10 +749,10 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                             });
                     }
 
-                    $scope.programs = temp_program;
+                   // $scope.programs = temp_program;
 
                 }
-
+				*/
                 $rootScope.doingResolve = false;
 
             })
@@ -756,7 +777,6 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
         })
             .success(function(response) {
 				$scope.case_workers = response._embedded.users;
-				console.log($scope.case_workers);
                 if(typeof response.success !== 'undefined' && response.success == false)
                 {
                     console.log("fail to get");
@@ -771,8 +791,19 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
                     $scope.studentdetails = response;
                 }
+				angular.forEach(response._embedded.programs,function(v){
+					
+					$scope.programs.push({
+						name: v.program_name,
+                        active: v.active,
+                        participation_start_date: v.participation_start_date,
+                        participation_end_date: v.participation_end_date,
+                        cohort: v.cohort.join()
+					});
+					
+				});
                 $rootScope.doingResolve = false;
-
+console.log($scope.programs);
             })
             .error(function(response, status) {
 
@@ -1899,6 +1930,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
             }
         })
             .success(function(response) {
+				console.log(response);
                 if(response.success == true && response.total > 0)
                 {
 					
@@ -1910,20 +1942,20 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
 								active_status = v.active;
 								start_date = v.participation_start_date;
 								end_date = v.participation_end_date;
-								cohort = v.cohort.join()	
+								cohort = v.cohort.join();
+								var student = {
+									"_id":value._id,	
+									"name": value.first_name +' '+ value.last_name,
+									"active":active_status,
+									"start_date":start_date,
+									"end_date":end_date,
+									"cohort":cohort
+								};
+							$scope.students.push(student);
 							}							
 						});
 						
-					var student = {
-						"_id":value._id,	
-						"name": value.first_name +' '+ value.last_name,
-						"active":active_status,
-						"start_date":start_date,
-						"end_date":end_date,
-						"cohort":cohort
-					};
-							
-					$scope.students.push(student);
+					
 						
 					});
                 }
@@ -2623,8 +2655,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 		
         $rootScope.full_screen = true;
         $rootScope.doingResolve = false;
-		$rootScope.users_link = true;
-		$rootScope.tags_link = true;
         var getRemember = CookieStore.get('cboAdmin_cookie_remember');
         if(getRemember == true)
         {
@@ -2719,11 +2749,15 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                                             }
                                                         }
                                                     }
-													if(role == 'case-worker')
+													if(role == 'admin')
+													{
+														$rootScope.users_link = true;
+														$rootScope.tags_link = true;
+													}
+													else
 													{
 														$rootScope.users_link = false;
 														$rootScope.tags_link = false;
-														
 													}
                                                     $rootScope.completeName = complete_name;
                                                     find = true;
@@ -3078,6 +3112,58 @@ app.directive('contenteditable', function() {
             
         }
     };
+});
+
+app.directive('resize', function ($window) {
+    return function (scope, element) {
+        var w = angular.element($window);
+        scope.getWindowDimensions = function () {
+            return {
+                'h': w.height(),
+                'w': w.width()
+            };
+        };
+        scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+            scope.windowHeight = newValue.h;
+            scope.windowWidth = newValue.w;
+            if(w.innerWidth < 767)
+			{
+				$rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
+				
+			}else if(w.innerWidth > 767)
+			{
+				$rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
+			}
+			
+        }, true);
+
+        w.bind('resize', function () {
+            scope.$apply();
+        });
+    }
+})
+
+app.directive('datepicker', function() {
+
+  return {
+    restrict: 'E',
+    transclude: true,
+    scope: {
+      date: '='
+    },
+    link: function(scope, element, attrs) {
+      element.datepicker({
+        dateFormat: 'mm/dd/yy',
+        onSelect: function(dateText, datepicker) {
+          scope.date = dateText;
+          scope.$apply();
+        }
+      });
+    },
+    template: '<input type="text" class="form-control" ng-model="date"/>',
+    replace: true
+  }
+
 });
 
 app.directive('a', function() {

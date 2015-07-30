@@ -23,7 +23,8 @@
                                 <th>Program Name</th>
                                 <!--<th>Created</th>-->
                                 <!--<th>Last Update</th>-->
-                                <th class="text-center">Action</th>
+                                <th class="text-center" style="width:9%">Assign Students</th>
+                                <th class="text-center" style="width:9%">Delete</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -34,6 +35,8 @@
                                 <!--<td>{{ program.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>-->
                                 <td class="text-center">
                                     <a class="glyphicon glyphicon-user" ng-href="#/program/students/{{ program._id }}"></a>
+									</td>
+									<td class="text-center">
 									<a class="glyphicon glyphicon-trash" confirmed-click="deleteProgram(program._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
                                 </td>
                             </tr>

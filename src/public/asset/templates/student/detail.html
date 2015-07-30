@@ -2,14 +2,15 @@
     <div class="col-md-12">
 
         <div class="card">
-
+			<div class="row">
             <div class="col-md-12">
                 <h2>
                     {{ student.first_name }} {{ student.last_name }}
-                    <span class="pull-right small">LAST UPDATE {{ student.last_updated | date : 'MM/dd/yyyy' : timezone }}</span>
+                    <!--<span class="pull-right small">LAST UPDATE {{ student.last_updated | date : 'MM/dd/yyyy' : timezone }}</span>-->
                 </h2>
             </div>
-
+			</div>
+			<div class="row vertical-divider">
             <div class="col-md-5 data-content">
 
                 <div class="row col-md-4">
@@ -24,7 +25,7 @@
                         <b>Gender</b> {{studentdetails.demographics.sex}}
                     </div>
                     <div class="title">
-                        <p class="subhead">PERSONAL CONTACT</p>
+                        <p class="subhead" style="margin-top:20px;">PERSONAL CONTACT</p>
                         <hr>
                     </div>
                     <div class="content">
@@ -44,7 +45,7 @@
 						    {{student.emergency1_email}}<br/>
 							{{student.emergency1_phone}}
                     </div>
-                    <div class="content">
+                    <div class="content" style="margin-top:20px;">
                         <b>{{student.emergency2_name}}</b> <br/>
                            {{student.emergency2_relationship}}<br/>
 							{{student.emergency2_email}}<br/>
@@ -68,7 +69,7 @@
                 <div class="clearfix"></div>
 
             </div>
-            <div class="col-md-7 data-content">
+            <div class="col-md-7 data-content" style="padding-left:65px;">
 				<div ng-show="academic">
                 <div class="row col-md-4">
                     <div class="title">
@@ -87,7 +88,7 @@
                     <div class="title">
                         <p class="subhead">&nbsp;</p>
                     </div>
-                    <div class="content">
+                    <div class="content" style="margin-top:20px;">
                         <b>Language Spoken at Home</b> N/A<br/>
                         <b>IEP</b> N/A<br/>
                         <b>S504</b> N/A<br/>
@@ -148,6 +149,7 @@
 				<a href="#" class="button pull-right" ng-click="closeSchoolHistory()" ng-show="sch_history">Close</a>
             </div>
 			
+			</div> <!-- end of row -->
 			
             <div class="clearfix"></div>
 
@@ -164,7 +166,7 @@
                 <h4>ATTENDANCE</h4>
                 <hr>
             </div>
-            <div class="content">
+            <div class="content" style="margin-top:25px;">
                 <p><b>Attendance % : </b>{{daysAttendance/(daysAttendance + daysAbsent) * 100 | number:0}} %</p>
 				<p><b>Attendance Start Date : </b>{{studentdetails.attendance.summaries.summary.startDate._ | date : 'MM/dd/yyyy' : timezone}}</p>
 				<p><b>Days in Attendance : </b>{{daysAttendance}}</p>
@@ -206,7 +208,7 @@
 				</div>
             </div>
             <a class="btn-expand button" ng-click="expandAttendance()" ng-show="attendance_expand_btn">EXPAND</a>
-            <a class="btn-expand button" ng-click="closeAttendance()" ng-show="attendance_close_btn" style=" bottom:10px;">CLOSE</a>
+            <a class="btn-expand button" ng-click="closeAttendance()" ng-show="attendance_close_btn" >CLOSE</a>
         </div>
     </div>
 <!--
@@ -231,7 +233,7 @@
                 <h4>COURSES</h4>
                 <hr>
             </div>
-            <div class="content">
+            <div class="content" style="margin-top:25px;">
                 <p class="subhead">On Track to Graduate : N/A</p>
                 <!--
 				<b>N/A</b> Credits Earned <br/>
@@ -285,7 +287,7 @@
                 <h4>PROGRAM PARTICIPATION</h4>
                 <hr>
             </div>
-            <div class="content">
+            <div class="content" style="margin-top:25px;">
                 <p class="subhead">PROGRAMS</p>
 				<div ng-show="program_table">
 

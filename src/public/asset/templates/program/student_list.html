@@ -26,17 +26,21 @@
 								<th>Start Date</th>
 								<th>End Date</th>
 								<th>Cohorts</th>
-								<th>Action</th>
+								<th class="text-center" style="width:8%">Edit</th>
+								<th class="text-center" style="width:8%">Delete</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="student in students | filter:search">
-                                <td><a href="#/program/students/{{program._id}}/edit/{{student._id}}">{{ student.name }}</a></td>
+                                <td><a href="#/student/edit/{{ student._id }}">{{ student.name }}</a></td>
 								<td><input type="checkbox" ng-model="student.active" ng-disabled="true"/></td>
 								<td>{{student.start_date | date : 'MM/dd/yyyy' : timezone}}</td>
 								<td>{{student.end_date | date : 'MM/dd/yyyy' : timezone}}</td>
 								<td>{{student.cohort}}</td>
-								<td><a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a></td>
+								<td class="text-center">
+                                    <a class="glyphicon glyphicon-pencil" ng-href="#/program/students/{{program._id}}/edit/{{student._id}}"></a>
+									</td>
+								<td class="text-center"><a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a></td>
                             </tr>
                             </tbody>
                         </table>

@@ -34,7 +34,7 @@
     <link href="asset/angular-scrollable-table/scrollable-table.css" rel="stylesheet">
 
 </head>
-<body ng-controller="BodyController" class="cbp-spmenu-push">
+<body ng-controller="BodyController" class="cbp-spmenu-push" resize>
 
 <div class="container-fluid">
 	<div id="mobile" class="row" style="display:none">
@@ -111,7 +111,7 @@
   
   <div id="desktop" class="row" style="display:none">
 	<div id="desktop-nav" class="custom-col-md-2 navbar-inverse" ng-show="showNavBar" style="margin-right:0!important;padding-right:0!important;">
-		<div class="sidebar-nav navbar-inverse" style="position:fixed;height:100%;width:inherit;">
+		<div class="sidebar-nav navbar-inverse" style="position:fixed;height:100%;width:inherit;padding-left:20px;">
 			<div class="clearfix"></div>
 				<ul class="nav navbar-nav navbar-right">
                 <li ng-class="{ active: isActive('/profile') }">
@@ -134,7 +134,7 @@
                     <a ng-href="#/user" >Users </a>
                 </li>
                 <li ng-class="{ active: isActive('/program') }">
-                    <a ng-href="#/program">Program {{users_link}}</a>
+                    <a ng-href="#/program">Program </a>
                 </li>
 				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
                     <a ng-href="#/tag">Tags</a>
