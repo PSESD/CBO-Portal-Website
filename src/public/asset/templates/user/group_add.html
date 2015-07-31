@@ -23,7 +23,7 @@
                         <div class="form-group" ng-show="new_student == false">
                             <label class="col-sm-3 control-label" for="studentId">Student:</label>
                             <div class="col-sm-9">
-                                <select class="form-control" ng-model="student.student_id" id="studentId" required
+                                <select style="border:1px solid black;padding:7px;" class="btn-block" ng-model="student.student_id" id="studentId" required
                                         ng-options="student._id as student.first_name+' '+student.last_name for student in list_student">
                                 </select>
                             </div>

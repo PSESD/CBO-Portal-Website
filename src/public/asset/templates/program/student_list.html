@@ -10,7 +10,7 @@
                     </h1>
 					<form class="form-inline" role="form" ng-submit="searchStudent(student)">
                         <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="Search Student"/>
-                        <input type="submit" value="FILTER" class="button"/>
+                        <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
                     </form>
                 </div>
                 <div class="content">
@@ -32,7 +32,7 @@
                             </thead>
                             <tbody>
                             <tr ng-repeat="student in students | filter:search">
-                                <td><a href="#/student/edit/{{ student._id }}">{{ student.name }}</a></td>
+                                <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.name }}</a></td>
 								<td><input type="checkbox" ng-model="student.active" ng-disabled="true"/></td>
 								<td>{{student.start_date | date : 'MM/dd/yyyy' : timezone}}</td>
 								<td>{{student.end_date | date : 'MM/dd/yyyy' : timezone}}</td>

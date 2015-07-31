@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="studentId">Student:</label>
                             <div class="col-sm-9">
-                                <select class="form-control" ng-model="program.studentId" id="studentId" required autofocus
+                                <select style="margin-top:5px;border:1px solid black;padding:7px;" class="btn-block" ng-model="program.studentId" id="studentId" required autofocus
                                         ng-options="student._id as student.first_name+' '+student.last_name for student in list_student">
                                 </select>
                             </div>

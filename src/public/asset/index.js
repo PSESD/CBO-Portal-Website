@@ -10,6 +10,14 @@ var globalConfig = {
     grant_type: 'password'
 };
 
+var schoolDistricts = { 
+  'seattle': "Seattle",
+  'highline': "Highline",
+  'federalway': "Federal Way",
+  'renton': 'Renton',
+  'northshore': 'North Shore'
+}
+
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table']);
 
 app.factory('headerInjector',[function(SessionService) {  
@@ -525,7 +533,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                     }
                 })
                     .success(function(response) {
-
+					
                         if(response.success == true)
                         {
                             showError(response.message, 2);
@@ -560,7 +568,12 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
             }
         })
             .success(function(response) {
-
+				$.each(schoolDistricts,function(key,value){
+					if(key == response.school_district)
+					{
+						response.school_district = value;
+					}
+				});
                 $scope.student = response;
                 $rootScope.doingResolve = false;
 
@@ -703,8 +716,14 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
         })
             .success(function(response) {
 				
-                $scope.student = response;
+				$.each(schoolDistricts,function(key,value){
+					if(key == response.school_district)
+					{
+						response.school_district = value;
+					}
+				});
 				
+                $scope.student = response;
 				/*
 				$scope.case_worker = response;
                 var temp_program = [];
@@ -844,11 +863,12 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
-		
         $scope.editProfile = function(user)
         {
             if(user)
             {
+				
+				
                 $scope.working = true;
                 $http.put( api_url+'user/myaccount/', $.param(user), {
                     headers: {
@@ -896,7 +916,6 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
                     });
             }
         };
-
         $http.get( api_url+'user/myaccount/', {
             headers: {
                 'Authorization': 'Bearer '+AuthenticationService.token
@@ -923,6 +942,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
             });
 
     }
+	
 ]);
 
 
@@ -961,13 +981,31 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
 
             });
 			
-			$scope.editProfile = function(user)
+			$scope.editProfile = function(data)
         {
-            if(user)
+            if(data)
             {
+				$scope.working = true;
+				if(data.password != data.retype_password)
+				{
+				
+					showError("Password did not match",1);
+					$scope.working = false;
+				}
+				else
+				{
+				var	user = {
+					"email" : data.email,
+					"first_name": data.first_name,
+					"middle_name": data.middle_name,
+					"last_name": data.last_name,
+					"password": data.password,
+					"retype_password": data.retype_password
+				};
                 $scope.working = true;
                 //$http.put( api_url+AuthenticationService.organization_id+'/users/'+AuthenticationService.user_id, $.param(user), {
-                $http.put( api_url+'user/myaccount/', $.param(user), {
+          
+			   $http.put( api_url+'user/myaccount/', $.param(user), {
                     headers: {
                         'Authorization': 'Bearer '+AuthenticationService.token
                     }
@@ -1014,6 +1052,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                         }
 
                     });
+				}	
             }
         };
 
@@ -1444,7 +1483,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     }
                 })
                     .success(function(response) {
-
+					
                         $scope.students.splice(index, 1);
                         $scope.working = false;
 
@@ -1471,11 +1510,20 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             }
         })
             .success(function(response) {
-				console.log(response);
+				console.log(response.data);
                 if(response.success == true && response.total > 0)
                 {
-                    $scope.students = response.data;
+                    angular.forEach(response.data,function(v){
+						$.each(schoolDistricts,function(key,value){
+							if(key == v.school_district || value == v.school_district)
+							{
+								v.school_district = value;
+							}
+							
+						});
+					});
 					
+					$scope.students = response.data;
                 }
                 else
                 {
@@ -1819,7 +1867,9 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                     showError(response.error.message, 1);
                 }
                 $rootScope.doingResolve = false;
-				$scope.program.active = true;
+				$scope.program={
+					active : true
+				}
             })
             .error(function(response, status) {
 
@@ -3186,13 +3236,18 @@ function showError(message, alert)
     {
         passingClass = 'alert-success'
     }
-
     var message_alert = '<div class="alert '+passingClass+' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+message+'</div>';
     jQuery("#error-container").append(message_alert);
     setTimeout(function() {
         jQuery('.alert').remove();
     }, 3000);
 
+}
+
+function ucwords (str) {
+    return (str + '').replace(/^([a-z])|\s+([a-z])/g, function ($1) {
+        return $1.toUpperCase();
+    });
 }
 
 function closed_sidebar(){
