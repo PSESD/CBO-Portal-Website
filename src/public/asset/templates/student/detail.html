@@ -211,7 +211,6 @@
             <a class="btn-expand button" ng-click="closeAttendance()" ng-show="attendance_close_btn" >CLOSE</a>
         </div>
     </div>
-<!--
     <div ng-class="behavior">
         <div class="card lock">
             <div class="title">
@@ -220,13 +219,85 @@
             </div>
             <div class="content">
                 <p class="subhead">#4 DETENTION</p>
-                <span>N/A <br/> N/A</span>
+                <div ng-show="behavior_table">
+                    <table class="table">
+                        <thead>
+                            <th class="text-center" style="width:24%">ATTENDANCE DATES</th>
+                            <th class="text-center">M</th>
+                            <th class="text-center">T</th>
+                            <th class="text-center">W</th>
+                            <th class="text-center">TH</th>
+                            <th class="text-center">F</th>
+                            <th class="text-center">DELTA CHANGE</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">7/21/15 - 7/25/15</td>
+                                <td class="text-center">7/21/15</td>
+                                <td class="text-center">7/21/15</td>    
+                                <td class="text-center">7/21/15</td>
+                                <td class="text-center">7/21/15</td>
+                                <td class="text-center">7/21/15</td>
+                                <td class="text-center">0%</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">PERIOD 1</td>
+                                <td rowspan="6" style="background-color:cyan;margin:5px;">P</td>
+                                <td style="background-color:blue">L</td>    
+                                <td style="background-color:cyan">P</td>
+                                <td style="background-color:blue">L</td>
+                                <td rowspan="6" style="background-color:purple">H</td>
+                                <td rowspan="6"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">PERIOD 2</td>
+                                <td rowspan="2" style="background-color:#3333CC">E</td>    
+                                <td style="background-color:blue">L</td>
+                                <td rowspan="5" style="background-color:cyan">P</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">PERIOD 3</td>
+                                <td style="background-color:red">U</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">PERIOD 4</td>
+                                
+                                <td rowspan="3" style="background-color:cyan">P</td>    
+                                <td rowspan="3" style="background-color:cyan">P</td>   
+                            </tr>
+                            <tr>
+                                <td class="text-center">PERIOD 5</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">PERIOD 6    </td>
+                            </tr>
+                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr style="margin-top:5px;">
+                                <td>BEHAVIOR</td>
+                                <td></td>
+                                <td></td>
+                                <td style="background-color:red">D</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <a class="btn-expand button" ng-click="expandBehavior()" ng-show="behavior_expand_btn">EXPAND</a>
             <a class="btn-expand button" ng-click="closeBehavior()" ng-show="behavior_close_btn">CLOSE</a>
         </div>
     </div>
--->
+
    <div ng-class="courses">
         <div class="card lock">
             <div class="title">

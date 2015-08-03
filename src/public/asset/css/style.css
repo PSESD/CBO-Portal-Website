@@ -111,7 +111,24 @@ p{
     background-color: transparent;
     background-image: none;
     box-shadow: none;
+   
+    
 }
+
+#desktop .navbar-inverse .navbar-nav  .active>a 
+{
+    text-decoration: none;
+    border-bottom: 3px solid white;
+    
+}
+
+#mobile .navbar-inverse .navbar-nav  .active>a 
+{
+     text-decoration: none;
+    border-bottom: 3px solid white;
+    
+}
+
 
 a:hover
 {
@@ -227,6 +244,21 @@ select{
 ================== 5.Utility ==================
 ===============================================
 */
+.sidebar-nav .navbar-inverse + a
+{
+    padding-left:0;
+}
+
+.link-nav{
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.underline_text {
+      border-bottom: solid 2px #000000;
+      display: inline;
+      padding-bottom: 3px;
+}
 
 .row.vertical-divider {
   overflow: hidden;

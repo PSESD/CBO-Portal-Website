@@ -9,6 +9,7 @@
     <title>CBO Portal Website</title>
 
     <link href='https://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <link href="asset/css/normalize/normalize.css" rel="stylesheet">
     <link href="asset/ng-prettyjson/ng-prettyjson.min.css" rel="stylesheet">
@@ -28,10 +29,12 @@
     <![endif]-->
 
     <link href="asset/css/style.css" rel="stylesheet">
+    <link href="asset/css/accordion.css" rel="stylesheet">
     <link href="asset/css/component.css" rel="stylesheet">
     <link href="asset/tag-it/css/jquery.tagit.css" rel="stylesheet">
     <link href="asset/tag-it/css/tagit.ui-zendesk.css" rel="stylesheet">
     <link href="asset/angular-scrollable-table/scrollable-table.css" rel="stylesheet">
+    
 
 </head>
 <body ng-controller="BodyController" class="cbp-spmenu-push" resize>
@@ -44,23 +47,23 @@
 				<ul class="nav navbar-nav navbar-right">
 				<span class="navbar-brand" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-expanded="false"></span>
 				</ul>
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav" style="padding-left:15px;">
 				<li>
-					<a href="#">{{completeName | uppercase}}</a>
-					<div style="position:relative;border-top:2px solid #555; width:30px;left:15px;">
+					<a href="#" style="padding-left:0">{{completeName | uppercase}}</a>
+					<div style="position:relative;border-top:2px solid #555; width:30px;">
 					</div>
                 </li>
 				<li ng-class="{ active: isActive('/student') }">
-                    <a ng-href="#/student">DASHBOARD</a>
+                    <a ng-href="#/student" style="width:55%;padding-left:0">DASHBOARD</a>
                 </li>
                 <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
-                    <a ng-href="#/user">USERS</a>
+                    <a ng-href="#/user" style="width:55%;padding-left:0">USERS</a>
                 </li>
                 <li ng-class="{ active: isActive('/program') }">
-                    <a ng-href="#/program">PROGRAMS</a>
+                    <a ng-href="#/program" style="width:55%;padding-left:0">PROGRAMS</a>
                 </li>
 				<li ng-class="{ active: isActive('/profile') }">
-                    <a ng-href="#/profile">ACCOUNT SETTINGS</a>
+                    <a ng-href="#/profile" style="width:55%;padding-left:0">ACCOUNT SETTINGS</a>
                 </li>
 				<!--
 				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
@@ -69,9 +72,9 @@
 				-->
                 
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" style="padding-left:15px;">
                 <li ng-class="{ active: isActive('/logout') }">
-                    <a href="javascript:void(0)" ng-click="logoutMe()">LOGOUT</a>
+                    <a href="javascript:void(0)" ng-click="logoutMe()" style="width:55%;padding-left:0">LOGOUT</a>
                 </li>
             </ul>
 			</nav>
@@ -105,28 +108,28 @@
   
   <div id="desktop" class="row" style="display:none">
 	<div id="desktop-nav" class="custom-col-md-2 navbar-inverse" ng-show="showNavBar" style="margin-right:0!important;padding-right:0!important;">
-		<div class="sidebar-nav navbar-inverse" style="position:fixed;height:100%;width:inherit;padding-left:20px;">
+		<div class="sidebar-nav navbar-inverse" style="position:fixed;height:100%;width:inherit;padding-left:25px;">
 			<div class="clearfix"></div>
 				<ul class="nav navbar-nav navbar-right">
 				<span class="navbar-brand" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-expanded="false"></span>
 				</ul>
 				<ul class="nav navbar-nav">
 				<li>
-					<a href="#">{{completeName | uppercase}}</a>
+					<a href="#" class="link-nav" style="padding-left:0;">{{completeName | uppercase}}</a>
 					<div style="position:relative;border-top:2px solid #555; width:30px;left:15px;">
 					</div>
                 </li>
 				<li ng-class="{ active: isActive('/student') }">
-                    <a ng-href="#/student">DASHBOARD</a>
+                    <a ng-href="#/student" class="link-nav" style="padding-left:0;">DASHBOARD</a>
                 </li>
                 <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
-                    <a ng-href="#/user">USERS</a>
+                    <a ng-href="#/user"  class="link-nav" style="padding-left:0;">USERS</a>
                 </li>
                 <li ng-class="{ active: isActive('/program') }">
-                    <a ng-href="#/program">PROGRAMS</a>
+                    <a ng-href="#/program" class="link-nav" style="padding-left:0;">PROGRAMS</a>
                 </li>
-				<li ng-class="{ active: isActive('/profile') }">
-                    <a ng-href="#/profile">ACCOUNT SETTINGS</a>
+				<li ng-class="{ active: isActive('/profile') }" >
+                    <a ng-href="#/profile" class="link-nav" style="padding-left:0;">ACCOUNT SETTINGS</a>
                 </li>
 				<!--
 				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
@@ -137,7 +140,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ng-class="{ active: isActive('/logout') }">
-                    <a href="javascript:void(0)" ng-click="logoutMe()">LOGOUT</a>
+                    <a href="javascript:void(0)" ng-click="logoutMe()" class="link-nav" style="padding-left:0;">LOGOUT</a>
                 </li>
             </ul>
 		</div>
