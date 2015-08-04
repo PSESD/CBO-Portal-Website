@@ -22,20 +22,29 @@ showLeftPush.onclick = function() {
 	sidebarmenu.onclick = function(){
 		if(status == 'open')
 		{
-			$('#desktop-nav').css({'display':'none'});
-			$('#desktop-content').removeClass('custom-col-md-21');
-			$('#desktop-content').addClass('custom-col-md-23');
 			$('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-remove');
 			$('#collapse-sidebarmenu').addClass('glyphicon glyphicon-menu-hamburger');
+            $('.link-nav').css({'display':'none'});
+            $('#border').css({'display':'none'});
+            $('#desktop-nav').css({'width':'3%'});
+            $('#collapse-sidebarmenu').css({'left':'5%'});
+            $('#center-panel').css({'margin-left':'3%'});
 			status = 'close';
 		}
 		else if(status == 'close')
 		{
-			$('#desktop-nav').css({'display':''});
-			$('#desktop-content').removeClass('custom-col-md-23');
-			$('#desktop-content').addClass('custom-col-md-21');
+            
 			$('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-menu-hamburger');
 			$('#collapse-sidebarmenu').addClass('glyphicon glyphicon-remove');
+            $('.link-nav').css({'display':''});
+            $('#border').css({'display':''});
+             $('#desktop-nav').css({'width':'15%'});
+             $('#desktop-nav').css({'position':'fixed'});
+             $('#desktop-nav').css({'height':'100%'});
+            $('#collapse-sidebarmenu').css({'left':'75%'});
+            $('#collapse-sidebarmenu').css({'top':'10px'});
+            $('#collapse-sidebarmenu').css({'position':'relative'});
+            $('#center-panel').css({'margin-left':'15%'});
 			status = 'open';
 		}
 		

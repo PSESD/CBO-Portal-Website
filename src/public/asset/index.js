@@ -2423,9 +2423,11 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
             .success(function(response) {
 
                 console.log(response);
-
-                $scope.students = response.data;
-                $rootScope.doingResolve = false;
+                if(response.success){
+                    $scope.students = response.data;
+                    $rootScope.doingResolve = false;    
+                }
+                
 
             })
             .error(function(response, status) {
@@ -2892,14 +2894,14 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             {
                                 for(var i=0; i<responseClient.total; i++)
                                 {
-                                    if(get_hosting_name == responseClient.data[i].url)
-                                    {
+                                    //if(get_hosting_name == responseClient.data[i].url)
+                                    //{
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
 										var myEl = angular.element( document.querySelector( 'body' ) );
 										myEl.addClass('cbp-spmenu-push');
-                                    }
+                                    //}
                                 }
                             }
 

@@ -1,156 +1,169 @@
-<div class="row" >
+<div class="row">
     <div class="col-md-12">
 
         <div class="card">
-			<div class="row">
-            <div class="col-md-12">
-                <h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>
                     {{ student.first_name }} {{ student.last_name }}
                     <!--<span class="pull-right small">LAST UPDATE {{ student.last_updated | date : 'MM/dd/yyyy' : timezone }}</span>-->
                 </h2>
+                </div>
             </div>
-			</div>
-			<div class="row vertical-divider">
-            <div class="col-md-5 data-content">
+            <div class="row vertical-divider">
+                <div class="col-md-5 data-content">
 
-                <div class="row col-md-4">
-                    <div class="title">
-                        <p class="subhead">PERSONAL INFO</p>
-                        <hr>
+                    <div class="row col-md-4">
+                        <div class="title">
+                            <p class="subhead">PERSONAL INFO</p>
+                            <hr>
+                        </div>
+                        <div class="content">
+                            <b>District ID</b> {{ student.district_student_id }}
+                            <br/>
+                            <b>Birthday</b> {{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}
+                            <br/>
+                            <b>Race/Ethnicity</b> {{studentdetails.demographics.races.race.race}}
+                            <br/>
+                            <b>Gender</b> {{studentdetails.demographics.sex}}
+                        </div>
+                        <div class="title">
+                            <p class="subhead" style="margin-top:20px;">PERSONAL CONTACT</p>
+                            <hr>
+                        </div>
+                        <div class="content">
+                            {{student.email}}
+                            <br/> {{student.phone}}
+                            <br/> {{student.address}}
+                        </div>
                     </div>
-                    <div class="content">
-                        <b>District ID</b> {{ student.district_student_id }} <br/>
-                        <b>Birthday</b> {{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}<br/>
-                        <b>Race/Ethnicity</b> {{studentdetails.demographics.races.race.race}} <br/>
-                        <b>Gender</b> {{studentdetails.demographics.sex}}
+                    <div class="col-md-4">
+                        <div class="title">
+                            <p class="subhead">EMERGENCY CONTACTS</p>
+                            <hr>
+                        </div>
+                        <div class="content">
+                            <b>{{student.emergency1_name}}</b>
+                            <br/> {{student.emergency1_relationship}}
+                            <br/> {{student.emergency1_email}}
+                            <br/> {{student.emergency1_phone}}
+                        </div>
+                        <div class="content" style="margin-top:20px;">
+                            <b>{{student.emergency2_name}}</b>
+                            <br/> {{student.emergency2_relationship}}
+                            <br/> {{student.emergency2_email}}
+                            <br/> {{student.emergency2_phone}}
+                        </div>
                     </div>
-                    <div class="title">
-                        <p class="subhead" style="margin-top:20px;">PERSONAL CONTACT</p>
-                        <hr>
-                    </div>
-                    <div class="content">
-                         {{student.email}} <br/>
-                         {{student.phone}} <br/>
-                         {{student.address}}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="title">
-                        <p class="subhead">EMERGENCY CONTACTS</p>
-                        <hr>
-                    </div>
-                    <div class="content">
-                        <b>{{student.emergency1_name}}</b> <br/>
-                            {{student.emergency1_relationship}}<br/>
-						    {{student.emergency1_email}}<br/>
-							{{student.emergency1_phone}}
-                    </div>
-                    <div class="content" style="margin-top:20px;">
-                        <b>{{student.emergency2_name}}</b> <br/>
-                           {{student.emergency2_relationship}}<br/>
-							{{student.emergency2_email}}<br/>
-							{{student.emergency2_phone}}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="title">
-                        <p class="subhead">Case Workers</p>
-                        <hr>
-                    </div>
-                    <div class="content">
-                        
-							<div ng-repeat="person in case_workers">
-								<span>{{person.fullname}}</span> <br/>
-							</div>
-						
-                    </div>
-                </div>
+                    <div class="col-md-4">
+                        <div class="title">
+                            <p class="subhead">Case Workers</p>
+                            <hr>
+                        </div>
+                        <div class="content">
 
-                <div class="clearfix"></div>
+                            <div ng-repeat="person in case_workers">
+                                <span>{{person.fullname}}</span>
+                                <br/>
+                            </div>
 
-            </div>
-            <div class="col-md-7 data-content" style="padding-left:65px;">
-				<div ng-show="academic">
-                <div class="row col-md-4">
-                    <div class="title">
-                        <p class="subhead">ACADEMIC</p>
-                        <hr>
-                    </div>
-                    <div class="content" style="margin-bottom:20px;">
-                        <b>Current School</b> {{studentdetails.transcriptTerm.school.schoolName}} <br/>
-                        <b>Expected Graduation Year</b> {{studentdetails.transcriptTerm.schoolYear}} <br/>
-                        <b>Grade level</b> N/A<br/>
-                    </div>
-                    <a href="#" class="button" ng-click="showSchoolHistory()" style="display:inline-block">SEE SCHOOL HISTORY</a>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="title">
-                        <p class="subhead">&nbsp;</p>
-                    </div>
-                    <div class="content" style="margin-top:20px;">
-                        <b>Language Spoken at Home</b> N/A<br/>
-                        <b>IEP</b> N/A<br/>
-                        <b>S504</b> N/A<br/>
-                        <b>Free or Reduced Lunch</b> N/A<br/>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="title">
-                        <p class="subhead">CURRENT COURSES - <b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
-                        <hr>
-                    </div>
-                    <div class="content">
-					<div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
-                        <span>{{course.courseTitle}}</span> <br/>
-					</div>
-                    </div>
-                </div>
-
-                <div class="clearfix"></div>
-				</div>
-				
-				<div ng-show="sch_history">
-               
-                <div class="title">
-                        <p class="subhead">School History</p>
-                    </div>
-                    <div class="content">
-
-                        <scrollable-table watch="visibleProjects">
-
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>School Name</th>
-                                    <th>School Year</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-if="sch_history" ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear'">
-                                    <td>
-                                    {{data.school.schoolName}}
-                                    </td>
-                                    <td>
-                                    {{data.schoolYear}}
-                                    </td>
-                                </tr>
-                                </tbody>
-
-                            </table>
-
-                        </scrollable-table>
-
+                        </div>
                     </div>
 
                     <div class="clearfix"></div>
-				</div>
-				<a href="#" class="button pull-right" ng-click="closeSchoolHistory()" ng-show="sch_history">Close</a>
+
+                </div>
+                <div class="col-md-7 data-content" style="padding-left:65px;">
+                    <div ng-show="academic">
+                        <div class="row col-md-4">
+                            <div class="title">
+                                <p class="subhead">ACADEMIC</p>
+                                <hr>
+                            </div>
+                            <div class="content" style="margin-bottom:20px;">
+                                <b>Current School</b> {{studentdetails.transcriptTerm.school.schoolName}}
+                                <br/>
+                                <b>Expected Graduation Year</b> {{studentdetails.transcriptTerm.schoolYear}}
+                                <br/>
+                                <b>Grade level</b> N/A
+                                <br/>
+                            </div>
+                            <a href="#" class="button" ng-click="showSchoolHistory()" style="display:inline-block">SEE SCHOOL HISTORY</a>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="title">
+                                <p class="subhead">&nbsp;</p>
+                            </div>
+                            <div class="content" style="margin-top:20px;">
+                                <b>Language Spoken at Home</b> N/A
+                                <br/>
+                                <b>IEP</b> N/A
+                                <br/>
+                                <b>S504</b> N/A
+                                <br/>
+                                <b>Free or Reduced Lunch</b> N/A
+                                <br/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="title">
+                                <p class="subhead">CURRENT COURSES - <b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
+                                <hr>
+                            </div>
+                            <div class="content">
+                                <div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
+                                    <span>{{course.courseTitle}}</span>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div ng-show="sch_history">
+
+                        <div class="title">
+                            <p class="subhead">School History</p>
+                        </div>
+                        <div class="content">
+
+                            <scrollable-table watch="visibleProjects">
+
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>School Name</th>
+                                            <th>School Year</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-if="sch_history" ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear'">
+                                            <td>
+                                                {{data.school.schoolName}}
+                                            </td>
+                                            <td>
+                                                {{data.schoolYear}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+
+                            </scrollable-table>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <a href="#" class="button pull-right" ng-click="closeSchoolHistory()" ng-show="sch_history">Close</a>
+                </div>
+
             </div>
-			
-			</div> <!-- end of row -->
-			
+            <!-- end of row -->
+
             <div class="clearfix"></div>
 
             <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up" style="display: block;"><i class="glyphicon glyphicon-menu-up"></i></a>
@@ -159,6 +172,7 @@
         </div>
 
     </div>
+    <!--
 
     <div ng-class="attendance">
         <div class="card lock">
@@ -306,12 +320,12 @@
             </div>
             <div class="content" style="margin-top:25px;">
                 <p class="subhead">On Track to Graduate : N/A</p>
-                <!--
+                
 				<b>N/A</b> Credits Earned <br/>
                 <b>N/A</b> Credits Attempted <br/>
                 <b>N/A</b> Credits Expected <br/>
                 <b>N/A</b> 11 <br/>
-				-->
+				
 				<div ng-show="courses_table">
                     <scrollable-table watch="visibleProjects">
 
@@ -402,5 +416,128 @@
             <a class="btn-expand button" ng-click="closeProgram()" ng-show="program_close_btn">CLOSE</a>
         </div>
     </div>
+-->
 
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="wrapper" style="border:2px solid black;background-color:#ededed;height:5%;overflow:auto;">
+            <div class="title">
+                <h4 style="font-weight:bold;margin-left:3%">ATTENDANCE AND BEHAVIOR</h4>
+            </div>
+            <div class="content">
+                <table class="custom-table" style="margin-bottom:0">
+                    <tr>
+                        <td style="width:15%;font-weight:bold;" class="text-center">ATTENDANCE DATES</td>
+                        <td style="width:10%;font-weight:bolder;border-left:1px solid black;line-height:10px;" class="text-center">M</td>
+                        <td style="width:10%;font-weight:bolder;" class="text-center">T</td>
+                        <td style="width:10%;font-weight:bolder;" class="text-center">W</td>
+                        <td style="width:10%;font-weight:bolder;" class="text-center">TH</td>
+                        <td style="width:10%;font-weight:bolder;border-right:1px solid" class="text-center">F</td>
+                        <td style="width:15%;font-weight:bold;" class="text-center">DELTA CHANGE</td>
+                    </tr>
+                </table>
+                <table class="custom-table" style="background-color:#adadad">
+                    <tr>
+                        <td style="width:15%;font-weight:bold;border-top:2px solid black;" class="text-center">7/27/15 - 7/31/15</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;border-left:1px solid black" class="text-center">100%</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center">100%</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center">10%</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center">10%</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;border-right:1px solid black" class="text-center">100%</td>
+                        <td style="width:15%;font-weight:bold;border-top:2px solid black;" class="text-center">-12%</td>
+                    </tr>
+
+                </table>
+                <table class="custom-table" style="background-color:#ededed;">
+                    <tr>
+                        <td style="width:15%;font-weight:bold;border-top:2px solid black;" class="text-center">7/21/15 - 7/25/15</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;border-left:1px solid black" class="text-center">7/21/15</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center">7/22/15</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center">7/23/15</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center">7/24/15</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;border-right:1px solid black" class="text-center">7/25/15</td>
+                        <td style="width:15%;font-weight:bold;border-top:2px solid black;" class="text-center"></td>
+                    </tr>
+                    <tr>
+                        <td style="width:15%;font-weight:bold;" class="text-center">PERIOD 1</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid;background-color:#8CECFF;vertical-align:top;text-align:top" rowspan="6">P</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;background-color:#0080FF">L</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;background-color:#8CECFF">P</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;background-color:#0080FF">L</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid;background-color:#8B4A94;vertical-align:top;text-align:top" rowspan="6">H</td>
+                        <td style="width:15%;font-weight:bold;" rowspan="6">
+                            <div class="panel panel-default" style="border:2px solid black;">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading" style="background-color:transparent;font-weight:bold;color:black;">LEGEND</div>
+                                <ul class="list-group">
+                                    <li class="list-group-item" style="background-color: #8CECFF;font-weight:bold;color:black">PRESENT</li>
+                                    <li class="list-group-item" style="background-color:#5C9EE0;font-weight:bold;color:black">EXCUSED</li>
+                                    <li class="list-group-item" style="background-color:#0080FF;font-weight:bold;color:black">LATE</li>
+                                    <li class="list-group-item" style="background-color:#8B4A94;font-weight:bold;color:black">HOLIDAY</li>
+                                    <li class="list-group-item" style="background-color:red;font-weight:bold;color:black">UNEXCUSED</li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:15%;font-weight:bold;" class="text-center">PERIOD 2</td>
+                        <td style="width:10%;font-weight:bolder; background-color:#5C9EE0;vertical-align:top;text-align:top" rowspan="2">E</td>
+                        <td style="width:10%;font-weight:bolder; background-color:#0080FF">L</td>
+                        <td style="width:10%;font-weight:bolder;background-color:#8CECFF;vertical-align:top;text-align:top" rowspan="5">P</td>
+
+                    </tr>
+                    <tr>
+                        <td style="width:15%;font-weight:bold;" class="text-center">PERIOD 3</td>
+                        <td style="width:10%;font-weight:bolder;background-color:red">U</td>
+
+                    </tr>
+                    <tr>
+                        <td style="width:15%;font-weight:bold;" class="text-center">PERIOD 4</td>
+                        <td style="width:10%;font-weight:bolder;background-color:#8CECFF;vertical-align:top;text-align:top" rowspan="3">P</td>
+                        <td style="width:10%;font-weight:bolder;background-color:#8CECFF;vertical-align:top;text-align:top" rowspan="3">P</td>
+
+                    </tr>
+                    <tr>
+                        <td style="width:15%;font-weight:bold;" class="text-center">PERIOD 5</td>
+
+                    </tr>
+                    <tr>
+                        <td style="width:15%;font-weight:bold;" class="text-center">PERIOD 6</td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="width:15%;font-weight:bold;" class="text-center">BEHAVIOR</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center"></td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center"></td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black; background-color:red">D</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center"></td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center"></td>
+                        <td style="width:15%;font-weight:bold;" class="text-center"></td>
+                    </tr>
+                </table>
+                <table class="custom-table" style="background-color:#adadad">
+                    <tr>
+                        <td style="width:15%;font-weight:bold;border-top:2px solid black;" class="text-center">7/13/15 - 7/17/15</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;border-left:1px solid black" class="text-center">100%</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center">100%</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center">100%</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;" class="text-center">100%</td>
+                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;border-right:1px solid black" class="text-center">100%</td>
+                        <td style="width:15%;font-weight:bold;border-top:2px solid black;" class="text-center">+12%</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
