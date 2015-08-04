@@ -171,7 +171,6 @@ table h1 {
 
 #login-container,
 #forget-container {
-   
     position: absolute;
     /*top: 30%;*/
     margin: 25%;
@@ -220,7 +219,6 @@ select{
 ================== 5.Utility ==================
 ===============================================
 */
-
 
 .sidebar-nav .navbar-inverse + a {
     padding-left: 0;
@@ -570,6 +568,18 @@ a.button {
     =================== 2a.Menu ===================
     ===============================================
     */
+    .custom-table {
+        width: 100%;
+        max-width: 100%;
+    }
+    .custom-table tr td{
+        padding:1%;
+    }
+    
+    .custom-table .border-top-bottom{
+        border-top: 1px solid black!important;
+        border-bottom: 1px solid black!important;
+    }
     #navbar {
         padding: 35px 10px 10px 10px;
         border-radius: 0;
@@ -616,6 +626,6 @@ a.button {
     #forget-container {
         position: absolute;
         /*top: 10%;*/
-        margin:18%;
+        margin: 18%;
     }
 }
