@@ -2423,9 +2423,11 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
             .success(function(response) {
 
                 console.log(response);
-
-                $scope.students = response.data;
-                $rootScope.doingResolve = false;
+                if(response.success){
+                    $scope.students = response.data;
+                    $rootScope.doingResolve = false;    
+                }
+                
 
             })
             .error(function(response, status) {
