@@ -140,6 +140,10 @@ a:hover {
 
 .container-fluid {}
 
+#center-panel{
+    background-color: none;
+}
+
 /*- Cards -*/
 
 .card {
