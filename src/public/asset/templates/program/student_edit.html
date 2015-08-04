@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" >
 
     <div class="col-md-12">
 
@@ -6,53 +6,49 @@
             <div class="col-md-12">
                 <div class="title">
                     <h1>
-                        Add {{ program.name }} Student
+                        Edit {{ program.name }} Student {{ student.name }}
                     </h1>
                     <hr>
                 </div>
 				
                 <div class="content">
 
-                    <form class="form-horizontal" role="form" ng-submit="addProgramStudent(program)">
+                    <form class="form-horizontal" role="form" ng-submit="editProgramStudent(student)">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="studentId">Student:</label>
+                            <label class="col-sm-3 control-label">Student:</label>
                             <div class="col-sm-9">
-                                <select style="margin-top:5px;border:1px solid black;padding:7px;" class="btn-block" ng-model="program.studentId" id="studentId" required autofocus
-                                        ng-options="student._id as student.first_name+' '+student.last_name for student in list_student">
-                                </select>
+                                {{ student.name }}
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Status:</label>
                             <div class="col-sm-9">
-                                <input type="checkbox" ng-model="program.active" id="active"> <label for="active">Active</label>
+                                <input type="checkbox" class="" ng-model="student.active" id="active"> <label for="active">Active</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="participation_start_date">Participation Start Date:</label>
                             <div class="col-sm-9">
-                                <!--<input type="text" class="form-control" ng-model="program.participation_start_date" id="participation_start_date" ui-date>-->
-								<datepicker date="program.participation_start_date"></datepicker>
+                                <input type="text" class="form-control" ng-model="student.participation_start_date" id="participation_start_date" ui-date>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="participation_end_date">Participation End Date:</label>
                             <div class="col-sm-9">
-                                <!--<input type="text" class="form-control" ng-model="program.participation_end_date" id="participation_end_date" ui-date>-->
-								<datepicker date="program.participation_end_date"></datepicker>
+                                <input type="text" class="form-control" ng-model="student.participation_end_date" id="participation_end_date" ui-date>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="cohort">Cohort</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="program.cohort" id="cohort">
+                                <input type="text" class="form-control availableTags" ng-model="student.cohort" id="cohort">
                             </div>
                         </div>
                         <div class="form-actions form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
                                 <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#" ng-click="goBack()" class="btn btn-default">Back</a>
+                                <a href="#/program/students/{{ program._id }}" class="btn btn-default">Back</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>

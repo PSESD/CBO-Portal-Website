@@ -1,7 +1,19 @@
 'use strict';
 
 $(document).ready(function () {
+		
+		if($(window).width()<776){
+			$("#mobile").css({"display":""});
+			$("#desktop").css({"display":"none"});
+			$(document.body).find('#login-container').removeClass('login-page');
+		}
+		else if($(window).width()>776){
+			$("#mobile").css({"display":"none"});
+			$("#desktop").css({"display":""});
+			$(document.body).find('#login-container').addClass("login-page");
+		}
 	
+
 	$('#dashboard-menu').hide();
 
     //stick in the fixed 100% height behind the navbar but don't wrap it
@@ -56,7 +68,7 @@ $(document).ready(function () {
 
 
     $(window).on("resize", function () {
-
+		/*
         if ($(window).width() > 767 && $('.navbar-toggle').is(':hidden')) {
             $(selected2).removeAttr('style');
             $(selected).removeClass('slide-active');
@@ -64,14 +76,36 @@ $(document).ready(function () {
 			$('#slide-menu').removeAttr('class');
 			$('#slide-menu').addClass('collapse-icon glyphicon glyphicon-remove');
 			$('#slide-menu').show();
+            $('#sign_in_button').removeClass('button btn-block');
+            $('#sign_in_button').addClass('button');
         }
 		else if ($(window).width() < 767)
 		{
 			$('#dashboard-menu').hide();
 			$('#slide-menu').hide();
 			$('#navbar').show();
+            $('#sign_in_button').addClass('btn-block');
 		}
-
+		*/
+		
+		if($(window).width() < 776){
+			$("#mobile").css({"display":""});
+			$("#desktop").css({"display":"none"});
+			$(".col-md-offset-4.col-md-5").removeClass("login-page");
+		}
+		else if($(window).width()>776){
+			$("#mobile").css({"display":"none"});
+			$("#desktop").css({"display":""});
+			$(".col-md-offset-4.col-md-5").addClass("login-page");
+		}
+		
+		if($(window).width() > 990 && $(window).width() < 1600)
+		{
+			$("a#forgot_button").addClass("btn-block");
+		}else
+		{
+			$("a#forgot_button").removeClass("btn-block");
+		}
 
     });
 	$('.collapse-icon').on("click",function(){

@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" >
 
     <div class="col-md-12">
 
@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="programId">Program:</label>
                             <div class="col-sm-9">
-                                <select class="form-control" ng-model="program.programId" id="programId" required autofocus
+                                <select style="border:1px solid black;padding:7px;" class="btn-block" ng-model="program.programId" id="programId" required autofocus
                                         ng-options="program._id as program.name for program in list_program">
                                 </select>
                             </div>
@@ -37,6 +37,12 @@
                             <label class="col-sm-3 control-label" for="participation_end_date">Participation End Date:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" ng-model="program.participation_end_date" id="participation_end_date" ui-date>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="cohort">Cohort</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="program.cohort" id="cohort">
                             </div>
                         </div>
                         <div class="form-actions form-group">

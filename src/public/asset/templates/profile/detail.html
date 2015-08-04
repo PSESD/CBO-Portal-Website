@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" >
     <div class="col-md-12">
 
         <div class="card">
@@ -11,7 +11,13 @@
 
                 <div class="content">
 
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" ng-submit="editProfile(user)">
+					<div class="form-group">
+                            <label class="col-sm-3 control-label" for="email">Email:</label>
+                            <div class="col-sm-9">
+                                <input value="{{user.email}}" type="text" class="form-control" readonly/>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="first_name">First Name:</label>
                             <div class="col-sm-9">
@@ -30,11 +36,26 @@
                                 <div confirmed-action="editProfile(user)" ng-click="activateEditable()" contentEditable={{editable}} class="form-control" ng-model="user.last_name" id="last_name">{{user.last_name}}</div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="email">Email:</label>
+                         <div class="form-group">
+                            <label class="col-sm-3 control-label" for="password">Password:</label>
                             <div class="col-sm-9">
-                                <input value="{{user.email}}" type="text" class="form-control" readonly/>
+                                <input type="password" class="form-control" ng-model="user.password" id="password">
+                                <!--<p class="help-block">Leave it empty, if you doesn't want change the password</p>-->
                             </div>
+                        </div>
+						 <div class="form-group">
+                            <label class="col-sm-3 control-label" for="password">Retype Password:</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" ng-model="user.retype_password" id="password">
+                                <!--<p class="help-block">Leave it empty, if you doesn't want change the password</p>-->
+                            </div>
+                        </div>
+						<div class="form-actions form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn btn-primary" ng-disabled="working">Save</button>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
                     </form>
 
