@@ -473,7 +473,7 @@ a.button {
 #forget-container input {
     background: transparent;
     border-bottom: 1px #555 solid !important;
-    color: #fff;
+    color: #555;
 }
 #login-container input::-webkit-input-placeholder,
 
