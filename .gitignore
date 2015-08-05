@@ -35,3 +35,4 @@ src/node_modules
 bower_components
 config
 *.log
+src/public/config/config.js

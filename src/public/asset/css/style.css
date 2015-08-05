@@ -268,20 +268,57 @@ select{
 ================== 5.Utility ==================
 ===============================================
 */
-
+.panel-border{
+    border: 2px solid black;
+}
+.top-border {
+    border-top: 2px solid black;
+}
+.days-field {
+    width: 10%;
+    font-weight: bolder;
+}
+.align-top-left {
+    vertical-align: top;
+    text-align: left
+}
+.header-period {
+    width: 15%;
+    font-weight: bold;
+}
 .presence-field {
     width: 10%;
     font-weight: bolder;
-    background-color: #8CECFF
+    background-color: #8CECFF;
 }
-.late-field{
+.late-field {
+    width: 10%;
+    font-weight: bolder;
+    background-color: #0080FF;
+}
+.excused-field {
+    width: 10%;
+    font-weight: bolder;
+    background-color: #5C9EE0;
+}
+.unexcused-field {
+    width: 10%;
+    font-weight: bolder;
+    background-color: red;
+}
+.holiday-field {
+    width: 10%;
+    font-weight: bolder;
+    background-color: #8B4A94;
+}
+.late-field {
     width: 10%;
     font-weight: bolder;
     background-color: #0080FF
 }
 .last-update {
     font-size: 14px;
-    color: lightgray;
+    color: #aaa;
 }
 .attendance-card {
     background-color: #ededed;
