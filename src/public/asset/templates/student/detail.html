@@ -6,8 +6,8 @@
                 <div class="col-md-12">
                     <h2>
                     {{ student.first_name }} {{ student.last_name }}
-                    <!--<span class="pull-right small">LAST UPDATE {{ student.last_updated | date : 'MM/dd/yyyy' : timezone }}</span>-->
-                </h2>
+                    <span class="last-update">{{ student.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
+                    </h2>
                 </div>
             </div>
             <div class="row vertical-divider">
@@ -421,12 +421,12 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="wrapper" style="border:2px solid black;background-color:#ededed;height:5%;overflow:auto;">
+        <div class="wrapper attendance-card">
             <div class="title">
-                <h4 style="font-weight:bold;margin-left:3%">ATTENDANCE AND BEHAVIOR</h4>
+                <h4 class="attendance-header">ATTENDANCE AND BEHAVIOR</h4>
             </div>
             <div class="content">
-                <table class="custom-table" style="margin-bottom:0">
+                <table class="custom-table header-attendance-table">
                     <tr>
                         <td style="width:15%;font-weight:bold;" class="text-center">ATTENDANCE DATES</td>
                         <td style="width:10%;font-weight:bolder;border-left:1px solid black;line-height:10px;" class="text-center">M</td>
@@ -461,9 +461,9 @@
                     </tr>
                     <tr>
                         <td style="width:15%;font-weight:bold;" class="text-center">PERIOD 1</td>
-                        <td style="width:10%;font-weight:bolder;border-top:2px solid;background-color:#8CECFF;vertical-align:top;text-align:top" rowspan="6">P</td>
-                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;background-color:#0080FF">L</td>
-                        <td style="width:10%;font-weight:bolder;border-top:2px solid black;background-color:#8CECFF">P</td>
+                        <td class="presence-field" style="border-top:2px solid;vertical-align:top;text-align:top" rowspan="6">P</td>
+                        <td class="late-field" style="border-top:2px solid black">L</td>
+                        <td class="presence-field" style="border-top:2px solid black">P</td>
                         <td style="width:10%;font-weight:bolder;border-top:2px solid black;background-color:#0080FF">L</td>
                         <td style="width:10%;font-weight:bolder;border-top:2px solid;background-color:#8B4A94;vertical-align:top;text-align:top" rowspan="6">H</td>
                         <td style="width:15%;font-weight:bold;" rowspan="6">
@@ -484,7 +484,7 @@
                         <td style="width:15%;font-weight:bold;" class="text-center">PERIOD 2</td>
                         <td style="width:10%;font-weight:bolder; background-color:#5C9EE0;vertical-align:top;text-align:top" rowspan="2">E</td>
                         <td style="width:10%;font-weight:bolder; background-color:#0080FF">L</td>
-                        <td style="width:10%;font-weight:bolder;background-color:#8CECFF;vertical-align:top;text-align:top" rowspan="5">P</td>
+                        <td class="presence-field" style="vertical-align:top;text-align:left" rowspan="5">P</td>
 
                     </tr>
                     <tr>
@@ -494,8 +494,8 @@
                     </tr>
                     <tr>
                         <td style="width:15%;font-weight:bold;" class="text-center">PERIOD 4</td>
-                        <td style="width:10%;font-weight:bolder;background-color:#8CECFF;vertical-align:top;text-align:top" rowspan="3">P</td>
-                        <td style="width:10%;font-weight:bolder;background-color:#8CECFF;vertical-align:top;text-align:top" rowspan="3">P</td>
+                        <td style="vertical-align:top;text-align:top" rowspan="3" class="presence-field">P</td>
+                        <td style="vertical-align:top;text-align:top" rowspan="3" class="presence-field">P</td>
 
                     </tr>
                     <tr>

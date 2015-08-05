@@ -33,16 +33,24 @@ html {}
 body {
     padding-bottom: 50px;
     background: #DADFDC;
-     height: 100vh;
+    height: 100vh;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fce623+0,f2cc10+37,f2a900+69,ef7700+100 */
-    background: rgb(252,230,35); /* Old browsers */
-    background: -moz-linear-gradient(-45deg,  rgba(252,230,35,1) 0%, rgba(242,204,16,1) 37%, rgba(242,169,0,1) 69%, rgba(239,119,0,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(252,230,35,1)), color-stop(37%,rgba(242,204,16,1)), color-stop(69%,rgba(242,169,0,1)), color-stop(100%,rgba(239,119,0,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg,  rgba(252,230,35,1) 0%,rgba(242,204,16,1) 37%,rgba(242,169,0,1) 69%,rgba(239,119,0,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg,  rgba(252,230,35,1) 0%,rgba(242,204,16,1) 37%,rgba(242,169,0,1) 69%,rgba(239,119,0,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg,  rgba(252,230,35,1) 0%,rgba(242,204,16,1) 37%,rgba(242,169,0,1) 69%,rgba(239,119,0,1) 100%); /* IE10+ */
-    background: linear-gradient(135deg,  rgba(252,230,35,1) 0%,rgba(242,204,16,1) 37%,rgba(242,169,0,1) 69%,rgba(239,119,0,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fce623', endColorstr='#ef7700',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background: rgb(252, 230, 35);
+    /* Old browsers */
+    background: -moz-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(252, 230, 35, 1)), color-stop(37%, rgba(242, 204, 16, 1)), color-stop(69%, rgba(242, 169, 0, 1)), color-stop(100%, rgba(239, 119, 0, 1)));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    /* IE10+ */
+    background: linear-gradient(135deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    /* W3C */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fce623', endColorstr='#ef7700', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
 }
 li {
     list-style: none;
@@ -56,10 +64,10 @@ a:hover {
 /*- Typography -*/
 
 * {
-   font-family: 'Lato', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-weight: 400;
 }
-h1{
+h1 {
     font-size: 1.6em;
     letter-spacing: .2em;
     color: #555;
@@ -67,14 +75,13 @@ h1{
     font-family: 'Lato', sans-serif;
     font-weight: 700;
 }
-
-p{
+p {
     font-size: 1em;
     color: #555;
     font-family: 'Lato', sans-serif;
     letter-spacing: .2em;
     font-weight: 400;
-    max-width:400px;
+    max-width: 400px;
 }
 
 /*
@@ -139,8 +146,7 @@ a:hover {
 */
 
 .container-fluid {}
-
-#center-panel{
+#center-panel {
     background-color: none !important;
 }
 
@@ -161,19 +167,27 @@ a:hover {
     min-height: 620px;
 }
 .card .title hr {
-    width:100%;
+    width: 100%;
     /*border-top: solid 2px #555;*/
     margin: 10px 0 40px 0;
     height: 2px;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fce623+0,f2cc10+37,f2a900+69,ef7700+100 */
-    background: rgb(252,230,35); /* Old browsers */
-    background: -moz-linear-gradient(-45deg,  rgba(252,230,35,1) 0%, rgba(242,204,16,1) 37%, rgba(242,169,0,1) 69%, rgba(239,119,0,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(252,230,35,1)), color-stop(37%,rgba(242,204,16,1)), color-stop(69%,rgba(242,169,0,1)), color-stop(100%,rgba(239,119,0,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg,  rgba(252,230,35,1) 0%,rgba(242,204,16,1) 37%,rgba(242,169,0,1) 69%,rgba(239,119,0,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg,  rgba(252,230,35,1) 0%,rgba(242,204,16,1) 37%,rgba(242,169,0,1) 69%,rgba(239,119,0,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg,  rgba(252,230,35,1) 0%,rgba(242,204,16,1) 37%,rgba(242,169,0,1) 69%,rgba(239,119,0,1) 100%); /* IE10+ */
-    background: linear-gradient(135deg,  rgba(252,230,35,1) 0%,rgba(242,204,16,1) 37%,rgba(242,169,0,1) 69%,rgba(239,119,0,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fce623', endColorstr='#ef7700',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background: rgb(252, 230, 35);
+    /* Old browsers */
+    background: -moz-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(252, 230, 35, 1)), color-stop(37%, rgba(242, 204, 16, 1)), color-stop(69%, rgba(242, 169, 0, 1)), color-stop(100%, rgba(239, 119, 0, 1)));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    /* IE10+ */
+    background: linear-gradient(135deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    /* W3C */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fce623', endColorstr='#ef7700', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
 }
 .flexible-card {
     background: #fff;
@@ -205,7 +219,6 @@ table h1 {
 #login-container .card,
 #forget-container,
 #forget-container .card {
-    
     color: #555;
 }
 #login-container .card h1,
@@ -215,9 +228,7 @@ table h1 {
     color: #555;
 }
 #login-container .card .title hr,
-#forget-container .card .title hr {
-    
-}
+#forget-container .card .title hr {}
 
 /*
 select{
@@ -231,13 +242,18 @@ select{
 =================== 3b.Table ==================
 ===============================================
 */
-.table-striped>tbody>tr:nth-of-type(odd){
+
+.table-striped>tbody>tr:nth-of-type(odd) {
     background-color: none !important;
 }
-
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
     border-top: none !important;
-    padding: 16px 8px !important; 
+    padding: 16px 8px !important;
 }
 
 /*
@@ -253,6 +269,32 @@ select{
 ===============================================
 */
 
+.presence-field {
+    width: 10%;
+    font-weight: bolder;
+    background-color: #8CECFF
+}
+.late-field{
+    width: 10%;
+    font-weight: bolder;
+    background-color: #0080FF
+}
+.last-update {
+    font-size: 14px;
+    color: lightgray;
+}
+.attendance-card {
+    background-color: #ededed;
+    height: 5%;
+    overflow: auto;
+}
+.attendance-header {
+    font-weight: bold;
+    margin-left: 3%
+}
+.header-attendance-table {
+    margin-bottom: 0;
+}
 .sidebar-nav .navbar-inverse + a {
     padding-left: 0;
 }
@@ -434,8 +476,8 @@ div[contentEditable]:focus {
 .button {
     font-family: 'Lato', sans-serif;
     font-weight: 700;
-    background:transparent;
-    font-size:1em;
+    background: transparent;
+    font-size: 1em;
     letter-spacing: .1em;
     text-transform: uppercase;
     color: #555;
@@ -443,8 +485,8 @@ div[contentEditable]:focus {
     padding: 3px 25px;
     border-radius: 3px;
     margin: 10px 0;
-    outline:0px !important;
-    -webkit-appearance:none;
+    outline: 0px !important;
+    -webkit-appearance: none;
     min-height: 30px;
 }
 a.button {
@@ -605,11 +647,10 @@ a.button {
         width: 100%;
         max-width: 100%;
     }
-    .custom-table tr td{
-        padding:1%;
+    .custom-table tr td {
+        padding: 1%;
     }
-    
-    .custom-table .border-top-bottom{
+    .custom-table .border-top-bottom {
         border-top: 1px solid black!important;
         border-bottom: 1px solid black!important;
     }
