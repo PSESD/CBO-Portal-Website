@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="col-md-12">
+
+                <div class="title">
+                    <h1><a href="#/user/invite"><i class="glyphicon glyphicon-plus font16"></i> Invite User</a></h1>
+					<form class="form-inline" role="form" ng-submit="searchStudent(student)">
+                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="Search User"/>
+                        <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
+                    </form>
+                </div>
+
+                <div class="content">
+
+                    <h1 class="bold">Users</h1>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <!--<th>ID</th>-->
+                                <th>Email</th>
+                                <th>Name</th>
+                                <!--<th>Created</th>-->
+                                <!--<th>Last Update</th>-->
+                                <th class="text-center" style="width:9%;">Permissions</th>
+                                <th class="text-center" style="width:9%;">Assign Students</th>
+                                <th class="text-center" style="width:9%;">Groups</th>
+                                <th class="text-center" style="width:9%;">Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="user in users | filter:search">
+                                <!--<td>{{ user._id }}</td>-->
+                                <td><a ng-href="#/user/detail/{{ user._id }}">{{ user.email }}</a></td>
+								<td>{{ user.first_name }} {{ user.last_name }}</td>
+                                <!--<td>{{ user.created | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>-->
+                                <!--<td>{{ user.last_updated | date : 'yyyy-MM-dd HH:mm:ss' : timezone }}</td>-->
+                                <td class="text-center">
+                                    <a href="#/user/edit/{{ user._id }}" class="glyphicon glyphicon-pencil" ng-disabled="working"></a>
+								</td>
+								<td class="text-center">
+                                    <a href="#/user/group/{{ user._id }}" class="glyphicon glyphicon-user" ng-disabled="working"></a>
+								</td>
+                                <td class="text-center">
+                                    <a href="#/user/assign/{{ user._id }}" class="fa fa-users" ng-disabled="working"></a>
+								</td>
+								<td class="text-center">
+                                    <a class="glyphicon glyphicon-trash" confirmed-click="deleteUser(user._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="row" >
+
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="col-md-12">
+                <div class="title">
+                    <h1>
+                        <a href="#/student/programs/{{ student._id }}/add"><i class="glyphicon glyphicon-plus"></i> Add Program</a>
+                    </h1>
+                    <hr>
+                </div>
+                <div class="content">
+
+                    <h1>
+                        {{ student.first_name }} {{ student.last_name }} Programs
+                    </h1>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Participation Start Date</th>
+                                <th>Participation End Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="program in programs">
+                                <td>{{ program.name }}</td>
+                                <td>{{ program.active ? 'Active' : 'Nonactive' }}</td>
+                                <td>{{ program.participation_start_date | date : 'yyyy-MM-dd' : timezone }}</td>
+                                <td>{{ program.participation_end_date | date : 'yyyy-MM-dd' : timezone }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+</div>
+

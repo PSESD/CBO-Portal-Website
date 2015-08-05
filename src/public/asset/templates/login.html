@@ -1,29 +1,25 @@
 <div class="row">
-    <div class="col-md-4"></div>
 
-    <div class="col-md-4">
-        <!-- Login Form -->
-        <!--<form class="form-signin" name="loginForm" role="form" ng-submit="loginMe(login.username, login.password)">-->
-        <form class="form-signin" name="loginForm" role="form" ng-submit="loginMe(login.username, login.password)">
+    <div ng-class="loginClass" id="login-container">
 
-            <h2 style="padding-top: 70px;" class="form-signin-heading">Please sign in</h2>
-
-            <input style="margin-top: 40px;" type="username" class="form-control" ng-model="login.username" name="username" placeholder="Username" required autofocus>
-            <input style="margin-top: 10px;" type="password" class="form-control" ng-model="login.password" name="password" placeholder="Password" required>
-            <button style="margin-top: 40px;" class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="login.working">Sign in</button>
-
-            <p style="text-align: center; padding-top: 20px;">
-                For Demo use <br/>
-                Username: demo@upwardstech.com <br/>
-                Password: demo
-            </p>
-        </form>
-        <div style="display: none;">
-            <div id="form_auth">
-
+        <form class="form-signin" id="loginForm" name="loginForm" role="form" ng-submit="loginMe(login.username, login.password, login.remember_username)">
+        <div class="card">
+            <div class="title">
+                <h1>LOG IN</h1>
+                <hr>
             </div>
+            <div class="content">
+                <p>
+                    <input type="text" class="form-control" ng-model="login.username" name="username" placeholder="Username" required autofocus>
+                    <input type="checkbox" id="remember_username" name="remember_username" ng-model="login.remember_username"> <label class="help-block label-checkbox"> REMEMBER USERNAME?</label>
+                </p>
+                <p><input type="password" class="form-control" ng-model="login.password" name="password" placeholder="Password" required></p>
+            </div>
+            <button id="sign_in_button" class="button" ng-disabled="login.working">Sign in</button>
+            <a id="forgot_button" href="#/forget" class="button">Forgot Password</a>
         </div>
+        </form>
+
     </div>
 
-    <div class="col-md-4"></div>
 </div>
