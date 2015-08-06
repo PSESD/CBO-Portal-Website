@@ -50,6 +50,11 @@
     color:black
     
 }
+.attendance-collapse-menu a{
+    text-decoration:none;
+    color:black;
+    
+}
 .attendance-collapse-menu:lostfocus{
     color:black
     
