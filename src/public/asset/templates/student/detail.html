@@ -426,7 +426,7 @@
             <tab heading="ATTENDANCE AND BEHAVIOR">
                 <div class="panel no-border">
                     <div class="panel-body no-border">
-                        <ul>
+                        <ul class="attendance-menu">
                             <li>ATTENDANCE DATES</li>
                             <li>M</li>
                             <li>T</li>
@@ -440,7 +440,16 @@
                 <accordion close-others="true">
                     <accordion-group is-open="status.open" class="tab-content">
                         <accordion-heading>
-                            I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                        <ul class="attendance-collapse-menu">
+                            <li>7/27/15 - 7/31/15</li>
+                            <li>100%</li>
+                            <li>100%</li>
+                            <li>10%</li>
+                            <li>10% !</li>
+                            <li>100% </li>
+                            <li>-12%</li>
+                            <li><i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></li>
+                            </ul>
                         </accordion-heading>
                         This is just some content to illustrate fancy headings.
                     </accordion-group>

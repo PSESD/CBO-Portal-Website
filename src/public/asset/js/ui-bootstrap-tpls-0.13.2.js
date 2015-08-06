@@ -4979,7 +4979,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 angular.module("template/accordion/accordion-group.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/accordion/accordion-group.html",
     "<div class=\"panel panel-default\">\n" +
-    "  <div class=\"panel-heading\">\n" +
+    "  <div class=\"panel-heading attendance-collapse-menu\">\n" +
     "    <h4 class=\"panel-title\">\n" +
     "      <a href=\"#\" tabindex=\"0\" class=\"accordion-toggle\" ng-click=\"$event.preventDefault(); toggleOpen()\" accordion-transclude=\"heading\"><span ng-class=\"{'text-muted': isDisabled}\">{{heading}}</span></a>\n" +
     "    </h4>\n" +
