@@ -1,0 +1,21 @@
+.tab-content{
+    background-color: white;
+}
+.no-border{
+    border: none;
+    margin-bottom: 0;
+}
+.header-tabs-title{
+    font-size: 14px;
+    font-weight: bold;
+    color:black;
+}
+
+.ng-isolate-scope{
+    background-color: darkturquoise;
+    border-radius: none;
+}
+.nav-tabs.nav-justified>li>a {
+    border-bottom: 1px solid #ddd;
+    border-radius: 0 0 0 0;
+}
