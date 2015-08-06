@@ -19,3 +19,43 @@
     border-bottom: 1px solid #ddd;
     border-radius: 0 0 0 0;
 }
+
+.attendance-menu li{
+    float: left;
+    padding: 0 80px
+}
+.attendance-menu li:nth-child(1) {
+    padding-left: 15px;
+}
+
+.attendance-menu li:nth-child(2) {
+    border-left: 2px solid grey;
+}
+
+.attendance-menu li:nth-child(6) {
+    border-right: 2px solid grey;
+}
+
+.attendance-menu li:nth-child(7) {
+    padding-left: 11%;
+}
+
+.attendance-collapse-menu{
+    padding-top:10px;
+    padding-bottom:10px;
+    margin:0;
+    
+}
+.attendance-collapse-menu:hover{
+    color:black
+    
+}
+.attendance-collapse-menu:lostfocus{
+    color:black
+    
+}
+.attendance-collapse-menu li{
+    display: inline;
+    padding: 10px;
+    
+}
