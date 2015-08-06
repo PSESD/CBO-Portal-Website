@@ -18,7 +18,7 @@ var schoolDistricts = {
   'northshore': 'North Shore'
 }
 
-var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table']);
+var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table','ui.bootstrap']);
 
 app.factory('headerInjector',[function(SessionService) {  
     var headerInjector = {
@@ -2871,7 +2871,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                 username: username,
                 password: password
             };
-
+			
             $http.post( uri , $.param(send), {
                 headers: {
                     'Authorization': 'Basic '+auth
@@ -3009,7 +3009,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                 })
                 .error(function(response) {
-
+					console.log(response);
                     showError(response.error_description, 1);
                     $scope.login.working = false;
 
