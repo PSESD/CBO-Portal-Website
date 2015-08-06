@@ -1,17 +1,16 @@
-.tab-content{
+.tab-content {
     background-color: white;
 }
-.no-border{
+.no-border {
     border: none;
     margin-bottom: 0;
 }
-.header-tabs-title{
+.header-tabs-title {
     font-size: 14px;
     font-weight: bold;
-    color:black;
+    color: black;
 }
-
-.ng-isolate-scope{
+.ng-isolate-scope {
     background-color: darkturquoise;
     border-radius: none;
 }
@@ -19,48 +18,78 @@
     border-bottom: 1px solid #ddd;
     border-radius: 0 0 0 0;
 }
-
-.attendance-menu li{
+.attendance-menu li {
     float: left;
     padding: 0 80px
 }
 .attendance-menu li:nth-child(1) {
     padding-left: 15px;
 }
-
 .attendance-menu li:nth-child(2) {
     border-left: 2px solid grey;
 }
-
 .attendance-menu li:nth-child(6) {
     border-right: 2px solid grey;
 }
-
 .attendance-menu li:nth-child(7) {
     padding-left: 11%;
 }
-
-.attendance-collapse-menu{
-    padding-top:10px;
-    padding-bottom:10px;
-    margin:0;
-    
+.attendance-collapse-menu {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0;
 }
-.attendance-collapse-menu:hover{
-    color:black
-    
+.attendance-collapse-menu:hover {
+    color: black
 }
-.attendance-collapse-menu a{
-    text-decoration:none;
-    color:black;
-    
+.attendance-collapse-menu a {
+    text-decoration: none;
+    color: black;
 }
-.attendance-collapse-menu:lostfocus{
-    color:black
-    
-}
-.attendance-collapse-menu li{
+.attendance-collapse-menu li {
     display: inline;
     padding: 10px;
-    
+}
+.attendance-collapse-menu li:nth-child(1) {
+    padding-left: 17px;
+    padding-right: 85px;
+}
+.attendance-collapse-menu li:nth-child(2) {
+    padding-left: 68px;
+    padding-right: 47px;
+    border-left: 2px solid grey;
+}
+.attendance-collapse-menu li:nth-child(3) {
+    padding-left: 80px;
+    padding-right: 51px
+}
+.attendance-collapse-menu li:nth-child(4) {
+    padding-left: 80px;
+    padding-right: 62px;
+}
+.attendance-collapse-menu li:nth-child(5) {
+    padding-left: 80px;
+    padding-right: 47px;
+}
+.attendance-collapse-menu li:nth-child(6) {
+    padding-left: 84px;
+    padding-right: 55px;
+    border-right: 2px solid grey;
+}
+.attendance-collapse-menu li:nth-child(7) {
+    padding-left: 202px;
+    padding-right: 10px;
+}
+.panel-body {
+    background: white;
+}
+.panel-group .panel+.panel {
+    margin-top: 0px;
+}
+.period {
+    width: 18%;
+    float: left;
+}
+.period li {
+    padding: 15px 55px;
 }
