@@ -27,23 +27,23 @@
 }
 .attendance-menu li:nth-child(2) {
     border-left: 2px solid grey;
-    background-color: green;
+    
 }
 .attendance-menu li:nth-child(3) {
     border-left: 2px solid grey;
-    background-color: green;
+    
 }
 .attendance-menu li:nth-child(4) {
     border-left: 2px solid grey;
-    background-color: green;
+    
 }
 .attendance-menu li:nth-child(5) {
     border-left: 2px solid grey;
-    background-color: green;
+    
 }
 .attendance-menu li:nth-child(6) {
     border-right: 2px solid grey;
-    background-color: green;
+    
 }
 .attendance-menu li:nth-child(7) {
     padding-left: 11%;
@@ -63,6 +63,8 @@
 .attendance-collapse-menu li {
     display: inline;
     padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 19px;
 }
 .attendance-collapse-menu li:nth-child(1) {
     padding-left: 17px;
@@ -72,28 +74,30 @@
     padding-left: 67px;
     padding-right: 67px;
     border-left: 2px solid grey;
-    background-color: aquamarine;
+    
 }
 .attendance-collapse-menu li:nth-child(3) {
     padding-left: 67px;
     padding-right: 67px;
-        background-color:blue;
+    
 }
 .attendance-collapse-menu li:nth-child(4) {
     padding-left: 67px;
     padding-right: 67px;
-    background-color: crimson;
+    
 }
 .attendance-collapse-menu li:nth-child(5) {
-    padding-left: 67px;
+        padding-left: 67px;
     padding-right: 67px;
-    background-color: darkcyan;
+    
+    background-color: red;
+    
 }
 .attendance-collapse-menu li:nth-child(6) {
     padding-left: 67px;
     padding-right: 67px;
     border-right: 2px solid grey;
-    background-color: darkgoldenrod;
+    
 }
 .attendance-collapse-menu li:nth-child(7) {
     padding-left: 202px;
@@ -106,7 +110,7 @@
     margin-top: 0px;
 }
 .period {
-    width: 18%;
+    width: 244px;
     float: left;
 }
 .period li {

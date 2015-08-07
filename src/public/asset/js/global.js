@@ -134,7 +134,7 @@ $(document).ready(function () {
 		
 		$('#school-history').show();
 	});
-	
+
 });
 
 function hideContent(curr)
