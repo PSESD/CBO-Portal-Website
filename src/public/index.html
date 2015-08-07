@@ -9,8 +9,8 @@
 
     <title>CBO Portal Website</title>
 
-    <link href='https://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Lato:400,900,700,300' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:400,900,700,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <link href="asset/css/normalize/normalize.css" rel="stylesheet">
@@ -37,6 +37,8 @@
     <link href="asset/tag-it/css/tagit.ui-zendesk.css" rel="stylesheet">
     <link href="asset/angular-scrollable-table/scrollable-table.css" rel="stylesheet">
     <link href="asset/css/desktop-layout.css" rel="stylesheet">
+    <link href="asset/css/tabs.css" rel=stylesheet>
+    <link rel="stylesheet" href="asset/css/student-detail.css">
 
 
 </head>
@@ -110,58 +112,58 @@
         </div>
     </div>
     <div id="desktop" style="display:none">
-         
-        <div id="side-panel">            
+
+        <div id="side-panel">
             <div id="desktop-nav" class="navbar-inverse" ng-show="showNavBar">
-            <div class="sidebar-nav">
-<!--
+                <div class="sidebar-nav">
+                    <!--
                 <ul class="nav navbar-nav navbar-right">
                     <span class="navbar-brand" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-expanded="false"></span>
                 </ul>
 -->
-                 
-                <ul id="sidebar-panel-menu" class="nav navbar-nav">
-                    
-                    <li>
-                       <a id="collapse-sidebarmenu" class="glyphicon glyphicon-remove" style="position:relative;left:75%;top:10px;color:white"></a>
-                        <a href="#" class="link-nav">{{completeName | uppercase}}</a>
-                        <div id="border" style="position:relative;border-top:2px solid #555; width:30px;left:15px;">
-                        </div>
-                    </li>
-                    <li ng-class="{ active: isActive('/student') }">
-                        <a ng-href="#/student" class="link-nav">DASHBOARD</a>
-                    </li>
-                    <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
-                        <a ng-href="#/user" class="link-nav">USERS</a>
-                    </li>
-                    <li ng-class="{ active: isActive('/program') }">
-                        <a ng-href="#/program" class="link-nav" >PROGRAMS</a>
-                    </li>
-                    <li ng-class="{ active: isActive('/profile') }">
-                        <a ng-href="#/profile" class="link-nav">ACCOUNT SETTINGS</a>
-                    </li>
-                    <li ng-class="{ active: isActive('/logout') }">
-                        <a href="javascript:void(0)" ng-click="logoutMe()" class="link-nav">LOGOUT</a>
-                    </li>
-<!--
+
+                    <ul id="sidebar-panel-menu" class="nav navbar-nav">
+
+                        <li>
+                            <a id="collapse-sidebarmenu" class="glyphicon glyphicon-remove" style="position:relative;left:75%;top:10px;color:white"></a>
+                            <a href="#" class="link-nav">{{completeName | uppercase}}</a>
+                            <div id="border" style="position:relative;border-top:2px solid #555; width:30px;left:15px;">
+                            </div>
+                        </li>
+                        <li ng-class="{ active: isActive('/student') }">
+                            <a ng-href="#/student" class="link-nav">DASHBOARD</a>
+                        </li>
+                        <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
+                            <a ng-href="#/user" class="link-nav">USERS</a>
+                        </li>
+                        <li ng-class="{ active: isActive('/program') }">
+                            <a ng-href="#/program" class="link-nav">PROGRAMS</a>
+                        </li>
+                        <li ng-class="{ active: isActive('/profile') }">
+                            <a ng-href="#/profile" class="link-nav">ACCOUNT SETTINGS</a>
+                        </li>
+                        <li ng-class="{ active: isActive('/logout') }">
+                            <a href="javascript:void(0)" ng-click="logoutMe()" class="link-nav">LOGOUT</a>
+                        </li>
+                        <!--
 				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
                     <a class="link-nav" ng-href="#/tag">TAGS</a>
                 </li>
 -->
-				
 
-                </ul>
+
+                    </ul>
+                </div>
             </div>
-        </div>
         </div>
         <div id="center-panel" class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    
-                        <div id="error-container" style="margin-left:70px;">
-                            
-                        </div>
-                    
+
+                    <div id="error-container" style="margin-left:70px;">
+
+                    </div>
+
                 </div>
             </div>
             <ng-view ng-hide="doingResolve"></ng-view>
@@ -274,10 +276,18 @@
     <script src="asset/js/classie.js"></script>
 
     <script src="asset/js/custom-slide.js"></script>
-    
+
     <script src="config/config.js"></script>
-    
+
     <script src="asset/index.js"></script>
+
+    <script src="asset/js/ui-bootstrap-tpls-0.13.2.js"></script>
+
+    <script src="asset/js/isotope.pkgd.min.js"></script>
+
+    <script src="asset/js/fit-columns.js"></script>
+
+    <script src="asset/js/student-detail.js"></script>
 
 </body>
 
