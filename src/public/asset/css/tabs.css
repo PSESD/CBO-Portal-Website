@@ -20,16 +20,30 @@
 }
 .attendance-menu li {
     float: left;
-    padding: 0 80px
+    padding: 0 81px
 }
 .attendance-menu li:nth-child(1) {
     padding-left: 15px;
 }
 .attendance-menu li:nth-child(2) {
     border-left: 2px solid grey;
+    background-color: green;
+}
+.attendance-menu li:nth-child(3) {
+    border-left: 2px solid grey;
+    background-color: green;
+}
+.attendance-menu li:nth-child(4) {
+    border-left: 2px solid grey;
+    background-color: green;
+}
+.attendance-menu li:nth-child(5) {
+    border-left: 2px solid grey;
+    background-color: green;
 }
 .attendance-menu li:nth-child(6) {
     border-right: 2px solid grey;
+    background-color: green;
 }
 .attendance-menu li:nth-child(7) {
     padding-left: 11%;
@@ -55,26 +69,31 @@
     padding-right: 85px;
 }
 .attendance-collapse-menu li:nth-child(2) {
-    padding-left: 68px;
-    padding-right: 47px;
+    padding-left: 67px;
+    padding-right: 67px;
     border-left: 2px solid grey;
+    background-color: aquamarine;
 }
 .attendance-collapse-menu li:nth-child(3) {
-    padding-left: 80px;
-    padding-right: 51px
+    padding-left: 67px;
+    padding-right: 67px;
+        background-color:blue;
 }
 .attendance-collapse-menu li:nth-child(4) {
-    padding-left: 80px;
-    padding-right: 62px;
+    padding-left: 67px;
+    padding-right: 67px;
+    background-color: crimson;
 }
 .attendance-collapse-menu li:nth-child(5) {
-    padding-left: 80px;
-    padding-right: 47px;
+    padding-left: 67px;
+    padding-right: 67px;
+    background-color: darkcyan;
 }
 .attendance-collapse-menu li:nth-child(6) {
-    padding-left: 84px;
-    padding-right: 55px;
+    padding-left: 67px;
+    padding-right: 67px;
     border-right: 2px solid grey;
+    background-color: darkgoldenrod;
 }
 .attendance-collapse-menu li:nth-child(7) {
     padding-left: 202px;
@@ -92,4 +111,5 @@
 }
 .period li {
     padding: 15px 55px;
+    
 }
