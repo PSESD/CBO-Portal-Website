@@ -577,23 +577,72 @@
                             <li>PERIOD 4</li>
                             <li>PERIOD 5</li>
                             <li>PERIOD 6</li>
+                            <li>&nbsp</li>
+                            <li>BEHAVIOR</li>
                         </ul>
-                        <div class="table-div">
-                            <div class="row-div">
-                                <div class="cell-div">
-                                    <p>Row 1 Column 1</p>
+                        <div class="container astable">
+                            <div class="row asrow">
+
+                                <div class="col-md-1 ascell">
+                                    <div class="list present start">P
+                                        <div class="descriptor">Present and in class</div>
+                                    </div>
+                                    <div class="list present">P
+                                        <div class="descriptor">Outdoor activity</div>
+                                    </div>
+                                    <div class="list present">P
+                                        <div class="descriptor">Present, in class, leading activities, head of class</div>
+                                    </div>
+                                    <div class="list present">P</div>
+                                    <div class="list present">P</div>
+                                    <div class="list present end">P</div>
                                 </div>
-                                <div class="cell-div">
-                                    <p>Row 1 Column 2</p>
+                                <div class="col-md-1 ascell">
+                                    <div class="list unexcused start end">U</div>
+                                    <div class="list excused start end">E</div>
+                                    <div class="list present start">P</div>
+                                    <div class="list present">P</div>
+                                    <div class="list present">P</div>
+                                    <div class="list present end">P</div>
                                 </div>
-                                <div class="cell-div">
-                                    <p>Row 1 Column 3</p>
+                                <div class="col-md-1 ascell">
+                                    <div class="list unexcused start">U</div>
+                                    <div class="list unexcused">U</div>
+                                    <div class="list unexcused end">U</div>
+                                    <div class="list present start">P</div>
+                                    <div class="list present">P</div>
+                                    <div class="list present end">P</div>
                                 </div>
-                                <div class="cell-div">
-                                    <p>Row 1 Column 2</p>
+                                <div class="col-md-1 ascell">
+                                    <div class="list unexcused start end">U</div>
+                                    <div class="list excused start">E</div>
+                                    <div class="list excused">E</div>
+                                    <div class="list excused end">E</div>
+                                    <div class="list present start">P</div>
+                                    <div class="list present end">P</div>
                                 </div>
-                                <div class="cell-div">
-                                    <p>Row 1 Column 3</p>
+                                <div class="col-md-1 ascell">
+                                    <div class="list holiday start">H</div>
+                                    <div class="list holiday">H</div>
+                                    <div class="list holiday">H</div>
+                                    <div class="list holiday">H</div>
+                                    <div class="list holiday">H</div>
+                                    <div class="list holiday end">H</div>
+                                </div>
+                                
+                                <button class="button button-legend" ng-click="open()" ng-show="open_button">LEGEND</button>
+                                <div class="panel panel-default panel-border legend" ng-show="icon_legend">
+                                    <div class="panel-heading" style="background-color:transparent;font-weight:bold;color:black;">
+                                        LEGEND
+                                    <span class="glyphicon glyphicon-remove icon-legend" style="color:black" aria-hidden="true" ng-click="close()" ></span>
+                                    </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item present-legend">PRESENT</li>
+                                        <li class="list-group-item excused-legend">EXCUSED</li>
+                                        <li class="list-group-item late-legend">LATE</li>
+                                        <li class="list-group-item holiday-legend">HOLIDAY</li>
+                                        <li class="list-group-item unexcused-legend">UNEXCUSED</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -610,7 +659,82 @@
                                 <li>-12%</li>
                             </ul>
                         </accordion-heading>
+                        <ul class="period">
+                            <li>PERIOD 1</li>
+                            <li>PERIOD 2</li>
+                            <li>PERIOD 3</li>
+                            <li>PERIOD 4</li>
+                            <li>PERIOD 5</li>
+                            <li>PERIOD 6</li>
+                            <li>&nbsp</li>
+                            <li>BEHAVIOR</li>
+                        </ul>
+                        <div class="container astable">
+                            <div class="row asrow">
 
+                                <div class="col-md-1 ascell">
+                                    <div class="list present start">P
+                                        <div class="descriptor">Present and in class</div>
+                                    </div>
+                                    <div class="list present">P
+                                        <div class="descriptor">Outdoor activity</div>
+                                    </div>
+                                    <div class="list present">P
+                                        <div class="descriptor">Present, in class, leading activities, head of class</div>
+                                    </div>
+                                    <div class="list present">P</div>
+                                    <div class="list present">P</div>
+                                    <div class="list present end">P</div>
+                                </div>
+                                <div class="col-md-1 ascell">
+                                    <div class="list unexcused start end">U</div>
+                                    <div class="list excused start end">E</div>
+                                    <div class="list present start">P</div>
+                                    <div class="list present">P</div>
+                                    <div class="list present">P</div>
+                                    <div class="list present end">P</div>
+                                </div>
+                                <div class="col-md-1 ascell">
+                                    <div class="list unexcused start">U</div>
+                                    <div class="list unexcused">U</div>
+                                    <div class="list unexcused end">U</div>
+                                    <div class="list present start">P</div>
+                                    <div class="list present">P</div>
+                                    <div class="list present end">P</div>
+                                </div>
+                                <div class="col-md-1 ascell">
+                                    <div class="list unexcused start end">U</div>
+                                    <div class="list excused start">E</div>
+                                    <div class="list excused">E</div>
+                                    <div class="list excused end">E</div>
+                                    <div class="list present start">P</div>
+                                    <div class="list present end">P</div>
+                                </div>
+                                <div class="col-md-1 ascell">
+                                    <div class="list holiday start">H</div>
+                                    <div class="list holiday">H</div>
+                                    <div class="list holiday">H</div>
+                                    <div class="list holiday">H</div>
+                                    <div class="list holiday">H</div>
+                                    <div class="list holiday end">H</div>
+                                </div>
+                                <button class="button button-legend" ng-click="open()" ng-show="open_button">LEGEND</button>
+                                <div class="panel panel-default panel-border legend" ng-show="icon_legend">
+                                    <div class="panel-heading" style="background-color:transparent;font-weight:bold;color:black;">
+                                        LEGEND
+                                    <span class="glyphicon glyphicon-remove icon-legend" style="color:black" aria-hidden="true" ng-click="close()" ></span>
+                                    </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item present-legend">PRESENT</li>
+                                        <li class="list-group-item excused-legend">EXCUSED</li>
+                                        <li class="list-group-item late-legend">LATE</li>
+                                        <li class="list-group-item holiday-legend">HOLIDAY</li>
+                                        <li class="list-group-item unexcused-legend">UNEXCUSED</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
                     </accordion-group>
                 </accordion>
             </tab>

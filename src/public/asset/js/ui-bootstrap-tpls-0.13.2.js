@@ -4993,7 +4993,7 @@ angular.module("template/accordion/accordion-group.html", []).run(["$templateCac
 
 angular.module("template/accordion/accordion.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/accordion/accordion.html",
-    "<div class=\"panel-group\" ng-transclude></div>");
+    "<div class=\"panel-group\" style=\"background-color:darkturquoise\" ng-transclude></div>");
 }]);
 
 angular.module("template/alert/alert.html", []).run(["$templateCache", function($templateCache) {
