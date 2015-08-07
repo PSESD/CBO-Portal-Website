@@ -317,6 +317,7 @@ select{
     background-color: #0080FF
 }
 .last-update {
+    margin-left: 2%;
     font-size: 14px;
     color: #aaa;
 }

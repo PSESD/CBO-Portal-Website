@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <h2>
                     {{ student.first_name }} {{ student.last_name }}
-                    <span class="last-update">{{ student.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
+                    <span class="last-update">Last update : &nbsp {{ student.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
                     </h2>
                 </div>
             </div>
@@ -421,7 +421,9 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="wrapper attendance-card">
+
+
+        <!--<div class="wrapper attendance-card">
             <div class="title">
                 <h4 class="attendance-header">ATTENDANCE AND BEHAVIOR</h4>
             </div>
@@ -468,7 +470,7 @@
                         <td class="holiday-field align-top-left top-border" rowspan="6">H</td>
                         <td style="width:15%;font-weight:bold;" rowspan="6">
                             <div class="panel panel-default panel-border">
-                                <!-- Default panel contents -->
+                                 Default panel contents 
                                 <div class="panel-heading" style="background-color:transparent;font-weight:bold;color:black;">LEGEND</div>
                                 <ul class="list-group">
                                     <li class="list-group-item" style="background-color: #8CECFF;font-weight:bold;color:black">PRESENT</li>
@@ -538,6 +540,84 @@
 
                 </table>
             </div>
-        </div>
+        </div>-->
+
+        <tabset justified="true">
+            <tab heading="ATTENDANCE AND BEHAVIOR">
+                <div class="panel no-border">
+                    <div class="panel-body no-border">
+                        <ul class="attendance-menu">
+                            <li>ATTENDANCE DATES</li>
+                            <li>M</li>
+                            <li>T</li>
+                            <li>W</li>
+                            <li>TH</li>
+                            <li>F</li>
+                            <li>DATE CHANGE</li>
+                        </ul>
+                    </div>
+                </div>
+                <accordion close-others="true">
+                    <accordion-group is-open="status.open" class="tab-content">
+                        <accordion-heading>
+                            <ul class="attendance-collapse-menu">
+                                <li>7/27/15 - 7/31/15</li>
+                                <li>100%</li>
+                                <li>100%</li>
+                                <li>10%</li>
+                                <li>10% !</li>
+                                <li>100% </li>
+                                <li>-12%</li>
+                            </ul>
+                        </accordion-heading>
+                        <ul class="period">
+                            <li>PERIOD 1</li>
+                            <li>PERIOD 2</li>
+                            <li>PERIOD 3</li>
+                            <li>PERIOD 4</li>
+                            <li>PERIOD 5</li>
+                            <li>PERIOD 6</li>
+                        </ul>
+                        <div class="table-div">
+                            <div class="row-div">
+                                <div class="cell-div">
+                                    <p>Row 1 Column 1</p>
+                                </div>
+                                <div class="cell-div">
+                                    <p>Row 1 Column 2</p>
+                                </div>
+                                <div class="cell-div">
+                                    <p>Row 1 Column 3</p>
+                                </div>
+                                <div class="cell-div">
+                                    <p>Row 1 Column 2</p>
+                                </div>
+                                <div class="cell-div">
+                                    <p>Row 1 Column 3</p>
+                                </div>
+                            </div>
+                        </div>
+                    </accordion-group>
+                    <accordion-group class="tab-content">
+                        <accordion-heading>
+                            <ul class="attendance-collapse-menu">
+                                <li>7/27/15 - 7/31/15</li>
+                                <li>100%</li>
+                                <li>100%</li>
+                                <li>10%</li>
+                                <li>10% !</li>
+                                <li>100% </li>
+                                <li>-12%</li>
+                            </ul>
+                        </accordion-heading>
+
+                    </accordion-group>
+                </accordion>
+            </tab>
+            <tab heading="PROGRAM PARTICIPATION">PROGRAM PARTICIPATION CONTENT</tab>
+            <tab heading="TRANSCRIPT">TRANSCRIPT CONTENT</tab>
+        </tabset>
+
+
     </div>
 </div>
