@@ -270,20 +270,34 @@
     <script src="asset/tag-it/js/tag-it.min.js"></script>
 
     <script src="asset/js/global.js"></script>
-
     <script src="asset/js/angu-fixed-header-table.js"></script>
-
     <script src="asset/js/classie.js"></script>
-
     <script src="asset/js/custom-slide.js"></script>
 
     <script src="config/config.js"></script>
-
     <script src="asset/index.js"></script>
 
     <script src="asset/js/ui-bootstrap-tpls-0.13.2.js"></script>
-
     <script src="asset/js/isotope.pkgd.min.js"></script>
+    <script src="asset/js/idle-timer.min.js"></script>
+
+<script>
+//    var oneHour = 1 * 60 * 60 * 1000;
+    var oneHour = 2 * 1000;
+
+    jQuery( document ).on( "idle.idleTimer", function(event, elem, obj){
+        // function you want to fire when the user goes idle
+        console.log("trigger start");
+    });
+
+    jQuery( document ).on( "active.idleTimer", function(event, elem, obj, triggerevent){
+        // function you want to fire when the user becomes active again
+        console.log("trigger stop");
+    });
+
+    jQuery.idleTimer(oneHour);
+
+</script>
 
 </body>
 
