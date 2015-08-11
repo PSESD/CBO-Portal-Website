@@ -1,10 +1,10 @@
 //    var oneHour = 1 * 60 * 60 * 1000;
 var session_timeout = {
     //Logout Settings
-//    inactiveTimeout: 1 * 58 * 60 * 1000,     //(ms) The time until we display a warning message
-//    warningTimeout: 60 * 1000,      //(ms) The time until we log them out
-    inactiveTimeout: 5 * 1000,     //(ms) The time until we display a warning message
-    warningTimeout: 10 * 1000,      //(ms) The time until we log them out
+    inactiveTimeout: 1 * 58 * 60 * 1000,     //(ms) The time until we display a warning message
+    warningTimeout: 60 * 1000,      //(ms) The time until we log them out
+//    inactiveTimeout: 5 * 1000,     //(ms) The time until we display a warning message
+//    warningTimeout: 10 * 1000,      //(ms) The time until we log them out
     minWarning: 60 * 1000,           //(ms) If they come back to page (on mobile), The minumum amount, before we just log them out
     warningStart: null,         //Date time the warning was started
     warningTimer: null,         //Timer running every second to countdown to logout
