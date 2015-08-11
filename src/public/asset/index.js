@@ -219,17 +219,22 @@ function ($window ,  $rootScope) {
 
 app.run(function($rootScope, $http, $location, $window, AuthenticationService, CookieStore) {
 
-    CookieStore.getData();
+    var returnData = CookieStore.getData();
 
     $rootScope.$on("$routeChangeStart", function(event, nextRoute) {
         //redirect only if both isAuthenticated is false and no token is set
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             $location.path("/login");
         }
-		
+
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAdmin && AuthenticationService.role == 'case-worker') {
             showError("You don't have any permission to access this page", 1);
             event.preventDefault();
+        }
+
+        if(returnData)
+        {
+            start_time_idle();
         }
 		
     });
@@ -241,6 +246,7 @@ app.factory('AuthenticationService', function()
     var auth = {
         isAuthenticated: false,
         token: null,
+        refresh_token: null,
         organization_id: null,
         redirect_url: null,
         user_id: null,
@@ -269,8 +275,9 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         {
             $cookieStore.put('cboAdmin_cookie_remember', value);
         },
-        setData: function(token, organization_id, redirect_url, user_id, email, name, role) {
+        setData: function(token, refresh_token, organization_id, redirect_url, user_id, email, name, role) {
             $cookieStore.put('cboAdmin_cookie_token', token);
+            $cookieStore.put('cboAdmin_cookie_refresh_token', refresh_token);
             $cookieStore.put('cboAdmin_cookie_organization_id', organization_id);
             $cookieStore.put('cboAdmin_cookie_redirect_url', redirect_url);
             $cookieStore.put('cboAdmin_cookie_user_id', user_id);
@@ -280,6 +287,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
             AuthenticationService.isAuthenticated = true;
             AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
+            AuthenticationService.refresh_token = $cookieStore.get('cboAdmin_cookie_refresh_token');
             AuthenticationService.organization_id = $cookieStore.get('cboAdmin_cookie_organization_id');
             AuthenticationService.redirect_url = $cookieStore.get('cboAdmin_cookie_redirect_url');
             AuthenticationService.user_id = $cookieStore.get('cboAdmin_cookie_user_id');
@@ -295,6 +303,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             {
                 AuthenticationService.isAuthenticated = true;
                 AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
+                AuthenticationService.refresh_token = $cookieStore.get('cboAdmin_cookie_refresh_token');
                 AuthenticationService.organization_id = $cookieStore.get('cboAdmin_cookie_organization_id');
                 AuthenticationService.redirect_url = $cookieStore.get('cboAdmin_cookie_redirect_url');
                 AuthenticationService.user_id = $cookieStore.get('cboAdmin_cookie_user_id');
@@ -319,6 +328,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
                 AuthenticationService.isAuthenticated = false;
                 AuthenticationService.token = null;
+                AuthenticationService.refresh_token = null;
                 AuthenticationService.organization_id = null;
                 AuthenticationService.redirect_url = null;
                 AuthenticationService.user_id = null;
@@ -343,6 +353,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             }
 
             $cookieStore.remove('cboAdmin_cookie_token');
+            $cookieStore.remove('cboAdmin_cookie_refresh_token');
             $cookieStore.remove('cboAdmin_cookie_organization_id');
             $cookieStore.remove('cboAdmin_cookie_redirect_url');
             $cookieStore.remove('cboAdmin_cookie_user_id');
@@ -350,6 +361,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             $cookieStore.remove('cboAdmin_cookie_role');
             AuthenticationService.isAuthenticated = false;
             AuthenticationService.token = null;
+            AuthenticationService.refresh_token = null;
             AuthenticationService.organization_id = null;
             AuthenticationService.redirect_url = null;
             AuthenticationService.user_id = null;
@@ -357,6 +369,9 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             AuthenticationService.role = null;
             $rootScope.showNavBar = false;
             $rootScope.completeName = false;
+
+            stop_time_idle();
+
             return true;
         }
     };
@@ -413,6 +428,37 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     CookieStore.clearData();
                     showError('Success Logout', 2);
                     $location.path("/login");
+
+                });
+
+        };
+
+        $scope.refreshMe = function() {
+
+            var auth = base64_encode( globalConfig.client_id+':'+globalConfig.client_secret );
+            var grant_type = encodeURIComponent( globalConfig.grant_type );
+            var uri = auth_url+'oauth2/token';
+            var send = {
+                grant_type: 'refresh_token',
+                refresh_token: AuthenticationService.refresh_token,
+            };
+
+            $http.post( uri , $.param(send), {
+                headers: {
+                    'Authorization': 'Basic '+auth
+                }
+            })
+                .success( function (response) {
+
+                    console.log('success');
+                    console.log(response);
+
+                })
+                .error( function (response, status) {
+
+                    console.log('fail');
+                    console.log(response);
+                    console.log(status);
 
                 });
 
@@ -2858,7 +2904,9 @@ app.controller('HeartbeatController', ['$rootScope', '$scope',
 
 app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
-		
+
+        stop_time_idle();
+
         $rootScope.full_screen = true;
         $rootScope.doingResolve = false;
         var getRemember = CookieStore.get('cboAdmin_cookie_remember');
@@ -2879,7 +2927,8 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
             var send = {
                 grant_type: grant_type,
                 username: username,
-                password: password
+                password: password,
+                scope: 'offline_access'
             };
 			
             $http.post( uri , $.param(send), {
@@ -2888,6 +2937,9 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                 }
             })
                 .success(function(response) {
+
+                    console.log(response);
+
                     $http.get( api_url+'organizations' , {
                         headers: {
                             'Authorization': 'Bearer '+response.access_token
@@ -2971,7 +3023,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                             }
                                             if(find)
                                             {
-                                                CookieStore.setData( response.access_token, get_id, get_redirect_url, id, send.username, complete_name, role );
+                                                CookieStore.setData( response.access_token, response.refresh_token, get_id, get_redirect_url, id, send.username, complete_name, role );
 
                                                 if(typeof remmember !== 'undefined' && remmember == true)
                                                 {
@@ -2985,7 +3037,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 												
 
                                             }
-											
+                                            start_time_idle();
                                             $location.path( '/' );
                                         }
                                         else
@@ -3467,4 +3519,17 @@ function base64_encode(data) {
     var r = data.length % 3;
 
     return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
+}
+
+
+function start_time_idle()
+{
+    console.log("trigger idle start");
+    session_timeout.login();
+}
+
+function stop_time_idle()
+{
+    console.log("trigger idle stop");
+    session_timeout.logout();
 }
