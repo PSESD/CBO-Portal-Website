@@ -85,6 +85,11 @@ p {
     max-width: 400px;
 }
 
+b, strong{
+    color: #999 !important;
+    padding: 0 10px 10px 0 !important;
+}
+
 /*
 ===============================================
 ================== 2.Header ===================
@@ -170,7 +175,7 @@ a:hover {
 .card .title hr {
     width: 100%;
     /*border-top: solid 2px #555;*/
-    margin: 10px 0 40px 0;
+    margin: 10px 0 10px 0;
     height: 2px;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fce623+0,f2cc10+37,f2a900+69,ef7700+100 */
     background: rgb(252, 230, 35);
