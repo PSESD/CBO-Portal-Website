@@ -452,6 +452,8 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
             })
                 .success( function (response) {
 
+                    clearTimeout(session_timeout.warningTimer);
+
                     CookieStore.put('cboAdmin_cookie_token', response.access_token);
                     CookieStore.put('cboAdmin_cookie_refresh_token', response.refresh_token);
                     AuthenticationService.token = response.access_token;
