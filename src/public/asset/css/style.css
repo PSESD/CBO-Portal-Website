@@ -532,6 +532,7 @@ div[contentEditable]:focus {
     outline: 0px !important;
     -webkit-appearance: none;
     min-height: 30px;
+    white-space: nowrap;
 }
 a.button {
     padding-top: 5px;
