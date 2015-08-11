@@ -20,7 +20,7 @@ var session_timeout = {
         jQuery(document).idleTimer("pause");
         clearInterval(session_timeout.warningTimer);
         clearInterval(session_timeout.keepaliveTimer);
-        jQuery("#logoutSession").trigger('click');
+        window.location = global_redirect_url;
 
     },
     login: function() {

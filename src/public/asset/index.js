@@ -18,6 +18,8 @@ var schoolDistricts = {
   'northshore': 'North Shore'
 }
 
+var global_redirect_url = '/';
+
 var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table','ui.bootstrap']);
 
 app.factory('headerInjector',[function(SessionService) {  
@@ -440,7 +442,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
             var uri = auth_url+'oauth2/token';
             var send = {
                 grant_type: 'refresh_token',
-                refresh_token: AuthenticationService.refresh_token,
+                refresh_token: AuthenticationService.refresh_token
             };
 
             $http.post( uri , $.param(send), {
@@ -450,8 +452,10 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
             })
                 .success( function (response) {
 
-                    console.log('success');
-                    console.log(response);
+                    CookieStore.put('cboAdmin_cookie_token', response.access_token);
+                    CookieStore.put('cboAdmin_cookie_refresh_token', response.refresh_token);
+                    AuthenticationService.token = response.access_token;
+                    AuthenticationService.refresh_token = response.refresh_token;
 
                 })
                 .error( function (response, status) {
@@ -459,6 +463,10 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     console.log('fail');
                     console.log(response);
                     console.log(status);
+
+                    CookieStore.clearData();
+                    showError(response.message, 2);
+                    $location.path("/login");
 
                 });
 
@@ -3024,6 +3032,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                             if(find)
                                             {
                                                 CookieStore.setData( response.access_token, response.refresh_token, get_id, get_redirect_url, id, send.username, complete_name, role );
+                                                global_redirect_url = get_redirect_url;
 
                                                 if(typeof remmember !== 'undefined' && remmember == true)
                                                 {
