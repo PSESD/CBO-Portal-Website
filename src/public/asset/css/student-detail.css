@@ -1,3 +1,121 @@
+.item-accordion {
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    color: black;
+    background-color: cornsilk;
+    clear: both;
+}
+.item-data-accordion {
+    display: none;
+}
+.active-accordion {
+    color: #000;
+}
+.legend-panel {
+    border-radius: 0px!important;
+    border: 2px solid black;
+}
+.no-background-color {
+    background-color: white!important;
+}
+ul.flexbox {
+    display: -webkit-box;
+    /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;
+    /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;
+    /* TWEENER - IE 10 */
+    display: -webkit-flex;
+    /* NEW - Chrome */
+    display: flex;
+    /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+ul.flexbox.header li {
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    font-weight: bolder;
+}
+ul.period-col li {
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    
+}
+ul.flexbox.header li:nth-child(odd) {
+    background-color: skyblue;
+}
+ul.flexbox.header li:nth-child(even) {
+    background-color: deepskyblue;
+}
+ul.flexbox.header li:nth-child(1) {
+    width: 25%;
+}
+ul.flexbox.header li:nth-child(2) {
+    width: 10%;
+}
+ul.flexbox.header li:nth-child(3) {
+    width: 10%;
+}
+ul.flexbox.header li:nth-child(4) {
+    width: 10%;
+}
+ul.flexbox.header li:nth-child(5) {
+    width: 10%;
+}
+ul.flexbox.header li:nth-child(6) {
+    width: 10%;
+}
+ul.flexbox.header li:nth-child(7) {
+    width: 25%;
+}
+ul.flexbox.header.item li:nth-child(7) {
+    padding-left: 15px;
+}
+.header {
+    margin: 0;
+    padding: 0;
+}
+ul {
+    list-style-type: none;
+}
+.period-menu {
+    float: left;
+    width: 25%;
+}
+.accordion-content {
+    float: left;
+    width: 50%;
+}
+.accordion-legend {
+    width: 25%;
+    float: left;
+    padding: 1%;
+}
+.accordion-content {
+    margin: 0;
+    padding: 0;
+}
+.period-menu {
+    background-color: azure;
+}
+.accordion-content {
+    background-color: burlywood;
+}
+.accordion-legend {
+    border: 1px solid black;
+}
+.period-col {
+    margin: 0;
+    padding: 0;
+}
+ul.period-col li {
+    height: 50px;
+    margin-bottom: 1px;
+    line-height: 50px;
+}
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -6,16 +124,9 @@
 
 /* inherit height from window */
 
-body {
-    font-family: sans-serif;
-}
-
-/* ---- grid ---- */
-
-.grid {
-    height: 75%;
-    /* inherit height from body */
-    background-color: #ededed;
+.accordion-grid {
+    background: #DDD;
+    height: 310px;
 }
 
 /* clear fix */
@@ -30,37 +141,16 @@ body {
 
 .grid-item {
     float: left;
-    width: 170px;
-    height: 49px;
+    width: 10px;
+    height: 30px;
     background: #0D8;
-    border: 2px solid #333;
-    border-color: hsla(0, 0%, 0%, 0.7);
-    margin: 1px;
+    margin-bottom: 1px;
 }
 .grid-item--height2 {
-    height: 200px;
+    height: 100px;
 }
-.table-div {
-    display: table;
-}
-.title-div {
-    display: table-caption;
-    text-align: center;
-    font-weight: bold;
-    font-size: larger;
-}
-.heading-div {
-    display: table-row;
-    font-weight: bold;
-    text-align: center;
-}
-.row-div {
-    display: table-row;
-}
-.cell-div {
-    display: table-cell;
-    border: solid;
-    border-width: thin;
-    padding-left: 15px;
-    padding-right: 15px;
+#icon-content-header {
+    position: relative;
+    top: 14px;
+    right: 12px;
 }

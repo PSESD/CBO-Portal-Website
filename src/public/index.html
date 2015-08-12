@@ -39,6 +39,7 @@
     <link href="asset/css/desktop-layout.css" rel="stylesheet">
     <link href="asset/css/tabs.css" rel=stylesheet>
     <link href="asset/css/attendance.css" rel="stylesheet">
+    <link href="asset/css/student-detail.css" rel="stylesheet">
 
 
 </head>
@@ -46,6 +47,7 @@
 <body ng-controller="BodyController" class="cbp-spmenu-push" resize>
 
     <div class="container-fluid">
+        <!--
         <div id="mobile" class="row" style="display:none">
             <div class="col-md-12">
                 <nav class="navbar-inverse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" ng-show="showNavBar" id="cbp-spmenu-s1">
@@ -75,7 +77,7 @@
 				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
                     <a ng-href="#/tag">Tags</a>
                 </li>
-				-->
+				
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right" style="padding-left:15px;">
@@ -85,7 +87,7 @@
                     </ul>
                 </nav>
 
-                <!--<div class="content" style="padding-left:70px;">-->
+                <!--<div class="content" style="padding-left:70px;">
                 <div class="content" style="padding-left:65px;">
                     <div class="row">
                         <div class="col-md-12">
@@ -110,6 +112,7 @@
                 </div>
             </div>
         </div>
+        -->
     </div>
     <div id="desktop" style="display:none">
 
@@ -273,6 +276,7 @@
 
     <script src="asset/js/jquery-1.11.3.min.js"></script>
     <script src="asset/js/jquery-ui.min.js"></script>
+    
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="asset/bootstrap/js/bootstrap.min.js"></script>
@@ -292,13 +296,15 @@
     <script src="asset/js/global.js"></script>
     <script src="asset/js/angu-fixed-header-table.js"></script>
     <script src="asset/js/classie.js"></script>
-    <script src="asset/js/custom-slide.js"></script>
+    <!--<script src="asset/js/custom-slide.js"></script>-->
 
     <script src="config/config.js"></script>
     <script src="asset/index.js"></script>
 
     <script src="asset/js/ui-bootstrap-tpls-0.13.2.js"></script>
-    <script src="asset/js/isotope.pkgd.min.js"></script>
+    <script src="asset/js/isotope.pkgd.js"></script>
+    <script src="asset/js/fit-columns.js"></script>
+    <script src="asset/js/student-detail.js"></script>
 </body>
 
 </html>

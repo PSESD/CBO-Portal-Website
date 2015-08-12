@@ -32,6 +32,7 @@ II MEDIA
 
 html {}
 body {
+    overflow: hidden;
     padding-bottom: 50px;
     background: #DADFDC;
     height: 100vh;
