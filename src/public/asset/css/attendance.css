@@ -60,22 +60,6 @@ body {
 .centered {
     text-align: center;
 }
-.present {
-    background-color: aqua;
-    text-indent: -9999px;
-}
-.unexcused {
-    background-color: lightcoral;
-    text-indent: -9999px;
-}
-.excused {
-    background-color: crimson;
-    text-indent: -9999px;
-}
-.holiday {
-    background-color: mediumpurple;
-    text-indent: -9999px;
-}
 .present-legend {
     background-color: aqua;
     font-weight: bold;

@@ -430,7 +430,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
 app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
     function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService) {
-
+        $rootScope.data_content = "asset/templates/desktop.html";    
         $rootScope.full_screen = false;
         if (CookieStore.get('cboAdmin_cookie_role') == 'admin') {
             $rootScope.users_link = true;
@@ -2812,13 +2812,12 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                             if (responseClient.success == true && responseClient.total > 0) {
                                 for (var i = 0; i < responseClient.total; i++) {
-                                    if(get_hosting_name == responseClient.data[i].url)
-                                    {
-                                    grand_access = true;
-                                    get_id = responseClient.data[i]._id;
-                                    get_redirect_url = responseClient.data[i].url;
-                                    var myEl = angular.element(document.querySelector('body'));
-                                    myEl.addClass('cbp-spmenu-push');
+                                    if (get_hosting_name == responseClient.data[i].url) {
+                                        grand_access = true;
+                                        get_id = responseClient.data[i]._id;
+                                        get_redirect_url = responseClient.data[i].url;
+                                        var myEl = angular.element(document.querySelector('body'));
+                                        myEl.addClass('cbp-spmenu-push');
                                     }
                                 }
                             }
@@ -3283,9 +3282,11 @@ app.directive('resize', function ($window) {
             scope.windowWidth = newValue.w;
             if (w.innerWidth < 767) {
                 $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
+                $rootScope.data_content = "asset/templates/desktop.html";
 
             } else if (w.innerWidth > 767) {
                 $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
+                $rootScope.data_content = "asset/templates/desktop.html";
             }
 
         }, true);

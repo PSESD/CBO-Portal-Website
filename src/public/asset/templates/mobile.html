@@ -1,0 +1,65 @@
+<div id="mobile" class="row">
+            <div class="col-md-12">
+                <nav class="navbar-inverse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" ng-show="showNavBar" id="cbp-spmenu-s1">
+                    <span id="showLeftPush" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                    <ul class="nav navbar-nav navbar-right">
+                        <span class="navbar-brand" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-expanded="false"></span>
+                    </ul>
+                    <ul class="nav navbar-nav" style="padding-left:15px;">
+                        <li>
+                            <a href="#" style="padding-left:0">{{completeName | uppercase}}</a>
+                            <div style="position:relative;border-top:2px solid #555; width:30px;">
+                            </div>
+                        </li>
+                        <li ng-class="{ active: isActive('/student') }">
+                            <a ng-href="#/student" style="width:55%;padding-left:0">DASHBOARD</a>
+                        </li>
+                        <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
+                            <a ng-href="#/user" style="width:55%;padding-left:0">USERS</a>
+                        </li>
+                        <li ng-class="{ active: isActive('/program') }">
+                            <a ng-href="#/program" style="width:55%;padding-left:0">PROGRAMS</a>
+                        </li>
+                        <li ng-class="{ active: isActive('/profile') }">
+                            <a ng-href="#/profile" style="width:55%;padding-left:0">ACCOUNT SETTINGS</a>
+                        </li>
+                        <!--
+				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
+                    <a ng-href="#/tag">Tags</a>
+                </li>
+				-->
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" style="padding-left:15px;">
+                        <li ng-class="{ active: isActive('/logout') }">
+                            <a href="javascript:void(0)" ng-click="logoutMe()" style="width:55%;padding-left:0">LOGOUT</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="content" style="padding-left:70px;">
+                <div class="content" style="padding-left:65px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div ng-if="showNavBar">
+                                <div id="error-container">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-view ng-hide="doingResolve"></ng-view>
+                    <div ng-if="showNavBar">
+                        <div style="margin-left:70px;" class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
+                            <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
+                        </div>
+                    </div>
+                    <div ng-if="!showNavBar">
+                        <div class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
+                            <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

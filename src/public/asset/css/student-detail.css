@@ -1,26 +1,13 @@
-.item-accordion {
-    display: block;
-    height: 40px;
-    line-height: 40px;
-    cursor: pointer;
+ul.nav.nav-tabs.nav-justified li,
+.panel.attendance-behavior {
+    background-color: #00B4BC;
+}
+ul.nav.nav-tabs.nav-justified li a {
+    font-size: 14px;
+    font-weight: bold;
     color: black;
-    background-color: cornsilk;
-    clear: both;
 }
-.item-data-accordion {
-    display: none;
-}
-.active-accordion {
-    color: #000;
-}
-.legend-panel {
-    border-radius: 0px!important;
-    border: 2px solid black;
-}
-.no-background-color {
-    background-color: white!important;
-}
-ul.flexbox {
+ul.flexbox.attendance-behavior {
     display: -webkit-box;
     /* OLD - iOS 6-, Safari 3.1-6 */
     display: -moz-box;
@@ -31,126 +18,210 @@ ul.flexbox {
     /* NEW - Chrome */
     display: flex;
     /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    margin: 0;
+    padding: 0;
 }
-ul.flexbox.header li {
+ul.attendance-behavior li {
+    padding: 0;
+    margin: 0;
     text-align: center;
-    color: black;
-    font-size: 14px;
-    font-weight: bolder;
-}
-ul.period-col li {
-    text-align: center;
-    color: black;
-    font-size: 14px;
-    
-}
-ul.flexbox.header li:nth-child(odd) {
-    background-color: skyblue;
-}
-ul.flexbox.header li:nth-child(even) {
-    background-color: deepskyblue;
-}
-ul.flexbox.header li:nth-child(1) {
-    width: 25%;
-}
-ul.flexbox.header li:nth-child(2) {
-    width: 10%;
-}
-ul.flexbox.header li:nth-child(3) {
-    width: 10%;
-}
-ul.flexbox.header li:nth-child(4) {
-    width: 10%;
-}
-ul.flexbox.header li:nth-child(5) {
-    width: 10%;
-}
-ul.flexbox.header li:nth-child(6) {
-    width: 10%;
-}
-ul.flexbox.header li:nth-child(7) {
-    width: 25%;
-}
-ul.flexbox.header.item li:nth-child(7) {
-    padding-left: 15px;
-}
-.header {
-    margin: 0;
-    padding: 0;
-}
-ul {
-    list-style-type: none;
-}
-.period-menu {
-    float: left;
-    width: 25%;
-}
-.accordion-content {
-    float: left;
-    width: 50%;
-}
-.accordion-legend {
-    width: 25%;
-    float: left;
-    padding: 1%;
-}
-.accordion-content {
-    margin: 0;
-    padding: 0;
-}
-.period-menu {
-    background-color: azure;
-}
-.accordion-content {
-    background-color: burlywood;
-}
-.accordion-legend {
-    border: 1px solid black;
-}
-.period-col {
-    margin: 0;
-    padding: 0;
-}
-ul.period-col li {
     height: 50px;
-    margin-bottom: 1px;
     line-height: 50px;
 }
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+ul.attendance-behavior li:nth-child(1) {
+    width: 25%;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
 }
-
-/* inherit height from window */
-
-.accordion-grid {
-    background: #DDD;
-    height: 310px;
+ul.attendance-behavior li:nth-child(2) {
+    width: 10%;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
 }
-
-/* clear fix */
-
-.grid:after {
-    content: '';
+ul.attendance-behavior li:nth-child(3) {
+    width: 10%;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+ul.attendance-behavior li:nth-child(4) {
+    width: 10%;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+ul.attendance-behavior li:nth-child(5) {
+    width: 10%;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+ul.attendance-behavior li:nth-child(6) {
+    width: 10%;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+ul.attendance-behavior li:nth-child(7) {
+    width: 25%;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+.panel-heading.attendance-behavior {
+    padding: 0;
+    margin: 0;
+}
+.header-icon-attendance.glyphicon.glyphicon-chevron-down.pull-right {
+    color: black;
+    top: 37%;
+    position: relative;
+    right: 5%;
+}
+.legend-icon-attendance.glyphicon.glyphicon-chevron-up.pull-right {
+    
+    color: black;
+    top: 360px;
+    position: relative;
+    right: 1%;
+   
+}
+.panel-body.attendance-behavior {
+    padding: 0;
+    margin: 0;
+}
+.period-col,
+.attendance-content,
+.attendance-legend {
     display: block;
-    clear: both;
+    margin: 0;
+    padding: 0;
+    float: left;
+    padding-bottom: 5px;
 }
-
-/* ---- .grid-item ---- */
-
+.period-col {
+    width: 25%;
+}
+.attendance-content {
+    width: 50%;
+}
+.attendance-legend {
+    width: 25%;
+    padding: 1%;
+}
+ul.period-col.menu {
+    width: 100%;
+}
+ul.period-col.menu li {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.monday,
+.tuesday,
+.wednesday,
+.thursday,
+.friday {
+    display: block;
+    width: 20%;
+    height: 300px;
+    margin: 0;
+    padding: 1px;
+    float: left;
+}
 .grid-item {
     float: left;
-    width: 10px;
-    height: 30px;
-    background: #0D8;
-    margin-bottom: 1px;
+    clear: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 50px;
+    display: block;
 }
-.grid-item--height2 {
-    height: 100px;
+.present {
+    background-color: #00B4BC;
 }
-#icon-content-header {
+.excused {
+    background-color: #2F9DBB;
+}
+.late {
+    background-color: #4E73A7;
+}
+.holiday {
+    background-color: #765B74;
+}
+.unexcused {
+    background-color: #CD5728;
+}
+ul.list-group.legend-list li {
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 0px;
+    text-indent: 0;
+}
+.panel.legend-list,
+.panel.legend-list.panel-heading,
+{
+    border-radius: 0px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+.panel.legend-list>.list-group:last-child .list-group-item:last-child {
+    border-bottom: 0;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.panel.legend-list {
+    border: 1px solid #ededed;
+}
+.panel-heading {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.attendance-card {
+    border-bottom: solid 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+.first-col-separator,
+.first-col-separator-list {
+    border-right: 4px solid #adadad;
     position: relative;
-    top: 14px;
-    right: 12px;
+    left: 34%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.first-col-separator-list {
+    left: 36.7%
+}
+.last-col-separator,
+.last-col-separator-list {
+    border-right: 4px solid #adadad;
+    position: relative;
+    left: -38%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.last-col-separator-list {
+    left: -44.7%
+}
+.hide {
+    display: none;
+}
+.show {
+    display: "";
+}
+.button.btn-legend{
+    position: relative;
+    left: 37%;
+}
+
+.icon-legend.glyphicon.glyphicon-remove.pull-right:hover{
+    cursor: pointer;
 }

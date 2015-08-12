@@ -45,9 +45,8 @@
 </head>
 
 <body ng-controller="BodyController" class="cbp-spmenu-push" resize>
-
+<!--
     <div class="container-fluid">
-        <!--
         <div id="mobile" class="row" style="display:none">
             <div class="col-md-12">
                 <nav class="navbar-inverse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" ng-show="showNavBar" id="cbp-spmenu-s1">
@@ -87,12 +86,11 @@
                     </ul>
                 </nav>
 
-                <!--<div class="content" style="padding-left:70px;">
                 <div class="content" style="padding-left:65px;">
                     <div class="row">
                         <div class="col-md-12">
                             <div ng-if="showNavBar">
-                                <div id="error-container">
+                                <div class="error-container">
 
                                 </div>
                             </div>
@@ -112,18 +110,18 @@
                 </div>
             </div>
         </div>
-        -->
     </div>
+    -->
     <div id="desktop" style="display:none">
 
         <div id="side-panel">
             <div id="desktop-nav" class="navbar-inverse" ng-show="showNavBar">
                 <div class="sidebar-nav">
-                    <!--
+                    
                 <ul class="nav navbar-nav navbar-right">
                     <span class="navbar-brand" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-expanded="false"></span>
                 </ul>
--->
+
 
                     <ul id="sidebar-panel-menu" class="nav navbar-nav">
 
@@ -256,27 +254,8 @@
 -->
     <!--End Container-fluid-->
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Session Expiration Warning</h4>
-                </div>
-                <div class="modal-body">
-                    <p>You've been inactive for a while. For your security, we'll log you out automatically. Click "Keep me logged in" to continue your session. </p>
-                    <p>Your session will expire in <span class="bold" id="sessionSecondsRemaining">120</span> seconds.</p>
-                </div>
-                <div class="modal-footer">
-                    <button id="extendSession" type="button" ng-click="refreshMe()" class="btn btn-default btn-success" data-dismiss="modal">Keep me logged in</button>
-                    <button id="logoutSession" type="button" ng-click="logoutMe()" class="btn btn-default btn-danger" data-dismiss="modal">Logout</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="asset/js/jquery-1.11.3.min.js"></script>
     <script src="asset/js/jquery-ui.min.js"></script>
-    
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="asset/bootstrap/js/bootstrap.min.js"></script>
@@ -294,17 +273,21 @@
     <script src="asset/js/autologout.js"></script>
 
     <script src="asset/js/global.js"></script>
+
     <script src="asset/js/angu-fixed-header-table.js"></script>
+
     <script src="asset/js/classie.js"></script>
-    <!--<script src="asset/js/custom-slide.js"></script>-->
+
+    <script src="asset/js/custom-slide.js"></script>
 
     <script src="config/config.js"></script>
+
     <script src="asset/index.js"></script>
 
     <script src="asset/js/ui-bootstrap-tpls-0.13.2.js"></script>
-    <script src="asset/js/isotope.pkgd.js"></script>
-    <script src="asset/js/fit-columns.js"></script>
-    <script src="asset/js/student-detail.js"></script>
+
+    <script src="asset/js/isotope.pkgd.min.js"></script>
+
 </body>
 
 </html>
