@@ -41,7 +41,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
-    //$httpProvider.interceptors.push('headerInjector');
+    $httpProvider.interceptors.push('headerInjector');
 
 }]);
 
@@ -2812,13 +2812,13 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                             if (responseClient.success == true && responseClient.total > 0) {
                                 for (var i = 0; i < responseClient.total; i++) {
-                                    if (get_hosting_name == responseClient.data[i].url) {
+                                    //if (get_hosting_name == responseClient.data[i].url) {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
                                         var myEl = angular.element(document.querySelector('body'));
                                         myEl.addClass('cbp-spmenu-push');
-                                    }
+                                    //}
                                 }
                             }
 

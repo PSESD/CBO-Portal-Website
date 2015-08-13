@@ -88,10 +88,6 @@
                                 <b>Grade level</b> N/A
                                 <br/>
                             </div>
-                            <a href="#" class="button" ng-click="showSchoolHistory()" style="display:inline-block">SEE SCHOOL HISTORY</a>
-                        </div>
-
-                        <div class="col-md-4">
                             <div class="title">
                                 <p class="subhead">&nbsp;</p>
                             </div>
@@ -188,19 +184,16 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior">
                     <ul class="flexbox attendance-behavior">
-                        <li>
+                        <li class="first-col-separator">
                             ATTENDANCE DATES
-                            <span class="first-col-separator">
-                            </span>
                         </li>
                         <li>M</li>
                         <li>T</li>
                         <li>W</li>
                         <li>TH</li>
                         <li>F</li>
-                        <li>
-                             <span class="last-col-separator">
-                            </span>
+                        <li class="last-col-separator">
+                            
                             DELTA CHANGE
                         </li>
                     </ul>
@@ -211,19 +204,15 @@
                                 <h4 class="panel-title">
                                 
                                  <ul class="flexbox attendance-behavior">
-                                    <li>
+                                    <li class="first-col-separator">
                                         7/21/15 - 7/31/15
-                                        <span class="first-col-separator-list">
-                            </span>
                                      </li>
                                     <li>100%</li>
                                     <li>100%</li>
                                     <li class="unexcused">10%</li>
                                     <li>100%</li>
                                     <li>100%</li>
-                                    <li>
-                                        <span class="last-col-separator-list">
-                            </span>
+                                    <li class="last-col-separator">
                                         -12%
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
                                      </li>
@@ -248,9 +237,9 @@
                                     </div>
                                     <div class="attendance-content">
                                         <div class="monday">
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
+                                            <div class="grid-item present"><div class="descriptor">Present, in class, leading activities, head of class</div></div>
+                                            <div class="grid-item present"><div class="descriptor">Present and in class</div></div>
+                                            <div class="grid-item present"><div class="descriptor">Outdoor activity</div></div>
                                             <div class="grid-item present"></div>
                                             <div class="grid-item present"></div>
                                             <div class="grid-item present"></div>
@@ -316,7 +305,7 @@
                                                 <li class="list-group-item unexcused">UNEXCUSED</li>
                                             </ul>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -325,19 +314,17 @@
                                 <h4 class="panel-title">
                                 
                                  <ul class="flexbox attendance-behavior">
-                                    <li>
+                                    <li class="first-col-separator">
                                         7/21/15 - 7/31/15
-                                     <span class="first-col-separator-list">
-                            </span>
+                                     
                                      </li>
                                     <li>100%</li>
                                     <li>100%</li>
                                     <li class="unexcused">10%</li>
                                     <li>100%</li>
                                     <li>100%</li>
-                                    <li>
-                                        <span class="last-col-separator-list">
-                            </span>
+                                    <li class="last-col-separator">
+                                        
                                         -12%
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseTwo" data-target="#collapseTwo" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
                                      </li>
@@ -361,10 +348,10 @@
                                         </ul>
                                     </div>
                                     <div class="attendance-content">
-                                        <div class="monday">
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
+                                       <div class="monday">
+                                            <div class="grid-item present"><div class="descriptor">Present, in class, leading activities, head of class</div></div>
+                                            <div class="grid-item present"><div class="descriptor">Present and in class</div></div>
+                                            <div class="grid-item present"><div class="descriptor">Outdoor activity</div></div>
                                             <div class="grid-item present"></div>
                                             <div class="grid-item present"></div>
                                             <div class="grid-item present"></div>
@@ -430,7 +417,7 @@
                                                 <li class="list-group-item unexcused">UNEXCUSED</li>
                                             </ul>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -446,14 +433,36 @@
                 <!-- tab panel -->
 
 
-
-
-
-
-
-
                 <div role="tabpanel" class="tab-pane" id="program_participation">Program participation</div>
-                <div role="tabpanel" class="tab-pane" id="transcript">transcript</div>
+                <div role="tabpanel" class="tab-pane transcript" id="transcript">
+                    <ul class="flexbox transcript">
+                        <li>
+                            <b>18</b>Credits Earned<br/>
+                            <b>20</b>Credits Attempted<br/>
+                            <b>Grade Level</b> Junior<br/><br/>
+                            <div>
+                            <div class="button transcript-school-history" ng-click="showSchoolHistory()" style="display:inline-block">SEE SCHOOL HISTORY</div>    
+                            </div>
+                            
+                        </li>
+                        <li class="math-credits">1.5
+                            <br/>MATH CREDITS</li>
+                        <li class="history-credits">2.5
+                            <br/>HISTORY CREDITS</li>
+                        <li class="language-arts-credits">1
+                            <br/>LANGUAGE ARTS
+                            <br/> CREDITS</li>
+                        <li class="elective-credits">4.5
+                            <br/>ELECTIVE CREDITS</li>
+                        <li class="language-credits">1.5
+                            <br/>LANGUAGE CREDITS</li>
+                        <li class="physical-education-credits">3
+                            <br/>PYHSICAL EDUCATION
+                            <br/> CREDITS</li>
+                    </ul>
+                            <hr class="separator-transcript">
+                        
+                </div>
 
 
 
