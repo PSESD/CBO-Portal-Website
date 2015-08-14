@@ -20,7 +20,7 @@ var schoolDistricts = {
 
 var global_redirect_url = '/';
 
-var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ui.bootstrap']);
+var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table']);
 
 app.factory('headerInjector', [function (SessionService) {
     var headerInjector = {
@@ -41,7 +41,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
-//    $httpProvider.interceptors.push('headerInjector');
+    //$httpProvider.interceptors.push('headerInjector');
 
 }]);
 
@@ -267,16 +267,19 @@ app.config(function ($routeProvider) {
 
 });
 
-app.run(['$window', '$rootScope',
+app.run(['$window', '$rootScope','$route',
 function ($window, $rootScope) {
         $rootScope.goBack = function () {
             $window.history.back();
         }
+    $rootScope.data_content = "asset/templates/desktop.html";
         var element = angular.element("#login-container");
         if ($window.innerWidth > 767) {
             $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
+            $rootScope.data_content = "asset/templates/desktop.html";
         } else if ($window.innerWidth < 767) {
             $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
+            $rootScope.data_content = "asset/templates/mobile.html";
         }
 }]);
 
@@ -430,7 +433,6 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
 app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
     function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService) {
-        $rootScope.data_content = "asset/templates/desktop.html";    
         $rootScope.full_screen = false;
         if (CookieStore.get('cboAdmin_cookie_role') == 'admin') {
             $rootScope.users_link = true;
@@ -3282,7 +3284,7 @@ app.directive('resize', function ($window) {
             scope.windowWidth = newValue.w;
             if (w.innerWidth < 767) {
                 $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
-                $rootScope.data_content = "asset/templates/desktop.html";
+                $rootScope.data_content = "asset/templates/mobile.html";
 
             } else if (w.innerWidth > 767) {
                 $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";

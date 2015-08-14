@@ -45,7 +45,9 @@
 </head>
 
 <body ng-controller="BodyController" class="cbp-spmenu-push" resize>
-<!--
+
+<div ng-include="data_content"></div>
+<!--"
     <div class="container-fluid">
         <div id="mobile" class="row" style="display:none">
             <div class="col-md-12">
@@ -112,6 +114,8 @@
         </div>
     </div>
     -->
+<!--
+
     <div id="desktop" style="display:none">
 
         <div id="side-panel">
@@ -146,13 +150,6 @@
                         <li ng-class="{ active: isActive('/logout') }">
                             <a href="javascript:void(0)" ng-click="logoutMe()" class="link-nav">LOGOUT</a>
                         </li>
-                        <!--
-				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
-                    <a class="link-nav" ng-href="#/tag">TAGS</a>
-                </li>
--->
-
-
                     </ul>
                 </div>
             </div>
@@ -181,6 +178,7 @@
         </div>
 
     </div>
+-->
 
     <!--
     <div id="desktop" class="row" style="display:none">
@@ -278,15 +276,15 @@
 
     <script src="asset/js/classie.js"></script>
 
-    <script src="asset/js/custom-slide.js"></script>
+    <!--<script src="asset/js/custom-slide.js"></script>-->
 
     <script src="config/config.js"></script>
 
     <script src="asset/index.js"></script>
 
-    <script src="asset/js/ui-bootstrap-tpls-0.13.2.js"></script>
+    <!--<script src="asset/js/ui-bootstrap-tpls-0.13.2.js"></script>
 
-    <script src="asset/js/isotope.pkgd.min.js"></script>
+    <script src="asset/js/isotope.pkgd.min.js"></script>-->
 
 </body>
 
