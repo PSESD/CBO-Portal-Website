@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="title">
                     <h1>
-                        Add Program
+                        {{ 'general.add_program' | i18n }}
                     </h1>
                     <hr>
                 </div>
@@ -14,7 +14,7 @@
 
                     <form class="form-horizontal" role="form" ng-submit="addProgram(program)">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="name">Name:</label>
+                            <label class="col-sm-3 control-label" for="name">{{ 'general.name' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" ng-model="program.name" id="name" required>
                             </div>
@@ -22,8 +22,8 @@
                         <div class="form-actions form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#/program" class="btn btn-default">Back</a>
+                                <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
+                                <a href="#/program" class="btn btn-default">{{ 'general.back' | i18n }}</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>

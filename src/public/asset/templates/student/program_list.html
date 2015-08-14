@@ -6,30 +6,30 @@
             <div class="col-md-12">
                 <div class="title">
                     <h1>
-                        <a href="#/student/programs/{{ student._id }}/add"><i class="glyphicon glyphicon-plus"></i> Add Program</a>
+                        <a href="#/student/programs/{{ student._id }}/add"><i class="glyphicon glyphicon-plus"></i> {{ 'general.add_program' | i18n }}</a>
                     </h1>
                     <hr>
                 </div>
                 <div class="content">
 
                     <h1>
-                        {{ student.first_name }} {{ student.last_name }} Programs
+                        {{ 'general.student_programs' | i18n:[student.first_name, student.last_name] }}
                     </h1>
 
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th>Participation Start Date</th>
-                                <th>Participation End Date</th>
+                                <th>{{ 'general.name' | i18n }}</th>
+                                <th>{{ 'general.status' | i18n }}</th>
+                                <th>{{ 'general.participation_start_date' | i18n }}</th>
+                                <th>{{ 'general.participation_end_date' | i18n }}</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="program in programs">
                                 <td>{{ program.name }}</td>
-                                <td>{{ program.active ? 'Active' : 'Nonactive' }}</td>
+                                <td>{{ (program.active ? 'general.active' : 'general.nonactive') | i18n }}</td>
                                 <td>{{ program.participation_start_date | date : 'yyyy-MM-dd' : timezone }}</td>
                                 <td>{{ program.participation_end_date | date : 'yyyy-MM-dd' : timezone }}</td>
                             </tr>

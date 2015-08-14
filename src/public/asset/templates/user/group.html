@@ -5,21 +5,21 @@
             <div class="col-md-12">
 
                 <div class="title">
-                    <h1><a href="#/user/group/{{ user._id }}/add"><i class="glyphicon glyphicon-plus font16"></i> Add Student</a></h1>
+                    <h1><a href="#/user/group/{{ user._id }}/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_student' | i18n }}</a></h1>
                 </div>
 
                 <div class="content">
 
-                    <h1 class="bold">{{ user.first_name }} {{ user.lat_name }} Students</h1>
+                    <h1 class="bold">{{ user.first_name }} {{ user.last_name }} {{ 'general.students' | i18n }}</h1>
 
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th><h1>Name</h1></th>
-                                <th><h1>School ID</h1></th>
-                                <th><h1>School District</h1></th>
-                                <th class="text-center">Action</th>
+                                <th><h1>{{ 'general.name' | i18n }}</h1></th>
+                                <th><h1>{{ 'general.school_id' | i18n }}</h1></th>
+                                <th><h1>{{ 'general.school_district' | i18n }}</h1></th>
+                                <th class="text-center">{{ 'general.action' | i18n }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -28,7 +28,7 @@
                                 <td>{{student._id}}</td>
                                 <td>{{ student.school_district }}</td>
                                 <td class="text-center">
-                                    <a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
+                                    <a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>
                                 </td>
                             </tr>
                             </tbody>

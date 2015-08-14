@@ -5,7 +5,7 @@
             <div class="col-md-12">
 
                 <div class="title">
-                    <h1>Profile {{ user.first_name }} {{ user.last_name }}</h1>
+                    <h1>{{ 'general.profile' | i18n }} {{ user.first_name }} {{ user.last_name }}</h1>
                     <hr>
                 </div>
 
@@ -13,47 +13,47 @@
 
                     <form class="form-horizontal" role="form" ng-submit="editProfile(user)">
 					<div class="form-group">
-                            <label class="col-sm-3 control-label" for="email">Email:</label>
+                            <label class="col-sm-3 control-label" for="email">{{ 'general.email' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input value="{{user.email}}" type="text" class="form-control" readonly/>
+                                <input value="{{user.email}}" id="email" type="text" class="form-control" readonly/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="first_name">First Name:</label>
+                            <label class="col-sm-3 control-label" for="first_name">{{ 'general.first_name' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <div confirmed-action="editProfile(user)" ng-click="activateEditable()" contentEditable={{editable}} class="form-control" ng-model="user.first_name" id="first_name">{{user.first_name}}</div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="middle_name">Middle Name:</label>
+                            <label class="col-sm-3 control-label" for="middle_name">{{ 'general.middle_name' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <div confirmed-action="editProfile(user)" ng-click="activateEditable()" contentEditable={{editable}} class="form-control" ng-model="user.middle_name" id="middle_name">{{user.middle_name}}</div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="last_name">Last Name:</label>
+                            <label class="col-sm-3 control-label" for="last_name">{{ 'general.last_name' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <div confirmed-action="editProfile(user)" ng-click="activateEditable()" contentEditable={{editable}} class="form-control" ng-model="user.last_name" id="last_name">{{user.last_name}}</div>
                             </div>
                         </div>
                          <div class="form-group">
-                            <label class="col-sm-3 control-label" for="password">Password:</label>
+                            <label class="col-sm-3 control-label" for="password">{{ 'general.password' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <input type="password" class="form-control" ng-model="user.password" id="password">
                                 <!--<p class="help-block">Leave it empty, if you doesn't want change the password</p>-->
                             </div>
                         </div>
 						 <div class="form-group">
-                            <label class="col-sm-3 control-label" for="password">Retype Password:</label>
+                            <label class="col-sm-3 control-label" for="password">{{ 'general.retype_password' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" ng-model="user.retype_password" id="password">
+                                <input type="password" class="form-control" ng-model="user.retype_password" id="retype_password">
                                 <!--<p class="help-block">Leave it empty, if you doesn't want change the password</p>-->
                             </div>
                         </div>
 						<div class="form-actions form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary" ng-disabled="working">Save</button>
+                                <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.save' | i18n }}</button>
                             </div>
                             <div class="clearfix"></div>
                         </div>

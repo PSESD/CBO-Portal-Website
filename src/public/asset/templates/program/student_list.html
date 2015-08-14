@@ -6,28 +6,28 @@
             <div class="col-md-12">
                 <div class="title">
                     <h1>
-                        <a href="#/program/students/{{ program._id }}/add"><i class="glyphicon glyphicon-plus font16"></i> Add Student To {{program.name}}</a>
+                        <a href="#/program/students/{{ program._id }}/add"><i class="glyphicon glyphicon-plus font16"></i>{{ 'general.add_student_to' | i18n:[program.name] }}</a>
                     </h1>
 					<form class="form-inline" role="form" ng-submit="searchStudent(student)">
-                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="Search Student"/>
+                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_student' | i18n }}"/>
                         <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
                     </form>
                 </div>
                 <div class="content">
 
-                    <h1> {{ program.name }} Student</h1>
+                    <h1> {{ program.name }} {{ 'general.student' | i18n }}</h1>
 
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Name</th>
-								<th>Active</th>
-								<th>Start Date</th>
-								<th>End Date</th>
-								<th>Cohorts</th>
-								<th class="text-center" style="width:8%">Edit</th>
-								<th class="text-center" style="width:8%">Delete</th>
+                                <th>{{ 'general.name' | i18n }}</th>
+								<th>{{ 'general.active' | i18n }}</th>
+								<th>{{ 'general.start_date' | i18n }}</th>
+								<th>{{ 'general.end_date' | i18n }}</th>
+								<th>{{ 'general.cohorts' | i18n }}</th>
+								<th class="text-center" style="width:8%">{{ 'general.edit' | i18n }}</th>
+								<th class="text-center" style="width:8%">{{ 'general.delete' | i18n }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -40,7 +40,7 @@
 								<td class="text-center">
                                     <a class="glyphicon glyphicon-pencil" ng-href="#/program/students/{{program._id}}/edit/{{student._id}}"></a>
 									</td>
-								<td class="text-center"><a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a></td>
+								<td class="text-center"><a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a></td>
                             </tr>
                             </tbody>
                         </table>

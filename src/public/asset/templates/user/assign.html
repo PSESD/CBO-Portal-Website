@@ -4,12 +4,12 @@
         <div class="card">
             <div class="col-md-12">
                     <div class="table-responsive">
-                        <h3>Unassigned Students</h3>
+                        <h3>{{ 'general.unassigned_students' | i18n }}</h3>
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th><h1>Name</h1></th>
-                                <th class="text-center"><h1>Actions</h1></th>
+                                <th><h1>{{ 'general.name' | i18n }}</h1></th>
+                                <th class="text-center"><h1>{{ 'general.actions' | i18n }}</h1></th>
                                 
                             </tr>
                             </thead>
@@ -36,12 +36,12 @@
         <div class="card">
             <div class="col-md-12">
                     <div class="table-responsive">
-                        <h3>Assigned Students</h3>
+                        <h3>{{ 'general.assign_students' | i18n }}</h3>
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th><h1>Name</h1></th>
-                                <th class="text-center"><h1>Actions</h1></th>
+                                <th><h1>{{ 'general.name' | i18n }}</h1></th>
+                                <th class="text-center"><h1>{{ 'general.actions' | i18n }}</h1></th>
                                 
                             </tr>
                             </thead>
@@ -49,7 +49,7 @@
                             <tr ng-repeat="assigned_student in assigned_students">
                                 <td>{{ assigned_student.first_name }} {{ assigned_student.last_name }}</td>
                                 <td class="text-center">
-                                    <a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(assigned_student._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
+                                    <a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(assigned_student._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>
                                 </td>
                             </tr>
                             </tbody>

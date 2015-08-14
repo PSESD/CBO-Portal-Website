@@ -5,29 +5,29 @@
             <div class="col-md-12">
 
                 <div class="title">
-                    <h1><a href="#/user/invite"><i class="glyphicon glyphicon-plus font16"></i> Invite User</a></h1>
+                    <h1><a href="#/user/invite"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.invite_user' | i18n | uppercase }}</a></h1>
 					<form class="form-inline" role="form" ng-submit="searchStudent(student)">
-                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="Search User"/>
+                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_users' | i18n }}"/>
                         <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
                     </form>
                 </div>
 
                 <div class="content">
 
-                    <h1 class="bold">Users</h1>
+                    <h1 class="bold">{{ 'general.users' | i18n | uppercase }}</h1>
 
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <!--<th>ID</th>-->
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Created</th>
-                                <th>Last Update</th>
-                                <th class="text-center" style="width:9%;">Permissions</th>
-                                <th class="text-center" style="width:9%;">Assign Students</th>
-                                <th class="text-center" style="width:9%;">Delete</th>
+                                <!--<th>{{ 'general.ID' | i18n }}</th>-->
+                                <th>{{ 'general.name' | i18n }}</th>
+                                <th>{{ 'general.email' | i18n }}</th>
+                                <th>{{ 'general.created' | i18n }}</th>
+                                <th>{{ 'general.last_update' | i18n }}</th>
+                                <th class="text-center" style="width:9%;">{{ 'general.permissions' | i18n }}</th>
+                                <th class="text-center" style="width:9%;">{{ 'general.assign_students' | i18n }}</th>
+                                <th class="text-center" style="width:9%;">{{ 'general.delete' | i18n }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -44,7 +44,7 @@
                                     <a href="#/user/group/{{ user._id }}" class="fa fa-users" ng-disabled="working"></a>
 								</td>
 								<td class="text-center">
-                                    <a class="glyphicon glyphicon-trash" confirmed-click="deleteUser(user._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
+                                    <a class="glyphicon glyphicon-trash" confirmed-click="deleteUser(user._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>
                                 </td>
                             </tr>
                             </tbody>

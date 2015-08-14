@@ -20,7 +20,18 @@ var schoolDistricts = {
 
 var global_redirect_url = '/';
 
-var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table']);
+var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
+    'ngLocalize.Config'
+]).value('localeConf', {
+    basePath: 'languages',
+    defaultLocale: 'en-US',
+    sharedDictionary: 'general',
+    fileExtension: '.lang.json',
+    persistSelection: true,
+    cookieName: 'COOKIE_LOCALE_LANG_',
+    observableAttrs: new RegExp('^data-(?!ng-|i18n)'),
+    delimiter: '::'
+});
 
 app.factory('headerInjector', [function (SessionService) {
     var headerInjector = {
@@ -1874,9 +1885,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                     showError(response.error.message, 1);
                 }
                 $rootScope.doingResolve = false;
-                $scope.program = {
-                    active: true
-                }
+                $scope.program ? $scope.program.active = true : $scope.program = { active: true };
             })
             .error(function (response, status) {
 

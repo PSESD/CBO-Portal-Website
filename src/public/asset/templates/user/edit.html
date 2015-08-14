@@ -13,11 +13,11 @@
 
                     <form class="form-horizontal" role="form" ng-submit="editUser(user)">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="role">Role:</label>
+                            <label class="col-sm-3 control-label" for="role">{{ 'general.role' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <select style="border:1px solid black;padding:7px;" class="btn-block" type="checkbox" ng-model="user.role" id="role" ng-disabled="disable_select">
-                                    <option value="admin">Admin</option>
-                                    <option value="case-worker">Case Worker</option>
+                                    <option value="admin">{{ 'general.admin' | i18n }}</option>
+                                    <option value="case-worker">{{ 'general.case_worker' | i18n }}</option>
                                 </select>
                             </div>
                         </div>
@@ -25,14 +25,14 @@
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
                                 <input type="checkbox" ng-model="user.is_special_case_worker" id="is_special_case_worker">
-                                <label for="is_special_case_worker">Grant access only to assigned students</label>
+                                <label for="is_special_case_worker">{{ 'general.grant_access_only_to_assigned_students' | i18n }}</label>
                             </div>
                         </div>
                         <div class="form-actions form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#/user" class="btn btn-default">Back</a>
+                                <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
+                                <a href="#/user" class="btn btn-default">{{ 'general.back' | i18n }}</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>
