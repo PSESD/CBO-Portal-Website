@@ -16,7 +16,8 @@ var schoolDistricts = {
     'federalway': "Federal Way",
     'renton': 'Renton',
     'northshore': 'North Shore'
-}
+};
+var __i = false;
 
 var global_redirect_url = '/';
 
@@ -52,7 +53,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
-    //$httpProvider.interceptors.push('headerInjector');
+    if(__i) $httpProvider.interceptors.push('headerInjector');
 
 }]);
 
@@ -2831,7 +2832,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                             if (responseClient.success == true && responseClient.total > 0) {
                                 for (var i = 0; i < responseClient.total; i++) {
-                                    if (get_hosting_name == responseClient.data[i].url) {
+                                    if (__i || get_hosting_name === responseClient.data[i].url) {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;

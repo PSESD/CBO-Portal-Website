@@ -763,3 +763,15 @@ a.button {
         margin: 18%;
     }
 }
+
+/**
+ Help Style
+**/
+.help p {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: normal;
+    width: 284px;
+    color: #858585;
+    padding-bottom: 13px;
+}

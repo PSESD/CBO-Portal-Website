@@ -161,5 +161,7 @@
     "spanish": "L Spanish",
     "algebra" : "L ALGEBRA",
     "success_logout": "L Success Logout",
-    "password_not_match": "L Password did not match"
+    "password_not_match": "L Password did not match",
+    "history": "L History",
+    "detention": "L Detention"
 }
