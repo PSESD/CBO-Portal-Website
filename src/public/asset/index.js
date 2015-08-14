@@ -975,7 +975,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
 
 
                 $scope.working = true;
-                $http.put(api_url + 'user/myaccount/', $.param(user), {
+                $http.put(api_url + 'user', $.param(user), {
                         headers: {
                             'Authorization': 'Bearer ' + AuthenticationService.token
                         }
@@ -1015,7 +1015,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
                     });
             }
         };
-        $http.get(api_url + 'user/myaccount/', {
+        $http.get(api_url + 'user', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
@@ -1055,7 +1055,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
             $rootScope.editable = true;
         };
 
-        $http.get(api_url + 'user/myaccount/', {
+        $http.get(api_url + 'user/', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
@@ -1097,7 +1097,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                     $scope.working = true;
                     //$http.put( api_url+AuthenticationService.organization_id+'/users/'+AuthenticationService.user_id, $.param(user), {
 
-                    $http.put(api_url + 'user/myaccount/', $.param(user), {
+                    $http.put(api_url + 'user/', $.param(user), {
                             headers: {
                                 'Authorization': 'Bearer ' + AuthenticationService.token
                             }
@@ -2492,7 +2492,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
             userId: user_id
         }
 
-        $http.post(api_url + AuthenticationService.organization_id + '/students/not-assign/', $.param(user), {
+        $http.post(api_url + AuthenticationService.organization_id + '/students?unassigned=true', $.param(user), {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
@@ -2562,7 +2562,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                 if (user.is_special_case_worker == true)
                     user.is_special_case_worker2 = false;
                 else
-                    user.is_special_case_worker2 = true
+                    user.is_special_case_worker2 = true;
 
 
                 var passing_data = {
@@ -2570,7 +2570,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                     is_special_case_worker: user.is_special_case_worker2
                 };
 
-                $http.put(api_url + 'user/role/' + user_id, $.param(passing_data), {
+                $http.put(api_url + AuthenticationService.organization_id + '/users/' + user_id, $.param(passing_data), {
                         headers: {
                             'Authorization': 'Bearer ' + AuthenticationService.token
                         }
