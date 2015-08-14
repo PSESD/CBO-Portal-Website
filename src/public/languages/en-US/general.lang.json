@@ -134,7 +134,7 @@
     "edit_program_student_name": "L Edit {1} Student {2}",
     "unassigned_students": "L Unassigned Students",
     "add_for": "L Add {1}",
-    "edit_for": "L Adit {1}",
+    "edit_for": "L Edit {1}",
     "delete_for": "L Delete {1}",
     "tag_name": "L Tag Name",
     "filter": "L Filter",
@@ -160,6 +160,7 @@
     "art": "L Art",
     "spanish": "L Spanish",
     "algebra" : "L ALGEBRA",
+
     "personal" : "L PERSONAL",
     "info" : "L INFO",
     "contact":"L CONTACT",
@@ -171,5 +172,7 @@
     "see_school": "L SEE SCHOOL",
     "history":"L HISTORY",
     "case":"L CASE",
-    "detention":"L DETENTION"
+    "detention":"L DETENTION",
+    "success_logout": "L Success Logout",
+    "password_not_match": "L Password did not match"
 }
