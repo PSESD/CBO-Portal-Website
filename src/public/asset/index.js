@@ -696,8 +696,8 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
         $scope.student = {};
         $scope.programs = [];
         $scope.list_programs = [];
-        $scope.icon_legend = false;
-        $scope.open_button = true;
+        $scope.icon_legend = true;
+        $scope.open_button = false;
         $scope.close = function () {
             $scope.open_button = true;
             $scope.icon_legend = false;
