@@ -159,5 +159,7 @@
     "attempted_credits": "L Attempted Credits",
     "art": "L Art",
     "spanish": "L Spanish",
-    "algebra" : "L ALGEBRA"
+    "algebra" : "L ALGEBRA",
+    "success_logout": "L Success Logout",
+    "password_not_match": "L Password did not match"
 }

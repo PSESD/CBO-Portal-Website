@@ -52,7 +52,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
-    //$httpProvider.interceptors.push('headerInjector');
+    $httpProvider.interceptors.push('headerInjector');
 
 }]);
 
@@ -279,10 +279,10 @@ app.config(function ($routeProvider) {
 });
 
 app.run(['$window', '$rootScope','$route',
-function ($window, $rootScope) {
+function ($window, $rootScope, locale) {
         $rootScope.goBack = function () {
             $window.history.back();
-        }
+        };
     $rootScope.data_content = "asset/templates/desktop.html";
         var element = angular.element("#login-container");
         if ($window.innerWidth > 767) {
@@ -295,9 +295,16 @@ function ($window, $rootScope) {
 }]);
 
 
-app.run(function ($rootScope, $http, $location, $window, AuthenticationService, CookieStore) {
+app.run(function ($rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
 
     var returnData = CookieStore.getData();
+    locale.ready('general').then(function () {
+        $rootScope.lang = {
+            you_dont_have_any_permission_page: locale.getString('general.you_dont_have_any_permission_page'),
+            success_logout: locale.getString('general.success_logout'),
+            password_not_match: locale.getString('general.password_not_match')
+        };
+    });
 
     $rootScope.$on("$routeChangeStart", function (event, nextRoute) {
         //redirect only if both isAuthenticated is false and no token is set
@@ -306,7 +313,7 @@ app.run(function ($rootScope, $http, $location, $window, AuthenticationService, 
         }
 
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAdmin && AuthenticationService.role == 'case-worker') {
-            showError("You don't have any permission to access this page", 1);
+            showError($rootScope.lang.you_dont_have_any_permission_page, 1);
             event.preventDefault();
         }
 
@@ -443,7 +450,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
 
 app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
-    function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService) {
+    function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService, locale) {
         $rootScope.full_screen = false;
         if (CookieStore.get('cboAdmin_cookie_role') == 'admin') {
             $rootScope.users_link = true;
@@ -461,6 +468,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
         };
 
+
         $scope.logoutMe = function () {
 
             var logout = {
@@ -474,7 +482,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
                     $rootScope.showNavBar = true;
                     CookieStore.clearData();
-                    showError('Success Logout', 2);
+                    showError($rootScope.lang.success_logout, 2);
                     $location.path("/login");
 
                 })
@@ -486,7 +494,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     console.log(status);
 
                     CookieStore.clearData();
-                    showError('Success Logout', 2);
+                    showError($rootScope.lang.success_logout, 2);
                     $location.path("/login");
 
                 });
@@ -1075,7 +1083,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                 $scope.working = true;
                 if (data.password != data.retype_password) {
 
-                    showError("Password did not match", 1);
+                    showError($rootScope.lang.password_not_match, 1);
                     $scope.working = false;
                 } else {
                     var user = {
@@ -2683,7 +2691,7 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
             if (AuthenticationService.user_id == id) {
                 showError('Cannot Remove your own data', 1);
             } else if (AuthenticationService.role == 'case-worker') {
-                showError("You don't have any permission to access this page", 1);
+                showError($rootScope.lang.you_dont_have_any_permission_page, 1);
             } else if (id) {
                 $scope.working = true;
                 $http.delete(api_url + AuthenticationService.organization_id + '/users/' + id, {
@@ -2904,7 +2912,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                     });
 
                             } else {
-                                showError("You don't have any permission to access this page", 1);
+                                showError($rootScope.lang.you_dont_have_any_permission_page, 1);
                                 $scope.login.working = false;
                             }
 
