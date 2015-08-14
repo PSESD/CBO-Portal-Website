@@ -15,7 +15,8 @@
 
                     <div class="row col-md-4">
                         <div class="title">
-                            <p class="subhead">{{ 'general.personal_info' | i18n | uppercase }}</p>
+                            <p class="subhead">{{ 'general.personal' | i18n | uppercase }}
+                                <br>{{ 'general.info' | i18n | uppercase }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -28,7 +29,8 @@
                             <b>{{ 'general.gender' | i18n }}</b> {{studentdetails.demographics.sex}}
                         </div>
                         <div class="title">
-                            <p class="subhead" style="margin-top:20px;">{{ 'general.personal_contact' | i18n | uppercase }}</p>
+                            <p class="subhead" style="margin-top:20px;">{{ 'general.personal' | i18n | uppercase }}
+                                <br>{{ 'general.contact' | i18n | uppercase }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -39,7 +41,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="title">
-                            <p class="subhead">{{ 'general.emergency_contacts' | i18n | uppercase }}</p>
+                            <p class="subhead">{{ 'general.personal' | i18n | uppercase }}
+                                <br>{{ 'general.contacts' | i18n | uppercase }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -57,7 +60,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="title">
-                            <p class="subhead">{{ 'general.case_workers' | i18n }}</p>
+                            <p class="subhead">{{ 'general.case' | i18n }}
+                                <br>{{ 'general.workers' | i18n }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -74,10 +78,11 @@
 
                 </div>
                 <div class="col-md-6 data-content" style="padding-left:65px;">
-                    <div ng-show="academic">
+                    <div>
                         <div class="row col-md-6">
                             <div class="title">
-                                <p class="subhead">{{ 'general.academic_info' | i18n | uppercase }}</p>
+                                <p class="subhead">{{ 'general.academic' | i18n | uppercase }}
+                                    <br>{{ 'general.info' | i18n | uppercase }}</p>
                                 <hr>
                             </div>
                             <div class="content" style="margin-bottom:20px;">
@@ -102,7 +107,8 @@
 
                         <div class="col-md-6">
                             <div class="title">
-                                <p class="subhead">{{ 'general.current_courses' | i18n | uppercase }} - <b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
+                                <p class="subhead">{{ 'general.current_courses' | i18n | uppercase }}
+                                    <br><b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
                                 <hr>
                             </div>
                             <div class="content">
@@ -116,42 +122,7 @@
                         <div class="clearfix"></div>
                     </div>
 
-                    <div ng-show="sch_history">
 
-                        <div class="title">
-                            <p class="subhead">{{ 'general.school_history' | i18n }}</p>
-                        </div>
-                        <div class="content">
-
-                            <scrollable-table watch="visibleProjects">
-
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>{{ 'general.school_name' | i18n }}</th>
-                                            <th>{{ 'general.school_year' | i18n }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-if="sch_history" ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear'">
-                                            <td>
-                                                {{data.school.schoolName}}
-                                            </td>
-                                            <td>
-                                                {{data.schoolYear}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
-
-                            </scrollable-table>
-
-                        </div>
-
-                        <div class="clearfix"></div>
-                    </div>
-                    <a href="#" class="button pull-right" ng-click="closeSchoolHistory()" ng-show="sch_history">{{ 'general.close' | i18n }}</a>
                 </div>
 
             </div>
@@ -188,7 +159,7 @@
                             <div class="col-separator"></div>
                             {{ 'general.M' | i18n | uppercase }}
                         </li>
-						<li>{{ 'general.T' | i18n | uppercase }}</li>
+                        <li>{{ 'general.T' | i18n | uppercase }}</li>
                         <li>{{ 'general.W' | i18n | uppercase }}</li>
                         <li>{{ 'general.TH' | i18n | uppercase }}</li>
                         <li>{{ 'general.F' | i18n | uppercase }}</li>
@@ -503,95 +474,388 @@
                 <div role="tabpanel" class="tab-pane" id="program_participation">{{ 'general.program_participation' | i18n }}</div>
                 <div role="tabpanel" class="tab-pane transcript" id="transcript">
                     <ul class="flexbox transcript">
-                                <li>
-                                    <b>18</b>{{ 'general.credits_earned' | i18n }}
-                                    <br/>
-                                    <b>20</b>{{ 'general.credits_attempted' | i18n }}
-                                    <br/>
-                                    <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.junior' | i18n }}
-                                    <br/>
-                                    <br/>
-                                    <div>
-                                        <div class="button transcript-school-history" style="display:inline-block">{{ 'general.see_school_history' | i18n | uppercase }}</div>
-                                    </div>
+                        <li>
+                            <b>18</b>{{ 'general.credits_earned' | i18n }}
+                            <br/>
+                            <b>20</b>{{ 'general.credits_attempted' | i18n }}
+                            <br/>
+                            <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.junior' | i18n }}
+                            <br/>
+                            <br/>
+                            <div>
+                                <div ng-click="showSchoolHistory()" class="button transcript-school-history" style="display:inline-block">{{ 'general.see_school' | i18n | uppercase }}
+                                    <br>{{ 'general.history' | i18n | uppercase }}</div>
+                            </div>
 
-                                </li>
-                                <li class="math-credits">1.5
-                                    <br/>{{ 'general.math_credits' | i18n | uppercase }}</li>
-                                <li class="history-credits">2.5
-                                    <br/>{{ 'general.history_credits' | i18n | uppercase }}</li>
-                                <li class="language-arts-credits">1
-                                    <br/>{{ 'general.language_arts' | i18n | uppercase }}
-                                    <br/> {{ 'general.credits' | i18n | uppercase }}</li>
-                                <li class="elective-credits">4.5
-                                    <br/>{{ 'general.elective_credits' | i18n | uppercase }}</li>
-                                <li class="language-credits">1.5
-                                    <br/>{{ 'general.language_credits' | i18n | uppercase }}</li>
-                                <li class="physical-education-credits">3
-                                    <br/>{{ 'general.physical_education' | i18n | uppercase }}
-                                    <br/> {{ 'general.credits' | i18n | uppercase }}</li>
-                            </ul>
-                            <hr class="separator-transcript">
-                            <ul class="flexbox transcript-content">
-                                <li class="transcript-content">
-                                    2015 - {{ 'general.fall' | i18n | uppercase }}
-                                    <br/>
-                                    <br/>
-                                    <b>{{ 'general.learning_high_school' | i18n }}</b>
-                                    <br/>
-                                    <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
-                                    <br/>
-                                    <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.junior' | i18n }}
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">{{ 'general.algebra' | i18n | uppercase }} 2</div>
+                        </li>
+                        <li class="math-credits">1.5
+                            <br/>{{ 'general.math_credits' | i18n | uppercase }}</li>
+                        <li class="history-credits">2.5
+                            <br/>{{ 'general.history_credits' | i18n | uppercase }}</li>
+                        <li class="language-arts-credits">1
+                            <br/>{{ 'general.language_arts' | i18n | uppercase }}
+                            <br/> {{ 'general.credits' | i18n | uppercase }}</li>
+                        <li class="elective-credits">4.5
+                            <br/>{{ 'general.elective_credits' | i18n | uppercase }}</li>
+                        <li class="language-credits">1.5
+                            <br/>{{ 'general.language_credits' | i18n | uppercase }}</li>
+                        <li class="physical-education-credits">3
+                            <br/>{{ 'general.physical_education' | i18n | uppercase }}
+                            <br/> {{ 'general.credits' | i18n | uppercase }}</li>
+                    </ul>
+                    <hr class="separator-transcript">
+                    <div class="transcript-container">
+                        <ul class="flexbox transcript-content">
+                            <li class="transcript-content">
+                                2015 - {{ 'general.fall' | i18n | uppercase }}
+                                <br/>
+                                <br/>
+                                <b>{{ 'general.learning_high_school' | i18n }}</b>
+                                <br/>
+                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <br/>
+                                <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.junior' | i18n }}
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color math-font-color">{{ 'general.algebra' | i18n | uppercase }} 2</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>AMHI24561</b>
+                                        <b>Grade</b> - A
+                                        <b>Grade Level</b> - Junior
+                                        <b>Earned Credits</b> - 1
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <b>AP</b>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color math-font-color">{{ 'general.algebra' | i18n | uppercase }} 2</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
                                     </div>
+                                </div>
+                            </li>
+                            <li class="transcript-content">
 
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">{{ 'general.history' | i18n | uppercase }} 3</div>
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color history-font-color">{{ 'general.history' | i18n | uppercase }} 3</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>AMHI24561</b>
+                                        <b>Grade</b> - A
+                                        <b>Grade Level</b> - Junior
+                                        <b>Earned Credits</b> - 1
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <b>AP</b>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color history-font-color">{{ 'general.history' | i18n | uppercase }} 3</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
                                     </div>
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                    </div>
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">{{ 'general.art' | i18n | uppercase }} 2</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                    </div>
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">{{ 'general.spanish' | i18n | uppercase }} 3</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                    </div>
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">P.E</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                    </div>
-                                </li>
-                            </ul>
+                                </div>
+
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color elective-font-color">{{ 'general.art' | i18n | uppercase }} 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-font-color">{{ 'general.spanish' | i18n | uppercase }} 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="flexbox transcript-content">
+                            <li class="transcript-content">
+                                2015 - {{ 'general.fall' | i18n | uppercase }}
+                                <br/>
+                                <br/>
+                                <b>{{ 'general.learning_high_school' | i18n }}</b>
+                                <br/>
+                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <br/>
+                                <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.junior' | i18n }}
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color math-font-color">{{ 'general.algebra' | i18n | uppercase }} 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color history-font-color">{{ 'general.history' | i18n | uppercase }} 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color elective-font-color">{{ 'general.art' | i18n | uppercase }} 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-font-color">{{ 'general.spanish' | i18n | uppercase }} 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="flexbox transcript-content">
+                            <li class="transcript-content">
+                                2015 - {{ 'general.fall' | i18n | uppercase }}
+                                <br/>
+                                <br/>
+                                <b>{{ 'general.learning_high_school' | i18n }}</b>
+                                <br/>
+                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <br/>
+                                <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.junior' | i18n }}
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color math-font-color">{{ 'general.algebra' | i18n | uppercase }} 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color history-font-color">{{ 'general.history' | i18n | uppercase }} 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color elective-font-color">{{ 'general.art' | i18n | uppercase }} 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-font-color">{{ 'general.spanish' | i18n | uppercase }} 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="flexbox transcript-content">
+                            <li class="transcript-content">
+                                2015 - {{ 'general.fall' | i18n | uppercase }}
+                                <br/>
+                                <br/>
+                                <b>{{ 'general.learning_high_school' | i18n }}</b>
+                                <br/>
+                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <br/>
+                                <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.junior' | i18n }}
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color math-font-color">{{ 'general.algebra' | i18n | uppercase }} 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color history-font-color">{{ 'general.history' | i18n | uppercase }} 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color elective-font-color">{{ 'general.art' | i18n | uppercase }} 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-font-color">{{ 'general.spanish' | i18n | uppercase }} 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="flexbox transcript-content">
+                            <li class="transcript-content">
+                                2015 - {{ 'general.fall' | i18n | uppercase }}
+                                <br/>
+                                <br/>
+                                <b>{{ 'general.learning_high_school' | i18n }}</b>
+                                <br/>
+                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <br/>
+                                <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.junior' | i18n }}
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color math-font-color">{{ 'general.algebra' | i18n | uppercase }} 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color history-font-color">{{ 'general.history' | i18n | uppercase }} 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color elective-font-color">{{ 'general.art' | i18n | uppercase }} 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-font-color">{{ 'general.spanish' | i18n | uppercase }} 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+            <div id="school-history-transcript" class="school history" ng-show="sch_history">
+
+                <div class="title">
+                    <span ng-click="closeSchoolHistory()" class="school-history glyphicon glyphicon-remove"></span>
+                    <p class="subhead transcript">School History</p>
+                    <hr class="subhead separator-transcript">
+
+                </div>
+                <div class="content">
+
+                    <scrollable-table watch="visibleProjects">
+
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>School Name</th>
+                                    <th>School Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="sch_history" ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear'">
+                                    <td>
+                                        {{data.school.schoolName}}
+                                    </td>
+                                    <td>
+                                        {{data.schoolYear}}
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </scrollable-table>
+
+                </div>
+
+            </div>
         </div>
+
+
+
     </div>
-
-
-
-</div>

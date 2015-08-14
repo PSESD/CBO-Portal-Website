@@ -298,57 +298,56 @@ ul.flexbox.transcript {
     padding: 0;
 }
 ul.transcript li:nth-child(1) {
-    width: 10%;
+    width: 16%;
     text-align: left;
-    padding-top: 30px;
 }
 ul.transcript li:nth-child(2) {
-    width: 15%;
-    padding-top: 45px;
+    width: 14%;
     font-size: 14px;
     font-weight: bold;
     color: white;
     letter-spacing: 1px;
+    padding-top: 2%;
 }
 ul.transcript li:nth-child(3) {
-    width: 15%;
-    padding-top: 45px;
+    width: 14%;
     font-size: 14px;
     font-weight: bold;
     color: white;
     letter-spacing: 1px;
+    padding-top: 2%;
 }
 ul.transcript li:nth-child(4) {
-    width: 15%;
-    padding-top: 45px;
+    width: 14%;
     font-size: 14px;
     font-weight: bold;
     color: white;
     letter-spacing: 1px;
+    padding-top: 2%;
 }
 ul.transcript li:nth-child(5) {
-    width: 15%;
-    padding-top: 45px;
+    width: 14%;
     font-size: 14px;
     font-weight: bold;
     color: white;
     letter-spacing: 1px;
+    padding-top: 2%;
 }
 ul.transcript li:nth-child(6) {
-    width: 15%;
-    padding-top: 45px;
+    width: 14%;
     font-size: 14px;
     font-weight: bold;
     color: white;
     letter-spacing: 1px;
+    padding-top: 2%;
 }
 ul.transcript li:nth-child(7) {
-    width: 15%;
-    padding-top: 45px;
+    width: 14%;
     font-size: 14px;
     font-weight: bold;
     color: white;
     letter-spacing: 1px;
+    padding-top: 2%;
 }
 ul.transcript li {
     text-align: center;
@@ -359,12 +358,11 @@ ul.transcript li {
     margin: 0;
     letter-spacing: 1px;
     font-size: 12px;
-    border: 3px solid black;
+    border: 2px solid black;
     text-align: center;
     white-space: normal;
-    width: 135px;
+    width: 90%;
     padding: 0;
-    margin-left: 7%;
 }
 .separator-transcript {
     width: 100%;
@@ -389,57 +387,47 @@ ul li.transcript-content {
     letter-spacing: 1px;
 }
 .hr-transcript {
-    border: 2px solid black;
+    border: 1px solid black;
     width: 15px;
     margin: 0;
     position: relative;
 }
 ul li.transcript-content:nth-child(1) {
-    width: 10%;
+    width: 16%;
 }
 ul li.transcript-content:nth-child(2) {
-    width: 15%;
-    padding-top: 15px;
-    padding-left: 10px;
+    width: 14%;
+    padding-top: 2.5%;
+    padding-left: 25px;
 }
 ul li.transcript-content:nth-child(3) {
-    width: 15%;
-    padding-top: 15px;
-    padding-left: 10px;
+    width: 14%;
+    padding-top: 2.5%;
+    padding-left: 25px;
 }
 ul li.transcript-content:nth-child(4) {
-    width: 15%;
-    padding-top: 15px;
-    padding-left: 10px;
+    width: 14%;
+    padding-top: 2.5%;
+    padding-left: 25px;
 }
 ul li.transcript-content:nth-child(5) {
-    width: 15%;
-    padding-top: 15px;
-    padding-left: 10px;
+    width: 14%;
+    padding-top: 2.5%;
+    padding-left: 25px;
 }
 ul li.transcript-content:nth-child(6) {
-    width: 15%;
-    padding-top: 15px;
-    padding-left: 10px;
+    width: 14%;
+    padding-top: 2.5%;
+    padding-left: 25px;
 }
 ul li.transcript-content:nth-child(7) {
-    width: 15%;
-    padding-top: 15px;
-    padding-left: 10px;
+    width: 14%;
+    padding-top: 2.5%;
+    padding-left: 25px;
 }
 .attempted-credit {
     position: relative;
     top: 6px;
-}
-.transcript-font-color {
-    color: rgb(252, 230, 35);
-    color: -moz-linear-gradient(-45deg, rgba(239, 119, 0, 1) 0%, rgba(242, 169, 0, 1) 37%, rgba(242, 204, 16, 1) 69%, rgba(252, 230, 35, 1) 100%);
-    color: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(239, 119, 0, 1)), color-stop(37%, rgba(242, 169, 0, 1)), color-stop(69%, rgba(242, 204, 16, 1)), color-stop(100%, rgba(252, 230, 35, 1)));
-    color: -webkit-linear-gradient(-45deg, rgba(239, 119, 0, 1) 0%, rgba(242, 169, 0, 1) 37%, rgba(242, 204, 16, 1) 69%, rgba(252, 230, 35, 1) 100%);
-    color: -o-linear-gradient(-45deg, rgba(239, 119, 0, 1) 0%, rgba(242, 169, 0, 1) 37%, rgba(242, 204, 16, 1) 69%, rgba(252, 230, 35, 1) 100%);
-    color: -ms-linear-gradient(-45deg, rgba(239, 119, 0, 1) 0%, rgba(242, 169, 0, 1) 37%, rgba(242, 204, 16, 1) 69%, rgba(252, 230, 35, 1) 100%);
-    color: linear-gradient(135deg, rgba(239, 119, 0, 1) 0%, rgba(242, 169, 0, 1) 37%, rgba(242, 204, 16, 1) 69%, rgba(252, 230, 35, 1) 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fce623', endColorstr='#ef7700', GradientType=1);
 }
 .descriptor-title {
     font-size: 14px;
@@ -461,4 +449,201 @@ ul li.transcript-content:nth-child(7) {
 }
 .unexcused-font-color {
     color: #CD5728;
+}
+.math-font-color {
+    color: #F8973A;
+}
+.history-font-color {
+    color: #E7BE20;
+}
+.language-arts-font-color {
+    color: #AEBF37;
+}
+.elective-font-color {
+    color: #99CA4E;
+}
+.language-font-color {
+    color: #72BE8F;
+}
+.pyhsical-education-font-color {
+    color: #4AB8CA;
+}
+.flexbox.transcript li p {
+    margin: 0;
+}
+.transcript-container {
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    height: 420px;
+}
+.school.history {
+    width: 42.6%;
+    position: absolute;
+    top: 128px;
+    left: 30px;
+    background-color: white;
+    border: 1px solid #aaa;
+}
+.transcript-content .transcript-descriptor {
+    position: relative;
+    top: 0;
+    left: -21px;
+    width: 115%;
+    background-color: #fff;
+    display: none;
+    text-indent: 0px;
+    z-index: 9999;
+    padding-top: 5px;
+    padding-left: 11%;
+    padding-bottom: 10px;
+}
+@media (max-width: 1280px) {
+    ul.transcript li:nth-child(2) {
+        width: 15%;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        letter-spacing: 1px;
+        padding-top: 3%;
+    }
+    ul.transcript li:nth-child(3) {
+        width: 15%;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        letter-spacing: 1px;
+        padding-top: 3%;
+    }
+    ul.transcript li:nth-child(4) {
+        width: 15%;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        letter-spacing: 1px;
+        padding-top: 3%;
+    }
+    ul.transcript li:nth-child(5) {
+        width: 15%;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        letter-spacing: 1px;
+        padding-top: 3%;
+    }
+    ul.transcript li:nth-child(6) {
+        width: 15%;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        letter-spacing: 1px;
+        padding-top: 3%;
+    }
+    ul.transcript li:nth-child(7) {
+        width: 15%;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        letter-spacing: 1px;
+        padding-top: 3%;
+    }
+    ul li.transcript-content:nth-child(2) {
+        width: 14%;
+        padding-top: 3.9%;
+        padding-left: 25px;
+    }
+    ul li.transcript-content:nth-child(3) {
+        width: 14%;
+        padding-top: 3.9%;
+        padding-left: 25px;
+    }
+    ul li.transcript-content:nth-child(4) {
+        width: 14%;
+        padding-top: 3.9%;
+        padding-left: 25px;
+    }
+    ul li.transcript-content:nth-child(5) {
+        width: 14%;
+        padding-top: 3.9%;
+        padding-left: 25px;
+    }
+    ul li.transcript-content:nth-child(6) {
+        width: 14%;
+        padding-top: 3.9%;
+        padding-left: 25px;
+    }
+    ul li.transcript-content:nth-child(7) {
+        width: 14%;
+        padding-top: 3.9%;
+        padding-left: 25px;
+    }
+    .school.history {
+        width: 41.6%;
+        position: absolute;
+        top: 128px;
+        left: 25px;
+        background-color: white;
+        border: 1px solid #aaa;
+    }
+    .transcript-content .transcript-descriptor {
+        position: relative;
+        top: 0;
+        left: -28px;
+        width: 115%;
+        background-color: #fff;
+        display: none;
+        text-indent: 0px;
+        z-index: 9999;
+        padding-top: 5px;
+        padding-left: 11%;
+        padding-bottom: 10px;
+    }
+}
+.subhead.transcript {
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+    position: relative;
+    top: 2px;
+    left: 10px;
+}
+.subhead.separator-transcript {
+    padding: 0 0 2px 0;
+    position: relative;
+    top: 10px;
+}
+.school-history.glyphicon.glyphicon-remove {
+    position: relative;
+    top: 25px;
+    left: 95%
+}
+.school-history.glyphicon.glyphicon-remove:hover {
+    cursor: pointer;
+}
+.button.transcript-school-history:hover {
+    cursor: pointer;
+}
+.transcript-descriptor {
+    border: 1px solid #aaa;
+}
+li.transcript-content:hover {
+    z-index: 9999;
+}
+li.transcript-content:hover .transcript-descriptor {
+    display: block;
+    height: auto;
+}
+.transcript-descriptor:hover ~ .transcript-display {
+    display: none;
+}
+
+ul.flexbox.attendance-behavior, ul.flexbox.transcript-content {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 1%;
 }

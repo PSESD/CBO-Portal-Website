@@ -159,5 +159,17 @@
     "attempted_credits": "L Attempted Credits",
     "art": "L Art",
     "spanish": "L Spanish",
-    "algebra" : "L ALGEBRA"
+    "algebra" : "L ALGEBRA",
+    "personal" : "L PERSONAL",
+    "info" : "L INFO",
+    "contact":"L CONTACT",
+    "contacts":"L CONTACTS",
+    "workers": "L WORKERS",
+    "academic": "L ACADEMIC",
+    "current": "L CURRENT",
+    "courses": "L COURSES",
+    "see_school": "L SEE SCHOOL",
+    "history":"L HISTORY",
+    "case":"L CASE",
+    "detention":"L DETENTION"
 }

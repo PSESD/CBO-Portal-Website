@@ -805,11 +805,9 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
         $scope.showSchoolHistory = function () {
             $scope.sch_history = true;
-            $scope.academic = false;
         };
 
         $scope.closeSchoolHistory = function () {
-            $scope.academic = true;
             $scope.sch_history = false;
 
         };
