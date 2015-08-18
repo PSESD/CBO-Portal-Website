@@ -6,12 +6,14 @@
             <div class="col-md-12">
                 <div class="title">
                     <h1>
-                        {{ 'general.add_for' | i18n:[ user.first_name + ' ' + user.last_name ] }} {{ 'general.student' | i18n }}
+                        {{ 'general.user_add_students' | i18n:[ user.full_name ] }}
                     </h1>
                     <hr>
                 </div>
                 <div class="content">
-
+                    <div class="ng-binding help">
+                        <p>{{ 'help.user_group_add' | i18n }}</p>
+                    </div>
                     <form class="form-horizontal" role="form" ng-submit="addUserStudent(student, new_student)" novalidate>
                         <div class="form-group">
                             <div class="col-sm-3"></div>

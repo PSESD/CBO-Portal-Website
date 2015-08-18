@@ -6,13 +6,15 @@
 
                 <div class="title">
                     <h1>
-                        {{ 'general.change_password' | i18n | uppercase }} {{ user.first_name }} {{ user.last_name }}
+                        {{ 'general.change_password' | i18n | uppercase }} {{ user.full_name }}
                     </h1>
                     <hr>
                 </div>
 
                 <div class="content">
-
+                    <div class="ng-binding help">
+                        <p>{{ 'help.profile_edit' | i18n }}</p>
+                    </div>
                     <form class="form-horizontal" role="form" ng-submit="editProfile(user)">
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="password">{{ 'general.password' | i18n }}:</label>

@@ -4,15 +4,22 @@
         <div class="card">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>
-                    {{ student.first_name }} {{ student.last_name }}
-                    <span class="last-update">{{ 'general.last_update' | i18n }} : &nbsp {{ student.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
-                    </h2>
+                    <div class="title">
+                        <h2>
+                            {{ student.first_name }} {{ student.last_name }}
+                            <span class="last-update">{{ 'general.last_update' | i18n }} : &nbsp {{ student.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
+                        </h2>
+                        <hr>
+                    </div>
+                    <div class="content" id="content-help">
+                        <div class="ng-binding help">
+                            <p>{{ 'help.user_edit' | i18n }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row vertical-divider">
                 <div class="col-md-6 data-content">
-
                     <div class="row col-md-4">
                         <div class="title">
                             <p class="subhead">{{ 'general.personal' | i18n | uppercase }}
