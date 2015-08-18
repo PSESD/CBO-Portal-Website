@@ -2610,20 +2610,20 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
             })
             .success(function (response) {
 
-                var set_role = '';
-                var is_special_case_worker = '';
+                var set_role = response.role;
+                var is_special_case_worker = response.is_special_case_worker;
 
-                if (response.permissions.length > 0) {
-                    for (var j = 0; j < response.permissions.length; j++) {
-                        if (response.permissions[j].organization == AuthenticationService.organization_id) {
-                            set_role = response.permissions[j].role;
-                            if (response.permissions[j].is_special_case_worker == true)
-                                is_special_case_worker = false;
-                            else
-                                is_special_case_worker = true;
-                        }
-                    }
-                }
+                //if (response.permissions.length > 0) {
+                //    for (var j = 0; j < response.permissions.length; j++) {
+                //        if (response.permissions[j].organization == AuthenticationService.organization_id) {
+                //            set_role = response.permissions[j].role;
+                //            if (response.permissions[j].is_special_case_worker == true)
+                //                is_special_case_worker = false;
+                //            else
+                //                is_special_case_worker = true;
+                //        }
+                //    }
+                //}
 
                 $scope.user = {
                     role: set_role,
@@ -2867,13 +2867,15 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                                         complete_name += data[i].last_name;
                                                     }
 
-                                                    if (data[i].permissions.length > 0) {
-                                                        for (var j = 0; j < data[i].permissions.length; j++) {
-                                                            if (data[i].permissions[j].organization == get_id) {
-                                                                role = data[i].permissions[j].role;
-                                                            }
-                                                        }
-                                                    }
+                                                    //if (data[i].permissions.length > 0) {
+                                                    //    for (var j = 0; j < data[i].permissions.length; j++) {
+                                                    //        if (data[i].permissions[j].organization == get_id) {
+                                                    //            role = data[i].permissions[j].role;
+                                                    //        }
+                                                    //    }
+                                                    //}
+                                                    role = data[i].role;
+
                                                     if (role == 'admin') {
                                                         $rootScope.users_link = true;
                                                         $rootScope.tags_link = true;
