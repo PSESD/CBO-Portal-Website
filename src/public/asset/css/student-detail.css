@@ -398,32 +398,32 @@ ul li.transcript-content:nth-child(1) {
 ul li.transcript-content:nth-child(2) {
     width: 14%;
     padding-top: 2.5%;
-    padding-left: 25px;
+    padding-left: 15px;
 }
 ul li.transcript-content:nth-child(3) {
     width: 14%;
     padding-top: 2.5%;
-    padding-left: 25px;
+    padding-left: 15px;
 }
 ul li.transcript-content:nth-child(4) {
     width: 14%;
     padding-top: 2.5%;
-    padding-left: 25px;
+    padding-left: 15px;
 }
 ul li.transcript-content:nth-child(5) {
     width: 14%;
     padding-top: 2.5%;
-    padding-left: 25px;
+    padding-left: 15px;
 }
 ul li.transcript-content:nth-child(6) {
     width: 14%;
     padding-top: 2.5%;
-    padding-left: 25px;
+    padding-left: 15px;
 }
 ul li.transcript-content:nth-child(7) {
     width: 14%;
     padding-top: 2.5%;
-    padding-left: 25px;
+    padding-left: 15px;
 }
 .attempted-credit {
     position: relative;
@@ -487,15 +487,16 @@ ul li.transcript-content:nth-child(7) {
 }
 .transcript-content .transcript-descriptor {
     position: absolute;
-    top: 38%;
+    top: 35%;
     width: 13%;
+    margin-left: -9px;
     background-color: #fff;
     display: none;
     text-indent: 0px;
     z-index: 9999;
     padding-top: 5px;
     padding-left: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
 }
 @media (max-width: 1280px) {
     ul.transcript li:nth-child(2) {
@@ -585,17 +586,17 @@ ul li.transcript-content:nth-child(7) {
         border: 1px solid #aaa;
     }
     .transcript-content .transcript-descriptor {
-        position: relative;
-        top: 0;
-        left: -28px;
-        width: 115%;
+        position: absolute;
+        top: 35%;
+        width: 13%;
+        margin-left: -30px;
         background-color: #fff;
-        display: none;
+        /*display: none;*/
         text-indent: 0px;
         z-index: 9999;
         padding-top: 5px;
-        padding-left: 11%;
-        padding-bottom: 10px;
+        /*padding-left: 5px;*/
+        padding-bottom: 10px
     }
 }
 .subhead.transcript {
@@ -635,8 +636,8 @@ li.transcript-content:hover .transcript-descriptor {
 .transcript-descriptor:hover ~ .transcript-display {
     display: none;
 }
-
-ul.flexbox.attendance-behavior, ul.flexbox.transcript-content {
+ul.flexbox.attendance-behavior,
+ul.flexbox.transcript-content {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -646,15 +647,40 @@ ul.flexbox.attendance-behavior, ul.flexbox.transcript-content {
     padding: 0;
     margin-bottom: 1%;
 }
-
 .scrollableContainer {
     height: 310px;
     position: relative;
     padding-top: 0px;
     overflow: hidden;
 }
-
-table.school-history>tbody>tr>td, .table.school-history>tbody>tr>th, .table.school-history>tfoot>tr>td, .table.school-history>tfoot>tr>th, .table.school-history>thead>tr>td, .table.school-history>thead>tr>th {
-    padding-left: 0px!important;
+table.school-history>tbody>tr>td,
+.table.school-history>tbody>tr>th,
+.table.school-history>tfoot>tr>td,
+.table.school-history>tfoot>tr>th,
+.table.school-history>thead>tr>td,
+.table.school-history>thead>tr>th {
+    padding-left: 11px!important;
     border-left: none;
+}
+.scrollArea table tbody tr td {
+    border-bottom: none!important;
+}
+.table>thead>tr>th {
+    border-bottom: none!important;
+}
+.scrollArea {
+    border: none!important;
+}
+.scrollArea table th .box {
+    border-left: none!important;
+}
+.scrollableContainer .headerSpacer {
+    border: none!important;
+}
+.table tr td {
+    padding-left: 5px;
+}
+.scrollArea table th .box {
+    border-left: none!important;
+    padding: 0;
 }

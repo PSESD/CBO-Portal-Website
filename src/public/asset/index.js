@@ -17,7 +17,7 @@ var schoolDistricts = {
     'renton': 'Renton',
     'northshore': 'North Shore'
 };
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
@@ -814,10 +814,12 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
         $scope.showSchoolHistory = function () {
             $scope.sch_history = true;
+            
         };
 
         $scope.closeSchoolHistory = function () {
             $scope.sch_history = false;
+            
 
         };
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {

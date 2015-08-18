@@ -152,17 +152,17 @@
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior">
+                <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
                     <ul class="flexbox attendance-behavior">
                         <li>{{ 'general.attendance_dates' | i18n | uppercase }}</li>
                         <li>
                             <div class="col-separator"></div>
-                            {{ 'general.M' | i18n | uppercase }}
+                            {{ 'general.LM' | i18n | uppercase }}
                         </li>
-                        <li>{{ 'general.T' | i18n | uppercase }}</li>
-                        <li>{{ 'general.W' | i18n | uppercase }}</li>
+                        <li>{{ 'general.LT' | i18n | uppercase }}</li>
+                        <li>{{ 'general.LW' | i18n | uppercase }}</li>
                         <li>{{ 'general.TH' | i18n | uppercase }}</li>
-                        <li>{{ 'general.F' | i18n | uppercase }}</li>
+                        <li>{{ 'general.LF' | i18n | uppercase }}</li>
                         <li>
                             <div class="col-separator"></div>
                             {{ 'general.delta_change' | i18n | uppercase }}
@@ -215,8 +215,7 @@
                                         <hr class="attendance-separator">
                                         <div class="monday">
                                             <div class="grid-item present">
-                                            </div>
-                                            <div class="descriptor">
+                                                <div class="descriptor">
                                                     <div class="descriptor-title present-font-color">
                                                         {{ 'general.present' | i18n | uppercase }}
                                                     </div>
@@ -225,6 +224,7 @@
                                                     <br>
                                                     <br> {{ 'general.present_in_class_leading_activities_head_of_class' | i18n }}
                                                 </div>
+                                            </div>
                                             <div class="grid-item present light">
                                                 <div class="descriptor">
                                                     <div class="descriptor-title present-font-color">
@@ -469,8 +469,8 @@
                 <!-- tab panel -->
 
 
-                <div role="tabpanel" class="tab-pane" id="program_participation">{{ 'general.program_participation' | i18n }}</div>
-                <div role="tabpanel" class="tab-pane transcript" id="transcript">
+                <a role="tabpanel" class="tab-pane" id="program_participation" data-id="program_participation_data">{{ 'general.program_participation' | i18n }}</a>
+                <div role="tabpanel" class="tab-pane transcript" id="transcript" data-id="transcript_data">
                     <ul class="flexbox transcript">
                         <li>
                             <b>18</b>{{ 'general.credits_earned' | i18n }}
@@ -519,11 +519,16 @@
                                     <div class="transcript-font-color math-font-color">{{ 'general.algebra' | i18n | uppercase }} 2</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
-                                        <b>AMHI24561</b><br>
-                                        <b>Grade</b> - A<br>
-                                        <b>Grade Level</b> - Junior<br>
-                                        <b>Earned Credits</b> - 1<br>
-                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5<br>
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
                                         <b>AP</b>
                                     </div>
                                 </div>
@@ -540,11 +545,16 @@
                                     <div class="transcript-font-color history-font-color">{{ 'general.history' | i18n | uppercase }} 3</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
-                                        <b>AMHI24561</b><br>
-                                        <b>Grade</b> - A<br>
-                                        <b>Grade Level</b> - Junior<br>
-                                        <b>Earned Credits</b> - 1<br>
-                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5<br>
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
                                         <b>AP</b>
                                     </div>
                                 </div>
@@ -559,32 +569,110 @@
 
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>AP</b>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
                                 </div>
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color elective-font-color">{{ 'general.art' | i18n | uppercase }} 2</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color elective-font-color">{{ 'general.art' | i18n | uppercase }} 2</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>AP</b>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color elective-font-color">{{ 'general.art' | i18n | uppercase }} 2</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">{{ 'general.spanish' | i18n | uppercase }} 3</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>AP</b>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">{{ 'general.spanish' | i18n | uppercase }} 3</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
                                 </div>
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color language-font-color">{{ 'general.spanish' | i18n | uppercase }} 3</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>AP</b>
+                                    </div>
                                 </div>
-                            </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
                                 </div>
+
                             </li>
                         </ul>
 
@@ -826,11 +914,11 @@
 
                     <scrollable-table watch="visibleProjects">
 
-                        <table class="table table-striped table-bordered school-history">
+                        <table class="table table-striped school-history">
                             <thead>
                                 <tr>
-                                    <th>{{ 'general.school_name' | i18n }}</th>
-                                    <th>{{ 'general.school_year' | i18n }}</th>
+                                    <th><b>{{ 'general.school_name' | i18n }}</b></th>
+                                    <th><b>{{ 'general.school_year' | i18n }}</b></th>
                                 </tr>
                             </thead>
                             <tbody>
