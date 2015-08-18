@@ -2146,12 +2146,15 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
-
+        
         $scope.user = {
             role: 'case-worker'
         };
+        
 
         $scope.inviteUser = function (user) {
+            user.is_special_case_worker = !user.is_special_case_worker;
+            
             if (user) {
                 user.redirect_url = AuthenticationService.redirect_url;
 
