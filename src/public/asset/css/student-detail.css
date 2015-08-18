@@ -646,3 +646,15 @@ ul.flexbox.attendance-behavior, ul.flexbox.transcript-content {
     padding: 0;
     margin-bottom: 1%;
 }
+
+.scrollableContainer {
+    height: 310px;
+    position: relative;
+    padding-top: 0px;
+    overflow: hidden;
+}
+
+table.school-history>tbody>tr>td, .table.school-history>tbody>tr>th, .table.school-history>tfoot>tr>td, .table.school-history>tfoot>tr>th, .table.school-history>thead>tr>td, .table.school-history>thead>tr>th {
+    padding-left: 0px!important;
+    border-left: none;
+}
