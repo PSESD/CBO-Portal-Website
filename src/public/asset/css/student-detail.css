@@ -486,16 +486,15 @@ ul li.transcript-content:nth-child(7) {
     border: 1px solid #aaa;
 }
 .transcript-content .transcript-descriptor {
-    position: relative;
-    top: 0;
-    left: -21px;
-    width: 115%;
+    position: absolute;
+    top: 38%;
+    width: 13%;
     background-color: #fff;
     display: none;
     text-indent: 0px;
     z-index: 9999;
     padding-top: 5px;
-    padding-left: 11%;
+    padding-left: 10px;
     padding-bottom: 10px;
 }
 @media (max-width: 1280px) {

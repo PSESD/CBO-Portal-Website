@@ -17,7 +17,7 @@ var schoolDistricts = {
     'renton': 'Renton',
     'northshore': 'North Shore'
 };
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
