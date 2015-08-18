@@ -5,12 +5,15 @@
             <div class="col-md-12">
 
                 <div class="title">
-                    <h1><a href="#/user/group/{{ user._id }}/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_student' | i18n }}</a></h1>
+                    <h1>{{ 'general.user_students' | i18n:[user.full_name] }}</h1>
+                    <hr>
                 </div>
 
                 <div class="content">
-
-                    <h1 class="bold">{{ user.first_name }} {{ user.last_name }} {{ 'general.students' | i18n }}</h1>
+                    <div class="ng-binding help">
+                        <p>{{ 'help.user_group' | i18n }}</p>
+                    </div>
+                    <h1><a href="#/user/group/{{ user._id }}/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_student' | i18n }}</a></h1>
 
                     <div class="table-responsive">
                         <table class="table table-striped">

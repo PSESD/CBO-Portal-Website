@@ -5,15 +5,20 @@
         <div class="card">
             <div class="col-md-12">
                 <div class="title">
+                    <h1>{{ 'general.tags' | i18n }}</h1>
+                    <hr>
+                </div>
+                <div class="content">
+                    <div class="ng-binding help">
+                        <p>{{ 'help.tag_list' | i18n }}</p>
+                    </div>
+
                     <h1><a href="#/tag/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_for' | i18n:['Tag'] }}</a></h1>
-					<form class="form-inline" role="form" ng-submit="searchTag(student)">
+                    <form class="form-inline" role="form" ng-submit="searchTag(student)">
                         <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_tag' | i18n }}"/>
                         <input type="submit" value="{{ 'general.filter' | i18n | uppercase }}" class="button"/>
                     </form>
-                </div>
-                <div class="content">
 
-                    <h1 class="bold">{{ 'general.tags' | i18n }}</h1>
 
                     <div class="table-responsive">
                         <table class="table table-striped">

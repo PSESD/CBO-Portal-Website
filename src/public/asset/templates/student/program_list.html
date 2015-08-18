@@ -6,15 +6,18 @@
             <div class="col-md-12">
                 <div class="title">
                     <h1>
-                        <a href="#/student/programs/{{ student._id }}/add"><i class="glyphicon glyphicon-plus"></i> {{ 'general.add_program' | i18n }}</a>
+                        {{ 'general.student_programs' | i18n:[student.first_name, student.last_name] }}
                     </h1>
                     <hr>
                 </div>
                 <div class="content">
-
+                    <div class="ng-binding help">
+                        <p>{{ 'help.student_program_list' | i18n }}</p>
+                    </div>
                     <h1>
-                        {{ 'general.student_programs' | i18n:[student.first_name, student.last_name] }}
+                        <a href="#/student/programs/{{ student._id }}/add"><i class="glyphicon glyphicon-plus"></i> {{ 'general.add_program' | i18n }}</a>
                     </h1>
+                    <hr>
 
                     <div class="table-responsive">
                         <table class="table table-striped">

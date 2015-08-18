@@ -2627,7 +2627,10 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
 
                 $scope.user = {
                     role: set_role,
-                    is_special_case_worker: is_special_case_worker
+                    is_special_case_worker: is_special_case_worker,
+                    first_name: response.first_name,
+                    last_name: response.last_name,
+                    full_name: response.full_name
                 };
                 $rootScope.doingResolve = false;
 

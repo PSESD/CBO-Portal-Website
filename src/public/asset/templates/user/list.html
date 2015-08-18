@@ -5,16 +5,20 @@
             <div class="col-md-12">
 
                 <div class="title">
-                    <h1><a href="#/user/invite"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.invite_user' | i18n | uppercase }}</a></h1>
-					<form class="form-inline" role="form" ng-submit="searchStudent(student)">
-                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_users' | i18n }}"/>
-                        <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
-                    </form>
+                    <h1>{{ 'general.users' | i18n | uppercase }}</h1>
+                    <hr>
+
                 </div>
 
                 <div class="content">
-
-                    <h1 class="bold">{{ 'general.users' | i18n | uppercase }}</h1>
+                    <div class="ng-binding help">
+                        <p>{{ 'help.user_list' | i18n }}</p>
+                    </div>
+                    <h1><a href="#/user/invite"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.invite_user' | i18n | uppercase }}</a></h1>
+                    <form class="form-inline" role="form" ng-submit="searchStudent(student)">
+                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_users' | i18n }}"/>
+                        <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
+                    </form>
 
                     <div class="table-responsive">
                         <table class="table table-striped">

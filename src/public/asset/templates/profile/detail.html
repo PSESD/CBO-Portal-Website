@@ -5,12 +5,14 @@
             <div class="col-md-12">
 
                 <div class="title">
-                    <h1>{{ 'general.profile' | i18n }} {{ user.first_name }} {{ user.last_name }}</h1>
+                    <h1>{{ 'general.profile' | i18n }} {{ user.full_name }}</h1>
                     <hr>
                 </div>
 
                 <div class="content">
-
+                    <div class="ng-binding help">
+                        <p>{{ 'help.profile_detail' | i18n }}</p>
+                    </div>
                     <form class="form-horizontal" role="form" ng-submit="editProfile(user)">
 					<div class="form-group">
                             <label class="col-sm-3 control-label" for="email">{{ 'general.email' | i18n }}:</label>

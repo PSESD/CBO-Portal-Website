@@ -5,17 +5,20 @@
         <div class="card">
             <div class="col-md-12">
                 <div class="title">
+                    <h1>{{ program.name }} {{ 'general.student' | i18n }}</h1>
+                    <hr>
+                </div>
+                <div class="content">
+                    <div class="ng-binding help">
+                        <p>{{ 'help.program_student_list' | i18n }}</p>
+                    </div>
                     <h1>
                         <a href="#/program/students/{{ program._id }}/add"><i class="glyphicon glyphicon-plus font16"></i>{{ 'general.add_student_to' | i18n:[program.name] }}</a>
                     </h1>
-					<form class="form-inline" role="form" ng-submit="searchStudent(student)">
+                    <form class="form-inline" role="form" ng-submit="searchStudent(student)">
                         <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_student' | i18n }}"/>
                         <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
                     </form>
-                </div>
-                <div class="content">
-
-                    <h1> {{ program.name }} {{ 'general.student' | i18n }}</h1>
 
                     <div class="table-responsive">
                         <table class="table table-striped">
