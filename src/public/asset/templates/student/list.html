@@ -25,7 +25,7 @@
                             <thead>
                             <tr>
                                 <th>{{ 'general.name' | i18n }}</th>
-                                <th>{{ 'general.school_id' | i18n }}</th>
+                                <th>{{ 'general.district_student_id' | i18n }}</th>
                                 <th>{{ 'general.school_district' | i18n }}</th>
                                 <th class="text-center" style="width:5%;">{{ 'general.edit' | i18n }}</th>
                                 <th class="text-center" style="width:5%;">{{ 'general.delete' | i18n }}</th>
@@ -34,7 +34,7 @@
                             <tbody>
                             <tr ng-repeat="student in students | filter:search">
                                 <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.first_name }} {{ student.last_name }}</a></td>
-								<td>{{student._id}}</td>
+								<td>{{student.district_student_id}}</td>
                                 <td>{{ student.school_district }}</td>
                                 <td class="text-center">
                                     <a class="glyphicon glyphicon-pencil" ng-href="#/student/edit/{{ student._id }}"></a>
