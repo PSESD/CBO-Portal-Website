@@ -2613,7 +2613,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
             .success(function (response) {
 
                 var set_role = response.role;
-                var is_special_case_worker = response.is_special_case_worker;
+                var is_special_case_worker = (response.is_special_case_worker === true) ? false : true;
 
                 //if (response.permissions.length > 0) {
                 //    for (var j = 0; j < response.permissions.length; j++) {
