@@ -153,8 +153,8 @@ hr.attendance-separator {
 .grid-item {
     float: left;
     clear: left;
-    width: 100%;
-    margin: 0;
+    width: 98%;
+    margin: 0 1%;
     padding: 0;
     height: 50px;
     display: block;
@@ -192,6 +192,9 @@ ul.list-group.legend-list li {
     border-bottom: 0;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
+}
+.list-group-item{
+    border:none !important;
 }
 .panel.legend-list {
     border: 1px solid #ededed;
@@ -244,6 +247,8 @@ ul.list-group.legend-list li {
     padding-bottom: 10px;
     padding-top: 5px;
     padding-left: 5px;
+    border: none;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
 }
 .descriptor {
     border: 1px solid #aaa;
