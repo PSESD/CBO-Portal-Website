@@ -14,6 +14,7 @@ ul.nav.nav-tabs.nav-justified li a {
     color: black;
 }
 ul.flexbox.attendance-behavior,
+ul.flexbox.program_participation,
 ul.flexbox.transcript-content {
     display: -webkit-box;
     /* OLD - iOS 6-, Safari 3.1-6 */
@@ -683,4 +684,32 @@ table.school-history>tbody>tr>td,
 .scrollArea table th .box {
     border-left: none!important;
     padding: 0;
+}
+
+/*-------Program Participation--------*/
+
+ul.student-program-participation{
+    padding:0;
+}
+
+ul.student-program-participation > li{
+    padding-left: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+ul.student-program-participation > li:nth-child(even){
+    background-color: #ededed;
+}
+
+ul.student-program-participation > li:nth-child(odd){
+    background-color: white;
+}
+
+.program_date{
+    margin-bottom: 1%;
+}
+
+.flexbox.program_participation > li{
+    margin-right: 2%;   
 }
