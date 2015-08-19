@@ -49,18 +49,18 @@
   "add_program": "Add Program",
   "edit_program": "Edit Program",
   "add_what_program": "Add {1} Program",
-  "district_name": "District Name", //THIS IS SUPPOSED TO BE A DROPDOWN MENU, NOT A FILL-IN-THE-BLANK
+  "district_name": "District Name",
   "district_student_id": "District Student ID",
   "college_bound": "College Bound Scholarship",
   "yes": "Yes",
   "no": "No",
   "personal_contact_info": "Personal Contact Info",
-  "phone": "Phone",//THIS SHOULD NOT BE A FREE-FORM FIELD AND SHOULD INCLUDE STANDARD PHONE NUMBER FORMATTING
-  "address": "Address", //THIS SHOULD NOT BE A FREE-FORM FIELD AND SHOULD INCLUDE SPECIFIC INPUT AREAS FOR ADDRESS, CITY, STATE (DROPDOWN MENU), ZIP
+  "phone": "Phone",
+  "address": "Address",
   "emergency_contact": "Emergency Contact",
   "emergency_contact_1": "Emergency Contact 1",
   "emergency_contact_2": "Emergency Contact 2",
-  "relationship": "Relationship", //THIS SHOULD BE A DROPDOWN MENU WITH A LIST OF CHOICES (AUNT, UNCLE, BROTHER, ETC.)
+  "relationship": "Relationship",
   "student_backpack": "Student Backpack",
   "back": "Back",
   "timezone": "Timezone",
@@ -90,7 +90,7 @@
   "attendance_and_behavior": "Attendance & Behavior",
   "program_participation": "Program Participation",
   "transcript": "Transcript",
-  "attendance_dates": "Attendance Dates",//NEED TO GET RID OF THIS FIELD
+  "attendance_dates": "Attendance Dates",
   "M": "M",
   "T": "T",
   "W": "W",
