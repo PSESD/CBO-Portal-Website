@@ -13,7 +13,7 @@
                         <p>{{ 'help.tag_list' | i18n }}</p>
                     </div>
 
-                    <h1><a href="#/tag/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_for' | i18n:['Tag'] }}</a></h1>
+                    <h1><a href="#/tag/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_tag' | i18n }}</a></h1>
                     <form class="form-inline" role="form" ng-submit="searchTag(student)">
                         <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_tag' | i18n }}"/>
                         <input type="submit" value="{{ 'general.filter' | i18n | uppercase }}" class="button"/>
