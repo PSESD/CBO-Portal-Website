@@ -1,4 +1,4 @@
-<div id="desktop">
+<div class="desktop">
 
     <div id="side-panel">
         <div id="desktop-nav" class="navbar-inverse" ng-show="showNavBar">
@@ -46,7 +46,7 @@
 
             </div>
         </div>
-        <ng-view ng-hide="doingResolve"></ng-view>
+        <ng-view ng-class="ng-view" ng-hide="doingResolve"></ng-view>
         <div ng-if="showNavBar">
             <div style="margin-left:70px;" class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
                 <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
@@ -55,6 +55,17 @@
         <div ng-if="!showNavBar">
             <div class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
                 <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
+            </div>
+        </div>
+        <div  class="row footer" ng-show="!doingResolve">
+            <div  class="col-md-12 stick-footer">
+                <ul class="flexbox footer">
+                    <li><a href="http://www.psesd.org/">PSED</a></li>
+                    <li><a href="http://www.psesd.org/about/contact-us/">PSED CONTACT</a></li>
+                    <li><a href="http://roadmapracetothetop.org/">THE ROADMAP PROJECT</a></li>
+                    <li><a>PRIVACY POLICY</a></li>
+                    <li><a>COPYRIGHT NOTICE</a></li>
+                </ul>
             </div>
         </div>
     </div>

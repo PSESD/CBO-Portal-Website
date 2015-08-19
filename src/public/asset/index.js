@@ -53,7 +53,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
-    if(__i) $httpProvider.interceptors.push('headerInjector');
+    if (__i) $httpProvider.interceptors.push('headerInjector');
 
 }]);
 
@@ -279,12 +279,12 @@ app.config(function ($routeProvider) {
 
 });
 
-app.run(['$window', '$rootScope','$route',
+app.run(['$window', '$rootScope', '$route',
 function ($window, $rootScope, locale) {
         $rootScope.goBack = function () {
             $window.history.back();
         };
-    $rootScope.data_content = "asset/templates/desktop.html";
+        $rootScope.data_content = "asset/templates/desktop.html";
         var element = angular.element("#login-container");
         if ($window.innerWidth > 767) {
             $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
@@ -562,6 +562,23 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
+        $scope.relationship = {
+            availableOptions: [
+                {
+                    id: 'father',
+                    name: 'Father'
+                },
+                {
+                    id: 'mother',
+                    name: 'Mother'
+                },
+                {
+                    id: 'aunt',
+                    name: 'Aunt'
+                }
+    ],
+        };
+
         $scope.addStudent = function (student) {
             if (student) {
                 $scope.working = true;
@@ -814,12 +831,12 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
         $scope.showSchoolHistory = function () {
             $scope.sch_history = true;
-            
+
         };
 
         $scope.closeSchoolHistory = function () {
             $scope.sch_history = false;
-            
+
 
         };
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {
@@ -1894,7 +1911,9 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                     showError(response.error.message, 1);
                 }
                 $rootScope.doingResolve = false;
-                $scope.program ? $scope.program.active = true : $scope.program = { active: true };
+                $scope.program ? $scope.program.active = true : $scope.program = {
+                    active: true
+                };
             })
             .error(function (response, status) {
 
@@ -2148,15 +2167,15 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
-        
+
         $scope.user = {
             role: 'case-worker'
         };
-        
+
 
         $scope.inviteUser = function (user) {
             user.is_special_case_worker = !user.is_special_case_worker;
-            
+
             if (user) {
                 user.redirect_url = AuthenticationService.redirect_url;
 

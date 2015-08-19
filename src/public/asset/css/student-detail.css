@@ -15,7 +15,7 @@ ul.nav.nav-tabs.nav-justified li a {
 }
 ul.flexbox.attendance-behavior,
 ul.flexbox.program_participation,
-ul.flexbox.transcript-content {
+ul.flexbox.transcript-content{
     display: -webkit-box;
     /* OLD - iOS 6-, Safari 3.1-6 */
     display: -moz-box;
@@ -646,7 +646,6 @@ ul.flexbox.transcript-content {
     display: flex;
     margin: 0;
     padding: 0;
-    margin-bottom: 1%;
 }
 .scrollableContainer {
     height: 310px;
