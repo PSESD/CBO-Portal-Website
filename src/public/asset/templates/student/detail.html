@@ -36,7 +36,7 @@
                             <b>{{ 'general.gender' | i18n }}</b> {{studentdetails.demographics.sex}}
                         </div>
                         <div class="title">
-                            <p class="subhead" style="margin-top:20px;">{{ 'general.personal' | i18n | uppercase }}
+                            <p class="subhead personal">{{ 'general.personal' | i18n | uppercase }}
                                 <br>{{ 'general.contact' | i18n | uppercase }}</p>
                             <hr>
                         </div>
@@ -58,7 +58,7 @@
                             <br/> {{student.emergency1_email}}
                             <br/> {{student.emergency1_phone | phonenumber}}
                         </div>
-                        <div class="content" style="margin-top:20px;">
+                        <div class="content personal">
                             <b>{{student.emergency2_name}}</b>
                             <br/> {{student.emergency2_relationship}}
                             <br/> {{student.emergency2_email}}
@@ -84,7 +84,7 @@
                     <div class="clearfix"></div>
 
                 </div>
-                <div class="col-md-6 data-content" style="padding-left:65px;">
+                <div class="col-md-6 data-content space-left" >
                     <div>
                         <div class="row col-md-6">
                             <div class="title">
@@ -92,7 +92,7 @@
                                     <br>{{ 'general.info' | i18n | uppercase }}</p>
                                 <hr>
                             </div>
-                            <div class="content" style="margin-bottom:20px;">
+                            <div class="content bottom-space">
                                 <b>{{ 'general.current_school' | i18n }}</b> {{studentdetails.transcriptTerm.school.schoolName}}
                                 <br/>
                                 <b>{{ 'general.expected_graduation_year' | i18n }}</b> {{studentdetails.transcriptTerm.schoolYear}}
@@ -100,7 +100,7 @@
                                 <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
                             </div>
-                            <div class="content" style="margin-top:10px;">
+                            <div class="content top-space">
                                 <b>{{ 'general.language_spoken_at_home' | i18n }}</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
                                 <b>IEP</b> {{ 'general.n_a' | i18n | uppercase }}
@@ -137,8 +137,8 @@
 
             <div class="clearfix"></div>
 
-            <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up" style="display: block;"><i class="glyphicon glyphicon-menu-up"></i></a>
-            <a href="javascript:void(0)" onclick="showContent(this)" class="pull-right menu-down" style="display: none;"><i class="glyphicon glyphicon-menu-down"></i></a>
+            <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up display-blk" ><i class="glyphicon glyphicon-menu-up"></i></a>
+            <a href="javascript:void(0)" onclick="showContent(this)" class="pull-right menu-down display-none"><i class="glyphicon glyphicon-menu-down"></i></a>
 
         </div>
 
@@ -153,8 +153,8 @@
 
             <ul class="nav nav-tabs nav-justified" role="tablist">
                 <li class="active"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior">{{ 'general.attendance_and_behavior' | i18n | uppercase }}</a></li>
-                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation">{{ 'general.program_participation' | i18n | uppercase }}</a></li>
                 <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript">{{ 'general.transcript' | i18n | uppercase }}</a></li>
+                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation">{{ 'general.program_participation' | i18n | uppercase }}</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -479,128 +479,21 @@
                 <div role="tabpanel" class="tab-pane" id="program_participation" data-id="program_participation_data">
 
                     <ul class="student-program-participation">
-                        <li>
+                        <li ng-repeat="program in programs">
                              <div class="program_date">
-                                2015    
+                                {{program.years}}
                             </div>
                             <ul class="flexbox program_participation">
 
-                                <li>
-                                    <b>Math Tutoring</b>
+                                <li ng-repeat = "item in program.programs">
+                                    <b>{{item.name}}</b>
                                     <br>
-                                    <b>Active</b>
-                                    <br> 9/1/15 - present
-                                    <br> Section A
-                                    <br> Algebra
+                                    <b>{{item.active}}</b>
+                                    <br> {{item.start_date | date:'MM/dd/yyyy'}} - {{item.end_date}}
+                                    <ul>
+                                        <li ng-repeat = "cohort in prog.cohorts"></li>
+                                    </ul>
                                     <br>
-                                </li>
-                                <li>
-                                    <b>After School Basketball</b>
-                                    <br>
-                                    <b>Active</b>
-                                    <br> 9/1/15 - present
-                                    <br> Section B
-                                    <br>
-                                </li>
-                                <li>
-                                    <b>Chemistry Tutoring</b>
-                                    <br>
-                                    <b>Inactive</b>
-                                    <br> 9/1/15 - present
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="program_date">
-                                2015    
-                            </div>
-                            
-                            <ul class="flexbox program_participation">
-
-                                <li>
-                                    <b>Math Tutoring</b>
-                                    <br>
-                                    <b>Active</b>
-                                    <br> 9/1/15 - present
-                                    <br> Section A
-                                    <br> Algebra
-                                    <br>
-                                </li>
-                                <li>
-                                    <b>After School Basketball</b>
-                                    <br>
-                                    <b>Active</b>
-                                    <br> 9/1/15 - present
-                                    <br> Section B
-                                    <br>
-                                </li>
-                                <li>
-                                    <b>Chemistry Tutoring</b>
-                                    <br>
-                                    <b>Inactive</b>
-                                    <br> 9/1/15 - present
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="program_date">
-                                2015    
-                            </div>
-                            <ul class="flexbox program_participation">
-
-                                <li>
-                                    <b>Math Tutoring</b>
-                                    <br>
-                                    <b>Active</b>
-                                    <br> 9/1/15 - present
-                                    <br> Section A
-                                    <br> Algebra
-                                    <br>
-                                </li>
-                                <li>
-                                    <b>After School Basketball</b>
-                                    <br>
-                                    <b>Active</b>
-                                    <br> 9/1/15 - present
-                                    <br> Section B
-                                    <br>
-                                </li>
-                                <li>
-                                    <b>Chemistry Tutoring</b>
-                                    <br>
-                                    <b>Inactive</b>
-                                    <br> 9/1/15 - present
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="program_date">
-                                2015    
-                            </div>
-                            <ul class="flexbox program_participation">
-
-                                <li>
-                                    <b>Math Tutoring</b>
-                                    <br>
-                                    <b>Active</b>
-                                    <br> 9/1/15 - present
-                                    <br> Section A
-                                    <br> Algebra
-                                    <br>
-                                </li>
-                                <li>
-                                    <b>After School Basketball</b>
-                                    <br>
-                                    <b>Active</b>
-                                    <br> 9/1/15 - present
-                                    <br> Section B
-                                    <br>
-                                </li>
-                                <li>
-                                    <b>Chemistry Tutoring</b>
-                                    <br>
-                                    <b>Inactive</b>
-                                    <br> 9/1/15 - present
                                 </li>
                             </ul>
                         </li>
@@ -620,7 +513,7 @@
                             <br/>
                             <br/>
                             <div>
-                                <div ng-click="showSchoolHistory()" class="button transcript-school-history" style="display:inline-block">{{ 'general.see_school' | i18n | uppercase }}
+                                <div ng-click="showSchoolHistory()" class="button transcript-school-history display-inline-blk">{{ 'general.see_school' | i18n | uppercase }}
                                     <br>HISTORY</div>
                             </div>
 
