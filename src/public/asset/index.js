@@ -17,7 +17,7 @@ var schoolDistricts = {
     'renton': 'Renton',
     'northshore': 'North Shore'
 };
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
@@ -738,11 +738,11 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
         $scope.close = function () {
             $scope.open_button = true;
             $scope.icon_legend = false;
-        }
+        };
         $scope.open = function () {
             $scope.icon_legend = true;
             $scope.open_button = false;
-        }
+        };
         var student_id = $routeParams.student_id;
         var list_program = [];
         var program_name = '';
@@ -917,36 +917,70 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
             });
 
-        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
+        var getXsre = function() {
+            $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
+                headers: {
+                    'Authorization': 'Bearer ' + AuthenticationService.token
+                }
+            })
+                .success(function (response) {
+                    var embedUsers = {};
+                    var embedPrograms = [];
+                    if (typeof response.success !== 'undefined' && response.success == false) {
+                        console.log("fail to get");
+                    } else {
+                        embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
+                        embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
+
+                        $scope.case_workers = response._embedded.users;
+                        if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
+                            $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
+                            $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
+                        }
+
+                        $scope.studentdetails = response;
+                    }
+                    angular.forEach(embedPrograms, function (v) {
+
+                        $scope.programs.push({
+                            name: v.program_name,
+                            active: v.active,
+                            participation_start_date: v.participation_start_date,
+                            participation_end_date: v.participation_end_date,
+                            cohort: v.cohort.join()
+                        });
+
+                    });
+                    $rootScope.doingResolve = false;
+                    console.log($scope.programs);
+                })
+                .error(function (response, status) {
+
+                    console.log(response);
+                    console.log(status);
+                    showError(response, 1);
+                    $rootScope.doingResolve = false;
+                    if (status == 401) {
+                        CookieStore.clearData();
+                        $location.path('/login');
+                    }
+
+                });
+        };
+
+        getXsre();
+
+        /**
+         * Update Now, remove cache and reload the page content
+         */
+        $scope.updateNow = function(){
+            $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
             })
             .success(function (response) {
-                $scope.case_workers = response._embedded.users;
-                if (typeof response.success !== 'undefined' && response.success == false) {
-                    console.log("fail to get");
-                } else {
-                    if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
-                        $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
-                        $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
-                    }
-
-                    $scope.studentdetails = response;
-                }
-                angular.forEach(response._embedded.programs, function (v) {
-
-                    $scope.programs.push({
-                        name: v.program_name,
-                        active: v.active,
-                        participation_start_date: v.participation_start_date,
-                        participation_end_date: v.participation_end_date,
-                        cohort: v.cohort.join()
-                    });
-
-                });
-                $rootScope.doingResolve = false;
-                console.log($scope.programs);
+                getXsre();
             })
             .error(function (response, status) {
 
@@ -960,8 +994,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 }
 
             });
-
-
+        };
     }
 ]).filter('flattenRows', function () {
     return function (transcriptTerm) {
