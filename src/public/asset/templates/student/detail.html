@@ -84,7 +84,7 @@
                     <div class="clearfix"></div>
 
                 </div>
-                <div class="col-md-6 data-content space-left" >
+                <div class="col-md-6 data-content space-left">
                     <div>
                         <div class="row col-md-6">
                             <div class="title">
@@ -137,7 +137,7 @@
 
             <div class="clearfix"></div>
 
-            <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up display-blk" ><i class="glyphicon glyphicon-menu-up"></i></a>
+            <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up display-blk"><i class="glyphicon glyphicon-menu-up"></i></a>
             <a href="javascript:void(0)" onclick="showContent(this)" class="pull-right menu-down display-none"><i class="glyphicon glyphicon-menu-down"></i></a>
 
         </div>
@@ -479,19 +479,21 @@
                 <div role="tabpanel" class="tab-pane" id="program_participation" data-id="program_participation_data">
 
                     <ul class="student-program-participation">
-                        <li ng-repeat="program in programs">
-                             <div class="program_date">
+                        <li ng-repeat="program in list_programs">
+                            <div class="program_date">
                                 {{program.years}}
                             </div>
                             <ul class="flexbox program_participation">
 
-                                <li ng-repeat = "item in program.programs">
+                                <li ng-repeat="item in program.programs">
                                     <b>{{item.name}}</b>
                                     <br>
                                     <b>{{item.active}}</b>
-                                    <br> {{item.start_date | date:'MM/dd/yyyy'}} - {{item.end_date}}
-                                    <ul>
-                                        <li ng-repeat = "cohort in prog.cohorts"></li>
+                                    <br> {{item.start_date | date:'MM/dd/yyyy'}} - {{item.end_date | date:'MM/dd/yyyy'}}
+                                    <ul class="cohorts">
+                                        <li ng-repeat="cohort in item.cohorts">
+                                            {{cohort}}
+                                        </li>
                                     </ul>
                                     <br>
                                 </li>

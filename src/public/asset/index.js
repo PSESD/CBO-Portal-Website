@@ -25,7 +25,7 @@ var relationships = {
     'brother': 'Brother',
     'sister': 'Sister'
 };
-var __i = true;
+var __i = false;
 
 var global_redirect_url = '/';
 
@@ -747,8 +747,6 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 
 app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
-        var years = '';
-        var master = {};
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
@@ -764,12 +762,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             $scope.open_button = false;
         }
         var student_id = $routeParams.student_id;
-        var list_program = [];
-        var program_name = '';
-        var active_status = '';
-        var start_date = '';
-        var end_date = '';
-        var cohort = '';
+        var groupValue = "_INVALID_GROUP_VALUE_";
         $scope.sch_history = false;
         $scope.academic = true;
 
@@ -872,54 +865,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 });
 
                 $scope.student = response;
-                /*
-				$scope.case_worker = response;
-                var temp_program = [];
-                var temp_single_program = '';
-                for(var i=0; i<response.programs.length; i++)
-                {
-                    temp_single_program = response.programs[i];
-                    var program_id = temp_single_program.program;
-                    if(program_id.toString().length > 0)
-                    {
-                        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
-                            headers: {
-                                'Authorization': 'Bearer '+AuthenticationService.token
-                            }
-                        })
-                            .success(function(response_program) {
-								
-                                var cohort = temp_single_program.cohort;
-                                var temp = {
-                                    name: response_program.name,
-                                    active: temp_single_program.active,
-                                    participation_start_date: temp_single_program.participation_start_date,
-                                    participation_end_date: temp_single_program.participation_end_date,
-                                    cohort: cohort.join()
-                                };
 
-                                temp_program.push(temp);
-
-                            })
-                            .error(function(response, status) {
-
-                                console.log(response);
-                                console.log(status);
-                                showError(response, 1);
-                                $rootScope.doingResolve = false;
-                                if(status == 401)
-                                {
-                                    CookieStore.clearData();
-                                    $location.path( '/login' );
-                                }
-
-                            });
-                    }
-
-                   // $scope.programs = temp_program;
-
-                }
-				*/
                 $rootScope.doingResolve = false;
 
             })
@@ -955,40 +901,45 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                         $scope.studentdetails = response;
                     }
                     angular.forEach(response._embedded.programs, function (v) {
-                        var temp_years = new Date(v.participation_start_date);
-                        var end_date = new Date(v.participation_end_date);
-                        temp_years = temp_years.getFullYear();
-                        var present = end_date > Date.now() ? 'Present' : end_date;
-                        
-                        if (years == '' || years != temp_years) {
-                            years = temp_years;
-                        }
-                        
-                        if(years != temp_years && years != ''){
-                            
-                        }
-                        
-                        master = {
-                            "years":years
-                        }
-                        
-                        list_program.push({
-                                "name":v.program_name,
-                                "start_date":v.participation_start_date,
-                                "end_date": present,
-                                "active": v.active,
-                                "cohorts": v.cohort
-                                
-                            });
-                        master["programs"] = list_program;
-                             $scope.programs.push(master);
+                        var program = {
+                            "years": new Date(v.participation_start_date).getFullYear(),
+                            "name": v.program_name,
+                            "start_date": v.participation_start_date,
+                            "end_date": new Date(v.participation_end_date) >= Date.now() ? 'Present' : v.participation_end_date,
+                            "active": v.active ? "Active" : "Inactive",
+                            "cohorts": v.cohort
+                        };
+                        $scope.programs.push(program);
                     });
+                    $scope.programs.sort(function (a, b) {
+                        if (a['years'] >= b['years']) {
+                            return (-1);
+                        }
+                        return (1);
+                    });
+
+
+
+                    for (var i = 0; i < $scope.programs.length; i++) {
+                        var program = $scope.programs[i];
+                        // Should we create a new group?
+                        if (program['years'] !== groupValue) {
+                            var group = {
+                                years: program['years'],
+                                programs: []
+                            };
+                            groupValue = group.years;
+                            $scope.list_programs.push(group);
+                        }
+
+                        group.programs.push(program);
+                    }
+
                 } else {
                     showError(response.error, 1);
                 }
-            console.log(master);
                 $rootScope.doingResolve = false;
-                console.log($scope.programs);
+                console.log($scope.list_programs);
             })
             .error(function (response, status) {
 
