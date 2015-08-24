@@ -17,6 +17,14 @@ var schoolDistricts = {
     'renton': 'Renton',
     'northshore': 'North Shore'
 };
+var relationships = {
+    'parent': "Parent",
+    'grandparent': "Grandparent",
+    'aunt': "Aunt",
+    'uncle': 'Uncle',
+    'brother': 'Brother',
+    'sister': 'Sister'
+};
 var __i = false;
 
 var global_redirect_url = '/';
@@ -355,7 +363,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         put_remember: function (value) {
             $cookieStore.put('cboAdmin_cookie_remember', value);
         },
-        setData: function (token, refresh_token, organization_id, redirect_url, user_id, email, name, role) {
+        setData: function (token, refresh_token, organization_id, redirect_url, user_id, email, name, role, organization_name) {
             $cookieStore.put('cboAdmin_cookie_token', token);
             $cookieStore.put('cboAdmin_cookie_refresh_token', refresh_token);
             $cookieStore.put('cboAdmin_cookie_organization_id', organization_id);
@@ -364,6 +372,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             $cookieStore.put('cboAdmin_cookie_email', email);
             $cookieStore.put('cboAdmin_cookie_name', name);
             $cookieStore.put('cboAdmin_cookie_role', role);
+            $cookieStore.put('cboAdmin_cookie_organization_name', organization_name)
 
             AuthenticationService.isAuthenticated = true;
             AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
@@ -374,6 +383,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             AuthenticationService.email = $cookieStore.get('cboAdmin_cookie_email');
             AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
             AuthenticationService.role = $cookieStore.get('cboAdmin_cookie_role');
+            AuthenticationService.organization_name = $cookieStore.get('cboAdmin_cookie_organization_name');
             $rootScope.showNavBar = true;
             $rootScope.completeName = AuthenticationService.name;
 
@@ -452,7 +462,14 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
 app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
     function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService, locale) {
+        var location = window.location.hash;
+        if (location.indexOf('login') == -1) {
+            $rootScope.show_footer = true;
+        }
+
+
         $rootScope.full_screen = false;
+        $rootScope.organization_name = CookieStore.get('cboAdmin_cookie_organization_name');
         if (CookieStore.get('cboAdmin_cookie_role') == 'admin') {
             $rootScope.users_link = true;
             $rootScope.tags_link = true;
@@ -471,7 +488,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
 
         $scope.logoutMe = function () {
-
+            $rootScope.show_footer = false;
             var logout = {
                 token: AuthenticationService.token
             };
@@ -558,26 +575,28 @@ app.controller('HomeController', ['$rootScope', '$scope',
 
 app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
-
+        var schoolDistrict = {};
+        var relationship = {};
+        $scope.schoolDistricts = [];
+        $scope.relationships = [];
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
-        $scope.relationship = {
-            availableOptions: [
-                {
-                    id: 'father',
-                    name: 'Father'
-                },
-                {
-                    id: 'mother',
-                    name: 'Mother'
-                },
-                {
-                    id: 'aunt',
-                    name: 'Aunt'
-                }
-    ],
-        };
+        $.each(schoolDistricts, function (key, value) {
+            schoolDistrict = {
+                "id": key,
+                "name": value
+            };
+            $scope.schoolDistricts.push(schoolDistrict);
+        });
+        $.each(relationships, function (key, value) {
+            relationship = {
+                "id": key,
+                "name": value
+            };
+            $scope.relationships.push(relationship);
+        });
+        console.log($scope.relationships);
 
         $scope.addStudent = function (student) {
             if (student) {
@@ -728,7 +747,6 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 
 app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
-
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
@@ -738,18 +756,13 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
         $scope.close = function () {
             $scope.open_button = true;
             $scope.icon_legend = false;
-        };
+        }
         $scope.open = function () {
             $scope.icon_legend = true;
             $scope.open_button = false;
-        };
+        }
         var student_id = $routeParams.student_id;
-        var list_program = [];
-        var program_name = '';
-        var active_status = '';
-        var start_date = '';
-        var end_date = '';
-        var cohort = '';
+        var groupValue = "_INVALID_GROUP_VALUE_";
         $scope.sch_history = false;
         $scope.academic = true;
 
@@ -845,7 +858,6 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 }
             })
             .success(function (response) {
-
                 $.each(schoolDistricts, function (key, value) {
                     if (key == response.school_district) {
                         response.school_district = value;
@@ -853,54 +865,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 });
 
                 $scope.student = response;
-                /*
-				$scope.case_worker = response;
-                var temp_program = [];
-                var temp_single_program = '';
-                for(var i=0; i<response.programs.length; i++)
-                {
-                    temp_single_program = response.programs[i];
-                    var program_id = temp_single_program.program;
-                    if(program_id.toString().length > 0)
-                    {
-                        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
-                            headers: {
-                                'Authorization': 'Bearer '+AuthenticationService.token
-                            }
-                        })
-                            .success(function(response_program) {
-								
-                                var cohort = temp_single_program.cohort;
-                                var temp = {
-                                    name: response_program.name,
-                                    active: temp_single_program.active,
-                                    participation_start_date: temp_single_program.participation_start_date,
-                                    participation_end_date: temp_single_program.participation_end_date,
-                                    cohort: cohort.join()
-                                };
 
-                                temp_program.push(temp);
-
-                            })
-                            .error(function(response, status) {
-
-                                console.log(response);
-                                console.log(status);
-                                showError(response, 1);
-                                $rootScope.doingResolve = false;
-                                if(status == 401)
-                                {
-                                    CookieStore.clearData();
-                                    $location.path( '/login' );
-                                }
-
-                            });
-                    }
-
-                   // $scope.programs = temp_program;
-
-                }
-				*/
                 $rootScope.doingResolve = false;
 
             })
@@ -917,22 +882,17 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
             });
 
-        var getXsre = function() {
-            $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
+        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
             })
-                .success(function (response) {
-                    var embedUsers = {};
-                    var embedPrograms = [];
+            .success(function (response) {
+                if (response.success != false) {
+                    $scope.case_workers = response._embedded.users;
                     if (typeof response.success !== 'undefined' && response.success == false) {
                         console.log("fail to get");
                     } else {
-                        embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
-                        embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
-
-                        $scope.case_workers = response._embedded.users;
                         if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
                             $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
                             $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
@@ -940,47 +900,46 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
                         $scope.studentdetails = response;
                     }
-                    angular.forEach(embedPrograms, function (v) {
-
-                        $scope.programs.push({
-                            name: v.program_name,
-                            active: v.active,
-                            participation_start_date: v.participation_start_date,
-                            participation_end_date: v.participation_end_date,
-                            cohort: v.cohort.join()
-                        });
-
+                    angular.forEach(response._embedded.programs, function (v) {
+                        var program = {
+                            "years": new Date(v.participation_start_date).getFullYear(),
+                            "name": v.program_name,
+                            "start_date": v.participation_start_date,
+                            "end_date": new Date(v.participation_end_date) >= Date.now() ? 'Present' : v.participation_end_date,
+                            "active": v.active ? "Active" : "Inactive",
+                            "cohorts": v.cohort
+                        };
+                        $scope.programs.push(program);
                     });
-                    $rootScope.doingResolve = false;
-                    console.log($scope.programs);
-                })
-                .error(function (response, status) {
+                    $scope.programs.sort(function (a, b) {
+                        if (a['years'] >= b['years']) {
+                            return (-1);
+                        }
+                        return (1);
+                    });
 
-                    console.log(response);
-                    console.log(status);
-                    showError(response, 1);
-                    $rootScope.doingResolve = false;
-                    if (status == 401) {
-                        CookieStore.clearData();
-                        $location.path('/login');
+
+
+                    for (var i = 0; i < $scope.programs.length; i++) {
+                        var program = $scope.programs[i];
+                        // Should we create a new group?
+                        if (program['years'] !== groupValue) {
+                            var group = {
+                                years: program['years'],
+                                programs: []
+                            };
+                            groupValue = group.years;
+                            $scope.list_programs.push(group);
+                        }
+
+                        group.programs.push(program);
                     }
 
-                });
-        };
-
-        getXsre();
-
-        /**
-         * Update Now, remove cache and reload the page content
-         */
-        $scope.updateNow = function(){
-            $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
-                headers: {
-                    'Authorization': 'Bearer ' + AuthenticationService.token
+                } else {
+                    showError(response.error, 1);
                 }
-            })
-            .success(function (response) {
-                getXsre();
+                $rootScope.doingResolve = false;
+                console.log($scope.list_programs);
             })
             .error(function (response, status) {
 
@@ -994,7 +953,8 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 }
 
             });
-        };
+
+
     }
 ]).filter('flattenRows', function () {
     return function (transcriptTerm) {
@@ -1614,7 +1574,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 }
             })
             .success(function (response) {
-                console.log(response.data);
+
                 if (response.success == true && response.total > 0) {
                     angular.forEach(response.data, function (v) {
                         $.each(schoolDistricts, function (key, value) {
@@ -2855,6 +2815,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
         }
 
         $scope.loginMe = function (username, password, remmember) {
+
             $scope.login.working = true;
 
             var auth = base64_encode(globalConfig.client_id + ':' + globalConfig.client_secret);
@@ -2874,7 +2835,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                 })
                 .success(function (response) {
 
-                    console.log(response);
 
                     $http.get(api_url + 'organizations', {
                             headers: {
@@ -2882,13 +2842,16 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             }
                         })
                         .success(function (responseClient) {
-
+                            $rootScope.show_footer = true;
                             var get_hosting_name = $location.host();
                             var grand_access = false;
                             var get_id = false;
                             var get_redirect_url = false;
+                            var organization_name = '';
+
 
                             if (responseClient.success == true && responseClient.total > 0) {
+                                $rootScope.organization_name = responseClient.data.name;
                                 for (var i = 0; i < responseClient.total; i++) {
                                     if (__i || get_hosting_name === responseClient.data[i].url) {
                                         grand_access = true;
@@ -2896,6 +2859,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                         get_redirect_url = responseClient.data[i].url;
                                         var myEl = angular.element(document.querySelector('body'));
                                         myEl.addClass('cbp-spmenu-push');
+                                        organization_name = responseClient.data[i].name;
                                     }
                                 }
                             }
@@ -2907,7 +2871,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                         }
                                     })
                                     .success(function (responseUser) {
-
                                         if (responseUser.success == true && responseUser.total > 0) {
                                             var find = false;
                                             var data = responseUser.data;
@@ -2945,7 +2908,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                                 }
                                             }
                                             if (find) {
-                                                CookieStore.setData(response.access_token, response.refresh_token, get_id, get_redirect_url, id, send.username, complete_name, role);
+                                                CookieStore.setData(response.access_token, response.refresh_token, get_id, get_redirect_url, id, send.username, complete_name, role, organization_name);
                                                 global_redirect_url = get_redirect_url;
 
                                                 if (typeof remmember !== 'undefined' && remmember == true) {
@@ -2953,7 +2916,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                                 } else {
                                                     CookieStore.put_remember(false);
                                                 }
-
 
 
                                             }

@@ -1,3 +1,24 @@
+.personal {
+    margin-top: 20px;
+}
+.space-left {
+    padding-left: 65px;
+}
+.display-blk {
+    display: block;
+}
+.display-none {
+    display: none;
+}
+.top-space {
+    margin-top: 10px;
+}
+.display-inline-blk {
+    display: inline-block;
+}
+.bottom-space {
+    margin-bottom: 20px;
+}
 * {
     border-top-left-radius: 0px!important;
     border-top-right-radius: 0px!important;
@@ -15,7 +36,7 @@ ul.nav.nav-tabs.nav-justified li a {
 }
 ul.flexbox.attendance-behavior,
 ul.flexbox.program_participation,
-ul.flexbox.transcript-content{
+ul.flexbox.transcript-content {
     display: -webkit-box;
     /* OLD - iOS 6-, Safari 3.1-6 */
     display: -moz-box;
@@ -193,8 +214,8 @@ ul.list-group.legend-list li {
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
-.list-group-item{
-    border:none !important;
+.list-group-item {
+    border: none !important;
 }
 .panel.legend-list {
     border: 1px solid #ededed;
@@ -248,7 +269,7 @@ ul.list-group.legend-list li {
     padding-top: 5px;
     padding-left: 5px;
     border: none;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 .descriptor {
     border: 1px solid #aaa;
@@ -692,28 +713,26 @@ table.school-history>tbody>tr>td,
 
 /*-------Program Participation--------*/
 
-ul.student-program-participation{
-    padding:0;
+ul.student-program-participation {
+    padding: 0;
 }
-
-ul.student-program-participation > li{
+ul.student-program-participation > li {
     padding-left: 3%;
     padding-top: 1%;
     padding-bottom: 1%;
 }
-
-ul.student-program-participation > li:nth-child(even){
+ul.student-program-participation > li:nth-child(even) {
     background-color: #ededed;
 }
-
-ul.student-program-participation > li:nth-child(odd){
+ul.student-program-participation > li:nth-child(odd) {
     background-color: white;
 }
-
-.program_date{
+.program_date {
     margin-bottom: 1%;
 }
-
-.flexbox.program_participation > li{
-    margin-right: 2%;   
+.flexbox.program_participation > li {
+    margin-right: 2%;
+}
+ul.cohorts {
+    padding: 0;
 }

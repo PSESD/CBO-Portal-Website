@@ -17,7 +17,7 @@ $(document).ready(function () {
             }
         };
     };
-    if(sidebarmenu){
+    if (sidebarmenu) {
         sidebarmenu.onclick = function () {
             if (status == 'open') {
                 $('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-remove');
@@ -31,9 +31,7 @@ $(document).ready(function () {
                 $('#desktop-nav').css({
                     'width': '3%'
                 });
-                $('#collapse-sidebarmenu').css({
-                    'left': '5%'
-                });
+                $('#collapse-sidebarmenu').addClass('icon-collapse-menu');
                 $('#center-panel').css({
                     'margin-left': '3%'
                 });
@@ -57,15 +55,8 @@ $(document).ready(function () {
                 $('#desktop-nav').css({
                     'height': '100%'
                 });
-                $('#collapse-sidebarmenu').css({
-                    'left': '75%'
-                });
-                $('#collapse-sidebarmenu').css({
-                    'top': '10px'
-                });
-                $('#collapse-sidebarmenu').css({
-                    'position': 'relative'
-                });
+                $('#collapse-sidebarmenu').removeClass('icon-collapse-menu');
+                $('#collapse-sidebarmenu').addClass('icon-sidebarmenu');
                 $('#center-panel').css({
                     'margin-left': '15%'
                 });

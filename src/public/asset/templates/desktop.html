@@ -4,15 +4,19 @@
         <div id="desktop-nav" class="navbar-inverse" ng-show="showNavBar">
             <div class="sidebar-nav">
 
+                    <a id="collapse-sidebarmenu" class="icon-sidebarmenu glyphicon glyphicon-remove"></a>
+
+
                 <ul class="nav navbar-nav navbar-right">
                     <span class="navbar-brand" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-expanded="false"></span>
                 </ul>
 
-
                 <ul id="sidebar-panel-menu" class="nav navbar-nav">
-
                     <li>
-                        <a id="collapse-sidebarmenu" class="glyphicon glyphicon-remove" style="position:relative;left:75%;top:10px;color:white"></a>
+                        <a href="#" class="link-nav">{{organization_name | uppercase}}</a>
+                    </li>
+                    <li>
+
                         <a href="#" class="link-nav">{{completeName | uppercase}}</a>
                         <div id="border" style="position:relative;border-top:2px solid #555; width:30px;left:15px;">
                         </div>
@@ -47,6 +51,7 @@
             </div>
         </div>
         <ng-view ng-class="ng-view" ng-hide="doingResolve"></ng-view>
+        <div class="separator-content"></div>
         <div ng-if="showNavBar">
             <div style="margin-left:70px;" class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
                 <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
@@ -57,7 +62,7 @@
                 <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
             </div>
         </div>
-        <div  class="row footer" ng-show="!doingResolve">
+        <div  class="row footer" ng-show="show_footer">
             <div  class="col-md-12 stick-footer">
                 <ul class="flexbox footer">
                     <li><a href="http://www.psesd.org/">PSED</a></li>
