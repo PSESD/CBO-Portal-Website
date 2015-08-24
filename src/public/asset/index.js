@@ -881,18 +881,24 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 }
 
             });
-
-        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
+		var getXsre = function() {
+        	$http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
             })
             .success(function (response) {
+				var embedUsers = {};
+                var embedPrograms = [];
                 if (response.success != false) {
                     $scope.case_workers = response._embedded.users;
                     if (typeof response.success !== 'undefined' && response.success == false) {
                         console.log("fail to get");
                     } else {
+                        embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
+                        embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
+
+                        $scope.case_workers = response._embedded.users;
                         if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
                             $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
                             $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
@@ -900,7 +906,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
                         $scope.studentdetails = response;
                     }
-                    angular.forEach(response._embedded.programs, function (v) {
+                    angular.forEach(embedPrograms, function (v) {
                         var program = {
                             "years": new Date(v.participation_start_date).getFullYear(),
                             "name": v.program_name,
@@ -953,7 +959,35 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 }
 
             });
+		};
+		
+		getXsre();
 
+        /**
+         * Update Now, remove cache and reload the page content
+         */
+        $scope.updateNow = function(){
+            $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
+                headers: {
+                    'Authorization': 'Bearer ' + AuthenticationService.token
+                }
+            })
+            .success(function (response) {
+                getXsre();
+            })
+            .error(function (response, status) {
+
+                console.log(response);
+                console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if (status == 401) {
+                    CookieStore.clearData();
+                    $location.path('/login');
+                }
+
+            });
+        };
 
     }
 ]).filter('flattenRows', function () {
