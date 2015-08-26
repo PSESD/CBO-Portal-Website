@@ -25,7 +25,7 @@ var relationships = {
     'brother': 'Brother',
     'sister': 'Sister'
 };
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
@@ -852,6 +852,26 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
 
         };
+
+        $scope.hideIcon = function (event) {
+            var ul = $(event.target).parentsUntil('h4')[1];
+            var next = $(event.target).parentsUntil('h4');
+            var tgt = $(next).next()[0];
+            $(tgt).removeClass('hide');
+            var target = $(ul);
+            target.addClass('hide');
+        }
+        $scope.showIcon = function (event) {
+
+            var ul = $(event.target).parentsUntil('h4')[4];
+            var header = $(ul).find('ul.attendance-behavior')[0];
+            $(header).removeClass('hide');
+
+            var detail = $(ul).find('.attendance-detail')[0];
+            $(detail).addClass('hide');
+
+
+        }
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
@@ -881,116 +901,114 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 }
 
             });
-		var getXsre = function() {
-        	$http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
-                headers: {
-                    'Authorization': 'Bearer ' + AuthenticationService.token
-                }
-            })
-            .success(function (response) {
-				var embedUsers = {};
-                var embedPrograms = [];
-                if (response.success != false) {
-                    $scope.case_workers = response._embedded.users;
-                    if (typeof response.success !== 'undefined' && response.success == false) {
-                        console.log("fail to get");
-                    } else {
-                        embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
-                        embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
-
+        var getXsre = function () {
+            $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
+                    headers: {
+                        'Authorization': 'Bearer ' + AuthenticationService.token
+                    }
+                })
+                .success(function (response) {
+                    var embedUsers = {};
+                    var embedPrograms = [];
+                    if (response.success != false) {
                         $scope.case_workers = response._embedded.users;
-                        if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
-                            $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
-                            $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
+                        if (typeof response.success !== 'undefined' && response.success == false) {
+                            console.log("fail to get");
+                        } else {
+                            embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
+                            embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
+
+                            $scope.case_workers = response._embedded.users;
+                            if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
+                                $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
+                                $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
+                            }
+
+                            $scope.studentdetails = response;
                         }
-
-                        $scope.studentdetails = response;
-                    }
-                    angular.forEach(embedPrograms, function (v) {
-                        var program = {
-                            "years": new Date(v.participation_start_date).getFullYear(),
-                            "name": v.program_name,
-                            "start_date": v.participation_start_date,
-                            "end_date": new Date(v.participation_end_date) >= Date.now() ? 'Present' : v.participation_end_date,
-                            "active": v.active ? "Active" : "Inactive",
-                            "cohorts": v.cohort
-                        };
-                        $scope.programs.push(program);
-                    });
-                    $scope.programs.sort(function (a, b) {
-                        if (a['years'] >= b['years']) {
-                            return (-1);
-                        }
-                        return (1);
-                    });
-
-
-
-                    for (var i = 0; i < $scope.programs.length; i++) {
-                        var program = $scope.programs[i];
-                        // Should we create a new group?
-                        if (program['years'] !== groupValue) {
-                            var group = {
-                                years: program['years'],
-                                programs: []
+                        angular.forEach(embedPrograms, function (v) {
+                            var program = {
+                                "years": new Date(v.participation_start_date).getFullYear(),
+                                "name": v.program_name,
+                                "start_date": v.participation_start_date,
+                                "end_date": new Date(v.participation_end_date) >= Date.now() ? 'Present' : v.participation_end_date,
+                                "active": v.active ? "Active" : "Inactive",
+                                "cohorts": v.cohort
                             };
-                            groupValue = group.years;
-                            $scope.list_programs.push(group);
+                            $scope.programs.push(program);
+                        });
+                        $scope.programs.sort(function (a, b) {
+                            if (a['years'] >= b['years']) {
+                                return (-1);
+                            }
+                            return (1);
+                        });
+
+
+
+                        for (var i = 0; i < $scope.programs.length; i++) {
+                            var program = $scope.programs[i];
+                            // Should we create a new group?
+                            if (program['years'] !== groupValue) {
+                                var group = {
+                                    years: program['years'],
+                                    programs: []
+                                };
+                                groupValue = group.years;
+                                $scope.list_programs.push(group);
+                            }
+
+                            group.programs.push(program);
                         }
 
-                        group.programs.push(program);
+                    } else {
+                        showError(response.error, 1);
+                    }
+                    $rootScope.doingResolve = false;
+                })
+                .error(function (response, status) {
+
+                    console.log(response);
+                    console.log(status);
+                    showError(response, 1);
+                    $rootScope.doingResolve = false;
+                    if (status == 401) {
+                        CookieStore.clearData();
+                        $location.path('/login');
                     }
 
-                } else {
-                    showError(response.error, 1);
-                }
-                $rootScope.doingResolve = false;
-                console.log($scope.list_programs);
-            })
-            .error(function (response, status) {
+                });
+        };
 
-                console.log(response);
-                console.log(status);
-                showError(response, 1);
-                $rootScope.doingResolve = false;
-                if (status == 401) {
-                    CookieStore.clearData();
-                    $location.path('/login');
-                }
-
-            });
-		};
-		
-		getXsre();
+        getXsre();
 
         /**
          * Update Now, remove cache and reload the page content
          */
-        $scope.updateNow = function(){
+        $scope.updateNow = function () {
             $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
-                headers: {
-                    'Authorization': 'Bearer ' + AuthenticationService.token
-                }
-            })
-            .success(function (response) {
-                getXsre();
-            })
-            .error(function (response, status) {
+                    headers: {
+                        'Authorization': 'Bearer ' + AuthenticationService.token
+                    }
+                })
+                .success(function (response) {
+                    getXsre();
+                })
+                .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
-                showError(response, 1);
-                $rootScope.doingResolve = false;
-                if (status == 401) {
-                    CookieStore.clearData();
-                    $location.path('/login');
-                }
+                    console.log(response);
+                    console.log(status);
+                    showError(response, 1);
+                    $rootScope.doingResolve = false;
+                    if (status == 401) {
+                        CookieStore.clearData();
+                        $location.path('/login');
+                    }
 
-            });
+                });
         };
 
-    }
-]).filter('flattenRows', function () {
+}]).filter('flattenRows', function () {
     return function (transcriptTerm) {
         var flatten = [];
         var subrows = "";

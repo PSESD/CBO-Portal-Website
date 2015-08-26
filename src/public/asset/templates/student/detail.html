@@ -183,7 +183,7 @@
                             <div class="panel-heading attendance-behavior" role="tab" id="headingOne">
                                 <h4 class="panel-title">
                                 
-                                 <ul class="flexbox attendance-behavior">
+                                 <ul class="flexbox attendance-behavior hide">
                                     <li>
                                         7/21/15 - 7/31/15
                                      </li>
@@ -198,9 +198,27 @@
                                     <li>
                                         <div class="col-separator"></div>
                                         -12%
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
+                                        <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
                                      </li>
-                                </ul>   
+                                </ul>
+                               
+                                <ul  class="flexbox attendance-behavior attendance-detail">
+                                    <li>
+                                        7/21/15 - 7/31/15
+                                     </li>
+                                    <li>
+                                        <div class="col-separator"></div>
+                                        07/21/15
+                                     </li>
+                                    <li> 07/22/15</li>
+                                    <li> 07/23/15</li>
+                                    <li> 07/24/15</li>
+                                    <li> 07/25/15</li>
+                                    <li>
+                                        <div class="col-separator"></div>
+                                        -12%
+                                     </li>
+                                </ul>    
                                 
                             </h4>
                             </div>
@@ -319,7 +337,7 @@
                                     </div>
                                     <div class="attendance-legend ">
                                         <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n | uppercase }}</a>
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
+                                        <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
                                         <div class="panel legend-list" ng-show="icon_legend">
                                             <!-- Default panel contents -->
                                             <div class="panel-heading">
@@ -338,6 +356,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--end content panel-->
 
                             <div class="panel-heading attendance-behavior" role="tab" id="headingTwo">
                                 <h4 class="panel-title">
@@ -345,7 +364,6 @@
                                  <ul class="flexbox attendance-behavior">
                                     <li>
                                         7/21/15 - 7/31/15
-                                     
                                      </li>
                                     <li>
                                         <div class="col-separator"></div>
@@ -358,9 +376,27 @@
                                     <li>
                                         <div class="col-separator"></div>
                                         -12%
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseTwo" data-target="#collapseTwo" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
+                                        <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseTwo" data-target="#collapseTwo" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
                                      </li>
-                                </ul>   
+                                </ul>
+                               
+                                <ul  class="flexbox attendance-behavior attendance-detail hide">
+                                    <li>
+                                        7/21/15 - 7/31/15
+                                     </li>
+                                    <li>
+                                        <div class="col-separator"></div>
+                                        07/21/15
+                                     </li>
+                                    <li> 07/22/15</li>
+                                    <li> 07/23/15</li>
+                                    <li> 07/24/15</li>
+                                    <li> 07/25/15</li>
+                                    <li>
+                                        <div class="col-separator"></div>
+                                        -12%
+                                     </li>
+                                </ul>    
                                 
                             </h4>
                             </div>
@@ -384,17 +420,28 @@
                                         <div class="monday">
                                             <div class="grid-item present">
                                                 <div class="descriptor">
-                                                    <div class="descriptor-title">
+                                                    <div class="descriptor-title present-font-color">
                                                         {{ 'general.present' | i18n | uppercase }}
                                                     </div>
-                                                    Present, in class, leading activities, head of class
+                                                    8/14/2015
+                                                    <br> Algebra
+                                                    <br>
+                                                    <br> Present, in class, leading activities, head of class
                                                 </div>
                                             </div>
                                             <div class="grid-item present light">
-                                                <div class="descriptor">Present and in class</div>
+                                                <div class="descriptor">
+                                                    <div class="descriptor-title present-font-color">
+                                                        {{ 'general.present' | i18n | uppercase }}
+                                                    </div>
+                                                    8/14/2015
+                                                    <br> Math
+                                                    <br>
+                                                    <br> Present, in class
+                                                </div>
                                             </div>
                                             <div class="grid-item present">
-                                                <div class="descriptor">Outdoor activity</div>
+
                                             </div>
                                             <div class="grid-item present light"></div>
                                             <div class="grid-item present"></div>
@@ -404,7 +451,19 @@
                                         </div>
                                         <div class="tuesday">
                                             <div class="grid-item late"></div>
-                                            <div class="grid-item excused light"></div>
+                                            <div class="grid-item excused light">
+
+                                                <div class="descriptor">
+                                                    <div class="descriptor-title excused-font-color">
+                                                        {{ 'general.excused' | i18n | uppercase }}
+                                                    </div>
+                                                    8/14/2015
+                                                    <br> Algebra
+                                                    <br>
+                                                    <br> Present, in class, leading activities, head of class
+                                                </div>
+
+                                            </div>
                                             <div class="grid-item excused"></div>
                                             <div class="grid-item present light"></div>
                                             <div class="grid-item present"></div>
@@ -420,7 +479,17 @@
                                             <div class="grid-item present"></div>
                                             <div class="grid-item present light"></div>
                                             <div class="grid-item"></div>
-                                            <div class="grid-item unexcused"></div>
+                                            <div class="grid-item unexcused">
+                                                <div class="descriptor">
+                                                    <div class="descriptor-title unexcused-font-color">
+                                                        DETENTION
+                                                    </div>
+                                                    8/14/2015
+                                                    <br> Algebra
+                                                    <br>
+                                                    <br> Present, in class, leading activities, head of class
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="thursday">
                                             <div class="grid-item late"></div>
@@ -445,8 +514,8 @@
 
                                     </div>
                                     <div class="attendance-legend ">
-                                        <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n }}</a>
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
+                                        <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n | uppercase }}</a>
+                                        <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseTwo" data-target="#collapseTwo" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
                                         <div class="panel legend-list" ng-show="icon_legend">
                                             <!-- Default panel contents -->
                                             <div class="panel-heading">
@@ -465,7 +534,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <!--end content panel-->
                         </div>
                         <!-- default panel -->
 

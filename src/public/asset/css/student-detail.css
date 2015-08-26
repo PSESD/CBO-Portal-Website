@@ -1,3 +1,9 @@
+.panel-body.attendance-behavior {
+    border-top: none!important;
+}
+.flexbox.attendance-behavior.attendance-detail {
+    background-color: white;
+}
 .personal {
     margin-top: 20px;
 }

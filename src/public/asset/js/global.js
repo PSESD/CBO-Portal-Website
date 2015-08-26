@@ -1,5 +1,4 @@
 $(document).ready(function () {
-   
 
     window.intercomSettings = {
         app_id: "m9w2ywgr"
