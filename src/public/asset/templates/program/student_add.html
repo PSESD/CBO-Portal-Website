@@ -10,7 +10,7 @@
                     </h1>
                     <hr>
                 </div>
-				
+
                 <div class="content">
                     <div class="ng-binding help">
                         <p>{{ 'help.program_student_add' | i18n }}</p>
@@ -19,29 +19,29 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="studentId">{{ 'general.student' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <select style="margin-top:5px;border:1px solid black;padding:7px;" class="btn-block" ng-model="program.studentId" id="studentId" required autofocus
-                                        ng-options="student._id as student.first_name+' '+student.last_name for student in list_student">
+                                <select class="btn-block" ng-model="program.studentId" id="studentId" required autofocus ng-options="student._id as student.first_name+' '+student.last_name for student in list_student">
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">{{ 'general.status' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="checkbox" ng-model="program.active" id="active"> <label for="active">{{ 'general.active' | i18n }}</label>
+                                <input type="checkbox" ng-model="program.active" id="active">
+                                <label for="active">{{ 'general.active' | i18n }}</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="participation_start_date">{{ 'general.participation_start_date' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <!--<input type="text" class="form-control" ng-model="program.participation_start_date" id="participation_start_date" ui-date>-->
-								<datepicker date="program.participation_start_date"></datepicker>
+                                <datepicker date="program.participation_start_date"></datepicker>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="participation_end_date">{{ 'general.participation_end_date' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <!--<input type="text" class="form-control" ng-model="program.participation_end_date" id="participation_end_date" ui-date>-->
-								<datepicker date="program.participation_end_date"></datepicker>
+                                <datepicker date="program.participation_end_date"></datepicker>
                             </div>
                         </div>
                         <div class="form-group">

@@ -1,4 +1,4 @@
-<div class="row" >
+<div class="row">
     <div class="col-md-12">
 
         <div class="card">
@@ -21,10 +21,10 @@
                             </div>
                         </div>
                         <!--<div class="form-group">-->
-                            <!--<label class="col-sm-3 control-label" for="middle_name">{{ 'general.middle_name' | i18n }}:</label>-->
-                            <!--<div class="col-sm-9">-->
-                                <!--<input type="text" class="form-control" ng-model="user.middle_name" id="middle_name" readonly>-->
-                            <!--</div>-->
+                        <!--<label class="col-sm-3 control-label" for="middle_name">{{ 'general.middle_name' | i18n }}:</label>-->
+                        <!--<div class="col-sm-9">-->
+                        <!--<input type="text" class="form-control" ng-model="user.middle_name" id="middle_name" readonly>-->
+                        <!--</div>-->
                         <!--</div>-->
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="last_name">{{ 'general.last_name' | i18n }}:</label>
@@ -38,7 +38,7 @@
                                 <input type="text" class="form-control" ng-model="user.email" id="email" readonly>
                             </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label class="col-sm-3 control-label" for="email">{{ 'general.ID' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" ng-model="user._id" id="id" readonly>
@@ -47,13 +47,13 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="created">{{ 'general.created' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.created" id="created" readonly>
+                                <input type="text" class="form-control" ng-model="user.created | date : 'MM/dd/yyyy HH:mm:ss' : timezone" id="created" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="last_updated">{{ 'general.last_update' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.last_updated" id="last_updated" readonly>
+                                <input type="text" class="form-control" ng-model="user.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone" id="last_updated" readonly>
                             </div>
                         </div>
                         <div class="form-actions form-group">

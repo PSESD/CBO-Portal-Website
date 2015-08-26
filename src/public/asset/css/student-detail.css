@@ -34,6 +34,7 @@
 ul.nav.nav-tabs.nav-justified li,
 .panel.attendance-behavior {
     background-color: #B1E0E8;
+    border: 0px;
 }
 ul.nav.nav-tabs.nav-justified li a {
     font-size: 14px;
@@ -708,6 +709,7 @@ table.school-history>tbody>tr>td,
 }
 .scrollableContainer .headerSpacer {
     border: none!important;
+    background-color: white;
 }
 .table tr td {
     padding-left: 5px;

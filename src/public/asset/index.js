@@ -25,7 +25,7 @@ var relationships = {
     'brother': 'Brother',
     'sister': 'Sister'
 };
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
@@ -596,7 +596,6 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
             };
             $scope.relationships.push(relationship);
         });
-        console.log($scope.relationships);
 
         $scope.addStudent = function (student) {
             if (student) {
@@ -624,7 +623,9 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
+                            $rootScope.show_footer = false;
                             $location.path('/login');
                         }
 
@@ -661,6 +662,7 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -676,8 +678,27 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 
         $rootScope.full_screen = false;
         $scope.student = {};
+        var schoolDistrict = {};
+        var relationship = {};
+        $scope.schoolDistricts = [];
+        $scope.relationships = [];
 
         var student_id = $routeParams.student_id;
+
+        $.each(schoolDistricts, function (key, value) {
+            schoolDistrict = {
+                "id": key,
+                "name": value
+            };
+            $scope.schoolDistricts.push(schoolDistrict);
+        });
+        $.each(relationships, function (key, value) {
+            relationship = {
+                "id": key,
+                "name": value
+            };
+            $scope.relationships.push(relationship);
+        });
 
         $scope.editStudent = function (student) {
             if (student) {
@@ -705,6 +726,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -735,6 +757,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -885,19 +908,12 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             */
             var id = $(event.target).data('id');
             var attendance_legend = $(event.target).parent()[0];
-            console.log(attendance_legend);
             var panel_body = $(attendance_legend).parent()[0];
-            console.log(panel_body);
             var panel_collapse = $(panel_body).parent()[0];
-            console.log(panel_collapse);
             var panel_heading = $($(panel_collapse).siblings()).filter('[data-id = "' + id + '"]');
-            console.log(panel_heading);
             var h4 = $(panel_heading).children()[0];
-            console.log(h4);
             var attendance_header = $(h4).children()[0];
-            console.log(attendance_header);
             var attendance_detail = $(h4).children()[1];
-            console.log(attendance_detail);
             if ($(attendance_header).hasClass('hide')) {
                 $(attendance_header).removeClass('hide');
             }
@@ -929,6 +945,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1006,6 +1023,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                     showError(response, 1);
                     $rootScope.doingResolve = false;
                     if (status == 401) {
+                        $rootScope.show_footer = false;
                         CookieStore.clearData();
                         $location.path('/login');
                     }
@@ -1026,6 +1044,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 })
                 .success(function (response) {
                     getXsre();
+                    console.log(response);
                 })
                 .error(function (response, status) {
 
@@ -1034,6 +1053,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                     showError(response, 1);
                     $rootScope.doingResolve = false;
                     if (status == 401) {
+                        $rootScope.show_footer = false;
                         CookieStore.clearData();
                         $location.path('/login');
                     }
@@ -1104,6 +1124,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1129,6 +1150,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1168,6 +1190,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1229,6 +1252,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                             showError(response, 1);
                             $scope.working = false;
                             if (status == 401) {
+                                $rootScope.show_footer = false;
                                 CookieStore.clearData();
                                 $location.path('/login');
                             }
@@ -1281,6 +1305,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1307,6 +1332,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1341,6 +1367,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1369,6 +1396,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1405,6 +1433,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1446,6 +1475,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                             showError(response, 1);
                             $rootScope.doingResolve = false;
                             if (status == 401) {
+                                $rootScope.show_footer = false;
                                 CookieStore.clearData();
                                 $location.path('/login');
                             }
@@ -1465,6 +1495,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1502,6 +1533,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1562,6 +1594,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                         showError(responseTag, 1);
                         $rootScope.doingResolve = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1578,6 +1611,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1607,6 +1641,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1645,6 +1680,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1684,6 +1720,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1729,6 +1766,7 @@ app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$locat
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1777,6 +1815,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1807,6 +1846,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1833,6 +1873,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1874,6 +1915,7 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1900,6 +1942,7 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1936,6 +1979,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1970,6 +2014,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2000,6 +2045,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2039,6 +2085,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2079,6 +2126,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2129,6 +2177,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2159,6 +2208,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2200,6 +2250,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2230,6 +2281,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2281,6 +2333,7 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2332,6 +2385,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                             showError(response, 1);
                             $scope.working = false;
                             if (status == 401) {
+                                $rootScope.show_footer = false;
                                 CookieStore.clearData();
                                 $location.path('/login');
                             }
@@ -2360,6 +2414,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                             showError(response, 1);
                             $scope.working = false;
                             if (status == 401) {
+                                $rootScope.show_footer = false;
                                 CookieStore.clearData();
                                 $location.path('/login');
                             }
@@ -2387,6 +2442,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2415,6 +2471,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2453,6 +2510,7 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
                     showError(response, 1);
                     $scope.working = false;
                     if (status == 401) {
+                        $rootScope.show_footer = false;
                         CookieStore.clearData();
                         $location.path('/login');
                     }
@@ -2478,6 +2536,7 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2506,6 +2565,7 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2551,6 +2611,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2581,6 +2642,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                     showError(response, 1);
                     $scope.working = false;
                     if (status == 401) {
+                        $rootScope.show_footer = false;
                         CookieStore.clearData();
                         $location.path('/login');
                     }
@@ -2611,6 +2673,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2635,6 +2698,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2694,6 +2758,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2741,6 +2806,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2777,6 +2843,7 @@ app.controller('UserDetailController', ['$rootScope', '$scope', '$routeParams', 
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2816,6 +2883,7 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2846,6 +2914,7 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -3069,6 +3138,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -3109,6 +3179,7 @@ app.controller('TagController', ['$rootScope', '$scope', '$http', '$location', '
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -3139,6 +3210,7 @@ app.controller('TagController', ['$rootScope', '$scope', '$http', '$location', '
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -3182,6 +3254,7 @@ app.controller('TagAddController', ['$rootScope', '$scope', '$http', '$location'
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -3224,6 +3297,7 @@ app.controller('TagEditController', ['$rootScope', '$scope', '$routeParams', '$h
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -3250,6 +3324,7 @@ app.controller('TagEditController', ['$rootScope', '$scope', '$routeParams', '$h
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -3423,6 +3498,36 @@ app.directive('resize', function ($window) {
         });
     }
 })
+
+app.factory('myGoogleAnalytics', [
+    '$rootScope', '$window', '$location',
+    function ($rootScope, $window, $location) {
+
+            var myGoogleAnalytics = {};
+
+            /**
+             * Set the page to the current location path
+             * and then send a pageview to log path change.
+             */
+            myGoogleAnalytics.sendPageview = function () {
+                if ($window.ga) {
+                    $window.ga('set', 'page', $location.path());
+                    $window.ga('send', 'pageview');
+                }
+            }
+
+            // subscribe to events
+            $rootScope.$on('$viewContentLoaded', myGoogleAnalytics.sendPageview);
+
+            return myGoogleAnalytics;
+    }
+  ])
+    .run([
+    'myGoogleAnalytics',
+    function (myGoogleAnalytics) {
+            // inject self
+    }
+  ]);
 
 app.directive('datepicker', function () {
 

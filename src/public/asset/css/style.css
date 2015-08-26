@@ -791,4 +791,15 @@ select {
     -webkit-border-radius: 0px!important;
     -webkit-appearance: none;
     background: url(../img/arrow.png) no-repeat 99%;
+    margin-top: 5px;
+    border: 1px solid black;
+    padding: 7px;
+}
+.organization_header {
+    color: white!important;
+    font-size: 1.6em;
+    margin-left: 14px;
+}
+.add-select-student {
+    width: 60%!important
 }

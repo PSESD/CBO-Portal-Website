@@ -1,4 +1,4 @@
-<div class="row" >
+<div class="row">
 
     <div class="col-md-12">
 
@@ -31,8 +31,12 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="school_district">{{ 'general.district_name' | i18n }}:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" ng-model="student.school_district" id="school_district">
+
+                                    <select class="add-select-student" name="repeatSelect" ng-model="student.school_district">
+                                        <option ng-repeat="option in schoolDistricts" value="{{option.id}}">{{option.name}}</option>
+                                    </select>
                                 </div>
+
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="district_student_id">{{ 'general.district_student_id' | i18n }}:</label>
@@ -44,94 +48,96 @@
                                 <label class="col-sm-3 control-label" for="school_district">{{ 'general.college_bound' | i18n }}:</label>
                                 <div class="col-sm-9">
                                     <div class="radio">
-                                      <label>
-                                        <input ng-model="student.college_bound" type="radio" name="optionsRadios" id="optionsRadios1" value="Yes">
-                                        Yes
-                                      </label>
-                                      <label>
-                                        <input ng-model="student.college_bound" type="radio" name="optionsRadios" id="optionsRadios2" value="No">
-                                        No
-                                      </label>
+                                        <label>
+                                            <input ng-model="student.college_bound" type="radio" name="optionsRadios" id="optionsRadios1" value="Yes"> Yes
+                                        </label>
+                                        <label>
+                                            <input ng-model="student.college_bound" type="radio" name="optionsRadios" id="optionsRadios2" value="No"> No
+                                        </label>
                                     </div>
                                 </div>
                             </div>
                             <fieldset>
                                 <legend>{{ 'general.personal_contact_info' | i18n }}</legend>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="phone">{{ 'general.phone' | i18n }}:</label>
-                                <div class="col-sm-9">
-    <!--                                <input type="text" class="form-control" ng-model="student.phone" id="phone">-->
-                                    <phonenumber-directive placeholder="" model='student.phone'></phonenumber-directive>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="phone">{{ 'general.phone' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <!--                                <input type="text" class="form-control" ng-model="student.phone" id="phone">-->
+                                        <phonenumber-directive placeholder="" model='student.phone'></phonenumber-directive>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="email">{{ 'general.email' | i18n }} :</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" ng-model="student.email" id="email">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="email">{{ 'general.email' | i18n }} :</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.email" id="email">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="address">{{ 'general.address' | i18n }}:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" ng-model="student.address" id="address">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="address">{{ 'general.address' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.address" id="address">
+                                    </div>
                                 </div>
-                            </div>
                             </fieldset>
                             <fieldset>
-                            <legend>{{ 'general.emergency_contact_1' | i18n }}</legend>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="name">{{ 'general.name' | i18n }}:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" ng-model="student.emergency1_name" id="name">
+                                <legend>{{ 'general.emergency_contact_1' | i18n }}</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="name">{{ 'general.name' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.emergency1_name" id="name">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="relationship">{{ 'general.relationship' | i18n }}:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" ng-model="student.emergency1_relationship" id="relationship">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="relationship">{{ 'general.relationship' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <select class="add-select-student" name="repeatSelect" ng-model="student.emergency1_relationship">
+                                            <option ng-repeat="option in relationships" value="{{option.id}}">{{option.name}}</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="name">{{ 'general.email' | i18n }}:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" ng-model="student.emergency1_email" id="name">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="name">{{ 'general.email' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.emergency1_email" id="name">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="phone_emergency1">{{ 'general.phone' | i18n }}:</label>
-                                <div class="col-sm-9">
-    <!--                                <input type="text" class="form-control" ng-model="student.emergency1_phone" id="phone_emergency1">-->
-                                    <phonenumber-directive placeholder="" model='student.emergency1_phone'></phonenumber-directive>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="phone_emergency1">{{ 'general.phone' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <!--                                <input type="text" class="form-control" ng-model="student.emergency1_phone" id="phone_emergency1">-->
+                                        <phonenumber-directive placeholder="" model='student.emergency1_phone'></phonenumber-directive>
+                                    </div>
                                 </div>
-                            </div>
                             </fieldset>
                             <fieldset>
-                            <legend>{{ 'general.emergency_contact_2' | i18n }}</legend>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="name_emergency1">{{ 'general.name' | i18n }}:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" ng-model="student.emergency2_name" id="name_emergency1">
+                                <legend>{{ 'general.emergency_contact_2' | i18n }}</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="name_emergency1">{{ 'general.name' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.emergency2_name" id="name_emergency1">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="relationship_emergency1">{{ 'general.relationship' | i18n }}:</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" ng-model="student.emergency2_relationship" id="relationship_emergency1">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="relationship_emergency1">{{ 'general.relationship' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.emergency2_relationship" id="relationship_emergency1">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="email_emergency2">{{ 'general.email' | i18n }} :</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" ng-model="student.emergency2_email" id="email_emergency2">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="email_emergency2">{{ 'general.email' | i18n }} :</label>
+                                    <div class="col-sm-9">
+                                        <select class="add-select-student" name="repeatSelect" ng-model="student.emergency2_relationship">
+                                            <option ng-repeat="option in relationships" value="{{option.id}}">{{option.name}}</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="phone_emergency2">{{ 'general.phone' | i18n }}:</label>
-                                <div class="col-sm-9">
-    <!--                                <input type="text" class="form-control" ng-model="student.emergency2_phone" id="phone_emergency2">-->
-                                    <phonenumber-directive placeholder="" model='student.emergency2_phone'></phonenumber-directive>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="phone_emergency2">{{ 'general.phone' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <!--                                <input type="text" class="form-control" ng-model="student.emergency2_phone" id="phone_emergency2">-->
+                                        <phonenumber-directive placeholder="" model='student.emergency2_phone'></phonenumber-directive>
+                                    </div>
                                 </div>
-                            </div>
                             </fieldset>
                             <div class="form-actions form-group">
                                 <div class="col-sm-3"></div>
