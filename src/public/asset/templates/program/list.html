@@ -5,26 +5,31 @@
         <div class="card">
             <div class="col-md-12">
                 <div class="title">
-                    <h1><a href="#/program/add"><i class="glyphicon glyphicon-plus font16"></i> Add Program</a></h1>
-					<form class="form-inline" role="form" ng-submit="searchStudent(student)">
-                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="Search Program"/>
-						  <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
-                    </form>
+                    <h1>
+                        {{ 'general.programs' | i18n }}
+                    </h1>
+                    <hr>
                 </div>
                 <div class="content">
-
-                    <h1 class="bold">Programs</h1>
+                    <div class="ng-binding help">
+                        <p>{{ 'help.program_list' | i18n }}</p>
+                    </div>
+                    <h1><a href="#/program/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_program' | i18n }}</a></h1>
+                    <form class="form-inline" role="form" ng-submit="searchStudent(student)">
+                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_program' | i18n }}"/>
+                        <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
+                    </form>
 
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <!--<th>ID</th>-->
-                                <th>Program Name</th>
-                                <th>Created</th>
-                                <th>Last Update</th>
-                                <th class="text-center" style="width:9%">Assign Students</th>
-                                <th class="text-center" style="width:9%">Delete</th>
+                                <!--<th>{{ 'general.ID' | i18n }}</th>-->
+                                <th>{{ 'general.program_name' | i18n }}</th>
+                                <th>{{ 'general.created' | i18n }}</th>
+                                <th>{{ 'general.last_update' | i18n }}</th>
+                                <th class="text-center" style="width:9%">{{ 'general.assign_students' | i18n }}</th>
+                                <th class="text-center" style="width:9%">{{ 'general.delete' | i18n }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -37,7 +42,7 @@
                                     <a class="fa fa-users" ng-href="#/program/students/{{ program._id }}"></a>
 									</td>
 									<td class="text-center">
-									<a class="glyphicon glyphicon-trash" confirmed-click="deleteProgram(program._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working"></a>
+									<a class="glyphicon glyphicon-trash" confirmed-click="deleteProgram(program._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>
                                 </td>
                             </tr>
                             </tbody>

@@ -85,8 +85,8 @@ p {
     font-weight: 400;
     max-width: 400px;
 }
-
-b, strong{
+b,
+strong {
     color: #999 !important;
     padding: 0 10px 10px 0 !important;
 }
@@ -275,7 +275,8 @@ select{
 ================== 5.Utility ==================
 ===============================================
 */
-.panel-border{
+
+.panel-border {
     border: 2px solid black;
 }
 .top-border {
@@ -511,6 +512,7 @@ div[contentEditable]:focus {
     box-shadow: none !important;
     border-bottom: 1px #000 solid !important;
     border-radius: 0 !important;
+    width: 60%;
 }
 .form-inline {
     padding-bottom: 40px;
@@ -594,18 +596,15 @@ a.button {
     border-color: #555;
 }
 
-
 /*
 ===============================================
 ================ 6.Auto Logout ================
 ===============================================
 */
-.modal-body p
-{
+
+.modal-body p {
     max-width: 100%;
 }
-
-
 
 /*
 ===============================================
@@ -761,4 +760,46 @@ a.button {
         /*top: 10%;*/
         margin: 18%;
     }
+}
+
+/**
+ Help Style
+**/
+
+.help p {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: normal;
+    width: 284px;
+    color: #858585;
+    padding-bottom: 13px;
+}
+.icon-sidebarmenu {
+    left: 90%;
+    top: 45px;
+    color: white;
+}
+.icon-collapse-menu {
+    position: absolute;
+    left: 30%;
+}
+.separator-content {
+    margin-bottom: 100px;
+    position: relative;
+}
+select {
+    -webkit-border-radius: 0px!important;
+    -webkit-appearance: none;
+    background: url(../img/arrow.png) no-repeat 99%;
+    margin-top: 5px;
+    border: 1px solid black;
+    padding: 7px;
+}
+.organization_header {
+    color: white!important;
+    font-size: 1.6em;
+    margin-left: 14px;
+}
+.add-select-student {
+    width: 60%!important
 }

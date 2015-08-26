@@ -5,18 +5,18 @@
         <form class="form-signin" id="loginForm" name="loginForm" role="form" ng-submit="loginMe(login.username, login.password, login.remember_username)">
         <div class="card">
             <div class="title">
-                <h1>LOG IN</h1>
+                <h1>{{ 'general.login' | i18n }}</h1>
                 <hr>
             </div>
             <div class="content">
                 <p>
-                    <input type="text" class="form-control" ng-model="login.username" name="username" placeholder="Username" required autofocus>
-                    <input type="checkbox" id="remember_username" name="remember_username" ng-model="login.remember_username"> <label class="help-block label-checkbox"> REMEMBER USERNAME?</label>
+                    <input type="text" class="form-control" ng-model="login.username" name="username" placeholder="{{ 'general.username' | i18n }}" required autofocus>
+                    <input type="checkbox" id="remember_username" name="remember_username" ng-model="login.remember_username"> <label class="help-block label-checkbox"> {{ 'general.remember_username' | i18n }}</label>
                 </p>
-                <p><input type="password" class="form-control" ng-model="login.password" name="password" placeholder="Password" required></p>
+                <p><input type="password" class="form-control" ng-model="login.password" name="password" placeholder="{{ 'general.password' | i18n }}" required></p>
             </div>
-            <button id="sign_in_button" class="button" ng-disabled="login.working">Sign in</button>
-            <a id="forgot_button" href="#/forget" class="button">Forgot Password</a>
+            <button id="sign_in_button" class="button" ng-disabled="login.working">{{ 'general.sign_in' | i18n }}</button>
+            <a id="forgot_button" href="#/forget" class="button">{{ 'general.forgot_password' | i18n }}</a>
         </div>
         </form>
 

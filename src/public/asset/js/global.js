@@ -1,9 +1,5 @@
-'use strict';
-
 $(document).ready(function () {
-    
-    
-    
+
     window.intercomSettings = {
         app_id: "m9w2ywgr"
     };
@@ -195,12 +191,14 @@ $(document).ready(function () {
 
 function hideContent(curr) {
     jQuery(curr).parent().find('div.data-content').hide();
+    jQuery(curr).parent().find('#content-help').hide();
     jQuery(curr).parent().find('.menu-up').hide();
     jQuery(curr).parent().find('.menu-down').show();
 }
 
 function showContent(curr) {
     jQuery(curr).parent().find('div.data-content').show();
+    jQuery(curr).parent().find('#content-help').show();
     jQuery(curr).parent().find('.menu-up').show();
     jQuery(curr).parent().find('.menu-down').hide();
 }

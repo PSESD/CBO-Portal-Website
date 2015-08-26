@@ -6,140 +6,154 @@
             <div class="col-md-12">
                 <div class="title">
                     <h1>
-                        Add Student
+                        {{ 'general.add_student' | i18n }}
                     </h1>
                     <hr>
                 </div>
                 <div class="content">
+                    <div class="ng-binding help">
+                        <p>{{ 'help.student_add' | i18n }}</p>
+                    </div>
+                    <div>
+                        <form class="form-horizontal" role="form" ng-submit="addStudent(student)">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="first_name">{{ 'general.first_name' | i18n }}:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="student.first_name" id="first_name" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="last_name">{{ 'general.last_name' | i18n }}:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="student.last_name" id="last_name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="school_district">{{ 'general.district_name' | i18n }}:</label>
+                                <div class="col-sm-9">
+                                    <!--                                    <input type="text" class="form-control" ng-model="student.school_district" id="school_district">-->
+                                    <select class="add-select-student" name="repeatSelect" ng-model="student.school_district">
+                                        <option ng-repeat="option in schoolDistricts" value="{{option.id}}">{{option.name}}</option>
+                                    </select>
 
-                    <form class="form-horizontal" role="form" ng-submit="addStudent(student)">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="first_name">First Name:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.first_name" id="first_name" required autofocus>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="last_name">Last Name:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.last_name" id="last_name" required>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="district_student_id">{{ 'general.district_student_id' | i18n }}:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="student.district_student_id" id="district_student_id">
+                                </div>
                             </div>
-                        </div>
-						 <div class="form-group">
-                            <label class="col-sm-3 control-label" for="school_district">District Name:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.school_district" id="school_district">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="school_district">{{ 'general.college_bound' | i18n }}:</label>
+                                <div class="col-sm-9">
+                                    <div class="radio">
+                                        <label>
+                                            <input ng-model="student.college_bound" type="radio" name="optionsRadios" id="optionsRadios1" value="Yes" checked> Yes
+                                        </label>
+                                        <label>
+                                            <input ng-model="student.college_bound" type="radio" name="optionsRadios" id="optionsRadios2" value="No"> No
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="district_student_id">District Student ID:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.district_student_id" id="district_student_id">
+                            <fieldset>
+                                <legend>{{ 'general.personal_contact_info' | i18n }}</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="phone">{{ 'general.phone' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <!--                                <input type="text" class="form-control" ng-model="student.phone" id="phone">-->
+                                        <phonenumber-directive placeholder="" model='student.phone'></phonenumber-directive>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="email">{{ 'general.email' | i18n }} :</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.email" id="email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="address">{{ 'general.address' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.address" id="address">
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>{{ 'general.emergency_contact_1' | i18n }}</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="name">{{ 'general.name' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.emergency1_name" id="name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="relationship">{{ 'general.relationship' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <!--                                                                            <input type="text" class="form-control" ng-model="student.emergency1_relationship" id="relationship">
+                                        <select class="form-control" name="repeatSelect" ng-model="student.emergency1_relationship">
+                                            <option ng-repeat="option in relationship.availableOptions" value="{{option.id}}">{{option.name}}</option>
+                                        </select>-->
+                                        <select class="add-select-student" name="repeatSelect" ng-model="student.emergency1_relationship">
+                                            <option ng-repeat="option in relationships" value="{{option.id}}">{{option.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="name">{{ 'general.email' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.emergency1_email" id="name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="phone_emergency1">{{ 'general.phone' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <!--                                <input type="text" class="form-control" ng-model="student.emergency1_phone" id="phone_emergency1">-->
+                                        <phonenumber-directive placeholder="" model='student.emergency1_phone'></phonenumber-directive>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>{{ 'general.emergency_contact_2' | i18n }}</legend>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="name_emergency1">{{ 'general.name' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.emergency2_name" id="name_emergency1">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="relationship_emergency1">{{ 'general.relationship' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <!--                                        <input type="text" class="form-control" ng-model="student.emergency2_relationship" id="relationship_emergency1">-->
+                                        <select class="add-select-student" name="repeatSelect" ng-model="student.emergency2_relationship">
+                                            <option ng-repeat="option in relationships" value="{{option.id}}">{{option.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="email_emergency2">{{ 'general.email' | i18n }} :</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" ng-model="student.emergency2_email" id="email_emergency2">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="phone_emergency2">{{ 'general.phone' | i18n }}:</label>
+                                    <div class="col-sm-9">
+                                        <!--                                <input type="text" class="form-control" ng-model="student.emergency2_phone" id="phone_emergency2">-->
+                                        <phonenumber-directive placeholder="" model='student.emergency2_phone'></phonenumber-directive>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="form-actions form-group">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9">
+                                    <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
+                                    <a href="#/student" class="btn btn-default">{{ 'general.back' | i18n }}</a>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="school_district">College Bound :</label>
-                            <div class="col-sm-9">
-                                <div class="radio">
-								  <label>
-									<input ng-model="student.college_bound" type="radio" name="optionsRadios" id="optionsRadios1" value="Yes" checked>
-									Yes
-								  </label>
-								  <label>
-									<input ng-model="student.college_bound" type="radio" name="optionsRadios" id="optionsRadios2" value="No">
-									No
-								  </label>
-								</div>
-                            </div>
-                        </div>
-						<fieldset>
-							<legend>Personal Contact Info</legend>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="phone">Phone :</label>
-                            <div class="col-sm-9">
-<!--                                <input type="text" class="form-control" ng-model="student.phone" id="phone">-->
-                                <phonenumber-directive placeholder="" model='student.phone'></phonenumber-directive>
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="email">Email :</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.email" id="email">
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="address">Address :</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.address" id="address">
-                            </div>
-                        </div>
-						</fieldset>
-						<fieldset>
-						<legend>Emergency Contact 1</legend>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="name">Name:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.emergency1_name" id="name">
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="relationship">Relationship :</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.emergency1_relationship" id="relationship">
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="name">Email:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.emergency1_email" id="name">
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="phone_emergency1">Phone :</label>
-                            <div class="col-sm-9">
-<!--                                <input type="text" class="form-control" ng-model="student.emergency1_phone" id="phone_emergency1">-->
-                                <phonenumber-directive placeholder="" model='student.emergency1_phone'></phonenumber-directive>
-                            </div>
-                        </div>
-						</fieldset>
-						<fieldset>
-						<legend>Emergency Contact 2</legend>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="name_emergency1">Name:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.emergency2_name" id="name_emergency1">
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="relationship_emergency1">Relationship :</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.emergency2_relationship" id="relationship_emergency1">
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="email_emergency2">Email :</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="student.emergency2_email" id="email_emergency2">
-                            </div>
-                        </div>
-						<div class="form-group">
-                            <label class="col-sm-3 control-label" for="phone_emergency2">Phone :</label>
-                            <div class="col-sm-9">
-<!--                                <input type="text" class="form-control" ng-model="student.emergency2_phone" id="phone_emergency2">-->
-                                <phonenumber-directive placeholder="" model='student.emergency2_phone'></phonenumber-directive>
-                            </div>
-                        </div>
-						</fieldset>
-                        <div class="form-actions form-group">
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#/student" class="btn btn-default">Back</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </form>
-
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="clearfix"></div>

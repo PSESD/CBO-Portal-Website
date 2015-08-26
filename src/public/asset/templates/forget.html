@@ -5,17 +5,17 @@
         <form class="form-signin" id="loginForm" name="loginForm" role="form" ng-submit="forgotPassword(forgot)">
             <div class="card">
                 <div class="title">
-                    <h1>FORGOT PASSWORD</h1>
+                    <h1>{{ 'general.forgot_password' | i18n | uppercase }}</h1>
                     <hr>
                 </div>
                 <div class="content">
                     <p>
-                        <input type="text" class="form-control" ng-model="forgot.email" name="email" placeholder="EMAIL" required autofocus>
-                        <p class="help-block">ENTER EMAIL ASSOCIATED WITH ACCOUNT</p>
+                        <input type="text" class="form-control" ng-model="forgot.email" name="email" placeholder="{{ 'general.email' | i18n | uppercase }}" required autofocus>
+                        <p class="help-block">{{ 'general.enter_email_associated_with_account' | i18n }}</p>
                     </p>
                 </div>
-                <button class="button" ng-disabled="login.working">SEND PASSWORD</button>
-                <a href="#/login" class="button">Back to login page</a>
+                <button class="button" ng-disabled="login.working">{{ 'general.send_password' | i18n }}</button>
+                <a href="#/login" class="button">{{ 'general.back_to_login_page' | i18n }}</a>
             </div>
         </form>
 
