@@ -12,6 +12,7 @@ I ALL
 4.Footer
 5.Utility
 6.Form
+7.Auto Logout
 
 II MEDIA
 @media (max-width:767px)
@@ -31,6 +32,7 @@ II MEDIA
 
 html {}
 body {
+    overflow: auto;
     padding-bottom: 50px;
     background: #DADFDC;
     height: 100vh;
@@ -82,6 +84,11 @@ p {
     letter-spacing: .2em;
     font-weight: 400;
     max-width: 400px;
+}
+
+b, strong{
+    color: #999 !important;
+    padding: 0 10px 10px 0 !important;
 }
 
 /*
@@ -169,22 +176,22 @@ a:hover {
 .card .title hr {
     width: 100%;
     /*border-top: solid 2px #555;*/
-    margin: 10px 0 40px 0;
+    margin: 10px 0 10px 0;
     height: 2px;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fce623+0,f2cc10+37,f2a900+69,ef7700+100 */
     background: rgb(252, 230, 35);
     /* Old browsers */
-    background: -moz-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(239, 119, 0, 1) 0%, rgba(242, 169, 0, 1) 37%, rgba(242, 204, 16, 1) 69%, rgba(252, 230, 35, 1) 100%);
     /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(252, 230, 35, 1)), color-stop(37%, rgba(242, 204, 16, 1)), color-stop(69%, rgba(242, 169, 0, 1)), color-stop(100%, rgba(239, 119, 0, 1)));
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(239, 119, 0, 1)), color-stop(37%, rgba(242, 169, 0, 1)), color-stop(69%, rgba(242, 204, 16, 1)), color-stop(100%, rgba(252, 230, 35, 1)));
     /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(239, 119, 0, 1) 0%, rgba(242, 169, 0, 1) 37%, rgba(242, 204, 16, 1) 69%, rgba(252, 230, 35, 1) 100%);
     /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(239, 119, 0, 1) 0%, rgba(242, 169, 0, 1) 37%, rgba(242, 204, 16, 1) 69%, rgba(252, 230, 35, 1) 100%);
     /* Opera 11.10+ */
-    background: -ms-linear-gradient(-45deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(239, 119, 0, 1) 0%, rgba(242, 169, 0, 1) 37%, rgba(242, 204, 16, 1) 69%, rgba(252, 230, 35, 1) 100%);
     /* IE10+ */
-    background: linear-gradient(135deg, rgba(252, 230, 35, 1) 0%, rgba(242, 204, 16, 1) 37%, rgba(242, 169, 0, 1) 69%, rgba(239, 119, 0, 1) 100%);
+    background: linear-gradient(135deg, rgba(239, 119, 0, 1) 0%, rgba(242, 169, 0, 1) 37%, rgba(242, 204, 16, 1) 69%, rgba(252, 230, 35, 1) 100%);
     /* W3C */
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fce623', endColorstr='#ef7700', GradientType=1);
     /* IE6-9 fallback on horizontal gradient */
@@ -526,6 +533,7 @@ div[contentEditable]:focus {
     outline: 0px !important;
     -webkit-appearance: none;
     min-height: 30px;
+    white-space: nowrap;
 }
 a.button {
     padding-top: 5px;
@@ -585,6 +593,19 @@ a.button {
     color: #555;
     border-color: #555;
 }
+
+
+/*
+===============================================
+================ 6.Auto Logout ================
+===============================================
+*/
+.modal-body p
+{
+    max-width: 100%;
+}
+
+
 
 /*
 ===============================================
