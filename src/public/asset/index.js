@@ -25,7 +25,7 @@ var relationships = {
     'brother': 'Brother',
     'sister': 'Sister'
 };
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
@@ -893,7 +893,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             var target = $(ul);
             target.addClass('hide');
             */
-        }
+        };
         $scope.showIcon = function (event) {
             /*
             var ul = $(event.target).parentsUntil('h4')[4];
@@ -906,11 +906,11 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             console.log(detail);
             $(detail).addClass('hide');
             */
-            var id = $(event.target).data('id');
+            var id = $(event.target).prop('id');
             var attendance_legend = $(event.target).parent()[0];
             var panel_body = $(attendance_legend).parent()[0];
             var panel_collapse = $(panel_body).parent()[0];
-            var panel_heading = $($(panel_collapse).siblings()).filter('[data-id = "' + id + '"]');
+            var panel_heading = $($(panel_collapse).siblings(), id);
             var h4 = $(panel_heading).children()[0];
             var attendance_header = $(h4).children()[0];
             var attendance_detail = $(h4).children()[1];
@@ -960,6 +960,8 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 .success(function (response) {
                     var embedUsers = {};
                     var embedPrograms = [];
+                    $scope.attendanceBehavior = [];
+                    $scope.xsreLastUpdated = null;
                     if (response.success != false) {
                         $scope.case_workers = response._embedded.users;
                         if (typeof response.success !== 'undefined' && response.success == false) {
@@ -973,6 +975,18 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                                 $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
                                 $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
                             }
+
+
+                            //$scope.attendanceBehavior = response.attendanceBehaviors;
+                            angular.forEach(response.attendanceBehaviors, function (behavior) {
+                                Object.keys(behavior).forEach(function (key) {
+                                    $scope.attendanceBehavior.push(behavior[key]);
+                                });
+                            });
+
+                            //console.log($scope.attendanceBehavior);
+
+                            $scope.xsreLastUpdated = response.lastUpdated;
 
                             $scope.studentdetails = response;
                         }

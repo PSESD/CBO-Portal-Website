@@ -7,7 +7,7 @@
                     <div class="title">
                         <h2>
                             {{ student.first_name }} {{ student.last_name }}
-                            <span class="last-update">{{ 'general.last_update' | i18n }} : &nbsp {{ student.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
+                            <span class="last-update">{{ 'general.last_update' | i18n }} : &nbsp {{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
                             <a ng-click="updateNow()" style="font-size: 14px;font-weight: bold;">(Update Now)</a>
                         </h2>
                         <hr>
@@ -178,158 +178,177 @@
                         </li>
                     </ul>
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <div class="panel attendance-behavior">
-
-                            <div class="panel-heading attendance-behavior" role="tab" id="headingOne" data-id='1'>
+                        <div class="panel attendance-behavior" ng-if="attendanceBehavior" ng-repeat="(indexBehavior, behavior) in attendanceBehavior">
+                            <div class="panel-heading attendance-behavior" role="tab" id='heading_{{ indexBehavior+1 }}'>
                                 <h4 class="panel-title">
                                 
                                  <ul class="flexbox attendance-behavior hide">
                                     <li>
-                                        07/21/15 - 07/31/15
+                                        {{ behavior.summary.title }}
                                      </li>
+                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].M) < 100 }">
+                                        <div class="col-separator"></div>
+                                        {{ behavior.summary.M }}
+                                     </li>
+                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].T) < 100 }">{{ behavior.summary.T }}</li>
+                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].W) < 100 }">{{ behavior.summary.W }}</li>
+                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ behavior.summary.TH }}</li>
+                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ behavior.summary.F }}</li>
                                     <li>
                                         <div class="col-separator"></div>
-                                        100%
-                                     </li>
-                                    <li>100%</li>
-                                    <li class="unexcused">10%</li>
-                                    <li>100%</li>
-                                    <li>100%</li>
-                                    <li>
-                                        <div class="col-separator"></div>
-                                        -12%
-                                        <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
+                                        {{ !behavior.summary.weeklyChange ? 'N/A' : behavior.summary.weeklyChange }}
+                                        <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
                                      </li>
                                 </ul>
                                
                                 <ul  class="flexbox attendance-behavior attendance-detail">
                                     <li>
-                                        07/21/15 - 07/31/15
+                                        {{ behavior.details[0].title }}
                                      </li>
                                     <li>
                                         <div class="col-separator"></div>
-                                        07/21/15
+                                        {{ behavior.details[0].M }}
                                      </li>
-                                    <li> 07/22/15</li>
-                                    <li> 07/23/15</li>
-                                    <li> 07/24/15</li>
-                                    <li> 07/25/15</li>
+                                    <li>{{ behavior.details[0].T }}</li>
+                                    <li>{{ behavior.details[0].W }}</li>
+                                    <li>{{ behavior.details[0].TH }}</li>
+                                    <li>{{ behavior.details[0].F }}</li>
                                     <li>
                                         <div class="col-separator"></div>
-                                        -12%
+
                                      </li>
                                 </ul>    
                                 
                             </h4>
                             </div>
                             <!-- panel heading -->
-                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div id="collapse_{{ indexBehavior+1 }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_{{ indexBehavior+1 }}">
                                 <div class="panel-body attendance-behavior">
                                     <div class="period-col">
-                                        <ul class="period-col menu">
-                                            <li>{{ 'general.period_for' | i18n:[1] | uppercase }}</li>
-                                            <li>{{ 'general.period_for' | i18n:[2] | uppercase }}</li>
-                                            <li>{{ 'general.period_for' | i18n:[3] | uppercase }}</li>
-                                            <li>{{ 'general.period_for' | i18n:[4] | uppercase }}</li>
-                                            <li>{{ 'general.period_for' | i18n:[5] | uppercase }}</li>
-                                            <li>{{ 'general.period_for' | i18n:[6] | uppercase }}</li>
-                                            <li>&nbsp;</li>
-                                            <li>{{ 'general.behavior' | i18n | uppercase }}</li>
+                                        <ul class="period-col menu" ng-repeat="period in behavior.detailColumns.periods track by $index">
+                                            <li ng-if="$index > 0">{{ period }}</li>
+                                            <li ng-if="$last">&nbsp;</li>
+                                            <li ng-if="$last">{{ 'general.behavior' | i18n | uppercase }}</li>
                                         </ul>
                                     </div>
                                     <div class="attendance-content">
                                         <hr class="attendance-separator">
                                         <div class="monday">
-                                            <div class="grid-item present">
-                                                <div class="descriptor">
-                                                    <div class="descriptor-title present-font-color">
-                                                        {{ 'general.present' | i18n | uppercase }}
+                                            <div ng-repeat="item in behavior.detailColumns.M track by $index">
+                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title {{ item.slug }}-font-color">
+                                                            {{ item.slug | uppercase }}
+                                                        </div>
+                                                        {{ item.event.calendarEventDate }}
+                                                        <!--<br> Algebra-->
+                                                        <!--<br>-->
+                                                        <br> {{ item.event.attendanceStatusTitle }}
                                                     </div>
-                                                    08/14/2015
-                                                    <br> Algebra
-                                                    <br>
-                                                    <br> Present, in class, leading activities, head of class
+                                                </div>
+                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title">
+                                                            {{ item | uppercase }}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="grid-item present light">
-                                                <div class="descriptor">
-                                                    <div class="descriptor-title present-font-color">
-                                                        {{ 'general.present' | i18n | uppercase }}
-                                                    </div>
-                                                    08/14/2015
-                                                    <br> Math
-                                                    <br>
-                                                    <br> Present, in class
-                                                </div>
-                                            </div>
-                                            <div class="grid-item present">
-
-                                            </div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present light"></div>
                                             <div class="grid-item"></div>
 
                                         </div>
                                         <div class="tuesday">
-                                            <div class="grid-item late"></div>
-                                            <div class="grid-item excused light">
-
-                                                <div class="descriptor">
-                                                    <div class="descriptor-title excused-font-color">
-                                                        {{ 'general.excused' | i18n | uppercase }}
+                                            <div ng-repeat="item in behavior.detailColumns.T track by $index">
+                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title {{ item.slug }}-font-color">
+                                                            {{ item.slug | uppercase }}
+                                                        </div>
+                                                        {{ item.event.calendarEventDate }}
+                                                        <!--<br> Algebra-->
+                                                        <!--<br>-->
+                                                        <br> {{ item.event.attendanceStatusTitle }}
                                                     </div>
-                                                    08/14/2015
-                                                    <br> Algebra
-                                                    <br>
-                                                    <br> Present, in class, leading activities, head of class
                                                 </div>
-
+                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title">
+                                                            {{ item | uppercase }}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="grid-item excused"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item"></div>
+                                            <div class="grid-item "></div>
 
                                         </div>
                                         <div class="wednesday">
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item late light"></div>
-                                            <div class="grid-item unexcused"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item"></div>
-                                            <div class="grid-item unexcused">
-                                                <div class="descriptor">
-                                                    <div class="descriptor-title unexcused-font-color">
-                                                        DETENTION
+                                            <div ng-repeat="item in behavior.detailColumns.W track by $index">
+                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title {{ item.slug }}-font-color">
+                                                            {{ item.slug | uppercase }}
+                                                        </div>
+                                                        {{ item.event.calendarEventDate }}
+                                                        <!--<br> Algebra-->
+                                                        <!--<br>-->
+                                                        <br> {{ item.event.attendanceStatusTitle }}
                                                     </div>
-                                                    08/14/2015
-                                                    <br> Algebra
-                                                    <br>
-                                                    <br> Present, in class, leading activities, head of class
+                                                </div>
+                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title">
+                                                            {{ item | uppercase }}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div class="grid-item "></div>
                                         </div>
                                         <div class="thursday">
-                                            <div class="grid-item late"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present light"></div>
+                                            <div ng-repeat="item in behavior.detailColumns.TH track by $index">
+                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title {{ item.slug }}-font-color">
+                                                            {{ item.slug | uppercase }}
+                                                        </div>
+                                                        {{ item.event.calendarEventDate }}
+                                                        <!--<br> Algebra-->
+                                                        <!--<br>-->
+                                                        <br> {{ item.event.attendanceStatusTitle }}
+                                                    </div>
+                                                </div>
+                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title">
+                                                            {{ item | uppercase }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="grid-item "></div>
 
                                         </div>
                                         <div class="friday">
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday light"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday light"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday light"></div>
+                                            <div ng-repeat="item in behavior.detailColumns.F track by $index">
+                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title {{ item.slug }}-font-color">
+                                                            {{ item.slug | uppercase }}
+                                                        </div>
+                                                        {{ item.event.calendarEventDate }}
+                                                        <!--<br> Algebra-->
+                                                        <!--<br>-->
+                                                        <br> {{ item.event.attendanceStatusTitle }}
+                                                    </div>
+                                                </div>
+                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title">
+                                                            {{ item | uppercase }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="grid-item "></div>
 
                                         </div>
@@ -337,7 +356,7 @@
                                     </div>
                                     <div class="attendance-legend">
                                         <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n | uppercase }}</a>
-                                        <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right" data-id='1'></a>
+                                        <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right" data-id='1'></a>
                                         <div class="panel legend-list" ng-show="icon_legend">
                                             <!-- Default panel contents -->
                                             <div class="panel-heading">
@@ -357,183 +376,6 @@
                                 </div>
                             </div>
                             <!--end content panel-->
-
-                            <div class="panel-heading attendance-behavior" role="tab" id="headingTwo" data-id="2">
-                                <h4 class="panel-title">
-                                
-                                 <ul class="flexbox attendance-behavior">
-                                    <li>
-                                        07/21/15 - 07/31/15
-                                     </li>
-                                    <li>
-                                        <div class="col-separator"></div>
-                                        100%
-                                     </li>
-                                    <li>100%</li>
-                                    <li class="unexcused">10%</li>
-                                    <li>100%</li>
-                                    <li>100%</li>
-                                    <li>
-                                        <div class="col-separator"></div>
-                                        -12%
-                                        <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseTwo" data-target="#collapseTwo" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
-                                     </li>
-                                </ul>
-                               
-                                <ul  class="flexbox attendance-behavior attendance-detail hide">
-                                    <li>
-                                        07/21/15 - 07/31/15
-                                     </li>
-                                    <li>
-                                        <div class="col-separator"></div>
-                                        07/21/15
-                                     </li>
-                                    <li> 07/22/15</li>
-                                    <li> 07/23/15</li>
-                                    <li> 07/24/15</li>
-                                    <li> 07/25/15</li>
-                                    <li>
-                                        <div class="col-separator"></div>
-                                        -12%
-                                     </li>
-                                </ul>    
-                                
-                            </h4>
-                            </div>
-                            <!-- panel heading -->
-                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                <div class="panel-body attendance-behavior">
-                                    <div class="period-col">
-                                        <ul class="period-col menu">
-                                            <li>{{ 'general.period_for' | i18n:[1] | uppercase }}</li>
-                                            <li>{{ 'general.period_for' | i18n:[2] | uppercase }}</li>
-                                            <li>{{ 'general.period_for' | i18n:[3] | uppercase }}</li>
-                                            <li>{{ 'general.period_for' | i18n:[4] | uppercase }}</li>
-                                            <li>{{ 'general.period_for' | i18n:[5] | uppercase }}</li>
-                                            <li>{{ 'general.period_for' | i18n:[6] | uppercase }}</li>
-                                            <li>&nbsp;</li>
-                                            <li>{{ 'general.behavior' | i18n | uppercase }}</li>
-                                        </ul>
-                                    </div>
-                                    <div class="attendance-content">
-                                        <hr class="attendance-separator">
-                                        <div class="monday">
-                                            <div class="grid-item present">
-                                                <div class="descriptor">
-                                                    <div class="descriptor-title present-font-color">
-                                                        {{ 'general.present' | i18n | uppercase }}
-                                                    </div>
-                                                    08/14/2015
-                                                    <br> Algebra
-                                                    <br>
-                                                    <br> Present, in class, leading activities, head of class
-                                                </div>
-                                            </div>
-                                            <div class="grid-item present light">
-                                                <div class="descriptor">
-                                                    <div class="descriptor-title present-font-color">
-                                                        {{ 'general.present' | i18n | uppercase }}
-                                                    </div>
-                                                    08/14/2015
-                                                    <br> Math
-                                                    <br>
-                                                    <br> Present, in class
-                                                </div>
-                                            </div>
-                                            <div class="grid-item present">
-
-                                            </div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item"></div>
-
-                                        </div>
-                                        <div class="tuesday">
-                                            <div class="grid-item late"></div>
-                                            <div class="grid-item excused light">
-
-                                                <div class="descriptor">
-                                                    <div class="descriptor-title excused-font-color">
-                                                        {{ 'general.excused' | i18n | uppercase }}
-                                                    </div>
-                                                    08/14/2015
-                                                    <br> Algebra
-                                                    <br>
-                                                    <br> Present, in class, leading activities, head of class
-                                                </div>
-
-                                            </div>
-                                            <div class="grid-item excused"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item"></div>
-
-                                        </div>
-                                        <div class="wednesday">
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item late light"></div>
-                                            <div class="grid-item unexcused"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item"></div>
-                                            <div class="grid-item unexcused">
-                                                <div class="descriptor">
-                                                    <div class="descriptor-title unexcused-font-color">
-                                                        DETENTION
-                                                    </div>
-                                                    08/14/2015
-                                                    <br> Algebra
-                                                    <br>
-                                                    <br> Present, in class, leading activities, head of class
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="thursday">
-                                            <div class="grid-item late"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present light"></div>
-                                            <div class="grid-item "></div>
-
-                                        </div>
-                                        <div class="friday">
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday light"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday light"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday light"></div>
-                                            <div class="grid-item "></div>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="attendance-legend ">
-                                        <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n | uppercase }}</a>
-                                        <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseTwo" data-target="#collapseTwo" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right" data-id='2'></a>
-                                        <div class="panel legend-list" ng-show="icon_legend">
-                                            <!-- Default panel contents -->
-                                            <div class="panel-heading">
-                                                {{ 'general.legend' | i18n | uppercase }}
-                                                <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
-                                            </div>
-                                            <ul class="list-group legend-list">
-                                                <li class="list-group-item present">{{ 'general.present' | i18n | uppercase }}</li>
-                                                <li class="list-group-item excused">{{ 'general.excused' | i18n | uppercase }}</li>
-                                                <li class="list-group-item late">{{ 'general.late' | i18n | uppercase }}</li>
-                                                <li class="list-group-item holiday">{{ 'general.holiday' | i18n | uppercase }}</li>
-                                                <li class="list-group-item unexcused">{{ 'general.unexcused' | i18n | uppercase }}</li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
                             <!--end content panel-->
                         </div>
                         <!-- default panel -->
