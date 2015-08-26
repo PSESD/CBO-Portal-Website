@@ -182,7 +182,7 @@
                             <div class="panel-heading attendance-behavior" role="tab" id='heading_{{ indexBehavior+1 }}'>
                                 <h4 class="panel-title">
                                 
-                                 <ul class="flexbox attendance-behavior hide">
+                                 <ul class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
                                     <li>
                                         {{ behavior.summary.title }}
                                      </li>
@@ -201,7 +201,7 @@
                                      </li>
                                 </ul>
                                
-                                <ul  class="flexbox attendance-behavior attendance-detail">
+                                <ul  class="flexbox attendance-behavior attendance-detail{{indexBehavior > 0 ? ' hide' : '' }}">
                                     <li>
                                         {{ behavior.details[0].title }}
                                      </li>
@@ -222,7 +222,7 @@
                             </h4>
                             </div>
                             <!-- panel heading -->
-                            <div id="collapse_{{ indexBehavior+1 }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_{{ indexBehavior+1 }}">
+                            <div id="collapse_{{ indexBehavior+1 }}" class="panel-collapse collapse{{indexBehavior == 0 ? ' in' : '' }}" role="tabpanel" aria-labelledby="heading_{{ indexBehavior+1 }}">
                                 <div class="panel-body attendance-behavior">
                                     <div class="period-col">
                                         <ul class="period-col menu" ng-repeat="period in behavior.detailColumns.periods track by $index">
