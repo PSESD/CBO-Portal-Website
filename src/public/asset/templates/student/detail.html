@@ -196,7 +196,7 @@
                                     <li ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ behavior.summary.F }}</li>
                                     <li>
                                         <div class="col-separator"></div>
-                                        {{ !behavior.summary.weeklyChange ? 'N/A' : behavior.summary.weeklyChange }}
+                                        {{ !behavior.summary.weeklyChange ? 'N/A' : behavior.summary.weeklyChange + '%' }}
                                         <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
                                      </li>
                                 </ul>
@@ -238,7 +238,7 @@
                                                 <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
                                                     <div class="descriptor">
                                                         <div class="descriptor-title {{ item.slug }}-font-color">
-                                                            {{ item.slug | uppercase }}
+                                                            {{ (item.slug ? item.slug : item.value) | uppercase }}
                                                         </div>
                                                         {{ item.event.calendarEventDate }}
                                                         <!--<br> Algebra-->
