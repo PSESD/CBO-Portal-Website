@@ -25,7 +25,7 @@ var relationships = {
     'brother': 'Brother',
     'sister': 'Sister'
 };
-var __i = true;
+var __i = false;
 
 var global_redirect_url = '/';
 
@@ -854,22 +854,55 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
         };
 
         $scope.hideIcon = function (event) {
+
+            var li = $(event.target).parent()[0];
+            var attendance_header = $(li).parent()[0];
+            var attendance_detail = $(attendance_header).siblings()[0];
+
+            $(attendance_detail).removeClass('hide');
+            $(attendance_header).addClass('hide');
+
+            /*
             var ul = $(event.target).parentsUntil('h4')[1];
             var next = $(event.target).parentsUntil('h4');
             var tgt = $(next).next()[0];
             $(tgt).removeClass('hide');
             var target = $(ul);
             target.addClass('hide');
+            */
         }
         $scope.showIcon = function (event) {
-
+            /*
             var ul = $(event.target).parentsUntil('h4')[4];
+            console.log(ul);
             var header = $(ul).find('ul.attendance-behavior')[0];
+            console.log(header);
             $(header).removeClass('hide');
 
             var detail = $(ul).find('.attendance-detail')[0];
+            console.log(detail);
             $(detail).addClass('hide');
+            */
+            var id = $(event.target).data('id');
+            var attendance_legend = $(event.target).parent()[0];
+            console.log(attendance_legend);
+            var panel_body = $(attendance_legend).parent()[0];
+            console.log(panel_body);
+            var panel_collapse = $(panel_body).parent()[0];
+            console.log(panel_collapse);
+            var panel_heading = $($(panel_collapse).siblings()).filter('[data-id = "' + id + '"]');
+            console.log(panel_heading);
+            var h4 = $(panel_heading).children()[0];
+            console.log(h4);
+            var attendance_header = $(h4).children()[0];
+            console.log(attendance_header);
+            var attendance_detail = $(h4).children()[1];
+            console.log(attendance_detail);
+            if ($(attendance_header).hasClass('hide')) {
+                $(attendance_header).removeClass('hide');
+            }
 
+            $(attendance_detail).addClass('hide');
 
         }
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {

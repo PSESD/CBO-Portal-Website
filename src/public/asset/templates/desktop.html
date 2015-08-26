@@ -3,9 +3,9 @@
     <div id="side-panel">
         <div id="desktop-nav" class="navbar-inverse" ng-show="showNavBar">
             <div class="sidebar-nav">
-                
-                    <a id="collapse-sidebarmenu" class="icon-sidebarmenu glyphicon glyphicon-remove"></a>                    
-                
+
+                <a id="collapse-sidebarmenu" class="icon-sidebarmenu glyphicon glyphicon-remove"></a>
+
 
                 <ul class="nav navbar-nav navbar-right">
                     <span class="navbar-brand" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-expanded="false"></span>
@@ -13,10 +13,13 @@
 
                 <ul id="sidebar-panel-menu" class="nav navbar-nav">
                     <li>
-                        <a href="#" class="link-nav">{{organization_name | uppercase}}</a>
-                    </li>    
+                        <div class="title">
+                            <h1>{{organization_name | uppercase}}</h1>
+
+                        </div>
+                    </li>
                     <li>
-                        
+
                         <a href="#" class="link-nav">{{completeName | uppercase}}</a>
                         <div id="border" style="position:relative;border-top:2px solid #555; width:30px;left:15px;">
                         </div>
@@ -62,8 +65,8 @@
                 <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
             </div>
         </div>
-        <div  class="row footer" ng-show="show_footer">
-            <div  class="col-md-12 stick-footer">
+        <div class="row footer" ng-show="show_footer">
+            <div class="col-md-12 stick-footer">
                 <ul class="flexbox footer">
                     <li><a href="http://www.psesd.org/">PSED</a></li>
                     <li><a href="http://www.psesd.org/about/contact-us/">PSED CONTACT</a></li>

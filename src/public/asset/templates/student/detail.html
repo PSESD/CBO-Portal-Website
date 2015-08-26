@@ -180,7 +180,7 @@
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                         <div class="panel attendance-behavior">
 
-                            <div class="panel-heading attendance-behavior" role="tab" id="headingOne">
+                            <div class="panel-heading attendance-behavior" role="tab" id="headingOne" data-id='1'>
                                 <h4 class="panel-title">
                                 
                                  <ul class="flexbox attendance-behavior hide">
@@ -335,9 +335,9 @@
                                         </div>
 
                                     </div>
-                                    <div class="attendance-legend ">
+                                    <div class="attendance-legend">
                                         <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n | uppercase }}</a>
-                                        <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
+                                        <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right" data-id='1'></a>
                                         <div class="panel legend-list" ng-show="icon_legend">
                                             <!-- Default panel contents -->
                                             <div class="panel-heading">
@@ -358,7 +358,7 @@
                             </div>
                             <!--end content panel-->
 
-                            <div class="panel-heading attendance-behavior" role="tab" id="headingTwo">
+                            <div class="panel-heading attendance-behavior" role="tab" id="headingTwo" data-id="2">
                                 <h4 class="panel-title">
                                 
                                  <ul class="flexbox attendance-behavior">
@@ -515,7 +515,7 @@
                                     </div>
                                     <div class="attendance-legend ">
                                         <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n | uppercase }}</a>
-                                        <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseTwo" data-target="#collapseTwo" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
+                                        <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapseTwo" data-target="#collapseTwo" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right" data-id='2'></a>
                                         <div class="panel legend-list" ng-show="icon_legend">
                                             <!-- Default panel contents -->
                                             <div class="panel-heading">
