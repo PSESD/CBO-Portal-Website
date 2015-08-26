@@ -4,31 +4,41 @@
         <div class="card">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>
-                    {{ student.first_name }} {{ student.last_name }}
-                    <span class="last-update">Last update : &nbsp {{ student.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
-                    </h2>
+                    <div class="title">
+                        <h2>
+                            {{ student.first_name }} {{ student.last_name }}
+                            <span class="last-update">{{ 'general.last_update' | i18n }} : &nbsp {{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
+                            <a ng-click="updateNow()" style="font-size: 14px;font-weight: bold;">(Update Now)</a>
+                        </h2>
+                        <hr>
+                    </div>
+                    <div class="content" id="content-help">
+                        <div class="ng-binding help">
+                            <p>{{ 'help.user_edit' | i18n }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row vertical-divider">
                 <div class="col-md-6 data-content">
-
                     <div class="row col-md-4">
                         <div class="title">
-                            <p class="subhead">PERSONAL INFO</p>
+                            <p class="subhead">{{ 'general.personal' | i18n | uppercase }}
+                                <br>{{ 'general.info' | i18n | uppercase }}</p>
                             <hr>
                         </div>
                         <div class="content">
-                            <b>District ID</b> {{ student.district_student_id }}
+                            <b>{{ 'general.district_id' | i18n }}</b> {{ student.district_student_id }}
                             <br/>
-                            <b>Birthday</b> {{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}
+                            <b>{{ 'general.brithday' | i18n }}</b> {{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}
                             <br/>
-                            <b>Race/Ethnicity</b> {{studentdetails.demographics.races.race.race}}
+                            <b>{{ 'general.race_ethnicity' | i18n }}</b> {{studentdetails.demographics.races.race.race}}
                             <br/>
-                            <b>Gender</b> {{studentdetails.demographics.sex}}
+                            <b>{{ 'general.gender' | i18n }}</b> {{studentdetails.demographics.sex}}
                         </div>
                         <div class="title">
-                            <p class="subhead" style="margin-top:20px;">PERSONAL CONTACT</p>
+                            <p class="subhead personal">{{ 'general.personal' | i18n | uppercase }}
+                                <br>{{ 'general.contact' | i18n | uppercase }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -39,7 +49,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="title">
-                            <p class="subhead">EMERGENCY CONTACTS</p>
+                            <p class="subhead">{{ 'general.personal' | i18n | uppercase }}
+                                <br>{{ 'general.contacts' | i18n | uppercase }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -48,7 +59,7 @@
                             <br/> {{student.emergency1_email}}
                             <br/> {{student.emergency1_phone | phonenumber}}
                         </div>
-                        <div class="content" style="margin-top:20px;">
+                        <div class="content personal">
                             <b>{{student.emergency2_name}}</b>
                             <br/> {{student.emergency2_relationship}}
                             <br/> {{student.emergency2_email}}
@@ -57,7 +68,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="title">
-                            <p class="subhead">Case Workers</p>
+                            <p class="subhead">{{ 'general.case' | i18n }}
+                                <br>{{ 'general.workers' | i18n }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -73,36 +85,38 @@
                     <div class="clearfix"></div>
 
                 </div>
-                <div class="col-md-6 data-content" style="padding-left:65px;">
-                    <div ng-show="academic">
+                <div class="col-md-6 data-content space-left">
+                    <div>
                         <div class="row col-md-6">
                             <div class="title">
-                                <p class="subhead">ACADEMIC INFO</p>
+                                <p class="subhead">{{ 'general.academic' | i18n | uppercase }}
+                                    <br>{{ 'general.info' | i18n | uppercase }}</p>
                                 <hr>
                             </div>
-                            <div class="content" style="margin-bottom:20px;">
-                                <b>Current School</b> {{studentdetails.transcriptTerm.school.schoolName}}
+                            <div class="content bottom-space">
+                                <b>{{ 'general.current_school' | i18n }}</b> {{studentdetails.transcriptTerm.school.schoolName}}
                                 <br/>
-                                <b>Expected Graduation Year</b> {{studentdetails.transcriptTerm.schoolYear}}
+                                <b>{{ 'general.expected_graduation_year' | i18n }}</b> {{studentdetails.transcriptTerm.schoolYear}}
                                 <br/>
-                                <b>Grade level</b> N/A
+                                <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
                             </div>
-                            <div class="content" style="margin-top:10px;">
-                                <b>Language Spoken at Home</b> N/A
+                            <div class="content top-space">
+                                <b>{{ 'general.language_spoken_at_home' | i18n }}</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
-                                <b>IEP</b> N/A
+                                <b>IEP</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
-                                <b>S504</b> N/A
+                                <b>S504</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
-                                <b>Free or Reduced Lunch</b> N/A
+                                <b>{{ 'general.free_or_reduced_lunch' | i18n }}</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="title">
-                                <p class="subhead">CURRENT COURSES - <b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
+                                <p class="subhead">{{ 'general.current_courses' | i18n | uppercase }}
+                                    <br><b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
                                 <hr>
                             </div>
                             <div class="content">
@@ -116,42 +130,7 @@
                         <div class="clearfix"></div>
                     </div>
 
-                    <div ng-show="sch_history">
 
-                        <div class="title">
-                            <p class="subhead">School History</p>
-                        </div>
-                        <div class="content">
-
-                            <scrollable-table watch="visibleProjects">
-
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>School Name</th>
-                                            <th>School Year</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-if="sch_history" ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear'">
-                                            <td>
-                                                {{data.school.schoolName}}
-                                            </td>
-                                            <td>
-                                                {{data.schoolYear}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
-
-                            </scrollable-table>
-
-                        </div>
-
-                        <div class="clearfix"></div>
-                    </div>
-                    <a href="#" class="button pull-right" ng-click="closeSchoolHistory()" ng-show="sch_history">Close</a>
                 </div>
 
             </div>
@@ -159,8 +138,8 @@
 
             <div class="clearfix"></div>
 
-            <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up" style="display: block;"><i class="glyphicon glyphicon-menu-up"></i></a>
-            <a href="javascript:void(0)" onclick="showContent(this)" class="pull-right menu-down" style="display: none;"><i class="glyphicon glyphicon-menu-down"></i></a>
+            <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up display-blk"><i class="glyphicon glyphicon-menu-up"></i></a>
+            <a href="javascript:void(0)" onclick="showContent(this)" class="pull-right menu-down display-none"><i class="glyphicon glyphicon-menu-down"></i></a>
 
         </div>
 
@@ -168,376 +147,746 @@
 
 </div>
 <div>
-    
-        <div class="attendance-card">
-            <div class="row">
-                <div class="col-md-12">
 
-                    <ul class="nav nav-tabs nav-justified" role="tablist">
-                        <li class="active"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior">ATTENDANCE AND BEHAVIOR</a></li>
-                        <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation">PROGRAM PARTICIPATION</a></li>
-                        <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript">TRANSCRIPT</a></li>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+                <li class="active"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior">{{ 'general.attendance_and_behavior' | i18n | uppercase }}</a></li>
+                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript">{{ 'general.transcript' | i18n | uppercase }}</a></li>
+                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation">{{ 'general.program_participation' | i18n | uppercase }}</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
+                    <ul class="flexbox attendance-behavior">
+                        <li>{{ 'general.attendance_dates' | i18n | uppercase }}</li>
+                        <li>
+                            <div class="col-separator"></div>
+                            {{ 'general.LM' | i18n | uppercase }}
+                        </li>
+                        <li>{{ 'general.LT' | i18n | uppercase }}</li>
+                        <li>{{ 'general.LW' | i18n | uppercase }}</li>
+                        <li>{{ 'general.TH' | i18n | uppercase }}</li>
+                        <li>{{ 'general.LF' | i18n | uppercase }}</li>
+                        <li>
+                            <div class="col-separator"></div>
+                            {{ 'general.delta_change' | i18n | uppercase }}
+
+                        </li>
+                    </ul>
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel attendance-behavior" ng-if="attendanceBehavior" ng-repeat="(indexBehavior, behavior) in attendanceBehavior">
+                            <div class="panel-heading attendance-behavior" role="tab" id='heading_{{ indexBehavior+1 }}'>
+                                <h4 class="panel-title">
+                                
+                                 <ul class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
+                                    <li>
+                                        {{ behavior.summary.title }}
+                                     </li>
+                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].M) < 100 }">
+                                        <div class="col-separator"></div>
+                                        {{ behavior.summary.M }}
+                                     </li>
+                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].T) < 100 }">{{ behavior.summary.T }}</li>
+                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].W) < 100 }">{{ behavior.summary.W }}</li>
+                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ behavior.summary.TH }}</li>
+                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ behavior.summary.F }}</li>
+                                    <li>
+                                        <div class="col-separator"></div>
+                                        {{ !behavior.summary.weeklyChange ? 'N/A' : behavior.summary.weeklyChange + '%' }}
+                                        <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
+                                     </li>
+                                </ul>
+                               
+                                <ul  class="flexbox attendance-behavior attendance-detail{{indexBehavior > 0 ? ' hide' : '' }}">
+                                    <li>
+                                        {{ behavior.details[0].title }}
+                                     </li>
+                                    <li>
+                                        <div class="col-separator"></div>
+                                        {{ behavior.details[0].M }}
+                                     </li>
+                                    <li>{{ behavior.details[0].T }}</li>
+                                    <li>{{ behavior.details[0].W }}</li>
+                                    <li>{{ behavior.details[0].TH }}</li>
+                                    <li>{{ behavior.details[0].F }}</li>
+                                    <li>
+                                        <div class="col-separator"></div>
+
+                                     </li>
+                                </ul>    
+                                
+                            </h4>
+                            </div>
+                            <!-- panel heading -->
+                            <div id="collapse_{{ indexBehavior+1 }}" class="panel-collapse collapse{{indexBehavior == 0 ? ' in' : '' }}" role="tabpanel" aria-labelledby="heading_{{ indexBehavior+1 }}">
+                                <div class="panel-body attendance-behavior">
+                                    <div class="period-col">
+                                        <ul class="period-col menu" ng-repeat="period in behavior.detailColumns.periods track by $index">
+                                            <li ng-if="$index > 0">{{ period }}</li>
+                                            <li ng-if="$last">&nbsp;</li>
+                                            <li ng-if="$last">{{ 'general.behavior' | i18n | uppercase }}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="attendance-content">
+                                        <hr class="attendance-separator">
+                                        <div class="monday">
+                                            <div ng-repeat="item in behavior.detailColumns.M track by $index">
+                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title {{ item.slug }}-font-color">
+                                                            {{ (item.slug ? item.slug : item.value) | uppercase }}
+                                                        </div>
+                                                        {{ item.event.calendarEventDate }}
+                                                        <!--<br> Algebra-->
+                                                        <!--<br>-->
+                                                        <br> {{ item.event.attendanceStatusTitle }}
+                                                    </div>
+                                                </div>
+                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title">
+                                                            {{ item | uppercase }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid-item"></div>
+
+                                        </div>
+                                        <div class="tuesday">
+                                            <div ng-repeat="item in behavior.detailColumns.T track by $index">
+                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title {{ item.slug }}-font-color">
+                                                            {{ item.slug | uppercase }}
+                                                        </div>
+                                                        {{ item.event.calendarEventDate }}
+                                                        <!--<br> Algebra-->
+                                                        <!--<br>-->
+                                                        <br> {{ item.event.attendanceStatusTitle }}
+                                                    </div>
+                                                </div>
+                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title">
+                                                            {{ item | uppercase }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid-item "></div>
+
+                                        </div>
+                                        <div class="wednesday">
+                                            <div ng-repeat="item in behavior.detailColumns.W track by $index">
+                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title {{ item.slug }}-font-color">
+                                                            {{ item.slug | uppercase }}
+                                                        </div>
+                                                        {{ item.event.calendarEventDate }}
+                                                        <!--<br> Algebra-->
+                                                        <!--<br>-->
+                                                        <br> {{ item.event.attendanceStatusTitle }}
+                                                    </div>
+                                                </div>
+                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title">
+                                                            {{ item | uppercase }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid-item "></div>
+                                        </div>
+                                        <div class="thursday">
+                                            <div ng-repeat="item in behavior.detailColumns.TH track by $index">
+                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title {{ item.slug }}-font-color">
+                                                            {{ item.slug | uppercase }}
+                                                        </div>
+                                                        {{ item.event.calendarEventDate }}
+                                                        <!--<br> Algebra-->
+                                                        <!--<br>-->
+                                                        <br> {{ item.event.attendanceStatusTitle }}
+                                                    </div>
+                                                </div>
+                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title">
+                                                            {{ item | uppercase }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid-item "></div>
+
+                                        </div>
+                                        <div class="friday">
+                                            <div ng-repeat="item in behavior.detailColumns.F track by $index">
+                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title {{ item.slug }}-font-color">
+                                                            {{ item.slug | uppercase }}
+                                                        </div>
+                                                        {{ item.event.calendarEventDate }}
+                                                        <!--<br> Algebra-->
+                                                        <!--<br>-->
+                                                        <br> {{ item.event.attendanceStatusTitle }}
+                                                    </div>
+                                                </div>
+                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
+                                                    <div class="descriptor">
+                                                        <div class="descriptor-title">
+                                                            {{ item | uppercase }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid-item "></div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="attendance-legend">
+                                        <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n | uppercase }}</a>
+                                        <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right" data-id='1'></a>
+                                        <div class="panel legend-list" ng-show="icon_legend">
+                                            <!-- Default panel contents -->
+                                            <div class="panel-heading">
+                                                {{ 'general.legend' | i18n | uppercase }}
+                                                <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
+                                            </div>
+                                            <ul class="list-group legend-list">
+                                                <li class="list-group-item present">{{ 'general.present' | i18n | uppercase }}</li>
+                                                <li class="list-group-item excused">{{ 'general.excused' | i18n | uppercase }}</li>
+                                                <li class="list-group-item late">{{ 'general.late' | i18n | uppercase }}</li>
+                                                <li class="list-group-item holiday">{{ 'general.holiday' | i18n | uppercase }}</li>
+                                                <li class="list-group-item unexcused">{{ 'general.unexcused' | i18n | uppercase }}</li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end content panel-->
+                            <!--end content panel-->
+                        </div>
+                        <!-- default panel -->
+
+
+
+                    </div>
+                    <!-- panel group -->
+                </div>
+                <!-- tab panel -->
+
+
+                <div role="tabpanel" class="tab-pane" id="program_participation" data-id="program_participation_data">
+
+                    <ul class="student-program-participation">
+                        <li ng-repeat="program in list_programs">
+                            <div class="program_date">
+                                {{program.years}}
+                            </div>
+                            <ul class="flexbox program_participation">
+
+                                <li ng-repeat="item in program.programs">
+                                    <b>{{item.name}}</b>
+                                    <br>
+                                    <b>{{item.active}}</b>
+                                    <br> {{item.start_date | date:'MM/dd/yyyy'}} - {{item.end_date | date:'MM/dd/yyyy'}}
+                                    <ul class="cohorts">
+                                        <li ng-repeat="cohort in item.cohorts">
+                                            {{cohort}}
+                                        </li>
+                                    </ul>
+                                    <br>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior">
-                            <ul class="flexbox attendance-behavior">
-                                <li class="first-col-separator">
-                                    ATTENDANCE DATES
-                                </li>
-                                <li>M</li>
-                                <li>T</li>
-                                <li>W</li>
-                                <li>TH</li>
-                                <li>F</li>
-                                <li class="last-col-separator">
-
-                                    DELTA CHANGE
-                                </li>
-                            </ul>
-                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                <div class="panel attendance-behavior">
-
-                                    <div class="panel-heading attendance-behavior" role="tab" id="headingOne">
-                                        <h4 class="panel-title">
-                                
-                                 <ul class="flexbox attendance-behavior">
-                                    <li class="first-col-separator">
-                                        7/21/15 - 7/31/15
-                                     </li>
-                                    <li>100%</li>
-                                    <li>100%</li>
-                                    <li class="unexcused">10%</li>
-                                    <li>100%</li>
-                                    <li>100%</li>
-                                    <li class="last-col-separator">
-                                        -12%
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
-                                     </li>
-                                </ul>   
-                                
-                            </h4>
-                                    </div>
-                                    <!-- panel heading -->
-                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                        <div class="panel-body attendance-behavior">
-                                            <div class="period-col">
-                                                <ul class="period-col menu">
-                                                    <li>PERIOD 1</li>
-                                                    <li>PERIOD 2</li>
-                                                    <li>PERIOD 3</li>
-                                                    <li>PERIOD 4</li>
-                                                    <li>PERIOD 5</li>
-                                                    <li>PERIOD 6</li>
-                                                    <li>&nbsp;</li>
-                                                    <li>BEHAVIOR</li>
-                                                </ul>
-                                            </div>
-                                            <div class="attendance-content">
-                                                <hr class="attendance-separator">
-                                                <div class="monday">
-                                                    <div class="grid-item present">
-                                                        <div class="descriptor">Present, in class, leading activities, head of class</div>
-                                                    </div>
-                                                    <div class="grid-item present light">
-                                                        <div class="descriptor">Present and in class</div>
-                                                    </div>
-                                                    <div class="grid-item present">
-                                                        <div class="descriptor">Outdoor activity</div>
-                                                    </div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item"></div>
-
-                                                </div>
-                                                <div class="tuesday">
-                                                    <div class="grid-item late"></div>
-                                                    <div class="grid-item excused light"></div>
-                                                    <div class="grid-item excused"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item"></div>
-
-                                                </div>
-                                                <div class="wednesday">
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item late light"></div>
-                                                    <div class="grid-item unexcused"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item"></div>
-                                                    <div class="grid-item unexcused"></div>
-                                                </div>
-                                                <div class="thursday">
-                                                    <div class="grid-item late"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item "></div>
-
-                                                </div>
-                                                <div class="friday">
-                                                    <div class="grid-item holiday"></div>
-                                                    <div class="grid-item holiday light"></div>
-                                                    <div class="grid-item holiday"></div>
-                                                    <div class="grid-item holiday light"></div>
-                                                    <div class="grid-item holiday"></div>
-                                                    <div class="grid-item holiday light"></div>
-                                                    <div class="grid-item "></div>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="attendance-legend ">
-                                                <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">LEGEND</a>
-                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
-                                                <div class="panel legend-list" ng-show="icon_legend">
-                                                    <!-- Default panel contents -->
-                                                    <div class="panel-heading">
-                                                        LEGEND
-                                                        <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
-                                                    </div>
-                                                    <ul class="list-group legend-list">
-                                                        <li class="list-group-item present">PRESENT</li>
-                                                        <li class="list-group-item excused">EXCUSED</li>
-                                                        <li class="list-group-item late">LATE</li>
-                                                        <li class="list-group-item holiday">HOLIDAY</li>
-                                                        <li class="list-group-item unexcused">UNEXCUSED</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="panel-heading attendance-behavior" role="tab" id="headingTwo">
-                                        <h4 class="panel-title">
-                                
-                                 <ul class="flexbox attendance-behavior">
-                                    <li class="first-col-separator">
-                                        7/21/15 - 7/31/15
-                                     
-                                     </li>
-                                    <li>100%</li>
-                                    <li>100%</li>
-                                    <li class="unexcused">10%</li>
-                                    <li>100%</li>
-                                    <li>100%</li>
-                                    <li class="last-col-separator">
-                                        
-                                        -12%
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseTwo" data-target="#collapseTwo" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
-                                     </li>
-                                </ul>   
-                                
-                            </h4>
-                                    </div>
-                                    <!-- panel heading -->
-                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                        <div class="panel-body attendance-behavior">
-                                            <div class="period-col">
-                                                <ul class="period-col menu">
-                                                    <li>PERIOD 1</li>
-                                                    <li>PERIOD 2</li>
-                                                    <li>PERIOD 3</li>
-                                                    <li>PERIOD 4</li>
-                                                    <li>PERIOD 5</li>
-                                                    <li>PERIOD 6</li>
-                                                    <li>&nbsp;</li>
-                                                    <li>BEHAVIOR</li>
-                                                </ul>
-                                            </div>
-                                            <div class="attendance-content">
-                                                <hr class="attendance-separator">
-                                                <div class="monday">
-                                                    <div class="grid-item present">
-                                                        <div class="descriptor">Present, in class, leading activities, head of class</div>
-                                                    </div>
-                                                    <div class="grid-item present light">
-                                                        <div class="descriptor">Present and in class</div>
-                                                    </div>
-                                                    <div class="grid-item present">
-                                                        <div class="descriptor">Outdoor activity</div>
-                                                    </div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item"></div>
-
-                                                </div>
-                                                <div class="tuesday">
-                                                    <div class="grid-item late"></div>
-                                                    <div class="grid-item excused light"></div>
-                                                    <div class="grid-item excused"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item"></div>
-
-                                                </div>
-                                                <div class="wednesday">
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item late light"></div>
-                                                    <div class="grid-item unexcused"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item"></div>
-                                                    <div class="grid-item unexcused"></div>
-                                                </div>
-                                                <div class="thursday">
-                                                    <div class="grid-item late"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item present"></div>
-                                                    <div class="grid-item present light"></div>
-                                                    <div class="grid-item "></div>
-
-                                                </div>
-                                                <div class="friday">
-                                                    <div class="grid-item holiday"></div>
-                                                    <div class="grid-item holiday light"></div>
-                                                    <div class="grid-item holiday"></div>
-                                                    <div class="grid-item holiday light"></div>
-                                                    <div class="grid-item holiday"></div>
-                                                    <div class="grid-item holiday light"></div>
-                                                    <div class="grid-item "></div>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="attendance-legend ">
-                                                <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">LEGEND</a>
-                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
-                                                <div class="panel legend-list" ng-show="icon_legend">
-                                                    <!-- Default panel contents -->
-                                                    <div class="panel-heading">
-                                                        LEGEND
-                                                        <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
-                                                    </div>
-                                                    <ul class="list-group legend-list">
-                                                        <li class="list-group-item present">PRESENT</li>
-                                                        <li class="list-group-item excused">EXCUSED</li>
-                                                        <li class="list-group-item late">LATE</li>
-                                                        <li class="list-group-item holiday">HOLIDAY</li>
-                                                        <li class="list-group-item unexcused">UNEXCUSED</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- default panel -->
 
 
-
+                </div>
+                <div role="tabpanel" class="tab-pane transcript" id="transcript" data-id="transcript_data">
+                    <ul class="flexbox transcript">
+                        <li>
+                            <b>18</b>{{ 'general.credits_earned' | i18n }}
+                            <br/>
+                            <b>20</b>{{ 'general.credits_attempted' | i18n }}
+                            <br/>
+                            <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                            <br/>
+                            <br/>
+                            <div>
+                                <div ng-click="showSchoolHistory()" class="button transcript-school-history display-inline-blk">{{ 'general.see_school' | i18n | uppercase }}
+                                    <br>HISTORY</div>
                             </div>
-                            <!-- panel group -->
-                        </div>
-                        <!-- tab panel -->
+
+                        </li>
+                        <li class="math-credits">1.5
+                            <br/>{{ 'general.math_credits' | i18n | uppercase }}</li>
+                        <li class="history-credits">2.5
+                            <br/>{{ 'general.history_credits' | i18n | uppercase }}</li>
+                        <li class="language-arts-credits">1
+                            <br/>{{ 'general.language_arts' | i18n | uppercase }}
+                            <br/> {{ 'general.credits' | i18n | uppercase }}</li>
+                        <li class="elective-credits">4.5
+                            <br/>{{ 'general.elective_credits' | i18n | uppercase }}</li>
+                        <li class="language-credits">1.5
+                            <br/>{{ 'general.language_credits' | i18n | uppercase }}</li>
+                        <li class="physical-education-credits">3
+                            <br/>{{ 'general.physical_education' | i18n | uppercase }}
+                            <br/> {{ 'general.credits' | i18n | uppercase }}</li>
+                    </ul>
+                    <hr class="separator-transcript">
+                    <div class="transcript-container">
+                        <ul class="flexbox transcript-content">
+                            <li class="transcript-content">
+                                2015 - Fall
+                                <br/>
+                                <br/>
+                                <b>Learning High School</b>
+                                <br/>
+                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <br/>
+                                <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>AP</b>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color history-font-color">HISTORY 3</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>AP</b>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color history-font-color">HISTORY 3</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
+                                </div>
 
 
-                        <div role="tabpanel" class="tab-pane" id="program_participation">Program participation</div>
-                        <div role="tabpanel" class="tab-pane transcript" id="transcript">
-                            <ul class="flexbox transcript">
-                                <li>
-                                    <b>18</b>Credits Earned
-                                    <br/>
-                                    <b>20</b>Credits Attempted
-                                    <br/>
-                                    <b>Grade Level</b> Junior
-                                    <br/>
-                                    <br/>
-                                    <div>
-                                        <div class="button transcript-school-history" style="display:inline-block">SEE SCHOOL HISTORY</div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>AP</b>
                                     </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color elective-font-color">Art 2</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>AP</b>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color elective-font-color">Art 2</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
+                                </div>
 
-                                </li>
-                                <li class="math-credits">1.5
-                                    <br/>MATH CREDITS</li>
-                                <li class="history-credits">2.5
-                                    <br/>HISTORY CREDITS</li>
-                                <li class="language-arts-credits">1
-                                    <br/>LANGUAGE ARTS
-                                    <br/> CREDITS</li>
-                                <li class="elective-credits">4.5
-                                    <br/>ELECTIVE CREDITS</li>
-                                <li class="language-credits">1.5
-                                    <br/>LANGUAGE CREDITS</li>
-                                <li class="physical-education-credits">3
-                                    <br/>PYHSICAL EDUCATION
-                                    <br/> CREDITS</li>
-                            </ul>
-                            <hr class="separator-transcript">
-                            <ul class="flexbox transcript-content">
-                                <li class="transcript-content">
-                                    2015 - FALL
-                                    <br/>
-                                    <br/>
-                                    <b>Learning High School</b>
-                                    <br/>
-                                    <b>4.5</b> Credits Attempted
-                                    <br/>
-                                    <b>Grade Level</b> junior
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">ALGEBRA 2</div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">Spanish 3</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
-                                        <b>Attempted Credits - </b>.5
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>AP</b>
                                     </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">Spanish 3</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>AMHI24561</b>
+                                        <br>
+                                        <b>Grade</b> - A
+                                        <br>
+                                        <b>Grade Level</b> - Junior
+                                        <br>
+                                        <b>Earned Credits</b> - 1
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>AP</b>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
+                                </div>
 
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">HISTORY 3</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>Attempted Credits - </b>.5
-                                    </div>
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">LANGUAGE ARTS</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>Attempted Credits - </b>.5
-                                    </div>
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">ART 2</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>Attempted Credits - </b>.5
-                                    </div>
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">SPANISH 3</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>Attempted Credits - </b>.5
-                                    </div>
-                                </li>
-                                <li class="transcript-content">
-                                    <div class="transcript-font-color">P.E</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>Attempted Credits - </b>.5
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                            </li>
+                        </ul>
+
+                        <ul class="flexbox transcript-content">
+                            <li class="transcript-content">
+                                2015 - Fall
+                                <br/>
+                                <br/>
+                                <b>Learning High School</b>
+                                <br/>
+                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <br/>
+                                <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color history-font-color">HISTORY 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color elective-font-color">Art 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-font-color">Spanish 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="flexbox transcript-content">
+                            <li class="transcript-content">
+                                2015 - Fall
+                                <br/>
+                                <br/>
+                                <b>Learning High School</b>
+                                <br/>
+                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <br/>
+                                <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color history-font-color">HISTORY 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color elective-font-color">Art 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-font-color">Spanish 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="flexbox transcript-content">
+                            <li class="transcript-content">
+                                2015 - Fall
+                                <br/>
+                                <br/>
+                                <b>Learning High School</b>
+                                <br/>
+                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <br/>
+                                <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color history-font-color">HISTORY 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color elective-font-color">Art 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-font-color">Spanish 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="flexbox transcript-content">
+                            <li class="transcript-content">
+                                2015 - Fall
+                                <br/>
+                                <br/>
+                                <b>Learning High School</b>
+                                <br/>
+                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <br/>
+                                <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color history-font-color">HISTORY 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color elective-font-color">Art 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color language-font-color">Spanish 3</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+            </div>
+            <div id="school-history-transcript" class="school history" ng-show="sch_history">
+
+                <div class="title">
+                    <span ng-click="closeSchoolHistory()" class="school-history glyphicon glyphicon-remove"></span>
+                    <p class="subhead transcript">School History</p>
+                    <hr class="subhead separator-transcript">
+
+                </div>
+                <div class="content">
+
+                    <scrollable-table watch="visibleProjects">
+
+                        <table class="table table-striped school-history">
+                            <thead>
+                                <tr>
+                                    <th><b>{{ 'general.school_name' | i18n }}</b></th>
+                                    <th><b>{{ 'general.school_year' | i18n }}</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="sch_history" ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear'">
+                                    <td>
+                                        {{data.school.schoolName}}
+                                    </td>
+                                    <td>
+                                        {{data.schoolYear}}
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </scrollable-table>
+
+                </div>
+
             </div>
         </div>
 
 
-</div>
+
+    </div>

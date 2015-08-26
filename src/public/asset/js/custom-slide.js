@@ -16,61 +16,53 @@ $(document).ready(function () {
                 $("#showLeftPush").attr('class', 'glyphicon glyphicon-menu-hamburger');
             }
         };
-    }
-    sidebarmenu.onclick = function () {
-        if (status == 'open') {
-            $('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-remove');
-            $('#collapse-sidebarmenu').addClass('glyphicon glyphicon-menu-hamburger');
-            $('.link-nav').css({
-                'display': 'none'
-            });
-            $('#border').css({
-                'display': 'none'
-            });
-            $('#desktop-nav').css({
-                'width': '3%'
-            });
-            $('#collapse-sidebarmenu').css({
-                'left': '5%'
-            });
-            $('#center-panel').css({
-                'margin-left': '3%'
-            });
-            status = 'close';
-        } else if (status == 'close') {
-
-            $('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-menu-hamburger');
-            $('#collapse-sidebarmenu').addClass('glyphicon glyphicon-remove');
-            $('.link-nav').css({
-                'display': ''
-            });
-            $('#border').css({
-                'display': ''
-            });
-            $('#desktop-nav').css({
-                'width': '15%'
-            });
-            $('#desktop-nav').css({
-                'position': 'fixed'
-            });
-            $('#desktop-nav').css({
-                'height': '100%'
-            });
-            $('#collapse-sidebarmenu').css({
-                'left': '75%'
-            });
-            $('#collapse-sidebarmenu').css({
-                'top': '10px'
-            });
-            $('#collapse-sidebarmenu').css({
-                'position': 'relative'
-            });
-            $('#center-panel').css({
-                'margin-left': '15%'
-            });
-            status = 'open';
-        }
-
     };
+    if (sidebarmenu) {
+        sidebarmenu.onclick = function () {
+            if (status == 'open') {
+                $('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-remove');
+                $('#collapse-sidebarmenu').addClass('glyphicon glyphicon-menu-hamburger');
+                $('.link-nav').css({
+                    'display': 'none'
+                });
+                $('#border').css({
+                    'display': 'none'
+                });
+                $('#desktop-nav').css({
+                    'width': '3%'
+                });
+                $('#collapse-sidebarmenu').addClass('icon-collapse-menu');
+                $('#center-panel').css({
+                    'margin-left': '3%'
+                });
+                status = 'close';
+            } else if (status == 'close') {
 
+                $('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-menu-hamburger');
+                $('#collapse-sidebarmenu').addClass('glyphicon glyphicon-remove');
+                $('.link-nav').css({
+                    'display': ''
+                });
+                $('#border').css({
+                    'display': ''
+                });
+                $('#desktop-nav').css({
+                    'width': '15%'
+                });
+                $('#desktop-nav').css({
+                    'position': 'fixed'
+                });
+                $('#desktop-nav').css({
+                    'height': '100%'
+                });
+                $('#collapse-sidebarmenu').removeClass('icon-collapse-menu');
+                $('#collapse-sidebarmenu').addClass('icon-sidebarmenu');
+                $('#center-panel').css({
+                    'margin-left': '15%'
+                });
+                status = 'open';
+            }
+
+        };
+    }
 });

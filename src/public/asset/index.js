@@ -16,11 +16,31 @@ var schoolDistricts = {
     'federalway': "Federal Way",
     'renton': 'Renton',
     'northshore': 'North Shore'
-}
+};
+var relationships = {
+    'parent': "Parent",
+    'grandparent': "Grandparent",
+    'aunt': "Aunt",
+    'uncle': 'Uncle',
+    'brother': 'Brother',
+    'sister': 'Sister'
+};
+var __i = false;
 
 var global_redirect_url = '/';
 
-var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ui.bootstrap']);
+var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
+    'ngLocalize.Config'
+]).value('localeConf', {
+    basePath: 'languages',
+    defaultLocale: 'en-US',
+    sharedDictionary: 'general',
+    fileExtension: '.lang.json',
+    persistSelection: true,
+    cookieName: 'COOKIE_LOCALE_LANG_',
+    observableAttrs: new RegExp('^data-(?!ng-|i18n)'),
+    delimiter: '::'
+});
 
 app.factory('headerInjector', [function (SessionService) {
     var headerInjector = {
@@ -41,7 +61,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
-//    $httpProvider.interceptors.push('headerInjector');
+    if (__i) $httpProvider.interceptors.push('headerInjector');
 
 }]);
 
@@ -267,23 +287,33 @@ app.config(function ($routeProvider) {
 
 });
 
-app.run(['$window', '$rootScope',
-function ($window, $rootScope) {
+app.run(['$window', '$rootScope', '$route',
+function ($window, $rootScope, locale) {
         $rootScope.goBack = function () {
             $window.history.back();
-        }
+        };
+        $rootScope.data_content = "asset/templates/desktop.html";
         var element = angular.element("#login-container");
         if ($window.innerWidth > 767) {
             $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
+            $rootScope.data_content = "asset/templates/desktop.html";
         } else if ($window.innerWidth < 767) {
             $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
+            $rootScope.data_content = "asset/templates/mobile.html";
         }
 }]);
 
 
-app.run(function ($rootScope, $http, $location, $window, AuthenticationService, CookieStore) {
+app.run(function ($rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
 
     var returnData = CookieStore.getData();
+    locale.ready('general').then(function () {
+        $rootScope.lang = {
+            you_dont_have_any_permission_page: locale.getString('general.you_dont_have_any_permission_page'),
+            success_logout: locale.getString('general.success_logout'),
+            password_not_match: locale.getString('general.password_not_match')
+        };
+    });
 
     $rootScope.$on("$routeChangeStart", function (event, nextRoute) {
         //redirect only if both isAuthenticated is false and no token is set
@@ -292,7 +322,7 @@ app.run(function ($rootScope, $http, $location, $window, AuthenticationService, 
         }
 
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAdmin && AuthenticationService.role == 'case-worker') {
-            showError("You don't have any permission to access this page", 1);
+            showError($rootScope.lang.you_dont_have_any_permission_page, 1);
             event.preventDefault();
         }
 
@@ -333,7 +363,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         put_remember: function (value) {
             $cookieStore.put('cboAdmin_cookie_remember', value);
         },
-        setData: function (token, refresh_token, organization_id, redirect_url, user_id, email, name, role) {
+        setData: function (token, refresh_token, organization_id, redirect_url, user_id, email, name, role, organization_name) {
             $cookieStore.put('cboAdmin_cookie_token', token);
             $cookieStore.put('cboAdmin_cookie_refresh_token', refresh_token);
             $cookieStore.put('cboAdmin_cookie_organization_id', organization_id);
@@ -342,6 +372,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             $cookieStore.put('cboAdmin_cookie_email', email);
             $cookieStore.put('cboAdmin_cookie_name', name);
             $cookieStore.put('cboAdmin_cookie_role', role);
+            $cookieStore.put('cboAdmin_cookie_organization_name', organization_name)
 
             AuthenticationService.isAuthenticated = true;
             AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
@@ -352,6 +383,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             AuthenticationService.email = $cookieStore.get('cboAdmin_cookie_email');
             AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
             AuthenticationService.role = $cookieStore.get('cboAdmin_cookie_role');
+            AuthenticationService.organization_name = $cookieStore.get('cboAdmin_cookie_organization_name');
             $rootScope.showNavBar = true;
             $rootScope.completeName = AuthenticationService.name;
 
@@ -429,9 +461,15 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
 
 app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
-    function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService) {
-        $rootScope.data_content = "asset/templates/desktop.html";    
+    function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService, locale) {
+        var location = window.location.hash;
+        if (location.indexOf('login') == -1) {
+            $rootScope.show_footer = true;
+        }
+
+
         $rootScope.full_screen = false;
+        $rootScope.organization_name = CookieStore.get('cboAdmin_cookie_organization_name');
         if (CookieStore.get('cboAdmin_cookie_role') == 'admin') {
             $rootScope.users_link = true;
             $rootScope.tags_link = true;
@@ -448,8 +486,9 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
         };
 
-        $scope.logoutMe = function () {
 
+        $scope.logoutMe = function () {
+            $rootScope.show_footer = false;
             var logout = {
                 token: AuthenticationService.token
             };
@@ -461,7 +500,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
                     $rootScope.showNavBar = true;
                     CookieStore.clearData();
-                    showError('Success Logout', 2);
+                    showError($rootScope.lang.success_logout, 2);
                     $location.path("/login");
 
                 })
@@ -473,7 +512,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     console.log(status);
 
                     CookieStore.clearData();
-                    showError('Success Logout', 2);
+                    showError($rootScope.lang.success_logout, 2);
                     $location.path("/login");
 
                 });
@@ -536,9 +575,27 @@ app.controller('HomeController', ['$rootScope', '$scope',
 
 app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
-
+        var schoolDistrict = {};
+        var relationship = {};
+        $scope.schoolDistricts = [];
+        $scope.relationships = [];
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
+
+        $.each(schoolDistricts, function (key, value) {
+            schoolDistrict = {
+                "id": key,
+                "name": value
+            };
+            $scope.schoolDistricts.push(schoolDistrict);
+        });
+        $.each(relationships, function (key, value) {
+            relationship = {
+                "id": key,
+                "name": value
+            };
+            $scope.relationships.push(relationship);
+        });
 
         $scope.addStudent = function (student) {
             if (student) {
@@ -566,7 +623,9 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
+                            $rootScope.show_footer = false;
                             $location.path('/login');
                         }
 
@@ -603,6 +662,7 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -618,8 +678,27 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 
         $rootScope.full_screen = false;
         $scope.student = {};
+        var schoolDistrict = {};
+        var relationship = {};
+        $scope.schoolDistricts = [];
+        $scope.relationships = [];
 
         var student_id = $routeParams.student_id;
+
+        $.each(schoolDistricts, function (key, value) {
+            schoolDistrict = {
+                "id": key,
+                "name": value
+            };
+            $scope.schoolDistricts.push(schoolDistrict);
+        });
+        $.each(relationships, function (key, value) {
+            relationship = {
+                "id": key,
+                "name": value
+            };
+            $scope.relationships.push(relationship);
+        });
 
         $scope.editStudent = function (student) {
             if (student) {
@@ -647,6 +726,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -677,6 +757,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -689,13 +770,12 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 
 app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
-
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
         $scope.list_programs = [];
-        $scope.icon_legend = false;
-        $scope.open_button = true;
+        $scope.icon_legend = true;
+        $scope.open_button = false;
         $scope.close = function () {
             $scope.open_button = true;
             $scope.icon_legend = false;
@@ -705,12 +785,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             $scope.open_button = false;
         }
         var student_id = $routeParams.student_id;
-        var list_program = [];
-        var program_name = '';
-        var active_status = '';
-        var start_date = '';
-        var end_date = '';
-        var cohort = '';
+        var groupValue = "_INVALID_GROUP_VALUE_";
         $scope.sch_history = false;
         $scope.academic = true;
 
@@ -792,21 +867,66 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
         $scope.showSchoolHistory = function () {
             $scope.sch_history = true;
-            $scope.academic = false;
+
         };
 
         $scope.closeSchoolHistory = function () {
-            $scope.academic = true;
             $scope.sch_history = false;
 
+
         };
+
+        $scope.hideIcon = function (event) {
+
+            var li = $(event.target).parent()[0];
+            var attendance_header = $(li).parent()[0];
+            var attendance_detail = $(attendance_header).siblings()[0];
+
+            $(attendance_detail).removeClass('hide');
+            $(attendance_header).addClass('hide');
+
+            /*
+            var ul = $(event.target).parentsUntil('h4')[1];
+            var next = $(event.target).parentsUntil('h4');
+            var tgt = $(next).next()[0];
+            $(tgt).removeClass('hide');
+            var target = $(ul);
+            target.addClass('hide');
+            */
+        };
+        $scope.showIcon = function (event) {
+            /*
+            var ul = $(event.target).parentsUntil('h4')[4];
+            console.log(ul);
+            var header = $(ul).find('ul.attendance-behavior')[0];
+            console.log(header);
+            $(header).removeClass('hide');
+
+            var detail = $(ul).find('.attendance-detail')[0];
+            console.log(detail);
+            $(detail).addClass('hide');
+            */
+            var id = $(event.target).prop('id');
+            var attendance_legend = $(event.target).parent()[0];
+            var panel_body = $(attendance_legend).parent()[0];
+            var panel_collapse = $(panel_body).parent()[0];
+            var panel_heading = $($(panel_collapse).siblings(), id);
+            var h4 = $(panel_heading).children()[0];
+            var attendance_header = $(h4).children()[0];
+            var attendance_detail = $(h4).children()[1];
+            if ($(attendance_header).hasClass('hide')) {
+                $(attendance_header).removeClass('hide');
+            }
+
+            $(attendance_detail).addClass('hide');
+
+        }
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
             })
             .success(function (response) {
-
                 $.each(schoolDistricts, function (key, value) {
                     if (key == response.school_district) {
                         response.school_district = value;
@@ -814,54 +934,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 });
 
                 $scope.student = response;
-                /*
-				$scope.case_worker = response;
-                var temp_program = [];
-                var temp_single_program = '';
-                for(var i=0; i<response.programs.length; i++)
-                {
-                    temp_single_program = response.programs[i];
-                    var program_id = temp_single_program.program;
-                    if(program_id.toString().length > 0)
-                    {
-                        $http.get( api_url+AuthenticationService.organization_id+'/programs/'+program_id, {
-                            headers: {
-                                'Authorization': 'Bearer '+AuthenticationService.token
-                            }
-                        })
-                            .success(function(response_program) {
-								
-                                var cohort = temp_single_program.cohort;
-                                var temp = {
-                                    name: response_program.name,
-                                    active: temp_single_program.active,
-                                    participation_start_date: temp_single_program.participation_start_date,
-                                    participation_end_date: temp_single_program.participation_end_date,
-                                    cohort: cohort.join()
-                                };
 
-                                temp_program.push(temp);
-
-                            })
-                            .error(function(response, status) {
-
-                                console.log(response);
-                                console.log(status);
-                                showError(response, 1);
-                                $rootScope.doingResolve = false;
-                                if(status == 401)
-                                {
-                                    CookieStore.clearData();
-                                    $location.path( '/login' );
-                                }
-
-                            });
-                    }
-
-                   // $scope.programs = temp_program;
-
-                }
-				*/
                 $rootScope.doingResolve = false;
 
             })
@@ -872,59 +945,137 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
 
             });
-
-        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
-                headers: {
-                    'Authorization': 'Bearer ' + AuthenticationService.token
-                }
-            })
-            .success(function (response) {
-                $scope.case_workers = response._embedded.users;
-                if (typeof response.success !== 'undefined' && response.success == false) {
-                    console.log("fail to get");
-                } else {
-                    if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
-                        $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
-                        $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
+        var getXsre = function () {
+            $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
+                    headers: {
+                        'Authorization': 'Bearer ' + AuthenticationService.token
                     }
+                })
+                .success(function (response) {
+                    var embedUsers = {};
+                    var embedPrograms = [];
+                    $scope.attendanceBehavior = [];
+                    $scope.xsreLastUpdated = null;
+                    if (response.success != false) {
+                        $scope.case_workers = response._embedded.users;
+                        if (typeof response.success !== 'undefined' && response.success == false) {
+                            console.log("fail to get");
+                        } else {
+                            embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
+                            embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
 
-                    $scope.studentdetails = response;
-                }
-                angular.forEach(response._embedded.programs, function (v) {
+                            $scope.case_workers = response._embedded.users;
+                            if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
+                                $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
+                                $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
+                            }
 
-                    $scope.programs.push({
-                        name: v.program_name,
-                        active: v.active,
-                        participation_start_date: v.participation_start_date,
-                        participation_end_date: v.participation_end_date,
-                        cohort: v.cohort.join()
-                    });
+
+                            //$scope.attendanceBehavior = response.attendanceBehaviors;
+                            angular.forEach(response.attendanceBehaviors, function (behavior) {
+                                Object.keys(behavior).forEach(function (key) {
+                                    $scope.attendanceBehavior.push(behavior[key]);
+                                });
+                            });
+
+                            //console.log($scope.attendanceBehavior);
+
+                            $scope.xsreLastUpdated = response.lastUpdated;
+
+                            $scope.studentdetails = response;
+                        }
+                        angular.forEach(embedPrograms, function (v) {
+                            var program = {
+                                "years": new Date(v.participation_start_date).getFullYear(),
+                                "name": v.program_name,
+                                "start_date": v.participation_start_date,
+                                "end_date": new Date(v.participation_end_date) >= Date.now() ? 'Present' : v.participation_end_date,
+                                "active": v.active ? "Active" : "Inactive",
+                                "cohorts": v.cohort
+                            };
+                            $scope.programs.push(program);
+                        });
+                        $scope.programs.sort(function (a, b) {
+                            if (a['years'] >= b['years']) {
+                                return (-1);
+                            }
+                            return (1);
+                        });
+
+
+
+                        for (var i = 0; i < $scope.programs.length; i++) {
+                            var program = $scope.programs[i];
+                            // Should we create a new group?
+                            if (program['years'] !== groupValue) {
+                                var group = {
+                                    years: program['years'],
+                                    programs: []
+                                };
+                                groupValue = group.years;
+                                $scope.list_programs.push(group);
+                            }
+
+                            group.programs.push(program);
+                        }
+
+                    } else {
+                        showError(response.error, 1);
+                    }
+                    $rootScope.doingResolve = false;
+                })
+                .error(function (response, status) {
+
+                    console.log(response);
+                    console.log(status);
+                    showError(response, 1);
+                    $rootScope.doingResolve = false;
+                    if (status == 401) {
+                        $rootScope.show_footer = false;
+                        CookieStore.clearData();
+                        $location.path('/login');
+                    }
 
                 });
-                $rootScope.doingResolve = false;
-                console.log($scope.programs);
-            })
-            .error(function (response, status) {
+        };
 
-                console.log(response);
-                console.log(status);
-                showError(response, 1);
-                $rootScope.doingResolve = false;
-                if (status == 401) {
-                    CookieStore.clearData();
-                    $location.path('/login');
-                }
+        getXsre();
 
-            });
+        /**
+         * Update Now, remove cache and reload the page content
+         */
+        $scope.updateNow = function () {
+            $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
+                    headers: {
+                        'Authorization': 'Bearer ' + AuthenticationService.token
+                    }
+                })
+                .success(function (response) {
+                    getXsre();
+                    console.log(response);
+                })
+                .error(function (response, status) {
 
+                    console.log(response);
+                    console.log(status);
+                    showError(response, 1);
+                    $rootScope.doingResolve = false;
+                    if (status == 401) {
+                        $rootScope.show_footer = false;
+                        CookieStore.clearData();
+                        $location.path('/login');
+                    }
 
-    }
-]).filter('flattenRows', function () {
+                });
+        };
+
+}]).filter('flattenRows', function () {
     return function (transcriptTerm) {
         var flatten = [];
         var subrows = "";
@@ -954,7 +1105,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
 
 
                 $scope.working = true;
-                $http.put(api_url + 'user/myaccount/', $.param(user), {
+                $http.put(api_url + 'user', $.param(user), {
                         headers: {
                             'Authorization': 'Bearer ' + AuthenticationService.token
                         }
@@ -987,6 +1138,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -994,7 +1146,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
                     });
             }
         };
-        $http.get(api_url + 'user/myaccount/', {
+        $http.get(api_url + 'user', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
@@ -1012,6 +1164,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1034,7 +1187,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
             $rootScope.editable = true;
         };
 
-        $http.get(api_url + 'user/myaccount/', {
+        $http.get(api_url + 'user/', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
@@ -1051,6 +1204,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1062,7 +1216,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                 $scope.working = true;
                 if (data.password != data.retype_password) {
 
-                    showError("Password did not match", 1);
+                    showError($rootScope.lang.password_not_match, 1);
                     $scope.working = false;
                 } else {
                     var user = {
@@ -1076,7 +1230,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                     $scope.working = true;
                     //$http.put( api_url+AuthenticationService.organization_id+'/users/'+AuthenticationService.user_id, $.param(user), {
 
-                    $http.put(api_url + 'user/myaccount/', $.param(user), {
+                    $http.put(api_url + 'user/', $.param(user), {
                             headers: {
                                 'Authorization': 'Bearer ' + AuthenticationService.token
                             }
@@ -1112,6 +1266,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                             showError(response, 1);
                             $scope.working = false;
                             if (status == 401) {
+                                $rootScope.show_footer = false;
                                 CookieStore.clearData();
                                 $location.path('/login');
                             }
@@ -1164,6 +1319,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1190,6 +1346,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1224,6 +1381,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1252,6 +1410,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1288,6 +1447,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1329,6 +1489,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                             showError(response, 1);
                             $rootScope.doingResolve = false;
                             if (status == 401) {
+                                $rootScope.show_footer = false;
                                 CookieStore.clearData();
                                 $location.path('/login');
                             }
@@ -1348,6 +1509,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1385,6 +1547,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1445,6 +1608,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                         showError(responseTag, 1);
                         $rootScope.doingResolve = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1461,6 +1625,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1490,6 +1655,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1528,6 +1694,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1542,7 +1709,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 }
             })
             .success(function (response) {
-                console.log(response.data);
+
                 if (response.success == true && response.total > 0) {
                     angular.forEach(response.data, function (v) {
                         $.each(schoolDistricts, function (key, value) {
@@ -1567,6 +1734,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1612,6 +1780,7 @@ app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$locat
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1660,6 +1829,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1690,6 +1860,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1716,6 +1887,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1757,6 +1929,7 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1783,6 +1956,7 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1819,6 +1993,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1853,6 +2028,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1872,9 +2048,9 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                     showError(response.error.message, 1);
                 }
                 $rootScope.doingResolve = false;
-                $scope.program = {
+                $scope.program ? $scope.program.active = true : $scope.program = {
                     active: true
-                }
+                };
             })
             .error(function (response, status) {
 
@@ -1883,6 +2059,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -1922,6 +2099,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -1962,6 +2140,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2012,6 +2191,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2042,6 +2222,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2083,6 +2264,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2113,6 +2295,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2133,7 +2316,10 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
             role: 'case-worker'
         };
 
+
         $scope.inviteUser = function (user) {
+            user.is_special_case_worker = !user.is_special_case_worker;
+
             if (user) {
                 user.redirect_url = AuthenticationService.redirect_url;
 
@@ -2161,6 +2347,7 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2212,6 +2399,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                             showError(response, 1);
                             $scope.working = false;
                             if (status == 401) {
+                                $rootScope.show_footer = false;
                                 CookieStore.clearData();
                                 $location.path('/login');
                             }
@@ -2240,6 +2428,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                             showError(response, 1);
                             $scope.working = false;
                             if (status == 401) {
+                                $rootScope.show_footer = false;
                                 CookieStore.clearData();
                                 $location.path('/login');
                             }
@@ -2267,6 +2456,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2295,6 +2485,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2333,6 +2524,7 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
                     showError(response, 1);
                     $scope.working = false;
                     if (status == 401) {
+                        $rootScope.show_footer = false;
                         CookieStore.clearData();
                         $location.path('/login');
                     }
@@ -2358,6 +2550,7 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2386,6 +2579,7 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2431,6 +2625,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2461,6 +2656,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                     showError(response, 1);
                     $scope.working = false;
                     if (status == 401) {
+                        $rootScope.show_footer = false;
                         CookieStore.clearData();
                         $location.path('/login');
                     }
@@ -2473,7 +2669,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
             userId: user_id
         }
 
-        $http.post(api_url + AuthenticationService.organization_id + '/students/not-assign/', $.param(user), {
+        $http.post(api_url + AuthenticationService.organization_id + '/students?unassigned=true', $.param(user), {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
@@ -2491,6 +2687,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2515,6 +2712,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2543,7 +2741,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                 if (user.is_special_case_worker == true)
                     user.is_special_case_worker2 = false;
                 else
-                    user.is_special_case_worker2 = true
+                    user.is_special_case_worker2 = true;
 
 
                 var passing_data = {
@@ -2551,7 +2749,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                     is_special_case_worker: user.is_special_case_worker2
                 };
 
-                $http.put(api_url + 'user/role/' + user_id, $.param(passing_data), {
+                $http.put(api_url + AuthenticationService.organization_id + '/users/' + user_id, $.param(passing_data), {
                         headers: {
                             'Authorization': 'Bearer ' + AuthenticationService.token
                         }
@@ -2574,6 +2772,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2589,24 +2788,27 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
             })
             .success(function (response) {
 
-                var set_role = '';
-                var is_special_case_worker = '';
+                var set_role = response.role;
+                var is_special_case_worker = (response.is_special_case_worker === true) ? false : true;
 
-                if (response.permissions.length > 0) {
-                    for (var j = 0; j < response.permissions.length; j++) {
-                        if (response.permissions[j].organization == AuthenticationService.organization_id) {
-                            set_role = response.permissions[j].role;
-                            if (response.permissions[j].is_special_case_worker == true)
-                                is_special_case_worker = false;
-                            else
-                                is_special_case_worker = true;
-                        }
-                    }
-                }
+                //if (response.permissions.length > 0) {
+                //    for (var j = 0; j < response.permissions.length; j++) {
+                //        if (response.permissions[j].organization == AuthenticationService.organization_id) {
+                //            set_role = response.permissions[j].role;
+                //            if (response.permissions[j].is_special_case_worker == true)
+                //                is_special_case_worker = false;
+                //            else
+                //                is_special_case_worker = true;
+                //        }
+                //    }
+                //}
 
                 $scope.user = {
                     role: set_role,
-                    is_special_case_worker: is_special_case_worker
+                    is_special_case_worker: is_special_case_worker,
+                    first_name: response.first_name,
+                    last_name: response.last_name,
+                    full_name: response.full_name
                 };
                 $rootScope.doingResolve = false;
 
@@ -2618,6 +2820,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2654,6 +2857,7 @@ app.controller('UserDetailController', ['$rootScope', '$scope', '$routeParams', 
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2672,7 +2876,7 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
             if (AuthenticationService.user_id == id) {
                 showError('Cannot Remove your own data', 1);
             } else if (AuthenticationService.role == 'case-worker') {
-                showError("You don't have any permission to access this page", 1);
+                showError($rootScope.lang.you_dont_have_any_permission_page, 1);
             } else if (id) {
                 $scope.working = true;
                 $http.delete(api_url + AuthenticationService.organization_id + '/users/' + id, {
@@ -2693,6 +2897,7 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2723,6 +2928,7 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -2777,6 +2983,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
         }
 
         $scope.loginMe = function (username, password, remmember) {
+
             $scope.login.working = true;
 
             var auth = base64_encode(globalConfig.client_id + ':' + globalConfig.client_secret);
@@ -2796,7 +3003,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                 })
                 .success(function (response) {
 
-                    console.log(response);
 
                     $http.get(api_url + 'organizations', {
                             headers: {
@@ -2804,20 +3010,24 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                             }
                         })
                         .success(function (responseClient) {
-
+                            $rootScope.show_footer = true;
                             var get_hosting_name = $location.host();
                             var grand_access = false;
                             var get_id = false;
                             var get_redirect_url = false;
+                            var organization_name = '';
+
 
                             if (responseClient.success == true && responseClient.total > 0) {
+                                $rootScope.organization_name = responseClient.data.name;
                                 for (var i = 0; i < responseClient.total; i++) {
-                                    if (get_hosting_name == responseClient.data[i].url) {
+                                    if (__i || get_hosting_name === responseClient.data[i].url) {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
                                         var myEl = angular.element(document.querySelector('body'));
                                         myEl.addClass('cbp-spmenu-push');
+                                        organization_name = responseClient.data[i].name;
                                     }
                                 }
                             }
@@ -2829,7 +3039,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                         }
                                     })
                                     .success(function (responseUser) {
-
                                         if (responseUser.success == true && responseUser.total > 0) {
                                             var find = false;
                                             var data = responseUser.data;
@@ -2846,13 +3055,15 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                                         complete_name += data[i].last_name;
                                                     }
 
-                                                    if (data[i].permissions.length > 0) {
-                                                        for (var j = 0; j < data[i].permissions.length; j++) {
-                                                            if (data[i].permissions[j].organization == get_id) {
-                                                                role = data[i].permissions[j].role;
-                                                            }
-                                                        }
-                                                    }
+                                                    //if (data[i].permissions.length > 0) {
+                                                    //    for (var j = 0; j < data[i].permissions.length; j++) {
+                                                    //        if (data[i].permissions[j].organization == get_id) {
+                                                    //            role = data[i].permissions[j].role;
+                                                    //        }
+                                                    //    }
+                                                    //}
+                                                    role = data[i].role;
+
                                                     if (role == 'admin') {
                                                         $rootScope.users_link = true;
                                                         $rootScope.tags_link = true;
@@ -2865,7 +3076,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                                 }
                                             }
                                             if (find) {
-                                                CookieStore.setData(response.access_token, response.refresh_token, get_id, get_redirect_url, id, send.username, complete_name, role);
+                                                CookieStore.setData(response.access_token, response.refresh_token, get_id, get_redirect_url, id, send.username, complete_name, role, organization_name);
                                                 global_redirect_url = get_redirect_url;
 
                                                 if (typeof remmember !== 'undefined' && remmember == true) {
@@ -2873,7 +3084,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                                 } else {
                                                     CookieStore.put_remember(false);
                                                 }
-
 
 
                                             }
@@ -2893,7 +3103,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                     });
 
                             } else {
-                                showError("You don't have any permission to access this page", 1);
+                                showError($rootScope.lang.you_dont_have_any_permission_page, 1);
                                 $scope.login.working = false;
                             }
 
@@ -2942,6 +3152,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -2982,6 +3193,7 @@ app.controller('TagController', ['$rootScope', '$scope', '$http', '$location', '
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -3012,6 +3224,7 @@ app.controller('TagController', ['$rootScope', '$scope', '$http', '$location', '
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -3055,6 +3268,7 @@ app.controller('TagAddController', ['$rootScope', '$scope', '$http', '$location'
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -3097,6 +3311,7 @@ app.controller('TagEditController', ['$rootScope', '$scope', '$routeParams', '$h
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
+                            $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
                         }
@@ -3123,6 +3338,7 @@ app.controller('TagEditController', ['$rootScope', '$scope', '$routeParams', '$h
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
+                    $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
                 }
@@ -3282,7 +3498,7 @@ app.directive('resize', function ($window) {
             scope.windowWidth = newValue.w;
             if (w.innerWidth < 767) {
                 $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
-                $rootScope.data_content = "asset/templates/desktop.html";
+                $rootScope.data_content = "asset/templates/mobile.html";
 
             } else if (w.innerWidth > 767) {
                 $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
@@ -3296,6 +3512,36 @@ app.directive('resize', function ($window) {
         });
     }
 })
+
+app.factory('myGoogleAnalytics', [
+    '$rootScope', '$window', '$location',
+    function ($rootScope, $window, $location) {
+
+            var myGoogleAnalytics = {};
+
+            /**
+             * Set the page to the current location path
+             * and then send a pageview to log path change.
+             */
+            myGoogleAnalytics.sendPageview = function () {
+                if ($window.ga) {
+                    $window.ga('set', 'page', $location.path());
+                    $window.ga('send', 'pageview');
+                }
+            }
+
+            // subscribe to events
+            $rootScope.$on('$viewContentLoaded', myGoogleAnalytics.sendPageview);
+
+            return myGoogleAnalytics;
+    }
+  ])
+    .run([
+    'myGoogleAnalytics',
+    function (myGoogleAnalytics) {
+            // inject self
+    }
+  ]);
 
 app.directive('datepicker', function () {
 
