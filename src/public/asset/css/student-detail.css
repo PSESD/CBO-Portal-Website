@@ -1,3 +1,7 @@
+.no-data {
+    margin: 0;
+    padding: 25px;
+}
 .panel-body.attendance-behavior {
     border-top: none!important;
 }

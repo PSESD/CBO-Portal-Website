@@ -161,7 +161,11 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
-                    <ul class="flexbox attendance-behavior">
+                    <ul class="no-data {{list_programs != '' ? 'hide' : ''}}">
+                        <li class="text-center"> This Student is not linked yet to school data</li>
+                    </ul>
+
+                    <ul class="flexbox attendance-behavior {{list_programs != '' ? '' : 'hide'}}">
                         <li>{{ 'general.attendance_dates' | i18n | uppercase }}</li>
                         <li>
                             <div class="col-separator"></div>
@@ -177,6 +181,7 @@
 
                         </li>
                     </ul>
+
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                         <div class="panel attendance-behavior" ng-if="attendanceBehavior" ng-repeat="(indexBehavior, behavior) in attendanceBehavior">
                             <div class="panel-heading attendance-behavior" role="tab" id='heading_{{ indexBehavior+1 }}'>
@@ -390,6 +395,9 @@
 
                 <div role="tabpanel" class="tab-pane" id="program_participation" data-id="program_participation_data">
 
+                    <ul class="no-data {{list_programs != '' ? 'hide' : ''}}">
+                        <li class="text-center"> This Student haven't participated in any program yet</li>
+                    </ul>
                     <ul class="student-program-participation">
                         <li ng-repeat="program in list_programs">
                             <div class="program_date">
