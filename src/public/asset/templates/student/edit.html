@@ -120,15 +120,15 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="relationship_emergency1">{{ 'general.relationship' | i18n }}:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" ng-model="student.emergency2_relationship" id="relationship_emergency1">
+                                        <select class="add-select-student" name="repeatSelect" ng-model="student.emergency2_relationship">
+                                            <option ng-repeat="option in relationships" value="{{option.id}}">{{option.name}}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="email_emergency2">{{ 'general.email' | i18n }} :</label>
                                     <div class="col-sm-9">
-                                        <select class="add-select-student" name="repeatSelect" ng-model="student.emergency2_relationship">
-                                            <option ng-repeat="option in relationships" value="{{option.id}}">{{option.name}}</option>
-                                        </select>
+                                        <input type="text" class="form-control" ng-model="student.emergency2_email" id="name">
                                     </div>
                                 </div>
                                 <div class="form-group">
