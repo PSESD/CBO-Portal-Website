@@ -25,7 +25,7 @@ var relationships = {
     'brother': 'Brother',
     'sister': 'Sister'
 };
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
