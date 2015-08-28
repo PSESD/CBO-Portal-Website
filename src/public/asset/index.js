@@ -10,7 +10,7 @@
 //    grant_type: 'password'
 //};
 
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
@@ -965,8 +965,72 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                             //$scope.attendanceBehavior = response.attendanceBehaviors;
                             angular.forEach(response.attendanceBehaviors, function (behavior) {
                                 Object.keys(behavior).forEach(function (key) {
+                                    var columnHtml = {};
+                                    angular.forEach(behavior[key].detailColumns, function(column, i){
+
+                                        if(i !== 'periods' && i !== 'weeklyChange') {
+                                            var xhtml = [];
+                                            var x = 1;
+                                            var cls = '';
+                                            var html = "";
+                                            angular.forEach(column, function (item, n) {
+                                                if (n > 0) {
+                                                    cls = (x % 2 === 0) ? ' light': '';
+                                                    x++;
+                                                    html = '<div class="grid-item'+cls+'"></div>';
+                                                    if (typeof item === 'object' && item.event !== null) {
+                                                        html = '<div class="grid-item '+item.slug+cls+'">';
+                                                        html += '<div class="descriptor">';
+                                                        html += '<div class="descriptor-title '+item.slug+'-font-color">';
+                                                        html += item.slug.toUpperCase();
+                                                        html += '</div>';
+                                                        html += "<div>";
+                                                        html += item.event.calendarEventDate;
+                                                        html += '<br> '+item.event.attendanceStatusTitle;
+                                                        html += '</div>';
+                                                        html += '</div>';
+                                                        html += '</div>';
+                                                    } else {
+
+                                                    }
+                                                    xhtml.push(html);
+                                                }
+                                            });
+                                            html = '<div class="grid-item"></div>';
+                                            html += '<div class="grid-item">';
+                                            var items = behavior[key].behaviors[i];
+                                            if(items.length > 0){
+                                                html = '<div class="grid-item"></div>';
+                                                html += '<div class="grid-item unexcused">';
+                                                html += '<div class="descriptor">';
+                                                angular.forEach(items, function(item, i){
+
+                                                    if (typeof item === 'object') {
+                                                        if(typeof item.incidentCategoryTitle !== 'undefined' && item.incidentCategoryTitle !== "") {
+                                                            html += '<div class="descriptor-title unexcused-font-color">';
+                                                            html += item.incidentCategoryTitle.toUpperCase();
+                                                            html += '</div>';
+                                                        }
+                                                        html += '<div>';
+                                                        html += item.incidentDate;
+                                                        html += '<br> ' + item.description;
+                                                        html += '</div>';
+                                                    }
+                                                });
+
+                                                html += '</div>';
+                                                html += '</div>';
+                                            }
+                                            html += '</div>';
+                                            xhtml.push(html);
+                                            columnHtml[i] = xhtml.join("\n");
+                                        }
+                                    });
+                                    behavior[key].columnHtml = columnHtml;
+
                                     $scope.attendanceBehavior.push(behavior[key]);
                                 });
+                                //console.log($scope.attendanceBehavior);
                             });
 
                             //console.log($scope.attendanceBehavior);

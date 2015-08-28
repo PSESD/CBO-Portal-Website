@@ -239,149 +239,16 @@
                                     </div>
                                     <div class="attendance-content">
                                         <hr class="attendance-separator">
-                                        <div class="monday">
-                                            <div ng-repeat="item in behavior.detailColumns.M track by $index">
-                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
-                                                    <div class="descriptor">
-                                                        <div class="descriptor-title {{ item.slug }}-font-color">
-                                                            {{ (item.slug ? item.slug : item.value) | uppercase }}
-                                                        </div>
-                                                        {{ item.event.calendarEventDate }}
-                                                        <!--<br> Algebra-->
-                                                        <!--<br>-->
-                                                        <br> {{ item.event.attendanceStatusTitle }}
-                                                    </div>
-                                                </div>
-                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
-                                                    <div class="descriptor">
-                                                        <div class="descriptor-title">
-                                                            {{ item | uppercase }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="grid-item unexcused" ng-if="behavior.behaviors.M.length > 0">
-                                                <div class="descriptor-title" ng-repeat='detail_behavior in behavior.behaviors.M'>
-                                                    {{ detail_behavior }}
-                                                </div>
-                                            </div>
-
+                                        <div class="monday" ng-bind-html="behavior.columnHtml.M">
                                         </div>
-                                        <div class="tuesday">
-                                            <div ng-repeat="item in behavior.detailColumns.T track by $index">
-                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
-                                                    <div class="descriptor">
-                                                        <div class="descriptor-title {{ item.slug }}-font-color">
-                                                            {{ item.slug | uppercase }}
-                                                        </div>
-                                                        {{ item.event.calendarEventDate }}
-                                                        <!--<br> Algebra-->
-                                                        <!--<br>-->
-                                                        <br> {{ item.event.attendanceStatusTitle }}
-                                                    </div>
-                                                </div>
-                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
-                                                    <div class="descriptor">
-                                                        <div class="descriptor-title">
-                                                            {{ item | uppercase }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="grid-item unexcused" ng-if="behavior.behaviors.T.length > 0">
-                                                <div class="descriptor-title" ng-repeat='detail_behavior in behavior.behaviors.T'>
-                                                    {{ detail_behavior }}
-                                                </div>
-                                            </div>
-
+                                        <div class="tuesday" ng-bind-html="behavior.columnHtml.T">
                                         </div>
-                                        <div class="wednesday">
-                                            <div ng-repeat="item in behavior.detailColumns.W track by $index">
-                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
-                                                    <div class="descriptor">
-                                                        <div class="descriptor-title {{ item.slug }}-font-color">
-                                                            {{ item.slug | uppercase }}
-                                                        </div>
-                                                        {{ item.event.calendarEventDate }}
-                                                        <!--<br> Algebra-->
-                                                        <!--<br>-->
-                                                        <br> {{ item.event.attendanceStatusTitle }}
-                                                    </div>
-                                                </div>
-                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
-                                                    <div class="descriptor">
-                                                        <div class="descriptor-title">
-                                                            {{ item | uppercase }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="grid-item unexcused" ng-if="behavior.behaviors.W.length > 0">
-                                                <div class="descriptor-title" ng-repeat='detail_behavior in behavior.behaviors.W'>
-                                                    {{ detail_behavior }}
-                                                </div>
-                                            </div>
+                                        <div class="wednesday" ng-bind-html="behavior.columnHtml.W">
                                         </div>
-                                        <div class="thursday">
-                                            <div ng-repeat="item in behavior.detailColumns.TH track by $index">
-                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
-                                                    <div class="descriptor">
-                                                        <div class="descriptor-title {{ item.slug }}-font-color">
-                                                            {{ item.slug | uppercase }}
-                                                        </div>
-                                                        {{ item.event.calendarEventDate }}
-                                                        <!--<br> Algebra-->
-                                                        <!--<br>-->
-                                                        <br> {{ item.event.attendanceStatusTitle }}
-                                                    </div>
-                                                </div>
-                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
-                                                    <div class="descriptor">
-                                                        <div class="descriptor-title">
-                                                            {{ item | uppercase }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="grid-item unexcused" ng-if="behavior.behaviors.TH.length > 0">
-                                                <div class="descriptor-title" ng-repeat='detail_behavior in behavior.behaviors.TH'>
-                                                    {{ detail_behavior }}
-                                                </div>
-                                            </div>
-
+                                        <div class="thursday" ng-bind-html="behavior.columnHtml.TH">
                                         </div>
-                                        <div class="friday">
-                                            <div ng-repeat="item in behavior.detailColumns.F track by $index">
-                                                <div ng-if="item !== 'N/A' && $index > 0" class="grid-item {{ item.slug }}">
-                                                    <div class="descriptor">
-                                                        <div class="descriptor-title {{ item.slug }}-font-color">
-                                                            {{ item.slug | uppercase }}
-                                                        </div>
-                                                        {{ item.event.calendarEventDate }}
-                                                        <!--<br> Algebra-->
-                                                        <!--<br>-->
-                                                        <br> {{ item.event.attendanceStatusTitle }}
-                                                    </div>
-                                                </div>
-                                                <div ng-if="item === 'N/A' && $index > 0" class="grid-item">
-                                                    <div class="descriptor">
-                                                        <div class="descriptor-title">
-                                                            {{ item | uppercase }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="grid-item unexcused" ng-if="behavior.behaviors.F.length > 0">
-                                                <div class="descriptor" ng-repeat='detail_behavior in behavior.behaviors.F'>
-                                                    <div class="descriptor-title unexcused-font-color">
-                                                        Detention
-                                                    </div>
-                                                    {{ detail_behavior }}
-                                                </div>
-                                            </div>
-
+                                        <div class="friday" ng-bind-html="behavior.columnHtml.F">
                                         </div>
-
                                     </div>
                                     <div class="attendance-legend">
                                         <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n | uppercase }}</a>
