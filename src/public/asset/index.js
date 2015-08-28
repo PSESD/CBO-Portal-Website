@@ -977,7 +977,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                                                 if (n > 0) {
                                                     cls = (x % 2 === 0) ? ' light': '';
                                                     x++;
-                                                    html = '<div class="grid-item'+cls+'"></div>';
+                                                    html = '<div class="grid-item n_a '+cls+'"></div>';
                                                     if (typeof item === 'object' && item.event !== null) {
                                                         html = '<div class="grid-item '+item.slug+cls+'">';
                                                         html += '<div class="descriptor">';

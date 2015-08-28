@@ -197,6 +197,9 @@ hr.attendance-separator {
 .excused {
     background-color: #2F9DBB;
 }
+.n_a {
+    background-color: #efefef;
+}
 .late {
     background-color: #4E73A7;
 }
