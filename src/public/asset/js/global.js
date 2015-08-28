@@ -1,13 +1,9 @@
 $(document).ready(function () {
 
-
-
-    window.intercomSettings = {
-        app_id: "m9w2ywgr"
-    };
-
     if (typeof env !== 'undefined' && env == 'production') {
-
+        window.intercomSettings = {
+            app_id: intercom_id
+        };
         (function () {
             var w = window;
             var ic = w.Intercom;
@@ -33,7 +29,6 @@ $(document).ready(function () {
                     s.src = 'https://widget.intercom.io/widget/m9w2ywgr';
                     var x = d.getElementsByTagName('script')[0];
                     x.parentNode.insertBefore(s, x);
-                    console.log(x);
                 }
                 if (w.attachEvent) {
                     w.attachEvent('onload', l);
