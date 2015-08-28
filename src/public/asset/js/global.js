@@ -3,7 +3,7 @@ $(document).ready(function () {
 
 
     window.intercomSettings = {
-        app_id: "m9w2ywgr"
+        app_id: "bfu4q2i7"
     };
 
     if (typeof env !== 'undefined' && env == 'production') {
@@ -33,7 +33,6 @@ $(document).ready(function () {
                     s.src = 'https://widget.intercom.io/widget/m9w2ywgr';
                     var x = d.getElementsByTagName('script')[0];
                     x.parentNode.insertBefore(s, x);
-                    console.log(x);
                 }
                 if (w.attachEvent) {
                     w.attachEvent('onload', l);

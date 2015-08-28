@@ -162,7 +162,7 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
                     <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}">
-                        <li class="text-center"> This Student is not linked yet to school data</li>
+                        <li class="text-center">{{ 'general.attendance_and_behavior_error_message' | i18n}}</li>
                     </ul>
 
                     <ul class="flexbox attendance-behavior {{list_programs != '' ? '' : 'hide'}}">
@@ -420,7 +420,7 @@
                 <div role="tabpanel" class="tab-pane" id="program_participation" data-id="program_participation_data">
 
                     <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}">
-                        <li class="text-center"> This Student haven't participated in any program yet</li>
+                        <li class="text-center">{{ 'general.program_participation_error_message' | i18n }}</li>
                     </ul>
                     <ul class="student-program-participation">
                         <li ng-repeat="program in list_programs">
