@@ -997,10 +997,9 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                                                 }
                                             });
                                             html = '<div class="grid-item"></div>';
-                                            html += '<div class="grid-item">';
+
                                             var items = behavior[key].behaviors[i];
                                             if(items.length > 0){
-                                                html = '<div class="grid-item"></div>';
                                                 html += '<div class="grid-item unexcused">';
                                                 html += '<div class="descriptor">';
                                                 angular.forEach(items, function(item, i){
@@ -1020,8 +1019,9 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
                                                 html += '</div>';
                                                 html += '</div>';
+                                            } else {
+                                                html += '<div class="grid-item n_a"></div>';
                                             }
-                                            html += '</div>';
                                             xhtml.push(html);
                                             columnHtml[i] = xhtml.join("\n");
                                         }
