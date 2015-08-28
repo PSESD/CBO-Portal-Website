@@ -23,8 +23,8 @@
                 <div class="col-md-6 data-content">
                     <div class="row col-md-4">
                         <div class="title">
-                            <p class="subhead">{{ 'general.personal' | i18n | uppercase }}
-                                <br>{{ 'general.info' | i18n | uppercase }}</p>
+                            <p class="subhead uppercase">{{ 'general.personal' | i18n }}
+                                <br class="uppercase">{{ 'general.info' | i18n }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -37,8 +37,8 @@
                             <b>{{ 'general.gender' | i18n }}</b> {{studentdetails.demographics.sex}}
                         </div>
                         <div class="title">
-                            <p class="subhead personal">{{ 'general.personal' | i18n | uppercase }}
-                                <br>{{ 'general.contact' | i18n | uppercase }}</p>
+                            <p class="subhead personal uppercase">{{ 'general.personal' | i18n }}
+                                <br class="uppercase">{{ 'general.contact' | i18n }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -49,8 +49,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="title">
-                            <p class="subhead">{{ 'general.personal' | i18n | uppercase }}
-                                <br>{{ 'general.contacts' | i18n | uppercase }}</p>
+                            <p class="subhead uppercase">{{ 'general.personal' | i18n }}
+                                <br>{{ 'general.contacts' | i18n}}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -89,8 +89,8 @@
                     <div>
                         <div class="row col-md-6">
                             <div class="title">
-                                <p class="subhead">{{ 'general.academic' | i18n | uppercase }}
-                                    <br>{{ 'general.info' | i18n | uppercase }}</p>
+                                <p class="subhead uppercase">{{ 'general.academic' | i18n}}
+                                    <br class="uppercase">{{ 'general.info' | i18n }}</p>
                                 <hr>
                             </div>
                             <div class="content bottom-space">
@@ -98,24 +98,29 @@
                                 <br/>
                                 <b>{{ 'general.expected_graduation_year' | i18n }}</b> {{studentdetails.transcriptTerm.schoolYear}}
                                 <br/>
-                                <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.n_a' | i18n | uppercase }}
+                                <b>{{ 'general.grade_level' | i18n }}</b>
+                                <div class="uppercase inline-block">{{'general.n_a' | i18n}}</div>
                                 <br/>
                             </div>
                             <div class="content top-space">
-                                <b>{{ 'general.language_spoken_at_home' | i18n }}</b> {{ 'general.n_a' | i18n | uppercase }}
+                                <b>{{ 'general.language_spoken_at_home' | i18n }}</b>
+                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n }}</div>
                                 <br/>
-                                <b>IEP</b> {{ 'general.n_a' | i18n | uppercase }}
+                                <b>IEP</b>
+                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n}}</div>
                                 <br/>
-                                <b>S504</b> {{ 'general.n_a' | i18n | uppercase }}
+                                <b>S504</b>
+                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n}}</div>
                                 <br/>
-                                <b>{{ 'general.free_or_reduced_lunch' | i18n }}</b> {{ 'general.n_a' | i18n | uppercase }}
+                                <b>{{ 'general.free_or_reduced_lunch' | i18n }}</b>
+                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n}}</div>
                                 <br/>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="title">
-                                <p class="subhead">{{ 'general.current_courses' | i18n | uppercase }}
+                                <p class="subhead uppercase">{{ 'general.current_courses' | i18n }}
                                     <br><b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
                                 <hr>
                             </div>
@@ -153,9 +158,9 @@
         <div class="col-md-12">
 
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li class="active"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior">{{ 'general.attendance_and_behavior' | i18n | uppercase }}</a></li>
-                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript">{{ 'general.transcript' | i18n | uppercase }}</a></li>
-                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation">{{ 'general.program_participation' | i18n | uppercase }}</a></li>
+                <li class="active"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior" class="uppercase">{{ 'general.attendance_and_behavior' | i18n }}</a></li>
+                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" class="uppercase">{{ 'general.transcript' | i18n}}</a></li>
+                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation" class="uppercase">{{ 'general.program_participation' | i18n }}</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -166,18 +171,18 @@
                     </ul>
 
                     <ul class="flexbox attendance-behavior {{list_programs != '' ? '' : 'hide'}}">
-                        <li>{{ 'general.attendance_dates' | i18n | uppercase }}</li>
+                        <li class="uppercase">{{ 'general.attendance_dates' | i18n }}</li>
                         <li>
                             <div class="col-separator"></div>
-                            {{ 'general.LM' | i18n | uppercase }}
+                            <div class="uppercase inline-block">{{ 'general.LM' | i18n }}</div>
                         </li>
-                        <li>{{ 'general.LT' | i18n | uppercase }}</li>
-                        <li>{{ 'general.LW' | i18n | uppercase }}</li>
-                        <li>{{ 'general.TH' | i18n | uppercase }}</li>
-                        <li>{{ 'general.LF' | i18n | uppercase }}</li>
-                        <li>
+                        <li class="uppercase">{{ 'general.LT' | i18n }}</li>
+                        <li class="uppercase">{{ 'general.LW' | i18n }}</li>
+                        <li class="uppercase">{{ 'general.TH' | i18n }}</li>
+                        <li class="uppercase">{{ 'general.LF' | i18n }}</li>
+                        <li class="uppercase">
                             <div class="col-separator"></div>
-                            {{ 'general.delta_change' | i18n | uppercase }}
+                            <div class="uppercase inline-block">{{ 'general.delta_change' | i18n}}</div>
 
                         </li>
                     </ul>
@@ -231,10 +236,10 @@
                             <div id="collapse_{{ indexBehavior+1 }}" class="panel-collapse collapse{{indexBehavior == 0 ? ' in' : '' }}" role="tabpanel" aria-labelledby="heading_{{ indexBehavior+1 }}">
                                 <div class="panel-body attendance-behavior">
                                     <div class="period-col">
-                                        <ul class="period-col menu" ng-repeat="period in behavior.detailColumns.periods track by $index">
-                                            <li ng-if="$index > 0">{{ period }}</li>
-                                            <li ng-if="$last">&nbsp;</li>
-                                            <li ng-if="$last">{{ 'general.behavior' | i18n | uppercase }}</li>
+                                        <ul class="period-col menu">
+                                            <li ng-if="$index > 0" ng-repeat="period in behavior.detailColumns.periods track by $index">{{period}}</li>
+                                            <li>&nbsp;</li>
+                                            <li class="uppercase">{{ 'general.behavior' | i18n}}</li>
                                         </ul>
                                     </div>
                                     <div class="attendance-content">
@@ -249,22 +254,23 @@
                                         </div>
                                         <div class="friday" ng-bind-html="behavior.columnHtml.F">
                                         </div>
+
                                     </div>
                                     <div class="attendance-legend">
-                                        <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n | uppercase }}</a>
+                                        <a ng-click="open()" class="button btn-legend open_button uppercase" ng-show="open_button">{{ 'general.legend' | i18n }}</a>
                                         <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right" data-id='1'></a>
                                         <div class="panel legend-list" ng-show="icon_legend">
                                             <!-- Default panel contents -->
-                                            <div class="panel-heading">
-                                                {{ 'general.legend' | i18n | uppercase }}
+                                            <div class="panel-heading uppercase">
+                                                {{ 'general.legend' | i18n }}
                                                 <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
                                             </div>
                                             <ul class="list-group legend-list">
-                                                <li class="list-group-item present">{{ 'general.present' | i18n | uppercase }}</li>
-                                                <li class="list-group-item excused">{{ 'general.excused' | i18n | uppercase }}</li>
-                                                <li class="list-group-item late">{{ 'general.late' | i18n | uppercase }}</li>
-                                                <li class="list-group-item holiday">{{ 'general.holiday' | i18n | uppercase }}</li>
-                                                <li class="list-group-item unexcused">{{ 'general.unexcused' | i18n | uppercase }}</li>
+                                                <li class="list-group-item present uppercase">{{ 'general.present' | i18n }}</li>
+                                                <li class="list-group-item excused uppercase">{{ 'general.excused' | i18n }}</li>
+                                                <li class="list-group-item late uppercase">{{ 'general.late' | i18n }}</li>
+                                                <li class="list-group-item holiday uppercase">{{ 'general.holiday' | i18n }}</li>
+                                                <li class="list-group-item unexcused uppercase">{{ 'general.unexcused' | i18n }}</li>
                                             </ul>
                                         </div>
 
@@ -326,25 +332,25 @@
                             <br/>
                             <br/>
                             <div>
-                                <div ng-click="showSchoolHistory()" class="button transcript-school-history display-inline-blk">{{ 'general.see_school' | i18n | uppercase }}
+                                <div ng-click="showSchoolHistory()" class="button transcript-school-history display-inline-blk uppercase">{{ 'general.see_school' | i18n }}
                                     <br>HISTORY</div>
                             </div>
 
                         </li>
-                        <li class="math-credits">1.5
-                            <br/>{{ 'general.math_credits' | i18n | uppercase }}</li>
-                        <li class="history-credits">2.5
-                            <br/>{{ 'general.history_credits' | i18n | uppercase }}</li>
-                        <li class="language-arts-credits">1
-                            <br/>{{ 'general.language_arts' | i18n | uppercase }}
-                            <br/> {{ 'general.credits' | i18n | uppercase }}</li>
-                        <li class="elective-credits">4.5
-                            <br/>{{ 'general.elective_credits' | i18n | uppercase }}</li>
-                        <li class="language-credits">1.5
-                            <br/>{{ 'general.language_credits' | i18n | uppercase }}</li>
-                        <li class="physical-education-credits">3
-                            <br/>{{ 'general.physical_education' | i18n | uppercase }}
-                            <br/> {{ 'general.credits' | i18n | uppercase }}</li>
+                        <li class="math-credits uppercase">1.5
+                            <br/>{{ 'general.math_credits' | i18n}}</li>
+                        <li class="history-credits uppercase">2.5
+                            <br/>{{ 'general.history_credits' | i18n }}</li>
+                        <li class="language-arts-credits uppercase">1
+                            <br/>{{ 'general.language_arts' | i18n }}
+                            <br/> {{ 'general.credits' | i18n }}</li>
+                        <li class="elective-credits uppercase">4.5
+                            <br/>{{ 'general.elective_credits' | i18n }}</li>
+                        <li class="language-credits uppercase">1.5
+                            <br/>{{ 'general.language_credits' | i18n }}</li>
+                        <li class="physical-education-credits uppercase">3
+                            <br/>{{ 'general.physical_education' | i18n }}
+                            <br/> {{ 'general.credits' | i18n }}</li>
                     </ul>
                     <hr class="separator-transcript">
                     <div class="transcript-container">
@@ -415,7 +421,7 @@
                             </li>
                             <li class="transcript-content">
                                 <div class="transcript-descriptor">
-                                    <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                    <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
                                         <b>AMHI24561</b>
@@ -432,7 +438,7 @@
                                     </div>
                                 </div>
                                 <div class="transcript-display">
-                                    <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                    <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
@@ -548,7 +554,7 @@
                                 </div>
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
                                 <hr class="hr-transcript">
                                 <div class="attempted-credit">
                                     <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
@@ -604,7 +610,7 @@
                                 </div>
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
                                 <hr class="hr-transcript">
                                 <div class="attempted-credit">
                                     <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
@@ -660,7 +666,7 @@
                                 </div>
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
                                 <hr class="hr-transcript">
                                 <div class="attempted-credit">
                                     <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
@@ -716,7 +722,7 @@
                                 </div>
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color language-arts-font-color">{{ 'general.language_arts' | i18n | uppercase }}</div>
+                                <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
                                 <hr class="hr-transcript">
                                 <div class="attempted-credit">
                                     <b>{{ 'general.attempted_credits' | i18n }} - </b>.5

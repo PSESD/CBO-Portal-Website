@@ -286,6 +286,7 @@ function ($window, $rootScope, locale) {
             $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
             $rootScope.data_content = "asset/templates/mobile.html";
         }
+
 }]);
 
 
@@ -314,6 +315,8 @@ app.run(function ($rootScope, $http, $location, $window, AuthenticationService, 
         if (returnData) {
             start_time_idle();
         }
+
+
 
     });
 });
@@ -966,27 +969,27 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                             angular.forEach(response.attendanceBehaviors, function (behavior) {
                                 Object.keys(behavior).forEach(function (key) {
                                     var columnHtml = {};
-                                    angular.forEach(behavior[key].detailColumns, function(column, i){
+                                    angular.forEach(behavior[key].detailColumns, function (column, i) {
 
-                                        if(i !== 'periods' && i !== 'weeklyChange') {
+                                        if (i !== 'periods' && i !== 'weeklyChange') {
                                             var xhtml = [];
                                             var x = 1;
                                             var cls = '';
                                             var html = "";
                                             angular.forEach(column, function (item, n) {
                                                 if (n > 0) {
-                                                    cls = (x % 2 === 0) ? ' light': '';
+                                                    cls = (x % 2 === 0) ? ' light' : '';
                                                     x++;
-                                                    html = '<div class="grid-item n_a '+cls+'"></div>';
+                                                    html = '<div class="grid-item n_a ' + cls + '"></div>';
                                                     if (typeof item === 'object' && item.event !== null) {
-                                                        html = '<div class="grid-item '+item.slug+cls+'">';
+                                                        html = '<div class="grid-item ' + item.slug + cls + '">';
                                                         html += '<div class="descriptor">';
-                                                        html += '<div class="descriptor-title '+item.slug+'-font-color">';
+                                                        html += '<div class="descriptor-title ' + item.slug + '-font-color">';
                                                         html += item.slug.toUpperCase();
                                                         html += '</div>';
                                                         html += "<div>";
                                                         html += item.event.calendarEventDate;
-                                                        html += '<br> '+item.event.attendanceStatusTitle;
+                                                        html += '<br> ' + item.event.attendanceStatusTitle;
                                                         html += '</div>';
                                                         html += '</div>';
                                                         html += '</div>';
@@ -999,13 +1002,13 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                                             html = '<div class="grid-item"></div>';
 
                                             var items = behavior[key].behaviors[i];
-                                            if(items.length > 0){
+                                            if (items.length > 0) {
                                                 html += '<div class="grid-item unexcused">';
                                                 html += '<div class="descriptor">';
-                                                angular.forEach(items, function(item, i){
+                                                angular.forEach(items, function (item, i) {
 
                                                     if (typeof item === 'object') {
-                                                        if(typeof item.incidentCategoryTitle !== 'undefined' && item.incidentCategoryTitle !== "") {
+                                                        if (typeof item.incidentCategoryTitle !== 'undefined' && item.incidentCategoryTitle !== "") {
                                                             html += '<div class="descriptor-title unexcused-font-color">';
                                                             html += item.incidentCategoryTitle.toUpperCase();
                                                             html += '</div>';

@@ -140,6 +140,7 @@ ul.attendance-behavior li:nth-child(7) {
     padding: 0;
     float: left;
     padding-bottom: 5px;
+    position: relative;
 }
 .period-col {
     width: 25%;
@@ -168,7 +169,8 @@ hr.attendance-separator {
     padding: 0px;
     border: 3px solid #ededed;
     top: 325px;
-    position: relative;
+    position: absolute;
+    width: 99%;
 }
 .monday,
 .tuesday,
