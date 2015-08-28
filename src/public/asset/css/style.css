@@ -775,3 +775,9 @@ select{
     .add-select-student {
         width: 60%!important
     }
+    .uppercase {
+        text-transform: uppercase;
+    }
+    .inline-block {
+        display: inline-block;
+    }
