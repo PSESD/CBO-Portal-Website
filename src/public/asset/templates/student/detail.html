@@ -161,8 +161,8 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
-                    <ul class="no-data {{list_programs != '' ? 'hide' : ''}}">
-                        <li class="text-center"> This Student is not linked yet to school data</li>
+                    <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}">
+                        <li class="text-center">{{ 'general.attendance_and_behavior_error_message' | i18n}}</li>
                     </ul>
 
                     <ul class="flexbox attendance-behavior {{list_programs != '' ? '' : 'hide'}}">
@@ -201,7 +201,7 @@
                                     <li ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ behavior.summary.F }}</li>
                                     <li>
                                         <div class="col-separator"></div>
-                                        {{ !behavior.summary.weeklyChange ? 'N/A' : behavior.summary.weeklyChange + '%' }}
+                                        {{ behavior.summary.weeklyChange }}
                                         <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
                                      </li>
                                 </ul>
@@ -227,6 +227,7 @@
                             </h4>
                             </div>
                             <!-- panel heading -->
+
                             <div id="collapse_{{ indexBehavior+1 }}" class="panel-collapse collapse{{indexBehavior == 0 ? ' in' : '' }}" role="tabpanel" aria-labelledby="heading_{{ indexBehavior+1 }}">
                                 <div class="panel-body attendance-behavior">
                                     <div class="period-col">
@@ -259,7 +260,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="grid-item"></div>
+                                            <div class="grid-item unexcused" ng-if="behavior.behaviors.M.length > 0">
+                                                <div class="descriptor-title" ng-repeat='detail_behavior in behavior.behaviors.M'>
+                                                    {{ detail_behavior }}
+                                                </div>
+                                            </div>
 
                                         </div>
                                         <div class="tuesday">
@@ -283,7 +288,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="grid-item "></div>
+                                            <div class="grid-item unexcused" ng-if="behavior.behaviors.T.length > 0">
+                                                <div class="descriptor-title" ng-repeat='detail_behavior in behavior.behaviors.T'>
+                                                    {{ detail_behavior }}
+                                                </div>
+                                            </div>
 
                                         </div>
                                         <div class="wednesday">
@@ -307,7 +316,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="grid-item "></div>
+                                            <div class="grid-item unexcused" ng-if="behavior.behaviors.W.length > 0">
+                                                <div class="descriptor-title" ng-repeat='detail_behavior in behavior.behaviors.W'>
+                                                    {{ detail_behavior }}
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="thursday">
                                             <div ng-repeat="item in behavior.detailColumns.TH track by $index">
@@ -330,7 +343,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="grid-item "></div>
+                                            <div class="grid-item unexcused" ng-if="behavior.behaviors.TH.length > 0">
+                                                <div class="descriptor-title" ng-repeat='detail_behavior in behavior.behaviors.TH'>
+                                                    {{ detail_behavior }}
+                                                </div>
+                                            </div>
 
                                         </div>
                                         <div class="friday">
@@ -354,7 +371,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="grid-item "></div>
+                                            <div class="grid-item unexcused" ng-if="behavior.behaviors.F.length > 0">
+                                                <div class="descriptor" ng-repeat='detail_behavior in behavior.behaviors.F'>
+                                                    <div class="descriptor-title unexcused-font-color">
+                                                        Detention
+                                                    </div>
+                                                    {{ detail_behavior }}
+                                                </div>
+                                            </div>
 
                                         </div>
 
@@ -395,8 +419,8 @@
 
                 <div role="tabpanel" class="tab-pane" id="program_participation" data-id="program_participation_data">
 
-                    <ul class="no-data {{list_programs != '' ? 'hide' : ''}}">
-                        <li class="text-center"> This Student haven't participated in any program yet</li>
+                    <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}">
+                        <li class="text-center">{{ 'general.program_participation_error_message' | i18n }}</li>
                     </ul>
                     <ul class="student-program-participation">
                         <li ng-repeat="program in list_programs">

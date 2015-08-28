@@ -10,22 +10,7 @@
 //    grant_type: 'password'
 //};
 
-var schoolDistricts = {
-    'seattle': "Seattle",
-    'highline': "Highline",
-    'federalway': "Federal Way",
-    'renton': 'Renton',
-    'northshore': 'North Shore'
-};
-var relationships = {
-    'parent': "Parent",
-    'grandparent': "Grandparent",
-    'aunt': "Aunt",
-    'uncle': 'Uncle',
-    'brother': 'Brother',
-    'sister': 'Sister'
-};
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
