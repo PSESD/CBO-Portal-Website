@@ -1,13 +1,9 @@
 $(document).ready(function () {
 
-
-
-    window.intercomSettings = {
-        app_id: "bfu4q2i7"
-    };
-
     if (typeof env !== 'undefined' && env == 'production') {
-
+        window.intercomSettings = {
+            app_id: intercom_id
+        };
         (function () {
             var w = window;
             var ic = w.Intercom;

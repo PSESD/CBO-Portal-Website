@@ -10,7 +10,7 @@
 //    grant_type: 'password'
 //};
 
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
