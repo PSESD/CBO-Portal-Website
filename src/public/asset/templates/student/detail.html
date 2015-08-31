@@ -22,10 +22,11 @@
             <div class="row vertical-divider">
                 <div class="col-md-6 data-content">
                     <div class="row col-md-4">
-                        <div class="title">
-                            <p class="subhead uppercase">{{ 'general.personal' | i18n }}
-                                <br class="uppercase">{{ 'general.info' | i18n }}</p>
-                            <hr>
+                        <div class="two-lines">
+                            <div class="title">
+                                <p class="subhead uppercase">{{ 'general.personal_info' | i18n }}</p>
+                                <hr>
+                            </div>
                         </div>
                         <div class="content">
                             <b>{{ 'general.district_id' | i18n }}</b> {{ student.district_student_id }}
@@ -36,10 +37,11 @@
                             <br/>
                             <b>{{ 'general.gender' | i18n }}</b> {{studentdetails.demographics.sex}}
                         </div>
-                        <div class="title">
-                            <p class="subhead personal uppercase">{{ 'general.personal' | i18n }}
-                                <br class="uppercase">{{ 'general.contact' | i18n }}</p>
-                            <hr>
+                        <div class="two-lines">
+                            <div class="title">
+                                <p class="subhead personal uppercase">{{ 'general.personal_contact' | i18n }}</p>
+                                <hr>
+                            </div>
                         </div>
                         <div class="content">
                             {{student.email}}
@@ -48,10 +50,11 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="title">
-                            <p class="subhead uppercase">{{ 'general.personal' | i18n }}
-                                <br>{{ 'general.contacts' | i18n}}</p>
-                            <hr>
+                        <div class="two-lines">
+                            <div class="title">
+                                <p class="subhead uppercase">{{ 'general.emergency_contacts' | i18n }}</p>
+                                <hr>
+                            </div>
                         </div>
                         <div class="content">
                             <b>{{student.emergency1_name}}</b>
@@ -67,10 +70,11 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="title">
-                            <p class="subhead">{{ 'general.case' | i18n }}
-                                <br>{{ 'general.workers' | i18n }}</p>
-                            <hr>
+                        <div class="two-lines">
+                            <div class="title">
+                                <p class="subhead">{{ 'general.case_workers' | i18n }}</p>
+                                <hr>
+                            </div>
                         </div>
                         <div class="content">
 
@@ -88,10 +92,11 @@
                 <div class="col-md-6 data-content space-left">
                     <div>
                         <div class="row col-md-6">
-                            <div class="title">
-                                <p class="subhead uppercase">{{ 'general.academic' | i18n}}
-                                    <br class="uppercase">{{ 'general.info' | i18n }}</p>
-                                <hr>
+                            <div class="two-lines">
+                                <div class="title">
+                                    <p class="subhead uppercase">{{ 'general.academic' | i18n}}</p>
+                                    <hr>
+                                </div>
                             </div>
                             <div class="content bottom-space">
                                 <b>{{ 'general.current_school' | i18n }}</b> {{studentdetails.transcriptTerm.school.schoolName}}
@@ -118,37 +123,39 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="title">
-                                <p class="subhead uppercase">{{ 'general.current_courses' | i18n }}
-                                    <br><b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
-                                <hr>
-                            </div>
-                            <div class="content">
-                                <div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
-                                    <span>{{course.courseTitle}}</span>
-                                    <br/>
+                        <div class="col-md-6 aligning">
+                            <div class="two-lines-current-class">
+                                <div class="title">
+                                    <p class="subhead uppercase">{{ 'general.current_courses' | i18n }} <b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
+                                    <hr>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="clearfix"></div>
+                        <div class="content">
+                            <div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
+                                <span>{{course.courseTitle}}</span>
+                                <br/>
+                            </div>
+                        </div>
                     </div>
 
-
+                    <div class="clearfix"></div>
                 </div>
 
+
             </div>
-            <!-- end of row -->
-
-            <div class="clearfix"></div>
-
-            <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up display-blk"><i class="glyphicon glyphicon-menu-up"></i></a>
-            <a href="javascript:void(0)" onclick="showContent(this)" class="pull-right menu-down display-none"><i class="glyphicon glyphicon-menu-down"></i></a>
 
         </div>
+        <!-- end of row -->
+
+        <div class="clearfix"></div>
+
+        <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up display-blk"><i class="glyphicon glyphicon-menu-up"></i></a>
+        <a href="javascript:void(0)" onclick="showContent(this)" class="pull-right menu-down display-none"><i class="glyphicon glyphicon-menu-down"></i></a>
 
     </div>
+
+</div>
 
 </div>
 <div>
@@ -170,7 +177,7 @@
                         <li class="text-center">{{ 'general.attendance_and_behavior_error_message' | i18n}}</li>
                     </ul>
 
-                    <ul class="flexbox attendance-behavior {{list_programs != '' ? '' : 'hide'}}">
+                    <ul class="flexbox attendance-behavior {{attendanceBehavior.length > 0 ? '' : 'hide'}}">
                         <li class="uppercase">{{ 'general.attendance_dates' | i18n }}</li>
                         <li>
                             <div class="col-separator"></div>
@@ -292,7 +299,7 @@
 
                 <div role="tabpanel" class="tab-pane" id="program_participation" data-id="program_participation_data">
 
-                    <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}">
+                    <ul class="no-data {{list_programs.length > 0 ? 'hide' : ''}}">
                         <li class="text-center">{{ 'general.program_participation_error_message' | i18n }}</li>
                     </ul>
                     <ul class="student-program-participation">

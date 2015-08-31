@@ -754,3 +754,12 @@ ul.student-program-participation > li:nth-child(odd) {
 ul.cohorts {
     padding: 0;
 }
+.two-lines {
+    width: 150px;
+}
+.two-lines-current-class {
+    width: 245px;
+}
+.aligning {
+    padding-left: 0;
+}

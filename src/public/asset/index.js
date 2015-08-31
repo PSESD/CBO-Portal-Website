@@ -729,11 +729,11 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                 }
             })
             .success(function (response) {
-                $.each(schoolDistricts, function (key, value) {
-                    if (key == response.school_district) {
-                        response.school_district = value;
-                    }
-                });
+                //                $.each(schoolDistricts, function (key, value) {
+                //                    if (key == response.school_district) {
+                //                        response.school_district = value;
+                //                    }
+                //                });
                 $scope.student = response;
                 $rootScope.doingResolve = false;
 
@@ -951,6 +951,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                     $scope.attendanceBehavior = [];
                     $scope.xsreLastUpdated = null;
                     if (response.success != false) {
+                        $scope.studentdetails = response;
                         $scope.case_workers = response._embedded.users;
                         if (typeof response.success !== 'undefined' && response.success == false) {
                             console.log("fail to get");
@@ -976,6 +977,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                                             var x = 1;
                                             var cls = '';
                                             var html = "";
+
                                             angular.forEach(column, function (item, n) {
                                                 if (n > 0) {
                                                     cls = (x % 2 === 0) ? ' light' : '';
@@ -999,9 +1001,12 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                                                     xhtml.push(html);
                                                 }
                                             });
+
+                                            for (; x < 7; x++) xhtml.push('<div class="grid-item"></div>');
                                             html = '<div class="grid-item"></div>';
 
                                             var items = behavior[key].behaviors[i];
+
                                             if (items.length > 0) {
                                                 html += '<div class="grid-item unexcused">';
                                                 html += '<div class="descriptor">';
@@ -1027,7 +1032,12 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                                             }
                                             xhtml.push(html);
                                             columnHtml[i] = xhtml.join("\n");
+                                            behavior[key].columnHtml = columnHtml;
+                                            if (behavior[key].detailColumns.periods.length < 7) {
+                                                for (var i = 7; i > behavior[key].detailColumns.periods.length; i--) behavior[key].detailColumns.periods.push("");
+                                            }
                                         }
+
                                     });
                                     behavior[key].columnHtml = columnHtml;
 
@@ -1040,7 +1050,6 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
                             $scope.xsreLastUpdated = response.lastUpdated;
 
-                            $scope.studentdetails = response;
                         }
                         angular.forEach(embedPrograms, function (v) {
                             var program = {
