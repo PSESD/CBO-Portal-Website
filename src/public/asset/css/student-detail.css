@@ -29,6 +29,10 @@
 .bottom-space {
     margin-bottom: 20px;
 }
+
+.hoverable:not(:hover) + .show-on-hover {
+    display: none;
+}
 * {
     border-top-left-radius: 0px!important;
     border-top-right-radius: 0px!important;
@@ -711,11 +715,17 @@ ul li.transcript-content:nth-child(7) {
 li.transcript-content:hover {
     z-index: 9999;
 }
+/*
 li.transcript-content:hover .transcript-descriptor {
     display: block;
     height: auto;
 }
-.transcript-descriptor:hover + .transcript-display {
+*/
+li.transcript-content>.transcript-content-array:hover .transcript-descriptor {
+    display: block;
+    height: auto;
+}
+.transcript-descriptor:hover ~ .transcript-display {
     display: none;
 }
 
