@@ -36,6 +36,7 @@ $(document).ready(function () {
                     'margin-left': '3%'
                 });
                 status = 'close';
+                $('#footer').addClass('hide');
             } else if (status == 'close') {
 
                 $('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-menu-hamburger');
@@ -61,6 +62,7 @@ $(document).ready(function () {
                     'margin-left': '15%'
                 });
                 status = 'open';
+                $('#footer').removeClass('hide');
             }
 
         };

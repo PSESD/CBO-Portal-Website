@@ -20,9 +20,33 @@ body {
     padding: 10px;
     background-color: #f17f49
 }
-#desktop-nav{
+#desktop-nav {
     position: fixed;
     width: 15%;
     height: 100%;
-    box-shadow: -10px 0 20px rgba(0,0,0,0.1) inset;
+    box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1) inset;
+}
+#footer {
+    position: fixed;
+    bottom: 0;
+    line-height: 35px;
+    padding-left: 13px;
+}
+#footer li a {
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+}
+@media (max-width: 1280px) {
+    #footer li a {
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    #desktop-nav {
+        position: fixed;
+        width: 16%;
+        height: 100%;
+        box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1) inset;
+    }
 }

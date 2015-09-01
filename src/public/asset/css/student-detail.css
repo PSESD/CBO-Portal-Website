@@ -29,6 +29,10 @@
 .bottom-space {
     margin-bottom: 20px;
 }
+
+.hoverable:not(:hover) + .show-on-hover {
+    display: none;
+}
 * {
     border-top-left-radius: 0px!important;
     border-top-right-radius: 0px!important;
@@ -346,7 +350,7 @@ ul.transcript li:nth-child(1) {
     text-align: left;
 }
 ul.transcript li:nth-child(2) {
-    width: 14%;
+    width: 16.8%;
     font-size: 14px;
     font-weight: bold;
     color: white;
@@ -354,7 +358,7 @@ ul.transcript li:nth-child(2) {
     padding-top: 2%;
 }
 ul.transcript li:nth-child(3) {
-    width: 14%;
+    width: 16.8%;
     font-size: 14px;
     font-weight: bold;
     color: white;
@@ -362,7 +366,7 @@ ul.transcript li:nth-child(3) {
     padding-top: 2%;
 }
 ul.transcript li:nth-child(4) {
-    width: 14%;
+    width: 16.8%;
     font-size: 14px;
     font-weight: bold;
     color: white;
@@ -370,7 +374,7 @@ ul.transcript li:nth-child(4) {
     padding-top: 2%;
 }
 ul.transcript li:nth-child(5) {
-    width: 14%;
+    width: 16.8%;
     font-size: 14px;
     font-weight: bold;
     color: white;
@@ -378,7 +382,7 @@ ul.transcript li:nth-child(5) {
     padding-top: 2%;
 }
 ul.transcript li:nth-child(6) {
-    width: 14%;
+    width: 16.8%;
     font-size: 14px;
     font-weight: bold;
     color: white;
@@ -440,27 +444,27 @@ ul li.transcript-content:nth-child(1) {
     width: 16%;
 }
 ul li.transcript-content:nth-child(2) {
-    width: 14%;
+    width: 16.8%;
     padding-top: 2.5%;
     padding-left: 15px;
 }
 ul li.transcript-content:nth-child(3) {
-    width: 14%;
+    width: 16.8%;
     padding-top: 2.5%;
     padding-left: 15px;
 }
 ul li.transcript-content:nth-child(4) {
-    width: 14%;
+    width: 16.8%;
     padding-top: 2.5%;
     padding-left: 15px;
 }
 ul li.transcript-content:nth-child(5) {
-    width: 14%;
+    width: 16.8%;
     padding-top: 2.5%;
     padding-left: 15px;
 }
 ul li.transcript-content:nth-child(6) {
-    width: 14%;
+    width: 16.8%;
     padding-top: 2.5%;
     padding-left: 15px;
 }
@@ -529,10 +533,32 @@ ul li.transcript-content:nth-child(7) {
     background-color: white;
     border: 1px solid #aaa;
 }
+
+.transcript-display{
+	margin-bottom:35px;
+}
+
+/*
 .transcript-content .transcript-descriptor {
     position: absolute;
     top: 35%;
     width: 13%;
+    margin-left: -9px;
+    background-color: #fff;
+    display: none;
+    text-indent: 0px;
+    z-index: 9999;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 30px;
+}
+*/
+.transcript-content{
+	position:relative;
+}
+.transcript-descriptor {
+    position: absolute;
+    /*top: 35%;*/
     margin-left: -9px;
     background-color: #fff;
     display: none;
@@ -629,19 +655,35 @@ ul li.transcript-content:nth-child(7) {
         background-color: white;
         border: 1px solid #aaa;
     }
-    .transcript-content .transcript-descriptor {
+    /*
+	.transcript-content .transcript-descriptor {
         position: absolute;
         top: 35%;
         width: 13%;
         margin-left: -30px;
         background-color: #fff;
-        /*display: none;*/
+        display: none;
         text-indent: 0px;
         z-index: 9999;
         padding-top: 5px;
-        /*padding-left: 5px;*/
+        padding-left: 5px;
         padding-bottom: 10px
-    }
+    }*/
+	.transcript-content{
+	position:relative;
+}
+.transcript-descriptor {
+    position: absolute;
+    /*top: 35%;*/
+    margin-left: -9px;
+    background-color: #fff;
+    display: none;
+    text-indent: 0px;
+    z-index: 9999;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 30px;
+}
 }
 .subhead.transcript {
     padding: 0;
@@ -673,13 +715,20 @@ ul li.transcript-content:nth-child(7) {
 li.transcript-content:hover {
     z-index: 9999;
 }
+/*
 li.transcript-content:hover .transcript-descriptor {
+    display: block;
+    height: auto;
+}
+*/
+li.transcript-content>.transcript-content-array:hover .transcript-descriptor {
     display: block;
     height: auto;
 }
 .transcript-descriptor:hover ~ .transcript-display {
     display: none;
 }
+
 ul.flexbox.attendance-behavior,
 ul.flexbox.transcript-content {
     display: -webkit-box;
@@ -753,4 +802,13 @@ ul.student-program-participation > li:nth-child(odd) {
 }
 ul.cohorts {
     padding: 0;
+}
+.two-lines {
+    width: 150px;
+}
+.two-lines-current-class {
+    width: 245px;
+}
+.aligning {
+    padding-left: 0;
 }
