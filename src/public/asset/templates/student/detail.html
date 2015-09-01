@@ -331,11 +331,11 @@
                 <div role="tabpanel" class="tab-pane transcript" id="transcript" data-id="transcript_data">
                     <ul class="flexbox transcript">
                         <li>
-                            <b>18</b>{{ 'general.credits_earned' | i18n }}
+                            <b>12</b>{{ 'general.credits_earned' | i18n }}
                             <br/>
                             <b>20</b>{{ 'general.credits_attempted' | i18n }}
                             <br/>
-                            <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                            <b>{{ 'general.grade_level' | i18n }}</b> 11th
                             <br/>
                             <br/>
                             <div>
@@ -346,81 +346,273 @@
                         </li>
                         <li class="math-credits uppercase">1.5
                             <br/>{{ 'general.math_credits' | i18n}}</li>
+                        <li class="language-arts-credits uppercase">2
+                            <br/>{{ 'general.soc_studies_credits' | i18n }}</li>
                         <li class="history-credits uppercase">2.5
-                            <br/>{{ 'general.history_credits' | i18n }}</li>
-                        <li class="language-arts-credits uppercase">1
-                            <br/>{{ 'general.language_arts' | i18n }}
-                            <br/> {{ 'general.credits' | i18n }}</li>
-                        <li class="elective-credits uppercase">4.5
-                            <br/>{{ 'general.elective_credits' | i18n }}</li>
-                        <li class="language-credits uppercase">1.5
-                            <br/>{{ 'general.language_credits' | i18n }}</li>
-                        <li class="physical-education-credits uppercase">3
-                            <br/>{{ 'general.physical_education' | i18n }}
-                            <br/> {{ 'general.credits' | i18n }}</li>
+                            <br/>{{ 'general.LA_credits' | i18n }}</li>
+                        <li class="elective-credits uppercase">1.5
+                            <br/>{{ 'general.world_lang_credits' | i18n }}</li>
+                        <li class="language-credits uppercase">4.5
+                            <br/>{{ 'general.other_credits' | i18n }}</li>
                     </ul>
                     <hr class="separator-transcript">
                     <div class="transcript-container">
                         <ul class="flexbox transcript-content">
+                        <li class="transcript-content">
+                            2013 - Term 4
+                            <br/>
+                            <br/>
+                            <b>Ballard High School</b>
+                            <br/>
+                            <b>2.75</b> {{ 'general.credits_attempted' | i18n }}
+                            <br/>
+                            <b>{{ 'general.grade_level' | i18n }}</b> 11th
+                        </li>
+                        <li class="transcript-content">
+                            <!--<div class="transcript-descriptor">-->
+                            <!--<div class="transcript-font-color math-font-color">GEOMETRY B</div>-->
+                            <!--<hr class="hr-transcript">-->
+                            <!--<div class="attempted-credit">-->
+                            <!--<b>HMA2370</b>-->
+                            <!--<br>-->
+                            <!--<b>{{ 'general.grade' | i18n }}</b> - -->
+                            <!--<br>-->
+                            <!--<b>{{ 'general.grade_level' | i18n }}</b> - 11th-->
+                            <!--<br>-->
+                            <!--<b>{{ 'general.earned_credits' | i18n }}</b> - -->
+                            <!--<br>-->
+                            <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                            <!--<br>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <div class="transcript-display">
+                                <!--<div class="transcript-font-color math-font-color">GEOMETRY B</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            </div>
+                        </li>
+                        <li class="transcript-content">
+                            <div class="transcript-descriptor">
+                                <div class="transcript-font-color history-font-color">US HISTORY 11B</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>HSS5857</b>
+                                    <br>
+                                    <b>{{ 'general.grade' | i18n }}</b> -
+                                    <br>
+                                    <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                    <br>
+                                    <b>{{ 'general.earned_credits' | i18n }}</b> -
+                                    <br>
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    <br>
+                                </div>
+                            </div>
+							<div class="transcript-display">
+                                    <div class="transcript-font-color history-font-color">US HISTORY 11B</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
+                                </div>
+                        </li>
+                        <li class="transcript-content">
+                            <div class="transcript-descriptor">
+                                <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11B</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>HLA3103</b>
+                                    <br>
+                                    <b>{{ 'general.grade' | i18n }}</b> -
+                                    <br>
+                                    <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                    <br>
+                                    <b>{{ 'general.earned_credits' | i18n }}</b> -
+                                    <br>
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    <br>
+                                </div>
+
+                            </div>
+                           <div class="transcript-display" >
+                                <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11B</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="transcript-content">
+                            <div class="transcript-descriptor">
+                                <!--<div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>AMHI24561</b>-->
+                                    <!--<br>-->
+                                    <!--<b>Grade</b> - A-->
+                                    <!--<br>-->
+                                    <!--<b>Grade Level</b> - Junior-->
+                                    <!--<br>-->
+                                    <!--<b>Earned Credits</b> - 1-->
+                                    <!--<br>-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                    <!--<br>-->
+                                    <!--<b>AP</b>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="transcript-display">
+                                <!--<div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            </div>
+                        </li>
+                        <li class="transcript-content">
+                            <div class="transcript-descriptor">
+                                <div class="transcript-font-color language-font-color">GRAPHIC ARTS 1 TE</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>HCT7782</b>
+                                    <br>
+                                    <b>{{ 'general.grade' | i18n }}</b> -
+                                    <br>
+                                    <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                    <br>
+                                    <b>{{ 'general.earned_credits' | i18n }}</b> -
+                                    <br>
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="transcript-display">
+                                <div class="transcript-font-color language-font-color">GRAPHIC ARTS 1 TE</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </div>
+							
+                            <div class="transcript-descriptor">
+                                <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>HCT2251</b>
+                                    <br>
+                                    <b>{{ 'general.grade' | i18n }}</b> -
+                                    <br>
+                                    <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                    <br>
+                                    <b>{{ 'general.earned_credits' | i18n }}</b> -
+                                    <br>
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    <br>
+                                </div>
+                            </div>
+							<div class="transcript-display">
+                                <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 2</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </div>
+
+                            <div class="transcript-descriptor">
+                                <div class="transcript-font-color language-font-color">SCIENCE LAB ASST 1</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>HUE9442</b>
+                                    <br>
+                                    <b>{{ 'general.grade' | i18n }}</b> -
+                                    <br>
+                                    <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                    <br>
+                                    <b>{{ 'general.earned_credits' | i18n }}</b> -
+                                    <br>
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.25
+                                    <br>
+                                </div>
+                            </div>
+							<div class="transcript-display">
+                                <div class="transcript-font-color language-font-color">SCIENCE LAB ASST 1</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
+
+                        <ul class="flexbox transcript-content">
                             <li class="transcript-content">
-                                2015 - Fall
+                                2013 - Term 3
                                 <br/>
                                 <br/>
-                                <b>Learning High School</b>
+                                <b>Ballard High School</b>
                                 <br/>
-                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <b>2.75</b> {{ 'general.credits_attempted' | i18n }}
                                 <br/>
-                                <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                                <b>{{ 'general.grade_level' | i18n }}</b> 11th
                             </li>
                             <li class="transcript-content">
                                 <div class="transcript-descriptor">
-                                    <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>AMHI24561</b>
-                                        <br>
-                                        <b>Grade</b> - A
-                                        <br>
-                                        <b>Grade Level</b> - Junior
-                                        <br>
-                                        <b>Earned Credits</b> - 1
-                                        <br>
-                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                        <br>
-                                        <b>AP</b>
-                                    </div>
+                                <div class="transcript-font-color math-font-color">GEOMETRY B</div>
+                                <hr class="hr-transcript">
+                                <div class="attempted-credit">
+                                <b>HMA2370</b>
+                                <br>
+                                <b>{{ 'general.grade' | i18n }}</b> - C
+                                <br>
+                                <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                <br>
+                                <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                <br>
+                                <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <br>
+                                </div>
                                 </div>
                                 <div class="transcript-display">
-                                    <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
+                                    <div class="transcript-font-color math-font-color">GEOMETRY B</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
                                     </div>
                                 </div>
                             </li>
                             <li class="transcript-content">
                                 <div class="transcript-descriptor">
-                                    <div class="transcript-font-color history-font-color">HISTORY 3</div>
+                                    <div class="transcript-font-color history-font-color">US HISTORY 11B</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
-                                        <b>AMHI24561</b>
+                                        <b>HSS5857</b>
                                         <br>
-                                        <b>Grade</b> - A
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
                                         <br>
-                                        <b>Grade Level</b> - Junior
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
                                         <br>
-                                        <b>Earned Credits</b> - 1
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> -
                                         <br>
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
                                         <br>
-                                        <b>AP</b>
                                     </div>
                                 </div>
                                 <div class="transcript-display">
-                                    <div class="transcript-font-color history-font-color">HISTORY 3</div>
+                                    <div class="transcript-font-color history-font-color">US HISTORY 11B</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
                                     </div>
                                 </div>
 
@@ -428,335 +620,1284 @@
                             </li>
                             <li class="transcript-content">
                                 <div class="transcript-descriptor">
-                                    <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
+                                    <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11B</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
-                                        <b>AMHI24561</b>
+                                        <b>HLA3103</b>
                                         <br>
-                                        <b>Grade</b> - A
+                                        <b>{{ 'general.grade' | i18n }}</b> -
                                         <br>
-                                        <b>Grade Level</b> - Junior
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
                                         <br>
-                                        <b>Earned Credits</b> - 1
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> -
                                         <br>
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
                                         <br>
-                                        <b>AP</b>
                                     </div>
                                 </div>
                                 <div class="transcript-display">
-                                    <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
+                                    <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11B</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
-                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="transcript-content">
-                                <div class="transcript-descriptor">
-                                    <div class="transcript-font-color elective-font-color">Art 2</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>AMHI24561</b>
-                                        <br>
-                                        <b>Grade</b> - A
-                                        <br>
-                                        <b>Grade Level</b> - Junior
-                                        <br>
-                                        <b>Earned Credits</b> - 1
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
                                         <br>
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
                                         <br>
-                                        <b>AP</b>
-                                    </div>
-                                </div>
-                                <div class="transcript-display">
-                                    <div class="transcript-font-color elective-font-color">Art 2</div>
-                                    <hr class="hr-transcript">
-                                    <div class="attempted-credit">
-                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
                                     </div>
                                 </div>
 
                             </li>
                             <li class="transcript-content">
                                 <div class="transcript-descriptor">
-                                    <div class="transcript-font-color language-font-color">Spanish 3</div>
+                                    <div class="transcript-font-color language-arts-font-color uppercase">SPANISH 1A</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
-                                        <b>AMHI24561</b>
+                                        <b>HWL1279</b>
                                         <br>
-                                        <b>Grade</b> - A
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
                                         <br>
-                                        <b>Grade Level</b> - Junior
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
                                         <br>
-                                        <b>Earned Credits</b> - 1
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
                                         <br>
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
                                         <br>
-                                        <b>AP</b>
                                     </div>
                                 </div>
                                 <div class="transcript-display">
-                                    <div class="transcript-font-color language-font-color">Spanish 3</div>
+                                    <div class="transcript-font-color language-arts-font-color uppercase">SPANISH 1A</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
                                     </div>
                                 </div>
                             </li>
                             <li class="transcript-content">
                                 <div class="transcript-descriptor">
-                                    <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                    <div class="transcript-font-color language-font-color">GRAPHIC ARTS 1 TE</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
-                                        <b>AMHI24561</b>
+                                        <b>HCT7782</b>
                                         <br>
-                                        <b>Grade</b> - A
+                                        <b>{{ 'general.grade' | i18n }}</b> - E
                                         <br>
-                                        <b>Grade Level</b> - Junior
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
                                         <br>
-                                        <b>Earned Credits</b> - 1
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .25
                                         <br>
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
                                         <br>
-                                        <b>AP</b>
                                     </div>
                                 </div>
                                 <div class="transcript-display">
-                                    <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
+                                    <div class="transcript-font-color language-font-color">GRAPHIC ARTS 1 TE</div>
                                     <hr class="hr-transcript">
                                     <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - E
+                                        <br>
                                         <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .25
                                     </div>
                                 </div>
-
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 2</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HCT2251</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 2</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                    </div>
+                                </div>
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">SCIENCE LAB ASST 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HUE9442</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - P
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.25
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">SCIENCE LAB ASST 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - P
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.25
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                    </div>
+                                </div>
                             </li>
+                            <!--<li class="transcript-content">-->
+                            <!--<div class="transcript-descriptor">-->
+                            <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                            <!--<hr class="hr-transcript">-->
+                            <!--<div class="attempted-credit">-->
+                            <!--<b>AMHI24561</b>-->
+                            <!--<br>-->
+                            <!--<b>Grade</b> - A-->
+                            <!--<br>-->
+                            <!--<b>Grade Level</b> - Junior-->
+                            <!--<br>-->
+                            <!--<b>Earned Credits</b> - 1-->
+                            <!--<br>-->
+                            <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                            <!--<br>-->
+                            <!--<b>AP</b>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="transcript-display">-->
+                            <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                            <!--<hr class="hr-transcript">-->
+                            <!--<div class="attempted-credit">-->
+                            <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                            <!--</div>-->
+                            <!--</div>-->
+
+                            <!--</li>-->
                         </ul>
 
                         <ul class="flexbox transcript-content">
                             <li class="transcript-content">
-                                2015 - Fall
+                                2013 - Term 2
                                 <br/>
                                 <br/>
-                                <b>Learning High School</b>
+                                <b>Ballard High School</b>
                                 <br/>
-                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <b>3</b> {{ 'general.credits_attempted' | i18n }}
                                 <br/>
-                                <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                                <b>{{ 'general.grade_level' | i18n }}</b> 11th
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color math-font-color">GEOMETRY A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HMA2369</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - A
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color math-font-color">GEOMETRY A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - A
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color history-font-color">US HISTORY 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HSS5857</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - D
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color history-font-color">US HISTORY 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - D
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
+                                </div>
+
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HLA3101</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
                                 </div>
 
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color history-font-color">HISTORY 3</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-arts-font-color uppercase">SPANISH 1A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HWL1279</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-arts-font-color uppercase">SPANISH 1A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
                                 </div>
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">COMPUTER APPLICATIONS 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HCT7782</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">COMPUTER APPLICATIONS 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
+                                </div>
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HCT2251</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - D
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
                                 </div>
                             </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color elective-font-color">Art 2</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color language-font-color">Spanish 3</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
+                            <!--<li class="transcript-content">-->
+                            <!--<div class="transcript-descriptor">-->
+                            <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                            <!--<hr class="hr-transcript">-->
+                            <!--<div class="attempted-credit">-->
+                            <!--<b>AMHI24561</b>-->
+                            <!--<br>-->
+                            <!--<b>Grade</b> - A-->
+                            <!--<br>-->
+                            <!--<b>Grade Level</b> - Junior-->
+                            <!--<br>-->
+                            <!--<b>Earned Credits</b> - 1-->
+                            <!--<br>-->
+                            <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                            <!--<br>-->
+                            <!--<b>AP</b>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="transcript-display">-->
+                            <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                            <!--<hr class="hr-transcript">-->
+                            <!--<div class="attempted-credit">-->
+                            <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                            <!--</div>-->
+                            <!--</div>-->
+
+                            <!--</li>-->
                         </ul>
 
                         <ul class="flexbox transcript-content">
                             <li class="transcript-content">
-                                2015 - Fall
+                                2013 - Term 1
                                 <br/>
                                 <br/>
-                                <b>Learning High School</b>
+                                <b>Ballard High School</b>
                                 <br/>
-                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <b>3</b> {{ 'general.credits_attempted' | i18n }}
                                 <br/>
-                                <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                                <b>{{ 'general.grade_level' | i18n }}</b> 11th
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color math-font-color">GEOMETRY A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HMA2369</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - D
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color math-font-color">GEOMETRY A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - D
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color history-font-color">US HISTORY 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HSS5857</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color history-font-color">US HISTORY 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                    </div>
+                                </div>
+
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HLA3101</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
                                 </div>
 
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color history-font-color">HISTORY 3</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-arts-font-color uppercase">SPANISH 1A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HWL1279</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-arts-font-color uppercase">SPANISH 1A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
                                 </div>
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">COMPUTER APPLICATIONS 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HCT7782</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">COMPUTER APPLICATIONS 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
+                                </div>
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HCT2251</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 11th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
                                 </div>
                             </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color elective-font-color">Art 2</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color language-font-color">Spanish 3</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
+                            <!--<li class="transcript-content">-->
+                            <!--<div class="transcript-descriptor">-->
+                            <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                            <!--<hr class="hr-transcript">-->
+                            <!--<div class="attempted-credit">-->
+                            <!--<b>AMHI24561</b>-->
+                            <!--<br>-->
+                            <!--<b>Grade</b> - A-->
+                            <!--<br>-->
+                            <!--<b>Grade Level</b> - Junior-->
+                            <!--<br>-->
+                            <!--<b>Earned Credits</b> - 1-->
+                            <!--<br>-->
+                            <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                            <!--<br>-->
+                            <!--<b>AP</b>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="transcript-display">-->
+                            <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                            <!--<hr class="hr-transcript">-->
+                            <!--<div class="attempted-credit">-->
+                            <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                            <!--</div>-->
+                            <!--</div>-->
+
+                            <!--</li>-->
                         </ul>
 
                         <ul class="flexbox transcript-content">
                             <li class="transcript-content">
-                                2015 - Fall
+                                2012 - Term 4
                                 <br/>
                                 <br/>
-                                <b>Learning High School</b>
+                                <b>Ballard High School</b>
                                 <br/>
-                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <b>2.75</b> {{ 'general.credits_attempted' | i18n }}
                                 <br/>
-                                <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                                <b>{{ 'general.grade_level' | i18n }}</b> 10th
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color math-font-color">GEOMETRY B</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HMA2370</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color math-font-color">GEOMETRY B</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color history-font-color">US HISTORY 11B</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HSS5857</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color history-font-color">US HISTORY 11B</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
+                                </div>
+
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11B</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HLA3103</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11B</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
                                 </div>
 
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color history-font-color">HISTORY 3</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <!--<div class="transcript-font-color language-arts-font-color uppercase">SPANISH 1A</div>-->
+                                    <!--<hr class="hr-transcript">-->
+                                    <!--<div class="attempted-credit">-->
+                                        <!--<b>HWL1279</b>-->
+                                        <!--<br>-->
+                                        <!--<b>{{ 'general.grade' | i18n }}</b> - B-->
+                                        <!--<br>-->
+                                        <!--<b>{{ 'general.grade_level' | i18n }}</b> - 10th-->
+                                        <!--<br>-->
+                                        <!--<b>{{ 'general.earned_credits' | i18n }}</b> - 0-->
+                                        <!--<br>-->
+                                        <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                        <!--<br>-->
+                                    <!--</div>-->
+                                </div>
+                                <div class="transcript-display">
+                                    <!--<div class="transcript-font-color language-arts-font-color uppercase">SPANISH 1A</div>-->
+                                    <!--<hr class="hr-transcript">-->
+                                    <!--<div class="attempted-credit">-->
+                                        <!--<b>{{ 'general.grade' | i18n }}</b> - B-->
+                                        <!--<br>-->
+                                        <!--<b>{{ 'general.earned_credits' | i18n }}</b> - 0-->
+                                        <!--<br>-->
+                                        <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                    <!--</div>-->
                                 </div>
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">GRAPHIC ARTS 1 TE</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HCT7782</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - D
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">GRAPHIC ARTS 1 TE</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - D
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
+                                </div>
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 2</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HCT2251</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 2</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
+                                </div>
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">SCIENCE LAB ASST 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HCT2251</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - A
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .25
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.25
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">SCIENCE LAB ASST 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - A
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.25
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .25
+                                    </div>
                                 </div>
                             </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color elective-font-color">Art 2</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color language-font-color">Spanish 3</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
+                            <!--<li class="transcript-content">-->
+                            <!--<div class="transcript-descriptor">-->
+                            <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                            <!--<hr class="hr-transcript">-->
+                            <!--<div class="attempted-credit">-->
+                            <!--<b>AMHI24561</b>-->
+                            <!--<br>-->
+                            <!--<b>Grade</b> - A-->
+                            <!--<br>-->
+                            <!--<b>Grade Level</b> - Junior-->
+                            <!--<br>-->
+                            <!--<b>Earned Credits</b> - 1-->
+                            <!--<br>-->
+                            <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                            <!--<br>-->
+                            <!--<b>AP</b>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="transcript-display">-->
+                            <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                            <!--<hr class="hr-transcript">-->
+                            <!--<div class="attempted-credit">-->
+                            <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                            <!--</div>-->
+                            <!--</div>-->
+
+                            <!--</li>-->
                         </ul>
 
                         <ul class="flexbox transcript-content">
                             <li class="transcript-content">
-                                2015 - Fall
+                                2012 - Term 3
                                 <br/>
                                 <br/>
-                                <b>Learning High School</b>
+                                <b>Ballard High School</b>
                                 <br/>
-                                <b>4.5</b> {{ 'general.credits_attempted' | i18n }}
+                                <b>3</b> {{ 'general.credits_attempted' | i18n }}
                                 <br/>
-                                <b>{{ 'general.grade_level' | i18n }}</b> Junior
+                                <b>{{ 'general.grade_level' | i18n }}</b> 10th
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color math-font-color">ALGEBRA 2</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color math-font-color">GEOMETRY A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HMA2369</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - E
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color math-font-color">GEOMETRY A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - E
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - 0
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color history-font-color">US HISTORY 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HSS5856</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - D
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color history-font-color">US HISTORY 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - D
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
+                                </div>
+
+
+                            </li>
+                            <li class="transcript-content">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HLA3101</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color elective-font-color">AMER LIT & COMP 11A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
                                 </div>
 
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color history-font-color">HISTORY 3</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-arts-font-color uppercase">SPANISH 1A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HWL1279</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - C
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-arts-font-color uppercase">SPANISH 1A</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                    <b>{{ 'general.grade' | i18n }}</b> - B
+                                    <br>
+                                    <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    <br>
                                     <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                    </div>
                                 </div>
                             </li>
                             <li class="transcript-content">
-                                <div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">COMPUTER APPLICATIONS 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HCT0577</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">COMPUTER APPLICATIONS 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - B
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
+                                </div>
+                                <div class="transcript-descriptor">
+                                    <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>HCT2250</b>
+                                        <br>
+                                        <b>{{ 'general.grade' | i18n }}</b> - D
+                                        <br>
+                                        <b>{{ 'general.grade_level' | i18n }}</b> - 10th
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="transcript-display">
+                                    <div class="transcript-font-color language-font-color">FOOD SCI, DIETETICS & NUT 1</div>
+                                    <hr class="hr-transcript">
+                                    <div class="attempted-credit">
+                                        <b>{{ 'general.grade' | i18n }}</b> - D
+                                        <br>
+                                        <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
+                                        <br>
+                                        <b>{{ 'general.earned_credits' | i18n }}</b> - .5
+                                    </div>
                                 </div>
                             </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color elective-font-color">Art 2</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color language-font-color">Spanish 3</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
-                            <li class="transcript-content">
-                                <div class="transcript-font-color pyhsical-education-font-color">P.E</div>
-                                <hr class="hr-transcript">
-                                <div class="attempted-credit">
-                                    <b>{{ 'general.attempted_credits' | i18n }} - </b>.5
-                                </div>
-                            </li>
+                            <!--<li class="transcript-content">-->
+                            <!--<div class="transcript-descriptor">-->
+                            <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                            <!--<hr class="hr-transcript">-->
+                            <!--<div class="attempted-credit">-->
+                            <!--<b>AMHI24561</b>-->
+                            <!--<br>-->
+                            <!--<b>Grade</b> - A-->
+                            <!--<br>-->
+                            <!--<b>Grade Level</b> - Junior-->
+                            <!--<br>-->
+                            <!--<b>Earned Credits</b> - 1-->
+                            <!--<br>-->
+                            <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                            <!--<br>-->
+                            <!--<b>AP</b>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="transcript-display">-->
+                            <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                            <!--<hr class="hr-transcript">-->
+                            <!--<div class="attempted-credit">-->
+                            <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                            <!--</div>-->
+                            <!--</div>-->
+
+                            <!--</li>-->
                         </ul>
+                        <!--<ul class="flexbox transcript-content">-->
+                            <!--<li class="transcript-content">-->
+                                <!--2015 - Fall-->
+                                <!--<br/>-->
+                                <!--<br/>-->
+                                <!--<b>Learning High School</b>-->
+                                <!--<br/>-->
+                                <!--<b>4.5</b> {{ 'general.credits_attempted' | i18n }}-->
+                                <!--<br/>-->
+                                <!--<b>{{ 'general.grade_level' | i18n }}</b> Junior-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color math-font-color">ALGEBRA 2</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color history-font-color">HISTORY 3</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color elective-font-color">Art 2</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color language-font-color">Spanish 3</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+
+                        <!--<ul class="flexbox transcript-content">-->
+                            <!--<li class="transcript-content">-->
+                                <!--2015 - Fall-->
+                                <!--<br/>-->
+                                <!--<br/>-->
+                                <!--<b>Learning High School</b>-->
+                                <!--<br/>-->
+                                <!--<b>4.5</b> {{ 'general.credits_attempted' | i18n }}-->
+                                <!--<br/>-->
+                                <!--<b>{{ 'general.grade_level' | i18n }}</b> Junior-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color math-font-color">ALGEBRA 2</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color history-font-color">HISTORY 3</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color elective-font-color">Art 2</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color language-font-color">Spanish 3</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+
+                        <!--<ul class="flexbox transcript-content">-->
+                            <!--<li class="transcript-content">-->
+                                <!--2015 - Fall-->
+                                <!--<br/>-->
+                                <!--<br/>-->
+                                <!--<b>Learning High School</b>-->
+                                <!--<br/>-->
+                                <!--<b>4.5</b> {{ 'general.credits_attempted' | i18n }}-->
+                                <!--<br/>-->
+                                <!--<b>{{ 'general.grade_level' | i18n }}</b> Junior-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color math-font-color">ALGEBRA 2</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color history-font-color">HISTORY 3</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color elective-font-color">Art 2</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color language-font-color">Spanish 3</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+
+                        <!--<ul class="flexbox transcript-content">-->
+                            <!--<li class="transcript-content">-->
+                                <!--2015 - Fall-->
+                                <!--<br/>-->
+                                <!--<br/>-->
+                                <!--<b>Learning High School</b>-->
+                                <!--<br/>-->
+                                <!--<b>4.5</b> {{ 'general.credits_attempted' | i18n }}-->
+                                <!--<br/>-->
+                                <!--<b>{{ 'general.grade_level' | i18n }}</b> Junior-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color math-font-color">ALGEBRA 2</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color history-font-color">HISTORY 3</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color language-arts-font-color uppercase">{{ 'general.language_arts' | i18n }}</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color elective-font-color">Art 2</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color language-font-color">Spanish 3</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                            <!--<li class="transcript-content">-->
+                                <!--<div class="transcript-font-color pyhsical-education-font-color">P.E</div>-->
+                                <!--<hr class="hr-transcript">-->
+                                <!--<div class="attempted-credit">-->
+                                    <!--<b>{{ 'general.attempted_credits' | i18n }} - </b>.5-->
+                                <!--</div>-->
+                            <!--</li>-->
+                        <!--</ul>-->
                     </div>
                 </div>
             </div>
