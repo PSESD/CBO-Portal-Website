@@ -12,11 +12,11 @@
 
 var is_logged_in = false;
 
-var __i = true;
+var __i = false;
 
 var global_redirect_url = '/';
 
-var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
+var app = angular.module('CboPortal', ['ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
     'ngLocalize.Config'
 ]).value('localeConf', {
     basePath: 'languages',
@@ -77,6 +77,13 @@ app.config(function ($routeProvider) {
         }
     }).
     when('/student/detail/:student_id', {
+        templateUrl: 'asset/templates/student/detail.html',
+        controller: 'StudentDetailController',
+        access: {
+            requiredAuthentication: true
+        }
+    }).
+    when('/student/detail/:student_id/:tab_id', {
         templateUrl: 'asset/templates/student/detail.html',
         controller: 'StudentDetailController',
         access: {
@@ -762,8 +769,8 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 ]);
 
 
-app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
@@ -779,6 +786,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             $scope.open_button = false;
         };
         var student_id = $routeParams.student_id;
+        var tab = $routeParams.tab_id;
         var groupValue = "_INVALID_GROUP_VALUE_";
         $scope.sch_history = false;
         $scope.academic = true;
@@ -915,6 +923,14 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             $(attendance_detail).addClass('hide');
 
         };
+        if(tab){
+            $('[data-target="#'+tab+'"]').tab('show');
+        }
+        $('[data-toggle="tab"]').on('show.bs.tab', function(e){
+
+            $location.update_path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''));
+
+        });
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
