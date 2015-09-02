@@ -57,6 +57,8 @@ $(document).ready(function () {
         $(document.body).find('#login-container').addClass("login-page");
     }
 
+    console.log($("#first_transcript_column").outerWidth());
+
 
     $('#dashboard-menu').hide();
 
@@ -183,7 +185,6 @@ $(document).ready(function () {
 
         $('#school-history').show();
     });
-
 });
 
 function hideContent(curr) {

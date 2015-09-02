@@ -10,6 +10,8 @@
 //    grant_type: 'password'
 //};
 
+var is_logged_in = false;
+
 var __i = false;
 
 var global_redirect_url = '/';
@@ -280,10 +282,10 @@ function ($window, $rootScope, locale) {
         $rootScope.data_content = "asset/templates/desktop.html";
         var element = angular.element("#login-container");
         if ($window.innerWidth > 767) {
-            $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
+            $rootScope.loginClass = "col-md-offset-4 col-md-4 login-page";
             $rootScope.data_content = "asset/templates/desktop.html";
         } else if ($window.innerWidth < 767) {
-            $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
+            $rootScope.loginClass = "col-md-offset-4 col-md-4 login-page-mobile";
             $rootScope.data_content = "asset/templates/mobile.html";
         }
 
@@ -305,6 +307,7 @@ app.run(function ($rootScope, $http, $location, $window, AuthenticationService, 
         //redirect only if both isAuthenticated is false and no token is set
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             $location.path("/login");
+            $rootScope.showNavBar = false;
         }
 
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAdmin && AuthenticationService.role == 'case-worker') {
@@ -312,12 +315,16 @@ app.run(function ($rootScope, $http, $location, $window, AuthenticationService, 
             event.preventDefault();
         }
 
+        if($location.$$absUrl != 'http://localhost/cbo_website/src/public/#/login'){
+            localStorage.setItem('url', $location.$$absUrl);
+        }
+
         if (returnData) {
             start_time_idle();
         }
-
-
-
+        if($location.$$path == '/login'){
+            $rootScope.showNavBar = false;
+        }
     });
 });
 
@@ -485,7 +492,6 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
                 })
                 .success(function (response) {
-
                     $rootScope.showNavBar = true;
                     CookieStore.clearData();
                     showError($rootScope.lang.success_logout, 2);
@@ -940,6 +946,8 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
             });
         var getXsre = function () {
+            $scope.loading_icon = false;
+            $('.loading-icon').removeClass('hide');
             $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
                     headers: {
                         'Authorization': 'Bearer ' + AuthenticationService.token
@@ -951,6 +959,8 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                     $scope.attendanceBehavior = [];
                     $scope.xsreLastUpdated = null;
                     if (response.success != false) {
+                        $('.loading-icon').addClass('hide');
+                        $scope.loading_icon = true;
                         $scope.studentdetails = response;
                         $scope.case_workers = response._embedded.users;
                         if (typeof response.success !== 'undefined' && response.success == false) {
@@ -3149,7 +3159,9 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                                             }
                                             start_time_idle();
-                                            $location.path('/');
+                                             $location.path('/');
+
+
                                         } else {
                                             showError(response.error.message, 1);
                                         }
