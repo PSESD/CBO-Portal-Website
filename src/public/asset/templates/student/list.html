@@ -27,6 +27,11 @@
                                 <th>{{ 'general.name' | i18n }}</th>
                                 <th>{{ 'general.district_student_id' | i18n }}</th>
                                 <th>{{ 'general.school_district' | i18n }}</th>
+                                <th>{{ 'general.gradeLevel' | i18n }}</th>
+                                <th>{{ 'general.current_school' | i18n }}</th>
+                                <th>{{ 'general.attendance' | i18n }}</th>
+                                <th>{{ 'general.behavior' | i18n }}</th>
+                                <th>{{ 'general.on_track_to_graduate' | i18n }}</th>
                                 <th class="text-center" style="width:5%;">{{ 'general.edit' | i18n }}</th>
                                 <th class="text-center" style="width:5%;">{{ 'general.delete' | i18n }}</th>
                             </tr>
@@ -36,6 +41,11 @@
                                 <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.first_name }} {{ student.last_name }}</a></td>
 								<td>{{student.district_student_id}}</td>
                                 <td>{{ student.school_district }}</td>
+                                <td>{{ student.grade_level }}</td>
+                                <td>{{ student.current_school }}</td>
+                                <td>{{ student.attendance }}</td>
+                                <td>{{ student.behavior }}</td>
+                                <td>{{ student.on_track_to_graduate }}</td>
                                 <td class="text-center">
                                     <a class="glyphicon glyphicon-pencil" ng-href="#/student/edit/{{ student._id }}"></a>
 									</td>
