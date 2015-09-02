@@ -767,11 +767,11 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
         $scope.close = function () {
             $scope.open_button = true;
             $scope.icon_legend = false;
-        }
+        };
         $scope.open = function () {
             $scope.icon_legend = true;
             $scope.open_button = false;
-        }
+        };
         var student_id = $routeParams.student_id;
         var groupValue = "_INVALID_GROUP_VALUE_";
         $scope.sch_history = false;
@@ -908,7 +908,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
 
             $(attendance_detail).addClass('hide');
 
-        }
+        };
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
@@ -1046,11 +1046,35 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                                 //console.log($scope.attendanceBehavior);
                             });
 
-                            //console.log($scope.attendanceBehavior);
+                            $scope.academicInfo = {
+                                currentSchool: 'N/A',
+                                expectedGraduationYear: 'N/A',
+                                gradeLevel: 'N/A',
+                                languageSpokenAtHome: 'N/A',
+                                iep: 'N/A',
+                                s504: 'N/A',
+                                freeReducedLunch: 'N/A'
+                            };
+
+                            if(response.programs){
+                                $scope.academicInfo.gradeLevel = _.get(response.programs, 'specialEducation.gradeLevel') || 'N/A';
+                                $scope.iep = _.get(response.programs, 'specialEducation.services[0].service.ideaIndicator') || 'N/A';
+                                $scope.s504 = _.get(response.programs, 'specialEducation.section504Status') || 'N/A';
+                                var eligibilityStatus = _.get(response.programs, 'foodService.eligibilityStatus');
+                                var enrollmentStatus = _.get(response.programs, 'foodService.enrollmentStatus');
+                                if(eligibilityStatus && enrollmentStatus) {
+                                    $scope.freeReducedLunch = enrollmentStatus + ' or ' + eligibilityStatus;
+                                }
+                            }
+
+                            $scope.academicInfo.expectedGraduationYear = _.get(response, 'enrollment.projectedGraduationYear') || 'N/A';
+                            $scope.languageSpokenAtHome = _.get(response, 'languages.language[1].code') || 'N/A';
+                            $scope.academicInfo.currentSchool = _.get(response.programs, 'enrollment.school.schoolName') || 'N/A';
 
                             $scope.xsreLastUpdated = response.lastUpdated;
 
                         }
+
                         angular.forEach(embedPrograms, function (v) {
                             var program = {
                                 "years": new Date(v.participation_start_date).getFullYear(),

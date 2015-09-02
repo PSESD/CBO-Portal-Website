@@ -99,26 +99,26 @@
                                 </div>
                             </div>
                             <div class="content bottom-space">
-                                <b>{{ 'general.current_school' | i18n }}</b> {{studentdetails.transcriptTerm.school.schoolName}}
+                                <b>{{ 'general.current_school' | i18n }}</b> {{ academicInfo.currentSchool }}
                                 <br/>
-                                <b>{{ 'general.expected_graduation_year' | i18n }}</b> {{studentdetails.transcriptTerm.schoolYear}}
+                                <b>{{ 'general.expected_graduation_year' | i18n }}</b> {{ academicInfo.expectedGraduationYear }}
                                 <br/>
                                 <b>{{ 'general.grade_level' | i18n }}</b>
-                                <div class="uppercase inline-block">{{'general.n_a' | i18n}}</div>
+                                <div class="uppercase inline-block">{{academicInfo.gradeLevel }}</div>
                                 <br/>
                             </div>
                             <div class="content top-space">
                                 <b>{{ 'general.language_spoken_at_home' | i18n }}</b>
-                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n }}</div>
+                                <div class="uppercase inline-block"> {{ academicInfo.languageSpokenAtHome }}</div>
                                 <br/>
                                 <b>IEP</b>
-                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n}}</div>
+                                <div class="uppercase inline-block"> {{ academicInfo.iep }}</div>
                                 <br/>
                                 <b>S504</b>
-                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n}}</div>
+                                <div class="uppercase inline-block"> {{ academicInfo.s504 }}</div>
                                 <br/>
                                 <b>{{ 'general.free_or_reduced_lunch' | i18n }}</b>
-                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n}}</div>
+                                <div class="uppercase inline-block"> {{ academicInfo.freeReducedLunch }}</div>
                                 <br/>
                             </div>
                         </div>
