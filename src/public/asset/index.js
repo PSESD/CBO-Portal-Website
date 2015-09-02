@@ -12,7 +12,7 @@
 
 var is_logged_in = false;
 
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
@@ -1065,22 +1065,23 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                                 s504: 'N/A',
                                 freeReducedLunch: 'N/A'
                             };
+                            console.log(response);
 
                             if(response.programs){
-                                $scope.academicInfo.gradeLevel = _.get(response.programs, 'specialEducation.gradeLevel') || 'N/A';
-                                $scope.iep = _.get(response.programs, 'specialEducation.services[0].service.ideaIndicator') || 'N/A';
-                                $scope.s504 = _.get(response.programs, 'specialEducation.section504Status') || 'N/A';
+
+                                $scope.academicInfo.iep = _.get(response.programs, 'specialEducation.services[0].service.ideaIndicator') || _.get(response.programs, 'specialEducation.services.service.ideaIndicator') || 'N/A';
+                                $scope.academicInfo.s504 = _.get(response.programs, 'specialEducation.section504Status') || 'N/A';
                                 var eligibilityStatus = _.get(response.programs, 'foodService.eligibilityStatus');
                                 var enrollmentStatus = _.get(response.programs, 'foodService.enrollmentStatus');
                                 if(eligibilityStatus && enrollmentStatus) {
-                                    $scope.freeReducedLunch = enrollmentStatus + ' or ' + eligibilityStatus;
+                                    $scope.academicInfo.freeReducedLunch = enrollmentStatus;
                                 }
                             }
-
+                            $scope.academicInfo.gradeLevel = _.get(response, 'enrollment.gradeLevel') || 'N/A';
                             $scope.academicInfo.expectedGraduationYear = _.get(response, 'enrollment.projectedGraduationYear') || 'N/A';
-                            $scope.languageSpokenAtHome = _.get(response, 'languages.language[1].code') || 'N/A';
-                            $scope.academicInfo.currentSchool = _.get(response.programs, 'enrollment.school.schoolName') || 'N/A';
-
+                            $scope.academicInfo.languageSpokenAtHome = _.get(response, 'languages.language[1].code') || 'N/A';
+                            $scope.academicInfo.currentSchool = _.get(response, 'enrollment.school.schoolName') || 'N/A';
+console.log(_.get(response, 'languages.language[1].code'));
                             $scope.xsreLastUpdated = response.lastUpdated;
 
                         }
@@ -1768,6 +1769,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
         $rootScope.full_screen = false;
         $scope.students = [];
+
         $scope.deleteStudent = function (id, index) {
             if (id) {
                 $scope.working = true;
@@ -1806,16 +1808,26 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             .success(function (response) {
 
                 if (response.success == true && response.total > 0) {
-                    angular.forEach(response.data, function (v) {
+                    var embedData = [];
+                    embedData = ('data' in response) ? response.data : [];
+                    var data = [];
+                    angular.forEach(embedData, function (student) {
+
                         $.each(schoolDistricts, function (key, value) {
-                            if (key == v.school_district || value == v.school_district) {
-                                v.school_district = value;
+                            if (key == student.school_district || value == student.school_district) {
+                                student.school_district = value;
                             }
 
                         });
+                        student.gradeLevel = _.get(student, 'xsre.enrollment.gradeLevel');
+                        student.schoolYear = _.get(student,'xsre.enrollment.schoolYear');
+                        student.schoolName = _.get(student,'xsre.enrollment.school.schoolName');
+                        student.onTrackGraduate = _.get(student,'xsre.transcriptTerm.academicSummary.onTrackToGraduate');
+                        $scope.students.push(student);
                     });
 
-                    $scope.students = response.data;
+                  //  $scope.students = response.data;
+                    console.log($scope.students);
                 } else {
                     showError(response.error.message, 1);
                 }
