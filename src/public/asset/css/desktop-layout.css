@@ -10,7 +10,7 @@ body {
 }
 #center-panel {
     margin-left: 15%;
-    background-color: ;
+    /*background-color: ;*/
 }
 #center-panel .row-fluid {
     overflow: auto;
@@ -25,6 +25,8 @@ body {
     width: 15%;
     height: 100%;
     box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1) inset;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 #footer {
     position: fixed;
@@ -49,4 +51,11 @@ body {
         height: 100%;
         box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1) inset;
     }
+}
+@media (max-height: 640px) {
+    #footer{
+        position:relative;
+        padding: 0;
+    }
+    
 }

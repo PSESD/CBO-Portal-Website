@@ -160,6 +160,10 @@
     "attempted_credits": "Attempted Credits",
     "earned_credits":"Earned Credits",
 
+    "on_track_to_graduate": "On Track to Graduate",
+    "attendance": "Attendance",
+    "gradeLevel": "Grade Level",
+
     "personal": "Personal",
     "info": "Information",
     "contact": "Contact",

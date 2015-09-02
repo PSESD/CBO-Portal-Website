@@ -8,7 +8,7 @@
                         <h2>
                             {{ student.first_name }} {{ student.last_name }}
                             <span class="last-update">{{ 'general.last_update' | i18n }} : &nbsp {{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
-                            <a ng-click="updateNow()" style="font-size: 14px;font-weight: bold;">(Update Now)</a>
+                            <img class="loading-icon" src="asset/img/ajax-loader.gif"><a ng-show="loading_icon" ng-click="updateNow()" style="font-size: 14px;font-weight: bold;">(Update Now)</a>
                         </h2>
                         <hr>
                     </div>
@@ -99,26 +99,26 @@
                                 </div>
                             </div>
                             <div class="content bottom-space">
-                                <b>{{ 'general.current_school' | i18n }}</b> {{studentdetails.transcriptTerm.school.schoolName}}
+                                <b>{{ 'general.current_school' | i18n }}</b> {{ academicInfo.currentSchool }}
                                 <br/>
-                                <b>{{ 'general.expected_graduation_year' | i18n }}</b> {{studentdetails.transcriptTerm.schoolYear}}
+                                <b>{{ 'general.expected_graduation_year' | i18n }}</b> {{ academicInfo.expectedGraduationYear }}
                                 <br/>
                                 <b>{{ 'general.grade_level' | i18n }}</b>
-                                <div class="uppercase inline-block">{{'general.n_a' | i18n}}</div>
+                                <div class="uppercase inline-block">{{academicInfo.gradeLevel }}</div>
                                 <br/>
                             </div>
                             <div class="content top-space">
                                 <b>{{ 'general.language_spoken_at_home' | i18n }}</b>
-                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n }}</div>
+                                <div class="uppercase inline-block"> {{ academicInfo.languageSpokenAtHome }}</div>
                                 <br/>
                                 <b>IEP</b>
-                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n}}</div>
+                                <div class="uppercase inline-block"> {{ academicInfo.iep }}</div>
                                 <br/>
                                 <b>S504</b>
-                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n}}</div>
+                                <div class="uppercase inline-block"> {{ academicInfo.s504 }}</div>
                                 <br/>
                                 <b>{{ 'general.free_or_reduced_lunch' | i18n }}</b>
-                                <div class="uppercase inline-block"> {{ 'general.n_a' | i18n}}</div>
+                                <div class="uppercase inline-block"> {{ academicInfo.freeReducedLunch }}</div>
                                 <br/>
                             </div>
                         </div>
@@ -130,13 +130,14 @@
                                     <hr>
                                 </div>
                             </div>
-                        </div>
-                        <div class="content">
-                            <div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
-                                <span>{{course.courseTitle}}</span>
-                                <br/>
+                            <div class="content">
+                                <div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
+                                    <span>{{course.courseTitle}}</span>
+                                    <br/>
+                                </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="clearfix"></div>
@@ -344,7 +345,7 @@
                             </div>
 
                         </li>
-                        <li class="math-credits uppercase">1.5
+                        <li  class="math-credits uppercase">1.5
                             <br/>{{ 'general.math_credits' | i18n}}</li>
                         <li class="language-arts-credits uppercase">2
                             <br/>{{ 'general.soc_studies_credits' | i18n }}</li>
@@ -357,6 +358,7 @@
                     </ul>
                     <hr class="separator-transcript">
                     <div class="transcript-container">
+                        <div class="inner-transcript-container">
                         <ul class="flexbox transcript-content">
                         <li class="transcript-content">
                             2013 - Term 4
@@ -1566,7 +1568,8 @@
                                 </div>
 								</div>
                             </li>
-                            
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
