@@ -726,7 +726,7 @@ li.transcript-content>.transcript-content-array:hover .transcript-descriptor {
     height: auto;
 }
 .transcript-descriptor:hover ~ .transcript-display {
-    display: none;
+    visibility: none;
 }
 
 ul.flexbox.attendance-behavior,
