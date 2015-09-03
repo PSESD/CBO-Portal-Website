@@ -12,7 +12,7 @@
 
 var is_logged_in = false;
 
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
@@ -322,9 +322,9 @@ app.run(function ($rootScope, $http, $location, $window, AuthenticationService, 
             event.preventDefault();
         }
 
-        if($location.$$absUrl != 'http://localhost/cbo_website/src/public/#/login'){
+
             localStorage.setItem('url', $location.$$absUrl);
-        }
+        console.log(localStorage);
 
         if (returnData) {
             start_time_idle();

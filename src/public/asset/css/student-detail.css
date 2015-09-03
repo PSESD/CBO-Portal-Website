@@ -860,3 +860,70 @@ ul.cohorts {
     position: relative;
     top:5px;
 }
+
+.tc-1-col{
+    width: 84%;
+}
+.tc-2-col{
+    width: 42%;
+}
+.tc-3-col{
+    width: 28%;
+}
+.tc-4-col{
+    width: 21%;
+}
+.tc-5-col{
+    width: 16.8%;
+}
+.tc-6-col{
+    width: 14%;
+}
+.tc-7-col{
+    width: 12%;
+}
+.tc-8-col{
+    width: 10.5%;
+}
+.tc-9-col{
+    width: 9.3333%;
+}
+.tc-10-col{
+    width: 8.4%;
+}
+.tc-11-col{
+    width: 7.6363%;
+}
+.tc-12-col{
+    width: 7%;
+}
+.tc-13-col{
+    width: 6.4615%;
+}
+.tc-14-col{
+    width: 6%;
+}
+.tc-15-col{
+    width: 5.6%;
+}
+.tc-16-col{
+    width: 5.25%;
+}
+.tc-17-col{
+    width: 4.9411%;
+}
+.tc-18-col{
+    width: 4.6666%;
+}
+.tc-19-col{
+    width: 4.4210%;
+}
+.tc-20-col{
+    width: 4.2222%;
+}
+.tc-21-col{
+    width: 4%;
+}
+.tc-22-col{
+    width: 3.8181%;
+}
