@@ -322,9 +322,8 @@ app.run(function ($rootScope, $http, $location, $window, AuthenticationService, 
             event.preventDefault();
         }
 
-        if($location.$$absUrl != 'http://localhost/cbo_website/src/public/#/login'){
-            localStorage.setItem('url', $location.$$absUrl);
-        }
+
+
 
         if (returnData) {
             start_time_idle();
@@ -1081,7 +1080,6 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                 s504: 'N/A',
                                 freeReducedLunch: 'N/A'
                             };
-                            console.log(response);
 
                             if(response.programs){
 
@@ -1097,7 +1095,21 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                             $scope.academicInfo.expectedGraduationYear = _.get(response, 'enrollment.projectedGraduationYear') || 'N/A';
                             $scope.academicInfo.languageSpokenAtHome = _.get(response, 'languages.language[1].code') || 'N/A';
                             $scope.academicInfo.currentSchool = _.get(response, 'enrollment.school.schoolName') || 'N/A';
-console.log(_.get(response, 'languages.language[1].code'));
+                            $scope.transcripts = response.transcripts || {};
+                            $scope.total_data = _.size(response.transcripts.subject);
+
+                            //if($scope.transcripts.details){
+                            //    var details = [];
+                            //    angular.forEach($scope.transcripts.details, function(detail){
+                            //        details.push(detail);
+                            //        angular.forEach(detail.transcripts, function(d){
+                            //           details.push(d);
+                            //        });
+                            //    });
+                            //} else {
+                            //    $scope.transcripts.details = [];
+                            //}
+
                             $scope.xsreLastUpdated = response.lastUpdated;
 
                         }
