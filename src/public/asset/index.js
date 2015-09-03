@@ -12,7 +12,7 @@
 
 var is_logged_in = false;
 
-var __i = true;
+var __i = false;
 
 var global_redirect_url = '/';
 
