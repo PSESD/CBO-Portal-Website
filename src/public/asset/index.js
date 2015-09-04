@@ -12,11 +12,11 @@
 
 var is_logged_in = false;
 
-var __i = false;
+var __i = true;
 
 var global_redirect_url = '/';
 
-var app = angular.module('CboPortal', ['ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
+var app = angular.module('CboPortal', ['ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
     'ngLocalize.Config'
 ]).value('localeConf', {
     basePath: 'languages',
@@ -297,9 +297,20 @@ function ($window, $rootScope, locale) {
         }
 
 }]);
+app.run(['$rootScope', '$state', '$stateParams', addUIRouterVars]);
+function addUIRouterVars($rootScope, $state, $stateParams) {
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+
+    // add previous state property
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
+        $state.previous = fromState;
+        console.log(fromState);
+    });
+}
 
 
-app.run(function ($rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
+app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
 
     var returnData = CookieStore.getData();
     locale.ready('general').then(function () {
@@ -322,8 +333,18 @@ app.run(function ($rootScope, $http, $location, $window, AuthenticationService, 
             event.preventDefault();
         }
 
+        if('$$route' in nextRoute){
 
+            if(nextRoute.$$route.originalPath != '/login'){
+                if(nextRoute.$$route.keys.length == 0){
+                    localStorage.setItem('url_intended',nextRoute.$$route.originalPath);
+                }else{
 
+                }
+            }else {
+                localStorage.setItem('url_intended','/login');
+            }
+        }
 
         if (returnData) {
             start_time_idle();
@@ -331,6 +352,10 @@ app.run(function ($rootScope, $http, $location, $window, AuthenticationService, 
         if($location.$$path == '/login'){
             $rootScope.showNavBar = false;
         }
+    });
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
+        $state.previous = fromState;
+        console.log(fromState);
     });
 });
 
@@ -501,6 +526,8 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     $rootScope.showNavBar = true;
                     CookieStore.clearData();
                     showError($rootScope.lang.success_logout, 2);
+                    localStorage.setItem('url_intended','');
+                    console.log(localStorage);
                     $location.path("/login");
 
                 })
@@ -3223,6 +3250,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                                             }
                                             start_time_idle();
+
                                              $location.path('/');
 
 
