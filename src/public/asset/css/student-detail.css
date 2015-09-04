@@ -720,6 +720,10 @@ ul li.transcript-content:nth-child(7) {
         margin-bottom: 35px;
         padding-right: 10px;
     }
+
+    #emergency_section,#assigned_user_section{
+        clear: both;
+    }
 }
 .subhead.transcript {
     padding: 0;
@@ -1197,4 +1201,11 @@ ul.cohorts {
     width: 3.8181%!important;
     padding-top: 0!important;
     padding-left:0!important;
+}
+
+.vertical-line{
+    border-right: 3px solid #eee;
+}
+.extra-space{
+    padding-left:5%;
 }

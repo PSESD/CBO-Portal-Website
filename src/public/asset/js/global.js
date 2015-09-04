@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+    $(window).on('hashchange', function(e){
+        var url = [];
+        url.push(window.location.href);
+        console.log(url);
+    });
+
+
+
     if (typeof env !== 'undefined' && env == 'production') {
         window.intercomSettings = {
             app_id: intercom_id
@@ -112,25 +120,9 @@ $(document).ready(function () {
 
 
     $(window).on("resize", function () {
-        /*
-        if ($(window).width() > 767 && $('.navbar-toggle').is(':hidden')) {
-            $(selected2).removeAttr('style');
-            $(selected).removeClass('slide-active');
-			$('#dashboard-menu').hide();
-			$('#slide-menu').removeAttr('class');
-			$('#slide-menu').addClass('collapse-icon glyphicon glyphicon-remove');
-			$('#slide-menu').show();
-            $('#sign_in_button').removeClass('button btn-block');
-            $('#sign_in_button').addClass('button');
+        if ($(window).width() < 776 ) {
+            this.location.reload(false);
         }
-		else if ($(window).width() < 767)
-		{
-			$('#dashboard-menu').hide();
-			$('#slide-menu').hide();
-			$('#navbar').show();
-            $('#sign_in_button').addClass('btn-block');
-		}
-		*/
 
         if ($(window).width() < 776) {
             $("#mobile").css({
@@ -148,12 +140,16 @@ $(document).ready(function () {
                 "display": ""
             });
             $(".col-md-offset-4.col-md-5").addClass("login-page");
+
         }
 
         if ($(window).width() > 990 && $(window).width() < 1600) {
             $("a#forgot_button").addClass("btn-block");
+            this.location.reload(false);
+
         } else {
             $("a#forgot_button").removeClass("btn-block");
+
         }
 
     });

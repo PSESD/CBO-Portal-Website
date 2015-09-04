@@ -12,7 +12,7 @@
 
 var is_logged_in = false;
 
-var __i = true;
+var __i = false;
 
 var global_redirect_url = '/';
 
@@ -297,18 +297,6 @@ function ($window, $rootScope, locale) {
         }
 
 }]);
-app.run(['$rootScope', '$state', '$stateParams', addUIRouterVars]);
-function addUIRouterVars($rootScope, $state, $stateParams) {
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-
-    // add previous state property
-    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
-        $state.previous = fromState;
-        console.log(fromState);
-    });
-}
-
 
 app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
 
@@ -334,17 +322,66 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
         }
 
         if('$$route' in nextRoute){
+            var intended_url = '';
 
             if(nextRoute.$$route.originalPath != '/login'){
-                if(nextRoute.$$route.keys.length == 0){
-                    localStorage.setItem('url_intended',nextRoute.$$route.originalPath);
-                }else{
-
+                intended_url = _.get(nextRoute.$$route, 'originalPath');
+                if(intended_url == '/program/students/:program_id'){
+                    intended_url = '/program/students/'+ _.get(nextRoute.params,'program_id');
+                }else if(intended_url == '/student/backpacks/:student_id'){
+                    intended_url = '/student/backpacks/'+_.get(nextRoute.params,'student_id');
+                }else if(intended_url == '/student/detail/:student_id'){
+                    intended_url = '/student/detail/'+_.get(nextRoute.params,'student_id');
+                }else if(intended_url == '/student/detail/:student_id/:tab_id'){
+                    intended_url = '/student/detail/'+_.get(nextRoute.params,'student_id')+'/'+_.get(nextRoute.params,'tab_id');
+                }else if(intended_url == '/student/edit/:student_id'){
+                    intended_url = '/student/edit/'+_.get(nextRoute.params,'student_id');
+                }else if(intended_url =='/student/programs/:student_id/add'){
+                    intended_url = '/student/programs/'+_.get(nextRoute.params,'student_id')+'/add';
+                }else if(intended_url =='/student/programs/:student_id'){
+                    intended_url = '/student/programs/'+_.get(nextRoute.params,'student_id');
+                }else if(intended_url =='/program/detail/:program_id'){
+                    intended_url = '/program/detail/'+_.get(nextRoute.params,'program_id');
+                }else if(intended_url =='/program/edit/:program_id'){
+                    intended_url = '/program/edit/'+_.get(nextRoute.params,'program_id');
+                }else if(intended_url =='/program/students/:program_id/add'){
+                    intended_url = '/program/students/'+_.get(nextRoute.params,'program_id')+'/add';
+                }else if(intended_url =='/program/students/:program_id/edit/:student_id'){
+                    intended_url = '/program/students/'+_.get(nextRoute.params,'program_id')+'/edit/'+_.get(nextRoute.params,'student_id');
+                }else if(intended_url =='/program/students/:program_id'){
+                    intended_url = '/program/students/'+_.get(nextRoute.params,'program_id');
+                }else if(intended_url =='/tag/edit/:tag_id'){
+                    intended_url = '/tag/edit/'+_.get(nextRoute.params,'tag_id');
+                }else if(intended_url =='/user/group/:user_id/add'){
+                    intended_url = '/user/group/'+_.get(nextRoute.params,'user_id')+'/add';
+                }else if(intended_url =='/user/group/:user_id'){
+                    intended_url = '/user/group/'+_.get(nextRoute.params,'user_id');
+                }else if(intended_url =='/user/assign/:user_id'){
+                    intended_url = '/user/assign/'+_.get(nextRoute.params,'user_id');
+                }else if(intended_url =='/user/edit/:user_id'){
+                    intended_url = '/user/edit/'+_.get(nextRoute.params,'user_id');
+                }else if(intended_url =='/user/detail/:user_id'){
+                    intended_url = '/user/detail/'+_.get(nextRoute.params,'user_id');
                 }
-            }else {
-                localStorage.setItem('url_intended','/login');
+
+                localStorage.setItem('intended_url',intended_url);
+                console.log(localStorage);
             }
+
         }
+        ($stateParams);
+        //if('$$route' in nextRoute){
+        //
+        //    if(nextRoute.$$route.originalPath != '/login'){
+        //        if(nextRoute.$$route.keys.length == 0){
+        //            localStorage.setItem('url_intended',nextRoute.$$route.originalPath);
+        //        }else{
+        //
+        //        }
+        //    }else {
+        //        localStorage.setItem('url_intended','/login');
+        //    }
+        //}
 
         if (returnData) {
             start_time_idle();
@@ -954,7 +991,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
         }
         $('[data-toggle="tab"]').on('show.bs.tab', function(e){
 
-            $location.update_path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''));
+            $location.update_path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''),true);
 
         });
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {
@@ -3250,9 +3287,11 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                                             }
                                             start_time_idle();
-
-                                             $location.path('/');
-
+                                            if('intended_url' in localStorage && localStorage.getItem('intended_url')!=''){
+                                                $location.path(localStorage.getItem('intended_url'));
+                                            }else {
+                                                $location.path('/');
+                                            }
 
                                         } else {
                                             showError(response.error.message, 1);
