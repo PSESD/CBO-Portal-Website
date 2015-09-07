@@ -320,11 +320,16 @@
                 <div role="tabpanel" class="tab-pane transcript" id="transcript" data-id="transcript_data">
                     <ul class="flexbox transcript">
                         <li>
-                            <b>{{ transcripts.summary.totalCreditsEarned }}</b>{{ 'general.credits_earned' | i18n }}
+                            <!-- <b>{{ transcripts.summary.totalCreditsEarned }}</b>{{ 'general.credits_earned' | i18n }}
                             <br/>
                             <b>{{ transcripts.summary.termCreditsAttempted }}</b>{{ 'general.credits_attempted' | i18n }}
                             <br/>
-                            <b>{{ 'general.grade_level' | i18n }}</b> {{ transcripts.gradeLevel }}
+                            <b>{{ 'general.grade_level' | i18n }}</b> {{ transcripts.gradeLevel }} //-->
+                            <b>{{ transcripts.info.totalEarned }}</b>{{ 'general.credits_earned' | i18n }}
+                            <br/>
+                            <b>{{ transcripts.info.totalAttempted }}</b>{{ 'general.credits_attempted' | i18n }}
+                            <br/>
+                            <b>{{ 'general.grade_level' | i18n }}</b> {{ transcripts.info.gradeLevel }}
                             <br/>
                             <br/>
                             <div>
