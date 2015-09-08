@@ -1161,18 +1161,16 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                             $scope.academicInfo.currentSchool = _.get(response, 'enrollment.school.schoolName') || 'N/A';
                             $scope.transcripts = response.transcripts || {};
                             $scope.total_data = _.size(response.transcripts.subject);
-
-                            //if($scope.transcripts.details){
-                            //    var details = [];
-                            //    angular.forEach($scope.transcripts.details, function(detail){
-                            //        details.push(detail);
-                            //        angular.forEach(detail.transcripts, function(d){
-                            //           details.push(d);
-                            //        });
-                            //    });
-                            //} else {
-                            //    $scope.transcripts.details = [];
-                            //}
+                            $scope.transcripts.subjectOrder = [];
+                            _.each($scope.transcripts.subject, function(item, key){
+                                $scope.transcripts.subjectOrder.push({ name: key, value: item });
+                            });
+                            _.each($scope.transcripts.details, function(item, key){
+                                item.transcriptsOrder = [];
+                                _.each(item.transcripts, function(i, k){
+                                    item.transcriptsOrder.push({ name: k, value: i })
+                                });
+                            });
 
                             $scope.xsreLastUpdated = response.lastUpdated;
 
