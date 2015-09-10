@@ -87,6 +87,12 @@ II MEDIA
         color: #999 !important;
         padding: 0 10px 10px 0 !important;
     }
+    .bold{
+        color: #999 !important;
+    }
+    .bold-title{
+        padding: 0 10px 10px 0 !important;
+    }
     /*
 ===============================================
 ================== 2.Header ===================

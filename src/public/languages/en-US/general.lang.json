@@ -73,6 +73,8 @@
     "personal_contact": "Personal Contact",
     "emergency_contacts": "Emergency Contacts",
     "case_workers": "Assigned Users",
+    "case_workers_restricted": "Assigned Users Restricted",
+    "case_workers_unrestricted": "Assigned Users Unrestricted",
     "academic_info": "Academic Information",
     "current_school": "Current School",
     "expected_graduation_year": "Expected Graduation Year",
