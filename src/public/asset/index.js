@@ -832,8 +832,8 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 ]);
 
 
-app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce',
+    function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore,$sce) {
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
@@ -1073,6 +1073,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                                     x++;
                                                     html = '<div class="grid-item n_a ' + cls + '"></div>';
                                                     if (typeof item === 'object' && item.event !== null) {
+
                                                         html = '<div class="grid-item ' + item.slug + cls + '">';
                                                         html += '<div class="descriptor">';
                                                         html += '<div class="descriptor-title ' + item.slug + '-font-color">';
@@ -1087,6 +1088,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                                     } else {
 
                                                     }
+
                                                     xhtml.push(html);
                                                 }
                                             });
@@ -3766,6 +3768,20 @@ app.directive('datepicker', function () {
         replace: true
     }
 
+});
+
+app.directive('attendanceItems',function(){
+    return {
+
+        restrict:'E',
+        scope:{
+            behavior:"="
+        },
+        template:"<a class='' href='#' tooltip-html='htmlTooltip'></a>",
+        controller:function($scope,$sce){
+
+}
+    }
 });
 
 app.directive('a', function () {
