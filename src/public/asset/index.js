@@ -3770,20 +3770,6 @@ app.directive('datepicker', function () {
 
 });
 
-app.directive('attendanceItems',function(){
-    return {
-
-        restrict:'E',
-        scope:{
-            behavior:"="
-        },
-        template:"<a class='' href='#' tooltip-html='htmlTooltip'></a>",
-        controller:function($scope,$sce){
-
-}
-    }
-});
-
 app.directive('a', function () {
     return {
         restrict: 'E',

@@ -40,13 +40,6 @@
                                     <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
                                     <dd>{{studentdetails.demographics.sex}}</dd>
                                 </dl>
-                                <!--<span class="bold bold-title">{{ 'general.district_id' | i18n }}</span> {{ student.district_student_id }}-->
-                                <!--<br/>-->
-                                <!--<span class="bold bold-title">{{ 'general.brithday' | i18n }}</span> {{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}-->
-                                <!--<br/>-->
-                                <!--<span class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</span> {{studentdetails.demographics.races.race.race}}-->
-                                <!--<br/>-->
-                                <!--<span class="bold bold-title">{{ 'general.gender' | i18n }}</span> {{studentdetails.demographics.sex}}-->
                             </div>
                             <div class="two-lines">
                                 <div class="title">
@@ -55,9 +48,14 @@
                                 </div>
                             </div>
                             <div class="content">
-                                {{student.email}}
-                                <br/> {{student.phone | phonenumber}}
-                                <br/> {{student.address}}
+                                <dl>
+                                    <dt></dt>
+                                    <dd>{{student.email}}</dd>
+                                    <dt></dt>
+                                    <dd>{{student.phone | phonenumber}}</dd>
+                                    <dt></dt>
+                                    <dd>{{student.address}}</dd>
+                                </dl>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12" id="emergency_section">
@@ -68,16 +66,28 @@
                                 </div>
                             </div>
                             <div class="content">
-                                <span class="bold bold-title">{{student.emergency1_name}}</span>
-                                <br/> {{student.emergency1_relationship}}
-                                <br/> {{student.emergency1_email}}
-                                <br/> {{student.emergency1_phone | phonenumber}}
+                                <dl>
+                                    <dt class="bold bold-title">{{student.emergency1_name}}</dt>
+                                    <dd></dd>
+                                    <dt></dt>
+                                    <dd>{{student.emergency1_relationship}}</dd>
+                                    <dt></dt>
+                                    <dd>{{student.emergency1_email}}</dd>
+                                    <dt></dt>
+                                    <dd>{{student.emergency1_phone | phonenumber}}</dd>
+                                </dl>
                             </div>
                             <div class="content personal">
-                                <span class="bold bold-title">{{student.emergency2_name}}</span>
-                                <br/> {{student.emergency2_relationship}}
-                                <br/> {{student.emergency2_email}}
-                                <br/> {{student.emergency2_phone | phonenumber}}
+                                <dl>
+                                    <dt class="bold-title bold">{{student.emergency2_name}}</dt>
+                                    <dd></dd>
+                                    <dt></dt>
+                                    <dd>{{student.emergency2_relationship}}</dd>
+                                    <dt></dt>
+                                    <dd>{{student.emergency2_email}}</dd>
+                                    <dt></dt>
+                                    <dd>{{student.emergency2_phone | phonenumber}}</dd>
+                                </dl>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12" id="assigned_user_section">
@@ -90,8 +100,11 @@
                             <div class="content">
 
                                 <div ng-repeat="person in case_workers">
-                                    <span>{{person.fullname}}</span>
-                                    <br/>
+                                    <dl>
+                                        <dt></dt>
+                                        <dd>{{person.fullname}}</dd>
+                                    </dl>
+
                                 </div>
 
                             </div>
@@ -261,7 +274,6 @@
                                         </div>
                                         <div class="days" ng-bind-html="behavior.columnHtml.F">
                                         </div>
-
                                     </div>
                                     <div class="attendance-legend">
                                         <a ng-click="open()" class="button btn-legend open_button uppercase" ng-show="open_button">{{ 'general.legend' | i18n }}</a>
@@ -352,14 +364,15 @@
                         <div class="inner-transcript-container">
                             <ul class="flexbox transcript-content {{$index % 2 == 0 ? '' : 'dark'}}" ng-repeat="transDetail in transcripts.details | orderBy:'-schoolYear'">
                                 <li class="transcript-content">
-                                    {{ transDetail.schoolYear }} - {{ transDetail.session }}
-                                    <br/>
-                                    <br/>
-                                    <span class="bold bold-title">{{ transDetail.schoolName }}</span>
-                                    <br/>
-                                    <span class="bold bold-title">{{ transDetail.summary.termCreditsAttempted }}</span> {{ 'general.credits_attempted' | i18n }}
-                                    <br/>
-                                    <span class="bold bold-title">{{ 'general.grade_level' | i18n }}</span> {{ transDetail.gradeLevel }}
+                                    <dl>
+                                        <dd>{{ transDetail.schoolYear }} - {{ transDetail.session }}</dd>
+                                        <dt></dt>
+                                        <dd class="bold bold-title">{{ transDetail.schoolName }}</dd>
+                                        <dt class="bold bold-title">{{ transDetail.summary.termCreditsAttempted }}</dt>
+                                        <dd>{{ 'general.credits_attempted' | i18n }}</dd>
+                                        <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
+                                        <dd>{{ transDetail.gradeLevel }}</dd>
+                                    </dl>
                                 </li>
                                 <li class="transcript-content tcontent-{{total_data}}-col" ng-repeat="(courseName, course) in transDetail.transcripts">
                                     <div class="transcript-descriptor" ng-if="course === null                                        ">
@@ -373,27 +386,33 @@
                                             <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }}">{{ c.title }}</div>
                                             <hr class="hr-transcript">
                                             <div class="attempted-credit">
-                                                <span class="bold bold-title">{{ c.courseId }}</span>
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.grade' | i18n }}</span> {{ c.mark }}
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.grade_level' | i18n }}</span> {{ c.gradeLevel }}
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.earned_credits' | i18n }}</span> {{ c.creditsEarned }}
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.attempted_credits' | i18n }}</span> {{ c.creditsAttempted }}
-                                                <br>
+                                                <dl>
+                                                    <dt></dt>
+                                                    <dd class="bold bold-title">{{ c.courseId }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>
+                                                    <dd>{{ c.mark }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
+                                                    <dd>{{ c.gradeLevel }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.earned_credits' | i18n }}</dt>
+                                                    <dd>{{ c.creditsEarned }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.attempted_credits' | i18n }}</dt>
+                                                    <dd>{{ c.creditsAttempted }}</dd>
+                                                </dl>
+
                                             </div>
                                         </div>
                                         <div class="transcript-display">
                                             <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }}">{{ c.title }}</div>
                                             <hr class="hr-transcript">
                                             <div class="attempted-credit">
-                                                <span class="bold bold-title">{{ 'general.grade' | i18n }}</span> {{ c.mark }}
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.attempted_credits' | i18n }}</span> {{ c.creditsEarned }}
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.earned_credits' | i18n }}</span> {{ c.creditsAttempted }}
+                                                <dl>
+                                                    <dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>
+                                                    <dd> {{ c.mark }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.attempted_credits' | i18n }}</dt>
+                                                    <dd> {{ c.creditsEarned }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.earned_credits' | i18n }}</dt>
+                                                    <dd> {{ c.creditsAttempted }}</dd>
+                                                </dl>
                                             </div>
                                         </div>
                                     </div>
