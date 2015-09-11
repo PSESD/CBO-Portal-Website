@@ -176,11 +176,19 @@ hr.attendance-separator {
     position: absolute;
     width: 99%;
 }
-.monday,
-.tuesday,
-.wednesday,
-.thursday,
-.friday {
+/*.monday,*/
+/*.tuesday,*/
+/*.wednesday,*/
+/*.thursday,*/
+/*.friday {*/
+    /*display: block;*/
+    /*width: 20%;*/
+    /*height: 300px;*/
+    /*margin: 0;*/
+    /*padding: 1px;*/
+    /*float: left;*/
+/*}*/
+.days {
     display: block;
     width: 20%;
     height: 300px;
@@ -332,9 +340,9 @@ ul.list-group.legend-list li {
 .physical-education-credits {
     background-color: #4AB8CA;
 }
-.tab-pane.transcript {
-    padding: 1%;
-}
+/*.tab-pane.transcript {*/
+    /*padding: 1%;*/
+/*}*/
 ul.flexbox.transcript {
     padding: 10px;
     display: -webkit-box;
@@ -348,7 +356,7 @@ ul.flexbox.transcript {
     display: flex;
     /* NEW, Spec - Opera 12.1, Firefox 20+ */
     margin: 0;
-    padding: 0;
+    padding: 1%;
 }
 ul.transcript li:nth-child(1) {
     width: 16%;
@@ -418,7 +426,7 @@ ul.transcript li {
     padding: 0;
 }
 .separator-transcript {
-    width: 100%;
+    width: 99.7%;
     padding: 2px;
     /* border-top: solid 2px #555; */
     margin: 10px 0 10px 0;
@@ -777,7 +785,7 @@ ul.flexbox.transcript-content {
     display: -webkit-flex;
     display: flex;
     margin: 0;
-    padding: 0;
+    padding: 1%;
 }
 .scrollableContainer {
     height: 310px;
