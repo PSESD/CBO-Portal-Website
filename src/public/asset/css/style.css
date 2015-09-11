@@ -82,9 +82,15 @@ II MEDIA
         font-weight: 400;
         max-width: 400px;
     }
-    b,
-    strong {
+    /*b,*/
+    /*strong {*/
+        /*color: #999 !important;*/
+        /*padding: 0 10px 10px 0 !important;*/
+    /*}*/
+    .bold{
         color: #999 !important;
+    }
+    .bold-title{
         padding: 0 10px 10px 0 !important;
     }
     /*
@@ -392,6 +398,7 @@ select{
         font-weight: normal;
         font-size: 10px;
         vertical-align: middle;
+        letter-spacing: .5px;
     }
     .small {
         font-size: 50%;
@@ -780,4 +787,44 @@ select{
     }
     .inline-block {
         display: inline-block;
+    }
+
+    .login-page-title{
+        padding-bottom: 1px;
+        font-size: 16px;
+    }
+.login-help-link{
+    font-size: 11px;
+}
+.confidentiality-footer{
+    background-color: white;
+    padding: .5%;
+    position: fixed;
+    bottom: 0;
+    margin-left: 15%;
+}
+    @media (max-width : 776px) {
+        .confidentiality-footer{
+            background-color: white;
+            padding: 1.5%;
+            position: fixed;
+            bottom: 0;
+            margin-left: 7.3%;
+        }
+    }
+
+    dd,
+    dt{
+        display: inline;
+        margin: 0;
+    }
+    dd:before {
+        content: ' '; /* space them */
+    }
+    dt:before { /* insert line break before <dt> */
+        content:"\A";
+        white-space:pre;
+    }
+    dt:first-child:before { /* disable line break before the first <dt> */
+        content: none;
     }

@@ -41,7 +41,7 @@
                     <div id="footer">
                         <li><a href="http://roadmapracetothetop.org/" target="_blank">ROADMAP PROJECT</a></li>
                         <li><a>PRIVACY POLICY</a></li>
-                        <li><a>CONFIDENTIALITY STATEMENT</a></li>
+                        <!--<li><a>CONFIDENTIALITY STATEMENT</a></li>-->
                         <li><a>&copy;2015&nbsp;</a><a href="http://www.psesd.org/" target="_blank">PSESD</a></li>
                     </div>
                 </ul>
@@ -71,6 +71,9 @@
             </div>
         </div>
 
+    </div>
+    <div class="confidentiality-footer" ng-show="showNavBar">
+        {{ 'general.footer_confidentiality1' | i18n }} <a href="http://www2.ed.gov/ferpa/">FERPA</a> {{ 'general.footer_confidentiality2' | i18n }} <a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a>
     </div>
 </div>
 
