@@ -1,7 +1,7 @@
 <div class="row">
 
     <div ng-class="loginClass" id="login-container" style="overflow:hidden">
-
+        <div class="text-center login-page-title"><h1>{{ 'general.ssl' | i18n }}</h1></div>
         <form class="form-signin" id="loginForm" name="loginForm" role="form" ng-submit="loginMe(login.username, login.password, login.remember_username)">
         <div class="card">
             <div class="title">
@@ -17,6 +17,7 @@
             </div>
             <button id="sign_in_button" class="button" ng-disabled="login.working">{{ 'general.sign_in' | i18n }}</button>
             <a id="forgot_button" href="#/forget" class="button">{{ 'general.forgot_password' | i18n }}</a>
+            <div class="login-help-link">{{ 'general.help_login_link' | i18n }}<a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a></div>
         </div>
         </form>
 
