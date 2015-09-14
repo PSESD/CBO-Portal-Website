@@ -12,7 +12,7 @@
 
 var is_logged_in = false;
 
-var __i = false;
+var __i = false; if(typeof __local !== 'undefined') __i = true;
 
 var global_redirect_url = '/';
 
@@ -32,7 +32,7 @@ var app = angular.module('CboPortal', ['ui.router','ngLocationUpdate','ngRoute',
 app.factory('headerInjector', [function (SessionService) {
     var headerInjector = {
         request: function (config) {
-            config.headers['X-Cbo-Client-Url'] = 'http://helpinghand.cbo.upward.st';
+            config.headers['X-Cbo-Client-Url'] = __local;
             return config;
         }
     };
@@ -369,7 +369,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             }
 
         }
-        ($stateParams);
+        //($stateParams);
         //if('$$route' in nextRoute){
         //
         //    if(nextRoute.$$route.originalPath != '/login'){
