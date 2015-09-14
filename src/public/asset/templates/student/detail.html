@@ -14,7 +14,7 @@
                     </div>
                     <div class="content">
                         <div class="ng-binding help">
-                            <p>{{ 'help.user_edit' | i18n }}</p>
+                            <p>{{ 'help.student_detail' | i18n }}</p>
                         </div>
                     </div>
                 </div>
@@ -356,8 +356,8 @@
                             </div>
 
                         </li>
-                        <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="(subjectName, subjectValue) in transcripts.subject track by $index">{{ subjectValue }}
-                            <br/>{{ subjectName }} {{ 'general.credits' | i18n }}</li>
+                        <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="subject in transcripts.subjectValues track by $index">{{ subject.value }}
+                            <br/>{{ subject.name }} {{ 'general.credits' | i18n }}</li>
                     </ul>
                     <hr class="separator-transcript">
                     <div class="transcript-container">
