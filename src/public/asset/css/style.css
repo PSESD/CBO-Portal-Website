@@ -217,8 +217,8 @@ II MEDIA
     #login-container,
     #forget-container {
         position: absolute;
-        /*top: 30%;*/
-        margin: 25%;
+        top: 15%;
+        /*margin: 25%;*/
     }
     #login-container,
     #login-container .card,
@@ -383,8 +383,8 @@ select{
         padding-left: 0;
     }
     .login-page {
-        margin-top: 250px!important;
-        left: 50px;
+        /*margin-top: 250px!important;*/
+        left: 0;
     }
     .login-page-mobile {
         left: -30px;
@@ -797,11 +797,13 @@ select{
     font-size: 11px;
 }
 .confidentiality-footer{
-    background-color: white;
-    padding: .5%;
-    position: fixed;
-    bottom: 0;
-    margin-left: 15%;
+    /* background-color: white; */
+    /* padding: .5%; */
+    position: relative;
+    bottom: 104px;
+    margin-left: 15.8%;
+    font-size: 12px;
+    /* padding-left: 266px;
 }
     @media (max-width : 776px) {
         .confidentiality-footer{

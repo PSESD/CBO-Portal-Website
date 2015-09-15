@@ -12,11 +12,11 @@
 
 var is_logged_in = false;
 
-var __i = false;
+var __i = false; if(typeof __local !== 'undefined') __i = __local;
 
 var global_redirect_url = '/';
 
-var app = angular.module('CboPortal', ['ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
+var app = angular.module('CboPortal', ['ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
     'ngLocalize.Config'
 ]).value('localeConf', {
     basePath: 'languages',
@@ -32,7 +32,7 @@ var app = angular.module('CboPortal', ['ui.router','ngLocationUpdate','ngRoute',
 app.factory('headerInjector', [function (SessionService) {
     var headerInjector = {
         request: function (config) {
-            config.headers['X-Cbo-Client-Url'] = 'http://helpinghand.cbo.upward.st';
+            config.headers['X-Cbo-Client-Url'] = __local;
             return config;
         }
     };
@@ -316,15 +316,27 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             $rootScope.showNavBar = false;
         }
 
-        if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAdmin && AuthenticationService.role == 'case-worker') {
+        if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAdmin && (AuthenticationService.role+'').indexOf('case-worker') !== -1) {
             showError($rootScope.lang.you_dont_have_any_permission_page, 1);
             event.preventDefault();
         }
 
+
+
         if('$$route' in nextRoute){
             var intended_url = '';
+            if(nextRoute.$$route.originalPath == '/login'){
+                $rootScope.showFooter = false;
+            }
 
             if(nextRoute.$$route.originalPath != '/login'){
+                $rootScope.showFooter = true;
+                if($rootScope.doingResolve == true){
+                    $rootScope.showFooter = false;
+                }
+                if($rootScope.doingResolve == false){
+                    $rootScope.showFooter = true;
+                }
                 intended_url = _.get(nextRoute.$$route, 'originalPath');
                 if(intended_url == '/program/students/:program_id'){
                     intended_url = '/program/students/'+ _.get(nextRoute.params,'program_id');
@@ -365,11 +377,10 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                 }
 
                 localStorage.setItem('intended_url',intended_url);
-                console.log(localStorage);
             }
 
         }
-        ($stateParams);
+        //($stateParams);
         //if('$$route' in nextRoute){
         //
         //    if(nextRoute.$$route.originalPath != '/login'){
@@ -392,7 +403,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
     });
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState) {
         $state.previous = fromState;
-        console.log(fromState);
+        //console.log(fromState);
     });
 });
 
@@ -564,7 +575,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     CookieStore.clearData();
                     showError($rootScope.lang.success_logout, 2);
                     localStorage.setItem('url_intended','');
-                    console.log(localStorage);
+                    //console.log(localStorage);
                     $location.path("/login");
 
                 })
@@ -572,8 +583,8 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
                     var myEl = angular.element(document.querySelector('body'));
                     myEl.removeClass('cbp-spmenu-push');
-                    console.log(response);
-                    console.log(status);
+                    //console.log(response);
+                    //console.log(status);
 
                     CookieStore.clearData();
                     showError($rootScope.lang.success_logout, 2);
@@ -610,9 +621,9 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                 })
                 .error(function (response, status) {
 
-                    console.log('fail');
-                    console.log(response);
-                    console.log(status);
+                    //console.log('fail');
+                    //console.log(response);
+                    //console.log(status);
 
                     CookieStore.clearData();
                     showError(response.message, 2);
@@ -682,8 +693,8 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -721,8 +732,8 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -785,8 +796,8 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -816,8 +827,8 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -834,12 +845,19 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 
 app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce',
     function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore,$sce) {
+        if($rootScope.doingResolve == true){
+            $rootScope.showFooter = false;
+        }
+        if($rootScope.doingResolve == false){
+            $rootScope.showFooter = true;
+        }
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
         $scope.list_programs = [];
         $scope.icon_legend = true;
         $scope.open_button = false;
+
         $scope.close = function () {
             $scope.open_button = true;
             $scope.icon_legend = false;
@@ -962,13 +980,13 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
         $scope.showIcon = function (event) {
             /*
             var ul = $(event.target).parentsUntil('h4')[4];
-            console.log(ul);
+            //console.log(ul);
             var header = $(ul).find('ul.attendance-behavior')[0];
-            console.log(header);
+            //console.log(header);
             $(header).removeClass('hide');
 
             var detail = $(ul).find('.attendance-detail')[0];
-            console.log(detail);
+            //console.log(detail);
             $(detail).addClass('hide');
             */
             var id = $(event.target).prop('id');
@@ -1013,8 +1031,8 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -1037,25 +1055,24 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                     var embedPrograms = [];
                     $scope.attendanceBehavior = [];
                     $scope.xsreLastUpdated = null;
-                    if (response.success != false) {
+                    if (response.success != false && response.info) {
                         $('.loading-icon').addClass('hide');
+                        response = response.info;
+                        console.log(response);
                         $scope.loading_icon = true;
                         $scope.studentdetails = response;
                         $scope.case_workers = response._embedded.users;
-                        if (typeof response.success !== 'undefined' && response.success == false) {
-                            console.log("fail to get");
-                        } else {
-                            embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
-                            embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
+                        embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
+                        embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
 
-                            $scope.case_workers = response._embedded.users;
-                            if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
-                                $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
-                                $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
-                            }
+                        $scope.case_workers = response._embedded.users;
+                        if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
+                            $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
+                            $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
+                        }
 
 
-                            //$scope.attendanceBehavior = response.attendanceBehaviors;
+                        if(response.attendanceBehaviors) {
                             angular.forEach(response.attendanceBehaviors, function (behavior) {
                                 Object.keys(behavior).forEach(function (key) {
                                     var columnHtml = {};
@@ -1073,7 +1090,6 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                                     x++;
                                                     html = '<div class="grid-item n_a ' + cls + '"></div>';
                                                     if (typeof item === 'object' && item.event !== null) {
-
                                                         html = '<div class="grid-item ' + item.slug + cls + '">';
                                                         html += '<div class="descriptor">';
                                                         html += '<div class="descriptor-title ' + item.slug + '-font-color">';
@@ -1086,9 +1102,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                                         html += '</div>';
                                                         html += '</div>';
                                                     } else {
-
                                                     }
-
                                                     xhtml.push(html);
                                                 }
                                             });
@@ -1106,7 +1120,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                                     if (typeof item === 'object') {
                                                         if (typeof item.incidentCategoryTitle !== 'undefined' && item.incidentCategoryTitle !== "") {
                                                             html += '<div class="descriptor-title unexcused-font-color">';
-                                                            html += item.incidentCategoryTitle.toUpperCase();
+                                                            html += (item.incidentCategoryTitle+'').toUpperCase();
                                                             html += '</div>';
                                                         }
                                                         html += '<div>';
@@ -1134,49 +1148,47 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
 
                                     $scope.attendanceBehavior.push(behavior[key]);
                                 });
-                                //console.log($scope.attendanceBehavior);
                             });
-
-                            $scope.academicInfo = {
-                                currentSchool: 'N/A',
-                                expectedGraduationYear: 'N/A',
-                                gradeLevel: 'N/A',
-                                languageSpokenAtHome: 'N/A',
-                                iep: 'N/A',
-                                s504: 'N/A',
-                                freeReducedLunch: 'N/A'
-                            };
-
-                            if(response.programs){
-
-                                $scope.academicInfo.iep = _.get(response.programs, 'specialEducation.services[0].service.ideaIndicator') || _.get(response.programs, 'specialEducation.services.service.ideaIndicator') || 'N/A';
-                                $scope.academicInfo.s504 = _.get(response.programs, 'specialEducation.section504Status') || 'N/A';
-                                var eligibilityStatus = _.get(response.programs, 'foodService.eligibilityStatus');
-                                var enrollmentStatus = _.get(response.programs, 'foodService.enrollmentStatus');
-                                if(eligibilityStatus && enrollmentStatus) {
-                                    $scope.academicInfo.freeReducedLunch = enrollmentStatus;
-                                }
-                            }
-                            $scope.academicInfo.gradeLevel = _.get(response, 'enrollment.gradeLevel') || 'N/A';
-                            $scope.academicInfo.expectedGraduationYear = _.get(response, 'enrollment.projectedGraduationYear') || 'N/A';
-                            $scope.academicInfo.languageSpokenAtHome = _.get(response, 'languages.language[1].code') || 'N/A';
-                            $scope.academicInfo.currentSchool = _.get(response, 'enrollment.school.schoolName') || 'N/A';
-                            $scope.transcripts = response.transcripts || {};
-                            $scope.total_data = _.size(response.transcripts.subject);
-                            $scope.transcripts.subjectOrder = [];
-                            _.each($scope.transcripts.subject, function(item, key){
-                                $scope.transcripts.subjectOrder.push({ name: key, value: item });
-                            });
-                            _.each($scope.transcripts.details, function(item, key){
-                                item.transcriptsOrder = [];
-                                _.each(item.transcripts, function(i, k){
-                                    item.transcriptsOrder.push({ name: k, value: i })
-                                });
-                            });
-
-                            $scope.xsreLastUpdated = response.lastUpdated;
-
                         }
+                        $scope.academicInfo = {
+                            currentSchool: 'N/A',
+                            expectedGraduationYear: 'N/A',
+                            gradeLevel: 'N/A',
+                            languageSpokenAtHome: 'N/A',
+                            iep: 'N/A',
+                            s504: 'N/A',
+                            freeReducedLunch: 'N/A'
+                        };
+
+                        if(response.programs){
+
+                            $scope.academicInfo.iep = _.get(response.programs, 'specialEducation.services[0].service.ideaIndicator') || _.get(response.programs, 'specialEducation.services.service.ideaIndicator') || 'N/A';
+                            $scope.academicInfo.s504 = _.get(response.programs, 'specialEducation.section504Status') || 'N/A';
+                            var eligibilityStatus = _.get(response.programs, 'foodService.eligibilityStatus');
+                            var enrollmentStatus = _.get(response.programs, 'foodService.enrollmentStatus');
+                            if(eligibilityStatus && enrollmentStatus) {
+                                $scope.academicInfo.freeReducedLunch = enrollmentStatus;
+                            }
+                        }
+                        $scope.academicInfo.gradeLevel = _.get(response, 'enrollment.gradeLevel') || 'N/A';
+                        $scope.academicInfo.expectedGraduationYear = _.get(response, 'enrollment.projectedGraduationYear') || 'N/A';
+                        $scope.academicInfo.languageSpokenAtHome = _.get(response, 'languages.language[1].code') || 'N/A';
+                        $scope.academicInfo.currentSchool = _.get(response, 'enrollment.school.schoolName') || 'N/A';
+                        $scope.transcripts = response.transcripts || {};
+                        $scope.total_data = _.size(response.transcripts.subject);
+                        $scope.transcripts.subjectOrder = [];
+                        _.each($scope.transcripts.subject, function(item, key){
+                            $scope.transcripts.subjectOrder.push({ name: key, value: item });
+                        });
+                        _.each($scope.transcripts.details, function(item, key){
+                            item.transcriptsOrder = [];
+                            _.each(item.transcripts, function(i, k){
+                                item.transcriptsOrder.push({ name: k, value: i })
+                            });
+                        });
+
+                        $scope.xsreLastUpdated = response.lastUpdated;
+
 
                         angular.forEach(embedPrograms, function (v) {
                             var program = {
@@ -1220,8 +1232,8 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                 })
                 .error(function (response, status) {
 
-                    console.log(response);
-                    console.log(status);
+                    //console.log(response);
+                    //console.log(status);
                     showError(response, 1);
                     $rootScope.doingResolve = false;
                     if (status == 401) {
@@ -1246,12 +1258,12 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                 })
                 .success(function (response) {
                     getXsre();
-                    console.log(response);
+                    //console.log(response);
                 })
                 .error(function (response, status) {
 
-                    console.log(response);
-                    console.log(status);
+                    //console.log(response);
+                    //console.log(status);
                     showError(response, 1);
                     $rootScope.doingResolve = false;
                     if (status == 401) {
@@ -1321,8 +1333,8 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -1347,8 +1359,8 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -1387,8 +1399,8 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -1428,7 +1440,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                             if (response.success == true) {
                                 $scope.working = false;
                                 $location.path('/profile');
-                                console.log("Successfully updated");
+                                //console.log("Successfully updated");
                                 $rootScope.doingResolve = false;
                                 showError(response.message, 2);
                                 var complete_name = '';
@@ -1449,8 +1461,8 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
                         })
                         .error(function (response, status) {
 
-                            console.log(response);
-                            console.log(status);
+                            //console.log(response);
+                            //console.log(status);
                             showError(response, 1);
                             $scope.working = false;
                             if (status == 401) {
@@ -1489,7 +1501,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                         }
                     })
                     .success(function (response) {
-                        console.log(response);
+                        //console.log(response);
                         if (response.success == true) {
                             showError(response.message, 2);
                             $location.path('/login');
@@ -1502,8 +1514,8 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -1529,8 +1541,8 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -1564,8 +1576,8 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -1593,8 +1605,8 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -1630,8 +1642,8 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -1672,8 +1684,8 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                         })
                         .error(function (response, status) {
 
-                            console.log(response);
-                            console.log(status);
+                            //console.log(response);
+                            //console.log(status);
                             showError(response, 1);
                             $rootScope.doingResolve = false;
                             if (status == 401) {
@@ -1692,8 +1704,8 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -1730,8 +1742,8 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -1748,7 +1760,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                 }
             })
             .success(function (response) {
-                console.log(response);
+                //console.log(response);
                 angular.forEach(response.programs, function (v, k) {
 
                     if (program_id == v.program) {
@@ -1791,8 +1803,8 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                     })
                     .error(function (responseTag, statusTag) {
 
-                        console.log(responseTag);
-                        console.log(statusTag);
+                        //console.log(responseTag);
+                        //console.log(statusTag);
                         showError(responseTag, 1);
                         $rootScope.doingResolve = false;
                         if (status == 401) {
@@ -1808,8 +1820,8 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -1838,8 +1850,8 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -1878,8 +1890,8 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -1919,7 +1931,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     });
 
                   //  $scope.students = response.data;
-                    console.log($scope.students);
+                    //console.log($scope.students);
                 } else {
                     showError(response.error.message, 1);
                 }
@@ -1928,8 +1940,8 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -1974,8 +1986,8 @@ app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$locat
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -2023,8 +2035,8 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -2054,8 +2066,8 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -2081,8 +2093,8 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2123,8 +2135,8 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -2150,8 +2162,8 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2187,8 +2199,8 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2222,8 +2234,8 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2253,8 +2265,8 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2293,8 +2305,8 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -2334,8 +2346,8 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2352,7 +2364,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                 }
             })
             .success(function (response) {
-                console.log(response);
+                //console.log(response);
                 if (response.success == true && response.total > 0) {
 
                     angular.forEach(response.data, function (value, key) {
@@ -2385,8 +2397,8 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2416,8 +2428,8 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -2458,8 +2470,8 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -2489,8 +2501,8 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2512,12 +2524,12 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
         $rootScope.doingResolve = false;
 
         $scope.user = {
-            role: 'case-worker'
+            role: 'case-worker-restricted'
         };
 
 
         $scope.inviteUser = function (user) {
-            user.is_special_case_worker = !user.is_special_case_worker;
+            user.caseWorkerRestricted = !user.caseWorkerRestricted;
 
             if (user) {
                 user.redirect_url = AuthenticationService.redirect_url;
@@ -2541,8 +2553,8 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -2571,8 +2583,8 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
         $scope.new_student = false;
 
         $scope.addUserStudent = function (student, new_student) {
-            console.log(student);
-            console.log(new_student);
+            //console.log(student);
+            //console.log(new_student);
             if (student) {
                 $scope.working = true;
                 if (new_student == true) {
@@ -2593,8 +2605,8 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                         })
                         .error(function (response, status) {
 
-                            console.log(response);
-                            console.log(status);
+                            //console.log(response);
+                            //console.log(status);
                             showError(response, 1);
                             $scope.working = false;
                             if (status == 401) {
@@ -2622,8 +2634,8 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                         })
                         .error(function (response, status) {
 
-                            console.log(response);
-                            console.log(status);
+                            //console.log(response);
+                            //console.log(status);
                             showError(response, 1);
                             $scope.working = false;
                             if (status == 401) {
@@ -2650,8 +2662,8 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2679,8 +2691,8 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2711,15 +2723,15 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
                 })
                 .success(function (response) {
 
-                    console.log(response);
+                    //console.log(response);
                     $scope.students.splice(index, 1);
                     $scope.working = false;
 
                 })
                 .error(function (response, status) {
 
-                    console.log(response);
-                    console.log(status);
+                    //console.log(response);
+                    //console.log(status);
                     showError(response, 1);
                     $scope.working = false;
                     if (status == 401) {
@@ -2744,8 +2756,8 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2763,7 +2775,7 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
             })
             .success(function (response) {
 
-                console.log(response);
+                //console.log(response);
                 if (response.success) {
                     $scope.students = response.data;
                     $rootScope.doingResolve = false;
@@ -2773,8 +2785,8 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2797,8 +2809,8 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
         var user_id = $routeParams.user_id;
 
         $scope.addUserStudent = function (student, index) {
-            console.log(user_id);
-            console.log(student);
+            //console.log(user_id);
+            //console.log(student);
             if (student) {
                 $scope.working = true;
                 $http.put(api_url + AuthenticationService.organization_id + '/users/' + user_id + '/students/' + student, {}, {
@@ -2806,7 +2818,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                             'Authorization': 'Bearer ' + AuthenticationService.token
                         }
                     }).success(function (response) {
-                        console.log(response);
+                        //console.log(response);
                         $scope.working = false;
                         if (response.success) {
                             $scope.unassigned_students.splice(index, 1);
@@ -2819,8 +2831,8 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -2850,8 +2862,8 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                 })
                 .error(function (response, status) {
 
-                    console.log(response);
-                    console.log(status);
+                    //console.log(response);
+                    //console.log(status);
                     showError(response, 1);
                     $scope.working = false;
                     if (status == 401) {
@@ -2874,15 +2886,15 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                 }
             })
             .success(function (response) {
-                console.log(response.data);
+                //console.log(response.data);
                 $scope.unassigned_students = response.data;
                 $rootScope.doingResolve = false;
 
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2899,15 +2911,15 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                 }
             })
             .success(function (response) {
-                console.log(response.data);
+                //console.log(response.data);
                 $scope.assigned_students = response.data;
                 $rootScope.doingResolve = false;
 
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -2937,15 +2949,8 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
             if (user) {
                 $scope.working = true;
 
-                if (user.is_special_case_worker == true)
-                    user.is_special_case_worker2 = false;
-                else
-                    user.is_special_case_worker2 = true;
-
-
                 var passing_data = {
-                    role: user.role,
-                    is_special_case_worker: user.is_special_case_worker2
+                    role: user.role
                 };
 
                 $http.put(api_url + AuthenticationService.organization_id + '/users/' + user_id, $.param(passing_data), {
@@ -2966,8 +2971,8 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -2988,23 +2993,9 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
             .success(function (response) {
 
                 var set_role = response.role;
-                var is_special_case_worker = (response.is_special_case_worker === true) ? false : true;
-
-                //if (response.permissions.length > 0) {
-                //    for (var j = 0; j < response.permissions.length; j++) {
-                //        if (response.permissions[j].organization == AuthenticationService.organization_id) {
-                //            set_role = response.permissions[j].role;
-                //            if (response.permissions[j].is_special_case_worker == true)
-                //                is_special_case_worker = false;
-                //            else
-                //                is_special_case_worker = true;
-                //        }
-                //    }
-                //}
 
                 $scope.user = {
                     role: set_role,
-                    is_special_case_worker: is_special_case_worker,
                     first_name: response.first_name,
                     last_name: response.last_name,
                     full_name: response.full_name
@@ -3014,8 +3005,8 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -3051,8 +3042,8 @@ app.controller('UserDetailController', ['$rootScope', '$scope', '$routeParams', 
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -3074,7 +3065,7 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
         $scope.deleteUser = function (id, index) {
             if (AuthenticationService.user_id == id) {
                 showError('Cannot Remove your own data', 1);
-            } else if (AuthenticationService.role == 'case-worker') {
+            } else if ((AuthenticationService.role+'').indexOf('case-worker') !== -1) {
                 showError($rootScope.lang.you_dont_have_any_permission_page, 1);
             } else if (id) {
                 $scope.working = true;
@@ -3091,8 +3082,8 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -3122,8 +3113,8 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -3243,7 +3234,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                             var data = responseUser.data;
                                             var id = false;
                                             var complete_name = '';
-                                            var role = 'case-worker';
+                                            var role = 'case-worker-restricted';
                                             for (var i = 0; i < responseUser.total; i++) {
                                                 if (data[i].email == send.username) {
                                                     id = data[i]._id;
@@ -3321,7 +3312,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                 })
                 .error(function (response) {
-                    console.log(response);
+                    //console.log(response);
                     showError(response.error_description, 1);
                     $scope.login.working = false;
 
@@ -3340,7 +3331,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                         }
                     })
                     .success(function (response) {
-                        console.log(response);
+                        //console.log(response);
                         if (response.success == true) {
                             showError(response.message, 2);
                         } else {
@@ -3351,8 +3342,8 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -3392,8 +3383,8 @@ app.controller('TagController', ['$rootScope', '$scope', '$http', '$location', '
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -3423,8 +3414,8 @@ app.controller('TagController', ['$rootScope', '$scope', '$http', '$location', '
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -3446,7 +3437,7 @@ app.controller('TagAddController', ['$rootScope', '$scope', '$http', '$location'
 
         $scope.addTag = function (tag) {
             if (tag) {
-                console.log(tag);
+                //console.log(tag);
                 $scope.working = true;
                 $http.post(api_url + AuthenticationService.organization_id + '/tags', $.param(tag), {
                         headers: {
@@ -3467,8 +3458,8 @@ app.controller('TagAddController', ['$rootScope', '$scope', '$http', '$location'
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -3510,8 +3501,8 @@ app.controller('TagEditController', ['$rootScope', '$scope', '$routeParams', '$h
                     })
                     .error(function (response, status) {
 
-                        console.log(response);
-                        console.log(status);
+                        //console.log(response);
+                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status == 401) {
@@ -3537,8 +3528,8 @@ app.controller('TagEditController', ['$rootScope', '$scope', '$routeParams', '$h
             })
             .error(function (response, status) {
 
-                console.log(response);
-                console.log(status);
+                //console.log(response);
+                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
@@ -3770,20 +3761,6 @@ app.directive('datepicker', function () {
 
 });
 
-app.directive('attendanceItems',function(){
-    return {
-
-        restrict:'E',
-        scope:{
-            behavior:"="
-        },
-        template:"<a class='' href='#' tooltip-html='htmlTooltip'></a>",
-        controller:function($scope,$sce){
-
-}
-    }
-});
-
 app.directive('a', function () {
     return {
         restrict: 'E',
@@ -3795,6 +3772,25 @@ app.directive('a', function () {
             }
         }
     };
+});
+
+app.directive('listItem',function(){
+
+    return {
+        restrict: 'E',
+        scope:{
+            data:'=',
+            slug:'=',
+            event:'=',
+            title:'='
+        },
+
+        template:'<div class="grid-item {{slug}}" tooltip-html="data"></div>'
+
+
+    };
+
+
 });
 
 function showError(message, alert) {
@@ -3880,11 +3876,9 @@ function base64_encode(data) {
 
 
 function start_time_idle() {
-    console.log("trigger idle start");
     session_timeout.login();
 }
 
 function stop_time_idle() {
-    console.log("trigger idle stop");
     session_timeout.logout();
 }

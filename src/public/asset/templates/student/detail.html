@@ -5,148 +5,163 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="title">
-                        <h2>
+                        <h2 class="inline">
                             {{ student.first_name }} {{ student.last_name }}
                             <span class="last-update">{{ 'general.last_update' | i18n }} : &nbsp {{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
                             <img class="loading-icon" src="asset/img/ajax-loader.gif"><a ng-show="loading_icon" ng-click="updateNow()" style="font-size: 14px;font-weight: bold;">(Update Now)</a>
                         </h2>
+                        <a  class="btn btn-default student-edit-btn" aria-label="Left Align" ng-href="#/student/edit/{{ student._id }}">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+                        </a>
                         <hr>
                     </div>
-                    <div class="content">
+                    <div class="content" id="content-help">
                         <div class="ng-binding help">
-                            <p>{{ 'help.user_edit' | i18n }}</p>
+                            <p>{{ 'help.student_detail' | i18n }}</p>
+                        </div>
+                        <div class="row" >
+                            <div class="col-md-12 no-padding-left">
+                                <div class="col-md-6 vertical-line ">
+                                    <div class="col-md-4 col-sm-12 no-padding-left">
+                                        <div class="two-lines">
+                                            <div class="title">
+                                                <p class="subhead uppercase">{{ 'general.personal_info' | i18n }}</p>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <dl>
+                                                <dt class="bold bold-title">{{ 'general.district_id' | i18n }}</dt>
+                                                <dd>{{ student.district_student_id }}</dd>
+                                                <dt class="bold bold-title">{{ 'general.brithday' | i18n }}</dt>
+                                                <dd>{{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}</dd>
+                                                <dt class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</dt>
+                                                <dd>{{studentdetails.demographics.races.race.race}}</dd>
+                                                <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
+                                                <dd>{{studentdetails.demographics.sex}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="two-lines">
+                                            <div class="title">
+                                                <p class="subhead personal uppercase">{{ 'general.personal_contact' | i18n }}</p>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <dl>
+                                                <dt></dt>
+                                                <dd>{{student.email}}</dd>
+                                                <dt></dt>
+                                                <dd>{{student.phone | phonenumber}}</dd>
+                                                <dt></dt>
+                                                <dd>{{student.address}}</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12" id="emergency_section">
+                                        <div class="two-lines">
+                                            <div class="title">
+                                                <p class="subhead uppercase">{{ 'general.emergency_contacts' | i18n }}</p>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <dl>
+                                                <dt class="bold bold-title">{{student.emergency1_name}}</dt>
+                                                <dd></dd>
+                                                <dt></dt>
+                                                <dd>{{student.emergency1_relationship}}</dd>
+                                                <dt></dt>
+                                                <dd>{{student.emergency1_email}}</dd>
+                                                <dt></dt>
+                                                <dd>{{student.emergency1_phone | phonenumber}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="content personal">
+                                            <dl>
+                                                <dt class="bold-title bold">{{student.emergency2_name}}</dt>
+                                                <dd></dd>
+                                                <dt></dt>
+                                                <dd>{{student.emergency2_relationship}}</dd>
+                                                <dt></dt>
+                                                <dd>{{student.emergency2_email}}</dd>
+                                                <dt></dt>
+                                                <dd>{{student.emergency2_phone | phonenumber}}</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12" id="assigned_user_section">
+                                        <div class="two-lines">
+                                            <div class="title">
+                                                <p class="subhead">{{ 'general.case_workers' | i18n }}</p>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+
+                                            <div ng-repeat="person in case_workers">
+                                                <dl>
+                                                    <dt></dt>
+                                                    <dd>{{person.fullname}}</dd>
+                                                </dl>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 extra-space">
+                                    <div class="col-md-6">
+                                        <div class="two-lines">
+                                            <div class="title">
+                                                <p class="subhead uppercase">{{ 'general.academic' | i18n}}</p>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="content bottom-space">
+                                            <dl>
+                                                <dt class="bold bold-title">{{ 'general.current_school' | i18n }}</dt>
+                                                <dd>{{ academicInfo.currentSchool }}</dd>
+                                                <dt class="bold bold-title">{{ 'general.expected_graduation_year' | i18n }}</dt>
+                                                <dd>{{ academicInfo.expectedGraduationYear }}</dd>
+                                                <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
+                                                <dd class="uppercase">{{academicInfo.gradeLevel }}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="content top-space">
+                                            <dl>
+                                                <dt class="bold bold-title">{{ 'general.language_spoken_at_home' | i18n }}</dt>
+                                                <dd class="uppercase">{{ academicInfo.languageSpokenAtHome }}</dd>
+                                                <dt class="bold bold-title">{{ 'general.current_school' | i18n }}</dt>
+                                                <dd class="uppercase">{{ academicInfo.iep }}</dd>
+                                                <dt class="bold bold-title">{{ 'general.s504' | i18n }}</dt>
+                                                <dd class="uppercase">{{ academicInfo.s504 }}</dd>
+                                                <dt class="bold bold-title">{{ 'general.free_or_reduced_lunch' | i18n }}</dt>
+                                                <dd class="uppercase">{{ academicInfo.freeReducedLunch }}</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="two-lines-current-class">
+                                            <div class="title">
+                                                <p class="subhead uppercase">{{ 'general.current_courses' | i18n }} <span class="bold bold-title">{{studentdetails.transcriptTerm.schoolYear}}</span></p>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
+                                                <span>{{course.courseTitle}}</span>
+                                                <br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" id="content-help">
-                <div class="col-md-12">
-                    <div class="col-md-6 vertical-line">
-                        <div class="col-md-4 col-sm-12">
-                            <div class="two-lines">
-                                <div class="title">
-                                    <p class="subhead uppercase">{{ 'general.personal_info' | i18n }}</p>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <dl>
-                                    <dt class="bold bold-title">{{ 'general.district_id' | i18n }}</dt>
-                                    <dd>{{ student.district_student_id }}</dd>
-                                    <dt class="bold bold-title">{{ 'general.brithday' | i18n }}</dt>
-                                    <dd>{{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}</dd>
-                                    <dt class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</dt>
-                                    <dd>{{studentdetails.demographics.races.race.race}}</dd>
-                                    <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
-                                    <dd>{{studentdetails.demographics.sex}}</dd>
-                                </dl>
-                                <!--<span class="bold bold-title">{{ 'general.district_id' | i18n }}</span> {{ student.district_student_id }}-->
-                                <!--<br/>-->
-                                <!--<span class="bold bold-title">{{ 'general.brithday' | i18n }}</span> {{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}-->
-                                <!--<br/>-->
-                                <!--<span class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</span> {{studentdetails.demographics.races.race.race}}-->
-                                <!--<br/>-->
-                                <!--<span class="bold bold-title">{{ 'general.gender' | i18n }}</span> {{studentdetails.demographics.sex}}-->
-                            </div>
-                            <div class="two-lines">
-                                <div class="title">
-                                    <p class="subhead personal uppercase">{{ 'general.personal_contact' | i18n }}</p>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="content">
-                                {{student.email}}
-                                <br/> {{student.phone | phonenumber}}
-                                <br/> {{student.address}}
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12" id="emergency_section">
-                            <div class="two-lines">
-                                <div class="title">
-                                    <p class="subhead uppercase">{{ 'general.emergency_contacts' | i18n }}</p>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <span class="bold bold-title">{{student.emergency1_name}}</span>
-                                <br/> {{student.emergency1_relationship}}
-                                <br/> {{student.emergency1_email}}
-                                <br/> {{student.emergency1_phone | phonenumber}}
-                            </div>
-                            <div class="content personal">
-                                <span class="bold bold-title">{{student.emergency2_name}}</span>
-                                <br/> {{student.emergency2_relationship}}
-                                <br/> {{student.emergency2_email}}
-                                <br/> {{student.emergency2_phone | phonenumber}}
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12" id="assigned_user_section">
-                            <div class="two-lines">
-                                <div class="title">
-                                    <p class="subhead">{{ 'general.case_workers' | i18n }}</p>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="content">
-
-                                <div ng-repeat="person in case_workers">
-                                    <span>{{person.fullname}}</span>
-                                    <br/>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 extra-space">
-                        <div class="col-md-6">
-                            <div class="two-lines">
-                                <div class="title">
-                                    <p class="subhead uppercase">{{ 'general.academic' | i18n}}</p>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="content bottom-space">
-                                <dl>
-                                    <dt class="bold bold-title">{{ 'general.current_school' | i18n }}</dt>
-                                    <dd>{{ academicInfo.currentSchool }}</dd>
-                                    <dt class="bold bold-title">{{ 'general.expected_graduation_year' | i18n }}</dt>
-                                    <dd>{{ academicInfo.expectedGraduationYear }}</dd>
-                                    <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
-                                    <dd class="uppercase">{{academicInfo.gradeLevel }}</dd>
-                                </dl>
-                            </div>
-                            <div class="content top-space">
-                                <dl>
-                                    <dt class="bold bold-title">{{ 'general.language_spoken_at_home' | i18n }}</dt>
-                                    <dd class="uppercase">{{ academicInfo.languageSpokenAtHome }}</dd>
-                                    <dt class="bold bold-title">{{ 'general.current_school' | i18n }}</dt>
-                                    <dd class="uppercase">{{ academicInfo.iep }}</dd>
-                                    <dt class="bold bold-title">{{ 'general.s504' | i18n }}</dt>
-                                    <dd class="uppercase">{{ academicInfo.s504 }}</dd>
-                                    <dt class="bold bold-title">{{ 'general.free_or_reduced_lunch' | i18n }}</dt>
-                                    <dd class="uppercase">{{ academicInfo.freeReducedLunch }}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="two-lines-current-class">
-                                <div class="title">
-                                    <p class="subhead uppercase">{{ 'general.current_courses' | i18n }} <span class="bold bold-title">{{studentdetails.transcriptTerm.schoolYear}}</span></p>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
-                                    <span>{{course.courseTitle}}</span>
-                                    <br/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- end of row -->
 
             <div class="clearfix"></div>
 
@@ -251,6 +266,12 @@
                                     </div>
                                     <div class="attendance-content">
                                         <hr class="attendance-separator">
+                                        <!--<div class="days">-->
+                                            <!--<div ng-repeat="item in behavior.detailColumns.M">-->
+                                                <!--<div ng-if="item.slug =='' && item.slug !=undefined " class="grid-item n_a"></div>-->
+                                                <!--<list-item ng-if="item.slug !='' && item.slug !=undefined " slug="item.slug"></list-item>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
                                         <div class="days" ng-bind-html="behavior.columnHtml.M">
                                         </div>
                                         <div class="days" ng-bind-html="behavior.columnHtml.T">
@@ -261,7 +282,6 @@
                                         </div>
                                         <div class="days" ng-bind-html="behavior.columnHtml.F">
                                         </div>
-
                                     </div>
                                     <div class="attendance-legend">
                                         <a ng-click="open()" class="button btn-legend open_button uppercase" ng-show="open_button">{{ 'general.legend' | i18n }}</a>
@@ -330,9 +350,15 @@
                     <ul class="flexbox transcript">
                         <li>
                             <dl>
-                                <dt class="bold bold-title">{{ transcripts.summary.totalCreditsEarned }}</dt>
+                                <!--<dt class="bold bold-title">{{ transcripts.summary.totalCreditsEarned }}</dt>-->
+                                <!--<dd>{{ 'general.credits_earned' | i18n }}</dd>-->
+                                <!--<dt class="bold bold-title">{{ transcripts.summary.termCreditsAttempted }}</dt>-->
+                                <!--<dd>{{ 'general.credits_attempted' | i18n }}</dd>-->
+                                <!--<dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>-->
+                                <!--<dd>{{ transcripts.gradeLevel }}</dd>-->
+                                <dt class="bold bold-title">{{ transcripts.info.totalEarned }}</dt>
                                 <dd>{{ 'general.credits_earned' | i18n }}</dd>
-                                <dt class="bold bold-title">{{ transcripts.summary.termCreditsAttempted }}</dt>
+                                <dt class="bold bold-title">{{ transcripts.info.totalAttempted }}</dt>
                                 <dd>{{ 'general.credits_attempted' | i18n }}</dd>
                                 <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                 <dd>{{ transcripts.gradeLevel }}</dd>
@@ -344,56 +370,63 @@
                             </div>
 
                         </li>
-                        <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="(subjectName, subjectValue) in transcripts.subject track by $index">{{ subjectValue }}
-                            <br/>{{ subjectName }} {{ 'general.credits' | i18n }}</li>
+                        <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="transSubject in transcripts.subjectOrder track by $index">{{ transSubject.value }}
+                            <br/>{{ transSubject.name }} {{ 'general.credits' | i18n }}</li>
                     </ul>
                     <hr class="separator-transcript">
                     <div class="transcript-container">
                         <div class="inner-transcript-container">
                             <ul class="flexbox transcript-content {{$index % 2 == 0 ? '' : 'dark'}}" ng-repeat="transDetail in transcripts.details | orderBy:'-schoolYear'">
                                 <li class="transcript-content">
-                                    {{ transDetail.schoolYear }} - {{ transDetail.session }}
-                                    <br/>
-                                    <br/>
-                                    <span class="bold bold-title">{{ transDetail.schoolName }}</span>
-                                    <br/>
-                                    <span class="bold bold-title">{{ transDetail.summary.termCreditsAttempted }}</span> {{ 'general.credits_attempted' | i18n }}
-                                    <br/>
-                                    <span class="bold bold-title">{{ 'general.grade_level' | i18n }}</span> {{ transDetail.gradeLevel }}
+                                    <dl>
+                                        <dd>{{ transDetail.schoolYear }} - {{ transDetail.session }}</dd>
+                                        <dt></dt>
+                                        <dd class="bold bold-title">{{ transDetail.schoolName }}</dd>
+                                        <dt class="bold bold-title">{{ transDetail.summary.termCreditsAttempted }}</dt>
+                                        <dd>{{ 'general.credits_attempted' | i18n }}</dd>
+                                        <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
+                                        <dd>{{ transDetail.gradeLevel }}</dd>
+                                    </dl>
                                 </li>
-                                <li class="transcript-content tcontent-{{total_data}}-col" ng-repeat="(courseName, course) in transDetail.transcripts">
-                                    <div class="transcript-descriptor" ng-if="course === null                                        ">
+                                <li class="transcript-content tcontent-{{total_data}}-col" ng-repeat="course in transDetail.transcriptsOrder">
+                                    <div class="transcript-descriptor" ng-if="course.value === null                                        ">
 
                                     </div>
-                                    <div class="transcript-display" ng-if="course === null">
+                                    <div class="transcript-display" ng-if="course.value === null">
 
                                     </div>
-                                    <div class="transcript-content-array" ng-if="course !== null" ng-repeat="c in course">
+                                    <div class="transcript-content-array" ng-if="course.value !== null" ng-repeat="c in course.value">
                                         <div class="transcript-descriptor">
                                             <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }}">{{ c.title }}</div>
                                             <hr class="hr-transcript">
                                             <div class="attempted-credit">
-                                                <span class="bold bold-title">{{ c.courseId }}</span>
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.grade' | i18n }}</span> {{ c.mark }}
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.grade_level' | i18n }}</span> {{ c.gradeLevel }}
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.earned_credits' | i18n }}</span> {{ c.creditsEarned }}
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.attempted_credits' | i18n }}</span> {{ c.creditsAttempted }}
-                                                <br>
+                                                <dl>
+                                                    <dt></dt>
+                                                    <dd class="bold bold-title">{{ c.courseId }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>
+                                                    <dd>{{ c.mark }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
+                                                    <dd>{{ c.gradeLevel }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.earned_credits' | i18n }}</dt>
+                                                    <dd>{{ c.creditsEarned }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.attempted_credits' | i18n }}</dt>
+                                                    <dd>{{ c.creditsAttempted }}</dd>
+                                                </dl>
+
                                             </div>
                                         </div>
                                         <div class="transcript-display">
                                             <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }}">{{ c.title }}</div>
                                             <hr class="hr-transcript">
                                             <div class="attempted-credit">
-                                                <span class="bold bold-title">{{ 'general.grade' | i18n }}</span> {{ c.mark }}
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.attempted_credits' | i18n }}</span> {{ c.creditsEarned }}
-                                                <br>
-                                                <span class="bold bold-title">{{ 'general.earned_credits' | i18n }}</span> {{ c.creditsAttempted }}
+                                                <dl>
+                                                    <dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>
+                                                    <dd> {{ c.mark }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.attempted_credits' | i18n }}</dt>
+                                                    <dd> {{ c.creditsEarned }}</dd>
+                                                    <dt class="bold bold-title">{{ 'general.earned_credits' | i18n }}</dt>
+                                                    <dd> {{ c.creditsAttempted }}</dd>
+                                                </dl>
                                             </div>
                                         </div>
                                     </div>
