@@ -1055,25 +1055,24 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                     var embedPrograms = [];
                     $scope.attendanceBehavior = [];
                     $scope.xsreLastUpdated = null;
-                    if (response.success != false) {
+                    if (response.success != false && response.info) {
                         $('.loading-icon').addClass('hide');
+                        response = response.info;
+                        console.log(response);
                         $scope.loading_icon = true;
                         $scope.studentdetails = response;
                         $scope.case_workers = response._embedded.users;
-                        if (typeof response.success !== 'undefined' && response.success == false) {
-                            //console.log("fail to get");
-                        } else {
-                            embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
-                            embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
+                        embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
+                        embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
 
-                            $scope.case_workers = response._embedded.users;
-                            if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
-                                $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
-                                $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
-                            }
+                        $scope.case_workers = response._embedded.users;
+                        if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
+                            $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
+                            $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
+                        }
 
 
-                            //$scope.attendanceBehavior = response.attendanceBehaviors;
+                        if(response.attendanceBehaviors) {
                             angular.forEach(response.attendanceBehaviors, function (behavior) {
                                 Object.keys(behavior).forEach(function (key) {
                                     var columnHtml = {};
@@ -1121,7 +1120,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                                     if (typeof item === 'object') {
                                                         if (typeof item.incidentCategoryTitle !== 'undefined' && item.incidentCategoryTitle !== "") {
                                                             html += '<div class="descriptor-title unexcused-font-color">';
-                                                            html += item.incidentCategoryTitle.toUpperCase();
+                                                            html += (item.incidentCategoryTitle+'').toUpperCase();
                                                             html += '</div>';
                                                         }
                                                         html += '<div>';
@@ -1150,47 +1149,46 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                     $scope.attendanceBehavior.push(behavior[key]);
                                 });
                             });
-
-                            $scope.academicInfo = {
-                                currentSchool: 'N/A',
-                                expectedGraduationYear: 'N/A',
-                                gradeLevel: 'N/A',
-                                languageSpokenAtHome: 'N/A',
-                                iep: 'N/A',
-                                s504: 'N/A',
-                                freeReducedLunch: 'N/A'
-                            };
-
-                            if(response.programs){
-
-                                $scope.academicInfo.iep = _.get(response.programs, 'specialEducation.services[0].service.ideaIndicator') || _.get(response.programs, 'specialEducation.services.service.ideaIndicator') || 'N/A';
-                                $scope.academicInfo.s504 = _.get(response.programs, 'specialEducation.section504Status') || 'N/A';
-                                var eligibilityStatus = _.get(response.programs, 'foodService.eligibilityStatus');
-                                var enrollmentStatus = _.get(response.programs, 'foodService.enrollmentStatus');
-                                if(eligibilityStatus && enrollmentStatus) {
-                                    $scope.academicInfo.freeReducedLunch = enrollmentStatus;
-                                }
-                            }
-                            $scope.academicInfo.gradeLevel = _.get(response, 'enrollment.gradeLevel') || 'N/A';
-                            $scope.academicInfo.expectedGraduationYear = _.get(response, 'enrollment.projectedGraduationYear') || 'N/A';
-                            $scope.academicInfo.languageSpokenAtHome = _.get(response, 'languages.language[1].code') || 'N/A';
-                            $scope.academicInfo.currentSchool = _.get(response, 'enrollment.school.schoolName') || 'N/A';
-                            $scope.transcripts = response.transcripts || {};
-                            $scope.total_data = _.size(response.transcripts.subject);
-                            $scope.transcripts.subjectOrder = [];
-                            _.each($scope.transcripts.subject, function(item, key){
-                                $scope.transcripts.subjectOrder.push({ name: key, value: item });
-                            });
-                            _.each($scope.transcripts.details, function(item, key){
-                                item.transcriptsOrder = [];
-                                _.each(item.transcripts, function(i, k){
-                                    item.transcriptsOrder.push({ name: k, value: i })
-                                });
-                            });
-
-                            $scope.xsreLastUpdated = response.lastUpdated;
-
                         }
+                        $scope.academicInfo = {
+                            currentSchool: 'N/A',
+                            expectedGraduationYear: 'N/A',
+                            gradeLevel: 'N/A',
+                            languageSpokenAtHome: 'N/A',
+                            iep: 'N/A',
+                            s504: 'N/A',
+                            freeReducedLunch: 'N/A'
+                        };
+
+                        if(response.programs){
+
+                            $scope.academicInfo.iep = _.get(response.programs, 'specialEducation.services[0].service.ideaIndicator') || _.get(response.programs, 'specialEducation.services.service.ideaIndicator') || 'N/A';
+                            $scope.academicInfo.s504 = _.get(response.programs, 'specialEducation.section504Status') || 'N/A';
+                            var eligibilityStatus = _.get(response.programs, 'foodService.eligibilityStatus');
+                            var enrollmentStatus = _.get(response.programs, 'foodService.enrollmentStatus');
+                            if(eligibilityStatus && enrollmentStatus) {
+                                $scope.academicInfo.freeReducedLunch = enrollmentStatus;
+                            }
+                        }
+                        $scope.academicInfo.gradeLevel = _.get(response, 'enrollment.gradeLevel') || 'N/A';
+                        $scope.academicInfo.expectedGraduationYear = _.get(response, 'enrollment.projectedGraduationYear') || 'N/A';
+                        $scope.academicInfo.languageSpokenAtHome = _.get(response, 'languages.language[1].code') || 'N/A';
+                        $scope.academicInfo.currentSchool = _.get(response, 'enrollment.school.schoolName') || 'N/A';
+                        $scope.transcripts = response.transcripts || {};
+                        $scope.total_data = _.size(response.transcripts.subject);
+                        $scope.transcripts.subjectOrder = [];
+                        _.each($scope.transcripts.subject, function(item, key){
+                            $scope.transcripts.subjectOrder.push({ name: key, value: item });
+                        });
+                        _.each($scope.transcripts.details, function(item, key){
+                            item.transcriptsOrder = [];
+                            _.each(item.transcripts, function(i, k){
+                                item.transcriptsOrder.push({ name: k, value: i })
+                            });
+                        });
+
+                        $scope.xsreLastUpdated = response.lastUpdated;
+
 
                         angular.forEach(embedPrograms, function (v) {
                             var program = {

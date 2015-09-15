@@ -17,7 +17,7 @@
                     </div>
                     <div class="content" id="content-help">
                         <div class="ng-binding help">
-                            <p>{{ 'help.user_edit' | i18n }}</p>
+                            <p>{{ 'help.student_detail' | i18n }}</p>
                         </div>
                         <div class="row" >
                             <div class="col-md-12 no-padding-left">
@@ -350,9 +350,15 @@
                     <ul class="flexbox transcript">
                         <li>
                             <dl>
-                                <dt class="bold bold-title">{{ transcripts.summary.totalCreditsEarned }}</dt>
+                                <!--<dt class="bold bold-title">{{ transcripts.summary.totalCreditsEarned }}</dt>-->
+                                <!--<dd>{{ 'general.credits_earned' | i18n }}</dd>-->
+                                <!--<dt class="bold bold-title">{{ transcripts.summary.termCreditsAttempted }}</dt>-->
+                                <!--<dd>{{ 'general.credits_attempted' | i18n }}</dd>-->
+                                <!--<dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>-->
+                                <!--<dd>{{ transcripts.gradeLevel }}</dd>-->
+                                <dt class="bold bold-title">{{ transcripts.info.totalEarned }}</dt>
                                 <dd>{{ 'general.credits_earned' | i18n }}</dd>
-                                <dt class="bold bold-title">{{ transcripts.summary.termCreditsAttempted }}</dt>
+                                <dt class="bold bold-title">{{ transcripts.info.totalAttempted }}</dt>
                                 <dd>{{ 'general.credits_attempted' | i18n }}</dd>
                                 <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                 <dd>{{ transcripts.gradeLevel }}</dd>
@@ -364,8 +370,8 @@
                             </div>
 
                         </li>
-                        <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="(subjectName, subjectValue) in transcripts.subject track by $index">{{ subjectValue }}
-                            <br/>{{ subjectName }} {{ 'general.credits' | i18n }}</li>
+                        <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="transSubject in transcripts.subjectOrder track by $index">{{ transSubject.value }}
+                            <br/>{{ transSubject.name }} {{ 'general.credits' | i18n }}</li>
                     </ul>
                     <hr class="separator-transcript">
                     <div class="transcript-container">
@@ -382,14 +388,14 @@
                                         <dd>{{ transDetail.gradeLevel }}</dd>
                                     </dl>
                                 </li>
-                                <li class="transcript-content tcontent-{{total_data}}-col" ng-repeat="(courseName, course) in transDetail.transcripts">
-                                    <div class="transcript-descriptor" ng-if="course === null                                        ">
+                                <li class="transcript-content tcontent-{{total_data}}-col" ng-repeat="course in transDetail.transcriptsOrder">
+                                    <div class="transcript-descriptor" ng-if="course.value === null                                        ">
 
                                     </div>
-                                    <div class="transcript-display" ng-if="course === null">
+                                    <div class="transcript-display" ng-if="course.value === null">
 
                                     </div>
-                                    <div class="transcript-content-array" ng-if="course !== null" ng-repeat="c in course">
+                                    <div class="transcript-content-array" ng-if="course.value !== null" ng-repeat="c in course.value">
                                         <div class="transcript-descriptor">
                                             <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }}">{{ c.title }}</div>
                                             <hr class="hr-transcript">
