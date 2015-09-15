@@ -1871,8 +1871,51 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 
 app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+        var districtOption = {};
+        var options = [];
+        var school_options = [];
+        var schoolOptions = {};
         $rootScope.full_screen = false;
         $scope.students = [];
+        $scope.districtData = [];
+        $scope.schoolNameData = [];
+        $scope.selected_districts = [];
+        $scope.selected_schools = [];
+        $scope.filterSettings = {
+            scrollableHeight: '250px',
+            scrollable: true
+        };
+
+        console.log($scope.selected_items);
+
+        $scope.filterDistrict = function () {
+            return function (p) {
+                if($scope.selected_districts != '') {
+                    for (var i in $scope.selected_districts) {
+                        if (p.school_district == $scope.selected_districts[i]) {
+                            return true;
+                        }
+                    }
+                }else{
+                    return true;
+                }
+
+            };
+        };
+        $scope.filterSchools = function () {
+            return function (p) {
+                if($scope.selected_schools != '') {
+                    for (var i in $scope.selected_schools) {
+                        if (p.schoolName == $scope.selected_schools[i]) {
+                            return true;
+                        }
+                    }
+                }else{
+                    return true;
+                }
+
+            };
+        };
 
         $scope.deleteStudent = function (id, index) {
             if (id) {
@@ -1920,18 +1963,36 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         $.each(schoolDistricts, function (key, value) {
                             if (key == student.school_district || value == student.school_district) {
                                 student.school_district = value;
-                            }
-
+                           }
                         });
                         student.gradeLevel = _.get(student, 'xsre.enrollment.gradeLevel');
                         student.schoolYear = _.get(student,'xsre.enrollment.schoolYear');
                         student.schoolName = _.get(student,'xsre.enrollment.school.schoolName');
                         student.onTrackGraduate = _.get(student,'xsre.transcriptTerm.academicSummary.onTrackToGraduate');
                         $scope.students.push(student);
+                        if(options.indexOf(student.school_district) == -1){
+                            options.push(student.school_district);
+                        }
+                        if(school_options.indexOf(student.schoolName) == -1 && student.schoolName != undefined ){
+                            school_options.push(student.schoolName);
+                        }
+
+                    });
+                    angular.forEach(school_options,function(value){
+                        schoolOptions ={
+                            id:value,
+                            name:value
+                        }
+                        $scope.schoolNameData.push(schoolOptions);
+                    });
+                    angular.forEach(options,function(value){
+                        districtOption = {
+                            id:value,
+                            name:value
+                        };
+                        $scope.districtData.push(districtOption);
                     });
 
-                  //  $scope.students = response.data;
-                    //console.log($scope.students);
                 } else {
                     showError(response.error.message, 1);
                 }
@@ -1954,6 +2015,80 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
     }
 ]);
+
+app.directive('dropdownMultiselect', function(){
+    return {
+        restrict: 'E',
+        scope:{
+            model: '=',
+            options: '=',
+            title:'@'
+        },
+        template: "<div class='btn-group' data-ng-class='{open: open}'>"+
+        "<button class='filter-btn button dropdown-toggle' data-ng-click='open=!open;openDropdown()'>{{title}} <span class='filter-caret caret'></span></button>"+
+        //"<button class='btn btn-small dropdown-toggle' data-ng-click='open=!open;openDropdown()'><span class='caret'></span></button>"+
+        "<ul class='filter-btn dropdown-menu' aria-labelledby='dropdownMenu'>" +
+        //"<li><a data-ng-click='selectAll()'><i class='icon-ok-sign'></i>  Check All</a></li>" +
+        //"<li><a data-ng-click='deselectAll();'><i class='icon-remove-sign'></i>  Uncheck All</a></li>" +
+        //"<li class='divider'></li>" +
+        "<li data-ng-repeat='option in options'> <a data-ng-click='setSelectedItem()'>{{option.name}}<span data-ng-class='isChecked(option.id)'></span></a></li>" +
+        "</ul>" +
+        "</div>" ,
+        controller: function($scope){
+
+            $scope.openDropdown = function(){
+                $scope.selected_items = [];
+                //for(var i=0; i<$scope.pre_selected.length; i++){
+                //    $scope.selected_items.push($scope.pre_selected[i].id);
+                //}
+            };
+
+            $scope.selectAll = function () {
+                $scope.model = _.pluck($scope.options, 'id');
+                console.log($scope.model);
+            };
+            $scope.deselectAll = function() {
+                $scope.model=[];
+                console.log($scope.model);
+            };
+            $scope.setSelectedItem = function(){
+                var id = this.option.id;
+                if (_.contains($scope.model, id)) {
+                    $scope.model = _.without($scope.model, id);
+                } else {
+                    $scope.model.push(id);
+                }
+                return false;
+            };
+            $scope.isChecked = function (id) {
+                if (_.contains($scope.model, id)) {
+                    return 'icon-ok pull-right';
+                }
+                return false;
+            };
+        }
+    }
+});
+
+function unique_array(){
+    var newArr = [],
+        origLen = origArr.length,
+        found, x, y;
+
+    for (x = 0; x < origLen; x++) {
+        found = undefined;
+        for (y = 0; y < newArr.length; y++) {
+            if (origArr[x] === newArr[y]) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            newArr.push(origArr[x]);
+        }
+    }
+    return newArr;
+}
 
 
 app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
