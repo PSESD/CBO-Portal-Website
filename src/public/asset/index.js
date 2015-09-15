@@ -16,7 +16,7 @@ var __i = false; if(typeof __local !== 'undefined') __i = __local;
 
 var global_redirect_url = '/';
 
-var app = angular.module('CboPortal', ['ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
+var app = angular.module('CboPortal', ['ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
     'ngLocalize.Config'
 ]).value('localeConf', {
     basePath: 'languages',
@@ -321,10 +321,22 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             event.preventDefault();
         }
 
+
+
         if('$$route' in nextRoute){
             var intended_url = '';
+            if(nextRoute.$$route.originalPath == '/login'){
+                $rootScope.showFooter = false;
+            }
 
             if(nextRoute.$$route.originalPath != '/login'){
+                $rootScope.showFooter = true;
+                if($rootScope.doingResolve == true){
+                    $rootScope.showFooter = false;
+                }
+                if($rootScope.doingResolve == false){
+                    $rootScope.showFooter = true;
+                }
                 intended_url = _.get(nextRoute.$$route, 'originalPath');
                 if(intended_url == '/program/students/:program_id'){
                     intended_url = '/program/students/'+ _.get(nextRoute.params,'program_id');
@@ -365,7 +377,6 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                 }
 
                 localStorage.setItem('intended_url',intended_url);
-                //console.log(localStorage);
             }
 
         }
@@ -834,12 +845,19 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 
 app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce',
     function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore,$sce) {
+        if($rootScope.doingResolve == true){
+            $rootScope.showFooter = false;
+        }
+        if($rootScope.doingResolve == false){
+            $rootScope.showFooter = true;
+        }
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
         $scope.list_programs = [];
         $scope.icon_legend = true;
         $scope.open_button = false;
+
         $scope.close = function () {
             $scope.open_button = true;
             $scope.icon_legend = false;
@@ -1084,7 +1102,6 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                                         html += '</div>';
                                                         html += '</div>';
                                                     } else {
-
                                                     }
                                                     xhtml.push(html);
                                                 }
@@ -1131,7 +1148,6 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
 
                                     $scope.attendanceBehavior.push(behavior[key]);
                                 });
-                                //console.log($scope.attendanceBehavior);
                             });
                         }
                         $scope.academicInfo = {
@@ -3758,6 +3774,25 @@ app.directive('a', function () {
     };
 });
 
+app.directive('listItem',function(){
+
+    return {
+        restrict: 'E',
+        scope:{
+            data:'=',
+            slug:'=',
+            event:'=',
+            title:'='
+        },
+
+        template:'<div class="grid-item {{slug}}" tooltip-html="data"></div>'
+
+
+    };
+
+
+});
+
 function showError(message, alert) {
     var passingClass = 'alert-danger';
     if (alert == 2) {
@@ -3841,11 +3876,9 @@ function base64_encode(data) {
 
 
 function start_time_idle() {
-    //console.log("trigger idle start");
     session_timeout.login();
 }
 
 function stop_time_idle() {
-    //console.log("trigger idle stop");
     session_timeout.logout();
 }
