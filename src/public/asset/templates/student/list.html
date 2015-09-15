@@ -15,11 +15,13 @@
                         <p>{{ 'help.student_list' | i18n }}</p>
                     </div>
                     <h1><a href="#/student/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_a_student' | i18n }}</a></h1>
-                    <form class="form-inline" role="form" ng-submit="searchStudent(student)">
+                    <form class="form-inline inline" role="form" ng-submit="searchStudent(student)">
                         <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_student' | i18n }}"/>
                         <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
                     </form>
-
+                    <dropdown-multiselect class="no-background-color" model="selected_districts" title="District" options="districtData"></dropdown-multiselect>
+                    <dropdown-multiselect class="no-background-color" model="selected_schools" title="School" options="schoolNameData"></dropdown-multiselect>
+                    <!--<div class="inline no-background-color"  ng-dropdown-multiselect="" translation-texts="disctict"  options="districtData" selected-model="districtmod" extra-settings="filterSettings"></div>-->
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -37,7 +39,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="student in students | filter:search">
+                            <tr ng-repeat="student in students | filter:search | filter:filterDistrict() | filter:filterSchools()">
                                 <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.first_name }} {{ student.last_name }}</a></td>
 								<td>{{student.district_student_id}}</td>
                                 <td>{{ student.school_district }}</td>
