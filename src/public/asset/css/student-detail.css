@@ -5,6 +5,12 @@
 .inline{
     display: inline;
 }
+.no-background-color{
+    background-color:transparent!important;
+}
+.filter-btn{
+    width: 250px!important;
+}
 .student-edit-btn{
     float: right;
     top: 5px;
@@ -1231,4 +1237,18 @@ ul.cohorts {
 
 .dark{
 background-color:#eee;
+}
+
+.icon-ok {
+    background: url(../img/check-small.png);
+    width: 16px;
+    height: 16px;
+    display: block;
+    position: relative;
+    left: 10px;
+}
+
+.filter-caret{
+    position: relative!important;
+    left: 15px!important;
 }
