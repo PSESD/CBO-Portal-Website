@@ -1,6 +1,7 @@
 {
     "dashboard": "Students",
     "users": "Users",
+    "edit_user": "Edit User: {1}",
     "programs": "Programs",
     "account_settings": "Edit Profile",
     "logout": "Logout",

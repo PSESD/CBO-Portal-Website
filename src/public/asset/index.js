@@ -1947,6 +1947,10 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             }
         };
 
+        var pullXsreStudents = function(students){
+            
+        };
+
         $http.get(api_url + AuthenticationService.organization_id + '/students', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
@@ -1982,7 +1986,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         schoolOptions ={
                             id:value,
                             name:value
-                        }
+                        };
                         $scope.schoolNameData.push(schoolOptions);
                     });
                     angular.forEach(options,function(value){
