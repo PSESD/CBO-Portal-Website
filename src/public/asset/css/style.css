@@ -728,10 +728,15 @@ select{
             margin-left: 15%;
         }
         /*
+
     ===============================================
     ================== 5.Utility ==================
     ===============================================
     */
+        .login-help-link {
+            font-size: 11px;
+            top: 10px;
+            position: relative;
     }
     @media (max-height:600px) {
         #login-container,
@@ -829,4 +834,9 @@ select{
     }
     dt:first-child:before { /* disable line break before the first <dt> */
         content: none;
+    }
+
+    .forgot-password{
+        right: 50%;
+        position: relative;
     }
