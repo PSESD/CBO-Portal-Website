@@ -329,7 +329,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                 $rootScope.showFooter = false;
             }
 
-            if(nextRoute.$$route.originalPath != '/login'){
+            if(nextRoute.$$route.originalPath != '/login' && nextRoute.$$route.originalPath != '/forget'){
                 $rootScope.showFooter = true;
                 if($rootScope.doingResolve == true){
                     $rootScope.showFooter = false;
@@ -1885,8 +1885,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             scrollableHeight: '250px',
             scrollable: true
         };
-
-        console.log($scope.selected_items);
 
         $scope.filterDistrict = function () {
             return function (p) {

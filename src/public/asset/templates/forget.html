@@ -1,9 +1,9 @@
 <div class="row">
 
-    <div class="col-md-offset-4 col-md-4" id="forget-container" style="margin-top:10%">
+    <div class="col-md-offset-4 col-md-4" id="forget-container">
 
-        <form class="form-signin" id="loginForm" name="loginForm" role="form" ng-submit="forgotPassword(forgot)">
-            <div class="card">
+        <form class="form-signin"  name="loginForm" role="form" ng-submit="forgotPassword(forgot)">
+            <div class="card forgot-password">
                 <div class="title">
                     <h1>{{ 'general.forgot_password' | i18n | uppercase }}</h1>
                     <hr>
@@ -16,7 +16,9 @@
                 </div>
                 <button class="button" ng-disabled="login.working">{{ 'general.send_password' | i18n }}</button>
                 <a href="#/login" class="button">{{ 'general.back_to_login_page' | i18n }}</a>
+                <div class="login-help-link">{{ 'general.help_login_link' | i18n }}<a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a></div>
             </div>
+
         </form>
 
     </div>
