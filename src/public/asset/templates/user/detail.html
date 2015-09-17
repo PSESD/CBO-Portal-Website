@@ -5,7 +5,7 @@
             <div class="col-md-12">
 
                 <div class="title">
-                    <h1>{{ 'general.detail_for' | i18n:[user.full_name] }}</h1>
+                    <h1>{{ 'general.edit_user' | i18n:[user.full_name] }}</h1>
                     <hr>
                 </div>
 
@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="first_name">{{ 'general.first_name' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.first_name" id="first_name" readonly>
+                                <input type="text" class="form-control" ng-value="user.first_name" id="first_name" readonly>
                             </div>
                         </div>
                         <!--<div class="form-group">-->
@@ -29,31 +29,31 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="last_name">{{ 'general.last_name' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.last_name" id="last_name" readonly>
+                                <input type="text" class="form-control" ng-value="user.last_name" id="last_name" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="email">{{ 'general.email' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.email" id="email" readonly>
+                                <input type="text" class="form-control" ng-value="user.email" id="email" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="email">{{ 'general.ID' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user._id" id="id" readonly>
+                                <input type="text" class="form-control" ng-value="user._id" id="id" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="created">{{ 'general.created' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.created | date : 'MM/dd/yyyy HH:mm:ss' : timezone" id="created" readonly>
+                                <input type="text" class="form-control" ng-value="user.created | date : 'MM/dd/yyyy HH:mm:ss' : timezone" id="created" readonly>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="last_updated">{{ 'general.last_update' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone" id="last_updated" readonly>
+                                <input type="text" class="form-control" ng-value="user.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone" id="last_updated" readonly>
                             </div>
                         </div>
                         <div class="form-actions form-group">
