@@ -1999,11 +1999,18 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         $rootScope.show_footer = false;
                         CookieStore.clearData();
                         $location.path('/login');
+                    } else if(status >= 500){
+                        $scope.students[studentKeys[student._id]].gradeLevel = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].schoolYear = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].attendance = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].behavior = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].onTrackGraduate = locale.getString('general.unavailable');
                     }
 
                 });
             });
-            
+
         };
 
         $http.get(api_url + AuthenticationService.organization_id + '/students', {
