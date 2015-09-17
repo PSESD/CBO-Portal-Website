@@ -43,11 +43,11 @@
                                 <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.first_name }} {{ student.last_name }}</a></td>
 								<td>{{student.district_student_id}}</td>
                                 <td>{{ student.school_district }}</td>
-                                <td>{{ student.gradeLevel }}</td>
-                                <td>{{ student.schoolName }}</td>
-                                <td>{{ student.attendance }}</td>
-                                <td>{{ student.behavior }}</td>
-                                <td>{{ student.onTrackGraduate }}</td>
+                                <td ng-bind-html="student.gradeLevel"></td>
+                                <td ng-bind-html="student.schoolName"></td>
+                                <td ng-bind-html="student.attendance"></td>
+                                <td ng-bind-html="student.behavior"></td>
+                                <td ng-bind-html="student.onTrackGraduate"></td>
                                 <td class="text-center">
                                     <a class="glyphicon glyphicon-pencil" ng-href="#/student/edit/{{ student._id }}"></a>
 									</td>
