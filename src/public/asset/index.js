@@ -1954,67 +1954,56 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 student.attendance = locale.getString('general.retrieving');
                 student.behavior = locale.getString('general.retrieving');
                 student.onTrackGraduate = locale.getString('general.retrieving');
-            });
 
-            $http.get(api_url + AuthenticationService.organization_id + '/students?xsre=1', {
-                headers: {
-                    'Authorization': 'Bearer ' + AuthenticationService.token
-                }
-            })
-            .success(function (response) {
+                $http.get(api_url + AuthenticationService.organization_id + '/students/'+student._id+'?xsre=1', {
+                    headers: {
+                        'Authorization': 'Bearer ' + AuthenticationService.token
+                    }
+                })
+                .success(function (student) {
 
-                if (response.success == true && response.total > 0) {
-                    var embedData = [];
-                    embedData = ('data' in response) ? response.data : [];
-                    var data = [];
-                    angular.forEach(embedData, function (student) {
-
-                        if(student._id in studentKeys){
-                            var onTrack = _.get(student,'xsre.onTrackToGraduate');
-                            if(onTrack === 'Y'){
-                                onTrack = locale.getString('general.on_track');
-                            } else if(onTrack === 'N') {
-                                onTrack = locale.getString('general.off_track');
-                            } else {
-                                onTrack = locale.getString('general.unavailable');
-                            }
-                            $scope.students[studentKeys[student._id]].gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].attendance = _.get(student,'xsre.attendance') ? locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]) : locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].behavior = _.get(student,'xsre.behavior') ? locale.getString('general.incidents', [_.get(student,'xsre.behavior')]) : locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].onTrackGraduate = onTrack;
-
+                    if(student._id in studentKeys){
+                        var onTrack = _.get(student,'xsre.onTrackToGraduate');
+                        if(onTrack === 'Y'){
+                            onTrack = locale.getString('general.on_track');
+                        } else if(onTrack === 'N') {
+                            onTrack = locale.getString('general.off_track');
                         } else {
-
-                            $scope.students[studentKeys[student._id]].gradeLevel = locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].schoolYear = locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].attendance = locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].behavior = locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].onTrackGraduate = locale.getString('general.unavailable');
-
+                            onTrack = locale.getString('general.unavailable');
                         }
+                        $scope.students[studentKeys[student._id]].gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].attendance = _.get(student,'xsre.attendance') ? locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]) : locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].behavior = _.get(student,'xsre.behavior') ? locale.getString('general.incidents', [_.get(student,'xsre.behavior')]) : locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].onTrackGraduate = onTrack;
 
-                    });
+                    } else {
 
-                } else {
-                    showError(response.error.message, 1);
-                }
+                        $scope.students[studentKeys[student._id]].gradeLevel = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].schoolYear = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].attendance = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].behavior = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].onTrackGraduate = locale.getString('general.unavailable');
 
-            })
-            .error(function (response, status) {
+                    }
 
-                //console.log(response);
-                //console.log(status);
-                showError(response, 1);
-                if (status == 401) {
-                    $rootScope.show_footer = false;
-                    CookieStore.clearData();
-                    $location.path('/login');
-                }
+                })
+                .error(function (response, status) {
 
+                    //console.log(response);
+                    //console.log(status);
+                    showError(response, 1);
+                    if (status == 401) {
+                        $rootScope.show_footer = false;
+                        CookieStore.clearData();
+                        $location.path('/login');
+                    }
+
+                });
             });
+            
         };
 
         $http.get(api_url + AuthenticationService.organization_id + '/students', {
