@@ -42,7 +42,6 @@
                         <li><a>&copy;&nbsp;2015&nbsp;</a><a href="http://www.psesd.org/" target="_blank">PSESD</a></li>
                         <li><a href="http://roadmapracetothetop.org/" target="_blank">ROADMAP PROJECT</a></li>
                         <li><a>PRIVACY POLICY</a></li>
-                        <!--<li><a>CONFIDENTIALITY STATEMENT</a></li>-->
                     </div>
                 </ul>
             </div>
@@ -52,24 +51,18 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div id="error-container" style="margin-left:70px;">
-
-                </div>
+                <div ng-class="is_logged_in ? 'visible-on add-pad' : 'visible-off remove-pad'" class="error-container"></div>
 
             </div>
         </div>
         <ng-view ng-class="ng-view" ng-hide="doingResolve"></ng-view>
         <div class="separator-content"></div>
         <div ng-if="showNavBar">
-            <div style="margin-left:70px;" class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
+            <!--<div style="margin-left:70px;" class="jumbotron loading-jumbo text-center" ng-show="doingResolve">-->
+            <div class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
                 <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
             </div>
         </div>
-        <!--<div ng-if="!showNavBar">-->
-            <!--<div class="jumbotron loading-jumbo text-center" ng-show="doingResolve">-->
-                <!--<h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>-->
-            <!--</div>-->
-        <!--</div>-->
 
     </div>
     <div class="confidentiality-footer" ng-show="showFooter">
