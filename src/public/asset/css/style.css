@@ -506,7 +506,7 @@ select{
         padding-bottom: 40px;
     }
     /*- Buttons -*/
-    
+
     .button {
         font-family: 'Lato', sans-serif;
         font-weight: 700;
@@ -543,7 +543,7 @@ select{
     text-decoration: none;
     */
     }
-    .button:visted {
+    .button:visited {
         box-shadow: none;
     }
     #login-container input,
@@ -554,19 +554,19 @@ select{
     }
     #login-container input::-webkit-input-placeholder,
     /* WebKit browsers */
-    
+
     #forget-container input::-webkit-input-placeholder,
     #login-container input:-moz-placeholder,
     /* Mozilla Firefox 4 to 18 */
-    
+
     #forget-container input:-moz-placeholder,
     #login-container input::-moz-placeholder,
     /* Mozilla Firefox 19+ */
-    
+
     #forget-container input::-moz-placeholder,
     #login-container input:-ms-input-placeholder,
     /* Internet Explorer 10+ */
-    
+
     #forget-container input:-ms-input-placeholder {
         color: #555;
     }
@@ -723,15 +723,20 @@ select{
     ================= 3.Container =================
     ===============================================
     */
-        .container-with-menu {
-            width: 85%;
-            margin-left: 15%;
-        }
-        /*
+    .container-with-menu {
+        width: 85%;
+        margin-left: 15%;
+    }
+    /*
+
     ===============================================
     ================== 5.Utility ==================
     ===============================================
     */
+    .login-help-link {
+        font-size: 11px;
+        top: 10px;
+        position: relative;
     }
     @media (max-height:600px) {
         #login-container,
@@ -741,7 +746,7 @@ select{
             margin: 18%;
         }
     }
-    /**
+/**
  Help Style
 **/
     
@@ -803,30 +808,34 @@ select{
     bottom: 104px;
     margin-left: 15.8%;
     font-size: 12px;
-    /* padding-left: 266px;
 }
-    @media (max-width : 776px) {
-        .confidentiality-footer{
-            background-color: white;
-            padding: 1.5%;
-            position: fixed;
-            bottom: 0;
-            margin-left: 7.3%;
-        }
-    }
+dt:before { /* insert line break before <dt> */
+    content:"\A";
+    white-space:pre;
+}
+dt:first-child:before { /* disable line break before the first <dt> */
+    content: none;
+}
 
-    dd,
-    dt{
-        display: inline;
-        margin: 0;
-    }
-    dd:before {
-        content: ' '; /* space them */
-    }
-    dt:before { /* insert line break before <dt> */
-        content:"\A";
-        white-space:pre;
-    }
-    dt:first-child:before { /* disable line break before the first <dt> */
-        content: none;
-    }
+.forgot-password{
+    right: 50%;
+    position: relative;
+}
+/**
+ * LOADING STATE
+ */
+.not_ready, .retrieving, .unavailable {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.not_ready {
+    color: #888888;
+}
+.unavailable {
+    color: #101010;
+}
+.retrieving {
+    color: #67b168;
+}
+.on_track, .off_track {
+}
