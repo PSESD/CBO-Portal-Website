@@ -298,20 +298,7 @@ function ($window, $rootScope, locale) {
 
 }]);
 
-app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
-    var original = $location.path;
-    console.log(original);
-    $location.path = function (path, reload) {
-        if (reload === false) {
-            var lastRoute = $route.current;
-            var un = $rootScope.$on('$locationChangeSuccess', function () {
-                $route.current = lastRoute;
-                un();
-            });
-        }
-        return original.apply($location, [path]);
-    };
-}])
+
 
 app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
 
@@ -340,7 +327,6 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
 
         if(nextRoute.$$route.originalPath != '/login' && $rootScope.doingResolve == true){
             $rootScope.showFooter = false;
-            console.log($rootScope.showFooter);
 
         }
 
@@ -846,15 +832,24 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
     }
 ]);
 
+app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
+    var original = $location.path;
+    $location.path = function (path, reload) {
+        console.log(path);
+        if (reload === false) {
+            var lastRoute = $route.current;
+            var un = $rootScope.$on('$locationChangeSuccess', function () {
+                $route.current = lastRoute;
+                un();
+            });
+        }
+        return original.apply($location, [path]);
+    };
+}])
+
 
 app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce',
     function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore,$sce) {
-        if($rootScope.doingResolve == true){
-            $rootScope.showFooter = false;
-        }
-        if($rootScope.doingResolve == false){
-            $rootScope.showFooter = true;
-        }
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
@@ -972,27 +967,9 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             $(attendance_detail).removeClass('hide');
             $(attendance_header).addClass('hide');
 
-            /*
-            var ul = $(event.target).parentsUntil('h4')[1];
-            var next = $(event.target).parentsUntil('h4');
-            var tgt = $(next).next()[0];
-            $(tgt).removeClass('hide');
-            var target = $(ul);
-            target.addClass('hide');
-            */
         };
         $scope.showIcon = function (event) {
-            /*
-            var ul = $(event.target).parentsUntil('h4')[4];
-            //console.log(ul);
-            var header = $(ul).find('ul.attendance-behavior')[0];
-            //console.log(header);
-            $(header).removeClass('hide');
 
-            var detail = $(ul).find('.attendance-detail')[0];
-            //console.log(detail);
-            $(detail).addClass('hide');
-            */
             var id = $(event.target).prop('id');
             var attendance_legend = $(event.target).parent()[0];
             var panel_body = $(attendance_legend).parent()[0];
