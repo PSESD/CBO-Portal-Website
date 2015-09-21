@@ -65,7 +65,7 @@
         </div>
 
     </div>
-    <div class="confidentiality-footer" ng-show="showFooter">
+    <div class="confidentiality-footer" ng-show="!showFooter == doingResolve && is_logged_in">
         {{ 'general.footer_confidentiality1' | i18n }} <a href="http://www2.ed.gov/ferpa/">FERPA</a> {{ 'general.footer_confidentiality2' | i18n }} <a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a>
     </div>
 </div>

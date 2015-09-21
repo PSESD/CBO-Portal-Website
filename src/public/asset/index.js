@@ -298,6 +298,21 @@ function ($window, $rootScope, locale) {
 
 }]);
 
+app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
+    var original = $location.path;
+    console.log(original);
+    $location.path = function (path, reload) {
+        if (reload === false) {
+            var lastRoute = $route.current;
+            var un = $rootScope.$on('$locationChangeSuccess', function () {
+                $route.current = lastRoute;
+                un();
+            });
+        }
+        return original.apply($location, [path]);
+    };
+}])
+
 app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
 
     var returnData = CookieStore.getData();
@@ -311,6 +326,8 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
 
     $rootScope.$on("$routeChangeStart", function (event, nextRoute) {
         //redirect only if both isAuthenticated is false and no token is set
+        $rootScope.doingResolve = true;
+
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             $location.path("/login");
             $rootScope.showNavBar = false;
@@ -321,12 +338,15 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             event.preventDefault();
         }
 
+        if(nextRoute.$$route.originalPath != '/login' && $rootScope.doingResolve == true){
+            $rootScope.showFooter = false;
+            console.log($rootScope.showFooter);
 
+        }
 
         if('$$route' in nextRoute){
             var intended_url = '';
             if(nextRoute.$$route.originalPath == '/login'){
-                $rootScope.showFooter = false;
                 $rootScope.is_logged_in = false;
             }
 
@@ -546,7 +566,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
 
         $scope.logoutMe = function () {
-            $rootScope.show_footer = false;
+            $rootScope.showFooter = false;
             var logout = {
                 token: AuthenticationService.token
             };
