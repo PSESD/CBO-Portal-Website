@@ -1971,6 +1971,17 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
                     }
 
+                    var find = $scope.students[studentKeys[student._id]].schoolName;
+                    if(find){
+                          find      = String(find).replace(/<[^>]+>/gm, '');
+                          var found = $scope.schoolNameData.some(function(hash){
+                              if(_.includes(hash, find)) return true;
+                          });
+                          if(!found){
+                              $scope.schoolNameData.push({ id: find, name: find });
+                          }
+                    }
+
                 })
                 .error(function (response, status) {
 
@@ -2026,9 +2037,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         if(options.indexOf(student.school_district) == -1){
                             options.push(student.school_district);
                         }
-                        if(school_options.indexOf(student.schoolName) == -1 && student.schoolName != undefined ){
-                            school_options.push(student.schoolName);
-                        }
 
                     });
                     /**
@@ -2036,13 +2044,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                      */
                     $timeout( function(){ pullXsreStudents(studentKeys); }, 3000);
 
-                    angular.forEach(school_options,function(value){
-                        schoolOptions ={
-                            id:value,
-                            name:value
-                        };
-                        $scope.schoolNameData.push(schoolOptions);
-                    });
                     angular.forEach(options,function(value){
                         districtOption = {
                             id:value,
