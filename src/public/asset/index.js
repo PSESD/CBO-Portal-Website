@@ -1943,7 +1943,8 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 $http.get(api_url + AuthenticationService.organization_id + '/students/'+student._id+'?xsre=1', {
                     headers: {
                         'Authorization': 'Bearer ' + AuthenticationService.token
-                    }
+                    },
+                    timeout: 15000
                 })
                 .success(function (student) {
 
@@ -1974,17 +1975,27 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
                     }
 
+                    var find = $scope.students[studentKeys[student._id]].schoolName;
+                    if(find){
+                          find      = String(find).replace(/<[^>]+>/gm, '');
+                          var found = $scope.schoolNameData.some(function(hash){
+                              if(_.includes(hash, find)) return true;
+                          });
+                          if(!found){
+                              $scope.schoolNameData.push({ id: find, name: find });
+                          }
+                    }
+
                 })
                 .error(function (response, status) {
 
-                    //console.log(response);
-                    //console.log(status);
+                    //console.log('ERROR: ', student, typeof response, response, typeof status, status);
                     showError(response, 1);
                     if (status == 401) {
                         $rootScope.show_footer = false;
                         CookieStore.clearData();
                         $location.path('/login');
-                    } else if(status >= 500){
+                    } else if(status >= 500 || (response === null && status === 0)){
                         $scope.students[studentKeys[student._id]].gradeLevel = locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].schoolYear = locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.unavailable');
@@ -2030,9 +2041,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         if(options.indexOf(student.school_district) == -1){
                             options.push(student.school_district);
                         }
-                        if(school_options.indexOf(student.schoolName) == -1 && student.schoolName != undefined ){
-                            school_options.push(student.schoolName);
-                        }
 
                     });
                     /**
@@ -2040,13 +2048,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                      */
                     $timeout( function(){ pullXsreStudents(studentKeys); }, 3000);
 
-                    angular.forEach(school_options,function(value){
-                        schoolOptions ={
-                            id:value,
-                            name:value
-                        };
-                        $scope.schoolNameData.push(schoolOptions);
-                    });
                     angular.forEach(options,function(value){
                         districtOption = {
                             id:value,

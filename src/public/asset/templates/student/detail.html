@@ -370,8 +370,8 @@
                             </div>
 
                         </li>
-                        <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="transSubject in transcripts.subjectOrder track by $index">{{ transSubject.value }}
-                            <br/>{{ transSubject.name }} {{ 'general.credits' | i18n }}</li>
+                        <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="transSubject in transcripts.subjectValues track by $index">{{ transSubject.name }}
+                            <br/>{{ transSubject.value }} {{ 'general.credits' | i18n }}</li>
                     </ul>
                     <hr class="separator-transcript">
                     <div class="transcript-container">
