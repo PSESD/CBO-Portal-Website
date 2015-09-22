@@ -4,7 +4,7 @@ $(document).ready(function () {
     $(window).on('hashchange', function(e){
         var url = [];
         url.push(window.location.href);
-        console.log(url);
+
     });
 
 

@@ -51,6 +51,10 @@ body {
         height: 100%;
         box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1) inset;
     }
+
+    .padding-left{
+        padding-left: 25px;
+    }
 }
 @media (max-height: 640px) {
     #footer{
