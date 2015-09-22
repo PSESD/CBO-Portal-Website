@@ -835,7 +835,6 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
     var original = $location.path;
     $location.path = function (path, reload) {
-        console.log(path);
         if (reload === false) {
             var lastRoute = $route.current;
             var un = $rootScope.$on('$locationChangeSuccess', function () {
@@ -847,9 +846,10 @@ app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $loc
     };
 }])
 
-
 app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce',
     function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore,$sce) {
+
+        var url = '';
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
@@ -989,8 +989,12 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             $('[data-target="#'+tab+'"]').tab('show');
         }
         $('[data-toggle="tab"]').on('show.bs.tab', function(){
-            $location.update_path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''),true);
+           $location.path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''),true);
+
+
         });
+
+
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
@@ -1038,7 +1042,6 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                     if (response.success != false && response.info) {
                         $('.loading-icon').addClass('hide');
                         response = response.info;
-                        console.log(response);
                         $scope.loading_icon = true;
                         $scope.studentdetails = response;
                         $scope.case_workers = response._embedded.users;
