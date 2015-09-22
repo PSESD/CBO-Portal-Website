@@ -822,13 +822,16 @@ select{
             font-size: 11px;
         }
 
-        .confidentiality-footer {
+        .confidentiality-footer,.version {
 
             position: relative;
             bottom: 95px;
             margin-left: 15.8%;
             font-size: 12px;
 
+        }
+        .version{
+            margin-top:15px;
         }
 
         dd,

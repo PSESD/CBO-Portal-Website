@@ -4,11 +4,13 @@
       .run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
         // todo: would be proper to change this to decorators of $location and $route
         $location.update_path = function (path, keep_previous_path_in_history) {
-          //console.log(path)
-console.log($location.path());
-          //if ($location.path() == path) return;
+            console.log("path : "+path);
+            console.log("keep previous path in history : "+keep_previous_path_in_history);
+            console.log("$location.path : "+$location.path());
+            if ($location.path() == path) return;
 
           var routeToKeep = $route.current;
+            console.log($route);
           console.log(routeToKeep);
           $rootScope.$on('$locationChangeSuccess', function () {
             if (routeToKeep) {

@@ -1,4 +1,6 @@
+
 {
+    "version":"version",
     "dashboard": "Students",
     "users": "Users",
     "edit_user": "Edit User: {1}",

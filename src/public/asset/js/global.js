@@ -7,7 +7,9 @@ $(document).ready(function () {
 
     });
 
-
+    $(".dropdown-menu").mouseout(function(){
+        $(".dropdown-menu").hide();
+    });
 
     if (typeof env !== 'undefined' && env == 'production') {
         window.intercomSettings = {

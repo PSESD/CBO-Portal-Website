@@ -49,6 +49,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
     if (__i) $httpProvider.interceptors.push('headerInjector');
+    $httpProvider.defaults.timeout = 15000;
 
 }]);
 
@@ -989,7 +990,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             $('[data-target="#'+tab+'"]').tab('show');
         }
         $('[data-toggle="tab"]').on('show.bs.tab', function(){
-           $location.path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''),true);
+           $location.update_path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''),true);
 
 
         });
