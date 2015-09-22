@@ -298,6 +298,8 @@ function ($window, $rootScope, locale) {
 
 }]);
 
+
+
 app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
 
     var returnData = CookieStore.getData();
@@ -311,6 +313,8 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
 
     $rootScope.$on("$routeChangeStart", function (event, nextRoute) {
         //redirect only if both isAuthenticated is false and no token is set
+        $rootScope.doingResolve = true;
+
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             $location.path("/login");
             $rootScope.showNavBar = false;
@@ -321,22 +325,22 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             event.preventDefault();
         }
 
+        if(nextRoute.$$route.originalPath != '/login' && $rootScope.doingResolve == true){
+            $rootScope.showFooter = false;
 
+        }
 
         if('$$route' in nextRoute){
             var intended_url = '';
             if(nextRoute.$$route.originalPath == '/login'){
-                $rootScope.showFooter = false;
+                $rootScope.is_logged_in = false;
             }
 
             if(nextRoute.$$route.originalPath != '/login' && nextRoute.$$route.originalPath != '/forget'){
+                $rootScope.is_logged_in = true;
                 $rootScope.showFooter = true;
-                if($rootScope.doingResolve == true){
-                    $rootScope.showFooter = false;
-                }
-                if($rootScope.doingResolve == false){
-                    $rootScope.showFooter = true;
-                }
+
+
                 intended_url = _.get(nextRoute.$$route, 'originalPath');
                 if(intended_url == '/program/students/:program_id'){
                     intended_url = '/program/students/'+ _.get(nextRoute.params,'program_id');
@@ -380,20 +384,6 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             }
 
         }
-        //($stateParams);
-        //if('$$route' in nextRoute){
-        //
-        //    if(nextRoute.$$route.originalPath != '/login'){
-        //        if(nextRoute.$$route.keys.length == 0){
-        //            localStorage.setItem('url_intended',nextRoute.$$route.originalPath);
-        //        }else{
-        //
-        //        }
-        //    }else {
-        //        localStorage.setItem('url_intended','/login');
-        //    }
-        //}
-
         if (returnData) {
             start_time_idle();
         }
@@ -562,11 +552,11 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
 
         $scope.logoutMe = function () {
-            $rootScope.show_footer = false;
+            $rootScope.showFooter = false;
             var logout = {
                 token: AuthenticationService.token
             };
-
+            $('.confidentiality-footer').removeClass('visible-on');
             $http.post(auth_url + 'logout', $.param(logout), {
 
                 })
@@ -695,7 +685,7 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
 
                         //console.log(response);
                         //console.log(status);
-                        showError(response, 1);
+                        showError(response.error, 1);
                         $scope.working = false;
                         if (status == 401) {
                             $rootScope.show_footer = false;
@@ -734,7 +724,7 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -798,7 +788,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 
                         //console.log(response);
                         //console.log(status);
-                        showError(response, 1);
+                        showError(response.error, 1);
                         $scope.working = false;
                         if (status == 401) {
                             $rootScope.show_footer = false;
@@ -829,7 +819,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -842,15 +832,24 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
     }
 ]);
 
+app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
+    var original = $location.path;
+    $location.path = function (path, reload) {
+        console.log(path);
+        if (reload === false) {
+            var lastRoute = $route.current;
+            var un = $rootScope.$on('$locationChangeSuccess', function () {
+                $route.current = lastRoute;
+                un();
+            });
+        }
+        return original.apply($location, [path]);
+    };
+}])
+
 
 app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce',
     function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore,$sce) {
-        if($rootScope.doingResolve == true){
-            $rootScope.showFooter = false;
-        }
-        if($rootScope.doingResolve == false){
-            $rootScope.showFooter = true;
-        }
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
@@ -968,27 +967,9 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             $(attendance_detail).removeClass('hide');
             $(attendance_header).addClass('hide');
 
-            /*
-            var ul = $(event.target).parentsUntil('h4')[1];
-            var next = $(event.target).parentsUntil('h4');
-            var tgt = $(next).next()[0];
-            $(tgt).removeClass('hide');
-            var target = $(ul);
-            target.addClass('hide');
-            */
         };
         $scope.showIcon = function (event) {
-            /*
-            var ul = $(event.target).parentsUntil('h4')[4];
-            //console.log(ul);
-            var header = $(ul).find('ul.attendance-behavior')[0];
-            //console.log(header);
-            $(header).removeClass('hide');
 
-            var detail = $(ul).find('.attendance-detail')[0];
-            //console.log(detail);
-            $(detail).addClass('hide');
-            */
             var id = $(event.target).prop('id');
             var attendance_legend = $(event.target).parent()[0];
             var panel_body = $(attendance_legend).parent()[0];
@@ -1007,10 +988,8 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
         if(tab){
             $('[data-target="#'+tab+'"]').tab('show');
         }
-        $('[data-toggle="tab"]').on('show.bs.tab', function(e){
-
+        $('[data-toggle="tab"]').on('show.bs.tab', function(){
             $location.update_path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''),true);
-
         });
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {
                 headers: {
@@ -1033,7 +1012,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -1051,6 +1030,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                     }
                 })
                 .success(function (response) {
+
                     var embedUsers = {};
                     var embedPrograms = [];
                     $scope.attendanceBehavior = [];
@@ -1226,6 +1206,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                         }
 
                     } else {
+
                         showError(response.error, 1);
                     }
                     $rootScope.doingResolve = false;
@@ -1234,7 +1215,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
 
                     //console.log(response);
                     //console.log(status);
-                    showError(response, 1);
+                    showError(response.error, 1);
                     $rootScope.doingResolve = false;
                     if (status == 401) {
                         $rootScope.show_footer = false;
@@ -1264,7 +1245,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
 
                     //console.log(response);
                     //console.log(status);
-                    showError(response, 1);
+                    showError(response.error , 1);
                     $rootScope.doingResolve = false;
                     if (status == 401) {
                         $rootScope.show_footer = false;
@@ -1335,7 +1316,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
 
                         //console.log(response);
                         //console.log(status);
-                        showError(response, 1);
+                        showError(response.error, 1);
                         $scope.working = false;
                         if (status == 401) {
                             $rootScope.show_footer = false;
@@ -1361,7 +1342,7 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -1401,7 +1382,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -1463,7 +1444,7 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
 
                             //console.log(response);
                             //console.log(status);
-                            showError(response, 1);
+                            showError(response.error, 1);
                             $scope.working = false;
                             if (status == 401) {
                                 $rootScope.show_footer = false;
@@ -1516,7 +1497,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
 
                         //console.log(response);
                         //console.log(status);
-                        showError(response, 1);
+                        showError(response.error, 1);
                         $scope.working = false;
                         if (status == 401) {
                             $rootScope.show_footer = false;
@@ -1543,7 +1524,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -1578,7 +1559,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -1607,7 +1588,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -1644,7 +1625,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -1686,7 +1667,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
 
                             //console.log(response);
                             //console.log(status);
-                            showError(response, 1);
+                            showError(response.error, 1);
                             $rootScope.doingResolve = false;
                             if (status == 401) {
                                 $rootScope.show_footer = false;
@@ -1706,7 +1687,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -1744,7 +1725,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -1822,7 +1803,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 
                 //console.log(response);
                 //console.log(status);
-                showError(response, 1);
+                showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status == 401) {
                     $rootScope.show_footer = false;
@@ -1852,7 +1833,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 
                         //console.log(response);
                         //console.log(status);
-                        showError(response, 1);
+                        showError(response.error, 1);
                         $scope.working = false;
                         if (status == 401) {
                             $rootScope.show_footer = false;
@@ -1933,7 +1914,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
                         //console.log(response);
                         //console.log(status);
-                        showError(response, 1);
+                        showError(response.error, 1);
                         $scope.working = false;
                         if (status == 401) {
                             $rootScope.show_footer = false;
@@ -1958,7 +1939,8 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 $http.get(api_url + AuthenticationService.organization_id + '/students/'+student._id+'?xsre=1', {
                     headers: {
                         'Authorization': 'Bearer ' + AuthenticationService.token
-                    }
+                    },
+                    timeout: 15000
                 })
                 .success(function (student) {
 
@@ -1992,18 +1974,24 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 })
                 .error(function (response, status) {
 
-                    //console.log(response);
-                    //console.log(status);
+                    //console.log('ERROR: ', student, typeof response, response, typeof status, status);
                     showError(response, 1);
                     if (status == 401) {
                         $rootScope.show_footer = false;
                         CookieStore.clearData();
                         $location.path('/login');
+                    } else if(status >= 500 || (response === null && status === 0)){
+                        $scope.students[studentKeys[student._id]].gradeLevel = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].schoolYear = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].attendance = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].behavior = locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].onTrackGraduate = locale.getString('general.unavailable');
                     }
 
                 });
             });
-            
+
         };
 
         $http.get(api_url + AuthenticationService.organization_id + '/students', {
@@ -2193,7 +2181,7 @@ app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$locat
 
                         //console.log(response);
                         //console.log(status);
-                        showError(response, 1);
+                        showError(response.error, 1);
                         $scope.working = false;
                         if (status == 401) {
                             $rootScope.show_footer = false;
@@ -4005,11 +3993,17 @@ function showError(message, alert) {
         passingClass = 'alert-success'
     }
     var message_alert = '<div class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + message + '</div>';
-    jQuery("#error-container").append(message_alert);
-    setTimeout(function () {
-        jQuery('.alert').remove();
-    }, 3000);
-
+    if(window.location.href.indexOf('/login') == -1){
+        jQuery(".error-container.visible-on").append(message_alert);
+        setTimeout(function () {
+            jQuery('.alert').remove();
+        }, 3000);
+    }else{
+        jQuery("#login-error-message").append(message_alert);
+        setTimeout(function () {
+            jQuery('.alert').remove();
+        }, 3000);
+    }
 }
 
 function ucwords(str) {

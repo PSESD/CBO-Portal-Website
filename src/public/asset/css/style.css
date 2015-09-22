@@ -676,6 +676,7 @@ select{
         .navbar {
             width: 15%;
         }
+
         /*
     ===============================================
     =================== 2a.Menu ===================
@@ -685,31 +686,39 @@ select{
             width: 100%;
             max-width: 100%;
         }
+
         .custom-table tr td {
             padding: 1%;
         }
+
         .custom-table .border-top-bottom {
-            border-top: 1px solid black!important;
-            border-bottom: 1px solid black!important;
+            border-top: 1px solid black !important;
+            border-bottom: 1px solid black !important;
         }
+
         #navbar {
             padding: 35px 10px 10px 10px;
             border-radius: 0;
             overflow-x: hidden;
         }
+
         .navbar-header {
             float: none;
         }
+
         .navbar-nav {
             float: none;
         }
+
         .navbar-right {
             float: none !important;
         }
+
         .navbar-nav li,
         .navbar-right li {
             float: none;
         }
+
         .navbar-nav .dropdown-menu,
         .navbar-right .dropdown-menu {
             position: relative;
@@ -718,109 +727,141 @@ select{
             box-shadow: none;
             border: 0;
         }
+
         /*
     ===============================================
     ================= 3.Container =================
     ===============================================
     */
-    .container-with-menu {
-        width: 85%;
-        margin-left: 15%;
-    }
-    /*
+        .container-with-menu {
+            width: 85%;
+            margin-left: 15%;
+        }
+
+        /*
 
     ===============================================
     ================== 5.Utility ==================
     ===============================================
     */
-    .login-help-link {
-        font-size: 11px;
-        top: 10px;
-        position: relative;
-    }
-    @media (max-height:600px) {
-        #login-container,
-        #forget-container {
+        .login-help-link {
+            font-size: 11px;
+            top: 10px;
+            position: relative;
+        }
+
+        @media (max-height: 600px) {
+            #login-container,
+            #forget-container {
+                position: absolute;
+                /*top: 10%;*/
+                margin: 18%;
+            }
+        }
+        /**
+     Help Style
+    **/
+        .help p {
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: normal;
+            width: 284px;
+            color: #858585;
+            padding-bottom: 13px;
+        }
+
+        .icon-sidebarmenu {
+            left: 85%;
+            top: 20px;
+            color: white;
+        }
+
+        .icon-collapse-menu {
             position: absolute;
-            /*top: 10%;*/
-            margin: 18%;
+            left: 30%;
+        }
+
+        .separator-content {
+            margin-bottom: 100px;
+            position: relative;
+        }
+
+        select {
+            -webkit-border-radius: 0px !important;
+            -webkit-appearance: none;
+            background: url(../img/arrow.png) no-repeat 99%;
+            margin-top: 5px;
+            border: 1px solid black;
+            padding: 7px;
+        }
+
+        .organization_header {
+            color: white !important;
+            font-size: 1.6em;
+            margin-left: 14px;
+        }
+
+        .add-select-student {
+            width: 60% !important
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .inline-block {
+            display: inline-block;
+        }
+
+        .login-page-title {
+            padding-bottom: 1px;
+            font-size: 16px;
+        }
+
+        .login-help-link {
+            font-size: 11px;
+        }
+
+        .confidentiality-footer {
+
+            position: relative;
+            bottom: 95px;
+            margin-left: 15.8%;
+            font-size: 12px;
+
+        }
+
+        dd,
+        dt {
+            display: inline;
+            margin: 0;
+        }
+
+        dd:before {
+            content: ' '; /* space them */
+        }
+
+        dt:before {
+            /* insert line break before <dt> */
+            content: "\A";
+            white-space: pre;
+        }
+
+        dt:first-child:before {
+            /* disable line break before the first <dt> */
+            content: none;
+        }
+
+        .forgot-password {
+            right: 50%;
+            position: relative;
         }
     }
-/**
- Help Style
-**/
-    
-    .help p {
-        font-size: 12px;
-        font-weight: bold;
-        letter-spacing: normal;
-        width: 284px;
-        color: #858585;
-        padding-bottom: 13px;
-    }
-    .icon-sidebarmenu {
-        left: 85%;
-        top: 20px;
-        color: white;
-    }
-    .icon-collapse-menu {
-        position: absolute;
-        left: 30%;
-    }
-    .separator-content {
-        margin-bottom: 100px;
+
+    .forgot-password {
+        right: 50%;
         position: relative;
     }
-    select {
-        -webkit-border-radius: 0px!important;
-        -webkit-appearance: none;
-        background: url(../img/arrow.png) no-repeat 99%;
-        margin-top: 5px;
-        border: 1px solid black;
-        padding: 7px;
-    }
-    .organization_header {
-        color: white!important;
-        font-size: 1.6em;
-        margin-left: 14px;
-    }
-    .add-select-student {
-        width: 60%!important
-    }
-    .uppercase {
-        text-transform: uppercase;
-    }
-    .inline-block {
-        display: inline-block;
-    }
-
-    .login-page-title{
-        padding-bottom: 1px;
-        font-size: 16px;
-    }
-.login-help-link{
-    font-size: 11px;
-}
-.confidentiality-footer{
-    /* background-color: white; */
-    /* padding: .5%; */
-    position: relative;
-    bottom: 104px;
-    margin-left: 15.8%;
-    font-size: 12px;
-}
-dt:before { /* insert line break before <dt> */
-    content:"\A";
-    white-space:pre;
-}
-dt:first-child:before { /* disable line break before the first <dt> */
-    content: none;
-}
-
-.forgot-password{
-    right: 50%;
-    position: relative;
-}
 /**
  * LOADING STATE
  */
