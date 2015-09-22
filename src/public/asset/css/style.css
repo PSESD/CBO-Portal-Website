@@ -883,3 +883,9 @@ select{
 }
 .on_track, .off_track {
 }
+
+.district-filter-selected, .school-filter-selected{
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 16px;
+}

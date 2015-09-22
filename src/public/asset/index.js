@@ -1860,6 +1860,8 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         var options = [];
         var school_options = [];
         var schoolOptions = {};
+        $scope.district_counter = 0;
+        $scope.school_counter = 0;
         $rootScope.full_screen = false;
         $scope.students = [];
         $scope.districtData = [];
@@ -1871,16 +1873,22 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             scrollable: true
         };
 
+
         $scope.filterDistrict = function () {
             return function (p) {
                 if($scope.selected_districts != '') {
+                    $scope.district_counter =  $scope.selected_districts.length;
                     for (var i in $scope.selected_districts) {
                         if (p.school_district == $scope.selected_districts[i]) {
+
                             return true;
                         }
                     }
+
                 }else{
+                    $scope.district_counter = 0;
                     return true;
+
                 }
 
             };
@@ -1888,17 +1896,21 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         $scope.filterSchools = function () {
             return function (p) {
                 if($scope.selected_schools != '') {
+                    $scope.school_counter =  $scope.selected_schools.length;
                     for (var i in $scope.selected_schools) {
-                        if (p.schoolName == $scope.selected_schools[i]) {
+                        if (p.schoolName.replace(/<[^>]+>/gm, '') == $scope.selected_schools[i].replace(/<[^>]+>/gm, '')) {
                             return true;
                         }
                     }
+
                 }else{
+                    $scope.school_counter = 0;
                     return true;
                 }
 
             };
         };
+
 
         $scope.deleteStudent = function (id, index) {
             if (id) {
@@ -2087,10 +2099,11 @@ app.directive('dropdownMultiselect', function(){
             options: '=',
             title:'@'
         },
+
         template: "<div class='btn-group' data-ng-class='{open: open}'>"+
-        "<button class='filter-btn button dropdown-toggle' data-ng-click='open=!open;openDropdown()'>{{title}} <span class='filter-caret caret'></span></button>"+
+        "<button  class='filter-btn button dropdown-toggle' data-ng-click='open=!open;openDropdown()'>{{title}} <span class='filter-caret caret'></span></button>"+
         //"<button class='btn btn-small dropdown-toggle' data-ng-click='open=!open;openDropdown()'><span class='caret'></span></button>"+
-        "<ul class='filter-btn dropdown-menu' aria-labelledby='dropdownMenu'>" +
+        "<ul  class='filter-btn dropdown-menu' aria-labelledby='dropdownMenu'>" +
         //"<li><a data-ng-click='selectAll()'><i class='icon-ok-sign'></i>  Check All</a></li>" +
         //"<li><a data-ng-click='deselectAll();'><i class='icon-remove-sign'></i>  Uncheck All</a></li>" +
         //"<li class='divider'></li>" +
@@ -2108,11 +2121,11 @@ app.directive('dropdownMultiselect', function(){
 
             $scope.selectAll = function () {
                 $scope.model = _.pluck($scope.options, 'id');
-                console.log($scope.model);
+
             };
             $scope.deselectAll = function() {
                 $scope.model=[];
-                console.log($scope.model);
+
             };
             $scope.setSelectedItem = function(){
                 var id = this.option.id;
@@ -3992,22 +4005,25 @@ app.directive('listItem',function(){
 
 });
 
+
 function showError(message, alert) {
     var passingClass = 'alert-danger';
     if (alert == 2) {
         passingClass = 'alert-success'
     }
     var message_alert = '<div class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + message + '</div>';
-    if(window.location.href.indexOf('/login') == -1){
-        jQuery(".error-container.visible-on").append(message_alert);
-        setTimeout(function () {
-            jQuery('.alert').remove();
-        }, 3000);
-    }else{
-        jQuery("#login-error-message").append(message_alert);
-        setTimeout(function () {
-            jQuery('.alert').remove();
-        }, 3000);
+    if(message !== null) {
+        if (window.location.href.indexOf('/login') == -1) {
+            jQuery(".error-container.visible-on").append(message_alert);
+            setTimeout(function () {
+                jQuery('.alert').remove();
+            }, 3000);
+        } else {
+            jQuery("#login-error-message").append(message_alert);
+            setTimeout(function () {
+                jQuery('.alert').remove();
+            }, 3000);
+        }
     }
 }
 
