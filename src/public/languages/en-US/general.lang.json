@@ -200,5 +200,10 @@
     "success_logout": "Successful Logout",
     "password_not_match": "Password does not match",
     "program_participation_error_message": "This Student haven't participated in any program yet",
-    "attendance_and_behavior_error_message": "This Student is not linked yet to school data"
+    "attendance_and_behavior_error_message": "This Student is not linked yet to school data",
+
+    "credit" : "Credit",
+    "credits": "Credits",
+    "earned" : "Earned",
+    "attempted" : "Attempted"
 }

@@ -990,9 +990,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             $('[data-target="#'+tab+'"]').tab('show');
         }
         $('[data-toggle="tab"]').on('show.bs.tab', function(){
-           $location.update_path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''),true);
-
-
+//          $location.update_path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''),false);
         });
 
 

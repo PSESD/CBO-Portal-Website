@@ -182,7 +182,7 @@
             <ul class="nav nav-tabs nav-justified" role="tablist">
                 <li class="active"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior" class="uppercase">{{ 'general.attendance_and_behavior' | i18n }}</a></li>
                 <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" class="uppercase">{{ 'general.transcript' | i18n}}</a></li>
-                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#participation" class="uppercase">{{ 'general.program_participation' | i18n }}</a></li>
+                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation" class="uppercase">{{ 'general.program_participation' | i18n }}</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -316,8 +316,7 @@
                 </div>
                 <!-- tab panel -->
 
-
-                <div role="tabpanel" class="tab-pane" id="program_participation" data-id="program_participation_data">
+                <div role="tabpanel" class="tab-pane program_participation" id="program_participation" data-id="program_participation_data">
 
                     <ul class="no-data {{list_programs.length > 0 ? 'hide' : ''}}">
                         <li class="text-center">{{ 'general.program_participation_error_message' | i18n }}</li>
@@ -350,16 +349,27 @@
                     <ul class="flexbox transcript">
                         <li>
                             <dl>
-                                <!--<dt class="bold bold-title">{{ transcripts.summary.totalCreditsEarned }}</dt>-->
-                                <!--<dd>{{ 'general.credits_earned' | i18n }}</dd>-->
-                                <!--<dt class="bold bold-title">{{ transcripts.summary.termCreditsAttempted }}</dt>-->
-                                <!--<dd>{{ 'general.credits_attempted' | i18n }}</dd>-->
-                                <!--<dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>-->
-                                <!--<dd>{{ transcripts.gradeLevel }}</dd>-->
                                 <dt class="bold bold-title">{{ transcripts.info.totalEarned }}</dt>
-                                <dd>{{ 'general.credits_earned' | i18n }}</dd>
+                                <dd>
+                                    <ng-pluralize count="transcripts.info.totalEarned"
+                                                  when="{
+                                                  'zero':'Credit',
+                                                  'one': 'Credit',
+                                                 'other': 'Credits'}">
+                                    </ng-pluralize>
+                                    {{ 'general.earned' | i18n }}
+                                </dd>
+
                                 <dt class="bold bold-title">{{ transcripts.info.totalAttempted }}</dt>
-                                <dd>{{ 'general.credits_attempted' | i18n }}</dd>
+                                <dd>
+                                    <ng-pluralize count="transcripts.info.totalAttempted"
+                                                  when="{
+                                                  'zero':'Credit',
+                                                  'one': 'Credit',
+                                                 'other': 'Credits'}">
+                                    </ng-pluralize>
+                                    {{ 'general.attempted' | i18n }}
+                                </dd>
                                 <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                 <dd>{{ transcripts.gradeLevel }}</dd>
                             </dl>
@@ -371,7 +381,12 @@
 
                         </li>
                         <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="transSubject in transcripts.subjectValues track by $index">{{ transSubject.name }}
-                            <br/>{{ transSubject.value }} {{ 'general.credits' | i18n }}</li>
+                            <br/>{{ transSubject.value }}
+                            <ng-pluralize count="transSubject.value"
+                                          when="{'one': 'CREDIT',
+                                                 'other': 'CREDITS'}">
+                            </ng-pluralize>
+                        </li>
                     </ul>
                     <hr class="separator-transcript">
                     <div class="transcript-container">
@@ -383,7 +398,14 @@
                                         <dt></dt>
                                         <dd class="bold bold-title">{{ transDetail.schoolName }}</dd>
                                         <dt class="bold bold-title">{{ transDetail.summary.termCreditsAttempted }}</dt>
-                                        <dd>{{ 'general.credits_attempted' | i18n }}</dd>
+                                        <dd>
+                                            <ng-pluralize count="transDetail.summary.termCreditsAttempted"
+                                                          when="{
+                                                          '0':'Credit',
+                                                          'one': 'Credit',
+                                                          'other': 'Credits'}">
+                                            </ng-pluralize>
+                                        </dd>
                                         <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                         <dd>{{ transDetail.gradeLevel }}</dd>
                                     </dl>
@@ -407,9 +429,23 @@
                                                     <dd>{{ c.mark }}</dd>
                                                     <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                                     <dd>{{ c.gradeLevel }}</dd>
-                                                    <dt class="bold bold-title">{{ 'general.earned_credits' | i18n }}</dt>
+                                                    <dt class="bold bold-title">
+                                                        <ng-pluralize count="c.creditsEarned"
+                                                          when="{
+                                                          '0':'Credit Earned',
+                                                          'one': 'Credit Earned',
+                                                          'other': 'Credits Earned'}">
+                                                        </ng-pluralize>
+                                                    </dt>
                                                     <dd>{{ c.creditsEarned }}</dd>
-                                                    <dt class="bold bold-title">{{ 'general.attempted_credits' | i18n }}</dt>
+                                                    <dt class="bold bold-title">
+                                                        <ng-pluralize count="c.creditsAttempted"
+                                                                      when="{
+                                                          '0':'Credit Earned',
+                                                          'one': 'Credit Earned',
+                                                          'other': 'Credits Earned'}">
+                                                        </ng-pluralize>
+                                                    </dt>
                                                     <dd>{{ c.creditsAttempted }}</dd>
                                                 </dl>
 
@@ -422,10 +458,24 @@
                                                 <dl>
                                                     <dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>
                                                     <dd> {{ c.mark }}</dd>
-                                                    <dt class="bold bold-title">{{ 'general.attempted_credits' | i18n }}</dt>
-                                                    <dd> {{ c.creditsEarned }}</dd>
-                                                    <dt class="bold bold-title">{{ 'general.earned_credits' | i18n }}</dt>
-                                                    <dd> {{ c.creditsAttempted }}</dd>
+                                                    <dt class="bold bold-title">
+                                                        <ng-pluralize count="c.creditsEarned"
+                                                                      when="{
+                                                          '0':'Credit Earned',
+                                                          'one': 'Credit Earned',
+                                                          'other': 'Credits Earned'}">
+                                                        </ng-pluralize>
+                                                    </dt>
+                                                    <dd>{{ c.creditsEarned }}</dd>
+                                                    <dt class="bold bold-title">
+                                                        <ng-pluralize count="c.creditsAttempted"
+                                                                      when="{
+                                                          '0':'Credit Earned',
+                                                          'one': 'Credit Earned',
+                                                          'other': 'Credits Earned'}">
+                                                        </ng-pluralize>
+                                                    </dt>
+                                                    <dd>{{ c.creditsAttempted }}</dd>
                                                 </dl>
                                             </div>
                                         </div>

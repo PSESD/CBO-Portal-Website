@@ -25,8 +25,19 @@
 
                     <div class="table-responsive">
                         <div class="selected_container">
-                        <div ng-show="district_counter > 0" class="district-filter-selected"> {{district_counter}} district {{ 'general.selected' | i18n }}</div>
-                        <div ng-show="school_counter > 0" class="school-filter-selected">{{school_counter}} school {{ 'general.selected' | i18n }}</div>
+                        <div ng-show="district_counter > 0" class="district-filter-selected">
+                            {{district_counter}}
+                            <ng-pluralize count="district_counter"
+                                          when="{'one': 'district',
+                                                 'other': 'districts'}">
+                            </ng-pluralize>
+                            {{ 'general.selected' | i18n }}</div>
+                        <div ng-show="school_counter > 0" class="school-filter-selected">{{school_counter}}
+                            <ng-pluralize count="school_counter"
+                                          when="{'one': 'school',
+                                                 'other': 'schools'}">
+                            </ng-pluralize>
+                            {{ 'general.selected' | i18n }}</div>
                         </div>
                         <table class="table table-striped">
                             <thead>
