@@ -24,8 +24,10 @@
                     <!--<div class="inline no-background-color"  ng-dropdown-multiselect="" translation-texts="disctict"  options="districtData" selected-model="districtmod" extra-settings="filterSettings"></div>-->
 
                     <div class="table-responsive">
+                        <div class="selected_container">
                         <div ng-show="district_counter > 0" class="district-filter-selected"> {{district_counter}} district {{ 'general.selected' | i18n }}</div>
                         <div ng-show="school_counter > 0" class="school-filter-selected">{{school_counter}} school {{ 'general.selected' | i18n }}</div>
+                        </div>
                         <table class="table table-striped">
                             <thead>
                             <tr>

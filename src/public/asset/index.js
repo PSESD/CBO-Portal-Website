@@ -1854,8 +1854,8 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 ]);
 
 
-app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout) {
+app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$document',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout,$document) {
         var districtOption = {};
         var options = [];
         var school_options = [];
@@ -2091,7 +2091,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
     }
 ]);
 
-app.directive('dropdownMultiselect', function(){
+app.directive('dropdownMultiselect', function($document){
     return {
         restrict: 'E',
         scope:{
@@ -2100,33 +2100,31 @@ app.directive('dropdownMultiselect', function(){
             title:'@'
         },
 
-        template: "<div class='btn-group' data-ng-class='{open: open}'>"+
-        "<button  class='filter-btn button dropdown-toggle' data-ng-click='open=!open;openDropdown()'>{{title}} <span class='filter-caret caret'></span></button>"+
-        //"<button class='btn btn-small dropdown-toggle' data-ng-click='open=!open;openDropdown()'><span class='caret'></span></button>"+
-        "<ul  class='filter-btn dropdown-menu' aria-labelledby='dropdownMenu'>" +
-        //"<li><a data-ng-click='selectAll()'><i class='icon-ok-sign'></i>  Check All</a></li>" +
-        //"<li><a data-ng-click='deselectAll();'><i class='icon-remove-sign'></i>  Uncheck All</a></li>" +
-        //"<li class='divider'></li>" +
-        "<li data-ng-repeat='option in options'> <a data-ng-click='setSelectedItem()'>{{option.name}}<span data-ng-class='isChecked(option.id)'></span></a></li>" +
-        "</ul>" +
-        "</div>" ,
+        template: "<div class='multiselect'>"+
+            "<button class='button filter-btn' ng-click='toggleSelect()'>{{title}}<span class='filter-caret caret'></span></button>"+
+             "<ul  class='filter-btn popup' ng-show='isPopupVisible'>" +
+            "<li class='list-dropdown-padding' data-ng-repeat='option in options' data-ng-click='setSelectedItem()'>{{option.name}}<span data-ng-class='isChecked(option.id)'></span></li>" +
+            "</ul>" +
+            "</div>",
+        link:function(scope,element,attr){
+
+            scope.isPopupVisible = false;
+            scope.toggleSelect = function(){
+                scope.isPopupVisible = !scope.isPopupVisible;
+            }
+            $document.bind('click', function(event){
+                var isClickedElementChildOfPopup = element
+                        .find(event.target)
+                        .length > 0;
+
+                if (isClickedElementChildOfPopup)
+                    return;
+
+                scope.isPopupVisible = false;
+                scope.$apply();
+            });
+        },
         controller: function($scope){
-
-            $scope.openDropdown = function(){
-                $scope.selected_items = [];
-                //for(var i=0; i<$scope.pre_selected.length; i++){
-                //    $scope.selected_items.push($scope.pre_selected[i].id);
-                //}
-            };
-
-            $scope.selectAll = function () {
-                $scope.model = _.pluck($scope.options, 'id');
-
-            };
-            $scope.deselectAll = function() {
-                $scope.model=[];
-
-            };
             $scope.setSelectedItem = function(){
                 var id = this.option.id;
                 if (_.contains($scope.model, id)) {
