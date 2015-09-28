@@ -1858,6 +1858,8 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         var options = [];
         var school_options = [];
         var schoolOptions = {};
+        var pluralBehavior = '';
+        var pluralAttendance = '';
         $scope.district_counter = 0;
         $scope.school_counter = 0;
         $rootScope.full_screen = false;
@@ -1957,9 +1959,19 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     timeout: 15000
                 })
                 .success(function (student) {
-
                     if(student._id in studentKeys){
                         var onTrack = _.get(student,'xsre.onTrackToGraduate');
+                        if(_.get(student,'xsre.behavior') === 1){
+                            pluralBehavior =  locale.getString('general.incident', [_.get(student,'xsre.behavior')]);
+                        }else{
+                            pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')])
+                        }
+
+                        if(_.get(student,'xsre.attendance') === 1){
+                            pluralAttendance =  locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]);
+                        }else{
+                            pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance')])
+                        }
                         if(onTrack === 'Y'){
                             onTrack = locale.getString('general.on_track');
                         } else if(onTrack === 'N') {
@@ -1970,8 +1982,10 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         $scope.students[studentKeys[student._id]].gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.unavailable');
-                        $scope.students[studentKeys[student._id]].attendance = _.get(student,'xsre.attendance') ? locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]) : locale.getString('general.unavailable');
-                        $scope.students[studentKeys[student._id]].behavior = _.get(student,'xsre.behavior') ? locale.getString('general.incidents', [_.get(student,'xsre.behavior')]) : locale.getString('general.unavailable');
+                        //$scope.students[studentKeys[student._id]].attendance = _.get(student,'xsre.attendance') ? locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]) : locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].attendance = _.get(student,'xsre.attendance') ? pluralAttendance : locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].behavior = _.get(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
+                        //$scope.students[studentKeys[student._id]].behavior = _.get(student,'xsre.behavior') ? locale.getString('general.incidents', [_.get(student,'xsre.behavior')]) : locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].onTrackGraduate = onTrack;
 
                     } else {
@@ -2033,7 +2047,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     var o = 0;
                     var studentKeys = {};
                     angular.forEach(embedData, function (student) {
-
                         $.each(schoolDistricts, function (key, value) {
                             if (key == student.school_district || value == student.school_district) {
                                 student.school_district = value;
@@ -2045,6 +2058,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         student.attendance = locale.getString('general.not_ready');
                         student.behavior = locale.getString('general.not_ready');
                         student.onTrackGraduate = locale.getString('general.not_ready');
+                        student.behavior.indexOf('1') != -1 ? '':'';
                         $scope.students.push(student);
                         studentKeys[student._id] = o;
                         o++;
