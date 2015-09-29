@@ -1333,3 +1333,6 @@ dt, dd {
 .list-dropdown-padding:hover{
     cursor: pointer;
 }
+.popover{
+    background-color: white!important;
+}

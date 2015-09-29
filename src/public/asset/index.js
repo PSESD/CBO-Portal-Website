@@ -850,7 +850,8 @@ app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $loc
 app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce',
     function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore,$sce) {
 
-        var url = '';
+        var urlTemplate = 'asset/templates/popoverTemplate.html';
+        $scope.templateUrl = 'asset/templates/popoverTemplate.html';
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
@@ -990,7 +991,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             $('[data-target="#'+tab+'"]').tab('show');
         }
         $('[data-toggle="tab"]').on('show.bs.tab', function(){
-//          $location.update_path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''),false);
+
         });
 
 
@@ -1064,61 +1065,100 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                             var xhtml = [];
                                             var x = 1;
                                             var cls = '';
-                                            var html = "";
-
                                             angular.forEach(column, function (item, n) {
+
                                                 if (n > 0) {
-                                                    cls = (x % 2 === 0) ? ' light' : '';
+                                                    var html = {};
+                                                    cls = (x % 2 === 0) ? 'light' : '';
                                                     x++;
-                                                    html = '<div class="grid-item n_a ' + cls + '"></div>';
                                                     if (typeof item === 'object' && item.event !== null) {
-                                                        html = '<div class="grid-item ' + item.slug + cls + '">';
-                                                        html += '<div class="descriptor">';
-                                                        html += '<div class="descriptor-title ' + item.slug + '-font-color">';
-                                                        html += item.slug.toUpperCase();
-                                                        html += '</div>';
-                                                        html += "<div>";
-                                                        html += item.event.calendarEventDate;
-                                                        html += '<br> ' + item.event.attendanceStatusTitle;
-                                                        html += '</div>';
-                                                        html += '</div>';
-                                                        html += '</div>';
+                                                        html = {
+                                                            slug:item.slug,
+                                                            stripping:cls,
+                                                            na:'',
+                                                            fontcolor:item.slug + '-font-color',
+                                                            pagetitle:item.slug.toUpperCase(),
+                                                            eventdate:item.event.calendarEventDate,
+                                                            description:item.event.attendanceStatusTitle,
+                                                            url:urlTemplate
+                                                        };
                                                     } else {
+                                                        html = {
+                                                            slug:'',
+                                                            stripping:cls,
+                                                            na:'n_a',
+                                                            fontcolor:'',
+                                                            pagetitle:'',
+                                                            eventdate:'',
+                                                            description:'',
+                                                            url:''
+                                                        };
                                                     }
                                                     xhtml.push(html);
                                                 }
                                             });
 
-                                            for (; x < 7; x++) xhtml.push('<div class="grid-item"></div>');
-                                            html = '<div class="grid-item"></div>';
-
+                                            for (; x < 8; x++){
+                                                var html = {}
+                                                html = {
+                                                    slug:'',
+                                                    stripping:'',
+                                                    na:'',
+                                                    fontcolor:'',
+                                                    pagetitle:'',
+                                                    eventdate:'',
+                                                    description:'',
+                                                    url:''
+                                                };
+                                                xhtml.push(html);
+                                            }
                                             var items = behavior[key].behaviors[i];
 
                                             if (items.length > 0) {
-                                                html += '<div class="grid-item unexcused">';
-                                                html += '<div class="descriptor">';
+
                                                 angular.forEach(items, function (item, i) {
-
+                                                    var html={};
                                                     if (typeof item === 'object') {
-                                                        if (typeof item.incidentCategoryTitle !== 'undefined' && item.incidentCategoryTitle !== "") {
-                                                            html += '<div class="descriptor-title unexcused-font-color">';
-                                                            html += (item.incidentCategoryTitle+'').toUpperCase();
-                                                            html += '</div>';
-                                                        }
-                                                        html += '<div>';
-                                                        html += item.incidentDate;
-                                                        html += '<br> ' + item.description;
-                                                        html += '</div>';
+                                                        html = {
+                                                            slug:'unexcused',
+                                                            stripping:cls,
+                                                            na:'',
+                                                            fontcolor:'unexcused-font-color',
+                                                            pagetitle:(item.incidentCategoryTitle+'').toUpperCase(),
+                                                            eventdate:item.incidentDate,
+                                                            description:item.description,
+                                                            url:urlTemplate
+                                                        };
+                                                    }else{
+                                                        html = {
+                                                            slug:'',
+                                                            stripping:'',
+                                                            na:'n_a',
+                                                            fontcolor:'',
+                                                            pagetitle:'',
+                                                            eventdate:'',
+                                                            description:'',
+                                                            url:''
+                                                        };
                                                     }
+                                                    xhtml.push(html);
                                                 });
-
-                                                html += '</div>';
-                                                html += '</div>';
                                             } else {
-                                                html += '<div class="grid-item n_a"></div>';
+                                                var html={};
+                                                html = {
+                                                    slug:'',
+                                                    stripping:'',
+                                                    na:'n_a',
+                                                    fontcolor:'',
+                                                    pagetitle:'',
+                                                    eventdate:'',
+                                                    description:'',
+                                                    url:''
+                                                };
+                                                xhtml.push(html);
                                             }
-                                            xhtml.push(html);
-                                            columnHtml[i] = xhtml.join("\n");
+                                            //xhtml.push(html);
+                                            columnHtml[i] = xhtml;
                                             behavior[key].columnHtml = columnHtml;
                                             if (behavior[key].detailColumns.periods.length < 7) {
                                                 for (var i = 7; i > behavior[key].detailColumns.periods.length; i--) behavior[key].detailColumns.periods.push("");
@@ -1132,6 +1172,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                 });
                             });
                         }
+
                         $scope.academicInfo = {
                             currentSchool: 'N/A',
                             expectedGraduationYear: 'N/A',
@@ -1274,6 +1315,24 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             }
         });
         return flatten;
+
+    }
+});
+
+app.directive('attendance', function(){
+    return {
+        restrict: 'E',
+        scope:{
+            url:'@',
+            slug:'@',
+            stripping:'@',
+            na:'@',
+            fontcolor:'@',
+            pagetitle:'@',
+            eventdate:'@',
+            description:'@'
+        },
+        template:'<div popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="grid-item {{slug}} {{stripping}} {{na}}"></div>'
 
     }
 });
