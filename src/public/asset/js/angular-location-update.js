@@ -10,7 +10,7 @@
           $rootScope.$on('$locationChangeSuccess', function () {
             if (routeToKeep) {
               $route.current = routeToKeep;
-              //routeToKeep = null;
+              routeToKeep = null;
             }
           });
 

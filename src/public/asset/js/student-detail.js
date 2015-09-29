@@ -7,4 +7,4 @@ $(document).on( 'shown.bs.tab', '[data-toggle="tab"]', function (e) {
         $('#school-history-transcript').css({'display':'none'});
     }
 
-})
+});

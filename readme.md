@@ -9,6 +9,27 @@ Client side (browser) app to access CBO Portal API. Before accessing the API, th
 
 You need to have CBO account to login
 
+## Config
+
+Here is a master config for relationship and school district edit this file to add or remove data. All configuration is in config.js file :
+
+	var schoolDistricts = {
+	    'seattle': "Seattle",
+	    'highline': "Highline",
+	    'federalway': "Federal Way",
+	    'renton': 'Renton',
+	    'northshore': 'North Shore'
+	};
+
+	var relationships = {
+	    'parent': "Parent",
+	    'grandparent': "Grandparent",
+	    'aunt': "Aunt",
+	    'uncle': 'Uncle',
+	    'brother': 'Brother',
+	    'sister': 'Sister'
+	};
+	
 
 ## Installation
 
