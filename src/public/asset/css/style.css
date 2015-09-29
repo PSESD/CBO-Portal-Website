@@ -822,13 +822,16 @@ select{
             font-size: 11px;
         }
 
-        .confidentiality-footer {
+        .confidentiality-footer,.version {
 
             position: relative;
             bottom: 95px;
             margin-left: 15.8%;
             font-size: 12px;
 
+        }
+        .version{
+            margin-top:15px;
         }
 
         dd,
@@ -879,4 +882,29 @@ select{
     color: #67b168;
 }
 .on_track, .off_track {
+}
+
+.district-filter-selected, .school-filter-selected{
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 16px;
+}
+    .popup {
+        margin: 0;
+        background: #fff;
+        border: 1px solid #aaa;
+        box-shadow: 0 4px 5px rgba(0,0,0,.15);
+        z-index: 1010;
+        width: 100%;
+        padding: 0px;
+        border-radius: 4px;
+        margin-top: 1px;
+        position: absolute;
+    }
+
+.multiselect{
+    display: inline-block;
+}
+.selected_container{
+    margin-top:10px;
 }

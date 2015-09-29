@@ -49,6 +49,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
     if (__i) $httpProvider.interceptors.push('headerInjector');
+    $httpProvider.defaults.timeout = 15000;
 
 }]);
 
@@ -77,13 +78,6 @@ app.config(function ($routeProvider) {
         }
     }).
     when('/student/detail/:student_id', {
-        templateUrl: 'asset/templates/student/detail.html',
-        controller: 'StudentDetailController',
-        access: {
-            requiredAuthentication: true
-        }
-    }).
-    when('/student/detail/:student_id/:tab_id', {
         templateUrl: 'asset/templates/student/detail.html',
         controller: 'StudentDetailController',
         access: {
@@ -835,7 +829,6 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
 app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
     var original = $location.path;
     $location.path = function (path, reload) {
-        console.log(path);
         if (reload === false) {
             var lastRoute = $route.current;
             var un = $rootScope.$on('$locationChangeSuccess', function () {
@@ -847,9 +840,11 @@ app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $loc
     };
 }])
 
-
 app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce',
     function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore,$sce) {
+
+        var urlTemplate = 'asset/templates/popoverTemplate.html';
+        $scope.templateUrl = 'asset/templates/popoverTemplate.html';
         $rootScope.full_screen = false;
         $scope.student = {};
         $scope.programs = [];
@@ -866,7 +861,6 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             $scope.open_button = false;
         };
         var student_id = $routeParams.student_id;
-        var tab = $routeParams.tab_id;
         var groupValue = "_INVALID_GROUP_VALUE_";
         $scope.sch_history = false;
         $scope.academic = true;
@@ -985,12 +979,27 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             $(attendance_detail).addClass('hide');
 
         };
-        if(tab){
-            $('[data-target="#'+tab+'"]').tab('show');
-        }
-        $('[data-toggle="tab"]').on('show.bs.tab', function(){
-            $location.update_path('/student/detail/'+student_id+'/' + $(this).data('target').replace('#', ''),true);
+        $('[data-toggle="tab"]').on('show.bs.tab', function(e){
+            $scope.setStudentDetailActiveTab(e.target.dataset.target);
         });
+        // Save active tab to localStorage
+        $scope.setStudentDetailActiveTab = function (activeTab) {
+            localStorage.setItem("activeTabStudentDetail", activeTab);
+        };
+
+        // Get active tab from localStorage
+        $scope.getStudentDetailActiveTab = function () {
+            return localStorage.getItem("activeTabStudentDetail");
+        };
+
+        // Check if current tab is active
+        $scope.isStudentDetailActiveTab = function (tabName, index) {
+            var activeTab = $scope.getStudentDetailActiveTab();
+            var is = (activeTab === tabName || (activeTab === null && index === 0));
+            return is;
+        };
+
+
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
@@ -1038,7 +1047,6 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                     if (response.success != false && response.info) {
                         $('.loading-icon').addClass('hide');
                         response = response.info;
-                        console.log(response);
                         $scope.loading_icon = true;
                         $scope.studentdetails = response;
                         $scope.case_workers = response._embedded.users;
@@ -1062,61 +1070,100 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                             var xhtml = [];
                                             var x = 1;
                                             var cls = '';
-                                            var html = "";
-
                                             angular.forEach(column, function (item, n) {
+
                                                 if (n > 0) {
-                                                    cls = (x % 2 === 0) ? ' light' : '';
+                                                    var html = {};
+                                                    cls = (x % 2 === 0) ? 'light' : '';
                                                     x++;
-                                                    html = '<div class="grid-item n_a ' + cls + '"></div>';
                                                     if (typeof item === 'object' && item.event !== null) {
-                                                        html = '<div class="grid-item ' + item.slug + cls + '">';
-                                                        html += '<div class="descriptor">';
-                                                        html += '<div class="descriptor-title ' + item.slug + '-font-color">';
-                                                        html += item.slug.toUpperCase();
-                                                        html += '</div>';
-                                                        html += "<div>";
-                                                        html += item.event.calendarEventDate;
-                                                        html += '<br> ' + item.event.attendanceStatusTitle;
-                                                        html += '</div>';
-                                                        html += '</div>';
-                                                        html += '</div>';
+                                                        html = {
+                                                            slug:item.slug,
+                                                            stripping:cls,
+                                                            na:'',
+                                                            fontcolor:item.slug + '-font-color',
+                                                            pagetitle:item.slug.toUpperCase(),
+                                                            eventdate:item.event.calendarEventDate,
+                                                            description:item.event.attendanceStatusTitle,
+                                                            url:urlTemplate
+                                                        };
                                                     } else {
+                                                        html = {
+                                                            slug:'',
+                                                            stripping:cls,
+                                                            na:'n_a',
+                                                            fontcolor:'',
+                                                            pagetitle:'',
+                                                            eventdate:'',
+                                                            description:'',
+                                                            url:''
+                                                        };
                                                     }
                                                     xhtml.push(html);
                                                 }
                                             });
 
-                                            for (; x < 7; x++) xhtml.push('<div class="grid-item"></div>');
-                                            html = '<div class="grid-item"></div>';
-
+                                            for (; x < 8; x++){
+                                                var html = {}
+                                                html = {
+                                                    slug:'',
+                                                    stripping:'',
+                                                    na:'',
+                                                    fontcolor:'',
+                                                    pagetitle:'',
+                                                    eventdate:'',
+                                                    description:'',
+                                                    url:''
+                                                };
+                                                xhtml.push(html);
+                                            }
                                             var items = behavior[key].behaviors[i];
 
                                             if (items.length > 0) {
-                                                html += '<div class="grid-item unexcused">';
-                                                html += '<div class="descriptor">';
+
                                                 angular.forEach(items, function (item, i) {
-
+                                                    var html={};
                                                     if (typeof item === 'object') {
-                                                        if (typeof item.incidentCategoryTitle !== 'undefined' && item.incidentCategoryTitle !== "") {
-                                                            html += '<div class="descriptor-title unexcused-font-color">';
-                                                            html += (item.incidentCategoryTitle+'').toUpperCase();
-                                                            html += '</div>';
-                                                        }
-                                                        html += '<div>';
-                                                        html += item.incidentDate;
-                                                        html += '<br> ' + item.description;
-                                                        html += '</div>';
+                                                        html = {
+                                                            slug:'unexcused',
+                                                            stripping:cls,
+                                                            na:'',
+                                                            fontcolor:'unexcused-font-color',
+                                                            pagetitle:(item.incidentCategoryTitle+'').toUpperCase(),
+                                                            eventdate:item.incidentDate,
+                                                            description:item.description,
+                                                            url:urlTemplate
+                                                        };
+                                                    }else{
+                                                        html = {
+                                                            slug:'',
+                                                            stripping:'',
+                                                            na:'n_a',
+                                                            fontcolor:'',
+                                                            pagetitle:'',
+                                                            eventdate:'',
+                                                            description:'',
+                                                            url:''
+                                                        };
                                                     }
+                                                    xhtml.push(html);
                                                 });
-
-                                                html += '</div>';
-                                                html += '</div>';
                                             } else {
-                                                html += '<div class="grid-item n_a"></div>';
+                                                var html={};
+                                                html = {
+                                                    slug:'',
+                                                    stripping:'',
+                                                    na:'n_a',
+                                                    fontcolor:'',
+                                                    pagetitle:'',
+                                                    eventdate:'',
+                                                    description:'',
+                                                    url:''
+                                                };
+                                                xhtml.push(html);
                                             }
-                                            xhtml.push(html);
-                                            columnHtml[i] = xhtml.join("\n");
+                                            //xhtml.push(html);
+                                            columnHtml[i] = xhtml;
                                             behavior[key].columnHtml = columnHtml;
                                             if (behavior[key].detailColumns.periods.length < 7) {
                                                 for (var i = 7; i > behavior[key].detailColumns.periods.length; i--) behavior[key].detailColumns.periods.push("");
@@ -1130,6 +1177,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                 });
                             });
                         }
+
                         $scope.academicInfo = {
                             currentSchool: 'N/A',
                             expectedGraduationYear: 'N/A',
@@ -1272,6 +1320,24 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             }
         });
         return flatten;
+
+    }
+});
+
+app.directive('attendance', function(){
+    return {
+        restrict: 'E',
+        scope:{
+            url:'@',
+            slug:'@',
+            stripping:'@',
+            na:'@',
+            fontcolor:'@',
+            pagetitle:'@',
+            eventdate:'@',
+            description:'@'
+        },
+        template:'<div popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="grid-item {{slug}} {{stripping}} {{na}}"></div>'
 
     }
 });
@@ -1850,12 +1916,16 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 ]);
 
 
-app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout) {
+app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$document',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout,$document) {
         var districtOption = {};
         var options = [];
         var school_options = [];
         var schoolOptions = {};
+        var pluralBehavior = '';
+        var pluralAttendance = '';
+        $scope.district_counter = 0;
+        $scope.school_counter = 0;
         $rootScope.full_screen = false;
         $scope.students = [];
         $scope.districtData = [];
@@ -1867,16 +1937,22 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             scrollable: true
         };
 
+
         $scope.filterDistrict = function () {
             return function (p) {
                 if($scope.selected_districts != '') {
+                    $scope.district_counter =  $scope.selected_districts.length;
                     for (var i in $scope.selected_districts) {
                         if (p.school_district == $scope.selected_districts[i]) {
+
                             return true;
                         }
                     }
+
                 }else{
+                    $scope.district_counter = 0;
                     return true;
+
                 }
 
             };
@@ -1884,17 +1960,21 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         $scope.filterSchools = function () {
             return function (p) {
                 if($scope.selected_schools != '') {
+                    $scope.school_counter =  $scope.selected_schools.length;
                     for (var i in $scope.selected_schools) {
-                        if (p.schoolName == $scope.selected_schools[i]) {
+                        if (p.schoolName.replace(/<[^>]+>/gm, '') == $scope.selected_schools[i].replace(/<[^>]+>/gm, '')) {
                             return true;
                         }
                     }
+
                 }else{
+                    $scope.school_counter = 0;
                     return true;
                 }
 
             };
         };
+
 
         $scope.deleteStudent = function (id, index) {
             if (id) {
@@ -1943,9 +2023,19 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     timeout: 15000
                 })
                 .success(function (student) {
-
                     if(student._id in studentKeys){
                         var onTrack = _.get(student,'xsre.onTrackToGraduate');
+                        if(_.get(student,'xsre.behavior') === 1){
+                            pluralBehavior =  locale.getString('general.incident', [_.get(student,'xsre.behavior')]);
+                        }else{
+                            pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')])
+                        }
+
+                        if(_.get(student,'xsre.attendance') === 1){
+                            pluralAttendance =  locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]);
+                        }else{
+                            pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance')])
+                        }
                         if(onTrack === 'Y'){
                             onTrack = locale.getString('general.on_track');
                         } else if(onTrack === 'N') {
@@ -1956,8 +2046,10 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         $scope.students[studentKeys[student._id]].gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.unavailable');
-                        $scope.students[studentKeys[student._id]].attendance = _.get(student,'xsre.attendance') ? locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]) : locale.getString('general.unavailable');
-                        $scope.students[studentKeys[student._id]].behavior = _.get(student,'xsre.behavior') ? locale.getString('general.incidents', [_.get(student,'xsre.behavior')]) : locale.getString('general.unavailable');
+                        //$scope.students[studentKeys[student._id]].attendance = _.get(student,'xsre.attendance') ? locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]) : locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].attendance = _.get(student,'xsre.attendance') ? pluralAttendance : locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].behavior = _.get(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
+                        //$scope.students[studentKeys[student._id]].behavior = _.get(student,'xsre.behavior') ? locale.getString('general.incidents', [_.get(student,'xsre.behavior')]) : locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].onTrackGraduate = onTrack;
 
                     } else {
@@ -1969,6 +2061,17 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         $scope.students[studentKeys[student._id]].behavior = locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].onTrackGraduate = locale.getString('general.unavailable');
 
+                    }
+
+                    var find = $scope.students[studentKeys[student._id]].schoolName;
+                    if(find){
+                          find      = String(find).replace(/<[^>]+>/gm, '');
+                          var found = $scope.schoolNameData.some(function(hash){
+                              if(_.includes(hash, find)) return true;
+                          });
+                          if(!found){
+                              $scope.schoolNameData.push({ id: find, name: find });
+                          }
                     }
 
                 })
@@ -2008,7 +2111,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     var o = 0;
                     var studentKeys = {};
                     angular.forEach(embedData, function (student) {
-
                         $.each(schoolDistricts, function (key, value) {
                             if (key == student.school_district || value == student.school_district) {
                                 student.school_district = value;
@@ -2020,14 +2122,12 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         student.attendance = locale.getString('general.not_ready');
                         student.behavior = locale.getString('general.not_ready');
                         student.onTrackGraduate = locale.getString('general.not_ready');
+                        student.behavior.indexOf('1') != -1 ? '':'';
                         $scope.students.push(student);
                         studentKeys[student._id] = o;
                         o++;
                         if(options.indexOf(student.school_district) == -1){
                             options.push(student.school_district);
-                        }
-                        if(school_options.indexOf(student.schoolName) == -1 && student.schoolName != undefined ){
-                            school_options.push(student.schoolName);
                         }
 
                     });
@@ -2036,13 +2136,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                      */
                     $timeout( function(){ pullXsreStudents(studentKeys); }, 3000);
 
-                    angular.forEach(school_options,function(value){
-                        schoolOptions ={
-                            id:value,
-                            name:value
-                        };
-                        $scope.schoolNameData.push(schoolOptions);
-                    });
                     angular.forEach(options,function(value){
                         districtOption = {
                             id:value,
@@ -2074,7 +2167,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
     }
 ]);
 
-app.directive('dropdownMultiselect', function(){
+app.directive('dropdownMultiselect', function($document){
     return {
         restrict: 'E',
         scope:{
@@ -2082,33 +2175,32 @@ app.directive('dropdownMultiselect', function(){
             options: '=',
             title:'@'
         },
-        template: "<div class='btn-group' data-ng-class='{open: open}'>"+
-        "<button class='filter-btn button dropdown-toggle' data-ng-click='open=!open;openDropdown()'>{{title}} <span class='filter-caret caret'></span></button>"+
-        //"<button class='btn btn-small dropdown-toggle' data-ng-click='open=!open;openDropdown()'><span class='caret'></span></button>"+
-        "<ul class='filter-btn dropdown-menu' aria-labelledby='dropdownMenu'>" +
-        //"<li><a data-ng-click='selectAll()'><i class='icon-ok-sign'></i>  Check All</a></li>" +
-        //"<li><a data-ng-click='deselectAll();'><i class='icon-remove-sign'></i>  Uncheck All</a></li>" +
-        //"<li class='divider'></li>" +
-        "<li data-ng-repeat='option in options'> <a data-ng-click='setSelectedItem()'>{{option.name}}<span data-ng-class='isChecked(option.id)'></span></a></li>" +
-        "</ul>" +
-        "</div>" ,
+
+        template: "<div class='multiselect'>"+
+            "<button class='button filter-btn' ng-click='toggleSelect()'>{{title}}<span class='filter-caret caret'></span></button>"+
+             "<ul  class='filter-btn popup' ng-show='isPopupVisible'>" +
+            "<li class='list-dropdown-padding' data-ng-repeat='option in options' data-ng-click='setSelectedItem()'>{{option.name}}<span data-ng-class='isChecked(option.id)'></span></li>" +
+            "</ul>" +
+            "</div>",
+        link:function(scope,element,attr){
+
+            scope.isPopupVisible = false;
+            scope.toggleSelect = function(){
+                scope.isPopupVisible = !scope.isPopupVisible;
+            }
+            $document.bind('click', function(event){
+                var isClickedElementChildOfPopup = element
+                        .find(event.target)
+                        .length > 0;
+
+                if (isClickedElementChildOfPopup)
+                    return;
+
+                scope.isPopupVisible = false;
+                scope.$apply();
+            });
+        },
         controller: function($scope){
-
-            $scope.openDropdown = function(){
-                $scope.selected_items = [];
-                //for(var i=0; i<$scope.pre_selected.length; i++){
-                //    $scope.selected_items.push($scope.pre_selected[i].id);
-                //}
-            };
-
-            $scope.selectAll = function () {
-                $scope.model = _.pluck($scope.options, 'id');
-                console.log($scope.model);
-            };
-            $scope.deselectAll = function() {
-                $scope.model=[];
-                console.log($scope.model);
-            };
             $scope.setSelectedItem = function(){
                 var id = this.option.id;
                 if (_.contains($scope.model, id)) {
@@ -3792,6 +3884,56 @@ app.directive('contenteditable', function () {
     };
 });
 
+app.directive(
+    "bnDocumentClick",
+    function( $document, $parse ){
+        // I connect the Angular context to the DOM events.
+        var linkFunction = function( $scope, $element, $attributes ){
+            // Get the expression we want to evaluate on the
+            // scope when the document is clicked.
+            var scopeExpression = $attributes.bnDocumentClick;
+            // Compile the scope expression so that we can
+            // explicitly invoke it with a map of local
+            // variables. We need this to pass-through the
+            // click event.
+            //
+            // NOTE: I ** think ** this is similar to
+            // JavaScript's apply() method, except using a
+            // set of named variables instead of an array.
+            var invoker = $parse( scopeExpression );
+            // Bind to the document click event.
+            $document.on(
+                "click",
+                function( event ){
+                    // When the click event is fired, we need
+                    // to invoke the AngularJS context again.
+                    // As such, let's use the $apply() to make
+                    // sure the $digest() method is called
+                    // behind the scenes.
+                    $scope.$apply(
+                        function(){
+                            // Invoke the handler on the scope,
+                            // mapping the jQuery event to the
+                            // $event object.
+                            invoker(
+                                $scope,
+                                {
+                                    $event: event
+                                }
+                            );
+                        }
+                    );
+                }
+            );
+            // TODO: Listen for "$destroy" event to remove
+            // the event binding when the parent controller
+            // is removed from the rendered document.
+        };
+        // Return the linking function.
+        return( linkFunction );
+    }
+);
+
 app.directive('phonenumberDirective', ['$filter', function ($filter) {
     /*
     Intended use:
@@ -3987,22 +4129,25 @@ app.directive('listItem',function(){
 
 });
 
+
 function showError(message, alert) {
     var passingClass = 'alert-danger';
     if (alert == 2) {
         passingClass = 'alert-success'
     }
     var message_alert = '<div class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + message + '</div>';
-    if(window.location.href.indexOf('/login') == -1){
-        jQuery(".error-container.visible-on").append(message_alert);
-        setTimeout(function () {
-            jQuery('.alert').remove();
-        }, 3000);
-    }else{
-        jQuery("#login-error-message").append(message_alert);
-        setTimeout(function () {
-            jQuery('.alert').remove();
-        }, 3000);
+    if(message !== null) {
+        if (window.location.href.indexOf('/login') == -1) {
+            jQuery(".error-container.visible-on").append(message_alert);
+            setTimeout(function () {
+                jQuery('.alert').remove();
+            }, 3000);
+        } else {
+            jQuery("#login-error-message").append(message_alert);
+            setTimeout(function () {
+                jQuery('.alert').remove();
+            }, 3000);
+        }
     }
 }
 

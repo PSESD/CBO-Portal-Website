@@ -10,6 +10,7 @@
 }
 .filter-btn{
     width: 250px!important;
+    margin-bottom: 0;
 }
 .student-edit-btn{
     float: right;
@@ -1311,7 +1312,6 @@ background-color:#eee;
     height: 16px;
     display: block;
     position: relative;
-    left: 10px;
 }
 
 .filter-caret{
@@ -1325,4 +1325,14 @@ dt:before {
 }
 dt, dd {
     display: inline;
+}
+
+.list-dropdown-padding{
+    padding: 5px!important;
+}
+.list-dropdown-padding:hover{
+    cursor: pointer;
+}
+.popover{
+    background-color: white!important;
 }

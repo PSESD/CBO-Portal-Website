@@ -1,4 +1,7 @@
+
 {
+    "selected":"selected",
+    "version":"version",
     "dashboard": "Students",
     "users": "Users",
     "edit_user": "Edit User: {1}",
@@ -77,7 +80,9 @@
     "on_track": "<span class=\"on_track\">On Track</span>",
     "off_track": "<span class=\"off_track\">Off Track</span>",
     "incidents": "{1} Incidents",
+    "incident": "{1} Incident",
     "day_missed": "{1} Day Missed",
+    "days_missed": "{1} Days Missed",
     "serving": "Serving",
     "timezone": "Timezone",
     "personal_info": "Personal Information",
@@ -188,7 +193,7 @@
     "contact": "Contact",
     "contacts": "Contacts",
     "workers": "Users",
-    "academic": "Academic Information",
+    "school_info": "School Information",
     "current": "Current Class Schedule",
     "courses": "Class Schedule",
     "see_school": "See Enrollment",
@@ -197,5 +202,10 @@
     "success_logout": "Successful Logout",
     "password_not_match": "Password does not match",
     "program_participation_error_message": "This Student haven't participated in any program yet",
-    "attendance_and_behavior_error_message": "This Student is not linked yet to school data"
+    "attendance_and_behavior_error_message": "This Student is not linked yet to school data",
+
+    "credit" : "Credit",
+    "credits": "Credits",
+    "earned" : "Earned",
+    "attempted" : "Attempted"
 }
