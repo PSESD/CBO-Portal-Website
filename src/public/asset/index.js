@@ -84,13 +84,6 @@ app.config(function ($routeProvider) {
             requiredAuthentication: true
         }
     }).
-    when('/student/detail/:student_id/:tab_id', {
-        templateUrl: 'asset/templates/student/detail.html',
-        controller: 'StudentDetailController',
-        access: {
-            requiredAuthentication: true
-        }
-    }).
     when('/student/edit/:student_id', {
         templateUrl: 'asset/templates/student/edit.html',
         controller: 'StudentEditController',
@@ -868,7 +861,6 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             $scope.open_button = false;
         };
         var student_id = $routeParams.student_id;
-        var tab = $routeParams.tab_id;
         var groupValue = "_INVALID_GROUP_VALUE_";
         $scope.sch_history = false;
         $scope.academic = true;
@@ -987,12 +979,25 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             $(attendance_detail).addClass('hide');
 
         };
-        if(tab){
-            $('[data-target="#'+tab+'"]').tab('show');
-        }
-        $('[data-toggle="tab"]').on('show.bs.tab', function(){
-
+        $('[data-toggle="tab"]').on('show.bs.tab', function(e){
+            $scope.setStudentDetailActiveTab(e.target.dataset.target);
         });
+        // Save active tab to localStorage
+        $scope.setStudentDetailActiveTab = function (activeTab) {
+            localStorage.setItem("activeTabStudentDetail", activeTab);
+        };
+
+        // Get active tab from localStorage
+        $scope.getStudentDetailActiveTab = function () {
+            return localStorage.getItem("activeTabStudentDetail");
+        };
+
+        // Check if current tab is active
+        $scope.isStudentDetailActiveTab = function (tabName, index) {
+            var activeTab = $scope.getStudentDetailActiveTab();
+            var is = (activeTab === tabName || (activeTab === null && index === 0));
+            return is;
+        };
 
 
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {

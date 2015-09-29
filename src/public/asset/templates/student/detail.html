@@ -174,20 +174,18 @@
 
 </div>
 <div>
-
-
     <div class="row">
         <div class="col-md-12">
 
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li class="active"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior" class="uppercase">{{ 'general.attendance_and_behavior' | i18n }}</a></li>
-                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" class="uppercase">{{ 'general.transcript' | i18n}}</a></li>
-                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation" class="uppercase">{{ 'general.program_participation' | i18n }}</a></li>
+                <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior" class="uppercase">{{ 'general.attendance_and_behavior' | i18n }}</a></li>
+                <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" class="uppercase">{{ 'general.transcript' | i18n}}</a></li>
+                <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation" class="uppercase">{{ 'general.program_participation' | i18n }}</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
+                <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}" class="tab-pane" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
                     <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}">
                         <li class="text-center">{{ 'general.attendance_and_behavior_error_message' | i18n}}</li>
                     </ul>
@@ -325,7 +323,7 @@
                 </div>
                 <!-- tab panel -->
 
-                <div role="tabpanel" class="tab-pane program_participation" id="program_participation" data-id="program_participation_data">
+                <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}" class="tab-pane program_participation" id="program_participation" data-id="program_participation_data">
 
                     <ul class="no-data {{list_programs.length > 0 ? 'hide' : ''}}">
                         <li class="text-center">{{ 'general.program_participation_error_message' | i18n }}</li>
@@ -354,7 +352,7 @@
                     </ul>
                 </div>
                 <!-- TRANSCRIPT TAB //-->
-                <div role="tabpanel" class="tab-pane transcript" id="transcript" data-id="transcript_data">
+                <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}" class="tab-pane transcript" id="transcript" data-id="transcript_data">
                     <ul class="flexbox transcript">
                         <li>
                             <dl>
