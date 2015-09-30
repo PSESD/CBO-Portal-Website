@@ -409,59 +409,107 @@ app.factory('AuthenticationService', function () {
     return auth;
 
 });
-
+/**
+ *
+ */
 app.factory('CookieStore', function ($rootScope, $window, $cookieStore, AuthenticationService) {
+    var prefix = 'cboAdmin_cookie_';
+    var expire_in = null;
     return {
+        /**
+         *
+         * @param name
+         * @param value
+         */
         put: function (name, value) {
-            $cookieStore.put(name, value);
+            console.log('SET COOKIE: ', prefix + name, value, expire_in);
+            $cookieStore.put(prefix + name, value);
         },
+        /**
+         *
+         * @param name
+         * @returns {*|Object}
+         */
         get: function (name) {
-            return $cookieStore.get(name);
+            return $cookieStore.get(prefix+name);
         },
+        /**
+         *
+         * @param name
+         * @returns {boolean}
+         */
+        has: function(name){
+            return angular.isDefined($cookieStore.get(prefix+name));
+        },
+        /**
+         *
+         * @param value
+         */
         put_remember: function (value) {
-            $cookieStore.put('cboAdmin_cookie_remember', value);
+            $cookieStore.put('remember', value);
         },
-        setData: function (token, refresh_token, organization_id, redirect_url, user_id, email, name, role, organization_name) {
-            $cookieStore.put('cboAdmin_cookie_token', token);
-            $cookieStore.put('cboAdmin_cookie_refresh_token', refresh_token);
-            $cookieStore.put('cboAdmin_cookie_organization_id', organization_id);
-            $cookieStore.put('cboAdmin_cookie_redirect_url', redirect_url);
-            $cookieStore.put('cboAdmin_cookie_user_id', user_id);
-            $cookieStore.put('cboAdmin_cookie_email', email);
-            $cookieStore.put('cboAdmin_cookie_name', name);
-            $cookieStore.put('cboAdmin_cookie_role', role);
-            $cookieStore.put('cboAdmin_cookie_organization_name', organization_name)
+        /**
+         *
+         * @param name
+         */
+        remove: function (name) {
+            $cookieStore.remove(prefix+name);
+        },
+        /**
+         *
+         * @param token
+         * @param refresh_token
+         * @param organization_id
+         * @param redirect_url
+         * @param user_id
+         * @param email
+         * @param name
+         * @param role
+         * @param organization_name
+         * @param expirein
+         */
+        setData: function (token, refresh_token, organization_id, redirect_url, user_id, email, name, role, organization_name, expirein) {
+            if(expirein) expire_in = expirein;
+            this.put('token', token, expirein);
+            this.put('refresh_token', refresh_token);
+            this.put('organization_id', organization_id);
+            this.put('redirect_url', redirect_url);
+            this.put('user_id', user_id);
+            this.put('email', email);
+            this.put('name', name);
+            this.put('role', role);
+            this.put('organization_name', organization_name);
 
             AuthenticationService.isAuthenticated = true;
-            AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
-            AuthenticationService.refresh_token = $cookieStore.get('cboAdmin_cookie_refresh_token');
-            AuthenticationService.organization_id = $cookieStore.get('cboAdmin_cookie_organization_id');
-            AuthenticationService.redirect_url = $cookieStore.get('cboAdmin_cookie_redirect_url');
-            AuthenticationService.user_id = $cookieStore.get('cboAdmin_cookie_user_id');
-            AuthenticationService.email = $cookieStore.get('cboAdmin_cookie_email');
-            AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
-            AuthenticationService.role = $cookieStore.get('cboAdmin_cookie_role');
-            AuthenticationService.organization_name = $cookieStore.get('cboAdmin_cookie_organization_name');
+            AuthenticationService.token = this.get('token');
+            AuthenticationService.refresh_token = this.get('refresh_token');
+            AuthenticationService.organization_id = this.get('organization_id');
+            AuthenticationService.redirect_url = this.get('redirect_url');
+            AuthenticationService.user_id = this.get('user_id');
+            AuthenticationService.email = this.get('email');
+            AuthenticationService.name = this.get('name');
+            AuthenticationService.role = this.get('role');
+            AuthenticationService.organization_name = this.get('organization_name');
             $rootScope.showNavBar = true;
             $rootScope.completeName = AuthenticationService.name;
 
         },
         getData: function () {
-            if (typeof $cookieStore.get('cboAdmin_cookie_token') !== 'undefined' && $cookieStore.get('cboAdmin_cookie_token') && typeof $cookieStore.get('cboAdmin_cookie_organization_id') !== 'undefined' && $cookieStore.get('cboAdmin_cookie_organization_id')) {
+            if (this.has('token') && this.get('token') && this.has('organization_id') && this.get('organization_id')) {
                 AuthenticationService.isAuthenticated = true;
-                AuthenticationService.token = $cookieStore.get('cboAdmin_cookie_token');
-                AuthenticationService.refresh_token = $cookieStore.get('cboAdmin_cookie_refresh_token');
-                AuthenticationService.organization_id = $cookieStore.get('cboAdmin_cookie_organization_id');
-                AuthenticationService.redirect_url = $cookieStore.get('cboAdmin_cookie_redirect_url');
-                AuthenticationService.user_id = $cookieStore.get('cboAdmin_cookie_user_id');
-                AuthenticationService.email = $cookieStore.get('cboAdmin_cookie_email');
-                AuthenticationService.name = $cookieStore.get('cboAdmin_cookie_name');
-                AuthenticationService.role = $cookieStore.get('cboAdmin_cookie_role');
+                AuthenticationService.token = this.get('token');
+                AuthenticationService.refresh_token = this.get('refresh_token');
+                AuthenticationService.organization_id = this.get('organization_id');
+                AuthenticationService.redirect_url = this.get('redirect_url');
+                AuthenticationService.user_id = this.get('user_id');
+                AuthenticationService.email = this.get('email');
+                AuthenticationService.name = this.get('name');
+                AuthenticationService.role = this.get('role');
                 $rootScope.showNavBar = true;
                 $rootScope.completeName = AuthenticationService.name;
                 return true;
             } else {
-                var remember = $cookieStore.get('cboAdmin_cookie_remember');
+                var remember = this.get('remember');
                 if (remember == true) {
 
                 } else {
@@ -483,21 +531,21 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
         },
         clearData: function () {
 
-            var remember = $cookieStore.get('cboAdmin_cookie_remember');
+            var remember = this.get('remember');
             if (remember == true) {
 
             } else {
-                $cookieStore.remove('cboAdmin_cookie_email');
+                this.remove('email');
                 AuthenticationService.email = null;
             }
 
-            $cookieStore.remove('cboAdmin_cookie_token');
-            $cookieStore.remove('cboAdmin_cookie_refresh_token');
-            $cookieStore.remove('cboAdmin_cookie_organization_id');
-            $cookieStore.remove('cboAdmin_cookie_redirect_url');
-            $cookieStore.remove('cboAdmin_cookie_user_id');
-            $cookieStore.remove('cboAdmin_cookie_name');
-            $cookieStore.remove('cboAdmin_cookie_role');
+            this.remove('token');
+            this.remove('refresh_token');
+            this.remove('organization_id');
+            this.remove('redirect_url');
+            this.remove('user_id');
+            this.remove('name');
+            this.remove('role');
             AuthenticationService.isAuthenticated = false;
             AuthenticationService.token = null;
             AuthenticationService.refresh_token = null;
@@ -527,8 +575,8 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
 
         $rootScope.full_screen = false;
-        $rootScope.organization_name = CookieStore.get('cboAdmin_cookie_organization_name');
-        if (CookieStore.get('cboAdmin_cookie_role') == 'admin') {
+        $rootScope.organization_name = CookieStore.get('organization_name');
+        if (CookieStore.get('role') == 'admin') {
             $rootScope.users_link = true;
             $rootScope.tags_link = true;
         } else {
@@ -550,6 +598,9 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
             var logout = {
                 token: AuthenticationService.token
             };
+            if(angular.isDefined(AuthenticationService.refresh_token)){
+                logout.refresh_token = AuthenticationService.refresh_token;
+            }
             $('.confidentiality-footer').removeClass('visible-on');
             $http.post(auth_url + 'logout', $.param(logout), {
 
@@ -597,8 +648,8 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
                     clearTimeout(session_timeout.warningTimer);
 
-                    CookieStore.put('cboAdmin_cookie_token', response.access_token);
-                    CookieStore.put('cboAdmin_cookie_refresh_token', response.refresh_token);
+                    CookieStore.put('token', response.access_token);
+                    CookieStore.put('refresh_token', response.refresh_token);
                     AuthenticationService.token = response.access_token;
                     AuthenticationService.refresh_token = response.refresh_token;
 
@@ -3227,7 +3278,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
         $rootScope.doingResolve = false;
         $scope.disable_select = false;
         var user_id = $routeParams.user_id;
-        if (user_id == CookieStore.get('cboAdmin_cookie_user_id')) {
+        if (user_id == CookieStore.get('user_id')) {
             $scope.disable_select = true;
             $scope.working = true;
         }
@@ -3450,10 +3501,10 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
         $rootScope.full_screen = true;
         $rootScope.doingResolve = false;
-        var getRemember = CookieStore.get('cboAdmin_cookie_remember');
+        var getRemember = CookieStore.get('remember');
         if (getRemember == true) {
             $scope.login = {
-                username: CookieStore.get('cboAdmin_cookie_email'),
+                username: CookieStore.get('email'),
                 remember_username: true
             };
         }
@@ -3552,7 +3603,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                                 }
                                             }
                                             if (find) {
-                                                CookieStore.setData(response.access_token, response.refresh_token, get_id, get_redirect_url, id, send.username, complete_name, role, organization_name);
+                                                CookieStore.setData(response.access_token, response.refresh_token, get_id, get_redirect_url, id, send.username, complete_name, role, organization_name, response.expires_in);
                                                 global_redirect_url = get_redirect_url;
 
                                                 if (typeof remmember !== 'undefined' && remmember == true) {
