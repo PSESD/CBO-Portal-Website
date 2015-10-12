@@ -1105,10 +1105,8 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                         embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
 
                         $scope.case_workers = response._embedded.users;
-                        if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
-                            $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
-                            $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
-                        }
+                        $scope.daysAttendance = parseInt(_.get(response, 'attendance.summaries.summary.daysInAttendance'));
+                        $scope.daysAbsent = parseInt(_.get(response, 'attendance.summaries.summary.daysAbsent'));
 
 
                         if(response.attendanceBehaviors) {
@@ -1155,7 +1153,6 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                             });
 
                                             for (; x < 8; x++){
-                                                var html = {}
                                                 html = {
                                                     slug:'',
                                                     stripping:'',
@@ -1200,8 +1197,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                                     xhtml.push(html);
                                                 });
                                             } else {
-                                                var html={};
-                                                html = {
+                                                var html = {
                                                     slug:'',
                                                     stripping:'',
                                                     na:'n_a',
@@ -1287,22 +1283,34 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                             return (1);
                         });
 
-
+                        var yearPrograms = {};
 
                         for (var i = 0; i < $scope.programs.length; i++) {
                             var program = $scope.programs[i];
-                            // Should we create a new group?
-                            if (program['years'] !== groupValue) {
-                                var group = {
-                                    years: program['years'],
-                                    programs: []
-                                };
-                                groupValue = group.years;
-                                $scope.list_programs.push(group);
-                            }
+                            // Should we create a new group? --> fix error fail logic
+                            //if (program['years'] !== groupValue) {
+                            //    //var group = {
+                            //    //    years: program['years'],
+                            //    //    programs: []
+                            //    //};
+                            //    //groupValue = group.years;
+                            //    //$scope.list_programs.push(group);
+                            //}
 
-                            group.programs.push(program);
+                            //group.programs.push(program);
+
+                            if(Object.keys(yearPrograms).indexOf(program.years) === -1){
+                                yearPrograms[program.years] = [];
+                            }
+                            yearPrograms[program.years].push(program);
                         }
+
+                        angular.forEach(yearPrograms, function(items, year){
+                            $scope.list_programs.push({
+                                years: year,
+                                programs: items
+                            });
+                        });
 
                     } else {
 
