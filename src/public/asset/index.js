@@ -1105,10 +1105,8 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                         embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
 
                         $scope.case_workers = response._embedded.users;
-                        if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
-                            $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
-                            $scope.daysAbsent = parseInt(response.attendance.summaries.summary.daysAbsent);
-                        }
+                        $scope.daysAttendance = parseInt(_.get(response, 'attendance.summaries.summary.daysInAttendance'));
+                        $scope.daysAbsent = parseInt(_.get(response, 'attendance.summaries.summary.daysAbsent'));
 
 
                         if(response.attendanceBehaviors) {
@@ -1155,7 +1153,6 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                             });
 
                                             for (; x < 8; x++){
-                                                var html = {}
                                                 html = {
                                                     slug:'',
                                                     stripping:'',
@@ -1200,8 +1197,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                                     xhtml.push(html);
                                                 });
                                             } else {
-                                                var html={};
-                                                html = {
+                                                var html = {
                                                     slug:'',
                                                     stripping:'',
                                                     na:'n_a',
@@ -1287,22 +1283,34 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                             return (1);
                         });
 
-
+                        var yearPrograms = {};
 
                         for (var i = 0; i < $scope.programs.length; i++) {
                             var program = $scope.programs[i];
-                            // Should we create a new group?
-                            if (program['years'] !== groupValue) {
-                                var group = {
-                                    years: program['years'],
-                                    programs: []
-                                };
-                                groupValue = group.years;
-                                $scope.list_programs.push(group);
-                            }
+                            // Should we create a new group? --> fix error fail logic
+                            //if (program['years'] !== groupValue) {
+                            //    //var group = {
+                            //    //    years: program['years'],
+                            //    //    programs: []
+                            //    //};
+                            //    //groupValue = group.years;
+                            //    //$scope.list_programs.push(group);
+                            //}
 
-                            group.programs.push(program);
+                            //group.programs.push(program);
+
+                            if(Object.keys(yearPrograms).indexOf(program.years) === -1){
+                                yearPrograms[program.years] = [];
+                            }
+                            yearPrograms[program.years].push(program);
                         }
+
+                        angular.forEach(yearPrograms, function(items, year){
+                            $scope.list_programs.push({
+                                years: year,
+                                programs: items
+                            });
+                        });
 
                     } else {
 
@@ -2076,13 +2084,13 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 .success(function (student) {
                     if(student._id in studentKeys){
                         var onTrack = _.get(student,'xsre.onTrackToGraduate');
-                        if(_.get(student,'xsre.behavior') === 1){
+                        if(parseInt(_.get(student,'xsre.behavior')) <= 1){
                             pluralBehavior =  locale.getString('general.incident', [_.get(student,'xsre.behavior')]);
                         }else{
                             pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')])
                         }
 
-                        if(_.get(student,'xsre.attendance') === 1){
+                        if(parseInt(_.get(student,'xsre.attendance')) <= 1){
                             pluralAttendance =  locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]);
                         }else{
                             pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance')])
@@ -2097,10 +2105,8 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         $scope.students[studentKeys[student._id]].gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.unavailable');
-                        //$scope.students[studentKeys[student._id]].attendance = _.get(student,'xsre.attendance') ? locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]) : locale.getString('general.unavailable');
-                        $scope.students[studentKeys[student._id]].attendance = _.get(student,'xsre.attendance') ? pluralAttendance : locale.getString('general.unavailable');
-                        $scope.students[studentKeys[student._id]].behavior = _.get(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
-                        //$scope.students[studentKeys[student._id]].behavior = _.get(student,'xsre.behavior') ? locale.getString('general.incidents', [_.get(student,'xsre.behavior')]) : locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].attendance = _.has(student,'xsre.attendance') ? pluralAttendance : locale.getString('general.unavailable');
+                        $scope.students[studentKeys[student._id]].behavior = _.has(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
                         $scope.students[studentKeys[student._id]].onTrackGraduate = onTrack;
 
                     } else {
@@ -2173,7 +2179,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         student.attendance = locale.getString('general.not_ready');
                         student.behavior = locale.getString('general.not_ready');
                         student.onTrackGraduate = locale.getString('general.not_ready');
-                        student.behavior.indexOf('1') != -1 ? '':'';
                         $scope.students.push(student);
                         studentKeys[student._id] = o;
                         o++;
@@ -2185,7 +2190,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     /**
                      * Get XSRE
                      */
-                    $timeout( function(){ pullXsreStudents(studentKeys); }, 3000);
+                    $timeout( function(){ pullXsreStudents(studentKeys); }, 30);
 
                     angular.forEach(options,function(value){
                         districtOption = {
