@@ -16,7 +16,7 @@ var __i = false; if(typeof __local !== 'undefined') __i = __local;
 
 var global_redirect_url = '/';
 
-var app = angular.module('CboPortal', ['ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
+var app = angular.module('CboPortal', ['ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize', 'ui.codemirror',
     'ngLocalize.Config'
 ]).value('localeConf', {
     basePath: 'languages',
@@ -80,6 +80,13 @@ app.config(function ($routeProvider) {
     when('/student/detail/:student_id', {
         templateUrl: 'asset/templates/student/detail.html',
         controller: 'StudentDetailController',
+        access: {
+            requiredAuthentication: true
+        }
+    }).
+    when('/student/xsre/:student_id', {
+        templateUrl: 'asset/templates/student/xsre.html',
+        controller: 'StudentXSreController',
         access: {
             requiredAuthentication: true
         }
@@ -889,10 +896,85 @@ app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $loc
         }
         return original.apply($location, [path]);
     };
-}])
+}]);
 
-app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce',
-    function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore,$sce) {
+app.controller('StudentXSreController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+        var student_id = $routeParams.student_id;
+        $scope.refresh = false;
+        $scope.snippet = "";
+        $scope.editorOptions = {
+            //lineWrapping : true,
+            height: '500px',
+            tabSize: 6,
+            lineNumbers: true,
+            readOnly: 'nocursor',
+            theme: 'monokai',
+            mode: 'xml'
+        };
+
+
+        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+        })
+        .success(function (response) {
+
+            $scope.student = response;
+
+            $http.get(api_url + AuthenticationService.organization_id + '/students/'+student_id+'/xsre.xml?raw=1', {
+                headers: {
+                    'Authorization': 'Bearer ' + AuthenticationService.token
+                },
+                timeout: 15000
+            })
+            .success(function (xml) {
+                $scope.snippet = xml;
+                $scope.refresh = true;
+                $rootScope.doingResolve = false;
+            })
+            .error(function (response, status) {
+                $rootScope.doingResolve = false;
+                showError(response, 1);
+                if (status == 401) {
+                    $rootScope.show_footer = false;
+                    CookieStore.clearData();
+                    $location.path('/login');
+                }
+
+            });
+
+        })
+        .error(function (response, status) {
+
+            showError(response.error, 1);
+            $rootScope.doingResolve = false;
+            if (status == 401) {
+                $rootScope.show_footer = false;
+                CookieStore.clearData();
+                $location.path('/login');
+            }
+
+        });
+        //$scope.codemirrorLoaded = function(_editor){
+        //    // Editor part
+        //    var _doc = _editor.getDoc();
+        //    _editor.focus();
+        //
+        //    // Options
+        //    _editor.setOption('firstLineNumber', 1);
+        //    _doc.markClean();
+        //
+        //    // Events
+        //    _editor.on("beforeChange", function(codemirror){ codemirror.refresh(); });
+        //    _editor.on("change", function(codemirror){ codemirror.refresh(); });
+        //};
+
+}]);
+
+app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce', '$window',
+    function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window) {
 
         var urlTemplate = 'asset/templates/popoverTemplate.html';
         $scope.templateUrl = 'asset/templates/popoverTemplate.html';
@@ -913,6 +995,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
         };
         var student_id = $routeParams.student_id;
         var groupValue = "_INVALID_GROUP_VALUE_";
+        $scope.viewDebug = $routeParams.debug ? true : false;
         $scope.sch_history = false;
         $scope.academic = true;
 
@@ -1315,6 +1398,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                     } else {
 
                         showError(response.error, 1);
+
                     }
                     $rootScope.doingResolve = false;
                 })
@@ -1334,6 +1418,10 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
         };
 
         getXsre();
+
+        $scope.showDebug = function(){
+            $window.open($window.location.origin +'/#/student/xsre/'+ student_id);
+        };
 
         /**
          * Update Now, remove cache and reload the page content

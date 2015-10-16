@@ -3,6 +3,7 @@
     "student_edit": "Edit a student's personal information here. When you click submit this information will be reflected on the associated Student Detail Page.",
     "student_list": "Below is a list of all the students you have permission to view. Click on a student's name to access their Student Detail Page for more information. You can also add new students, edit information for existing students, or delete existing students.",
     "student_detail": " ",
+    "student_xsre": " ",
     "student_backpacks": " ",
     "student_program_add": "A student can be added to multiple programs in your organization. For every program the student can be considered either active or inactive and can have multiple start and end dates. If your organization groups your students into cohorts you can also add in the appropriate cohort on this form.",
     "student_program_list": "This list reflects all students participating in a program.",
