@@ -307,9 +307,6 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                 })
                 .error( function (response, status) {
 
-                    console.log(response);
-                    console.log(status);
-
                     CookieStore.clearData();
                     showError('Success Logout', 2);
                     $location.path("/login");
@@ -364,8 +361,6 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                     })
                     .error(function(response, status) {
 
-                        console.log(response);
-                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -403,8 +398,6 @@ app.controller('StudentBackpackController', ['$rootScope', '$scope', '$routePara
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -452,8 +445,6 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                     })
                     .error(function(response, status) {
 
-                        console.log(response);
-                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -479,8 +470,6 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -516,8 +505,6 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -575,8 +562,6 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
                     })
                     .error(function(response, status) {
 
-                        console.log(response);
-                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -602,8 +587,6 @@ app.controller('ProfileEditController', ['$rootScope', '$scope', '$http', '$loca
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -637,8 +620,6 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -686,8 +667,6 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                     })
                     .error(function(response, status) {
 
-                        console.log(response);
-                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -717,8 +696,6 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -749,8 +726,6 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -787,8 +762,6 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -834,8 +807,6 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                         })
                         .error(function(response, status) {
 
-                            console.log(response);
-                            console.log(status);
                             showError(response, 1);
                             $rootScope.doingResolve = false;
                             if(status == 401)
@@ -856,8 +827,6 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -896,8 +865,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     })
                     .error(function(response, status) {
 
-                        console.log(response);
-                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -930,8 +897,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -972,8 +937,6 @@ app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$locat
                     })
                     .error(function(response, status) {
 
-                        console.log(response);
-                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -1011,8 +974,6 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -1055,8 +1016,6 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
                     })
                     .error(function(response, status) {
 
-                        console.log(response);
-                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -1082,8 +1041,6 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -1131,8 +1088,6 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                     })
                     .error(function(response, status) {
 
-                        console.log(response);
-                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -1162,8 +1117,6 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -1194,8 +1147,6 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -1231,8 +1182,6 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -1263,8 +1212,6 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -1303,8 +1250,6 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
                     })
                     .error(function(response, status) {
 
-                        console.log(response);
-                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -1337,8 +1282,6 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -1386,8 +1329,6 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
                     })
                     .error(function(response, status) {
 
-                        console.log(response);
-                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -1425,8 +1366,6 @@ app.controller('UserDetailController', ['$rootScope', '$scope', '$routeParams', 
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -1465,8 +1404,6 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                     })
                     .error(function(response, status) {
 
-                        console.log(response);
-                        console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if(status == 401)
@@ -1499,8 +1436,6 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
             })
             .error(function(response, status) {
 
-                console.log(response);
-                console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if(status == 401)
@@ -1673,7 +1608,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
         $scope.forgotPassword = function(data)
         {
-            console.log(data);
+
         };
 
     }
