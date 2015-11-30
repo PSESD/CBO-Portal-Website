@@ -1,0 +1,67 @@
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="col-md-12">
+                <div class="title">
+                    <h1>
+                        Add {{ student.first_name }} {{ student.last_name }} Program
+                    </h1>
+                    <hr>
+                </div>
+                <div class="content">
+
+                    <form class="form-horizontal" role="form" ng-submit="addProgramStudent(program)">
+                        <div class="form-actions form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
+                                <a href="#/student/programs/{{ student._id }}" class="btn btn-default">Back</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="programId">Program:</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" ng-model="program.programId" id="programId" required autofocus
+                                        ng-options="program._id as program.name for program in list_program">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Status:</label>
+                            <div class="col-sm-9">
+                                <input type="checkbox" class="" ng-model="program.active" id="active"> <label for="active">Active</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="participation_start_date">Participation Start Date:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="program.participation_start_date" id="participation_start_date" ui-date>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="participation_end_date">Participation End Date:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="program.participation_end_date" id="participation_end_date" ui-date>
+                            </div>
+                        </div>
+                        <div class="form-actions form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9">
+                                <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
+                                <a href="#/student/programs/{{ student._id }}" class="btn btn-default">Back</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+</div>
