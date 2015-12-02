@@ -1179,9 +1179,9 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                     $scope.attendanceBehavior = [];
                     $scope.xsreLastUpdated = null;
                     if (response.success != false && response.info) {
-                        $('.loading-icon').addClass('hide');
+
                         response = response.info;
-                        $scope.loading_icon = true;
+
                         $scope.studentdetails = response;
                         $scope.case_workers = response._embedded.users;
                         embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
@@ -1400,12 +1400,16 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                         showError(response.error, 1);
 
                     }
+                    $scope.loading_icon = true;
+                    $('.loading-icon').addClass('hide');
                     $rootScope.doingResolve = false;
                 })
                 .error(function (response, status) {
 
                     //console.log(response);
                     //console.log(status);
+                    $scope.loading_icon = true;
+                    $('.loading-icon').addClass('hide');
                     showError(response.error, 1);
                     $rootScope.doingResolve = false;
                     if (status == 401) {
@@ -1440,6 +1444,8 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
 
                     //console.log(response);
                     //console.log(status);
+                    $scope.loading_icon = true;
+                    $('.loading-icon').addClass('hide');
                     showError(response.error , 1);
                     $rootScope.doingResolve = false;
                     if (status == 401) {
@@ -3603,6 +3609,10 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
         }
 
         $scope.loginMe = function (username, password, remmember) {
+
+            if(!$scope.login) {
+                $scope.login = {};
+            }
 
             $scope.login.working = true;
 
