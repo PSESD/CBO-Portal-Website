@@ -207,5 +207,6 @@
     "credit" : "Credit",
     "credits": "Credits",
     "earned" : "Earned",
-    "attempted" : "Attempted"
+    "attempted" : "Attempted",
+    "student_xsre": "Student XSRE: "
 }
