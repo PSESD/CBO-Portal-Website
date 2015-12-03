@@ -6,58 +6,28 @@
 
                 <div class="title">
                     <h1>
-                        Edit Profile {{ user.first_name }} {{ user.last_name }}
+                        {{ 'general.change_password' | i18n | uppercase }} {{ user.full_name }}
                     </h1>
                     <hr>
                 </div>
 
                 <div class="content">
-
+                    <div class="ng-binding help">
+                        <p>{{ 'help.profile_edit' | i18n }}</p>
+                    </div>
                     <form class="form-horizontal" role="form" ng-submit="editProfile(user)">
-                        <div class="form-actions form-group">
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#/profile" class="btn btn-default">Back</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="first_name">First Name:</label>
+                            <label class="col-sm-3 control-label" for="password">{{ 'general.password' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.first_name" id="first_name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="middle_name">Middle Name:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.middle_name" id="middle_name">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="last_name">Last Name:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.last_name" id="last_name" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="email">Email:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.email" id="email" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="password">Password:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="user.password" id="password">
-                                <p class="help-block">Leave it empty, if you doesn't want change the password</p>
+                                <input type="password" class="form-control" ng-model="user.password" id="password">
+                                <!--<p class="help-block">Leave it empty, if you doesn't want change the password</p>-->
                             </div>
                         </div>
                         <div class="form-actions form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#/profile" class="btn btn-default">Back</a>
+                                <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
+                                <a href="#/profile" class="btn btn-default">{{ 'general.back' | i18n }}</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>

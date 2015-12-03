@@ -1,0 +1,66 @@
+<div class="row" >
+    <div class="col-md-6">
+
+        <div class="card">
+            <div class="col-md-12">
+                    <div class="table-responsive">
+                        <h3>{{ 'general.unassigned_students' | i18n }}</h3>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th><h1>{{ 'general.name' | i18n }}</h1></th>
+                                <th class="text-center"><h1>{{ 'general.actions' | i18n }}</h1></th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="unassigned_student in unassigned_students">
+                                <td>{{ unassigned_student.first_name }} {{ unassigned_student.last_name }}</td>
+                                <td class="text-center">
+                                    <a class="glyphicon glyphicon-plus" ng-click="addUserStudent(unassigned_student._id, $index)"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+
+        <div class="card">
+            <div class="col-md-12">
+                    <div class="table-responsive">
+                        <h3>{{ 'general.assign_students' | i18n }}</h3>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th><h1>{{ 'general.name' | i18n }}</h1></th>
+                                <th class="text-center"><h1>{{ 'general.actions' | i18n }}</h1></th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="assigned_student in assigned_students">
+                                <td>{{ assigned_student.first_name }} {{ assigned_student.last_name }}</td>
+                                <td class="text-center">
+                                    <a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(assigned_student._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>

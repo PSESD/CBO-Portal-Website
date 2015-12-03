@@ -1,0 +1,49 @@
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="col-md-12">
+                <div class="title">
+                    <h1>{{ 'general.tags' | i18n }}</h1>
+                    <hr>
+                </div>
+                <div class="content">
+                    <div class="ng-binding help">
+                        <p>{{ 'help.tag_list' | i18n }}</p>
+                    </div>
+
+                    <h1><a href="#/tag/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_tag' | i18n }}</a></h1>
+                    <form class="form-inline" role="form" ng-submit="searchTag(student)">
+                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_tag' | i18n }}"/>
+                        <input type="submit" value="{{ 'general.filter' | i18n | uppercase }}" class="button"/>
+                    </form>
+
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>{{ 'general.tag_name' | i18n }}</th>
+                                <th class="text-center">{{ 'general.action' | i18n }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="tag in tags | filter:search">
+                                <td><a href="#/tag/edit/{{ tag._id }}">{{ tag.name }}</a></td>
+                                <td class="text-center">
+									<a class="glyphicon glyphicon-trash" confirmed-click="deleteTag(tag._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+</div>

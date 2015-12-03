@@ -6,52 +6,53 @@
             <div class="col-md-12">
                 <div class="title">
                     <h1>
-                        Add {{ program.name }} Student
+                        {{ 'general.add_program_students' | i18n:[program.name] }}
                     </h1>
                     <hr>
                 </div>
-                <div class="content">
 
+                <div class="content">
+                    <div class="ng-binding help">
+                        <p>{{ 'help.program_student_add' | i18n }}</p>
+                    </div>
                     <form class="form-horizontal" role="form" ng-submit="addProgramStudent(program)">
-                        <div class="form-actions form-group">
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#/program/students/{{ program._id }}" class="btn btn-default">Back</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="studentId">Student:</label>
+                            <label class="col-sm-3 control-label" for="studentId">{{ 'general.student' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <select class="form-control" ng-model="program.studentId" id="studentId" required autofocus
-                                        ng-options="student._id as student.first_name+' '+student.last_name for student in list_student">
+                                <select class="btn-block" ng-model="program.studentId" id="studentId" required autofocus ng-options="student._id as student.first_name+' '+student.last_name for student in list_student">
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Status:</label>
+                            <label class="col-sm-3 control-label">{{ 'general.status' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="checkbox" class="" ng-model="program.active" id="active"> <label for="active">Active</label>
+                                <input type="checkbox" ng-model="program.active" id="active">
+                                <label for="active">{{ 'general.active' | i18n }}</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="participation_start_date">Participation Start Date:</label>
+                            <label class="col-sm-3 control-label" for="participation_start_date">{{ 'general.participation_start_date' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" ng-model="program.participation_start_date" id="participation_start_date" ui-date>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="participation_end_date">Participation End Date:</label>
+                            <label class="col-sm-3 control-label" for="participation_end_date">{{ 'general.participation_end_date' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" ng-model="program.participation_end_date" id="participation_end_date" ui-date>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="cohort">{{ 'general.cohort' | i18n }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" ng-model="program.cohort" id="cohort">
                             </div>
                         </div>
                         <div class="form-actions form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary" ng-disabled="working">Submit</button>
-                                <a href="#/program/students/{{ program._id }}" class="btn btn-default">Back</a>
+                                <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
+                                <a href="#" ng-click="goBack()" class="btn btn-default">{{ 'general.back' | i18n }}</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>

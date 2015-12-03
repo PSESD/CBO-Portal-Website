@@ -1,0 +1,33 @@
+{
+    "student_add": "When you add a student's District ID number the Student Success Link will automatically fetch the data from the school district if the right permissions are available.",
+    "student_edit": "Edit a student's personal information here. When you click submit this information will be reflected on the associated Student Detail Page.",
+    "student_list": "Below is a list of all the students you have permission to view. Click on a student's name to access their Student Detail Page for more information. You can also add new students, edit information for existing students, or delete existing students.",
+    "student_detail": " ",
+    "student_xsre": " ",
+    "student_backpacks": " ",
+    "student_program_add": "A student can be added to multiple programs in your organization. For every program the student can be considered either active or inactive and can have multiple start and end dates. If your organization groups your students into cohorts you can also add in the appropriate cohort on this form.",
+    "student_program_list": "This list reflects all students participating in a program.",
+    "program_add": "Add programs from your organization here to track student participation. A few examples of programs are: After School Math Tutoring, SAT Prep, Drop In Basketball, or Educational Advocacy Program.",
+    "program_edit": "Edit program information here.",
+    "program_list": "Your organization can have multiple programs defined in the Student Success Link. Students can be assigned to one or more programs and can be used for you to organize your work. Your organization isn't required to add programs if it is unnecessary.",
+    "program_detail": "View program details here. Click the Add button to add students to this program. Click the Delete button if you no longer wish to have this program in the Student Success Link. ",
+    "program_student_add": "A student can be added to multiple programs in your organization. For every program the student can be considered either active or inactive and can have multiple start and end dates. If your organization groups your students into cohorts you can also add in the appropriate cohort on this form. ",
+    "program_student_edit": "Edit a student's program participation start and end dates here to reflect their current status.",
+    "program_student_list": "This list reflects all students participating in a program.",
+    "user_assign": "Click Add Student to add a student to this user's student list. Once a student is chosen and you click submit the associated user will have access to this Student's Detail Page.",
+    "user_detail": "View a user's profile information here. Note that the only way to change a user's information is for the user to login to their account and change their profile. ",
+    "user_edit": "Change a user's permission level here. If you grant Admin access the user will have access to all student information and will be able to edit permission levels of all users in your organization's Student Success Link. If you grant Assigned User access this user will not be allowed to edit other users' access to your organization's Student Success Link. If you check the \"Grants access only to assigned students\" box then this user will only be allowed to view student information for the students that Admins assign to them.",
+    "user_group": " ",
+    "user_group_add": " ",
+    "user_invite": "Each person who accesses the Student Success Link must have their own unique username and password. Student Success Link does not support “shared” logins or user accounts that are used by more than one person. In order to ensure that only specific individuals can access student data, please create a separate account for each authorized user below. When you click submit this person will receive an email with instructions and will be invited to enter their own password and name.",
+    "user_list": "Below is a list of users who have access to the Student Success Link in your organization. Click on a user's name to view their basic profile information. From this page you can also change a user's permission level and assign students to a user's student list. Note that the only way to change a user's information is for the user to login to their account and change their profile.",
+    "tag_add": "Add Cohorts to the Student Success Link here.  A few example cohorts are: Class of 2016, Section A, or College Bound Scholarship.",
+    "tag_edit": "Edit or delete Cohort information for your organization here. When you click submit this information will be saved across your organization's Student Success Link.",
+    "tag_list": "This is a list of all cohorts that your organization has saved. A few example cohorts are: Class of 2016, Section A, or College Bound Scholar.",
+    "profile_detail": "View your own profile information here. To change this information go to the Edit Profile section.",
+    "profile_edit": "Edit your own profile information here. Once you click save these changes will be saved across your organization's Student Success Link.",
+
+
+
+    "unknown": " "
+}
