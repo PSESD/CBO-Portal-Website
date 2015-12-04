@@ -10,8 +10,6 @@
 //    grant_type: 'password'
 //};
 
-var is_logged_in = false;
-
 var __i = false; if(typeof __local !== 'undefined') __i = __local;
 
 var global_redirect_url = '/';
@@ -283,12 +281,12 @@ app.config(function ($routeProvider) {
 });
 
 app.run(['$window', '$rootScope', '$route',
-function ($window, $rootScope, locale) {
+function ($window, $rootScope) {
         $rootScope.goBack = function () {
             $window.history.back();
         };
         $rootScope.data_content = "asset/templates/desktop.html";
-        var element = angular.element("#login-container");
+        //var element = angular.element("#login-container");
         if ($window.innerWidth > 767) {
             $rootScope.loginClass = "col-md-offset-4 col-md-4 login-page";
             $rootScope.data_content = "asset/templates/desktop.html";
@@ -612,7 +610,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
             $http.post(auth_url + 'logout', $.param(logout), {
 
                 })
-                .success(function (response) {
+                .success(function () {
                     $rootScope.showNavBar = true;
                     CookieStore.clearData();
                     showError($rootScope.lang.success_logout, 2);
@@ -621,7 +619,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     $location.path("/login");
 
                 })
-                .error(function (response, status) {
+                .error(function () {
 
                     var myEl = angular.element(document.querySelector('body'));
                     myEl.removeClass('cbp-spmenu-push');
@@ -639,7 +637,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
         $scope.refreshMe = function () {
 
             var auth = base64_encode(globalConfig.client_id + ':' + globalConfig.client_secret);
-            var grant_type = encodeURIComponent(globalConfig.grant_type);
+            //var grant_type = encodeURIComponent(globalConfig.grant_type);
             var uri = auth_url + 'oauth2/token';
             var send = {
                 grant_type: 'refresh_token',
@@ -661,7 +659,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     AuthenticationService.refresh_token = response.refresh_token;
 
                 })
-                .error(function (response, status) {
+                .error(function (response) {
 
                     //console.log('fail');
                     //console.log(response);
@@ -681,7 +679,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 ]);
 
 app.controller('HomeController', ['$rootScope', '$scope',
-    function ($rootScope, $scope) {
+    function ($rootScope) {
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
@@ -1338,7 +1336,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                         _.each($scope.transcripts.subject, function(item, key){
                             $scope.transcripts.subjectOrder.push({ name: key, value: item });
                         });
-                        _.each($scope.transcripts.details, function(item, key){
+                        _.each($scope.transcripts.details, function(item){
                             item.transcriptsOrder = [];
                             _.each(item.transcripts, function(i, k){
                                 item.transcriptsOrder.push({ name: k, value: i })
@@ -1436,7 +1434,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                         'Authorization': 'Bearer ' + AuthenticationService.token
                     }
                 })
-                .success(function (response) {
+                .success(function () {
                     getXsre();
                     //console.log(response);
                 })
@@ -2001,7 +1999,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 
 
                     })
-                    .error(function (responseTag, statusTag) {
+                    .error(function (responseTag) {
 
                         //console.log(responseTag);
                         //console.log(statusTag);
@@ -2070,11 +2068,11 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 
 
 app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$document',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout,$document) {
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout) {
         var districtOption = {};
         var options = [];
-        var school_options = [];
-        var schoolOptions = {};
+//        var school_options = [];
+//        var schoolOptions = {};
         var pluralBehavior = '';
         var pluralAttendance = '';
         $scope.district_counter = 0;
@@ -2137,7 +2135,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                             'Authorization': 'Bearer ' + AuthenticationService.token
                         }
                     })
-                    .success(function (response) {
+                    .success(function () {
 
                         $scope.students.splice(index, 1);
                         $scope.working = false;
@@ -2370,25 +2368,25 @@ app.directive('dropdownMultiselect', function($document){
     }
 });
 
-function unique_array(){
-    var newArr = [],
-        origLen = origArr.length,
-        found, x, y;
-
-    for (x = 0; x < origLen; x++) {
-        found = undefined;
-        for (y = 0; y < newArr.length; y++) {
-            if (origArr[x] === newArr[y]) {
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            newArr.push(origArr[x]);
-        }
-    }
-    return newArr;
-}
+//function unique_array(){
+//    var newArr = [],
+//        origLen = origArr.length,
+//        found, x, y;
+//
+//    for (x = 0; x < origLen; x++) {
+//        found = undefined;
+//        for (y = 0; y < newArr.length; y++) {
+//            if (origArr[x] === newArr[y]) {
+//                found = true;
+//                break;
+//            }
+//        }
+//        if (!found) {
+//            newArr.push(origArr[x]);
+//        }
+//    }
+//    return newArr;
+//}
 
 
 app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
@@ -2606,7 +2604,6 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
                     CookieStore.clearData();
                     $location.path('/login');
                 }
-                ds
 
             });
 
@@ -3157,7 +3154,7 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
                         'Authorization': 'Bearer ' + AuthenticationService.token
                     }
                 })
-                .success(function (response) {
+                .success(function () {
 
                     //console.log(response);
                     $scope.students.splice(index, 1);
@@ -3289,8 +3286,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                         'Authorization': 'Bearer ' + AuthenticationService.token
                     }
                 })
-                .success(function (response) {
-
+                .success(function () {
 
                     $scope.assigned_students.splice(index, 1);
                     $scope.working = false;
@@ -3314,7 +3310,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
         var user = {
 
             userId: user_id
-        }
+        };
 
         $http.post(api_url + AuthenticationService.organization_id + '/students?unassigned=true', $.param(user), {
                 headers: {
@@ -3510,7 +3506,7 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                             'Authorization': 'Bearer ' + AuthenticationService.token
                         }
                     })
-                    .success(function (response) {
+                    .success(function () {
 
                         $scope.users.splice(index, 1);
                         $scope.working = false;
@@ -3585,7 +3581,7 @@ app.filter('unique', function () {
 });
 
 app.controller('HeartbeatController', ['$rootScope', '$scope',
-    function ($rootScope, $scope) {
+    function ($rootScope) {
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
@@ -3730,7 +3726,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                         $rootScope.doingResolve = false;
 
                                     })
-                                    .error(function (responseUser, status) {
+                                    .error(function (responseUser) {
 
                                         showError(responseUser, 1);
                                         $scope.login.working = false;
@@ -4117,7 +4113,7 @@ app.directive('phonenumberDirective', ['$filter', function ($filter) {
         restrict: 'E',
         scope: {
             phonenumberPlaceholder: '=placeholder',
-            phonenumberModel: '=model',
+            phonenumberModel: '=model'
         },
         //templateUrl: '/static/phonenumberModule/template.html',
         template: '<input ng-model="inputValue" type="tel" class="phonenumber form-control" placeholder="{{phonenumberPlaceholder}}" title="Phonenumber (Format: (999) 9999-9999)">',
@@ -4213,7 +4209,7 @@ app.factory('myGoogleAnalytics', [
                     $window.ga('set', 'page', $location.path());
                     $window.ga('send', 'pageview');
                 }
-            }
+            };
 
             // subscribe to events
             $rootScope.$on('$viewContentLoaded', myGoogleAnalytics.sendPageview);
@@ -4305,26 +4301,26 @@ function showError(message, alert) {
     }
 }
 
-function ucwords(str) {
-    return (str + '').replace(/^([a-z])|\s+([a-z])/g, function ($1) {
-        return $1.toUpperCase();
-    });
-}
+//function ucwords(str) {
+//    return (str + '').replace(/^([a-z])|\s+([a-z])/g, function ($1) {
+//        return $1.toUpperCase();
+//    });
+//}
 
-function closed_sidebar() {
-    var body = angular.element(document.querySelector('body'));
-    var nav = angular.element(document.querySelector('#cbp-spmenu-s1'));
-    var icon = angular.element(document.querySelector('#showLeftPush'));
-    body.removeClass('cbp-spmenu-push-toright');
-    nav.removeClass('cbp-spmenu-open');
-    if (icon.hasClass('glyphicon glyphicon-remove')) {
-        icon.removeClass('glyphicon glyphicon-remove');
-        icon.addClass('glyphicon glyphicon-menu-hamburger');
-    } else if (icon.hasClass('glyphicon glyphicon-menu-hamburger')) {
-        icon.removeClass('glyphicon glyphicon-menu-hamburger');
-        icon.addClass('glyphicon glyphicon-remove');
-    }
-}
+//function closed_sidebar() {
+//    var body = angular.element(document.querySelector('body'));
+//    var nav = angular.element(document.querySelector('#cbp-spmenu-s1'));
+//    var icon = angular.element(document.querySelector('#showLeftPush'));
+//    body.removeClass('cbp-spmenu-push-toright');
+//    nav.removeClass('cbp-spmenu-open');
+//    if (icon.hasClass('glyphicon glyphicon-remove')) {
+//        icon.removeClass('glyphicon glyphicon-remove');
+//        icon.addClass('glyphicon glyphicon-menu-hamburger');
+//    } else if (icon.hasClass('glyphicon glyphicon-menu-hamburger')) {
+//        icon.removeClass('glyphicon glyphicon-menu-hamburger');
+//        icon.addClass('glyphicon glyphicon-remove');
+//    }
+//}
 
 function base64_encode(data) {
     //  discuss at: http://phpjs.org/functions/base64_encode/
@@ -4343,7 +4339,7 @@ function base64_encode(data) {
     var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
     var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
         ac = 0,
-        enc = '',
+//        enc = '',
         tmp_arr = [];
 
     if (!data) {
