@@ -417,7 +417,7 @@ app.factory('AuthenticationService', function () {
 /**
  *
  */
-app.factory('CookieStore', function ($rootScope, $window, $cookieStore, AuthenticationService) {
+app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $location, AuthenticationService) {
     var prefix = 'cboAdmin_cookie_';
     var expire_in = null;
     return {
@@ -427,7 +427,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
          * @param value
          */
         put: function (name, value) {
-            console.log('SET COOKIE: ', prefix + name, value, expire_in);
+//            console.log('SET COOKIE: ', prefix + name, value, expire_in);
             $cookieStore.put(prefix + name, value);
         },
         /**
@@ -477,42 +477,199 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             if(expirein) expire_in = expirein;
             this.put('token', token, expirein);
             this.put('refresh_token', refresh_token);
-            this.put('organization_id', organization_id);
-            this.put('redirect_url', redirect_url);
-            this.put('user_id', user_id);
-            this.put('email', email);
-            this.put('name', name);
-            this.put('role', role);
-            this.put('organization_name', organization_name);
+//            this.put('organization_id', organization_id);
+//            this.put('redirect_url', redirect_url);
+//            this.put('user_id', user_id);
+//            this.put('email', email);
+//            this.put('name', name);
+//            this.put('role', role);
+//            this.put('organization_name', organization_name);
 
             AuthenticationService.isAuthenticated = true;
-            AuthenticationService.token = this.get('token');
-            AuthenticationService.refresh_token = this.get('refresh_token');
-            AuthenticationService.organization_id = this.get('organization_id');
-            AuthenticationService.redirect_url = this.get('redirect_url');
-            AuthenticationService.user_id = this.get('user_id');
-            AuthenticationService.email = this.get('email');
-            AuthenticationService.name = this.get('name');
-            AuthenticationService.role = this.get('role');
-            AuthenticationService.organization_name = this.get('organization_name');
+            AuthenticationService.token = token;
+            AuthenticationService.refresh_token = refresh_token;
+            AuthenticationService.organization_id = organization_id;
+            AuthenticationService.redirect_url = redirect_url;
+            AuthenticationService.user_id = user_id;
+            AuthenticationService.email = email;
+            AuthenticationService.name = name;
+            AuthenticationService.role = role;
+            AuthenticationService.organization_name = organization_name;
             $rootScope.showNavBar = true;
             $rootScope.completeName = AuthenticationService.name;
 
         },
         getData: function () {
-            if (this.has('token') && this.get('token') && this.has('organization_id') && this.get('organization_id')) {
-                AuthenticationService.isAuthenticated = true;
-                AuthenticationService.token = this.get('token');
-                AuthenticationService.refresh_token = this.get('refresh_token');
-                AuthenticationService.organization_id = this.get('organization_id');
-                AuthenticationService.redirect_url = this.get('redirect_url');
-                AuthenticationService.user_id = this.get('user_id');
-                AuthenticationService.email = this.get('email');
-                AuthenticationService.name = this.get('name');
-                AuthenticationService.role = this.get('role');
-                $rootScope.showNavBar = true;
-                $rootScope.completeName = AuthenticationService.name;
-                return true;
+            if (this.has('token') && this.get('token')) {
+
+                var token = this.get('token');
+                var refresh_token = this.get('refresh_token');
+                var last_url = $location.url();
+
+                $http.get(api_url + 'user', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                })
+                    .success(function (response) {
+
+                        $http.get(api_url + 'organizations', {
+                            headers: {
+                                'Authorization': 'Bearer ' + token
+                            }
+                        })
+                            .success(function (responseClient) {
+
+                                var get_hosting_name = $location.host();
+                                var grand_access = false;
+                                var get_id = false;
+                                var get_redirect_url = false;
+                                var organization_name = '';
+
+                                if (responseClient.success == true && responseClient.total > 0) {
+                                    $rootScope.organization_name = responseClient.data.name;
+                                    for (var i = 0; i < responseClient.total; i++) {
+                                        if (__i || get_hosting_name === responseClient.data[i].url) {
+                                            grand_access = true;
+                                            get_id = responseClient.data[i]._id;
+                                            get_redirect_url = responseClient.data[i].url;
+                                            var myEl = angular.element(document.querySelector('body'));
+                                            myEl.addClass('cbp-spmenu-push');
+                                            organization_name = responseClient.data[i].name;
+                                        }
+                                    }
+                                }
+
+                                if (grand_access) {
+                                    $http.get(api_url + get_id + '/users', {
+                                        headers: {
+                                            'Authorization': 'Bearer ' + token
+                                        }
+                                    })
+                                        .success(function (responseUser) {
+                                            if (responseUser.success == true && responseUser.total > 0) {
+                                                var find = false;
+                                                var data = responseUser.data;
+                                                var id = false;
+                                                var complete_name = '';
+                                                var role = 'case-worker-restricted';
+                                                for (var i = 0; i < responseUser.total; i++) {
+                                                    if (data[i].email == response.email) {
+                                                        id = data[i]._id;
+                                                        if (typeof data[i].first_name !== 'undefined' && data[i].first_name) {
+                                                            complete_name += data[i].first_name + ' ';
+                                                        }
+                                                        if (typeof data[i].last_name !== 'undefined' && data[i].last_name) {
+                                                            complete_name += data[i].last_name;
+                                                        }
+
+                                                        role = data[i].role;
+
+                                                        if (role == 'admin') {
+                                                            $rootScope.users_link = true;
+                                                            $rootScope.tags_link = true;
+                                                        } else {
+                                                            $rootScope.users_link = false;
+                                                            $rootScope.tags_link = false;
+                                                        }
+                                                        $rootScope.completeName = complete_name;
+                                                        find = true;
+                                                    }
+                                                }
+                                                if (find) {
+
+                                                    global_redirect_url = get_redirect_url;
+
+                                                    AuthenticationService.isAuthenticated = true;
+                                                    AuthenticationService.token = token;
+                                                    AuthenticationService.refresh_token = refresh_token;
+                                                    AuthenticationService.organization_id = get_id;
+                                                    AuthenticationService.redirect_url = get_redirect_url;
+                                                    AuthenticationService.user_id = id;
+                                                    AuthenticationService.email = response.email;
+                                                    AuthenticationService.name = complete_name;
+                                                    AuthenticationService.role = role;
+                                                    AuthenticationService.organization_name = organization_name;
+
+                                                    $rootScope.showNavBar = true;
+                                                    $rootScope.completeName = AuthenticationService.name;
+
+                                                    $location.path(last_url);
+
+                                                    return true;
+
+                                                }
+                                                else
+                                                {
+                                                    return false;
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                return false;
+                                            }
+
+                                        })
+                                        .error(function () {
+                                            return false;
+                                        });
+
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+
+                            })
+                            .error(function () {
+
+                                var remember = this.get('remember');
+                                if (remember == true) {
+
+                                } else {
+                                    AuthenticationService.email = null;
+                                }
+
+                                AuthenticationService.isAuthenticated = false;
+                                AuthenticationService.token = null;
+                                AuthenticationService.refresh_token = null;
+                                AuthenticationService.organization_id = null;
+                                AuthenticationService.redirect_url = null;
+                                AuthenticationService.user_id = null;
+                                AuthenticationService.name = null;
+                                AuthenticationService.role = null;
+                                $rootScope.showNavBar = false;
+                                $rootScope.completeName = false;
+                                return false;
+
+                            });
+
+                    })
+                    .error(function () {
+
+                        var remember = this.get('remember');
+                        if (remember == true) {
+
+                        } else {
+                            AuthenticationService.email = null;
+                        }
+
+                        AuthenticationService.isAuthenticated = false;
+                        AuthenticationService.token = null;
+                        AuthenticationService.refresh_token = null;
+                        AuthenticationService.organization_id = null;
+                        AuthenticationService.redirect_url = null;
+                        AuthenticationService.user_id = null;
+                        AuthenticationService.name = null;
+                        AuthenticationService.role = null;
+                        $rootScope.showNavBar = false;
+                        $rootScope.completeName = false;
+                        return false;
+
+                    });
+
+
             } else {
                 var remember = this.get('remember');
                 if (remember == true) {
@@ -546,11 +703,11 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
             this.remove('token');
             this.remove('refresh_token');
-            this.remove('organization_id');
-            this.remove('redirect_url');
-            this.remove('user_id');
-            this.remove('name');
-            this.remove('role');
+//            this.remove('organization_id');
+//            this.remove('redirect_url');
+//            this.remove('user_id');
+//            this.remove('name');
+//            this.remove('role');
             AuthenticationService.isAuthenticated = false;
             AuthenticationService.token = null;
             AuthenticationService.refresh_token = null;
@@ -3629,7 +3786,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                 })
                 .success(function (response) {
 
-
                     $http.get(api_url + 'organizations', {
                             headers: {
                                 'Authorization': 'Bearer ' + response.access_token
@@ -3665,6 +3821,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                         }
                                     })
                                     .success(function (responseUser) {
+
                                         if (responseUser.success == true && responseUser.total > 0) {
                                             var find = false;
                                             var data = responseUser.data;
