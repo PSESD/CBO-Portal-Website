@@ -1294,7 +1294,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                             columnHtml[i] = xhtml;
                                             behavior[key].columnHtml = columnHtml;
                                             if (behavior[key].detailColumns.periods.length < 7) {
-                                                for (var i = 7; i > behavior[key].detailColumns.periods.length; i--) behavior[key].detailColumns.periods.push("");
+                                                for (var j = 7; j > behavior[key].detailColumns.periods.length; j--) behavior[key].detailColumns.periods.push("");
                                             }
                                         }
 
@@ -4116,7 +4116,7 @@ app.directive('phonenumberDirective', ['$filter', function ($filter) {
             phonenumberModel: '=model'
         },
         //templateUrl: '/static/phonenumberModule/template.html',
-        template: '<input ng-model="inputValue" type="tel" class="phonenumber form-control" placeholder="{{phonenumberPlaceholder}}" title="Phonenumber (Format: (999) 9999-9999)">',
+        template: '<input ng-model="inputValue" type="tel" class="phonenumber form-control" placeholder="{{phonenumberPlaceholder}}" title="Phonenumber (Format: (999) 9999-9999)">'
     };
 	}])
 
