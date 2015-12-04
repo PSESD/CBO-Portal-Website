@@ -1742,6 +1742,8 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
             $rootScope.editable = true;
         };
 
+        $scope.passwordDisabled = env === 'dev';
+
         $http.get(api_url + 'user/', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
