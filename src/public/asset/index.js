@@ -10,8 +10,6 @@
 //    grant_type: 'password'
 //};
 
-var is_logged_in = false;
-
 var __i = false; if(typeof __local !== 'undefined') __i = __local;
 
 var global_redirect_url = '/';
@@ -283,12 +281,12 @@ app.config(function ($routeProvider) {
 });
 
 app.run(['$window', '$rootScope', '$route',
-function ($window, $rootScope, locale) {
+function ($window, $rootScope) {
         $rootScope.goBack = function () {
             $window.history.back();
         };
         $rootScope.data_content = "asset/templates/desktop.html";
-        var element = angular.element("#login-container");
+        //var element = angular.element("#login-container");
         if ($window.innerWidth > 767) {
             $rootScope.loginClass = "col-md-offset-4 col-md-4 login-page";
             $rootScope.data_content = "asset/templates/desktop.html";
@@ -419,7 +417,7 @@ app.factory('AuthenticationService', function () {
 /**
  *
  */
-app.factory('CookieStore', function ($rootScope, $window, $cookieStore, AuthenticationService) {
+app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $location, AuthenticationService) {
     var prefix = 'cboAdmin_cookie_';
     var expire_in = null;
     return {
@@ -429,7 +427,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
          * @param value
          */
         put: function (name, value) {
-            console.log('SET COOKIE: ', prefix + name, value, expire_in);
+//            console.log('SET COOKIE: ', prefix + name, value, expire_in);
             $cookieStore.put(prefix + name, value);
         },
         /**
@@ -479,42 +477,199 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             if(expirein) expire_in = expirein;
             this.put('token', token, expirein);
             this.put('refresh_token', refresh_token);
-            this.put('organization_id', organization_id);
-            this.put('redirect_url', redirect_url);
-            this.put('user_id', user_id);
-            this.put('email', email);
-            this.put('name', name);
-            this.put('role', role);
-            this.put('organization_name', organization_name);
+//            this.put('organization_id', organization_id);
+//            this.put('redirect_url', redirect_url);
+//            this.put('user_id', user_id);
+//            this.put('email', email);
+//            this.put('name', name);
+//            this.put('role', role);
+//            this.put('organization_name', organization_name);
 
             AuthenticationService.isAuthenticated = true;
-            AuthenticationService.token = this.get('token');
-            AuthenticationService.refresh_token = this.get('refresh_token');
-            AuthenticationService.organization_id = this.get('organization_id');
-            AuthenticationService.redirect_url = this.get('redirect_url');
-            AuthenticationService.user_id = this.get('user_id');
-            AuthenticationService.email = this.get('email');
-            AuthenticationService.name = this.get('name');
-            AuthenticationService.role = this.get('role');
-            AuthenticationService.organization_name = this.get('organization_name');
+            AuthenticationService.token = token;
+            AuthenticationService.refresh_token = refresh_token;
+            AuthenticationService.organization_id = organization_id;
+            AuthenticationService.redirect_url = redirect_url;
+            AuthenticationService.user_id = user_id;
+            AuthenticationService.email = email;
+            AuthenticationService.name = name;
+            AuthenticationService.role = role;
+            AuthenticationService.organization_name = organization_name;
             $rootScope.showNavBar = true;
             $rootScope.completeName = AuthenticationService.name;
 
         },
         getData: function () {
-            if (this.has('token') && this.get('token') && this.has('organization_id') && this.get('organization_id')) {
-                AuthenticationService.isAuthenticated = true;
-                AuthenticationService.token = this.get('token');
-                AuthenticationService.refresh_token = this.get('refresh_token');
-                AuthenticationService.organization_id = this.get('organization_id');
-                AuthenticationService.redirect_url = this.get('redirect_url');
-                AuthenticationService.user_id = this.get('user_id');
-                AuthenticationService.email = this.get('email');
-                AuthenticationService.name = this.get('name');
-                AuthenticationService.role = this.get('role');
-                $rootScope.showNavBar = true;
-                $rootScope.completeName = AuthenticationService.name;
-                return true;
+            if (this.has('token') && this.get('token')) {
+
+                var token = this.get('token');
+                var refresh_token = this.get('refresh_token');
+                var last_url = $location.url();
+
+                $http.get(api_url + 'user', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                })
+                    .success(function (response) {
+
+                        $http.get(api_url + 'organizations', {
+                            headers: {
+                                'Authorization': 'Bearer ' + token
+                            }
+                        })
+                            .success(function (responseClient) {
+
+                                var get_hosting_name = $location.host();
+                                var grand_access = false;
+                                var get_id = false;
+                                var get_redirect_url = false;
+                                var organization_name = '';
+
+                                if (responseClient.success == true && responseClient.total > 0) {
+                                    $rootScope.organization_name = responseClient.data.name;
+                                    for (var i = 0; i < responseClient.total; i++) {
+                                        if (__i || get_hosting_name === responseClient.data[i].url) {
+                                            grand_access = true;
+                                            get_id = responseClient.data[i]._id;
+                                            get_redirect_url = responseClient.data[i].url;
+                                            var myEl = angular.element(document.querySelector('body'));
+                                            myEl.addClass('cbp-spmenu-push');
+                                            organization_name = responseClient.data[i].name;
+                                        }
+                                    }
+                                }
+
+                                if (grand_access) {
+                                    $http.get(api_url + get_id + '/users', {
+                                        headers: {
+                                            'Authorization': 'Bearer ' + token
+                                        }
+                                    })
+                                        .success(function (responseUser) {
+                                            if (responseUser.success == true && responseUser.total > 0) {
+                                                var find = false;
+                                                var data = responseUser.data;
+                                                var id = false;
+                                                var complete_name = '';
+                                                var role = 'case-worker-restricted';
+                                                for (var i = 0; i < responseUser.total; i++) {
+                                                    if (data[i].email == response.email) {
+                                                        id = data[i]._id;
+                                                        if (typeof data[i].first_name !== 'undefined' && data[i].first_name) {
+                                                            complete_name += data[i].first_name + ' ';
+                                                        }
+                                                        if (typeof data[i].last_name !== 'undefined' && data[i].last_name) {
+                                                            complete_name += data[i].last_name;
+                                                        }
+
+                                                        role = data[i].role;
+
+                                                        if (role == 'admin') {
+                                                            $rootScope.users_link = true;
+                                                            $rootScope.tags_link = true;
+                                                        } else {
+                                                            $rootScope.users_link = false;
+                                                            $rootScope.tags_link = false;
+                                                        }
+                                                        $rootScope.completeName = complete_name;
+                                                        find = true;
+                                                    }
+                                                }
+                                                if (find) {
+
+                                                    global_redirect_url = get_redirect_url;
+
+                                                    AuthenticationService.isAuthenticated = true;
+                                                    AuthenticationService.token = token;
+                                                    AuthenticationService.refresh_token = refresh_token;
+                                                    AuthenticationService.organization_id = get_id;
+                                                    AuthenticationService.redirect_url = get_redirect_url;
+                                                    AuthenticationService.user_id = id;
+                                                    AuthenticationService.email = response.email;
+                                                    AuthenticationService.name = complete_name;
+                                                    AuthenticationService.role = role;
+                                                    AuthenticationService.organization_name = organization_name;
+
+                                                    $rootScope.showNavBar = true;
+                                                    $rootScope.completeName = AuthenticationService.name;
+
+                                                    $location.path(last_url);
+
+                                                    return true;
+
+                                                }
+                                                else
+                                                {
+                                                    return false;
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                return false;
+                                            }
+
+                                        })
+                                        .error(function () {
+                                            return false;
+                                        });
+
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+
+                            })
+                            .error(function () {
+
+                                var remember = this.get('remember');
+                                if (remember == true) {
+
+                                } else {
+                                    AuthenticationService.email = null;
+                                }
+
+                                AuthenticationService.isAuthenticated = false;
+                                AuthenticationService.token = null;
+                                AuthenticationService.refresh_token = null;
+                                AuthenticationService.organization_id = null;
+                                AuthenticationService.redirect_url = null;
+                                AuthenticationService.user_id = null;
+                                AuthenticationService.name = null;
+                                AuthenticationService.role = null;
+                                $rootScope.showNavBar = false;
+                                $rootScope.completeName = false;
+                                return false;
+
+                            });
+
+                    })
+                    .error(function () {
+
+                        var remember = this.get('remember');
+                        if (remember == true) {
+
+                        } else {
+                            AuthenticationService.email = null;
+                        }
+
+                        AuthenticationService.isAuthenticated = false;
+                        AuthenticationService.token = null;
+                        AuthenticationService.refresh_token = null;
+                        AuthenticationService.organization_id = null;
+                        AuthenticationService.redirect_url = null;
+                        AuthenticationService.user_id = null;
+                        AuthenticationService.name = null;
+                        AuthenticationService.role = null;
+                        $rootScope.showNavBar = false;
+                        $rootScope.completeName = false;
+                        return false;
+
+                    });
+
+
             } else {
                 var remember = this.get('remember');
                 if (remember == true) {
@@ -548,11 +703,11 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
             this.remove('token');
             this.remove('refresh_token');
-            this.remove('organization_id');
-            this.remove('redirect_url');
-            this.remove('user_id');
-            this.remove('name');
-            this.remove('role');
+//            this.remove('organization_id');
+//            this.remove('redirect_url');
+//            this.remove('user_id');
+//            this.remove('name');
+//            this.remove('role');
             AuthenticationService.isAuthenticated = false;
             AuthenticationService.token = null;
             AuthenticationService.refresh_token = null;
@@ -612,7 +767,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
             $http.post(auth_url + 'logout', $.param(logout), {
 
                 })
-                .success(function (response) {
+                .success(function () {
                     $rootScope.showNavBar = true;
                     CookieStore.clearData();
                     showError($rootScope.lang.success_logout, 2);
@@ -621,7 +776,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     $location.path("/login");
 
                 })
-                .error(function (response, status) {
+                .error(function () {
 
                     var myEl = angular.element(document.querySelector('body'));
                     myEl.removeClass('cbp-spmenu-push');
@@ -639,7 +794,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
         $scope.refreshMe = function () {
 
             var auth = base64_encode(globalConfig.client_id + ':' + globalConfig.client_secret);
-            var grant_type = encodeURIComponent(globalConfig.grant_type);
+            //var grant_type = encodeURIComponent(globalConfig.grant_type);
             var uri = auth_url + 'oauth2/token';
             var send = {
                 grant_type: 'refresh_token',
@@ -661,7 +816,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     AuthenticationService.refresh_token = response.refresh_token;
 
                 })
-                .error(function (response, status) {
+                .error(function (response) {
 
                     //console.log('fail');
                     //console.log(response);
@@ -681,7 +836,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 ]);
 
 app.controller('HomeController', ['$rootScope', '$scope',
-    function ($rootScope, $scope) {
+    function ($rootScope) {
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
@@ -1296,7 +1451,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                             columnHtml[i] = xhtml;
                                             behavior[key].columnHtml = columnHtml;
                                             if (behavior[key].detailColumns.periods.length < 7) {
-                                                for (var i = 7; i > behavior[key].detailColumns.periods.length; i--) behavior[key].detailColumns.periods.push("");
+                                                for (var j = 7; j > behavior[key].detailColumns.periods.length; j--) behavior[key].detailColumns.periods.push("");
                                             }
                                         }
 
@@ -1338,7 +1493,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                         _.each($scope.transcripts.subject, function(item, key){
                             $scope.transcripts.subjectOrder.push({ name: key, value: item });
                         });
-                        _.each($scope.transcripts.details, function(item, key){
+                        _.each($scope.transcripts.details, function(item){
                             item.transcriptsOrder = [];
                             _.each(item.transcripts, function(i, k){
                                 item.transcriptsOrder.push({ name: k, value: i })
@@ -1436,7 +1591,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                         'Authorization': 'Bearer ' + AuthenticationService.token
                     }
                 })
-                .success(function (response) {
+                .success(function () {
                     getXsre();
                     //console.log(response);
                 })
@@ -1586,6 +1741,8 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
         $scope.activateEditable = function () {
             $rootScope.editable = true;
         };
+
+        $scope.passwordDisabled = env === 'dev';
 
         $http.get(api_url + 'user/', {
                 headers: {
@@ -2001,7 +2158,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 
 
                     })
-                    .error(function (responseTag, statusTag) {
+                    .error(function (responseTag) {
 
                         //console.log(responseTag);
                         //console.log(statusTag);
@@ -2070,11 +2227,11 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 
 
 app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$document',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout,$document) {
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout) {
         var districtOption = {};
         var options = [];
-        var school_options = [];
-        var schoolOptions = {};
+//        var school_options = [];
+//        var schoolOptions = {};
         var pluralBehavior = '';
         var pluralAttendance = '';
         $scope.district_counter = 0;
@@ -2137,7 +2294,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                             'Authorization': 'Bearer ' + AuthenticationService.token
                         }
                     })
-                    .success(function (response) {
+                    .success(function () {
 
                         $scope.students.splice(index, 1);
                         $scope.working = false;
@@ -2370,25 +2527,25 @@ app.directive('dropdownMultiselect', function($document){
     }
 });
 
-function unique_array(){
-    var newArr = [],
-        origLen = origArr.length,
-        found, x, y;
-
-    for (x = 0; x < origLen; x++) {
-        found = undefined;
-        for (y = 0; y < newArr.length; y++) {
-            if (origArr[x] === newArr[y]) {
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            newArr.push(origArr[x]);
-        }
-    }
-    return newArr;
-}
+//function unique_array(){
+//    var newArr = [],
+//        origLen = origArr.length,
+//        found, x, y;
+//
+//    for (x = 0; x < origLen; x++) {
+//        found = undefined;
+//        for (y = 0; y < newArr.length; y++) {
+//            if (origArr[x] === newArr[y]) {
+//                found = true;
+//                break;
+//            }
+//        }
+//        if (!found) {
+//            newArr.push(origArr[x]);
+//        }
+//    }
+//    return newArr;
+//}
 
 
 app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
@@ -2606,7 +2763,6 @@ app.controller('ProgramEditController', ['$rootScope', '$scope', '$routeParams',
                     CookieStore.clearData();
                     $location.path('/login');
                 }
-                ds
 
             });
 
@@ -3157,7 +3313,7 @@ app.controller('UserGroupController', ['$rootScope', '$scope', '$routeParams', '
                         'Authorization': 'Bearer ' + AuthenticationService.token
                     }
                 })
-                .success(function (response) {
+                .success(function () {
 
                     //console.log(response);
                     $scope.students.splice(index, 1);
@@ -3289,8 +3445,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
                         'Authorization': 'Bearer ' + AuthenticationService.token
                     }
                 })
-                .success(function (response) {
-
+                .success(function () {
 
                     $scope.assigned_students.splice(index, 1);
                     $scope.working = false;
@@ -3314,7 +3469,7 @@ app.controller('UserAssignController', ['$rootScope', '$scope', '$routeParams', 
         var user = {
 
             userId: user_id
-        }
+        };
 
         $http.post(api_url + AuthenticationService.organization_id + '/students?unassigned=true', $.param(user), {
                 headers: {
@@ -3510,7 +3665,7 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                             'Authorization': 'Bearer ' + AuthenticationService.token
                         }
                     })
-                    .success(function (response) {
+                    .success(function () {
 
                         $scope.users.splice(index, 1);
                         $scope.working = false;
@@ -3585,7 +3740,7 @@ app.filter('unique', function () {
 });
 
 app.controller('HeartbeatController', ['$rootScope', '$scope',
-    function ($rootScope, $scope) {
+    function ($rootScope) {
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
@@ -3633,7 +3788,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                 })
                 .success(function (response) {
 
-
                     $http.get(api_url + 'organizations', {
                             headers: {
                                 'Authorization': 'Bearer ' + response.access_token
@@ -3669,6 +3823,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                         }
                                     })
                                     .success(function (responseUser) {
+
                                         if (responseUser.success == true && responseUser.total > 0) {
                                             var find = false;
                                             var data = responseUser.data;
@@ -3730,7 +3885,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
                                         $rootScope.doingResolve = false;
 
                                     })
-                                    .error(function (responseUser, status) {
+                                    .error(function (responseUser) {
 
                                         showError(responseUser, 1);
                                         $scope.login.working = false;
@@ -4117,10 +4272,10 @@ app.directive('phonenumberDirective', ['$filter', function ($filter) {
         restrict: 'E',
         scope: {
             phonenumberPlaceholder: '=placeholder',
-            phonenumberModel: '=model',
+            phonenumberModel: '=model'
         },
         //templateUrl: '/static/phonenumberModule/template.html',
-        template: '<input ng-model="inputValue" type="tel" class="phonenumber form-control" placeholder="{{phonenumberPlaceholder}}" title="Phonenumber (Format: (999) 9999-9999)">',
+        template: '<input ng-model="inputValue" type="tel" class="phonenumber form-control" placeholder="{{phonenumberPlaceholder}}" title="Phonenumber (Format: (999) 9999-9999)">'
     };
 	}])
 
@@ -4213,7 +4368,7 @@ app.factory('myGoogleAnalytics', [
                     $window.ga('set', 'page', $location.path());
                     $window.ga('send', 'pageview');
                 }
-            }
+            };
 
             // subscribe to events
             $rootScope.$on('$viewContentLoaded', myGoogleAnalytics.sendPageview);
@@ -4305,26 +4460,26 @@ function showError(message, alert) {
     }
 }
 
-function ucwords(str) {
-    return (str + '').replace(/^([a-z])|\s+([a-z])/g, function ($1) {
-        return $1.toUpperCase();
-    });
-}
+//function ucwords(str) {
+//    return (str + '').replace(/^([a-z])|\s+([a-z])/g, function ($1) {
+//        return $1.toUpperCase();
+//    });
+//}
 
-function closed_sidebar() {
-    var body = angular.element(document.querySelector('body'));
-    var nav = angular.element(document.querySelector('#cbp-spmenu-s1'));
-    var icon = angular.element(document.querySelector('#showLeftPush'));
-    body.removeClass('cbp-spmenu-push-toright');
-    nav.removeClass('cbp-spmenu-open');
-    if (icon.hasClass('glyphicon glyphicon-remove')) {
-        icon.removeClass('glyphicon glyphicon-remove');
-        icon.addClass('glyphicon glyphicon-menu-hamburger');
-    } else if (icon.hasClass('glyphicon glyphicon-menu-hamburger')) {
-        icon.removeClass('glyphicon glyphicon-menu-hamburger');
-        icon.addClass('glyphicon glyphicon-remove');
-    }
-}
+//function closed_sidebar() {
+//    var body = angular.element(document.querySelector('body'));
+//    var nav = angular.element(document.querySelector('#cbp-spmenu-s1'));
+//    var icon = angular.element(document.querySelector('#showLeftPush'));
+//    body.removeClass('cbp-spmenu-push-toright');
+//    nav.removeClass('cbp-spmenu-open');
+//    if (icon.hasClass('glyphicon glyphicon-remove')) {
+//        icon.removeClass('glyphicon glyphicon-remove');
+//        icon.addClass('glyphicon glyphicon-menu-hamburger');
+//    } else if (icon.hasClass('glyphicon glyphicon-menu-hamburger')) {
+//        icon.removeClass('glyphicon glyphicon-menu-hamburger');
+//        icon.addClass('glyphicon glyphicon-remove');
+//    }
+//}
 
 function base64_encode(data) {
     //  discuss at: http://phpjs.org/functions/base64_encode/
