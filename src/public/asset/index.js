@@ -499,13 +499,13 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
             $rootScope.completeName = AuthenticationService.name;
 
         },
-        getData: function () {
-            if (this.has('token') && this.get('token')) {
+    getData: function () {
+        var me = this;
+        if (this.has('token') && this.get('token')) {
 
                 var token = this.get('token');
                 var refresh_token = this.get('refresh_token');
                 var last_url = $location.url();
-                var me = this;
 
                 $http.get(api_url + 'user', {
                     headers: {
@@ -694,7 +694,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
         },
         clearData: function () {
 
-            var remember = me.get('remember');
+            var remember = this.get('remember');
             if (remember == true) {
 
             } else {
