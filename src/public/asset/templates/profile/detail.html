@@ -41,14 +41,14 @@
                          <div class="form-group">
                             <label class="col-sm-3 control-label" for="password">{{ 'general.password' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" ng-model="user.password" id="password">
+                                <input type="password" class="form-control" ng-model="user.password" id="password" ng-disabled="passwordDisabled === true">
                                 <!--<p class="help-block">Leave it empty, if you doesn't want change the password</p>-->
                             </div>
                         </div>
 						 <div class="form-group">
                             <label class="col-sm-3 control-label" for="password">{{ 'general.retype_password' | i18n }}:</label>
                             <div class="col-sm-9">
-                                <input type="password" class="form-control" ng-model="user.retype_password" id="retype_password">
+                                <input type="password" class="form-control" ng-model="user.retype_password" id="retype_password" ng-disabled="passwordDisabled === true">
                                 <!--<p class="help-block">Leave it empty, if you doesn't want change the password</p>-->
                             </div>
                         </div>
