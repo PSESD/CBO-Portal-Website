@@ -4339,7 +4339,7 @@ function base64_encode(data) {
     var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
     var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
         ac = 0,
-//        enc = '',
+        enc = '',
         tmp_arr = [];
 
     if (!data) {
