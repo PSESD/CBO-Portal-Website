@@ -505,6 +505,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                 var token = this.get('token');
                 var refresh_token = this.get('refresh_token');
                 var last_url = $location.url();
+                var me = this;
 
                 $http.get(api_url + 'user', {
                     headers: {
@@ -624,7 +625,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                             })
                             .error(function () {
 
-                                var remember = this.get('remember');
+                                var remember = me.get('remember');
                                 if (remember == true) {
 
                                 } else {
@@ -648,7 +649,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                     })
                     .error(function () {
 
-                        var remember = this.get('remember');
+                        var remember = me.get('remember');
                         if (remember == true) {
 
                         } else {
@@ -671,7 +672,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
 
 
             } else {
-                var remember = this.get('remember');
+                var remember = me.get('remember');
                 if (remember == true) {
 
                 } else {
@@ -693,7 +694,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
         },
         clearData: function () {
 
-            var remember = this.get('remember');
+            var remember = me.get('remember');
             if (remember == true) {
 
             } else {
