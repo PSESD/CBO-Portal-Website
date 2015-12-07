@@ -605,36 +605,34 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                                                 }
                                                 else
                                                 {
+                                                    $location.path('/login');
                                                     return false;
                                                 }
 
                                             }
                                             else
                                             {
+                                                $location.path('/login');
                                                 return false;
                                             }
 
                                         })
                                         .error(function () {
+                                            $location.path('/login');
                                             return false;
                                         });
 
                                 }
                                 else
                                 {
+                                    $location.path('/login');
                                     return false;
                                 }
 
                             })
                             .error(function () {
 
-                                var remember = me.get('remember');
-                                if (remember == true) {
-
-                                } else {
-                                    AuthenticationService.email = null;
-                                }
-
+                                AuthenticationService.email = null;
                                 AuthenticationService.isAuthenticated = false;
                                 AuthenticationService.token = null;
                                 AuthenticationService.refresh_token = null;
@@ -645,6 +643,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                                 AuthenticationService.role = null;
                                 $rootScope.showNavBar = false;
                                 $rootScope.completeName = false;
+                                $location.path('/login');
                                 return false;
 
                             });
@@ -652,13 +651,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                     })
                     .error(function () {
 
-                        var remember = me.get('remember');
-                        if (remember == true) {
-
-                        } else {
-                            AuthenticationService.email = null;
-                        }
-
+                        AuthenticationService.email = null;
                         AuthenticationService.isAuthenticated = false;
                         AuthenticationService.token = null;
                         AuthenticationService.refresh_token = null;
@@ -669,19 +662,15 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                         AuthenticationService.role = null;
                         $rootScope.showNavBar = false;
                         $rootScope.completeName = false;
+                        $location.path('/login');
                         return false;
 
                     });
 
 
             } else {
-                var remember = me.get('remember');
-                if (remember == true) {
-
-                } else {
-                    AuthenticationService.email = null;
-                }
-
+            
+                AuthenticationService.email = null;
                 AuthenticationService.isAuthenticated = false;
                 AuthenticationService.token = null;
                 AuthenticationService.refresh_token = null;
@@ -692,6 +681,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                 AuthenticationService.role = null;
                 $rootScope.showNavBar = false;
                 $rootScope.completeName = false;
+                $location.path('/login');
                 return false;
             }
         },
@@ -1754,8 +1744,6 @@ app.controller('ProfileController', ['$rootScope', '$scope', '$http', '$location
         $scope.activateEditable = function () {
             $rootScope.editable = true;
         };
-
-        $scope.passwordDisabled = env === 'dev';
 
         $http.get(api_url + 'user/', {
                 headers: {
