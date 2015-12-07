@@ -1,15 +1,5 @@
 'use strict';
 
-//var auth_url = "https://auth.cbo.upward.st/api/";
-//var api_url = "https://api.cbo.upward.st/";
-//
-//var globalConfig = {
-//    client_id: 'cbo_client_demo',
-//    client_secret: '7e98a24f4fe91535348f6e87cde866dca9134b50fc029abefdc7278369f2',
-//    response_type: 'code',
-//    grant_type: 'password'
-//};
-
 var __i = false; if(typeof __local !== 'undefined') __i = __local;
 
 var global_redirect_url = '/';
@@ -270,6 +260,10 @@ app.config(function ($routeProvider) {
         templateUrl: 'asset/templates/login.html',
         controller: 'LoginController'
     }).
+    when('/loading', {
+        templateUrl: 'asset/templates/loading.html',
+        controller: 'LoadingController'
+    }).
     when('/forget', {
         templateUrl: 'asset/templates/forget.html',
         controller: 'LoginController'
@@ -302,6 +296,8 @@ function ($window, $rootScope) {
 app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
 
     var returnData = CookieStore.getData();
+    var checkCookie = CookieStore.checkCookie();
+
     locale.ready('general').then(function () {
         $rootScope.lang = {
             you_dont_have_any_permission_page: locale.getString('general.you_dont_have_any_permission_page'),
@@ -315,7 +311,14 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
         $rootScope.doingResolve = true;
 
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
-            $location.path("/login");
+            if(checkCookie == true)
+            {
+                $location.path("/loading");
+            }
+            else
+            {
+                $location.path("/login");
+            }
             $rootScope.showNavBar = false;
         }
 
@@ -689,6 +692,15 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                 AuthenticationService.role = null;
                 $rootScope.showNavBar = false;
                 $rootScope.completeName = false;
+                return false;
+            }
+        },
+        checkCookie: function () {
+            if (this.has('token') && this.get('token')) {
+                return true;
+            }
+            else
+            {
                 return false;
             }
         },
@@ -3745,6 +3757,12 @@ app.controller('HeartbeatController', ['$rootScope', '$scope',
 
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
+
+    }
+]);
+
+app.controller('LoadingController', [
+    function () {
 
     }
 ]);
