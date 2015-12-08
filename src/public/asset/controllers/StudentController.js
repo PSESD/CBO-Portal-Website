@@ -104,7 +104,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     headers: {
                         'Authorization': 'Bearer ' + AuthenticationService.token
                     },
-                    timeout: 15000
+                    timeout: 75000
                 })
                     .success(function (student) {
                         if(student._id in studentKeys){
