@@ -1,5 +1,5 @@
 (function() {
-
+  'use strict';
   CodeMirror.extendMode("css", {
     commentStart: "/*",
     commentEnd: "*/",
@@ -16,7 +16,7 @@
       if (this.jsonMode) {
         return /^[\[,{]$/.test(content) || /^}/.test(textAfter);
       } else {
-        if (content == ";" && state.lexical && state.lexical.type == ")") return false;
+        if (content === ";" && state.lexical && state.lexical.type === ")") {return false;}
         return /^[;{}]$/.test(content) && !/^;/.test(textAfter);
       }
     }
@@ -26,7 +26,7 @@
     commentStart: "<!--",
     commentEnd: "-->",
     newlineAfterToken: function(type, content, textAfter) {
-      return type == "tag" && />$/.test(content) || /^</.test(textAfter);
+      return type === "tag" && />$/.test(content) || /^</.test(textAfter);
     }
   });
 
@@ -37,19 +37,15 @@
       if (isComment) { // Comment range
         cm.replaceRange(curMode.commentEnd, to);
         cm.replaceRange(curMode.commentStart, from);
-        if (from.line == to.line && from.ch == to.ch) // An empty comment inserted - put cursor inside
-          cm.setCursor(from.line, from.ch + curMode.commentStart.length);
+        if (from.line === to.line && from.ch === to.ch) // An empty comment inserted - put cursor inside
+        {cm.setCursor(from.line, from.ch + curMode.commentStart.length);}
       } else { // Uncomment range
         var selText = cm.getRange(from, to);
         var startIndex = selText.indexOf(curMode.commentStart);
         var endIndex = selText.lastIndexOf(curMode.commentEnd);
         if (startIndex > -1 && endIndex > -1 && endIndex > startIndex) {
           // Take string till comment start
-          selText = selText.substr(0, startIndex)
-          // From comment start till comment end
-            + selText.substring(startIndex + curMode.commentStart.length, endIndex)
-          // From comment end till string end
-            + selText.substr(endIndex + curMode.commentEnd.length);
+          selText = selText.substr(0, startIndex) + selText.substring(startIndex + curMode.commentStart.length, endIndex) + selText.substr(endIndex + curMode.commentEnd.length);
         }
         cm.replaceRange(selText, from, to);
       }
@@ -73,7 +69,7 @@
     var state = CodeMirror.copyState(outer, cm.getTokenAt(from).state);
     var tabSize = cm.getOption("tabSize");
 
-    var out = "", lines = 0, atSol = from.ch == 0;
+    var out = "", lines = 0, atSol = from.ch === 0;
     function newline() {
       out += "\n";
       atSol = true;
@@ -92,16 +88,16 @@
         }
         if (!atSol && inner.mode.newlineAfterToken &&
             inner.mode.newlineAfterToken(style, cur, stream.string.slice(stream.pos) || text[i+1] || "", inner.state))
-          newline();
+        {newline();}
       }
-      if (!stream.pos && outer.blankLine) outer.blankLine(state);
-      if (!atSol) newline();
+      if (!stream.pos && outer.blankLine) {outer.blankLine(state);}
+      if (!atSol) {newline();}
     }
 
     cm.operation(function () {
       cm.replaceRange(out, from, to);
       for (var cur = from.line + 1, end = from.line + lines; cur <= end; ++cur)
-        cm.indentLine(cur, "smart");
+      {cm.indentLine(cur, "smart");}
       cm.setSelection(from, cm.getCursor(false));
     });
   });

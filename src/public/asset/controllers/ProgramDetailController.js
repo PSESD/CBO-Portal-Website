@@ -1,6 +1,6 @@
 app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$filter',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore,$filter) {
-
+        'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
         $rootScope.editable = false;
@@ -31,7 +31,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
 
                         showError(response, 1);
                         $scope.working = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
@@ -53,7 +53,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
                 })
                     .success(function (response) {
                         $scope.working = false;
-                        $location.path('/program')
+                        $location.path('/program');
 
                     })
                     .error(function (response, status) {
@@ -62,7 +62,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
                         //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
@@ -90,7 +90,7 @@ app.controller('ProgramDetailController', ['$rootScope', '$scope', '$routeParams
 
                 showError(response, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');

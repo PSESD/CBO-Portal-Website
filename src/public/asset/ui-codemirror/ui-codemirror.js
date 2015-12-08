@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Binds a CodeMirror widget to a <textarea> element.
  */
@@ -11,7 +9,7 @@ angular.module('ui.codemirror', [])
  * @ngInject
  */
 function uiCodemirrorDirective($timeout, uiCodemirrorConfig) {
-
+  'use strict';
   return {
     restrict: 'EA',
     require: '?ngModel',

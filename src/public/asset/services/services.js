@@ -1,4 +1,5 @@
 app.factory('AuthenticationService', function () {
+    'use strict';
     var auth = {
         isAuthenticated: false,
         token: null,
@@ -17,6 +18,7 @@ app.factory('AuthenticationService', function () {
 });
 
 app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $location, AuthenticationService) {
+    'use strict';
     var prefix = 'cboAdmin_cookie_';
     var expire_in = null;
     return {
@@ -73,7 +75,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
          * @param expirein
          */
         setData: function (token, refresh_token, organization_id, redirect_url, user_id, email, name, role, organization_name, expirein) {
-            if(expirein) expire_in = expirein;
+            if(expirein) {expire_in = expirein;}
             this.put('token', token, expirein);
             this.put('refresh_token', refresh_token);
 
@@ -119,7 +121,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                                 var get_redirect_url = false;
                                 var organization_name = '';
 
-                                if (responseClient.success == true && responseClient.total > 0) {
+                                if (responseClient.success === true && responseClient.total > 0) {
                                     $rootScope.organization_name = responseClient.data.name;
                                     for (var i = 0; i < responseClient.total; i++) {
                                         if (__i || get_hosting_name === responseClient.data[i].url) {
@@ -140,14 +142,14 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                                         }
                                     })
                                         .success(function (responseUser) {
-                                            if (responseUser.success == true && responseUser.total > 0) {
+                                            if (responseUser.success === true && responseUser.total > 0) {
                                                 var find = false;
                                                 var data = responseUser.data;
                                                 var id = false;
                                                 var complete_name = '';
                                                 var role = 'case-worker-restricted';
                                                 for (var i = 0; i < responseUser.total; i++) {
-                                                    if (data[i].email == response.email) {
+                                                    if (data[i].email === response.email) {
                                                         id = data[i]._id;
                                                         if (typeof data[i].first_name !== 'undefined' && data[i].first_name) {
                                                             complete_name += data[i].first_name + ' ';
@@ -158,7 +160,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
 
                                                         role = data[i].role;
 
-                                                        if (role == 'admin') {
+                                                        if (role === 'admin') {
                                                             $rootScope.users_link = true;
                                                             $rootScope.tags_link = true;
                                                         } else {
@@ -286,9 +288,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
         clearData: function () {
 
             var remember = this.get('remember');
-            if (remember == true) {
-
-            } else {
+            if (remember !== true) {
                 this.remove('email');
                 AuthenticationService.email = null;
             }
@@ -317,7 +317,7 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
 app.factory('myGoogleAnalytics', [
     '$rootScope', '$window', '$location',
     function ($rootScope, $window, $location) {
-
+'use strict';
         var myGoogleAnalytics = {};
 
         /**

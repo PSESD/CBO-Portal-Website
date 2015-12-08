@@ -1,5 +1,6 @@
 app.controller('TagController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+        'use strict';
         $rootScope.full_screen = false;
         $scope.tags = [];
 
@@ -16,7 +17,7 @@ app.controller('TagController', ['$rootScope', '$scope', '$http', '$location', '
                         showError(response.message, 2);
                         $scope.tags.splice(index, 1);
                         $scope.working = false;
-                        $location.path('/tag')
+                        $location.path('/tag');
 
                     })
                     .error(function (response, status) {
@@ -25,7 +26,7 @@ app.controller('TagController', ['$rootScope', '$scope', '$http', '$location', '
                         //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
@@ -42,7 +43,7 @@ app.controller('TagController', ['$rootScope', '$scope', '$http', '$location', '
         })
             .success(function (response) {
 
-                if (response.success == true && response.total > 0) {
+                if (response.success === true && response.total > 0) {
                     $scope.tags = response.data;
                 } else {
                     showError(response.error.message, 1);
@@ -56,7 +57,7 @@ app.controller('TagController', ['$rootScope', '$scope', '$http', '$location', '
                 //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');

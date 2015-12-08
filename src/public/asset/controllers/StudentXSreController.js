@@ -1,5 +1,6 @@
 app.controller('StudentXSreController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+        'use strict';
         var student_id = $routeParams.student_id;
         $scope.refresh = false;
         $scope.snippet = "";
@@ -37,7 +38,7 @@ app.controller('StudentXSreController', ['$route','$rootScope', '$scope', '$rout
                     .error(function (response, status) {
                         $rootScope.doingResolve = false;
                         showError(response, 1);
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
@@ -50,7 +51,7 @@ app.controller('StudentXSreController', ['$route','$rootScope', '$scope', '$rout
 
                 showError(response.error, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');

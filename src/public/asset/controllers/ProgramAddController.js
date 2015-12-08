@@ -1,6 +1,6 @@
 app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
-
+        'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
@@ -32,7 +32,7 @@ app.controller('ProgramAddController', ['$rootScope', '$scope', '$http', '$locat
                         //console.log(status);
                         showError(response.error, 1);
                         $scope.working = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');

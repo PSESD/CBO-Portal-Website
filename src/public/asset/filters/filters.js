@@ -1,4 +1,5 @@
 app.filter('flattenRows', function () {
+    'use strict';
     return function (transcriptTerm) {
         var flatten = [];
         var subrows = "";
@@ -15,10 +16,11 @@ app.filter('flattenRows', function () {
         });
         return flatten;
 
-    }
+    };
 });
 
 app.filter('unique', function () {
+    'use strict';
     return function (collection, keyname) {
         var output = [],
             keys = [];
@@ -36,7 +38,7 @@ app.filter('unique', function () {
 });
 
 app.filter('phonenumber', function () {
-
+    'use strict';
     return function (number) {
 
         if (!number) {
@@ -47,8 +49,8 @@ app.filter('phonenumber', function () {
 
         var formattedNumber = number;
 
-        var c = (number[0] == '1') ? '1 ' : '';
-        number = number[0] == '1' ? number.slice(1) : number;
+        var c = (number[0] === '1') ? '1 ' : '';
+        number = number[0] === '1' ? number.slice(1) : number;
 
         var area = number.substring(0, 3);
         var front = number.substring(3, 6);

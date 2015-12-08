@@ -1,6 +1,6 @@
 app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
-
+        'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
@@ -23,7 +23,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                 //console.log(status);
                 showError(response.error, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
@@ -38,7 +38,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
         })
             .success(function (response) {
 
-                if (response.success == true && response.total > 0) {
+                if (response.success === true && response.total > 0) {
                     list_program = response.data;
 
                     $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/programs', {
@@ -50,7 +50,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
 
                             for (var i = 0; i < response.data.length; i++) {
                                 for (var j = 0; j < list_program.length; j++) {
-                                    if (response.data[i].program == list_program[j]._id) {
+                                    if (response.data[i].program === list_program[j]._id) {
                                         response.data[i].name = list_program[j].name;
                                     }
                                 }
@@ -65,7 +65,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                             //console.log(status);
                             showError(response.error, 1);
                             $rootScope.doingResolve = false;
-                            if (status == 401) {
+                            if (status === 401) {
                                 $rootScope.show_footer = false;
                                 CookieStore.clearData();
                                 $location.path('/login');
@@ -85,7 +85,7 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
                 //console.log(status);
                 showError(response.error, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');

@@ -1,6 +1,6 @@
 app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
-
+        'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
         var program_id = $routeParams.program_id;
@@ -25,7 +25,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                 //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
@@ -40,13 +40,13 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
         })
             .success(function (response) {
                 //console.log(response);
-                if (response.success == true && response.total > 0) {
+                if (response.success === true && response.total > 0) {
 
                     angular.forEach(response.data, function (value, key) {
 
                         cohort = '';
                         angular.forEach(value.programs, function (v, k) {
-                            if (v.program == program_id) {
+                            if (v.program === program_id) {
                                 active_status = v.active;
                                 start_date = v.participation_start_date;
                                 end_date = v.participation_end_date;
@@ -76,7 +76,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                 //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
@@ -97,7 +97,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                         if (response.success) {
                             $scope.students.splice(index, 1);
                             $scope.working = false;
-                            $location.path('/program/students/' + program_id)
+                            $location.path('/program/students/' + program_id);
                         }
 
                     })
@@ -107,7 +107,7 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                         //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');

@@ -1,11 +1,11 @@
 app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
-
+        'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
         $scope.disable_select = false;
         var user_id = $routeParams.user_id;
-        if (user_id == CookieStore.get('user_id')) {
+        if (user_id === CookieStore.get('user_id')) {
             $scope.disable_select = true;
             $scope.working = true;
         }
@@ -24,7 +24,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                 })
                     .success(function (response) {
 
-                        if (response.success == true) {
+                        if (response.success === true) {
                             showError(response.message, 2);
                             $location.path('/user');
                         } else {
@@ -39,7 +39,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                         //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
@@ -73,7 +73,7 @@ app.controller('UserEditController', ['$rootScope', '$scope', '$routeParams', '$
                 //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');

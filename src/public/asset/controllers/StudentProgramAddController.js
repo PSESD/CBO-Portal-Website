@@ -1,6 +1,6 @@
 app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
-
+        'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
@@ -20,7 +20,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                 })
                     .success(function (response) {
                         //console.log(response);
-                        if (response.success == true) {
+                        if (response.success === true) {
                             showError(response.message, 2);
                             $location.path('/login');
 
@@ -36,7 +36,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                         //console.log(status);
                         showError(response.error, 1);
                         $scope.working = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
@@ -63,7 +63,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                 //console.log(status);
                 showError(response.error, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
@@ -98,7 +98,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                 //console.log(status);
                 showError(response.error, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
@@ -113,7 +113,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
         })
             .success(function (response) {
 
-                if (response.success == true && response.total > 0) {
+                if (response.success === true && response.total > 0) {
                     $scope.list_program = response.data;
                 } else {
                     showError(response.error.message, 1);
@@ -127,7 +127,7 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
                 //console.log(status);
                 showError(response.error, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');

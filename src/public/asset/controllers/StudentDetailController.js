@@ -1,6 +1,6 @@
 app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce', '$window',
     function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window) {
-
+        'use strict';
         var urlTemplate = 'asset/templates/popoverTemplate.html';
         $scope.templateUrl = 'asset/templates/popoverTemplate.html';
         $rootScope.full_screen = false;
@@ -166,7 +166,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
         })
             .success(function (response) {
                 $.each(schoolDistricts, function (key, value) {
-                    if (key == response.school_district) {
+                    if (key === response.school_district) {
                         response.school_district = value;
                     }
                 });
@@ -182,7 +182,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                 //console.log(status);
                 showError(response.error, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
@@ -203,7 +203,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                     var embedPrograms = [];
                     $scope.attendanceBehavior = [];
                     $scope.xsreLastUpdated = null;
-                    if (response.success != false && response.info) {
+                    if (response.success !== false && response.info) {
 
                         response = response.info;
 
@@ -321,7 +321,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                             columnHtml[i] = xhtml;
                                             behavior[key].columnHtml = columnHtml;
                                             if (behavior[key].detailColumns.periods.length < 7) {
-                                                for (var j = 7; j > behavior[key].detailColumns.periods.length; j--) behavior[key].detailColumns.periods.push("");
+                                                for (var j = 7; j > behavior[key].detailColumns.periods.length; j--) {behavior[key].detailColumns.periods.push("");}
                                             }
                                         }
 
@@ -366,7 +366,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                         _.each($scope.transcripts.details, function(item){
                             item.transcriptsOrder = [];
                             _.each(item.transcripts, function(i, k){
-                                item.transcriptsOrder.push({ name: k, value: i })
+                                item.transcriptsOrder.push({ name: k, value: i });
                             });
                         });
 
@@ -385,7 +385,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                             $scope.programs.push(program);
                         });
                         $scope.programs.sort(function (a, b) {
-                            if (a['years'] >= b['years']) {
+                            if (a.years >= b.years) {
                                 return (-1);
                             }
                             return (1);
@@ -437,7 +437,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                     $('.loading-icon').addClass('hide');
                     showError(response.error, 1);
                     $rootScope.doingResolve = false;
-                    if (status == 401) {
+                    if (status === 401) {
                         $rootScope.show_footer = false;
                         CookieStore.clearData();
                         $location.path('/login');
@@ -473,7 +473,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                     $('.loading-icon').addClass('hide');
                     showError(response.error , 1);
                     $rootScope.doingResolve = false;
-                    if (status == 401) {
+                    if (status === 401) {
                         $rootScope.show_footer = false;
                         CookieStore.clearData();
                         $location.path('/login');

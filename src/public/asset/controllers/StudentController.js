@@ -1,5 +1,6 @@
 app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$document',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout) {
+        'use strict';
         var districtOption = {};
         var options = [];
 //        var school_options = [];
@@ -22,10 +23,10 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
         $scope.filterDistrict = function () {
             return function (p) {
-                if($scope.selected_districts != '') {
+                if($scope.selected_districts !== '') {
                     $scope.district_counter =  $scope.selected_districts.length;
                     for (var i in $scope.selected_districts) {
-                        if (p.school_district == $scope.selected_districts[i]) {
+                        if (p.school_district === $scope.selected_districts[i]) {
 
                             return true;
                         }
@@ -41,10 +42,10 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         };
         $scope.filterSchools = function () {
             return function (p) {
-                if($scope.selected_schools != '') {
+                if($scope.selected_schools !== '') {
                     $scope.school_counter =  $scope.selected_schools.length;
                     for (var i in $scope.selected_schools) {
-                        if (p.schoolName.replace(/<[^>]+>/gm, '') == $scope.selected_schools[i].replace(/<[^>]+>/gm, '')) {
+                        if (p.schoolName.replace(/<[^>]+>/gm, '') === $scope.selected_schools[i].replace(/<[^>]+>/gm, '')) {
                             return true;
                         }
                     }
@@ -78,7 +79,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         //console.log(status);
                         showError(response.error, 1);
                         $scope.working = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
@@ -110,13 +111,13 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                             if(parseInt(_.get(student,'xsre.behavior')) <= 1){
                                 pluralBehavior =  locale.getString('general.incident', [_.get(student,'xsre.behavior')]);
                             }else{
-                                pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')])
+                                pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')]);
                             }
 
                             if(parseInt(_.get(student,'xsre.attendance')) <= 1){
                                 pluralAttendance =  locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]);
                             }else{
-                                pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance')])
+                                pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance')]);
                             }
                             if(onTrack === 'Y'){
                                 onTrack = locale.getString('general.on_track');
@@ -147,7 +148,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         if(find){
                             find      = String(find).replace(/<[^>]+>/gm, '');
                             var found = $scope.schoolNameData.some(function(hash){
-                                if(_.includes(hash, find)) return true;
+                                if(_.includes(hash, find)) {return true;}
                             });
                             if(!found){
                                 $scope.schoolNameData.push({ id: find, name: find });
@@ -159,7 +160,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
                         //console.log('ERROR: ', student, typeof response, response, typeof status, status);
                         showError(response, 1);
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
@@ -184,7 +185,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         })
             .success(function (response) {
 
-                if (response.success == true && response.total > 0) {
+                if (response.success === true && response.total > 0) {
                     var embedData = [];
                     embedData = ('data' in response) ? response.data : [];
                     var data = [];
@@ -192,7 +193,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     var studentKeys = {};
                     angular.forEach(embedData, function (student) {
                         $.each(schoolDistricts, function (key, value) {
-                            if (key == student.school_district || value == student.school_district) {
+                            if (key === student.school_district || value === student.school_district) {
                                 student.school_district = value;
                             }
                         });
@@ -205,7 +206,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         $scope.students.push(student);
                         studentKeys[student._id] = o;
                         o++;
-                        if(options.indexOf(student.school_district) == -1){
+                        if(options.indexOf(student.school_district) === -1){
                             options.push(student.school_district);
                         }
 
@@ -235,7 +236,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');

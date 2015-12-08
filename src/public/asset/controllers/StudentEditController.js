@@ -1,6 +1,6 @@
 app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
-
+        'use strict';
         $rootScope.full_screen = false;
         $scope.student = {};
         var schoolDistrict = {};
@@ -35,7 +35,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                 })
                     .success(function (response) {
 
-                        if (response.success == true) {
+                        if (response.success === true) {
                             showError(response.message, 2);
                             $location.path('/student');
                         } else {
@@ -50,7 +50,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                         //console.log(status);
                         showError(response.error, 1);
                         $scope.working = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
@@ -81,7 +81,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                 //console.log(status);
                 showError(response.error, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');

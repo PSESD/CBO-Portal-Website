@@ -1,6 +1,6 @@
 app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
-
+        'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
@@ -14,7 +14,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
             //console.log(new_student);
             if (student) {
                 $scope.working = true;
-                if (new_student == true) {
+                if (new_student === true) {
                     $http.post(api_url + AuthenticationService.organization_id + '/users/' + user_id + '/students', $.param(student), {
                         headers: {
                             'Authorization': 'Bearer ' + AuthenticationService.token
@@ -36,7 +36,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                             //console.log(status);
                             showError(response, 1);
                             $scope.working = false;
-                            if (status == 401) {
+                            if (status === 401) {
                                 $rootScope.show_footer = false;
                                 CookieStore.clearData();
                                 $location.path('/login');
@@ -65,7 +65,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                             //console.log(status);
                             showError(response, 1);
                             $scope.working = false;
-                            if (status == 401) {
+                            if (status === 401) {
                                 $rootScope.show_footer = false;
                                 CookieStore.clearData();
                                 $location.path('/login');
@@ -93,7 +93,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                 //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
@@ -108,7 +108,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
         })
             .success(function (response) {
 
-                if (response.success == true && response.total > 0) {
+                if (response.success === true && response.total > 0) {
                     $scope.list_student = response.data;
                 } else {
                     showError(response.error.message, 1);
@@ -122,7 +122,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
                 //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');

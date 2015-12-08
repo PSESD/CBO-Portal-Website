@@ -1,5 +1,6 @@
 app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+        'use strict';
         var schoolDistrict = {};
         var relationship = {};
         $scope.schoolDistricts = [];
@@ -32,7 +33,7 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                 })
                     .success(function (response) {
 
-                        if (response.success == true) {
+                        if (response.success === true) {
                             showError(response.message, 2);
                             $location.path('/student');
                         } else {
@@ -47,7 +48,7 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                         //console.log(status);
                         showError(response.error, 1);
                         $scope.working = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $rootScope.show_footer = false;

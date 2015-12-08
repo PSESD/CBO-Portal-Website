@@ -1,6 +1,6 @@
 app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
     function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
-
+        'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
 
@@ -25,7 +25,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                 //console.log(status);
                 showError(response.error, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
@@ -42,7 +42,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                 //console.log(response);
                 angular.forEach(response.programs, function (v, k) {
 
-                    if (program_id == v.program) {
+                    if (program_id === v.program) {
                         active_status = v.active;
                         start_date = v.participation_start_date;
                         end_date = v.participation_end_date;
@@ -86,7 +86,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                         //console.log(statusTag);
                         showError(responseTag, 1);
                         $rootScope.doingResolve = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');
@@ -103,7 +103,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                 //console.log(status);
                 showError(response.error, 1);
                 $rootScope.doingResolve = false;
-                if (status == 401) {
+                if (status === 401) {
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
@@ -133,7 +133,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                         //console.log(status);
                         showError(response.error, 1);
                         $scope.working = false;
-                        if (status == 401) {
+                        if (status === 401) {
                             $rootScope.show_footer = false;
                             CookieStore.clearData();
                             $location.path('/login');

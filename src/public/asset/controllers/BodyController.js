@@ -1,14 +1,15 @@
 app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
     function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService, locale) {
+        'use strict';
         var location = window.location.hash;
-        if (location.indexOf('login') == -1) {
+        if (location.indexOf('login') === -1) {
             $rootScope.show_footer = true;
         }
 
 
         $rootScope.full_screen = false;
         $rootScope.organization_name = CookieStore.get('organization_name');
-        if (CookieStore.get('role') == 'admin') {
+        if (CookieStore.get('role') === 'admin') {
             $rootScope.users_link = true;
             $rootScope.tags_link = true;
         } else {

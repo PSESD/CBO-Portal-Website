@@ -1,8 +1,4 @@
-'use strict';
-
-var __i = false; if(typeof __local !== 'undefined') __i = __local;
-
-var global_redirect_url = '/';
+var __i = false; if(typeof __local !== 'undefined') {__i = __local;}
 
 var app = angular.module('CboPortal', ['ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize', 'ui.codemirror',
     'ngLocalize.Config'
@@ -17,7 +13,8 @@ var app = angular.module('CboPortal', ['ui.bootstrap','ui.router','ngLocationUpd
     delimiter: '::'
 });
 
-app.factory('headerInjector', [function (SessionService) {
+app.factory('headerInjector', [function () {
+    'use strict';
     var headerInjector = {
         request: function (config) {
             config.headers['X-Cbo-Client-Url'] = __local;
@@ -28,6 +25,7 @@ app.factory('headerInjector', [function (SessionService) {
 }]);
 
 app.config(['$httpProvider', function ($httpProvider) {
+    'use strict';
     //Reset headers to avoid OPTIONS request (aka preflight)
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.get = {};
@@ -35,14 +33,15 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.put = {};
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
-    $httpProvider.defaults.headers.common['Accept'] = '*/*';
-    if (__i) $httpProvider.interceptors.push('headerInjector');
+    $httpProvider.defaults.headers.common.Accept = '*/*';
+    if (__i){$httpProvider.interceptors.push('headerInjector');}
     $httpProvider.defaults.timeout = 15000;
 
 }]);
 
 app.run(['$window', '$rootScope', '$route',
 function ($window, $rootScope) {
+    'use strict';
         $rootScope.goBack = function () {
             $window.history.back();
         };
@@ -61,7 +60,7 @@ function ($window, $rootScope) {
 
 
 app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
-
+    'use strict';
     var returnData = CookieStore.getData();
     var checkCookie = CookieStore.checkCookie();
 
@@ -76,9 +75,8 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
     $rootScope.$on("$routeChangeStart", function (event, nextRoute) {
         //redirect only if both isAuthenticated is false and no token is set
         $rootScope.doingResolve = true;
-
-        if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
-            if(checkCookie == true)
+        if (nextRoute !== null && /*nextRoute.access !== null &&  nextRoute.access.requiredAuthentication */nextRoute.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
+            if(checkCookie === true)
             {
                 $location.path("/loading");
             }
@@ -89,63 +87,63 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             $rootScope.showNavBar = false;
         }
 
-        if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAdmin && (AuthenticationService.role+'').indexOf('case-worker') !== -1) {
+        if (nextRoute !== null && /*nextRoute.access !== null && nextRoute.access.requiredAdmin*/nextRoute.requiredAdmin && (AuthenticationService.role+'').indexOf('case-worker') !== -1) {
             showError($rootScope.lang.you_dont_have_any_permission_page, 1);
             event.preventDefault();
         }
 
-        if(nextRoute.$$route.originalPath != '/login' && $rootScope.doingResolve == true){
+        if(nextRoute.$$route.originalPath !== '/login' && $rootScope.doingResolve === true){
             $rootScope.showFooter = false;
 
         }
 
         if('$$route' in nextRoute){
             var intended_url = '';
-            if(nextRoute.$$route.originalPath == '/login'){
+            if(nextRoute.$$route.originalPath === '/login'){
                 $rootScope.is_logged_in = false;
             }
 
-            if(nextRoute.$$route.originalPath != '/login' && nextRoute.$$route.originalPath != '/forget'){
+            if(nextRoute.$$route.originalPath !== '/login' && nextRoute.$$route.originalPath !== '/forget'){
                 $rootScope.is_logged_in = true;
                 $rootScope.showFooter = true;
 
 
                 intended_url = _.get(nextRoute.$$route, 'originalPath');
-                if(intended_url == '/program/students/:program_id'){
+                if(intended_url === '/program/students/:program_id'){
                     intended_url = '/program/students/'+ _.get(nextRoute.params,'program_id');
-                }else if(intended_url == '/student/backpacks/:student_id'){
+                }else if(intended_url === '/student/backpacks/:student_id'){
                     intended_url = '/student/backpacks/'+_.get(nextRoute.params,'student_id');
-                }else if(intended_url == '/student/detail/:student_id'){
+                }else if(intended_url === '/student/detail/:student_id'){
                     intended_url = '/student/detail/'+_.get(nextRoute.params,'student_id');
-                }else if(intended_url == '/student/detail/:student_id/:tab_id'){
+                }else if(intended_url === '/student/detail/:student_id/:tab_id'){
                     intended_url = '/student/detail/'+_.get(nextRoute.params,'student_id')+'/'+_.get(nextRoute.params,'tab_id');
-                }else if(intended_url == '/student/edit/:student_id'){
+                }else if(intended_url === '/student/edit/:student_id'){
                     intended_url = '/student/edit/'+_.get(nextRoute.params,'student_id');
-                }else if(intended_url =='/student/programs/:student_id/add'){
+                }else if(intended_url ==='/student/programs/:student_id/add'){
                     intended_url = '/student/programs/'+_.get(nextRoute.params,'student_id')+'/add';
-                }else if(intended_url =='/student/programs/:student_id'){
+                }else if(intended_url ==='/student/programs/:student_id'){
                     intended_url = '/student/programs/'+_.get(nextRoute.params,'student_id');
-                }else if(intended_url =='/program/detail/:program_id'){
+                }else if(intended_url ==='/program/detail/:program_id'){
                     intended_url = '/program/detail/'+_.get(nextRoute.params,'program_id');
-                }else if(intended_url =='/program/edit/:program_id'){
+                }else if(intended_url ==='/program/edit/:program_id'){
                     intended_url = '/program/edit/'+_.get(nextRoute.params,'program_id');
-                }else if(intended_url =='/program/students/:program_id/add'){
+                }else if(intended_url ==='/program/students/:program_id/add'){
                     intended_url = '/program/students/'+_.get(nextRoute.params,'program_id')+'/add';
-                }else if(intended_url =='/program/students/:program_id/edit/:student_id'){
+                }else if(intended_url ==='/program/students/:program_id/edit/:student_id'){
                     intended_url = '/program/students/'+_.get(nextRoute.params,'program_id')+'/edit/'+_.get(nextRoute.params,'student_id');
-                }else if(intended_url =='/program/students/:program_id'){
+                }else if(intended_url ==='/program/students/:program_id'){
                     intended_url = '/program/students/'+_.get(nextRoute.params,'program_id');
-                }else if(intended_url =='/tag/edit/:tag_id'){
+                }else if(intended_url ==='/tag/edit/:tag_id'){
                     intended_url = '/tag/edit/'+_.get(nextRoute.params,'tag_id');
-                }else if(intended_url =='/user/group/:user_id/add'){
+                }else if(intended_url ==='/user/group/:user_id/add'){
                     intended_url = '/user/group/'+_.get(nextRoute.params,'user_id')+'/add';
-                }else if(intended_url =='/user/group/:user_id'){
+                }else if(intended_url ==='/user/group/:user_id'){
                     intended_url = '/user/group/'+_.get(nextRoute.params,'user_id');
-                }else if(intended_url =='/user/assign/:user_id'){
+                }else if(intended_url ==='/user/assign/:user_id'){
                     intended_url = '/user/assign/'+_.get(nextRoute.params,'user_id');
-                }else if(intended_url =='/user/edit/:user_id'){
+                }else if(intended_url ==='/user/edit/:user_id'){
                     intended_url = '/user/edit/'+_.get(nextRoute.params,'user_id');
-                }else if(intended_url =='/user/detail/:user_id'){
+                }else if(intended_url ==='/user/detail/:user_id'){
                     intended_url = '/user/detail/'+_.get(nextRoute.params,'user_id');
                 }
 
@@ -156,7 +154,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
         if (returnData) {
             start_time_idle();
         }
-        if($location.$$path == '/login'){
+        if($location.$$path === '/login'){
             $rootScope.showNavBar = false;
         }
     });
@@ -166,6 +164,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
 });
 
 app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
+    'use strict';
     var original = $location.path;
     $location.path = function (path, reload) {
         if (reload === false) {
@@ -179,21 +178,22 @@ app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $loc
     };
 }]);
 
-app.run([
-    'myGoogleAnalytics',
-    function (myGoogleAnalytics) {
-            // inject self
-    }
-  ]);
+//app.run([
+//    'myGoogleAnalytics',
+//    function (myGoogleAnalytics) {
+//            // inject self
+//    }
+//  ]);
 
 function showError(message, alert) {
+    'use strict';
     var passingClass = 'alert-danger';
-    if (alert == 2) {
-        passingClass = 'alert-success'
+    if (alert === 2) {
+        passingClass = 'alert-success';
     }
     var message_alert = '<div class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + message + '</div>';
     if(message !== null) {
-        if (window.location.href.indexOf('/login') == -1) {
+        if (window.location.href.indexOf('/login') === -1) {
             jQuery(".error-container.visible-on").append(message_alert);
             setTimeout(function () {
                 jQuery('.alert').remove();
@@ -208,7 +208,7 @@ function showError(message, alert) {
 }
 
 function base64_encode(data) {
-
+    'use strict';
     var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
     var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
         ac = 0,
@@ -244,9 +244,11 @@ function base64_encode(data) {
 
 
 function start_time_idle() {
+    'use strict';
     session_timeout.login();
 }
 
 function stop_time_idle() {
+    'use strict';
     session_timeout.logout();
 }
