@@ -1,5 +1,5 @@
-app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$sce', '$window',
-    function ($route,$rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window) {
+app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window',
+    function ($route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window) {
         'use strict';
         var urlTemplate = 'asset/templates/popoverTemplate.html';
         $scope.templateUrl = 'asset/templates/popoverTemplate.html';
@@ -138,7 +138,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
             $(attendance_detail).addClass('hide');
 
         };
-        $('[data-toggle="tab"]').on('show.bs.tab', function(e){
+        $('[data-toggle="tab"]').on('show.bs.tab', function (e) {
             $scope.setStudentDetailActiveTab(e.target.dataset.target);
         });
         // Save active tab to localStorage
@@ -217,7 +217,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                         $scope.daysAbsent = parseInt(_.get(response, 'attendance.summaries.summary.daysAbsent'));
 
 
-                        if(response.attendanceBehaviors) {
+                        if (response.attendanceBehaviors) {
                             angular.forEach(response.attendanceBehaviors, function (behavior) {
                                 Object.keys(behavior).forEach(function (key) {
                                     var columnHtml = {};
@@ -235,41 +235,41 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                                     x++;
                                                     if (typeof item === 'object' && item.event !== null) {
                                                         html = {
-                                                            slug:item.slug,
-                                                            stripping:cls,
-                                                            na:'',
-                                                            fontcolor:item.slug + '-font-color',
-                                                            pagetitle:item.slug.toUpperCase(),
-                                                            eventdate:item.event.calendarEventDate,
-                                                            description:item.event.attendanceStatusTitle,
-                                                            url:urlTemplate
+                                                            slug: item.slug,
+                                                            stripping: cls,
+                                                            na: '',
+                                                            fontcolor: item.slug + '-font-color',
+                                                            pagetitle: item.slug.toUpperCase(),
+                                                            eventdate: item.event.calendarEventDate,
+                                                            description: item.event.attendanceStatusTitle,
+                                                            url: urlTemplate
                                                         };
                                                     } else {
                                                         html = {
-                                                            slug:'',
-                                                            stripping:cls,
-                                                            na:'n_a',
-                                                            fontcolor:'',
-                                                            pagetitle:'',
-                                                            eventdate:'',
-                                                            description:'',
-                                                            url:''
+                                                            slug: '',
+                                                            stripping: cls,
+                                                            na: 'n_a',
+                                                            fontcolor: '',
+                                                            pagetitle: '',
+                                                            eventdate: '',
+                                                            description: '',
+                                                            url: ''
                                                         };
                                                     }
                                                     xhtml.push(html);
                                                 }
                                             });
 
-                                            for (; x < 8; x++){
+                                            for (; x < 8; x++) {
                                                 html = {
-                                                    slug:'',
-                                                    stripping:'',
-                                                    na:'',
-                                                    fontcolor:'',
-                                                    pagetitle:'',
-                                                    eventdate:'',
-                                                    description:'',
-                                                    url:''
+                                                    slug: '',
+                                                    stripping: '',
+                                                    na: '',
+                                                    fontcolor: '',
+                                                    pagetitle: '',
+                                                    eventdate: '',
+                                                    description: '',
+                                                    url: ''
                                                 };
                                                 xhtml.push(html);
                                             }
@@ -278,42 +278,42 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                             if (items.length > 0) {
 
                                                 angular.forEach(items, function (item, i) {
-                                                    var html={};
+                                                    var html = {};
                                                     if (typeof item === 'object') {
                                                         html = {
-                                                            slug:'unexcused',
-                                                            stripping:cls,
-                                                            na:'',
-                                                            fontcolor:'unexcused-font-color',
-                                                            pagetitle:(item.incidentCategoryTitle+'').toUpperCase(),
-                                                            eventdate:item.incidentDate,
-                                                            description:item.description,
-                                                            url:urlTemplate
+                                                            slug: 'unexcused',
+                                                            stripping: cls,
+                                                            na: '',
+                                                            fontcolor: 'unexcused-font-color',
+                                                            pagetitle: (item.incidentCategoryTitle + '').toUpperCase(),
+                                                            eventdate: item.incidentDate,
+                                                            description: item.description,
+                                                            url: urlTemplate
                                                         };
-                                                    }else{
+                                                    } else {
                                                         html = {
-                                                            slug:'',
-                                                            stripping:'',
-                                                            na:'n_a',
-                                                            fontcolor:'',
-                                                            pagetitle:'',
-                                                            eventdate:'',
-                                                            description:'',
-                                                            url:''
+                                                            slug: '',
+                                                            stripping: '',
+                                                            na: 'n_a',
+                                                            fontcolor: '',
+                                                            pagetitle: '',
+                                                            eventdate: '',
+                                                            description: '',
+                                                            url: ''
                                                         };
                                                     }
                                                     xhtml.push(html);
                                                 });
                                             } else {
                                                 var html = {
-                                                    slug:'',
-                                                    stripping:'',
-                                                    na:'n_a',
-                                                    fontcolor:'',
-                                                    pagetitle:'',
-                                                    eventdate:'',
-                                                    description:'',
-                                                    url:''
+                                                    slug: '',
+                                                    stripping: '',
+                                                    na: 'n_a',
+                                                    fontcolor: '',
+                                                    pagetitle: '',
+                                                    eventdate: '',
+                                                    description: '',
+                                                    url: ''
                                                 };
                                                 xhtml.push(html);
                                             }
@@ -321,7 +321,9 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                                             columnHtml[i] = xhtml;
                                             behavior[key].columnHtml = columnHtml;
                                             if (behavior[key].detailColumns.periods.length < 7) {
-                                                for (var j = 7; j > behavior[key].detailColumns.periods.length; j--) {behavior[key].detailColumns.periods.push("");}
+                                                for (var j = 7; j > behavior[key].detailColumns.periods.length; j--) {
+                                                    behavior[key].detailColumns.periods.push("");
+                                                }
                                             }
                                         }
 
@@ -343,13 +345,13 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                             freeReducedLunch: 'N/A'
                         };
 
-                        if(response.programs){
+                        if (response.programs) {
 
                             $scope.academicInfo.iep = _.get(response.programs, 'specialEducation.services[0].service.ideaIndicator') || _.get(response.programs, 'specialEducation.services.service.ideaIndicator') || 'N/A';
                             $scope.academicInfo.s504 = _.get(response.programs, 'specialEducation.section504Status') || 'N/A';
                             var eligibilityStatus = _.get(response.programs, 'foodService.eligibilityStatus');
                             var enrollmentStatus = _.get(response.programs, 'foodService.enrollmentStatus');
-                            if(eligibilityStatus && enrollmentStatus) {
+                            if (eligibilityStatus && enrollmentStatus) {
                                 $scope.academicInfo.freeReducedLunch = enrollmentStatus;
                             }
                         }
@@ -360,13 +362,13 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                         $scope.transcripts = response.transcripts || {};
                         $scope.total_data = _.size(response.transcripts.subject);
                         $scope.transcripts.subjectOrder = [];
-                        _.each($scope.transcripts.subject, function(item, key){
-                            $scope.transcripts.subjectOrder.push({ name: key, value: item });
+                        _.each($scope.transcripts.subject, function (item, key) {
+                            $scope.transcripts.subjectOrder.push({name: key, value: item});
                         });
-                        _.each($scope.transcripts.details, function(item){
+                        _.each($scope.transcripts.details, function (item) {
                             item.transcriptsOrder = [];
-                            _.each(item.transcripts, function(i, k){
-                                item.transcriptsOrder.push({ name: k, value: i });
+                            _.each(item.transcripts, function (i, k) {
+                                item.transcriptsOrder.push({name: k, value: i});
                             });
                         });
 
@@ -407,13 +409,13 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
 
                             //group.programs.push(program);
 
-                            if(Object.keys(yearPrograms).indexOf(program.years) === -1){
+                            if (Object.keys(yearPrograms).indexOf(program.years) === -1) {
                                 yearPrograms[program.years] = [];
                             }
                             yearPrograms[program.years].push(program);
                         }
 
-                        angular.forEach(yearPrograms, function(items, year){
+                        angular.forEach(yearPrograms, function (items, year) {
                             $scope.list_programs.push({
                                 years: year,
                                 programs: items
@@ -448,8 +450,8 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
 
         getXsre();
 
-        $scope.showDebug = function(){
-            $window.open($window.location.origin +'/#/student/xsre/'+ student_id);
+        $scope.showDebug = function () {
+            $window.open($window.location.origin + '/#/student/xsre/' + student_id);
         };
 
         /**
@@ -471,7 +473,7 @@ app.controller('StudentDetailController', ['$route','$rootScope', '$scope', '$ro
                     //console.log(status);
                     $scope.loading_icon = true;
                     $('.loading-icon').addClass('hide');
-                    showError(response.error , 1);
+                    showError(response.error, 1);
                     $rootScope.doingResolve = false;
                     if (status === 401) {
                         $rootScope.show_footer = false;

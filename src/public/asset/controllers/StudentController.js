@@ -1,6 +1,7 @@
 app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$document',
     function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout) {
         'use strict';
+
         var districtOption = {};
         var options = [];
 //        var school_options = [];
@@ -19,11 +20,11 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             scrollableHeight: '250px',
             scrollable: true
         };
-
+        $scope.test = "Test";
 
         $scope.filterDistrict = function () {
             return function (p) {
-                if($scope.selected_districts !== '') {
+                if(String($scope.selected_districts) !== '') {
                     $scope.district_counter =  $scope.selected_districts.length;
                     for (var i in $scope.selected_districts) {
                         if (p.school_district === $scope.selected_districts[i]) {
@@ -42,7 +43,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         };
         $scope.filterSchools = function () {
             return function (p) {
-                if($scope.selected_schools !== '') {
+                if(String($scope.selected_schools) !== '') {
                     $scope.school_counter =  $scope.selected_schools.length;
                     for (var i in $scope.selected_schools) {
                         if (p.schoolName.replace(/<[^>]+>/gm, '') === $scope.selected_schools[i].replace(/<[^>]+>/gm, '')) {
@@ -154,7 +155,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                                 $scope.schoolNameData.push({ id: find, name: find });
                             }
                         }
-
                     })
                     .error(function (response, status) {
 
@@ -188,6 +188,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 if (response.success === true && response.total > 0) {
                     var embedData = [];
                     embedData = ('data' in response) ? response.data : [];
+
                     var data = [];
                     var o = 0;
                     var studentKeys = {};
@@ -228,7 +229,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     showError(response.error.message, 1);
                 }
                 $rootScope.doingResolve = false;
-
             })
             .error(function (response, status) {
 
