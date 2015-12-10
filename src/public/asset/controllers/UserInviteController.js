@@ -21,6 +21,7 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
                         'Authorization': 'Bearer ' + AuthenticationService.token
                     }
                 })
+
                     .success(function (response) {
                         if (response.success === true) {
                             showError(response.message, 2);
