@@ -207,14 +207,15 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                         response = response.info;
 
-                        $scope.studentdetails = response;
+                        var personal = $scope.personal = response.personal;
+
                         $scope.case_workers = response._embedded.users;
                         embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
                         embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
 
-                        $scope.case_workers = response._embedded.users;
-                        $scope.daysAttendance = parseInt(_.get(response, 'attendance.summaries.summary.daysInAttendance'));
-                        $scope.daysAbsent = parseInt(_.get(response, 'attendance.summaries.summary.daysAbsent'));
+                        $scope.case_workers = embedUsers;
+                        $scope.daysAttendance = parseInt(personal.daysInAttendance);
+                        $scope.daysAbsent = parseInt(personal.daysAbsent);
 
 
                         if (response.attendanceBehaviors) {
@@ -336,29 +337,15 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                         }
 
                         $scope.academicInfo = {
-                            currentSchool: 'N/A',
-                            expectedGraduationYear: 'N/A',
-                            gradeLevel: 'N/A',
-                            languageSpokenAtHome: 'N/A',
-                            iep: 'N/A',
-                            s504: 'N/A',
-                            freeReducedLunch: 'N/A'
+                            currentSchool: personal.enrollment.currentSchool || 'N/A',
+                            expectedGraduationYear: personal.enrollment.expectedGraduationYear || 'N/A',
+                            gradeLevel: personal.enrollment.gradeLevel || 'N/A',
+                            languageSpokenAtHome: personal.languageHome || 'N/A',
+                            iep: personal.ideaIndicator || 'N/A',
+                            s504: personal.section504Status || 'N/A',
+                            freeReducedLunch: (personal.eligibilityStatus && personal.enrollmentStatus) ? personal.enrollmentStatus : 'N/A'
                         };
 
-                        if (response.programs) {
-
-                            $scope.academicInfo.iep = _.get(response.programs, 'specialEducation.services[0].service.ideaIndicator') || _.get(response.programs, 'specialEducation.services.service.ideaIndicator') || 'N/A';
-                            $scope.academicInfo.s504 = _.get(response.programs, 'specialEducation.section504Status') || 'N/A';
-                            var eligibilityStatus = _.get(response.programs, 'foodService.eligibilityStatus');
-                            var enrollmentStatus = _.get(response.programs, 'foodService.enrollmentStatus');
-                            if (eligibilityStatus && enrollmentStatus) {
-                                $scope.academicInfo.freeReducedLunch = enrollmentStatus;
-                            }
-                        }
-                        $scope.academicInfo.gradeLevel = _.get(response, 'enrollment.gradeLevel') || 'N/A';
-                        $scope.academicInfo.expectedGraduationYear = _.get(response, 'enrollment.projectedGraduationYear') || 'N/A';
-                        $scope.academicInfo.languageSpokenAtHome = _.get(response, 'languages.language[1].code') || 'N/A';
-                        $scope.academicInfo.currentSchool = _.get(response, 'enrollment.school.schoolName') || 'N/A';
                         $scope.transcripts = response.transcripts || {};
                         $scope.total_data = _.size(response.transcripts.subject);
                         $scope.transcripts.subjectOrder = [];

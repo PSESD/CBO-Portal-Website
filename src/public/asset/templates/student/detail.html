@@ -36,11 +36,11 @@
                                                 <dt class="bold bold-title">{{ 'general.district_id' | i18n }}</dt>
                                                 <dd>{{ student.district_student_id }}</dd>
                                                 <dt class="bold bold-title">{{ 'general.brithday' | i18n }}</dt>
-                                                <dd>{{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}</dd>
+                                                <dd>{{personal.birthDate | date : 'MM/dd/yyyy' : timezone}}</dd>
                                                 <dt class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</dt>
-                                                <dd>{{studentdetails.demographics.races.race.race}}</dd>
+                                                <dd>{{personal.race}}</dd>
                                                 <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
-                                                <dd>{{studentdetails.demographics.sex}}</dd>
+                                                <dd>{{personal.gender}}</dd>
                                             </dl>
                                         </div>
                                         <div class="two-lines">
@@ -146,13 +146,13 @@
                                     <div class="col-md-6">
                                         <div class="two-lines-current-class">
                                             <div class="title">
-                                                <p class="subhead uppercase">{{ 'general.current_courses' | i18n }} <span class="bold bold-title">{{studentdetails.transcriptTerm.schoolYear}}</span></p>
+                                                <p class="subhead uppercase">{{ 'general.current_courses' | i18n }} <span class="bold bold-title">{{transcipts.info.currentSchoolYear}}</span></p>
                                                 <hr>
                                             </div>
                                         </div>
                                         <div class="content">
-                                            <div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
-                                                <span>{{course.courseTitle}}</span>
+                                            <div ng-repeat="courseTitle in transcipts.info.courseTitle">
+                                                <span>{{courseTitle}}</span>
                                                 <br/>
                                             </div>
                                         </div>
