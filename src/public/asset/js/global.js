@@ -1,6 +1,7 @@
-var screen = "";
+var screen = '';
+var global_redirect_url = '/';
 $(document).ready(function () {
-
+    'use strict';
     $(window).on('hashchange', function(e){
         var url = [];
         url.push(window.location.href);
@@ -11,7 +12,7 @@ $(document).ready(function () {
         $(".dropdown-menu").hide();
     });
 
-    if (typeof env !== 'undefined' && env == 'production') {
+    if (typeof env !== 'undefined' && env === 'production') {
         window.intercomSettings = {
             app_id: intercom_id
         };
@@ -25,29 +26,23 @@ $(document).ready(function () {
             } else {
                 var d = document;
                 var i = function () {
-                    i.c(arguments)
+                    i.c(arguments);
                 };
                 i.q = [];
                 i.c = function (args) {
-                    i.q.push(args)
+                    i.q.push(args);
                 };
                 w.Intercom = i;
 
-                function l() {
-                    var s = d.createElement('script');
-                    s.type = 'text/javascript';
-                    s.async = true;
-                    s.src = 'https://widget.intercom.io/widget/m9w2ywgr';
-                    var x = d.getElementsByTagName('script')[0];
-                    x.parentNode.insertBefore(s, x);
-                }
+
                 if (w.attachEvent) {
                     w.attachEvent('onload', l);
                 } else {
                     w.addEventListener('load', l, false);
                 }
             }
-        })()
+        })();
+
     }
 
     if ($(window).width() < 776) {
@@ -128,7 +123,7 @@ $(document).ready(function () {
     //    display = "mobile";
     //}
     $(window).on("resize", function () {
-        if ($(window).width() < 776 && screen =="desktop") {
+        if ($(window).width() < 776 && screen ==="desktop") {
             this.location.reload(false);
             $("#mobile").css({
                 "display": ""
@@ -166,13 +161,13 @@ $(document).ready(function () {
 
     });
     $('.collapse-icon').on("click", function () {
-        if (isCollapse == false) {
+        if (isCollapse === false) {
             $('#slide-menu').removeAttr('class');
             $('#slide-menu').addClass('collapse-icon glyphicon glyphicon-menu-hamburger');
             $('.navbar').hide();
             $('#dashboard-menu').show();
             isCollapse = true;
-        } else if (isCollapse == true) {
+        } else if (isCollapse === true) {
             isCollapse = false;
             $('#slide-menu').removeAttr('class');
             $('#slide-menu').addClass('collapse-icon glyphicon glyphicon-remove');
@@ -194,6 +189,7 @@ $(document).ready(function () {
 });
 
 function hideContent(curr) {
+    'use strict';
     jQuery(curr).parent().find('div.data-content').hide();
     jQuery(curr).parent().find('#content-help').hide();
     jQuery(curr).parent().find('.menu-up').hide();
@@ -201,8 +197,18 @@ function hideContent(curr) {
 }
 
 function showContent(curr) {
+    'use strict';
     jQuery(curr).parent().find('div.data-content').show();
     jQuery(curr).parent().find('#content-help').show();
     jQuery(curr).parent().find('.menu-up').show();
     jQuery(curr).parent().find('.menu-down').hide();
+}
+function l() {
+    'use strict';
+    var s = d.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = 'https://widget.intercom.io/widget/m9w2ywgr';
+    var x = d.getElementsByTagName('script')[0];
+    x.parentNode.insertBefore(s, x);
 }

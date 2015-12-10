@@ -19,6 +19,7 @@
                         <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_student' | i18n }}"/>
                         <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
                     </form>
+
                     <dropdown-multiselect class="no-background-color" model="selected_districts" title="District" options="districtData"></dropdown-multiselect>
                     <dropdown-multiselect class="no-background-color" model="selected_schools" title="School" options="schoolNameData"></dropdown-multiselect>
                     <!--<div class="inline no-background-color"  ng-dropdown-multiselect="" translation-texts="disctict"  options="districtData" selected-model="districtmod" extra-settings="filterSettings"></div>-->
@@ -39,6 +40,7 @@
                             </ng-pluralize>
                             {{ 'general.selected' | i18n }}</div>
                         </div>
+
                         <table class="table table-striped">
                             <thead>
                             <tr>

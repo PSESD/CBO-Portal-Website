@@ -119,7 +119,7 @@ angular.module('ui.date', [])
 }
 ])
 .factory('uiDateConverter', ['uiDateFormatConfig', function(uiDateFormatConfig){
-
+    'use strict';
     function dateToString(dateFormat, value){
         dateFormat = dateFormat || uiDateFormatConfig;
         if (value) {
@@ -155,6 +155,7 @@ angular.module('ui.date', [])
 }])
 .constant('uiDateFormatConfig', '')
 .directive('uiDateFormat', ['uiDateConverter', function(uiDateConverter) {
+ 'use strict';
   var directive = {
     require:'ngModel',
     link: function(scope, element, attrs, modelCtrl) {

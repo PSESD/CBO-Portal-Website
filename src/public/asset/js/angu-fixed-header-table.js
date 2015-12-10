@@ -4,6 +4,7 @@
  * @version 1.2.0
  */
 (function () {
+    'use strict';
     angular
         .module('anguFixedHeaderTable', [])
         .directive('fixedHeader', fixedHeader);
