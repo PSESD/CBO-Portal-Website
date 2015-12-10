@@ -15,7 +15,7 @@
  */
 
 ( function( window ) {
-
+    'use strict';
 
 
 // -------------------------- utils -------------------------- //
@@ -160,9 +160,9 @@ if ( typeof define === 'function' && define.amd ) {
 /*global define: false, module: false */
 
 ( function( window ) {
+    'use strict';
 
-
-
+'use strinct';
 var docElem = document.documentElement;
 
 var bind = function() {};
@@ -716,7 +716,7 @@ if ( typeof define === 'function' && define.amd ) {
 
 ( function( window ) {
 
-
+    'use strict';
 
 var prefixes = 'Webkit Moz ms Ms O'.split(' ');
 var docElemStyle = document.documentElement.style;
@@ -771,12 +771,13 @@ if ( typeof define === 'function' && define.amd ) {
 
 ( function( window, undefined ) {
 
-
+    'use strict';
 
 // -------------------------- helpers -------------------------- //
 
 // get a number from a string, not a percentage
 function getStyleSize( value ) {
+
   var num = parseFloat( value );
   // not a percent like '100%', and a number
   var isValid = value.indexOf('%') === -1 && !isNaN( num );
@@ -1021,9 +1022,7 @@ if ( typeof define === 'function' && define.amd ) {
 /*global define: false, require: false, module: false */
 
 ( function( window ) {
-
-
-
+    'use strict';
 var document = window.document;
 // collection of functions to be triggered on ready
 var queue = [];
@@ -1212,7 +1211,7 @@ if ( typeof define === 'function' && define.amd ) {
   'use strict';
   // universal module definition
 
-  if ( typeof define == 'function' && define.amd ) {
+  if ( typeof define === 'function' && define.amd ) {
     // AMD
     define( 'fizzy-ui-utils/utils',[
       'doc-ready/doc-ready',
@@ -1220,7 +1219,7 @@ if ( typeof define === 'function' && define.amd ) {
     ], function( docReady, matchesSelector ) {
       return factory( window, docReady, matchesSelector );
     });
-  } else if ( typeof exports == 'object' ) {
+  } else if ( typeof exports === 'object' ) {
     // CommonJS
     module.exports = factory(
       window,
@@ -1238,7 +1237,7 @@ if ( typeof define === 'function' && define.amd ) {
 
 }( window, function factory( window, docReady, matchesSelector ) {
 
-
+    'use strict';
 
 var utils = {};
 
@@ -1262,7 +1261,7 @@ utils.modulo = function( num, div ) {
   
 var objToString = Object.prototype.toString;
 utils.isArray = function( obj ) {
-  return objToString.call( obj ) == '[object Array]';
+  return objToString.call( obj ) === '[object Array]';
 };
 
 // ----- makeArray ----- //
@@ -1273,7 +1272,7 @@ utils.makeArray = function( obj ) {
   if ( utils.isArray( obj ) ) {
     // use object if already an array
     ary = obj;
-  } else if ( obj && typeof obj.length == 'number' ) {
+  } else if ( obj && typeof obj.length === 'number' ) {
     // convert nodeList to array
     for ( var i=0, len = obj.length; i < len; i++ ) {
       ary.push( obj[i] );
@@ -1303,7 +1302,7 @@ utils.indexOf = Array.prototype.indexOf ? function( ary, obj ) {
 
 utils.removeFrom = function( ary, obj ) {
   var index = utils.indexOf( ary, obj );
-  if ( index != -1 ) {
+  if ( index !== -1 ) {
     ary.splice( index, 1 );
   }
 };
@@ -1311,13 +1310,13 @@ utils.removeFrom = function( ary, obj ) {
 // ----- isElement ----- //
 
 // http://stackoverflow.com/a/384380/182183
-utils.isElement = ( typeof HTMLElement == 'function' || typeof HTMLElement == 'object' ) ?
+utils.isElement = ( typeof HTMLElement === 'function' || typeof HTMLElement === 'object' ) ?
   function isElementDOM2( obj ) {
     return obj instanceof HTMLElement;
   } :
   function isElementQuirky( obj ) {
-    return obj && typeof obj == 'object' &&
-      obj.nodeType == 1 && typeof obj.nodeName == 'string';
+    return obj && typeof obj === 'object' &&
+      obj.nodeType === 1 && typeof obj.nodeName === 'string';
   };
 
 // ----- setText ----- //
@@ -1335,7 +1334,7 @@ utils.setText = ( function() {
 // ----- getParent ----- //
 
 utils.getParent = function( elem, selector ) {
-  while ( elem != document.body ) {
+  while ( elem !== document.body ) {
     elem = elem.parentNode;
     if ( matchesSelector( elem, selector ) ) {
       return elem;
@@ -1347,7 +1346,7 @@ utils.getParent = function( elem, selector ) {
 
 // use element as selector string
 utils.getQueryElement = function( elem ) {
-  if ( typeof elem == 'string' ) {
+  if ( typeof elem === 'string' ) {
     return document.querySelector( elem );
   }
   return elem;
@@ -1641,8 +1640,8 @@ Item.prototype.getPosition = function() {
   var y = parseInt( yValue, 10 );
   // convert percent to pixels
   var layoutSize = this.layout.size;
-  x = xValue.indexOf('%') != -1 ? ( x / 100 ) * layoutSize.width : x;
-  y = yValue.indexOf('%') != -1 ? ( y / 100 ) * layoutSize.height : y;
+  x = xValue.indexOf('%') !== -1 ? ( x / 100 ) * layoutSize.width : x;
+  y = yValue.indexOf('%') !== -1 ? ( y / 100 ) * layoutSize.height : y;
 
   // clean up 'auto' or other non-integer values
   x = isNaN( x ) ? 0 : x;
@@ -2068,7 +2067,7 @@ return Item;
   'use strict';
   // universal module definition
 
-  if ( typeof define == 'function' && define.amd ) {
+  if ( typeof define === 'function' && define.amd ) {
     // AMD
     define( 'outlayer/outlayer',[
         'eventie/eventie',
@@ -2081,7 +2080,7 @@ return Item;
         return factory( window, eventie, EventEmitter, getSize, utils, Item);
       }
     );
-  } else if ( typeof exports == 'object' ) {
+  } else if ( typeof exports === 'object' ) {
     // CommonJS
     module.exports = factory(
       window,
@@ -2992,13 +2991,13 @@ return Outlayer;
 ( function( window, factory ) {
 'use strict';
   // universal module definition
-  if ( typeof define == 'function' && define.amd ) {
+  if ( typeof define === 'function' && define.amd ) {
     // AMD
     define( 'isotope/js/item',[
         'outlayer/outlayer'
       ],
       factory );
-  } else if ( typeof exports == 'object' ) {
+  } else if ( typeof exports === 'object' ) {
     // CommonJS
     module.exports = factory(
       require('outlayer')
@@ -3070,14 +3069,14 @@ return Item;
   'use strict';
   // universal module definition
 
-  if ( typeof define == 'function' && define.amd ) {
+  if ( typeof define === 'function' && define.amd ) {
     // AMD
     define( 'isotope/js/layout-mode',[
         'get-size/get-size',
         'outlayer/outlayer'
       ],
       factory );
-  } else if ( typeof exports == 'object' ) {
+  } else if ( typeof exports === 'object' ) {
     // CommonJS
     module.exports = factory(
       require('get-size'),
@@ -3142,7 +3141,7 @@ return Item;
     // check that this.size and size are there
     // IE8 triggers resize on body size change, so they might not be
     var hasSizes = this.isotope.size && size;
-    return hasSizes && size.innerHeight != this.isotope.size.innerHeight;
+    return hasSizes && size.innerHeight !== this.isotope.size.innerHeight;
   };
 
   // ----- measurements ----- //
@@ -3264,7 +3263,7 @@ return Item;
 
 
 // -------------------------- masonryDefinition -------------------------- //
-
+'use strict';
   // create an Outlayer layout class
   var Masonry = Outlayer.create('masonry');
 
@@ -3437,14 +3436,14 @@ return Item;
 ( function( window, factory ) {
   'use strict';
   // universal module definition
-  if ( typeof define == 'function' && define.amd ) {
+  if ( typeof define === 'function' && define.amd ) {
     // AMD
     define( 'isotope/js/layout-modes/masonry',[
         '../layout-mode',
         'masonry/masonry'
       ],
       factory );
-  } else if ( typeof exports == 'object' ) {
+  } else if ( typeof exports === 'object' ) {
     // CommonJS
     module.exports = factory(
       require('../layout-mode'),
@@ -3515,13 +3514,13 @@ function extend( a, b ) {
 ( function( window, factory ) {
   'use strict';
   // universal module definition
-  if ( typeof define == 'function' && define.amd ) {
+  if ( typeof define === 'function' && define.amd ) {
     // AMD
     define( 'isotope/js/layout-modes/fit-rows',[
         '../layout-mode'
       ],
       factory );
-  } else if ( typeof exports == 'object' ) {
+  } else if ( typeof exports === 'object' ) {
     // CommonJS
     module.exports = factory(
       require('../layout-mode')
@@ -3582,13 +3581,13 @@ return FitRows;
 ( function( window, factory ) {
   'use strict';
   // universal module definition
-  if ( typeof define == 'function' && define.amd ) {
+  if ( typeof define === 'function' && define.amd ) {
     // AMD
     define( 'isotope/js/layout-modes/vertical',[
         '../layout-mode'
       ],
       factory );
-  } else if ( typeof exports == 'object' ) {
+  } else if ( typeof exports === 'object' ) {
     // CommonJS
     module.exports = factory(
       require('../layout-mode')
@@ -3642,7 +3641,7 @@ return Vertical;
   'use strict';
   // universal module definition
 
-  if ( typeof define == 'function' && define.amd ) {
+  if ( typeof define === 'function' && define.amd ) {
     // AMD
     define( [
         'outlayer/outlayer',
@@ -3659,7 +3658,7 @@ return Vertical;
       function( Outlayer, getSize, matchesSelector, utils, Item, LayoutMode ) {
         return factory( window, Outlayer, getSize, matchesSelector, utils, Item, LayoutMode );
       });
-  } else if ( typeof exports == 'object' ) {
+  } else if ( typeof exports === 'object' ) {
     // CommonJS
     module.exports = factory(
       window,
@@ -3693,7 +3692,7 @@ return Vertical;
 
 
 // -------------------------- vars -------------------------- //
-
+'use strict';
 var jQuery = window.jQuery;
 
 // -------------------------- helpers -------------------------- //
@@ -3917,7 +3916,7 @@ var getText = docElem.textContent ?
         return jQuery( item.element ).is( filter );
       };
     }
-    if ( typeof filter == 'function' ) {
+    if ( typeof filter === 'function' ) {
       // use filter as function
       return function( item ) {
         return filter( item.element );
@@ -3984,7 +3983,7 @@ var getText = docElem.textContent ?
     // `.foo-bar parseInt` will parse that as a number
     function mungeSorter( sorter ) {
       // if not a string, return function or whatever it is
-      if ( typeof sorter != 'string' ) {
+      if ( typeof sorter !== 'string' ) {
         return sorter;
       }
       // parse the sorter string
@@ -4053,7 +4052,7 @@ var getText = docElem.textContent ?
     var itemSorter = getItemSorter( sortBys, this.options.sortAscending );
     this.filteredItems.sort( itemSorter );
     // keep track of sortBy History
-    if ( sortByOpt != this.sortHistory[0] ) {
+    if ( sortByOpt !== this.sortHistory[0] ) {
       // add to front, oldest goes in last
       this.sortHistory.unshift( sortByOpt );
     }

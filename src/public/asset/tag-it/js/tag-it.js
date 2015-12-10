@@ -25,7 +25,7 @@
 *   jQuery UI v1.8+
 */
 (function($) {
-
+    'use strict';
     $.widget('ui.tagit', {
         options: {
             allowDuplicates   : false,
@@ -126,7 +126,7 @@
 
             this.tagInput = $('<input type="text" />').addClass('ui-widget-content');
 
-            if (this.options.readOnly) this.tagInput.attr('disabled', 'disabled');
+            if (this.options.readOnly) {this.tagInput.attr('disabled', 'disabled');}
 
             if (this.options.tabIndex) {
                 this.tagInput.attr('tabindex', this.options.tabIndex);
@@ -224,7 +224,7 @@
             this.tagInput
                 .keydown(function(event) {
                     // Backspace is not detected within a keypress, so it must use keydown.
-                    if (event.which == $.ui.keyCode.BACKSPACE && that.tagInput.val() === '') {
+                    if (event.which === $.ui.keyCode.BACKSPACE && that.tagInput.val() === '') {
                         var tag = that._lastTag();
                         if (!that.options.removeConfirmation || tag.hasClass('remove')) {
                             // When backspace is pressed, the last tag is deleted.
@@ -244,17 +244,17 @@
                         (event.which === $.ui.keyCode.COMMA && event.shiftKey === false) ||
                         event.which === $.ui.keyCode.ENTER ||
                         (
-                            event.which == $.ui.keyCode.TAB &&
+                            event.which === $.ui.keyCode.TAB &&
                             that.tagInput.val() !== ''
                         ) ||
                         (
-                            event.which == $.ui.keyCode.SPACE &&
+                            event.which === $.ui.keyCode.SPACE &&
                             that.options.allowSpaces !== true &&
                             (
-                                $.trim(that.tagInput.val()).replace( /^s*/, '' ).charAt(0) != '"' ||
+                                $.trim(that.tagInput.val()).replace( /^s*/, '' ).charAt(0) !== '"' ||
                                 (
-                                    $.trim(that.tagInput.val()).charAt(0) == '"' &&
-                                    $.trim(that.tagInput.val()).charAt($.trim(that.tagInput.val()).length - 1) == '"' &&
+                                    $.trim(that.tagInput.val()).charAt(0) === '"' &&
+                                    $.trim(that.tagInput.val()).charAt($.trim(that.tagInput.val()).length - 1) === '"' &&
                                     $.trim(that.tagInput.val()).length - 1 !== 0
                                 )
                             )
@@ -389,7 +389,7 @@
         _subtractArray: function(a1, a2) {
             var result = [];
             for (var i = 0; i < a1.length; i++) {
-                if ($.inArray(a1[i], a2) == -1) {
+                if ($.inArray(a1[i], a2) === -1) {
                     result.push(a1[i]);
                 }
             }
@@ -413,7 +413,7 @@
             var that = this;
             var tag = null;
             this._tags().each(function(i) {
-                if (that._formatStr(name) == that._formatStr(that.tagLabel(this))) {
+                if (that._formatStr(name) === that._formatStr(that.tagLabel(this))) {
                     tag = $(this);
                     return false;
                 }
@@ -547,7 +547,7 @@
                 var tags = this.assignedTags();
                 var removedTagLabel = this.tagLabel(tag);
                 tags = $.grep(tags, function(el){
-                    return el != removedTagLabel;
+                    return el !== removedTagLabel;
                 });
                 this._updateSingleTagsField(tags);
             }

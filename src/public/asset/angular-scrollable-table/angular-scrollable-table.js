@@ -74,7 +74,7 @@
             scope[exprParts[1]] = row2;
             var y = $parse(exprParts[2])(scope);
 
-            if (x === y) return 0;
+            if (x === y) {return 0;}
             return x > y ? 1 : -1;
           }
 
@@ -129,7 +129,7 @@
                 headerWidth = width;
               if (lastCol.css("text-align") !== "center") {
                 var hasScrollbar = $element.find(".scrollArea").height() < $element.find("table").height();
-                if (lastCol[0] == el.parent()[0] && hasScrollbar) {
+                if (lastCol[0] === el.parent()[0] && hasScrollbar) {
                   headerWidth += $element.find(".scrollArea").width() - $element.find("tbody tr").width();
                   headerWidth = Math.max(headerWidth, width);
                 }
@@ -292,8 +292,7 @@
                 minWidthOfNextColOfActive = _getScale(nextElm.css('min-width'));
               movingPos = e.pageX;
               e.preventDefault();
-              if((offsetX > 0 && widthOfNextColOfActive - movedOffset <= minWidthOfNextColOfActive)
-                || (offsetX < 0 && widthOfActiveCol + movedOffset <= minWidthOfActiveCol)){
+              if((offsetX > 0 && widthOfNextColOfActive - movedOffset <= minWidthOfNextColOfActive) || (offsetX < 0 && widthOfActiveCol + movedOffset <= minWidthOfActiveCol)){
                 //stopping resize if user trying to extension and the active/next column already minimised.
                 return;
               }
@@ -339,7 +338,7 @@
 
           function _init(){
             var thInnerElms = elm.find('table th:not(:last-child) .th-inner');
-            if(thInnerElms.find('.resize-rod').length == 0){
+            if(thInnerElms.find('.resize-rod').length === 0){
               tableController.getTableElement().find('.scrollArea table').css('table-layout', 'auto');
               var resizeRod = angular.element('<div class="resize-rod" ng-mousedown="resizing($event)"></div>');
               thInnerElms.append($compile(resizeRod)(scope));
@@ -372,7 +371,7 @@
               width = Math.max(minWidth, width);
               //following are resize stuff, to made th-inner position correct.
               //last column's width should be automatically, to avoid horizontal scroll.
-              if (lastCol[0] != el.parent()[0]){
+              if (lastCol[0] !== el.parent()[0]){
                 el.parent().css('width', width);
               }
               el.css("left", headerPos);
@@ -386,7 +385,7 @@
               lastCol = tableElement.find("table th:visible:last");
             tableElement.find("table th:visible").each(function (index, el) {
               el = angular.element(el);
-              if(lastCol.get(0) == el.get(0)){
+              if(lastCol.get(0) === el.get(0)){
                 //last column's width should be automaically, to avoid horizontal scroll.
                 el.css('width', 'auto');
                 return;
@@ -403,7 +402,7 @@
             tableController.renderTalble().then(resizeHeaderWidth());
           }
         }
-      }
+      };
     }]);
 
   function _getScale(sizeCss){

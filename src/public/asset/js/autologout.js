@@ -9,12 +9,14 @@ var session_timeout = {
     warningStart: null,         //Date time the warning was started
     warningTimer: null,         //Timer running every second to countdown to logout
     logout: function () {       //Logout function once warningTimeout has expired
+        'use strict';
         //window.location = settings.autologout.logouturl;
         jQuery(document).idleTimer("destroy");
         clearInterval(session_timeout.warningTimer);
         clearInterval(session_timeout.keepaliveTimer);
     },
     logout2: function () {       //Logout function once warningTimeout has expired
+        'use strict';
         //window.location = settings.autologout.logouturl;
         jQuery(document).idleTimer("destroy");
         clearInterval(session_timeout.warningTimer);
@@ -23,6 +25,7 @@ var session_timeout = {
 
     },
     login: function() {
+        'use strict';
         jQuery(document).idleTimer(session_timeout.inactiveTimeout);
     },
 
@@ -38,6 +41,7 @@ keepAlive: function () {
 jQuery( document ).on( "idle.idleTimer", function(event, elem, obj){
     // function you want to fire when the user goes idle
     //Get time when user was last active
+    'use strict';
     var diff = (+new Date()) - obj.lastActive - obj.timeout,
     warning = (+new Date()) - diff;
     if(diff <= 0)
@@ -63,12 +67,14 @@ if (diff >= session_timeout.warningTimeout || warning <= session_timeout.minWarn
         clearInterval(session_timeout.warningTimer);
         session_timeout.logout2();
     }
-}, 1000)
+}, 1000);
 }
 
 });
 
 // create a timer to keep server session alive, independent of idle timer
+
 session_timeout.keepaliveTimer = setInterval(function () {
-session_timeout.keepAlive();
+    'use strict';
+    session_timeout.keepAlive();
 }, session_timeout.keepaliveInterval);

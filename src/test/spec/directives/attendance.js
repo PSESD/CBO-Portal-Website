@@ -1,10 +1,10 @@
-'use strict';
+
 
 describe('Directive: attendance', function () {
-
+  'use strict';
   // load the directive's module
   beforeEach(module('CboPortal'));
-
+  'use strict';
   var element,
     scope;
 
