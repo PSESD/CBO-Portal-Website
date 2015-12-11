@@ -1,6 +1,7 @@
 app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window',
     function ($route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window) {
         'use strict';
+
         var urlTemplate = 'asset/templates/popoverTemplate.html';
         $scope.templateUrl = 'asset/templates/popoverTemplate.html';
         $rootScope.full_screen = false;
@@ -23,82 +24,6 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         $scope.viewDebug = $routeParams.debug ? true : false;
         $scope.sch_history = false;
         $scope.academic = true;
-
-        $scope.attendance = "col-md-3";
-        $scope.attendance_table = false;
-        $scope.attendance_expand_btn = true;
-        $scope.attendance_close_btn = false;
-
-        $scope.behavior = "col-md-3";
-        $scope.behavior_table = false;
-        $scope.behavior_expand_btn = true;
-        $scope.behavior_close_btn = false;
-
-        $scope.courses = "col-md-3";
-        $scope.courses_table = false;
-        $scope.courses_expand_btn = true;
-        $scope.courses_close_btn = false;
-
-        $scope.program = "col-md-3";
-        $scope.program_table = false;
-        $scope.program_expand_btn = true;
-        $scope.program_close_btn = false;
-
-        $scope.expandAttendance = function () {
-            $scope.attendance = "col-md-6";
-            $scope.attendance_table = true;
-            $scope.attendance_expand_btn = false;
-            $scope.attendance_close_btn = true;
-        };
-
-        $scope.closeAttendance = function () {
-            $scope.attendance = "col-md-3";
-            $scope.attendance_table = false;
-            $scope.attendance_expand_btn = true;
-            $scope.attendance_close_btn = false;
-        };
-
-        $scope.expandBehavior = function () {
-            $scope.behavior = "col-md-6";
-            $scope.behavior_table = true;
-            $scope.behavior_expand_btn = false;
-            $scope.behavior_close_btn = true;
-        };
-
-        $scope.closeBehavior = function () {
-            $scope.behavior = "col-md-3";
-            $scope.behavior_table = false;
-            $scope.behavior_expand_btn = true;
-            $scope.behavior_close_btn = false;
-        };
-
-        $scope.expandCourses = function () {
-            $scope.courses = "col-md-6";
-            $scope.courses_table = true;
-            $scope.courses_expand_btn = false;
-            $scope.courses_close_btn = true;
-        };
-
-        $scope.closeCourses = function () {
-            $scope.courses = "col-md-3";
-            $scope.courses_table = false;
-            $scope.courses_expand_btn = true;
-            $scope.courses_close_btn = false;
-        };
-
-        $scope.expandProgram = function () {
-            $scope.program = "col-md-6";
-            $scope.program_table = true;
-            $scope.program_expand_btn = false;
-            $scope.program_close_btn = true;
-        };
-
-        $scope.closeProgram = function () {
-            $scope.program = "col-md-3";
-            $scope.program_table = false;
-            $scope.program_expand_btn = true;
-            $scope.program_close_btn = false;
-        };
 
         $scope.showSchoolHistory = function () {
             $scope.sch_history = true;
@@ -165,6 +90,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             }
         })
             .success(function (response) {
+
                 $.each(schoolDistricts, function (key, value) {
                     if (key === response.school_district) {
                         response.school_district = value;
@@ -178,8 +104,6 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             })
             .error(function (response, status) {
 
-                //console.log(response);
-                //console.log(status);
                 showError(response.error, 1);
                 $rootScope.doingResolve = false;
                 if (status === 401) {
@@ -189,7 +113,10 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 }
 
             });
+
+
         var getXsre = function () {
+
             $scope.loading_icon = false;
             $('.loading-icon').removeClass('hide');
             $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
@@ -220,6 +147,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                         if (response.attendanceBehaviors) {
                             angular.forEach(response.attendanceBehaviors, function (behavior) {
+
                                 Object.keys(behavior).forEach(function (key) {
                                     var columnHtml = {};
                                     angular.forEach(behavior[key].detailColumns, function (column, i) {
@@ -384,18 +312,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                         for (var i = 0; i < $scope.programs.length; i++) {
                             var program = $scope.programs[i];
-                            // Should we create a new group? --> fix error fail logic
-                            //if (program['years'] !== groupValue) {
-                            //    //var group = {
-                            //    //    years: program['years'],
-                            //    //    programs: []
-                            //    //};
-                            //    //groupValue = group.years;
-                            //    //$scope.list_programs.push(group);
-                            //}
-
-                            //group.programs.push(program);
-
+                            
                             if (Object.keys(yearPrograms).indexOf(program.years) === -1) {
                                 yearPrograms[program.years] = [];
                             }
@@ -420,8 +337,6 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 })
                 .error(function (response, status) {
 
-                    //console.log(response);
-                    //console.log(status);
                     $scope.loading_icon = true;
                     $('.loading-icon').addClass('hide');
                     showError(response.error, 1);
@@ -437,6 +352,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
         getXsre();
 
+
+
         $scope.showDebug = function () {
             $window.open($window.location.origin + '/#/student/xsre/' + student_id);
         };
@@ -445,6 +362,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
          * Update Now, remove cache and reload the page content
          */
         $scope.updateNow = function () {
+
             $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
@@ -452,12 +370,9 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             })
                 .success(function () {
                     getXsre();
-                    //console.log(response);
                 })
                 .error(function (response, status) {
 
-                    //console.log(response);
-                    //console.log(status);
                     $scope.loading_icon = true;
                     $('.loading-icon').addClass('hide');
                     showError(response.error, 1);
