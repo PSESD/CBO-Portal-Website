@@ -559,7 +559,7 @@ ul li.transcript-content:nth-child(7) {
 }
 .transcript-container .inner-transcript-container{
     overflow: auto;
-    height: 420px;
+    /*height: 420px;*/
 }
 .school.history {
     width: 42.6%;
