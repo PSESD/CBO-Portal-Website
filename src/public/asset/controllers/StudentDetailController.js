@@ -135,7 +135,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                         response = response.info;
 
                         var personal = $scope.personal = response.personal;
-
+                        $scope.personal.race = personal.race.split(/(?=[A-Z])/).join(" ");
                         $scope.case_workers = response._embedded.users;
                         embedUsers = ('users' in response._embedded) ? response._embedded.users : {};
                         embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];

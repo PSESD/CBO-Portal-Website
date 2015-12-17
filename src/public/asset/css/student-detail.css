@@ -1,3 +1,6 @@
+.popover-content{
+    width:180px;
+}
 .no-data {
     margin: 0;
     padding: 25px;
@@ -752,6 +755,7 @@ ul li.transcript-content:nth-child(7) {
     }
 }
 .subhead.transcript {
+
     padding: 0;
     margin: 0;
     font-weight: bold;
@@ -874,6 +878,9 @@ ul.cohorts {
 }
 .two-lines-current-class {
     width: 245px;
+}
+.two-lines > .title{
+    width:200px;
 }
 .aligning {
     padding-left: 0;

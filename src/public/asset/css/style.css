@@ -411,6 +411,7 @@ select{
     }
     .subhead {
         text-transform: uppercase;
+        width: 150px;
     }
     #collapse-sidebarmenu:hover {
         cursor: pointer;
