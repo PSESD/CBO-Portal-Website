@@ -401,7 +401,7 @@
                                     {{ 'general.attempted' | i18n }}
                                 </dd>
                                 <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
-                                <dd>{{ ::transcripts.gradeLevel }}</dd>
+                                <dd>{{ ::transcripts.info.gradeLevel }}</dd>
                             </dl>
 
                             <div>
@@ -462,7 +462,7 @@
                                     </dl>
                                 </li>
                                 <li class="transcript-content tcontent-{{total_data}}-col" ng-repeat="course in transDetail.transcriptsOrder">
-                                    <div class="transcript-descriptor" ng-if="course.value === null                                        ">
+                                    <div class="transcript-descriptor" ng-if="course.value === null">
 
                                     </div>
                                     <div class="transcript-display" ng-if="course.value === null">
