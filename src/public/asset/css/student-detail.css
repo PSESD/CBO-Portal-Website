@@ -879,8 +879,8 @@ ul.cohorts {
 .two-lines-current-class {
     width: 245px;
 }
-.two-lines > .title{
-    width:200px;
+.two-lines,.two-lines-current-class > .title{
+    width:130px;
 }
 .aligning {
     padding-left: 0;
