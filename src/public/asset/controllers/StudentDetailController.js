@@ -288,10 +288,9 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                         });
                         var courseTitle = response.transcripts.info.courseTitle;
 
-                        $scope.courses = courseTitle;
+                       $scope.courses = courseTitle;
 
                         $scope.xsreLastUpdated = response.lastUpdated;
-
 
                         angular.forEach(embedPrograms, function (v) {
                             var program = {
