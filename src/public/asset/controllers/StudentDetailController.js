@@ -286,6 +286,9 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                                 item.transcriptsOrder.push({name: k, value: i});
                             });
                         });
+                        var courseTitle = response.transcripts.info.courseTitle;
+
+                        $scope.courses = courseTitle;
 
                         $scope.xsreLastUpdated = response.lastUpdated;
 
@@ -364,6 +367,72 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         $scope.updateNow = function () {
 
             $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
+                headers: {
+                    'Authorization': 'Bearer ' + AuthenticationService.token
+                }
+            })
+                .success(function () {
+                    getXsre();
+                })
+                .error(function (response, status) {
+
+                    $scope.loading_icon = true;
+                    $('.loading-icon').addClass('hide');
+                    showError(response.error, 1);
+                    $rootScope.doingResolve = false;
+                    if (status === 401) {
+                        $rootScope.show_footer = false;
+                        CookieStore.clearData();
+                        $location.path('/login');
+                    }
+
+                });
+
+            $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre?separate=attendance', {
+                headers: {
+                    'Authorization': 'Bearer ' + AuthenticationService.token
+                }
+            })
+                .success(function () {
+                    getXsre();
+                })
+                .error(function (response, status) {
+
+                    $scope.loading_icon = true;
+                    $('.loading-icon').addClass('hide');
+                    showError(response.error, 1);
+                    $rootScope.doingResolve = false;
+                    if (status === 401) {
+                        $rootScope.show_footer = false;
+                        CookieStore.clearData();
+                        $location.path('/login');
+                    }
+
+                });
+
+            $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre?separate=transcript', {
+                headers: {
+                    'Authorization': 'Bearer ' + AuthenticationService.token
+                }
+            })
+                .success(function () {
+                    getXsre();
+                })
+                .error(function (response, status) {
+
+                    $scope.loading_icon = true;
+                    $('.loading-icon').addClass('hide');
+                    showError(response.error, 1);
+                    $rootScope.doingResolve = false;
+                    if (status === 401) {
+                        $rootScope.show_footer = false;
+                        CookieStore.clearData();
+                        $location.path('/login');
+                    }
+
+                });
+
+            $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre?separate=assessment', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
