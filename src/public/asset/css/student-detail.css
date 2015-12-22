@@ -1,3 +1,6 @@
+dl{
+    margin-bottom: 0;
+}
 .popover-content{
     width:180px;
 }
@@ -42,13 +45,14 @@
     display: none;
 }
 .top-space {
-    margin-top: 10px;
+    margin-top: 0;
 }
 .display-inline-blk {
     display: inline-block;
 }
 .bottom-space {
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
+    margin-bottom:0;
 }
 
 .hoverable:not(:hover) + .show-on-hover {
@@ -464,7 +468,7 @@ ul.transcript li {
 ul li.transcript-content {
     padding: 0;
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     letter-spacing: 1px;
 }
