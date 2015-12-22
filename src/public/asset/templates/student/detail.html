@@ -470,7 +470,7 @@
                                     </div>
                                     <div class="transcript-content-array" ng-if="course.value !== null" ng-repeat="c in course.value">
                                         <div class="transcript-descriptor">
-                                            <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }}">{{ ::c.title }}</div>
+                                            <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }} transcript-title">{{ ::c.title }}</div>
                                             <hr class="hr-transcript">
                                             <div class="attempted-credit">
                                                 <dl>
@@ -525,7 +525,7 @@
                                             </div>
                                         </div>
                                         <div class="transcript-display">
-                                            <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }}">{{ ::c.title }}</div>
+                                            <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }} transcript-title">{{ ::c.title }}</div>
                                             <hr class="hr-transcript">
                                             <div class="attempted-credit">
                                                 <dl>

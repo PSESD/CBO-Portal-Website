@@ -75,13 +75,13 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             $scope.setStudentDetailActiveTab(e.target.dataset.target);
             if(e.target.dataset.target === "#transcript")
             {
-                load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
+                //load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
             }else if(e.target.dataset.target === "#program_participation")
             {
-                load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
+               // load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
             }else if(e.target.dataset.target === "#attendance_and_behavior")
             {
-                load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
+                //load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
             }
 
         });
