@@ -2,10 +2,9 @@ var general_data = "";
 var attendance_data = "";
 var transcript_data = "";
 var program_participation_data = "";
-app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window',
-    function ($route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window) {
+app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache',
+    function ($route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
         'use strict';
-
 
         var attendance = "";
         var transcript = "";
@@ -101,94 +100,53 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             var is = (activeTab === tabName || (activeTab === null && index === 0));
             return is;
         };
-        load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
-        //load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
-
+        load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
 
         var getXsre = function () {
 
-            $scope.loading_icon = false;
-            $('.loading-icon').removeClass('hide');
-            $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
-                headers: {
-                    'Authorization': 'Bearer ' + AuthenticationService.token
-                }
-            })
-                .success(function (response) {
 
-                    var embedUsers = {};
-                    var embedPrograms = [];
-                    //$scope.attendanceBehavior = [];
 
-                    if (response.success !== false && response.info) {
+                $scope.loading_icon = false;
+                $('.loading-icon').removeClass('hide');
+                $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
+                    headers: {
+                        'Authorization': 'Bearer ' + AuthenticationService.token
+                    }
+                })
+                    .success(function (response) {
 
-                        response = response.info;
+                        if (response.success !== false && response.info) {
 
-                        var personal = $scope.personal = response.personal;
-                        embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
+                            response = response.info;
+                            //StudentCache.put(student_id +"xsre",response);
+                            generate_xsre_data(response,$scope)
 
-                        //$scope.case_workers = embedUsers;
-                        $scope.daysAttendance = parseInt(personal.daysInAttendance);
-                        $scope.daysAbsent = parseInt(personal.daysAbsent);
+                        } else {
 
-                        angular.forEach(embedPrograms, function (v) {
-                            var program = {
-                                "years": new Date(v.participation_start_date).getFullYear(),
-                                "name": v.program_name,
-                                "start_date": v.participation_start_date,
-                                "end_date": new Date(v.participation_end_date) >= Date.now() ? 'Present' : v.participation_end_date,
-                                "active": v.active ? "Active" : "Inactive",
-                                "cohorts": v.cohort
-                            };
-                            $scope.programs.push(program);
-                        });
-                        $scope.programs.sort(function (a, b) {
-                            if (a.years >= b.years) {
-                                return (-1);
-                            }
-                            return (1);
-                        });
+                            showError(response.error, 1);
 
-                        var yearPrograms = {};
+                        }
+                        $scope.loading_icon = true;
+                        $('.loading-icon').addClass('hide');
+                        $rootScope.doingResolve = false;
+                    })
+                    .error(function (response, status) {
 
-                        for (var i = 0; i < $scope.programs.length; i++) {
-                            var program = $scope.programs[i];
-
-                            if (Object.keys(yearPrograms).indexOf(program.years) === -1) {
-                                yearPrograms[program.years] = [];
-                            }
-                            yearPrograms[program.years].push(program);
+                        $scope.loading_icon = true;
+                        $('.loading-icon').addClass('hide');
+                        showError(response.error, 1);
+                        $rootScope.doingResolve = false;
+                        if (status === 401) {
+                            $rootScope.show_footer = false;
+                            CookieStore.clearData();
+                            $location.path('/login');
                         }
 
-                        angular.forEach(yearPrograms, function (items, year) {
-                            $scope.list_programs.push({
-                                years: year,
-                                programs: items
-                            });
-                        });
+                    });
 
-                    } else {
 
-                        showError(response.error, 1);
 
-                    }
-                    $scope.loading_icon = true;
-                    $('.loading-icon').addClass('hide');
-                    $rootScope.doingResolve = false;
-                })
-                .error(function (response, status) {
 
-                    $scope.loading_icon = true;
-                    $('.loading-icon').addClass('hide');
-                    showError(response.error, 1);
-                    $rootScope.doingResolve = false;
-                    if (status === 401) {
-                        $rootScope.show_footer = false;
-                        CookieStore.clearData();
-                        $location.path('/login');
-                    }
-
-                });
         };
 
         getXsre();
@@ -295,166 +253,246 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
     }]);
 
-function load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope)
+function generate_xsre_data(response,$scope)
+{
+    var embedPrograms = [];
+    var personal = $scope.personal = response.personal;
+    embedPrograms = ('programs' in response._embedded) ? response._embedded.programs : [];
+    //$scope.case_workers = embedUsers;
+    $scope.daysAttendance = parseInt(personal.daysInAttendance);
+    $scope.daysAbsent = parseInt(personal.daysAbsent);
+
+    angular.forEach(embedPrograms, function (v) {
+        var program = {
+            "years": new Date(v.participation_start_date).getFullYear(),
+            "name": v.program_name,
+            "start_date": v.participation_start_date,
+            "end_date": new Date(v.participation_end_date) >= Date.now() ? 'Present' : v.participation_end_date,
+            "active": v.active ? "Active" : "Inactive",
+            "cohorts": v.cohort
+        };
+        $scope.programs.push(program);
+    });
+    $scope.programs.sort(function (a, b) {
+        if (a.years >= b.years) {
+            return (-1);
+        }
+        return (1);
+    });
+
+    var yearPrograms = {};
+
+    for (var i = 0; i < $scope.programs.length; i++) {
+        var program = $scope.programs[i];
+
+        if (Object.keys(yearPrograms).indexOf(program.years) === -1) {
+            yearPrograms[program.years] = [];
+        }
+        yearPrograms[program.years].push(program);
+    }
+
+    angular.forEach(yearPrograms, function (items, year) {
+        $scope.list_programs.push({
+            years: year,
+            programs: items
+        });
+    });
+
+}
+
+function load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache)
 {
     'use strict';
 
     var assignedUsers = {};
-
     $scope.student = {};
     $scope.xsreLastUpdated = null;
 
-    $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id+'/general', {
-        headers: {
-            'Authorization': 'Bearer ' + AuthenticationService.token
-        }
-    })
-        .success(function (response) {
+    if(angular.isUndefined(StudentCache.get(student_id + "general")) === true)
+    {
 
-            if(response.success === true && response.info !== undefined)
-            {
-                general_data = response.info;
-                $.each(schoolDistricts, function (key, value) {
-                    if (key === general_data.personal.schoolDistrict) {
-                        $scope.student.schoolDistrict = value;
-                    }
-                });
-                $scope.student = general_data.personal;
-                $scope.student._id = student_id;
-                $scope.student.race = general_data.personal.race.split(/(?=[A-Z])/).join(" ");
-                assignedUsers = ('users' in general_data._embedded) ? general_data._embedded.users : {};
-                $scope.case_workers = assignedUsers;
-                $scope.academicInfo = {
-                    currentSchool: general_data.personal.enrollment.currentSchool || 'N/A',
-                    expectedGraduationYear: general_data.personal.enrollment.expectedGraduationYear || 'N/A',
-                    gradeLevel: general_data.personal.enrollment.gradeLevel || 'N/A',
-                    languageSpokenAtHome: general_data.personal.languageHome || 'N/A',
-                    iep: general_data.personal.ideaIndicator || 'N/A',
-                    s504: general_data.personal.section504Status || 'N/A',
-                    freeReducedLunch: (general_data.personal.eligibilityStatus && general_data.personal.enrollmentStatus) ? general_data.personal.enrollmentStatus : 'N/A'
-                };
-                $scope.xsreLastUpdated = general_data.lastUpdated;
+        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id+'/general', {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
             }
         })
-        .error(function (response, status) {
+            .success(function (response) {
 
-            showError(response.error, 1);
-            $rootScope.doingResolve = false;
-            if (status === 401) {
-                $rootScope.show_footer = false;
-                CookieStore.clearData();
-                $location.path('/login');
-            }
+                if(response.success === true && response.info !== undefined)
+                {
+                    general_data = response.info;
+                    StudentCache.put(student_id +"general",general_data);
+                    generate_general_data(general_data,$scope,student_id);
+                }
+            })
+            .error(function (response, status) {
 
-        });
+                showError(response.error, 1);
+                $rootScope.doingResolve = false;
+                if (status === 401) {
+                    $rootScope.show_footer = false;
+                    CookieStore.clearData();
+                    $location.path('/login');
+                }
+
+            });
+
+    }
+    else
+    {
+       generate_general_data(StudentCache.get(student_id + "general"),$scope,student_id);
+    }
+
+
 
 }
 
-function load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope)
+function generate_general_data(general_data,$scope,student_id)
+{
+    $.each(schoolDistricts, function (key, value) {
+        if (key === general_data.personal.schoolDistrict) {
+            $scope.student.schoolDistrict = value;
+        }
+    });
+    $scope.student = general_data.personal;
+    $scope.student._id = student_id;
+    $scope.student.race = general_data.personal.race.split(/(?=[A-Z])/).join(" ");
+    assignedUsers = ('users' in general_data._embedded) ? general_data._embedded.users : {};
+    $scope.case_workers = assignedUsers;
+    $scope.academicInfo = {
+        currentSchool: general_data.personal.enrollment.currentSchool || 'N/A',
+        expectedGraduationYear: general_data.personal.enrollment.expectedGraduationYear || 'N/A',
+        gradeLevel: general_data.personal.enrollment.gradeLevel || 'N/A',
+        languageSpokenAtHome: general_data.personal.languageHome || 'N/A',
+        iep: general_data.personal.ideaIndicator || 'N/A',
+        s504: general_data.personal.section504Status || 'N/A',
+        freeReducedLunch: (general_data.personal.eligibilityStatus && general_data.personal.enrollmentStatus) ? general_data.personal.enrollmentStatus : 'N/A'
+    };
+    $scope.xsreLastUpdated = general_data.lastUpdated;
+}
+
+function load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache)
 {
     'use strict';
 
     $scope.attendanceBehavior = [];
     var urlTemplate = 'asset/templates/popoverTemplate.html';
+    if(angular.isUndefined(StudentCache.get(student_id + "attendance")) === true)
+    {
 
-    $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/attendance', {
-        headers: {
-            'Authorization': 'Bearer ' + AuthenticationService.token
-        }
-    }).success(function (response){
-        if(response.success === true && response.info.data !== undefined)
-        {
-            attendance_data = response.info.data;
-            angular.forEach(attendance_data, function (behavior) {
+        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/attendance', {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+        }).success(function (response){
+            if(response.success === true && response.info.data !== undefined)
+            {
+                attendance_data = response.info.data;
+                StudentCache.put(student_id + "attendance",attendance_data);
+                generate_attendance_data(attendance_data,$scope,urlTemplate);
 
-                Object.keys(behavior).forEach(function (key) {
-                    var columnHtml = {};
+            }
+        })
+            .error(function (response, status) {
 
-                    angular.forEach(behavior[key].detailColumns, function (column, i) {
+                showError(response.error, 1);
+                $rootScope.doingResolve = false;
+                if (status === 401) {
+                    $rootScope.show_footer = false;
+                    CookieStore.clearData();
+                    $location.path('/login');
+                }
 
-                        if (i !== 'periods' && i !== 'weeklyChange') {
-                            var xhtml = [];
-                            var x = 1;
-                            var cls = '';
-                            angular.forEach(column, function (item, n) {
+            });
 
-                                if (n > 0) {
-                                    var html = {};
-                                    cls = (x % 2 === 0) ? 'light' : '';
-                                    x++;
-                                    if (typeof item === 'object' && item.event !== null) {
-                                        html = {
-                                            slug: item.slug,
-                                            stripping: cls,
-                                            na: '',
-                                            fontcolor: item.slug + '-font-color',
-                                            pagetitle: item.slug.toUpperCase(),
-                                            eventdate: item.event.calendarEventDate,
-                                            description: item.event.attendanceStatusTitle,
-                                            url: urlTemplate
-                                        };
-                                    } else {
-                                        html = {
-                                            slug: '',
-                                            stripping: cls,
-                                            na: 'n_a',
-                                            fontcolor: '',
-                                            pagetitle: '',
-                                            eventdate: '',
-                                            description: '',
-                                            url: ''
-                                        };
-                                    }
-                                    xhtml.push(html);
-                                }
-                            });
+    }
+    else
+    {
+        generate_attendance_data(StudentCache.get(student_id + "attendance"),$scope,urlTemplate);
+    }
 
-                            for (; x < 8; x++) {
+
+
+}
+
+function generate_attendance_data(attendance_data,$scope,urlTemplate)
+{
+    angular.forEach(attendance_data, function (behavior) {
+
+        Object.keys(behavior).forEach(function (key) {
+            var columnHtml = {};
+
+            angular.forEach(behavior[key].detailColumns, function (column, i) {
+
+                if (i !== 'periods' && i !== 'weeklyChange') {
+                    var xhtml = [];
+                    var x = 1;
+                    var cls = '';
+                    angular.forEach(column, function (item, n) {
+
+                        if (n > 0) {
+                            var html = {};
+                            cls = (x % 2 === 0) ? 'light' : '';
+                            x++;
+                            if (typeof item === 'object' && item.event !== null) {
+                                html = {
+                                    slug: item.slug,
+                                    stripping: cls,
+                                    na: '',
+                                    fontcolor: item.slug + '-font-color',
+                                    pagetitle: item.slug.toUpperCase(),
+                                    eventdate: item.event.calendarEventDate,
+                                    description: item.event.attendanceStatusTitle,
+                                    url: urlTemplate
+                                };
+                            } else {
                                 html = {
                                     slug: '',
-                                    stripping: '',
-                                    na: '',
+                                    stripping: cls,
+                                    na: 'n_a',
                                     fontcolor: '',
                                     pagetitle: '',
                                     eventdate: '',
                                     description: '',
                                     url: ''
                                 };
-                                xhtml.push(html);
                             }
-                            var items = behavior[key].behaviors[i];
+                            xhtml.push(html);
+                        }
+                    });
 
-                            if (items.length > 0) {
+                    for (; x < 8; x++) {
+                        html = {
+                            slug: '',
+                            stripping: '',
+                            na: '',
+                            fontcolor: '',
+                            pagetitle: '',
+                            eventdate: '',
+                            description: '',
+                            url: ''
+                        };
+                        xhtml.push(html);
+                    }
+                    var items = behavior[key].behaviors[i];
 
-                                angular.forEach(items, function (item, i) {
-                                    var html = {};
-                                    if (typeof item === 'object') {
-                                        html = {
-                                            slug: 'unexcused',
-                                            stripping: cls,
-                                            na: '',
-                                            fontcolor: 'unexcused-font-color',
-                                            pagetitle: (item.incidentCategoryTitle + '').toUpperCase(),
-                                            eventdate: item.incidentDate,
-                                            description: item.description,
-                                            url: urlTemplate
-                                        };
-                                    } else {
-                                        html = {
-                                            slug: '',
-                                            stripping: '',
-                                            na: 'n_a',
-                                            fontcolor: '',
-                                            pagetitle: '',
-                                            eventdate: '',
-                                            description: '',
-                                            url: ''
-                                        };
-                                    }
-                                    xhtml.push(html);
-                                });
+                    if (items.length > 0) {
+
+                        angular.forEach(items, function (item, i) {
+                            var html = {};
+                            if (typeof item === 'object') {
+                                html = {
+                                    slug: 'unexcused',
+                                    stripping: cls,
+                                    na: '',
+                                    fontcolor: 'unexcused-font-color',
+                                    pagetitle: (item.incidentCategoryTitle + '').toUpperCase(),
+                                    eventdate: item.incidentDate,
+                                    description: item.description,
+                                    url: urlTemplate
+                                };
                             } else {
-                                var html = {
+                                html = {
                                     slug: '',
                                     stripping: '',
                                     na: 'n_a',
@@ -464,91 +502,105 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
                                     description: '',
                                     url: ''
                                 };
-                                xhtml.push(html);
                             }
-                            //xhtml.push(html);
-                            columnHtml[i] = xhtml;
-                            behavior[key].columnHtml = columnHtml;
-                            if (behavior[key].detailColumns.periods.length < 7) {
-                                for (var j = 7; j > behavior[key].detailColumns.periods.length; j--) {
-                                    behavior[key].detailColumns.periods.push("");
-                                }
-                            }
-                        }
-
-                    });
+                            xhtml.push(html);
+                        });
+                    } else {
+                        var html = {
+                            slug: '',
+                            stripping: '',
+                            na: 'n_a',
+                            fontcolor: '',
+                            pagetitle: '',
+                            eventdate: '',
+                            description: '',
+                            url: ''
+                        };
+                        xhtml.push(html);
+                    }
+                    //xhtml.push(html);
+                    columnHtml[i] = xhtml;
                     behavior[key].columnHtml = columnHtml;
+                    if (behavior[key].detailColumns.periods.length < 7) {
+                        for (var j = 7; j > behavior[key].detailColumns.periods.length; j--) {
+                            behavior[key].detailColumns.periods.push("");
+                        }
+                    }
+                }
 
-                    $scope.attendanceBehavior.push(behavior[key]);
-                });
+            });
+            behavior[key].columnHtml = columnHtml;
+
+            $scope.attendanceBehavior.push(behavior[key]);
+        });
+    });
+}
+
+function load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache)
+{
+'use strict';
+    if(angular.isUndefined(StudentCache.get(student_id + "transcript")) === true)
+    {
+
+        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/transcript', {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+        }).success(function (response){
+
+            if(response.success === true && response.info !== undefined)
+            {
+
+                transcript_data = response.info || {};
+                StudentCache.put(student_id + "transcript",transcript_data);
+                generate_transcript_data(transcript_data,$scope);
+            }
+        })
+            .error(function (response, status) {
+
+                showError(response.error, 1);
+                $rootScope.doingResolve = false;
+                if (status === 401) {
+                    $rootScope.show_footer = false;
+                    CookieStore.clearData();
+                    $location.path('/login');
+                }
+
             });
 
-        }
-    })
-        .error(function (response, status) {
-
-            showError(response.error, 1);
-            $rootScope.doingResolve = false;
-            if (status === 401) {
-                $rootScope.show_footer = false;
-                CookieStore.clearData();
-                $location.path('/login');
-            }
-
-        });
+    }
+    else
+    {
+        generate_transcript_data(StudentCache.get(student_id + "transcript"),$scope);
+    }
 
 }
 
-function load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope)
+function generate_transcript_data(transcript_data,$scope)
 {
-'use strict';
-    $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/transcript', {
-        headers: {
-            'Authorization': 'Bearer ' + AuthenticationService.token
-        }
-    }).success(function (response){
+    $scope.history = transcript_data.source.history;
 
-        if(response.success === true && response.info !== undefined)
-        {
+    var courseTitle = transcript_data.source.info.courseTitle;
+    $scope.courses = courseTitle;
 
-            transcript_data = response.info || {};
-            $scope.history = transcript_data.source.history;
+    $scope.total_data = _.size(transcript_data.source.subject);
+    $scope.transcripts =
+    {
+        subjectOrder : []
+    };
 
-            var courseTitle = transcript_data.source.info.courseTitle;
-            $scope.courses = courseTitle;
-
-            $scope.total_data = _.size(transcript_data.source.subject);
-            $scope.transcripts =
-            {
-                subjectOrder : []
-            };
-
-            _.each(transcript_data.source.subject, function (item, key) {
-                $scope.transcripts.subjectOrder.push({name: key, value: item});
-            });
-            _.each(transcript_data.data, function (item) {
-                item.transcriptsOrder = [];
-                _.each(item.transcripts, function (i, k) {
-                    item.transcriptsOrder.push({name: k, value: i});
-                });
-            });
-            $scope.transcripts = transcript_data.data;
-            $scope.credit_earned = transcript_data.source.totalCreditsEarned;
-            $scope.credit_attempted = transcript_data.source.totalCreditsAttempted;
-        }
-    })
-        .error(function (response, status) {
-
-            showError(response.error, 1);
-            $rootScope.doingResolve = false;
-            if (status === 401) {
-                $rootScope.show_footer = false;
-                CookieStore.clearData();
-                $location.path('/login');
-            }
-
+    _.each(transcript_data.source.subject, function (item, key) {
+        $scope.transcripts.subjectOrder.push({name: key, value: item});
+    });
+    _.each(transcript_data.data, function (item) {
+        item.transcriptsOrder = [];
+        _.each(item.transcripts, function (i, k) {
+            item.transcriptsOrder.push({name: k, value: i});
         });
-
+    });
+    $scope.transcripts = transcript_data.data;
+    $scope.credit_earned = transcript_data.source.totalCreditsEarned;
+    $scope.credit_attempted = transcript_data.source.totalCreditsAttempted;
 }
 
 function load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope)
@@ -562,43 +614,6 @@ function load_program_participation_data($http,student_id,AuthenticationService,
         if(response.success === true && response.info !== undefined)
         {
             program_participation_data = response.info.data;
-            console.log(program_participation_data);
-            //angular.forEach(embedPrograms, function (v) {
-            //    var program = {
-            //        "years": new Date(v.participation_start_date).getFullYear(),
-            //        "name": v.program_name,
-            //        "start_date": v.participation_start_date,
-            //        "end_date": new Date(v.participation_end_date) >= Date.now() ? 'Present' : v.participation_end_date,
-            //        "active": v.active ? "Active" : "Inactive",
-            //        "cohorts": v.cohort
-            //    };
-            //    $scope.programs.push(program);
-            //});
-            //$scope.programs.sort(function (a, b) {
-            //    if (a.years >= b.years) {
-            //        return (-1);
-            //    }
-            //    return (1);
-            //});
-            //
-            //var yearPrograms = {};
-            //
-            //for (var i = 0; i < $scope.programs.length; i++) {
-            //    var program = $scope.programs[i];
-            //
-            //    if (Object.keys(yearPrograms).indexOf(program.years) === -1) {
-            //        yearPrograms[program.years] = [];
-            //    }
-            //    yearPrograms[program.years].push(program);
-            //}
-            //
-            //angular.forEach(yearPrograms, function (items, year) {
-            //    $scope.list_programs.push({
-            //        years: year,
-            //        programs: items
-            //    });
-            //});
-
         }
     })
         .error(function (response, status) {
@@ -614,10 +629,10 @@ function load_program_participation_data($http,student_id,AuthenticationService,
         });
 }
 
-function load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope){
+function load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache){
     'use strict';
-    load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
-    load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
-    load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
+    load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
+    load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
+    load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
     //load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
 }
