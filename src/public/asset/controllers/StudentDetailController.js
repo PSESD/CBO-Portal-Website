@@ -123,7 +123,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                         } else {
 
-                            showError(response.error, 1);
+                            showError(response, 1);
 
                         }
                         $scope.loading_icon = true;
@@ -134,7 +134,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                         $scope.loading_icon = true;
                         $('.loading-icon').addClass('hide');
-                        showError(response.error, 1);
+                        showError(response, 1);
                         $rootScope.doingResolve = false;
                         if (status === 401) {
                             $rootScope.show_footer = false;
@@ -174,7 +174,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                     $scope.loading_icon = true;
                     $('.loading-icon').addClass('hide');
-                    showError(response.error, 1);
+                    showError(response, 1);
                     $rootScope.doingResolve = false;
                     if (status === 401) {
                         $rootScope.show_footer = false;
@@ -196,7 +196,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                     $scope.loading_icon = true;
                     $('.loading-icon').addClass('hide');
-                    showError(response.error, 1);
+                    showError(response, 1);
                     $rootScope.doingResolve = false;
                     if (status === 401) {
                         $rootScope.show_footer = false;
@@ -218,7 +218,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                     $scope.loading_icon = true;
                     $('.loading-icon').addClass('hide');
-                    showError(response.error, 1);
+                    showError(response, 1);
                     $rootScope.doingResolve = false;
                     if (status === 401) {
                         $rootScope.show_footer = false;
@@ -240,7 +240,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                     $scope.loading_icon = true;
                     $('.loading-icon').addClass('hide');
-                    showError(response.error, 1);
+                    showError(response, 1);
                     $rootScope.doingResolve = false;
                     if (status === 401) {
                         $rootScope.show_footer = false;
@@ -327,7 +327,7 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
             })
             .error(function (response, status) {
 
-                showError(response.error, 1);
+                showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status === 401) {
                     $rootScope.show_footer = false;
@@ -395,7 +395,7 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
         })
             .error(function (response, status) {
 
-                showError(response.error, 1);
+                showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status === 401) {
                     $rootScope.show_footer = false;
@@ -558,7 +558,7 @@ function load_transcript_data($http,student_id,AuthenticationService,$rootScope,
         })
             .error(function (response, status) {
 
-                showError(response.error, 1);
+                showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status === 401) {
                     $rootScope.show_footer = false;
@@ -618,7 +618,7 @@ function load_program_participation_data($http,student_id,AuthenticationService,
     })
         .error(function (response, status) {
 
-            showError(response.error, 1);
+            showError(response, 1);
             $rootScope.doingResolve = false;
             if (status === 401) {
                 $rootScope.show_footer = false;
