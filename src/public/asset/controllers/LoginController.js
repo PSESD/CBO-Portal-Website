@@ -157,7 +157,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                 })
                 .error(function (response) {
-                    //console.log(response);
                     showError(response.error_description, 1);
                     $scope.login.working = false;
 

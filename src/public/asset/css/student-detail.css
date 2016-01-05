@@ -1,3 +1,12 @@
+.transcript-title{
+    font-size: 12px;
+}
+dl{
+    margin-bottom: 0;
+}
+.popover-content{
+    width:180px;
+}
 .no-data {
     margin: 0;
     padding: 25px;
@@ -39,13 +48,14 @@
     display: none;
 }
 .top-space {
-    margin-top: 10px;
+    margin-top: 0;
 }
 .display-inline-blk {
     display: inline-block;
 }
 .bottom-space {
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
+    margin-bottom:0;
 }
 
 .hoverable:not(:hover) + .show-on-hover {
@@ -559,7 +569,7 @@ ul li.transcript-content:nth-child(7) {
 }
 .transcript-container .inner-transcript-container{
     overflow: auto;
-    height: 420px;
+    /*height: 420px;*/
 }
 .school.history {
     width: 42.6%;
@@ -752,6 +762,7 @@ ul li.transcript-content:nth-child(7) {
     }
 }
 .subhead.transcript {
+
     padding: 0;
     margin: 0;
     font-weight: bold;
@@ -874,6 +885,9 @@ ul.cohorts {
 }
 .two-lines-current-class {
     width: 245px;
+}
+.two-lines,.two-lines-current-class > .title{
+    width:130px;
 }
 .aligning {
     padding-left: 0;
