@@ -21,8 +21,6 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
             })
             .error(function (response, status) {
 
-                //console.log(response);
-                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status === 401) {

@@ -1,6 +1,8 @@
-app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$document',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout) {
+app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$q',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout,$q) {
         'use strict';
+
+        var deferred = $q.defer();
 
         var districtOption = {};
         var options = [];
@@ -90,6 +92,10 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             }
         };
 
+
+
+
+
         var pullXsreStudents = function(studentKeys){
 
             angular.forEach($scope.students, function(student){
@@ -104,9 +110,10 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     headers: {
                         'Authorization': 'Bearer ' + AuthenticationService.token
                     },
-                    timeout: 75000
+                    timeout: 1100000
                 })
                     .success(function (student) {
+                        console.log(student);
                         if(student._id in studentKeys){
                             var onTrack = _.get(student,'xsre.onTrackToGraduate');
                             if(parseInt(_.get(student,'xsre.behavior')) <= 1){
@@ -158,7 +165,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     })
                     .error(function (response, status) {
 
-                        //console.log('ERROR: ', student, typeof response, response, typeof status, status);
                         showError(response, 1);
                         if (status === 401) {
                             $rootScope.show_footer = false;
@@ -177,6 +183,10 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             });
 
         };
+
+        $timeout(function() {
+            deferred.resolve(); // this aborts the request!
+        }, 1000);
 
         $http.get(api_url + AuthenticationService.organization_id + '/students', {
             headers: {

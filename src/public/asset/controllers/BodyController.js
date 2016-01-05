@@ -89,10 +89,6 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                 })
                 .error(function (response) {
 
-                    //console.log('fail');
-                    //console.log(response);
-                    //console.log(status);
-
                     CookieStore.clearData();
                     showError(response.message, 2);
                     $location.path("/login");

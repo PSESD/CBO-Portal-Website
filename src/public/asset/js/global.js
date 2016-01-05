@@ -166,6 +166,7 @@ $(document).ready(function () {
             $('#slide-menu').addClass('collapse-icon glyphicon glyphicon-menu-hamburger');
             $('.navbar').hide();
             $('#dashboard-menu').show();
+
             isCollapse = true;
         } else if (isCollapse === true) {
             isCollapse = false;
@@ -173,6 +174,7 @@ $(document).ready(function () {
             $('#slide-menu').addClass('collapse-icon glyphicon glyphicon-remove');
             $('.navbar').show();
             $('#dashboard-menu').hide();
+
         }
     });
 

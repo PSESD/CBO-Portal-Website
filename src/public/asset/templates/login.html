@@ -17,6 +17,7 @@
             </div>
             <button id="sign_in_button " class="button login-btn" ng-disabled="login.working">{{ 'general.sign_in' | i18n }}</button>
             <a id="forgot_button forgot-btn" href="#/forget" class="button forgot-btn forgot-btn padding">{{ 'general.forgot_password' | i18n }}</a>
+            <span ng-show="login.working" class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
             <div class="login-help-link">{{ 'general.help_login_link' | i18n }}<a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a></div>
         </div>
         </form>

@@ -38,6 +38,8 @@ $(document).ready(function () {
                 });
                 status = 'close';
                 $('#footer').addClass('hide');
+                $('.confidentiality-footer').css({'margin-left':'3.6%'});
+                $('.version').css({'margin-left':'3.6%'});
             } else if (status === 'close') {
 
                 $('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-menu-hamburger');
@@ -64,6 +66,8 @@ $(document).ready(function () {
                 });
                 status = 'open';
                 $('#footer').removeClass('hide');
+                $('.confidentiality-footer').css({'margin-left':'15.8%'});
+                $('.version').css({'margin-left':'15.8%'});
             }
 
         };

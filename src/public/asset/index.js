@@ -76,6 +76,10 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
         //redirect only if both isAuthenticated is false and no token is set
         $rootScope.doingResolve = true;
         if (nextRoute !== null && /*nextRoute.access !== null &&  nextRoute.access.requiredAuthentication */nextRoute.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
+            if(nextRoute.originalPath === "/login")
+            {
+                return;
+            }
             if(checkCookie === true)
             {
                 $location.path("/loading");
@@ -178,20 +182,32 @@ app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $loc
     };
 }]);
 
-//app.run([
-//    'myGoogleAnalytics',
-//    function (myGoogleAnalytics) {
-//            // inject self
-//    }
-//  ]);
 
 function showError(message, alert) {
     'use strict';
     var passingClass = 'alert-danger';
+    var messages = "";
     if (alert === 2) {
         passingClass = 'alert-success';
     }
-    var message_alert = '<div class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + message + '</div>';
+    if(message.hasOwnProperty("error")){
+        if(message.error.hasOwnProperty("message"))
+        {
+            messages = message.error.message;
+        }
+        else
+        {
+            messages = message.error;
+        }
+
+    }else if( message.hasOwnProperty("message"))
+    {
+        messages = message.message;
+    }
+    else{
+        messages = message;
+    }
+    var message_alert = '<div class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
     if(message !== null) {
         if (window.location.href.indexOf('/login') === -1) {
             jQuery(".error-container.visible-on").append(message_alert);
