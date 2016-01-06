@@ -25,17 +25,33 @@
                             <thead>
                             <tr>
                                 <!--<th>{{ 'general.ID' | i18n }}</th>-->
-                                <th>{{ 'general.name' | i18n }}</th>
-                                <th>{{ 'general.email' | i18n }}</th>
-                                <th>{{ 'general.created' | i18n }}</th>
-                                <th>{{ 'general.last_update' | i18n }}</th>
+                                <th>
+                                    <a href="#" ng-click="sortType = 'first_name';sortReverse = !sortReverse">
+                                    {{ 'general.name' | i18n }}
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="#" ng-click="sortType = 'email';sortReverse = !sortReverse">
+                                    {{ 'general.email' | i18n }}
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="#" ng-click="sortType = 'created';sortReverse = !sortReverse">
+                                    {{ 'general.created' | i18n }}
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="#" ng-click="sortType = 'last_update';sortReverse = !sortReverse">
+                                    {{ 'general.last_update' | i18n }}
+                                    </a>
+                                </th>
                                 <th class="text-center" style="width:9%;">{{ 'general.permissions' | i18n }}</th>
                                 <th class="text-center" style="width:9%;">{{ 'general.assign_students' | i18n }}</th>
                                 <th class="text-center" style="width:9%;">{{ 'general.delete' | i18n }}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="user in users | filter:search">
+                            <tr ng-repeat="user in users | filter:search | orderBy:sortType:sortReverse">
                                 <!--<td>{{ user._id }}</td>-->
                                 <td><a ng-href="#/user/detail/{{ user._id }}">{{ user.first_name }} {{ user.last_name }}</a></td>
                                 <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>

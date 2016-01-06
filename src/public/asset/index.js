@@ -185,40 +185,43 @@ app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $loc
 
 function showError(message, alert) {
     'use strict';
-    var passingClass = 'alert-danger';
+    var passingClass = 'alert-danger error-color';
     var messages = "";
+    var sidebar_width = 0;
+    sidebar_width = $("#desktop-nav").width() + "px";
     if (alert === 2) {
         passingClass = 'alert-success';
     }
-    if(message.hasOwnProperty("error")){
-        if(message.error.hasOwnProperty("message"))
-        {
-            messages = message.error.message;
-        }
-        else
-        {
-            messages = message.error;
-        }
+    //if(message.hasOwnProperty("error")){
+    //    if(message.error.hasOwnProperty("message"))
+    //    {
+    //        messages = message.error.message;
+    //    }
+    //    else
+    //    {
+    //        messages = message.error;
+    //    }
+    //
+    //}else if( message.hasOwnProperty("message"))
+    //{
+    //    messages = message.message;
+    //}
+    //else{
+    //    messages = message;
+    //}
+    var message_alert = '<div style="margin-left:'+sidebar_width+'" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
 
-    }else if( message.hasOwnProperty("message"))
-    {
-        messages = message.message;
-    }
-    else{
-        messages = message;
-    }
-    var message_alert = '<div class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
     if(message !== null) {
         if (window.location.href.indexOf('/login') === -1) {
             jQuery(".error-container.visible-on").append(message_alert);
             setTimeout(function () {
-                jQuery('.alert').remove();
-            }, 3000);
+               jQuery('.alert').remove();
+            }, 9000);
         } else {
             jQuery("#login-error-message").append(message_alert);
             setTimeout(function () {
-                jQuery('.alert').remove();
-            }, 3000);
+               jQuery('.alert').remove();
+            }, 9000);
         }
     }
 }

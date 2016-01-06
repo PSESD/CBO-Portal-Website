@@ -23,14 +23,21 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>{{ 'general.name' | i18n }}</th>
-                                <th>{{ 'general.status' | i18n }}</th>
+                                <th>
+                                    <a href="#" ng-click="sortType = 'name';sortReverse = !sortReverse">
+                                    {{ 'general.name' | i18n }}
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="#" ng-click="sortType = 'status';sortReverse = !sortReverse">
+                                    {{ 'general.status' | i18n }}
+                                </th>
                                 <th>{{ 'general.participation_start_date' | i18n }}</th>
                                 <th>{{ 'general.participation_end_date' | i18n }}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="program in programs">
+                            <tr ng-repeat="program in programs | orderBy:sortType:sortReverse">
                                 <td>{{ program.name }}</td>
                                 <td>{{ (program.active ? 'general.active' : 'general.nonactive') | i18n }}</td>
                                 <td>{{ program.participation_start_date | date : 'yyyy-MM-dd' : timezone }}</td>

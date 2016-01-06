@@ -113,7 +113,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     timeout: 1100000
                 })
                     .success(function (student) {
-                        console.log(student);
                         if(student._id in studentKeys){
                             var onTrack = _.get(student,'xsre.onTrackToGraduate');
                             if(parseInt(_.get(student,'xsre.behavior')) <= 1){

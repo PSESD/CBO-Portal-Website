@@ -25,15 +25,27 @@
                             <thead>
                             <tr>
                                 <!--<th>{{ 'general.ID' | i18n }}</th>-->
-                                <th>{{ 'general.program_name' | i18n }}</th>
-                                <th>{{ 'general.created' | i18n }}</th>
-                                <th>{{ 'general.last_update' | i18n }}</th>
+                                <th>
+                                    <a href="#" ng-click="sortType = 'name';sortReverse = !sortReverse">
+                                    {{ 'general.program_name' | i18n }}
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="#" ng-click="sortType = 'created';sortReverse = !sortReverse">
+                                    {{ 'general.created' | i18n }}
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="#" ng-click="sortType = 'last_updated';sortReverse = !sortReverse">
+                                    {{ 'general.last_update' | i18n }}
+                                    </a>
+                                </th>
                                 <th class="text-center" style="width:9%">{{ 'general.assign_students' | i18n }}</th>
                                 <th class="text-center" style="width:9%">{{ 'general.delete' | i18n }}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="program in programs | filter:search">
+                            <tr ng-repeat="program in programs | filter:search | orderBy:sortType:sortReverse">
                                 <!--<td>{{ program._id }}</td>-->
                                 <td><a ng-href="#/program/detail/{{ program._id }}">{{ program.name }}</a></td>
                                 <td>{{ program.created | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</td>

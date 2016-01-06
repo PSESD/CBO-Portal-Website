@@ -52,6 +52,9 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             $(attendance_detail).removeClass('hide');
             $(attendance_header).addClass('hide');
 
+            console.log(attendance_header);
+            console.log(+attendance_detail);
+
         };
         $scope.showIcon = function (event) {
 
@@ -66,7 +69,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             if ($(attendance_header).hasClass('hide')) {
                 $(attendance_header).removeClass('hide');
             }
-
+            console.log(attendance_header);
+            console.log(attendance_detail);
             $(attendance_detail).addClass('hide');
 
         };
@@ -168,7 +172,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 }
             })
                 .success(function () {
-                    getXsre();
+                    //getXsre();
                 })
                 .error(function (response, status) {
 
@@ -190,7 +194,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 }
             })
                 .success(function () {
-                    getXsre();
+                    //getXsre();
                 })
                 .error(function (response, status) {
 
@@ -212,7 +216,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 }
             })
                 .success(function () {
-                    getXsre();
+                    //getXsre();
                 })
                 .error(function (response, status) {
 
@@ -234,7 +238,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 }
             })
                 .success(function () {
-                    getXsre();
+                    //getXsre();
                 })
                 .error(function (response, status) {
 
@@ -249,6 +253,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                     }
 
                 });
+            getXsre();
         };
 
     }]);
@@ -354,7 +359,9 @@ function generate_general_data(general_data,$scope,student_id)
             $scope.student.schoolDistrict = value;
         }
     });
+
     $scope.student = general_data.personal;
+    $scope.student.address = general_data.personal.address.length == 0 ? "": general_data.personal.address;
     $scope.student._id = student_id;
     $scope.student.race = general_data.personal.race.split(/(?=[A-Z])/).join(" ");
     assignedUsers = ('users' in general_data._embedded) ? general_data._embedded.users : {};
@@ -542,7 +549,7 @@ function load_transcript_data($http,student_id,AuthenticationService,$rootScope,
     if(angular.isUndefined(StudentCache.get(student_id + "transcript")) === true)
     {
 
-        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/transcript', {
+        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/transcript?pageSize=all', {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }

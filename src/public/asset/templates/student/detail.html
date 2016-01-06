@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -212,45 +213,45 @@
                         <div class="panel attendance-behavior" ng-if="attendanceBehavior" ng-repeat="(indexBehavior, behavior) in attendanceBehavior">
                             <div class="panel-heading attendance-behavior" role="tab" id='heading_{{ indexBehavior+1 }}'>
                                 <h4 class="panel-title">
-                                
-                                 <ul class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
-                                    <li>
-                                        {{ ::behavior.summary.title }}
-                                     </li>
-                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].M) < 100 }">
-                                        <div class="col-separator"></div>
-                                        {{ ::behavior.summary.M }}
-                                     </li>
-                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].T) < 100 }">{{ ::behavior.summary.T }}</li>
-                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].W) < 100 }">{{ ::behavior.summary.W }}</li>
-                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.TH }}</li>
-                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ ::behavior.summary.F }}</li>
-                                    <li>
-                                        <div class="col-separator"></div>
-                                        {{ behavior.summary.weeklyChange }}
-                                        <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
-                                     </li>
-                                </ul>
-                               
-                                <ul  class="flexbox attendance-behavior attendance-detail{{indexBehavior > 0 ? ' hide' : '' }}">
-                                    <li>
-                                        {{ behavior.details[0].title }}
-                                     </li>
-                                    <li>
-                                        <div class="col-separator"></div>
-                                        {{ behavior.details[0].M }}
-                                     </li>
-                                    <li>{{ behavior.details[0].T }}</li>
-                                    <li>{{ behavior.details[0].W }}</li>
-                                    <li>{{ behavior.details[0].TH }}</li>
-                                    <li>{{ behavior.details[0].F }}</li>
-                                    <li>
-                                        <div class="col-separator"></div>
 
-                                     </li>
-                                </ul>    
-                                
-                            </h4>
+                                    <ul class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
+                                        <li>
+                                            {{ ::behavior.summary.title }}
+                                        </li>
+                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].M) < 100 }">
+                                            <div class="col-separator"></div>
+                                            {{ ::behavior.summary.M }}
+                                        </li>
+                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].T) < 100 }">{{ ::behavior.summary.T }}</li>
+                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].W) < 100 }">{{ ::behavior.summary.W }}</li>
+                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.TH }}</li>
+                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ ::behavior.summary.F }}</li>
+                                        <li>
+                                            <div class="col-separator"></div>
+                                            {{ behavior.summary.weeklyChange }}
+                                            <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
+                                        </li>
+                                    </ul>
+
+                                    <ul  class="flexbox attendance-behavior attendance-detail{{indexBehavior > 0 ? ' hide' : '' }}">
+                                        <li>
+                                            {{ behavior.details[0].title }}
+                                        </li>
+                                        <li>
+                                            <div class="col-separator"></div>
+                                            {{ behavior.details[0].M }}
+                                        </li>
+                                        <li>{{ behavior.details[0].T }}</li>
+                                        <li>{{ behavior.details[0].W }}</li>
+                                        <li>{{ behavior.details[0].TH }}</li>
+                                        <li>{{ behavior.details[0].F }}</li>
+                                        <li>
+                                            <div class="col-separator"></div>
+
+                                        </li>
+                                    </ul>
+
+                                </h4>
                             </div>
                             <!-- panel heading -->
 
@@ -482,7 +483,7 @@
                                                     <dd>{{ ::c.gradeLevel }}</dd>
                                                     <dt class="bold bold-title">
                                                         <ng-pluralize count="c.creditsEarned"
-                                                          when="{
+                                                                      when="{
                                                           '0':'Credit Earned',
                                                           '0.1':'Credit Earned',
                                                           '0.2':'Credit Earned',
@@ -595,20 +596,20 @@
 
                         <table class="table table-striped school-history">
                             <thead>
-                                <tr>
-                                    <th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>
-                                    <th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>
-                                </tr>
+                            <tr>
+                                <th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>
+                                <th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr ng-if="sch_history" ng-repeat="data in history">
-                                    <td>
-                                        {{::data.schoolName}}
-                                    </td>
-                                    <td>
-                                        {{::data.schoolYear}}
-                                    </td>
-                                </tr>
+                            <tr ng-if="sch_history" ng-repeat="data in history">
+                                <td>
+                                    {{::data.schoolName}}
+                                </td>
+                                <td>
+                                    {{::data.schoolYear}}
+                                </td>
+                            </tr>
                             </tbody>
 
                         </table>

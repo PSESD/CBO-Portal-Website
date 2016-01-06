@@ -51,6 +51,7 @@ II MEDIA
         /* W3C */
         filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fce623', endColorstr='#ef7700', GradientType=1);
         /* IE6-9 fallback on horizontal gradient */
+        background-attachment: fixed;
     }
     li {
         list-style: none;
@@ -908,4 +909,10 @@ select{
 }
 .selected_container{
     margin-top:10px;
+}
+.margin-bottom-general-info{
+    margin-bottom: 10px;
+}
+.error-color{
+    background-color: #ED0707;
 }

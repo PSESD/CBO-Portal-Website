@@ -22,7 +22,7 @@ body {
 }
 #desktop-nav {
     position: fixed;
-    width: 15%;
+    width: 14.8%;
     height: 100%;
     box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1) inset;
     overflow-y: auto;
