@@ -193,7 +193,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             }
         })
             .success(function (response) {
-
                 if (response.success === true && response.total > 0) {
                     var embedData = [];
                     embedData = ('data' in response) ? response.data : [];
@@ -207,12 +206,54 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                                 student.school_district = value;
                             }
                         });
-                        student.gradeLevel = locale.getString('general.not_ready');
-                        student.schoolYear = locale.getString('general.not_ready');
-                        student.schoolName = locale.getString('general.not_ready');
-                        student.attendance = locale.getString('general.not_ready');
-                        student.behavior = locale.getString('general.not_ready');
-                        student.onTrackGraduate = locale.getString('general.not_ready');
+                        //student.gradeLevel = locale.getString('general.not_ready');
+                        //student.schoolYear = locale.getString('general.not_ready');
+                        //student.schoolName = locale.getString('general.not_ready');
+                        //student.attendance = locale.getString('general.not_ready');
+                        //student.behavior = locale.getString('general.not_ready');
+                        //student.onTrackGraduate = locale.getString('general.not_ready');
+
+                        var onTrack = _.get(student,'xsre.onTrackToGraduate');
+                        if(parseInt(_.get(student,'xsre.behavior')) <= 1){
+                            pluralBehavior =  locale.getString('general.incident', [_.get(student,'xsre.behavior')]);
+                        }else{
+                            pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')]);
+                        }
+
+                        if(parseInt(_.get(student,'xsre.attendance')) <= 1){
+                            pluralAttendance =  locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]);
+                        }else{
+                            pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance')]);
+                        }
+                        if(onTrack === 'Y'){
+                            onTrack = locale.getString('general.on_track');
+                        } else if(onTrack === 'N') {
+                            onTrack = locale.getString('general.off_track');
+                        } else {
+                            onTrack = locale.getString('general.unavailable');
+                        }
+                        student.gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.unavailable');
+                        student.schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
+                        student.schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.unavailable');
+                        student.attendance = _.has(student,'xsre.attendance') ? pluralAttendance : locale.getString('general.unavailable');
+                        student.behavior = _.has(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
+                        if(student.gradeLevel === 'N/A') student.gradeLevel =  locale.getString('general.unavailable');
+                        if(student.schoolYear === 'N/A') student.schoolYear =  locale.getString('general.unavailable');
+                        if(student.schoolName === 'N/A') student.schoolName =  locale.getString('general.unavailable');
+                        if(student.attendance.indexOf('N/A') !== -1) student.attendance =  locale.getString('general.unavailable');
+                        if(student.behavior.indexOf('N/A') !== -1) student.behavior =  locale.getString('general.unavailable');
+                        student.onTrackGraduate = onTrack;
+                        var find = student.schoolName;
+                        if(find){
+                            find      = String(find).replace(/<[^>]+>/gm, '');
+                            var found = $scope.schoolNameData.some(function(hash){
+                                if(_.includes(hash, find)) {return true;}
+                            });
+                            if(!found){
+                                $scope.schoolNameData.push({ id: find, name: find });
+                            }
+                        }
+
                         $scope.students.push(student);
                         studentKeys[student._id] = o;
                         o++;
@@ -224,7 +265,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     /**
                      * Get XSRE
                      */
-                    $timeout( function(){ pullXsreStudents(studentKeys); }, 30);
+                   // $timeout( function(){ pullXsreStudents(studentKeys); }, 30);
 
                     angular.forEach(options,function(value){
                         districtOption = {
