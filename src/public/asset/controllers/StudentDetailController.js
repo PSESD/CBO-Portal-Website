@@ -43,6 +43,28 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
         };
 
+        $scope.openHeader = function(event)
+        {
+
+            var attendance_header = $(event.target).parent()[0];
+            var attendance_detail = $(attendance_header).siblings()[0];
+            $(attendance_detail).removeClass('hide');
+            $(attendance_header).addClass('hide');
+
+        }
+
+        $scope.closeHeader = function(event)
+        {
+            var attendance_detail = $(event.target).parent()[0];
+            var attendance_header = $(attendance_detail).siblings()[0];
+            if ($(attendance_header).hasClass('hide')) {
+                $(attendance_header).removeClass('hide');
+            }
+            $(attendance_detail).addClass('hide');
+        }
+
+
+
         $scope.hideIcon = function (event) {
 
             var li = $(event.target).parent()[0];
@@ -52,8 +74,6 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             $(attendance_detail).removeClass('hide');
             $(attendance_header).addClass('hide');
 
-            console.log(attendance_header);
-            console.log(+attendance_detail);
 
         };
         $scope.showIcon = function (event) {
@@ -69,8 +89,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             if ($(attendance_header).hasClass('hide')) {
                 $(attendance_header).removeClass('hide');
             }
-            console.log(attendance_header);
-            console.log(attendance_detail);
+
             $(attendance_detail).addClass('hide');
 
         };

@@ -14,21 +14,23 @@ You need to have CBO account to login
 Here is a master config for relationship and school district edit this file to add or remove data. All configuration is in config.js file :
 
 	var schoolDistricts = {
-	    'seattle': "Seattle",
-	    'highline': "Highline",
-	    'federalway': "Federal Way",
-	    'renton': 'Renton',
-	    'northshore': 'North Shore'
-	};
-
-	var relationships = {
-	    'parent': "Parent",
-	    'grandparent': "Grandparent",
-	    'aunt': "Aunt",
-	    'uncle': 'Uncle',
-	    'brother': 'Brother',
-	    'sister': 'Sister'
-	};
+    	'seattle': "Seattle",
+    	'highline': "Highline",
+    	'federalway': "Federal Way",
+    	'renton': 'Renton',
+    	'northshore': 'North Shore',
+    	'test': 'Test',
+    	'tukwila': 'Tukwila'
+    };
+    
+    var relationships = {
+    	'parent': "Parent",
+    	'grandparent': "Grandparent",
+    	'aunt': "Aunt",
+    	'uncle': 'Uncle',
+    	'brother': 'Brother',
+    	'sister': 'Sister'
+    };
 	
 
 ## Installation

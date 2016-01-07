@@ -214,7 +214,7 @@
                             <div class="panel-heading attendance-behavior" role="tab" id='heading_{{ indexBehavior+1 }}'>
                                 <h4 class="panel-title">
 
-                                    <ul class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
+                                    <ul ng-click="openHeader($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
                                         <li>
                                             {{ ::behavior.summary.title }}
                                         </li>
@@ -233,7 +233,7 @@
                                         </li>
                                     </ul>
 
-                                    <ul  class="flexbox attendance-behavior attendance-detail{{indexBehavior > 0 ? ' hide' : '' }}">
+                                    <ul ng-click="closeHeader($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior attendance-detail{{indexBehavior > 0 ? ' hide' : '' }}">
                                         <li>
                                             {{ behavior.details[0].title }}
                                         </li>
