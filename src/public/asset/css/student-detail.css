@@ -1351,3 +1351,8 @@ dt, dd {
 .popover{
     background-color: white!important;
 }
+
+.studentdetail-filter{
+    position: relative;
+    left: 8px;
+}

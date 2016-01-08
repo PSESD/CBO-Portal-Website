@@ -188,10 +188,11 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}" class="tab-pane" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
+
                     <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}">
                         <li class="text-center">{{ 'general.attendance_and_behavior_error_message' | i18n}}</li>
                     </ul>
-
+                    <dropdown-multiselect class="studentdetail-filter no-background-color" ng-class="attendanceBehavior.length > 0 ? '':'hide'" model="selected_years" title="Years" options="optionsOfYears"></dropdown-multiselect>
                     <ul class="flexbox attendance-behavior {{attendanceBehavior.length > 0 ? '' : 'hide'}}">
                         <li class="uppercase">{{ 'general.attendance_dates' | i18n }}</li>
                         <li>
@@ -210,7 +211,7 @@
                     </ul>
 
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <div class="panel attendance-behavior" ng-if="attendanceBehavior" ng-repeat="(indexBehavior, behavior) in attendanceBehavior">
+                        <div class="panel attendance-behavior" ng-if="attendanceBehavior" ng-repeat="(indexBehavior, behavior) in attendanceBehavior | filter:filterAttendanceOfYears()">
                             <div class="panel-heading attendance-behavior" role="tab" id='heading_{{ indexBehavior+1 }}'>
                                 <h4 class="panel-title">
 

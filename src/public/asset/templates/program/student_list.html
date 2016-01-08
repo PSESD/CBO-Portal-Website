@@ -54,7 +54,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="student in students | filter:search | orderBy:sortType:sortReverse">
+                            <tr ng-repeat="student in students | filter:search | orderBy:'name' | orderBy:sortType:sortReverse">
                                 <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.name }}</a></td>
 								<td><input type="checkbox" ng-model="student.active" ng-disabled="true"/></td>
 								<td>{{student.start_date | date : 'MM/dd/yyyy' : timezone}}</td>

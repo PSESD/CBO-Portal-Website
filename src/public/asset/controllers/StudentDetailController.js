@@ -17,6 +17,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         $scope.list_programs = [];
         $scope.icon_legend = true;
         $scope.open_button = false;
+        $scope.selected_years = [];
 
         $scope.close = function () {
             $scope.open_button = true;
@@ -41,6 +42,27 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             $scope.sch_history = false;
 
 
+        };
+
+        $scope.filterAttendanceOfYears = function () {
+            return function (p) {
+                if(String($scope.selected_years) !== '') {
+                   // $scope.district_counter =  $scope.selected_districts.length;
+
+                    for (var i in $scope.selected_years) {
+                        if (p.weekDate.indexOf($scope.selected_years[i]) > -1) {
+
+                            return true;
+                        }
+                    }
+
+                }else{
+                   // $scope.district_counter = 0;
+                    return true;
+
+                }
+
+            };
         };
 
         $scope.openHeader = function(event)
@@ -443,10 +465,25 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
 
 function generate_attendance_data(attendance_data,$scope,urlTemplate)
 {
+    var years = [];
+    var yearsOptions = "";
     angular.forEach(attendance_data, function (behavior) {
 
         Object.keys(behavior).forEach(function (key) {
             var columnHtml = {};
+            var valOfYears
+
+            valOfYears = key.trim().replace(/\s/g, '').split("/")[4];
+
+            var year = {
+                id:'',
+                name:''
+            };
+
+            year.id = valOfYears;
+            year.name = valOfYears;
+
+            years.push(year);
 
             angular.forEach(behavior[key].detailColumns, function (column, i) {
 
@@ -560,6 +597,8 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
             $scope.attendanceBehavior.push(behavior[key]);
         });
     });
+    yearsOptions = _.uniq(years,'id');
+    $scope.optionsOfYears = yearsOptions;
 }
 
 function load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache)
