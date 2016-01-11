@@ -1,6 +1,6 @@
 var __i = false; if(typeof __local !== 'undefined') {__i = __local;}
 
-var app = angular.module('CboPortal', ['ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize', 'ui.codemirror',
+var app = angular.module('CboPortal', ['anotherpit/angular-rollbar','ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize', 'ui.codemirror',
     'ngLocalize.Config'
 ]).value('localeConf', {
     basePath: 'languages',
@@ -37,6 +37,15 @@ app.config(['$httpProvider', function ($httpProvider) {
     if (__i){$httpProvider.interceptors.push('headerInjector');}
     $httpProvider.defaults.timeout = 15000;
 
+}]);
+
+app.config(['$rollbarProvider', function($rollbarProvider) {
+    // Be sure to replace POST_CLIENT_ITEM_ACCESS_TOKEN with your project's post_client_item access token, which you can find in the Rollbar.com interface.
+    $rollbarProvider.config.accessToken = '20ac49c365454dd186678ec15b56b13a';
+    $rollbarProvider.config.captureUncaught = true;
+    $rollbarProvider.config.payload = {
+        environment : rollbar_env
+    };
 }]);
 
 app.run(['$window', '$rootScope', '$route',
@@ -185,7 +194,6 @@ app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $loc
 
 function showError(message, alert) {
     'use strict';
-    console.log(message);
     var passingClass = 'alert-danger error-color';
     var messages = "";
     var sidebar_width = 0;

@@ -294,7 +294,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                     }
 
                 });
-            getXsre();
+            //getXsre();
         };
 
     }]);
