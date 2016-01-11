@@ -219,7 +219,6 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                     load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
                     $scope.loading_icon = true;
                     $('.loading-icon').addClass('hide');
-
                 })
                 .error(function (response, status) {
 
@@ -243,7 +242,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 .success(function () {
                     //getXsre();
                     load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
-
+                    $scope.loading_icon = true;
+                    $('.loading-icon').addClass('hide');
                 })
                 .error(function (response, status) {
 
@@ -266,7 +266,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             })
                 .success(function () {
                     load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
-                    $scope.loading_icon = false;
+                    $scope.loading_icon = true;
+                    $('.loading-icon').addClass('hide');
                 })
                 .error(function (response, status) {
 
@@ -288,6 +289,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             })
                 .success(function () {
                     //getXsre();
+                    $scope.loading_icon = true;
+                    $('.loading-icon').addClass('hide');
                 })
                 .error(function (response, status) {
 
@@ -302,7 +305,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                     }
 
                 });
-            //getXsre();
+            //
+
 
         };
 
