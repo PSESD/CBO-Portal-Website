@@ -37,13 +37,10 @@ app.config(['$httpProvider', function ($httpProvider) {
     if (__i){$httpProvider.interceptors.push('headerInjector');}
     $httpProvider.defaults.timeout = 15000;
 
-    //$httpProvider.interceptors.push(function ($rootScope, $q,$rollbar) {
+    //$httpProvider.interceptors.push(function ($rootScope, $q,$rollbar,$interval) {
     //    return {
     //        request: function (config) {
-    //            config.timeout = 10000;
-    //            console.log(config);
     //
-    //            return config;
     //        },
     //        responseError: function (rejection) {
     //            switch (rejection.status){
@@ -52,11 +49,10 @@ app.config(['$httpProvider', function ($httpProvider) {
     //                    showError('connection timed out',1);
     //                    break;
     //            }
-    //            console.log(rejection);
     //            return $q.reject(rejection);
     //        }
     //    }
-    //})
+    //});
 
 }]);
 
