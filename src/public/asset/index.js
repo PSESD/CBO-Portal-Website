@@ -40,7 +40,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push(function ($rootScope, $q,$rollbar) {
         return {
             request: function (config) {
-                config.timeout = 15000;
+                config.timeout = 60000;
                 return config;
             },
             responseError: function (rejection) {
