@@ -191,12 +191,16 @@
 
     <script>
         var analytics_user = '';
+        var rollbar_env = '';
         if (typeof env !== 'undefined' && env == 'production') {
             analytics_user = 'UA-66847660-1';
+            rollbar_env='production';
         } else if (typeof env !== 'undefined' && env == 'staging') {
             analytics_user = 'UA-66847660-2';
+            rollbar_env='staging';
         } else {
             analytics_user = 'UA-66847660-3';
+            rollbar_env='development';
         }
 
         (function(i, s, o, g, r, a, m) {

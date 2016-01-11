@@ -37,10 +37,27 @@ app.config(['$httpProvider', function ($httpProvider) {
     if (__i){$httpProvider.interceptors.push('headerInjector');}
     $httpProvider.defaults.timeout = 15000;
 
+    $httpProvider.interceptors.push(function ($rootScope, $q,$rollbar) {
+        return {
+            request: function (config) {
+                config.timeout = 15000;
+                return config;
+            },
+            responseError: function (rejection) {
+                switch (rejection.status){
+                    case 408 :
+                        $rollbar.error('connection timed out');
+                        showError('connection timed out',1);
+                        break;
+                }
+                return $q.reject(rejection);
+            }
+        }
+    })
+
 }]);
 
 app.config(['$rollbarProvider', function($rollbarProvider) {
-    // Be sure to replace POST_CLIENT_ITEM_ACCESS_TOKEN with your project's post_client_item access token, which you can find in the Rollbar.com interface.
     $rollbarProvider.config.accessToken = '20ac49c365454dd186678ec15b56b13a';
     $rollbarProvider.config.captureUncaught = true;
     $rollbarProvider.config.payload = {

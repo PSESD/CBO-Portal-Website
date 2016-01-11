@@ -191,6 +191,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
+
         })
             .success(function (response) {
                 if (response.success === true && response.total > 0) {
