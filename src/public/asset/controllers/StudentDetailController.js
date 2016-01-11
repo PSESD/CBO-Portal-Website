@@ -6,6 +6,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
     function ($route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
         'use strict';
 
+        $scope.loading_icon = true;
         var attendance = "";
         var transcript = "";
         var program_participation = "";
@@ -147,52 +148,52 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         };
         load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
 
-        var getXsre = function () {
-
-
-
-                $scope.loading_icon = false;
-                $('.loading-icon').removeClass('hide');
-                $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
-                    headers: {
-                        'Authorization': 'Bearer ' + AuthenticationService.token
-                    }
-                })
-                    .success(function (response) {
-
-                        if (response.success !== false && response.info) {
-
-                            response = response.info;
-                            //StudentCache.put(student_id +"xsre",response);
-                            generate_xsre_data(response,$scope)
-
-                        } else {
-
-                            showError(response, 1);
-
-                        }
-                        $scope.loading_icon = true;
-                        $('.loading-icon').addClass('hide');
-                        $rootScope.doingResolve = false;
-                    })
-                    .error(function (response, status) {
-
-                        $scope.loading_icon = true;
-                        $('.loading-icon').addClass('hide');
-                        showError(response, 1);
-                        $rootScope.doingResolve = false;
-                        if (status === 401) {
-                            $rootScope.show_footer = false;
-                            CookieStore.clearData();
-                            $location.path('/login');
-                        }
-
-                    });
-
-
-
-
-        };
+        //var getXsre = function () {
+        //
+        //
+        //
+        //        $scope.loading_icon = false;
+        //        $('.loading-icon').removeClass('hide');
+        //        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
+        //            headers: {
+        //                'Authorization': 'Bearer ' + AuthenticationService.token
+        //            }
+        //        })
+        //            .success(function (response) {
+        //
+        //                if (response.success !== false && response.info) {
+        //
+        //                    response = response.info;
+        //                    //StudentCache.put(student_id +"xsre",response);
+        //                    generate_xsre_data(response,$scope)
+        //
+        //                } else {
+        //
+        //                    showError(response, 1);
+        //
+        //                }
+        //                $scope.loading_icon = true;
+        //                $('.loading-icon').addClass('hide');
+        //                $rootScope.doingResolve = false;
+        //            })
+        //            .error(function (response, status) {
+        //
+        //                $scope.loading_icon = true;
+        //                $('.loading-icon').addClass('hide');
+        //                showError(response, 1);
+        //                $rootScope.doingResolve = false;
+        //                if (status === 401) {
+        //                    $rootScope.show_footer = false;
+        //                    CookieStore.clearData();
+        //                    $location.path('/login');
+        //                }
+        //
+        //            });
+        //
+        //
+        //
+        //
+        //};
 
         //getXsre();
 
@@ -206,7 +207,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
          * Update Now, remove cache and reload the page content
          */
         $scope.updateNow = function () {
-
+            $scope.loading_icon = false;
+            $('.loading-icon').removeClass('hide');
             $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
@@ -214,6 +216,10 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             })
                 .success(function () {
                     //getXsre();
+                    load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
+                    $scope.loading_icon = true;
+                    $('.loading-icon').addClass('hide');
+
                 })
                 .error(function (response, status) {
 
@@ -236,6 +242,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             })
                 .success(function () {
                     //getXsre();
+                    load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
+
                 })
                 .error(function (response, status) {
 
@@ -257,12 +265,12 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 }
             })
                 .success(function () {
-                    //getXsre();
+                    load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
+                    $scope.loading_icon = false;
                 })
                 .error(function (response, status) {
 
-                    $scope.loading_icon = true;
-                    $('.loading-icon').addClass('hide');
+
                     showError(response, 1);
                     $rootScope.doingResolve = false;
                     if (status === 401) {
@@ -295,6 +303,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                 });
             //getXsre();
+
         };
 
     }]);
