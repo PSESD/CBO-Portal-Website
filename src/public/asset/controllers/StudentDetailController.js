@@ -364,11 +364,15 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
         })
             .success(function (response) {
 
+
+
                 if(response.success === true && response.info !== undefined)
                 {
+                    $rootScope.doingResolve = false;
                     general_data = response.info;
                     StudentCache.put(student_id +"general",general_data);
                     generate_general_data(general_data,$scope,student_id);
+
                 }
             })
             .error(function (response, status) {
@@ -402,7 +406,7 @@ function generate_general_data(general_data,$scope,student_id)
     });
 
     $scope.student = general_data.personal;
-    $scope.student.address = general_data.personal.address.length == 0 ? "": general_data.personal.address;
+    $scope.student.address = general_data.personal.address.length === 0 ? "": general_data.personal.address;
     $scope.student._id = student_id;
     $scope.student.race = general_data.personal.race.split(/(?=[A-Z])/).join(" ");
     assignedUsers = ('users' in general_data._embedded) ? general_data._embedded.users : {};
@@ -699,5 +703,6 @@ function load_data($http,student_id,AuthenticationService,$rootScope,CookieStore
     load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
     load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
     load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
-    //load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
+    load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
+    $('.loading-icon').addClass('hide');
 }

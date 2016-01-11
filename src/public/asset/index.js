@@ -40,16 +40,19 @@ app.config(['$httpProvider', function ($httpProvider) {
     //$httpProvider.interceptors.push(function ($rootScope, $q,$rollbar) {
     //    return {
     //        request: function (config) {
-    //            config.timeout = 60000;
+    //            config.timeout = 10000;
+    //            console.log(config);
+    //
     //            return config;
     //        },
-    //        responseError: function (rejection) { 
+    //        responseError: function (rejection) {
     //            switch (rejection.status){
     //                case 408 :
     //                    $rollbar.error('connection timed out');
     //                    showError('connection timed out',1);
     //                    break;
     //            }
+    //            console.log(rejection);
     //            return $q.reject(rejection);
     //        }
     //    }
