@@ -37,23 +37,23 @@ app.config(['$httpProvider', function ($httpProvider) {
     if (__i){$httpProvider.interceptors.push('headerInjector');}
     $httpProvider.defaults.timeout = 15000;
 
-    $httpProvider.interceptors.push(function ($rootScope, $q,$rollbar) {
-        return {
-            request: function (config) {
-                config.timeout = 60000;
-                return config;
-            },
-            responseError: function (rejection) {
-                switch (rejection.status){
-                    case 408 :
-                        $rollbar.error('connection timed out');
-                        showError('connection timed out',1);
-                        break;
-                }
-                return $q.reject(rejection);
-            }
-        }
-    })
+    //$httpProvider.interceptors.push(function ($rootScope, $q,$rollbar) {
+    //    return {
+    //        request: function (config) {
+    //            config.timeout = 60000;
+    //            return config;
+    //        },
+    //        responseError: function (rejection) { 
+    //            switch (rejection.status){
+    //                case 408 :
+    //                    $rollbar.error('connection timed out');
+    //                    showError('connection timed out',1);
+    //                    break;
+    //            }
+    //            return $q.reject(rejection);
+    //        }
+    //    }
+    //})
 
 }]);
 
