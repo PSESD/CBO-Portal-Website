@@ -178,6 +178,9 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
 
                 localStorage.setItem('intended_url',intended_url);
             }
+            else{
+                $location.path("/login");
+            }
 
         }
         if (returnData) {

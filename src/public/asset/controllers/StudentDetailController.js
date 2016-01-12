@@ -12,6 +12,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         var program_participation = "";
         var first_time = true;
         var urlTemplate = 'asset/templates/popoverTemplate.html';
+        var attendance_cache = {};
         $scope.templateUrl = 'asset/templates/popoverTemplate.html';
         $rootScope.full_screen = false;
         //$scope.student = {};
@@ -57,8 +58,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             {
                 $scope.attendanceBehavior = [];
             }
-            if(year)
-            {
+            if(year && !(year.name in attendance_cache)){
+
                 $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/attendance?pageSize=all&year='+year.name, {
                     headers: {
                         'Authorization': 'Bearer ' + AuthenticationService.token
@@ -69,6 +70,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                     {
                         $scope.attendance_loading = false;
                         attendance_data = response.info.data;
+                        attendance_cache[year.name] = attendance_data;
                         // StudentCache.put(student_id + "attendance",attendance_data);
                         generate_attendance_data(attendance_data,$scope,urlTemplate);
                         first_time = false;
@@ -89,7 +91,11 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                         }
 
                     });
+            }else
+            {
+                generate_attendance_data(attendance_cache[year.name],$scope,urlTemplate);
             }
+
         });
 
         $scope.filterAttendanceOfYears = function () {
