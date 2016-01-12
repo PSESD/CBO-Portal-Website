@@ -9,9 +9,10 @@ app.controller('StudentXSreController', ['$route','$rootScope', '$scope', '$rout
             height: '500px',
             tabSize: 6,
             lineNumbers: true,
-            readOnly: 'nocursor',
+            //readOnly: 'nocursor',
             theme: 'monokai',
-            mode: 'xml'
+            mode: 'xml',
+            extraKeys: {"Alt-F": "findPersistent"}
         };
 
 
