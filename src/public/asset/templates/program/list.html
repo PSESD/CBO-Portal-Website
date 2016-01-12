@@ -45,7 +45,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="program in programs | filter:search | orderBy:'name' | orderBy:sortType:sortReverse">
+                            <tr ng-repeat="program in programs | filter:search | orderBy:sortType:sortReverse">
                                 <!--<td>{{ program._id }}</td>-->
                                 <td><a ng-href="#/program/detail/{{ program._id }}">{{ program.name }}</a></td>
                                 <td>{{ program.created | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</td>

@@ -1,5 +1,5 @@
-app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$q',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout,$q) {
+app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$q','$filter',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout,$q,$filter) {
         'use strict';
 
         var deferred = $q.defer();
@@ -207,12 +207,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                                 student.school_district = value;
                             }
                         });
-                        //student.gradeLevel = locale.getString('general.not_ready');
-                        //student.schoolYear = locale.getString('general.not_ready');
-                        //student.schoolName = locale.getString('general.not_ready');
-                        //student.attendance = locale.getString('general.not_ready');
-                        //student.behavior = locale.getString('general.not_ready');
-                        //student.onTrackGraduate = locale.getString('general.not_ready');
 
                         var onTrack = _.get(student,'xsre.onTrackToGraduate');
                         if(parseInt(_.get(student,'xsre.behavior')) <= 1){
@@ -256,6 +250,8 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         }
 
                         $scope.students.push(student);
+
+                        console.log($scope.students);
                         studentKeys[student._id] = o;
                         o++;
                         if(options.indexOf(student.school_district) === -1){
@@ -263,6 +259,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         }
 
                     });
+                    $scope.students = $filter('orderBy')($scope.students,'first_name');
                     /**
                      * Get XSRE
                      */
@@ -294,6 +291,8 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 }
 
             });
+
+
 
     }
 ]);
