@@ -10,6 +10,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         var attendance = "";
         var transcript = "";
         var program_participation = "";
+        var first_time = true;
         var urlTemplate = 'asset/templates/popoverTemplate.html';
         $scope.templateUrl = 'asset/templates/popoverTemplate.html';
         $rootScope.full_screen = false;
@@ -19,6 +20,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         $scope.icon_legend = true;
         $scope.open_button = false;
         $scope.selected_years = [];
+        $scope.attendance_loading = false;
+        $scope.academic_years = [];
 
         $scope.close = function () {
             $scope.open_button = true;
@@ -44,6 +47,50 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
 
         };
+
+        $scope.$watch('academic_year',function(year){
+            if($scope.attendanceBehavior.length != 0){
+                $scope.attendance_loading = true;
+            }
+
+            if(first_time !== true)
+            {
+                $scope.attendanceBehavior = [];
+            }
+            if(year)
+            {
+                $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/attendance?pageSize=all&year='+year.name, {
+                    headers: {
+                        'Authorization': 'Bearer ' + AuthenticationService.token
+                    }
+                }).success(function (response){
+
+                    if(response.success === true && response.info.data !== undefined)
+                    {
+                        $scope.attendance_loading = false;
+                        attendance_data = response.info.data;
+                        // StudentCache.put(student_id + "attendance",attendance_data);
+                        generate_attendance_data(attendance_data,$scope,urlTemplate);
+                        first_time = false;
+
+                    }else{
+                        $rootScope.doingResolve = false;
+
+                    }
+                })
+                    .error(function (response, status) {
+
+                        showError(response, 1);
+                        $rootScope.doingResolve = false;
+                        if (status === 401) {
+                            $rootScope.show_footer = false;
+                            CookieStore.clearData();
+                            $location.path('/login');
+                        }
+
+                    });
+            }
+        });
 
         $scope.filterAttendanceOfYears = function () {
             return function (p) {
@@ -499,7 +546,14 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
                 attendance_data = response.info.data;
                // StudentCache.put(student_id + "attendance",attendance_data);
                 generate_attendance_data(attendance_data,$scope,urlTemplate);
-
+                angular.forEach(response.info.source.years,function(v){
+                    var year = {
+                        id:v,
+                        name:v
+                    };
+                    $scope.academic_years.push(year);
+                });
+                $scope.academic_year = $scope.academic_years[0];
             }else{
                 $rootScope.doingResolve = false;
 
@@ -729,7 +783,7 @@ function generate_transcript_data(transcript_data,$scope)
             item.transcriptsOrder.push({name: k, value: i});
         });
     });
-    $scope.transcripts = transcript_data.data;
+    $scope.transcripts = transcript_data;
     $scope.credit_earned = transcript_data.source.totalCreditsEarned;
     $scope.credit_attempted = transcript_data.source.totalCreditsAttempted;
 }

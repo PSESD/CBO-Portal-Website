@@ -190,9 +190,15 @@
                 <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}" class="tab-pane" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
 
                     <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}">
-                        <li class="text-center">{{ 'general.attendance_and_behavior_error_message' | i18n}}</li>
+                        <li class="text-center" ng-hide="attendance_loading">{{ 'general.attendance_and_behavior_error_message' | i18n}}</li>
+                        <li class="text-center" ng-show="attendance_loading">{{ 'general.loading_data' | i18n}}</li>
                     </ul>
-                    <dropdown-multiselect class="studentdetail-filter no-background-color" ng-class="attendanceBehavior.length > 0 ? '':'hide'" model="selected_years" title="Years" options="optionsOfYears"></dropdown-multiselect>
+                    <!--<dropdown-multiselect class="studentdetail-filter no-background-color" ng-class="attendanceBehavior.length > 0 ? '':'hide'" model="selected_years" title="Years" options="optionsOfYears"></dropdown-multiselect>-->
+                    <!--<select class="studentdetail-filter" name="academic_select" ng-init="academic_year = 'option.name'" ng-model="academic_year" ng-class="attendanceBehavior.length > 0 ? '':'hide'">-->
+                        <!--<option ng-repeat="option in academic_years" value="{{option.id}}">{{option.name}}</option>-->
+                    <!--</select>-->
+                    <select class="studentdetail-filter" name="academic_select" ng-model="academic_year" ng-options="option.name for option in academic_years" ng-class="attendanceBehavior.length > 0 ? '':'hide'">
+                    </select>
                     <ul class="flexbox attendance-behavior {{attendanceBehavior.length > 0 ? '' : 'hide'}}">
                         <li class="uppercase">{{ 'general.attendance_dates' | i18n }}</li>
                         <li>
@@ -434,7 +440,7 @@
                     <hr class="separator-transcript">
                     <div class="transcript-container">
                         <div class="inner-transcript-container">
-                            <ul class="flexbox transcript-content {{$index % 2 == 0 ? '' : 'dark'}}" ng-repeat="transDetail in transcripts | orderBy:'-schoolYear'">
+                            <ul class="flexbox transcript-content {{$index % 2 == 0 ? '' : 'dark'}}" ng-repeat="transDetail in transcripts.data | orderBy:'-schoolYear'">
                                 <li class="transcript-content">
                                     <dl>
                                         <dd>{{ ::transDetail.schoolYear }} - {{ ::transDetail.session }}</dd>

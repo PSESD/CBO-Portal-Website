@@ -631,7 +631,8 @@ ul li.transcript-content:nth-child(7) {
 @media (max-width: 1280px) {
     .studentdetail-filter{
         position: relative;
-        left: 41%;
+        left: 43%;
+        width: 200px;
     }
     ul.transcript li:nth-child(2) {
         width: 16.8%;
@@ -808,7 +809,7 @@ li.transcript-content>.transcript-content-array:hover .transcript-descriptor {
     height: auto;
 }
 .transcript-descriptor:hover ~ .transcript-display {
-    visibility: none;
+    visibility: hidden;
 }
 
 ul.flexbox.attendance-behavior,
@@ -1358,5 +1359,6 @@ dt, dd {
 
 .studentdetail-filter{
     position: relative;
-    left: 41%;
+    left: 43%;
+    width: 200px;
 }
