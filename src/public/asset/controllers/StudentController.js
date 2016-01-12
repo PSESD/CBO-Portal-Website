@@ -251,7 +251,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
                         $scope.students.push(student);
 
-                        console.log($scope.students);
                         studentKeys[student._id] = o;
                         o++;
                         if(options.indexOf(student.school_district) === -1){

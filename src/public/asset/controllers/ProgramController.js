@@ -45,7 +45,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
 
                 if (response.success === true && response.total > 0) {
                     $scope.programs = response.data;
-                    $scope.programs = $filter('orderBy')($scope.programs,'program_name');
+                    $scope.programs = $filter('orderBy')($scope.programs,'name');
                 } else {
                     showError(response.error.message, 1);
                 }

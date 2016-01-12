@@ -629,6 +629,10 @@ ul li.transcript-content:nth-child(7) {
     width: 96%;
 }
 @media (max-width: 1280px) {
+    .studentdetail-filter{
+        position: relative;
+        left: 41%;
+    }
     ul.transcript li:nth-child(2) {
         width: 16.8%;
         font-size: 14px;
@@ -1354,5 +1358,5 @@ dt, dd {
 
 .studentdetail-filter{
     position: relative;
-    left: 8px;
+    left: 41%;
 }

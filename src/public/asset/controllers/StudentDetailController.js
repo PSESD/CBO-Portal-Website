@@ -413,6 +413,47 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
 
 function generate_general_data(general_data,$scope,student_id)
 {
+
+    var embedPrograms = [];
+    embedPrograms = ('programs' in general_data._embedded) ? general_data._embedded.programs : [];
+
+    angular.forEach(embedPrograms, function (v) {
+        var program = {
+            "years": new Date(v.participation_start_date).getFullYear(),
+            "name": v.program_name,
+            "start_date": v.participation_start_date,
+            "end_date": new Date(v.participation_end_date) >= Date.now() ? 'Present' : v.participation_end_date,
+            "active": v.active ? "Active" : "Inactive",
+            "cohorts": v.cohort
+        };
+        $scope.programs.push(program);
+    });
+    $scope.programs.sort(function (a, b) {
+        if (a.years >= b.years) {
+            return (-1);
+        }
+        return (1);
+    });
+
+    var yearPrograms = {};
+
+    for (var i = 0; i < $scope.programs.length; i++) {
+        var program = $scope.programs[i];
+
+        if (Object.keys(yearPrograms).indexOf(program.years) === -1) {
+            yearPrograms[program.years] = [];
+        }
+        yearPrograms[program.years].push(program);
+    }
+
+    angular.forEach(yearPrograms, function (items, year) {
+        $scope.list_programs.push({
+            years: year,
+            programs: items
+        });
+    });
+
+
     $.each(schoolDistricts, function (key, value) {
         if (key === general_data.personal.schoolDistrict) {
             $scope.student.schoolDistrict = value;
@@ -727,6 +768,6 @@ function load_data($http,student_id,AuthenticationService,$rootScope,CookieStore
     load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
     load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
     load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
-    //load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
+    load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
     $('.loading-icon').addClass('hide');
 }

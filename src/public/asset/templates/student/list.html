@@ -105,7 +105,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="student in students | filter:search |orderBy:'first_name'| filter:filterDistrict() | filter:filterSchools()|orderBy:sortType:sortReverse">
+                            <tr ng-repeat="student in students | filter:search | filter:filterDistrict() | filter:filterSchools()|orderBy:sortType:sortReverse">
                                 <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.first_name }} {{ student.last_name }}</a></td>
 								<td>{{student.district_student_id}}</td>
                                 <td>{{ student.school_district }}</td>

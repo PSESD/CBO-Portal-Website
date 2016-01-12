@@ -1,5 +1,5 @@
-app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore','$filter',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore,$filter) {
         'use strict';
         $rootScope.full_screen = false;
         $scope.users = [];
@@ -54,8 +54,6 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
             })
             .error(function (response, status) {
 
-                //console.log(response);
-                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status === 401) {
