@@ -792,6 +792,7 @@ function generate_transcript_data(transcript_data,$scope)
     $scope.transcripts = transcript_data;
     $scope.credit_earned = transcript_data.source.totalCreditsEarned;
     $scope.credit_attempted = transcript_data.source.totalCreditsAttempted;
+    $scope.grade_level = transcript_data.source.gradeLevel;
 }
 
 function load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope)
