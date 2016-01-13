@@ -29,6 +29,9 @@
                     <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
                         <a ng-href="#/user" class="link-nav uppercase">{{ 'general.users' | i18n  }}</a>
                     </li>
+                    <li ng-class="{ active: isActive('/report') }" ng-show="reports_link">
+                        <a ng-href="#/report" class="link-nav uppercase">{{ 'general.reports' | i18n  }}</a>
+                    </li>
                     <li ng-class="{ active: isActive('/program') }">
                         <a ng-href="#/program" class="link-nav uppercase">{{ 'general.programs' | i18n  }}</a>
                     </li>

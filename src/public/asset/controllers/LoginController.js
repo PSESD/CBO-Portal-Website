@@ -101,9 +101,11 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
 
                                                     if (role === 'admin') {
                                                         $rootScope.users_link = true;
+                                                        $rootScope.reports_link = true;
                                                         $rootScope.tags_link = true;
                                                     } else {
                                                         $rootScope.users_link = false;
+                                                        $rootScope.reports_link = false;
                                                         $rootScope.tags_link = false;
                                                     }
                                                     $rootScope.completeName = complete_name;
