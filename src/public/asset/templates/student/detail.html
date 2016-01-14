@@ -1,3 +1,31 @@
+<div class="modal fade" id="attendanceModal" tabindex="-1" role="dialog" aria-labelledby="attendanceModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Attendance JSON Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="ng-binding help">
+                    <dl>
+                        <dt>Ctrl-F / Cmd-F</dt><dd>Start searching</dd>
+                        <dt>Ctrl-G / Cmd-G</dt><dd>Find next</dd>
+                        <dt>Shift-Ctrl-G / Shift-Cmd-G</dt><dd>Find previous</dd>
+                        <dt>Shift-Ctrl-F / Cmd-Option-F</dt><dd>Replace</dd>
+                        <dt>Shift-Ctrl-R / Shift-Cmd-Option-F</dt><dd>Replace all</dd>
+                        <dt>Alt-F</dt><dd>Persistent search (dialog doesn't autoclose,
+                        enter to find next, Shift-Enter to find previous)</dd>
+                        <dt>Alt-G</dt><dd>Jump to line</dd>
+                    </dl>
+                </div>
+                <div ui-codemirror ui-codemirror-opts="editorOptions" ui-refresh="refresh" ng-model="snippet"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-12">
@@ -221,7 +249,7 @@
                             <div class="panel-heading attendance-behavior" role="tab" id='heading_{{ indexBehavior+1 }}'>
                                 <h4 class="panel-title">
 
-                                    <ul ng-click="openHeader($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
+                                    <ul ng-click="openHeader($event)" data-key="{{behavior.summary.title}}" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
                                         <li>
                                             {{ ::behavior.summary.title }}
                                         </li>
