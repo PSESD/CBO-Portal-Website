@@ -2,9 +2,21 @@ var general_data = "";
 var attendance_data = "";
 var transcript_data = "";
 var program_participation_data = "";
-app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache',
+var json_debug = [];
+
+app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
     function ($route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
         'use strict';
+        $scope.editorOptions = {
+            lineWrapping : true,
+            mode: 'htmlmixed',
+            height: '500px',
+            tabSize: 6,
+            lineNumbers: true,
+            //readOnly: 'nocursor',
+            theme: 'monokai',
+            extraKeys: {"Alt-F": "findPersistent"}
+        };
 
         $scope.loading_icon = true;
         var attendance = "";
@@ -23,6 +35,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         $scope.selected_years = [];
         $scope.attendance_loading = false;
         $scope.academic_years = [];
+        $scope.academic_years.year = "";
 
         $scope.close = function () {
             $scope.open_button = true;
@@ -71,6 +84,16 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                         $scope.attendance_loading = false;
                         attendance_data = response.info.data;
                         attendance_cache[year.name] = attendance_data;
+                        angular.forEach(response.info.data,function(v,k){
+
+                           angular.forEach(response.info.data[k],function(v,k){
+                               json_debug.push({
+                                   key:k,
+                                   value:JSON.stringify(v)
+                               });
+
+                           });
+                        });
                         // StudentCache.put(student_id + "attendance",attendance_data);
                         generate_attendance_data(attendance_data,$scope,urlTemplate);
                         first_time = false;
@@ -93,7 +116,9 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                     });
             }else
             {
-                generate_attendance_data(attendance_cache[year.name],$scope,urlTemplate);
+
+                        generate_attendance_data(attendance_cache[year.name],$scope,urlTemplate);
+
             }
 
         });
@@ -119,6 +144,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             };
         };
 
+
         $scope.openHeader = function(event)
         {
 
@@ -137,6 +163,12 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 $(attendance_header).removeClass('hide');
             }
             $(attendance_detail).addClass('hide');
+            if($scope.viewDebug === true){
+                var data = _.find(json_debug, { 'key': $(attendance_header).data('key') });
+                $scope.snippet = data.value;
+                $scope.refresh = true;
+                $('#attendanceModal').modal('show');
+            }
         }
 
 
@@ -583,8 +615,6 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
     //    generate_attendance_data(StudentCache.get(student_id + "attendance"),$scope,urlTemplate);
     //}
 
-
-
 }
 
 function generate_attendance_data(attendance_data,$scope,urlTemplate)
@@ -717,12 +747,11 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
 
             });
             behavior[key].columnHtml = columnHtml;
-
             $scope.attendanceBehavior.push(behavior[key]);
+
         });
     });
     yearsOptions = _.uniq(years,'id');
-    $scope.optionsOfYears = yearsOptions;
 }
 
 function load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache)
