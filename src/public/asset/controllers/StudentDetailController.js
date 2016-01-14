@@ -89,7 +89,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                            angular.forEach(response.info.data[k],function(v,k){
                                json_debug.push({
                                    key:k,
-                                   value:JSON.stringify(v)
+                                   value:JSON.stringify(v,null,2)
                                });
 
                            });
