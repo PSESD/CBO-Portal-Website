@@ -280,13 +280,17 @@ app.directive('hcPie', function () {
         restrict: 'C',
         replace: true,
         scope: {
-            items: '='
+            districts: '=',
+            schools: '='
         },
         controller: function($scope, $element, $attrs) {
 
         },
         template: '<div id="container" style="margin: 0 auto">not working</div>',
         link: function(scope, element, attrs) {
+            console.log(scope);
+            console.log(element);
+            console.log(attrs);
             var chart = new Highcharts.Chart({
                 chart: {
                     renderTo: 'container',
@@ -315,14 +319,42 @@ app.directive('hcPie', function () {
                         }
                     }
                 },
-                series: [{
-                    type: 'pie',
-                    name: 'Browser share',
-                    data: scope.items
-                }]
+                series: [
+                    {
+                        type: 'pie',
+                        name: 'Districts',
+                        size: '50%',
+                        dataLabels: {
+                            formatter: function () {
+                                return this.y > 5 ? this.point.name : null;
+                            },
+                            color: '#ffffff',
+                            distance: -30
+                        },
+                        data: scope.districts
+                    },
+                    {
+                        type: 'pie',
+                        name: 'Schools',
+                        size: '100%',
+                        innerSize: '50%',
+                        dataLabels: {
+                            formatter: function () {
+                                // display only if larger than 1
+                                return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y : null;
+                            }
+                        },
+                        data: scope.schools
+                    }
+                ]
             });
-            scope.$watch("items", function(newValue) {
+
+            scope.$watch("districts", function(newValue) {
                 chart.series[0].setData(newValue, true);
+            }, true);
+
+            scope.$watch("schools", function(newValue) {
+                chart.series[1].setData(newValue, true);
             }, true);
 
         }
