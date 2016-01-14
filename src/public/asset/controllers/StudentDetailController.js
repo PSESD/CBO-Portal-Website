@@ -9,7 +9,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         'use strict';
         $scope.editorOptions = {
             lineWrapping : true,
-            mode: 'htmlmixed',
+            mode: 'javascript',
             height: '500px',
             tabSize: 6,
             lineNumbers: true,
