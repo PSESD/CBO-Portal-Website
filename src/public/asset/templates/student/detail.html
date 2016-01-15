@@ -1,9 +1,53 @@
-<div class="modal fade" id="attendanceModal" tabindex="-1" role="dialog" aria-labelledby="attendanceModal">
+
+<div class="modal fade" id="schoolEnrollment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Attendance JSON Data</h4>
+                <h4 class="modal-title" id="myModalLabel">School History</h4>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+
+                <scrollable-table watch="visibleProjects">
+
+                <table class="table table-striped school-history">
+                <thead>
+                <tr>
+                <th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>
+                <th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="data in visibleProjects">
+                <td>
+                {{::data.schoolName}}
+                </td>
+                <td>
+                {{::data.schoolYear}}
+                </td>
+                </tr>
+                </tbody>
+
+                </table>
+
+                </scrollable-table>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="debugModal" tabindex="-1" role="dialog" aria-labelledby="debugModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="debugTitle">{{debug_title}} JSON Data</h4>
             </div>
             <div class="modal-body">
                 <div class="ng-binding help">
@@ -441,7 +485,7 @@
                             </dl>
 
                             <div>
-                                <div ng-click="showSchoolHistory()" class="button transcript-school-history display-inline-blk uppercase">{{ 'general.see_school' | i18n }}
+                                <div ng-click="showHistory()" class="button transcript-school-history display-inline-blk uppercase">{{ 'general.see_school' | i18n }}
                                     <br>HISTORY</div>
                             </div>
 
@@ -495,6 +539,7 @@
                                         </dd>
                                         <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                         <dd>{{ ::transDetail.gradeLevel }}</dd>
+                                        <dt><div ng-show="viewDebug" class="transcript-json" ng-click="showTranscriptJson(transDetail.schoolYear+transDetail.session)">Show Json</div> </dt>
                                     </dl>
                                 </li>
                                 <li class="transcript-content tcontent-{{total_data}}-col" ng-repeat="course in transDetail.transcriptsOrder">
@@ -617,43 +662,43 @@
                     </div>
                 </div>
             </div>
-            <div id="school-history-transcript" class="school history" ng-show="sch_history">
+            <!--<div id="school-history-transcript" class="school history" ng-show="sch_history">-->
 
-                <div class="title">
-                    <span ng-click="closeSchoolHistory()" class="school-history glyphicon glyphicon-remove"></span>
-                    <p class="subhead transcript">School History</p>
-                    <hr class="subhead separator-transcript">
+                <!--<div class="title">-->
+                    <!--<span ng-click="closeSchoolHistory()" class="school-history glyphicon glyphicon-remove"></span>-->
+                    <!--<p class="subhead transcript">School History</p>-->
+                    <!--<hr class="subhead separator-transcript">-->
 
-                </div>
-                <div class="content">
+                <!--</div>-->
+                <!--<div class="content">-->
 
-                    <scrollable-table watch="visibleProjects">
+                    <!--<scrollable-table watch="visibleProjects">-->
 
-                        <table class="table table-striped school-history">
-                            <thead>
-                            <tr>
-                                <th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>
-                                <th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-if="sch_history" ng-repeat="data in history">
-                                <td>
-                                    {{::data.schoolName}}
-                                </td>
-                                <td>
-                                    {{::data.schoolYear}}
-                                </td>
-                            </tr>
-                            </tbody>
+                        <!--<table class="table table-striped school-history">-->
+                            <!--<thead>-->
+                            <!--<tr>-->
+                                <!--<th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>-->
+                                <!--<th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--<tr ng-if="sch_history" ng-repeat="data in history">-->
+                                <!--<td>-->
+                                    <!--{{::data.schoolName}}-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--{{::data.schoolYear}}-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
 
-                        </table>
+                        <!--</table>-->
 
-                    </scrollable-table>
+                    <!--</scrollable-table>-->
 
-                </div>
+                <!--</div>-->
 
-            </div>
+            <!--</div>-->
         </div>
     </div>
 </div>

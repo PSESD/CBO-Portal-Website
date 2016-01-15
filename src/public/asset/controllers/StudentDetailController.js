@@ -3,6 +3,7 @@ var attendance_data = "";
 var transcript_data = "";
 var program_participation_data = "";
 var json_debug = [];
+var transcript_debug = [];
 
 app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
     function ($route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
@@ -25,6 +26,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         var first_time = true;
         var urlTemplate = 'asset/templates/popoverTemplate.html';
         var attendance_cache = {};
+
         $scope.templateUrl = 'asset/templates/popoverTemplate.html';
         $rootScope.full_screen = false;
         //$scope.student = {};
@@ -50,15 +52,30 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         $scope.viewDebug = $routeParams.debug ? true : false;
         $scope.sch_history = false;
         $scope.academic = true;
+        //$scope.showSchoolHistory = function () {
+        //    //$scope.sch_history = true;
+        //   $('#enrollmentHistoryModal').modal('show');
+        //};
 
-        $scope.showSchoolHistory = function () {
-            $scope.sch_history = true;
-
+        $scope.showHistory = function()
+        {
+            $("#schoolEnrollment").modal('show');
         };
 
         $scope.closeSchoolHistory = function () {
             $scope.sch_history = false;
 
+        };
+
+        $scope.showTranscriptJson = function(id)
+        {
+            var key = id.trim().replace(/\s/g, "");
+
+                var data = _.find(transcript_debug, { 'key': key });
+                $scope.snippet = data.value;
+                $scope.refresh = true;
+            $scope.debug_title = "Transcript";
+            $('#debugModal').modal('show');
 
         };
 
@@ -167,7 +184,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 var data = _.find(json_debug, { 'key': $(attendance_header).data('key') });
                 $scope.snippet = data.value;
                 $scope.refresh = true;
-                $('#attendanceModal').modal('show');
+                $scope.debug_title = "Attendance";
+                $('#debugModal').modal('show');
             }
         }
 
@@ -770,6 +788,14 @@ function load_transcript_data($http,student_id,AuthenticationService,$rootScope,
             {
 
                 transcript_data = response.info || {};
+                angular.forEach(response.info.data,function(v,k){
+                    var transcript = {
+                        key: v.schoolYear + v.session.replace(/\s/g, ""),
+                        value: JSON.stringify(v,null,2)
+                    }
+                    transcript_debug.push(transcript);
+
+                });
                // StudentCache.put(student_id + "transcript",transcript_data);
                 generate_transcript_data(transcript_data,$scope);
             }else{
@@ -798,7 +824,8 @@ function load_transcript_data($http,student_id,AuthenticationService,$rootScope,
 
 function generate_transcript_data(transcript_data,$scope)
 {
-    $scope.history = transcript_data.source.history;
+    //$scope.history = transcript_data.source.history;
+    $scope.visibleProjects = transcript_data.source.history;
 
     var courseTitle = transcript_data.source.info.courseTitle;
     $scope.courses = courseTitle;

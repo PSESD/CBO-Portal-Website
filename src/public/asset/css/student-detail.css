@@ -301,7 +301,7 @@ ul.list-group.legend-list li {
     display: none;
 }
 .show {
-    display: "";
+    display: block;
 }
 .button.btn-legend {
     position: relative;
@@ -1327,11 +1327,18 @@ background-color:#eee;
 }
 
 .icon-ok {
-    background: url(../img/check-small.png);
+    /*background: url(../img/check-small.png);*/
     width: 16px;
     height: 16px;
     display: block;
     position: relative;
+}
+
+.icon-ok:before{
+    content: "\e013";
+    font-family:"Glyphicons Halflings";
+    line-height:1;
+    display:inline-block;
 }
 
 .filter-caret{
@@ -1361,4 +1368,11 @@ dt, dd {
     position: relative;
     left: 43%;
     width: 200px;
+}
+.transcript-json{
+    color:#29B6D8;
+}
+.transcript-json:hover{
+    cursor: pointer;
+    color: #337ab7;
 }
