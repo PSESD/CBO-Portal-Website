@@ -96,7 +96,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                     if(response.success === true && response.info.data !== undefined)
                     {
-                        console.log(response)
+
                         $scope.attendance_loading = false;
                         attendance_data = response.info.data;
                         attendance_cache[year.name] = attendance_data;
@@ -607,8 +607,8 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
                 generate_attendance_data(attendance_data,$scope,urlTemplate);
                 angular.forEach(response.info.source.years,function(v){
                     var year = {
-                        id:v,
-                        name:v
+                        id: v.replace("/"," - "),
+                        name:v.replace("/"," - ")
                     };
                     $scope.academic_years.push(year);
                 });
