@@ -28,16 +28,22 @@
                                 <th>
                                     <a href="#" ng-click="sortType = 'name';sortReverse = !sortReverse">
                                     {{ 'general.program_name' | i18n }}
+                                        <i ng-show="sortType == 'name' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
+                                        <i ng-show="sortType == 'name' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
                                     </a>
                                 </th>
                                 <th>
                                     <a href="#" ng-click="sortType = 'created';sortReverse = !sortReverse">
                                     {{ 'general.created' | i18n }}
+                                        <i ng-show="sortType == 'created' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
+                                        <i ng-show="sortType == 'created' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
                                     </a>
                                 </th>
                                 <th>
                                     <a href="#" ng-click="sortType = 'last_updated';sortReverse = !sortReverse">
                                     {{ 'general.last_update' | i18n }}
+                                        <i ng-show="sortType == 'last_updated' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
+                                        <i ng-show="sortType == 'last_updated' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
                                     </a>
                                 </th>
                                 <th class="text-center" style="width:9%">{{ 'general.assign_students' | i18n }}</th>

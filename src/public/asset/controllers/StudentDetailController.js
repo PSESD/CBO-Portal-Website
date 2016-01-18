@@ -37,7 +37,6 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         $scope.selected_years = [];
         $scope.attendance_loading = false;
         $scope.academic_years = [];
-        $scope.academic_years.year = "";
 
         $scope.close = function () {
             $scope.open_button = true;
@@ -83,7 +82,6 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             if($scope.attendanceBehavior.length != 0){
                 $scope.attendance_loading = true;
             }
-
             if(first_time !== true)
             {
                 $scope.attendanceBehavior = [];
@@ -98,6 +96,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
 
                     if(response.success === true && response.info.data !== undefined)
                     {
+                        console.log(response)
                         $scope.attendance_loading = false;
                         attendance_data = response.info.data;
                         attendance_cache[year.name] = attendance_data;
@@ -133,12 +132,15 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                     });
             }else
             {
+                        if(_.has(year,'name')){
+                            generate_attendance_data(attendance_cache[year.name],$scope,urlTemplate);
+                        }
 
-                        generate_attendance_data(attendance_cache[year.name],$scope,urlTemplate);
 
             }
 
-        });
+        }
+        );
 
         $scope.filterAttendanceOfYears = function () {
             return function (p) {
@@ -181,6 +183,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             }
             $(attendance_detail).addClass('hide');
             if($scope.viewDebug === true){
+
                 var data = _.find(json_debug, { 'key': $(attendance_header).data('key') });
                 $scope.snippet = data.value;
                 $scope.refresh = true;

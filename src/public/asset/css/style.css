@@ -916,3 +916,6 @@ select{
 .error-color{
     background-color: #ED0707;
 }
+.post-abs{
+    position:absolute;
+}

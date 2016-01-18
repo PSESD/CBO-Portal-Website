@@ -223,8 +223,8 @@ function showError(message, alert) {
     if (alert === 2) {
         passingClass = 'alert-success';
     }
-    if(message.hasOwnProperty("error")){
-        if(message.error.hasOwnProperty("message"))
+    if(_.has(message,'error')){
+        if(_.has(message.error,'message'))
         {
             messages = message.error.message;
         }
@@ -233,7 +233,7 @@ function showError(message, alert) {
             messages = message.error;
         }
 
-    }else if( message.hasOwnProperty("message"))
+    }else if(_.has(message,'message'))
     {
         messages = message.message;
     }

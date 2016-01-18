@@ -28,21 +28,29 @@
                                 <th>
                                     <a href="#" ng-click="sortType = 'first_name';sortReverse = !sortReverse">
                                     {{ 'general.name' | i18n }}
+                                        <i ng-show="sortType == 'first_name' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
+                                        <i ng-show="sortType == 'first_name' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
                                     </a>
                                 </th>
                                 <th>
                                     <a href="#" ng-click="sortType = 'email';sortReverse = !sortReverse">
                                     {{ 'general.email' | i18n }}
+                                        <i ng-show="sortType == 'email' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
+                                        <i ng-show="sortType == 'email' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
                                     </a>
                                 </th>
                                 <th>
                                     <a href="#" ng-click="sortType = 'created';sortReverse = !sortReverse">
                                     {{ 'general.created' | i18n }}
+                                        <i ng-show="sortType == 'created' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
+                                        <i ng-show="sortType == 'created' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
                                     </a>
                                 </th>
                                 <th>
                                     <a href="#" ng-click="sortType = 'last_update';sortReverse = !sortReverse">
                                     {{ 'general.last_update' | i18n }}
+                                        <i ng-show="sortType == 'last_update' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
+                                        <i ng-show="sortType == 'last_update' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
                                     </a>
                                 </th>
                                 <th class="text-center" style="width:9%;">{{ 'general.permissions' | i18n }}</th>
