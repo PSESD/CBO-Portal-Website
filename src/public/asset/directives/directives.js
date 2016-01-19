@@ -323,7 +323,7 @@ app.directive('studentSchoolDistrictPie', function () {
                         size: '50%',
                         dataLabels: {
                             formatter: function () {
-                                return this.y > 1 ? this.point.name : null;
+                                return this.y >= 1 ? this.point.name : null;
                             },
                             color: '#ffffff',
                             distance: -30
@@ -338,7 +338,7 @@ app.directive('studentSchoolDistrictPie', function () {
                         dataLabels: {
                             formatter: function () {
                                 // display only if larger than 1
-                                return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y : null;
+                                return this.y >= 1 ? '<b>' + this.point.name + ':</b> ' + this.y : null;
                             }
                         },
                         data: scope.schools
@@ -408,7 +408,7 @@ app.directive('studentGradeGradPie', function () {
                         size: '100%',
                         dataLabels: {
                             formatter: function () {
-                                return this.y > 1 ? this.point.name : null;
+                                return this.y >= 1 ? this.point.name : null;
                             },
                             color: '#ffffff'
                         },
@@ -475,7 +475,7 @@ app.directive('studentRaceEthnicityPie', function () {
                         size: '100%',
                         dataLabels: {
                             formatter: function () {
-                                return this.y > 1 ? this.point.name : null;
+                                return this.y >= 1 ? this.point.name : null;
                             },
                             color: '#ffffff'
                         },
@@ -542,7 +542,7 @@ app.directive('studentGenderPie', function () {
                         size: '100%',
                         dataLabels: {
                             formatter: function () {
-                                return this.y > 1 ? this.point.name : null;
+                                return this.y >= 1 ? this.point.name : null;
                             },
                             color: '#ffffff'
                         },
