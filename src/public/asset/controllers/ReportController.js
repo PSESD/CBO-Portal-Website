@@ -65,7 +65,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
                     if(typeof response[index].schoolName !== "undefined")
                     {
-                        $scope.total_school += response[index].schoolName;
+                        $scope.total_school += response[index].total;
 
                         temp = {
                             color: colors[color_number],
