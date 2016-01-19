@@ -286,7 +286,7 @@ app.directive('studentSchoolDistrictPie', function () {
         controller: function($scope, $element, $attrs) {
 
         },
-        template: '<div id="student-school-district-pie" style="margin: 0 auto">not working</div>',
+        template: '<div id="student-school-district-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart = new Highcharts.Chart({
                 chart: {
@@ -371,7 +371,7 @@ app.directive('studentGradeGradPie', function () {
         controller: function($scope, $element, $attrs) {
 
         },
-        template: '<div id="student-grade-grad-pie" style="margin: 0 auto">not working</div>',
+        template: '<div id="student-grade-grad-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart2 = new Highcharts.Chart({
                 chart: {
@@ -409,8 +409,7 @@ app.directive('studentGradeGradPie', function () {
                         dataLabels: {
                             formatter: function () {
                                 return this.y >= 1 ? this.point.name : null;
-                            },
-                            color: '#ffffff'
+                            }
                         },
                         data: scope.grade
                     }
@@ -438,7 +437,7 @@ app.directive('studentRaceEthnicityPie', function () {
         controller: function($scope, $element, $attrs) {
 
         },
-        template: '<div id="student-race-ethnicity-pie" style="margin: 0 auto">not working</div>',
+        template: '<div id="student-race-ethnicity-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart3 = new Highcharts.Chart({
                 chart: {
@@ -476,8 +475,7 @@ app.directive('studentRaceEthnicityPie', function () {
                         dataLabels: {
                             formatter: function () {
                                 return this.y >= 1 ? this.point.name : null;
-                            },
-                            color: '#ffffff'
+                            }
                         },
                         data: scope.ethnicity
                     }
@@ -505,7 +503,7 @@ app.directive('studentGenderPie', function () {
         controller: function($scope, $element, $attrs) {
 
         },
-        template: '<div id="student-gender-pie" style="margin: 0 auto">not working</div>',
+        template: '<div id="student-gender-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart4 = new Highcharts.Chart({
                 chart: {
@@ -543,8 +541,7 @@ app.directive('studentGenderPie', function () {
                         dataLabels: {
                             formatter: function () {
                                 return this.y >= 1 ? this.point.name : null;
-                            },
-                            color: '#ffffff'
+                            }
                         },
                         data: scope.gender
                     }
