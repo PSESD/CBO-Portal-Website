@@ -274,23 +274,22 @@ app.directive('datepicker', function () {
 
 });
 
-app.directive('hcPie', function () {
+app.directive('studentSchoolDistrictPie', function () {
     'use strict';
     return {
         restrict: 'C',
         replace: true,
         scope: {
             districts: '=',
-            schools: '='
+            schools: '=',
+            grade: '=',
+            grad: '='
         },
         controller: function($scope, $element, $attrs) {
 
         },
         template: '<div id="container" style="margin: 0 auto">not working</div>',
         link: function(scope, element, attrs) {
-            console.log(scope);
-            console.log(element);
-            console.log(attrs);
             var chart = new Highcharts.Chart({
                 chart: {
                     renderTo: 'container',
@@ -299,7 +298,7 @@ app.directive('hcPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'Student per school'
+                    text: 'School'
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.y}</b>',
@@ -331,21 +330,51 @@ app.directive('hcPie', function () {
                             color: '#ffffff',
                             distance: -30
                         },
+                        center: ['25%',150],
                         data: scope.districts
                     },
                     {
                         type: 'pie',
                         name: 'Schools',
                         size: '100%',
-                        innerSize: '50%',
+                        innerSize: '53%',
                         dataLabels: {
                             formatter: function () {
                                 // display only if larger than 1
                                 return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y : null;
                             }
                         },
+                        center: ['25%',150],
                         data: scope.schools
-                    }
+                    },
+                    {
+                        type: 'pie',
+                        name: 'Grade',
+                        size: '50%',
+                        dataLabels: {
+                            formatter: function () {
+                                return this.y > 5 ? this.point.name : null;
+                            },
+                            color: '#ffffff',
+                            distance: -30
+                        },
+                        center: ['75%',150],
+                        data: scope.grade
+                    },
+                    {
+                        type: 'pie',
+                        name: 'Grad',
+                        size: '100%',
+                        innerSize: '53%',
+                        dataLabels: {
+                            formatter: function () {
+                                // display only if larger than 1
+                                return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y : null;
+                            }
+                        },
+                        center: ['75%',150],
+                        data: scope.grad
+                    },
                 ]
             });
 
@@ -357,7 +386,16 @@ app.directive('hcPie', function () {
                 chart.series[1].setData(newValue, true);
             }, true);
 
+            scope.$watch("grade", function(newValue) {
+                chart.series[2].setData(newValue, true);
+            }, true);
+
+            scope.$watch("grad", function(newValue) {
+                chart.series[3].setData(newValue, true);
+            }, true);
+
         }
     }
 
 });
+
