@@ -208,5 +208,76 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
             }
         ];
 
+
+        $scope.race = [
+            {
+                color: colors[0],
+                name: "Grade 21",
+                y: 100
+            },
+            {
+                color: colors[1],
+                name: "Grade 22",
+                y: 80
+            },
+            {
+                color: colors[2],
+                name: "Grade 23",
+                y: 100
+            },
+            {
+                color: colors[3],
+                name: "Grade 24",
+                y: 70
+            },
+            {
+                color: colors[4],
+                name: "Grade 25",
+                y: 150
+            }
+        ];
+        $scope.etnicity = [
+            {
+                color: colors[0],
+                name: "Grad 21",
+                y: 10
+            },
+            {
+                color: colors[0],
+                name: "Grad 22",
+                y: 20
+            },
+            {
+                color: colors[0],
+                name: "Grad 23",
+                y: 30
+            },
+            {
+                color: colors[0],
+                name: "Grad 24",
+                y: 40
+            },
+            {
+                color: colors[1],
+                name: "Grad 25",
+                y: 80
+            },
+            {
+                color: colors[2],
+                name: "Grad 26",
+                y: 100
+            },
+            {
+                color: colors[3],
+                name: "Grad 27",
+                y: 70
+            },
+            {
+                color: colors[4],
+                name: "Grad 28",
+                y: 150
+            }
+        ];
+
     }
 ]);

@@ -375,6 +375,34 @@ app.directive('studentSchoolDistrictPie', function () {
                         center: ['75%',150],
                         data: scope.grad
                     },
+                    {
+                        type: 'pie',
+                        name: 'Grade',
+                        size: '50%',
+                        dataLabels: {
+                            formatter: function () {
+                                return this.y > 5 ? this.point.name : null;
+                            },
+                            color: '#ffffff',
+                            distance: -30
+                        },
+                        center: ['25%',450],
+                        data: scope.grade
+                    },
+                    {
+                        type: 'pie',
+                        name: 'Grad',
+                        size: '100%',
+                        innerSize: '53%',
+                        dataLabels: {
+                            formatter: function () {
+                                // display only if larger than 1
+                                return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y : null;
+                            }
+                        },
+                        center: ['25%',450],
+                        data: scope.grad
+                    },
                 ]
             });
 
@@ -392,6 +420,14 @@ app.directive('studentSchoolDistrictPie', function () {
 
             scope.$watch("grad", function(newValue) {
                 chart.series[3].setData(newValue, true);
+            }, true);
+
+            scope.$watch("grade", function(newValue) {
+                chart.series[4].setData(newValue, true);
+            }, true);
+
+            scope.$watch("grad", function(newValue) {
+                chart.series[5].setData(newValue, true);
             }, true);
 
         }
