@@ -11,29 +11,65 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
         var colors = ["#7cb5ec", "#434348", "#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"];
 
-        $scope.programData = [];
-        $scope.districtData = [];
-        $scope.cohortData = [];
-        $scope.caseloadData = [];
+        $scope.programData = [
+            {
+                id: 1,
+                name: "Program 1"
+            },
+            {
+                id: 2,
+                name: "Program 2"
+            },
+            {
+                id: 3,
+                name: "Program 3"
+            },
+        ];
+        $scope.districtData = [
+            {
+                id: 1,
+                name: "District 1"
+            },
+            {
+                id: 2,
+                name: "District 2"
+            },
+            {
+                id: 3,
+                name: "District 3"
+            },
+        ];
+        $scope.cohortData = [
+            {
+                id: 1,
+                name: "Cohort 1"
+            },
+            {
+                id: 2,
+                name: "Cohort 2"
+            },
+            {
+                id: 3,
+                name: "Cohort 3"
+            },
+        ];
+        $scope.caseloadData = [
+            {
+                id: 1,
+                name: "Case Load 1"
+            },
+            {
+                id: 2,
+                name: "Case Load 2"
+            },
+            {
+                id: 3,
+                name: "Case Load 3"
+            },
+        ];
         $scope.total_student = 0;
         $scope.total_school = 0;
         $scope.total_user = 0;
-
-        $scope.programData.push("program 1");
-        $scope.programData.push("program 2");
-        $scope.programData.push("program 3");
-
-        $scope.districtData.push("district 1");
-        $scope.districtData.push("district 2");
-        $scope.districtData.push("district 3");
-
-        $scope.cohortData.push("cohort 1");
-        $scope.cohortData.push("cohort 2");
-        $scope.cohortData.push("cohort 3");
-
-        $scope.caseloadData.push("case load 1");
-        $scope.caseloadData.push("case load 2");
-        $scope.caseloadData.push("case load 3");
 
         $rootScope.doingResolve = false;
 
