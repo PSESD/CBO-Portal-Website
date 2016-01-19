@@ -4,13 +4,49 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
         $rootScope.full_screen = false;
 
-        $http.get(api_url + AuthenticationService.organization_id + '/students', {
+        //students/school_district
+        //students/grade
+        //students/gender
+        //students/race
+
+        $http.get(api_url + AuthenticationService.organization_id + '/students/grade', {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+        })
+            .success(function (response) {
+                console.log("grade");
+                console.log(response);
+            });
+
+        $http.get(api_url + AuthenticationService.organization_id + '/students/gender', {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+        })
+            .success(function (response) {
+                console.log("gender");
+                console.log(response);
+            });
+
+        $http.get(api_url + AuthenticationService.organization_id + '/students/race', {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+        })
+            .success(function (response) {
+                console.log("race");
+                console.log(response);
+            });
+
+        $http.get(api_url + AuthenticationService.organization_id + '/students/school_district', {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
         })
             .success(function (response) {
 
+                console.log("school_district");
                 console.log(response);
                 $rootScope.doingResolve = false;
 
