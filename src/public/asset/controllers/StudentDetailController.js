@@ -88,7 +88,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             }
             if(year && !(year.name in attendance_cache)){
 
-                $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/attendance?pageSize=all&year='+year.name, {
+                $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/attendance?pageSize=all&year='+year.id, {
                     headers: {
                         'Authorization': 'Bearer ' + AuthenticationService.token
                     }
@@ -182,9 +182,11 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 $(attendance_header).removeClass('hide');
             }
             $(attendance_detail).addClass('hide');
+
             if($scope.viewDebug === true){
 
                 var data = _.find(json_debug, { 'key': $(attendance_header).data('key') });
+
                 $scope.snippet = data.value;
                 $scope.refresh = true;
                 $scope.debug_title = "Attendance";
@@ -607,7 +609,7 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
                 generate_attendance_data(attendance_data,$scope,urlTemplate);
                 angular.forEach(response.info.source.years,function(v){
                     var year = {
-                        id: v.replace("/"," - "),
+                        id: v,
                         name:v.replace("/"," - ")
                     };
                     $scope.academic_years.push(year);
