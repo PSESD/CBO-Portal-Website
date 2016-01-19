@@ -604,7 +604,8 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
             if(response.success === true && response.info.data !== undefined)
             {
 
-                attendance_data = response.info.data;
+                //attendance_data = response.info.data;
+                attendance_data = "";
                // StudentCache.put(student_id + "attendance",attendance_data);
                 generate_attendance_data(attendance_data,$scope,urlTemplate);
                 angular.forEach(response.info.source.years,function(v){
