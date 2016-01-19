@@ -11,7 +11,24 @@
                     <hr>
                 </div>
                 <div class="clearfix"></div>
+                    <span>{{ 'general.filters' | i18n }}:<span/>
 
+                    <dropdown-multiselect class="no-background-color" model="select_program" title="Program" options="programData"></dropdown-multiselect>
+                    <dropdown-multiselect class="no-background-color" model="select_district" title="District" options="districtData"></dropdown-multiselect>
+                    <dropdown-multiselect class="no-background-color" model="select_cohort" title="Cohort" options="cohortData"></dropdown-multiselect>
+                    <dropdown-multiselect class="no-background-color" model="select_caseload" title="Caseload" options="caseloadData"></dropdown-multiselect>
+
+                <div class="clearfix"></div>
+                    <div class="col-md-4">
+                        {{total_student}} of Students
+                    </div>
+                    <div class="col-md-4">
+                        {{total_school}} of schools
+                    </div>
+                    <div class="col-md-4">
+                        {{total_user}} of users
+                    </div>
+                <div class="clearfix"></div>
                 <div class="col-md-6">
                     <div class="student-school-district-pie" districts="districts" schools="studentSchools"></div>
                 </div>
