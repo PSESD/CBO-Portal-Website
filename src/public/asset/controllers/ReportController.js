@@ -4,12 +4,12 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
         $rootScope.full_screen = false;
 
-        //students/school_district
-        //students/grade
-        //students/gender
-        //students/race
+        //report/students/school_district
+        //report/students/grade
+        //report/students/gender
+        //report/students/race
 
-        $http.get(api_url + AuthenticationService.organization_id + '/students/grade', {
+        $http.get(api_url + AuthenticationService.organization_id + '/report/students/grade', {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
@@ -19,7 +19,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 console.log(response);
             });
 
-        $http.get(api_url + AuthenticationService.organization_id + '/students/gender', {
+        $http.get(api_url + AuthenticationService.organization_id + '/report/students/gender', {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
@@ -29,7 +29,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 console.log(response);
             });
 
-        $http.get(api_url + AuthenticationService.organization_id + '/students/race', {
+        $http.get(api_url + AuthenticationService.organization_id + '/report/students/race', {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
@@ -39,7 +39,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 console.log(response);
             });
 
-        $http.get(api_url + AuthenticationService.organization_id + '/students/school_district', {
+        $http.get(api_url + AuthenticationService.organization_id + '/report/students/school_district', {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
