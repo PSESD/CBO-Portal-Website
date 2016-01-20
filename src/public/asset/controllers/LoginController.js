@@ -158,7 +158,7 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
 
                 })
                 .error(function (response) {
-
+                    console.log(response);
                     showError(response.error_description, 1);
                     $scope.login.working = false;
                 });

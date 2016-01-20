@@ -4,6 +4,8 @@ var transcript_data = "";
 var program_participation_data = "";
 var json_debug = [];
 var transcript_debug = [];
+var attendance_state = false;
+var transcript_state = false;
 
 app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
     function ($route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
@@ -18,8 +20,9 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             theme: 'monokai',
             extraKeys: {"Alt-F": "findPersistent"}
         };
-
+        showLoadingIcon($scope);
         $scope.loading_icon = true;
+        $scope.showLoading = false;
         var attendance = "";
         var transcript = "";
         var program_participation = "";
@@ -256,57 +259,6 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         };
         load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
 
-        //var getXsre = function () {
-        //
-        //
-        //
-        //        $scope.loading_icon = false;
-        //        $('.loading-icon').removeClass('hide');
-        //        $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
-        //            headers: {
-        //                'Authorization': 'Bearer ' + AuthenticationService.token
-        //            }
-        //        })
-        //            .success(function (response) {
-        //
-        //                if (response.success !== false && response.info) {
-        //
-        //                    response = response.info;
-        //                    //StudentCache.put(student_id +"xsre",response);
-        //                    generate_xsre_data(response,$scope)
-        //
-        //                } else {
-        //
-        //                    showError(response, 1);
-        //
-        //                }
-        //                $scope.loading_icon = true;
-        //                $('.loading-icon').addClass('hide');
-        //                $rootScope.doingResolve = false;
-        //            })
-        //            .error(function (response, status) {
-        //
-        //                $scope.loading_icon = true;
-        //                $('.loading-icon').addClass('hide');
-        //                showError(response, 1);
-        //                $rootScope.doingResolve = false;
-        //                if (status === 401) {
-        //                    $rootScope.show_footer = false;
-        //                    CookieStore.clearData();
-        //                    $location.path('/login');
-        //                }
-        //
-        //            });
-        //
-        //
-        //
-        //
-        //};
-
-        //getXsre();
-
-
-
         $scope.showDebug = function () {
             $window.open($window.location.origin + '/#/student/xsre/' + student_id);
         };
@@ -316,22 +268,22 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
          */
         $scope.updateNow = function () {
             $scope.loading_icon = false;
-            $('.loading-icon').removeClass('hide');
+            attendance_state = true;
+            transcript_state = true;
+            $scope.attendance_loading = true;
+            showLoadingIcon($scope);
             $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre', {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
             })
                 .success(function () {
-
                     load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
                     $scope.loading_icon = true;
-                    $('.loading-icon').addClass('hide');
                 })
                 .error(function (response, status) {
 
                     $scope.loading_icon = true;
-                    $('.loading-icon').addClass('hide');
                     showError(response, 1);
                     $rootScope.doingResolve = false;
                     if (status === 401) {
@@ -347,15 +299,69 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
             })
-                .success(function () {
-                    load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
-                    $scope.loading_icon = true;
-                    $('.loading-icon').addClass('hide');
+                .success(function (response) {
+                    json_debug = [];
+                    $scope.attendanceBehavior = [];
+                    //load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
+                    //$scope.loading_icon = true;
+
+
+                    $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/attendance?pageSize=all&year='+$scope.academic_year.id, {
+                        headers: {
+                            'Authorization': 'Bearer ' + AuthenticationService.token
+                        }
+                    }).success(function (response){
+
+                        if(response.success === true && response.info.data !== undefined)
+                        {
+                            $scope.loading_icon = true;
+
+                            attendance_data = response.info.data;
+                            attendance_cache[$scope.academic_year.name] = attendance_data;
+                            angular.forEach(response.info.data,function(v,k){
+
+                                angular.forEach(response.info.data[k],function(v,k){
+                                    json_debug.push({
+                                        key:k,
+                                        value:JSON.stringify(v,null,2)
+                                    });
+
+                                });
+                            });
+                            // StudentCache.put(student_id + "attendance",attendance_data);
+                            generate_attendance_data(attendance_data,$scope,urlTemplate);
+                            first_time = false;
+                            attendance_state = false;
+                            showLoadingIcon($scope);
+
+                        }else{
+                            attendance_state = false;
+                            showLoadingIcon($scope);
+                            $rootScope.doingResolve = false;
+                            $scope.loading_icon = true;
+
+
+                        }
+                    })
+                        .error(function (response, status) {
+                            $scope.loading_icon = true;
+
+                            showError(response, 1);
+                            $rootScope.doingResolve = false;
+                            if (status === 401) {
+                                $rootScope.show_footer = false;
+                                CookieStore.clearData();
+                                $location.path('/login');
+                            }
+                            attendance_state = false;
+                            showLoadingIcon($scope);
+                        });
+
                 })
                 .error(function (response, status) {
 
                     $scope.loading_icon = true;
-                    $('.loading-icon').addClass('hide');
+
                     showError(response, 1);
                     $rootScope.doingResolve = false;
                     if (status === 401) {
@@ -363,7 +369,8 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                         CookieStore.clearData();
                         $location.path('/login');
                     }
-
+                    attendance_state = false;
+                    showLoadingIcon($scope);
                 });
 
             $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre?separate=transcript', {
@@ -374,10 +381,10 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                 .success(function () {
                     load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
                     $scope.loading_icon = true;
-                    $('.loading-icon').addClass('hide');
+                    transcript_state = false;
+                    showLoadingIcon($scope);
                 })
                 .error(function (response, status) {
-
 
                     showError(response, 1);
                     $rootScope.doingResolve = false;
@@ -386,32 +393,33 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
                         CookieStore.clearData();
                         $location.path('/login');
                     }
-
+                    transcript_state = false;
+                    showLoadingIcon($scope);
                 });
 
-            $http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre?separate=assessment', {
-                headers: {
-                    'Authorization': 'Bearer ' + AuthenticationService.token
-                }
-            })
-                .success(function () {
-                    //getXsre();
-                    $scope.loading_icon = true;
-                    $('.loading-icon').addClass('hide');
-                })
-                .error(function (response, status) {
-
-                    $scope.loading_icon = true;
-                    $('.loading-icon').addClass('hide');
-                    showError(response, 1);
-                    $rootScope.doingResolve = false;
-                    if (status === 401) {
-                        $rootScope.show_footer = false;
-                        CookieStore.clearData();
-                        $location.path('/login');
-                    }
-
-                });
+            //$http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre?separate=assessment', {
+            //    headers: {
+            //        'Authorization': 'Bearer ' + AuthenticationService.token
+            //    }
+            //})
+            //    .success(function () {
+            //        //getXsre();
+            //        $scope.loading_icon = true;
+            //        //$('.loading-icon').addClass('hide');
+            //    })
+            //    .error(function (response, status) {
+            //
+            //        $scope.loading_icon = true;
+            //        $('.loading-icon').addClass('hide');
+            //        showError(response, 1);
+            //        $rootScope.doingResolve = false;
+            //        if (status === 401) {
+            //            $rootScope.show_footer = false;
+            //            CookieStore.clearData();
+            //            $location.path('/login');
+            //        }
+            //
+            //    });
             //
 
 
@@ -892,5 +900,17 @@ function load_data($http,student_id,AuthenticationService,$rootScope,CookieStore
     load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
     load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
     load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
-    $('.loading-icon').addClass('hide');
+    //$('.loading-icon').addClass('hide');
+}
+
+function showLoadingIcon($scope)
+{
+    if(attendance_state === false && transcript_state === false)
+    {
+        $scope.showLoading = false;
+        $scope.attendance_loading = false;
+    }
+    else{
+        $scope.showLoading = true;
+    }
 }

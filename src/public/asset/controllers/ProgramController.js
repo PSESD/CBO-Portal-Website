@@ -3,7 +3,8 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
         'use strict';
         $rootScope.full_screen = false;
         $scope.programs = [];
-
+        $scope.sortType="name";
+        $scope.sortReverse=false;
         $scope.deleteProgram = function (id, index) {
 
             if (id) {

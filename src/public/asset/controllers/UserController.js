@@ -3,6 +3,8 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
         'use strict';
         $rootScope.full_screen = false;
         $scope.users = [];
+        $scope.sortType="first_name";
+        $scope.sortReverse=false;
         $scope.deleteUser = function (id, index) {
             if (AuthenticationService.user_id === id) {
                 showError('Cannot Remove your own data', 1);

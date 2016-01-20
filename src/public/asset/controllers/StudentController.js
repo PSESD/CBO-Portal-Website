@@ -24,6 +24,9 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         };
         $scope.test = "Test";
 
+        $scope.sortType="first_name";
+        $scope.sortReverse=false;
+
         $scope.filterDistrict = function () {
             return function (p) {
                 if(String($scope.selected_districts) !== '') {

@@ -126,7 +126,6 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
 
         }
 
-
         if('$$route' in nextRoute){
             var intended_url = '';
             if(nextRoute.$$route.originalPath === '/login'){
@@ -138,7 +137,6 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                 $rootScope.showFooter = true;
 
                 intended_url = _.get(nextRoute.$$route, 'originalPath');
-
                 if(intended_url === '/program/students/:program_id'){
                     intended_url = '/program/students/'+ _.get(nextRoute.params,'program_id');
                 }else if(intended_url === '/student/backpacks/:student_id'){
@@ -176,7 +174,8 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                 }else if(intended_url ==='/user/detail/:user_id'){
                     intended_url = '/user/detail/'+_.get(nextRoute.params,'user_id');
                 }else if(intended_url === '/loading'){
-                    $location.path('/student');
+                    intended_url ='/student';
+
                 }
 
                 localStorage.setItem('intended_url',intended_url);

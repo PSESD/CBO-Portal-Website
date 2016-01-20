@@ -80,8 +80,8 @@
                         <h2 class="inline">
                             {{ ::student.firstName }} {{ ::student.lastName }}
                             <span class="last-update">{{ 'general.last_update' | i18n }} : &nbsp {{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
-                            <img class="loading-icon" src="asset/img/ajax-loader.gif">
-                            <a ng-show="loading_icon" ng-click="updateNow()" style="font-size: 14px;font-weight: bold;">(Update Now)</a>
+                            <img ng-show="showLoading" class="loading-icon" src="asset/img/ajax-loader.gif">
+                            <a ng-hide="showLoading" ng-click="updateNow()" style="font-size: 14px;font-weight: bold;">(Update Now)</a>
                             <a ng-show="loading_icon && viewDebug" ng-click="showDebug()" style="font-size: 14px;font-weight: bold;">(View XSRE)</a>
                         </h2>
                         <a  class="btn btn-default student-edit-btn" aria-label="Left Align" ng-href="#/student/edit/{{ ::student._id }}">

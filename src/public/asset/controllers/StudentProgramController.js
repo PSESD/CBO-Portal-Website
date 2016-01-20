@@ -6,6 +6,8 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
 
         var student_id = $routeParams.student_id;
         var list_program = [];
+        $scope.sortType="name";
+        $scope.sortReverse=false;
 
         $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id, {
             headers: {
