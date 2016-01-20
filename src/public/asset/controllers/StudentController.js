@@ -129,9 +129,9 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                             }else{
                                 pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance')]);
                             }
-                            if(onTrack === 'Y' || onTrack === 'On Track'){
+                            if(onTrack === 'Y' || onTrack === 'On Track' || onTrack === 'Yes'){
                                 onTrack = locale.getString('general.on_track');
-                            } else if(onTrack === 'N' || onTrack === 'Off Track') {
+                            } else if(onTrack === 'N' || onTrack === 'Off Track' || onTrack === 'No') {
                                 onTrack = locale.getString('general.off_track');
                             } else {
                                 onTrack = locale.getString('general.unavailable');
@@ -223,9 +223,9 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         }else{
                             pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance')]);
                         }
-                        if(onTrack === 'Y' || onTrack === 'On Track'){
+                        if(onTrack === 'Y' || onTrack === 'On Track' || onTrack === 'Yes'){
                             onTrack = locale.getString('general.on_track');
-                        } else if(onTrack === 'N' || onTrack === 'Off Track') {
+                        } else if(onTrack === 'N' || onTrack === 'Off Track' || onTrack === 'No') {
                             onTrack = locale.getString('general.off_track');
                         } else {
                             onTrack = locale.getString('general.unavailable');
