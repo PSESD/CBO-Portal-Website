@@ -10,12 +10,38 @@
                     </h1>
                     <hr>
                 </div>
-                <div class="content">
-                    <div class="ng-binding help">
-                        <p>{{ 'general.reports' | i18n }}</p>
+                <div class="clearfix"></div>
+                    <span>{{ 'general.filters' | i18n }}:<span/>
+
+                    <dropdown-multiselect class="no-background-color" model="select_program" title="Program" options="programData"></dropdown-multiselect>
+                    <dropdown-multiselect class="no-background-color" model="select_district" title="District" options="districtData"></dropdown-multiselect>
+                    <dropdown-multiselect class="no-background-color" model="select_cohort" title="Cohort" options="cohortData"></dropdown-multiselect>
+                    <dropdown-multiselect class="no-background-color" model="select_caseload" title="Caseload" options="caseloadData"></dropdown-multiselect>
+
+                <div class="clearfix" style="margin: 15px auto;"></div>
+                    <div class="col-md-4">
+                        {{total_student}} of Students
                     </div>
-                    <div class="hc-pie" districts="districts" schools="studentSchools"></div>
+                    <div class="col-md-4">
+                        {{total_school}} of schools
+                    </div>
+                    <div class="col-md-4">
+                        {{total_user}} of users
+                    </div>
+                <div class="clearfix"></div>
+                <div class="col-md-6">
+                    <div class="student-school-district-pie" districts="districts" schools="studentSchools"></div>
                 </div>
+                <div class="col-md-6">
+                    <div class="student-grade-grad-pie" grade="grade"></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="student-race-ethnicity-pie" ethnicity="ethnicity"></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="student-gender-pie" gender="gender"></div>
+                </div>
+
             </div>
             <div class="clearfix"></div>
         </div>

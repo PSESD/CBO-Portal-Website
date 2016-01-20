@@ -210,5 +210,7 @@
     "credits": "Credits",
     "earned" : "Earned",
     "attempted" : "Attempted",
-    "student_xsre": "Student XSRE: "
+    "student_xsre": "Student XSRE: ",
+
+    "filters":"Filters"
 }
