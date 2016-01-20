@@ -82,35 +82,65 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
                 var temp_districts = [];
                 var temp_studentSchools = [];
+                var district = 0;
                 $scope.total_school = 0;
 
                 for (var index in response)
                 {
-                    var color_number = index%9;
+                    var color_number = district%9;
                     var temp;
                     if(typeof response[index].schoolDistrict !== "undefined")
                     {
-                        temp = {
-                            color: colors[color_number],
-                            name: response[index].schoolDistrict,
-                            y: response[index].total
-                        };
+                        var get_same = -1;
+                        for (var index2 in temp_districts)
+                        {
+                            if(temp_districts[index2].name == response[index].schoolDistrict)
+                            {
+                                get_same = index2;
+                            }
+                        }
 
-                        temp_districts.push(temp);
-                    }
-
-                    if(typeof response[index].schoolName !== "undefined")
-                    {
                         $scope.total_school += response[index].total;
 
-                        temp = {
-                            color: colors[color_number],
-                            name: response[index].schoolName,
-                            y: response[index].total
-                        };
+                        if(get_same >= 0)
+                        {
+                            temp_districts[get_same].y = temp_districts[get_same].y + response[index].total
 
-                        temp_studentSchools.push(temp);
+                            temp = {
+                                color: temp_districts[get_same].color,
+                                name: response[index].schoolName,
+                                y: response[index].total
+                            };
+
+                            temp_studentSchools.push(temp);
+
+                        }
+                        else
+                        {
+                            temp = {
+                                color: colors[color_number],
+                                name: response[index].schoolDistrict,
+                                y: response[index].total
+                            };
+
+                            temp_districts.push(temp);
+
+                            temp = {
+                                color: colors[color_number],
+                                name: response[index].schoolName,
+                                y: response[index].total
+                            };
+
+                            temp_studentSchools.push(temp);
+                        }
+
+                        if(get_same >= 0)
+                        {
+                            district++;
+                        }
+
                     }
+
                 }
 
                 $scope.districts = temp_districts;
