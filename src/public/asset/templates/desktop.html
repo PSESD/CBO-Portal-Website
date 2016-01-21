@@ -26,14 +26,15 @@
                     <li ng-class="{ active: isActive('/student') }">
                         <a ng-href="#/student" class="link-nav uppercase">{{ 'general.dashboard' | i18n  }}</a>
                     </li>
-                    <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
-                        <a ng-href="#/user" class="link-nav uppercase">{{ 'general.users' | i18n  }}</a>
+                    <li ng-class="{ active: isActive('/program') }">
+                        <a ng-href="#/program" class="link-nav uppercase">{{ 'general.programs' | i18n  }}</a>
                     </li>
                     <li ng-class="{ active: isActive('/report') }" ng-show="reports_link">
                         <a ng-href="#/report" class="link-nav uppercase">{{ 'general.reports' | i18n  }}</a>
                     </li>
-                    <li ng-class="{ active: isActive('/program') }">
-                        <a ng-href="#/program" class="link-nav uppercase">{{ 'general.programs' | i18n  }}</a>
+
+                    <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
+                        <a ng-href="#/user" class="link-nav uppercase">{{ 'general.users' | i18n  }}</a>
                     </li>
                     <li ng-class="{ active: isActive('/profile') }">
                         <a ng-href="#/profile" class="link-nav uppercase">{{ 'general.account_settings' | i18n }}</a>
@@ -44,7 +45,7 @@
                     <div id="footer">
                         <li><a>&copy;&nbsp;2015&nbsp;</a><a href="http://www.psesd.org/" target="_blank">PSESD</a></li>
                         <li><a href="http://roadmapracetothetop.org/" target="_blank">ROADMAP PROJECT</a></li>
-                        <li><a>PRIVACY POLICY</a></li>
+                        <li class="privacy_policy_bottom_space"><a>PRIVACY POLICY</a></li>
                     </div>
                 </ul>
             </div>

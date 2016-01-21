@@ -910,12 +910,17 @@ select{
 .selected_container{
     margin-top:10px;
 }
-.margin-bottom-general-info{
+.margin-bottom-general-info,
+.privacy_policy_bottom_space,
+.scholl_history_bottom_space{
     margin-bottom: 10px;
 }
 .error-color{
     background-color: #ED0707;
 }
 .post-abs{
-    position:absolute;
+    top:3px;
+}
+.full-width{
+    width: 100%;
 }

@@ -100,6 +100,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
     $rootScope.$on("$routeChangeStart", function (event, nextRoute) {
         //redirect only if both isAuthenticated is false and no token is set
         $rootScope.doingResolve = true;
+
         if (nextRoute !== null && /*nextRoute.access !== null &&  nextRoute.access.requiredAuthentication */nextRoute.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             if(nextRoute.originalPath === "/login")
             {
@@ -114,6 +115,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                 $location.path("/login");
             }
             $rootScope.showNavBar = false;
+
         }
 
         if (nextRoute !== null && /*nextRoute.access !== null && nextRoute.access.requiredAdmin*/nextRoute.requiredAdmin && (AuthenticationService.role+'').indexOf('case-worker') !== -1) {
@@ -179,6 +181,9 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                 }
 
                 localStorage.setItem('intended_url',intended_url);
+            }
+            else if(nextRoute.$$route.originalPath === '/forget'){
+                $location.path("/forget");
             }
             else{
                 $location.path("/login");

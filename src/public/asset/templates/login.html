@@ -10,14 +10,17 @@
             </div>
             <div class="content">
                 <p>
-                    <input type="text" class="form-control" ng-model="login.username" name="username" placeholder="{{ 'general.username' | i18n }}" required autofocus>
+                    <input type="text" class="form-control full-width" ng-model="login.username" name="username" placeholder="{{ 'general.username' | i18n }}" required autofocus>
                     <input type="checkbox" id="remember_username" name="remember_username" ng-model="login.remember_username"> <label class="help-block label-checkbox"> {{ 'general.remember_username' | i18n }}</label>
                 </p>
-                <p><input type="password" class="form-control" ng-model="login.password" name="password" placeholder="{{ 'general.password' | i18n }}" required></p>
+                <p><input type="password" class="form-control full-width" ng-model="login.password" name="password" placeholder="{{ 'general.password' | i18n }}" required></p>
             </div>
+            <div class="text-center">
             <button id="sign_in_button " class="button login-btn" ng-disabled="login.working">{{ 'general.sign_in' | i18n }}</button>
             <a id="forgot_button forgot-btn" href="#/forget" class="button forgot-btn forgot-btn padding">{{ 'general.forgot_password' | i18n }}</a>
-            <span ng-show="login.working" class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
+                <span ng-show="login.working" class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
+            </div>
+
             <div class="login-help-link">{{ 'general.help_login_link' | i18n }}<a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a></div>
         </div>
         </form>

@@ -583,6 +583,7 @@ ul li.transcript-content:nth-child(7) {
 
 .transcript-display{
 	margin-bottom:35px;
+    padding:0px 5px;
 }
 
 /*
@@ -1368,6 +1369,7 @@ dt, dd {
     position: relative;
     left: 43%;
     width: 200px;
+    top:10px;
 }
 .transcript-json{
     color:#29B6D8;

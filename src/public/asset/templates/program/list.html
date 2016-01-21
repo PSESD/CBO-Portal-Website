@@ -28,22 +28,22 @@
                                 <th>
                                     <a href="#" ng-click="sortType = 'name';sortReverse = !sortReverse">
                                     {{ 'general.program_name' | i18n }}
-                                        <i ng-show="sortType == 'name' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
-                                        <i ng-show="sortType == 'name' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
+                                        <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
                                 <th>
                                     <a href="#" ng-click="sortType = 'created';sortReverse = !sortReverse">
                                     {{ 'general.created' | i18n }}
-                                        <i ng-show="sortType == 'created' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
-                                        <i ng-show="sortType == 'created' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
+                                        <span ng-show="sortType == 'created' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'created' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
                                 <th>
                                     <a href="#" ng-click="sortType = 'last_updated';sortReverse = !sortReverse">
                                     {{ 'general.last_update' | i18n }}
-                                        <i ng-show="sortType == 'last_updated' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
-                                        <i ng-show="sortType == 'last_updated' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
+                                        <span ng-show="sortType == 'last_updated' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'last_updated' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
                                 <th class="text-center" style="width:9%">{{ 'general.assign_students' | i18n }}</th>
@@ -57,7 +57,7 @@
                                 <td>{{ program.created | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</td>
                                 <td>{{ program.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</td>
                                 <td class="text-center">
-                                    <a class="fa fa-users" ng-href="#/program/students/{{ program._id }}"></a>
+                                    <a class="glyphicon glyphicon-user" ng-href="#/program/students/{{ program._id }}"></a>
 									</td>
 									<td class="text-center">
 									<a class="glyphicon glyphicon-trash" confirmed-click="deleteProgram(program._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>

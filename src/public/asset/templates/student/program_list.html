@@ -26,15 +26,15 @@
                                 <th>
                                     <a href="#" ng-click="sortType = 'name';sortReverse = !sortReverse">
                                     {{ 'general.name' | i18n }}
-                                        <i ng-show="sortType == 'name' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
-                                        <i ng-show="sortType == 'name' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
+                                        <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
                                 <th>
                                     <a href="#" ng-click="sortType = 'status';sortReverse = !sortReverse">
                                     {{ 'general.status' | i18n }}
-                                        <i ng-show="sortType == 'status' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
-                                        <i ng-show="sortType == 'status' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
+                                        <span ng-show="sortType == 'status' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'status' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
                                 <th>{{ 'general.participation_start_date' | i18n }}</th>

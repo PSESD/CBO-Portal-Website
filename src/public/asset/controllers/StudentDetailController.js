@@ -828,12 +828,6 @@ function load_transcript_data($http,student_id,AuthenticationService,$rootScope,
 
             });
 
-    //}
-    //else
-    //{
-    //    generate_transcript_data(StudentCache.get(student_id + "transcript"),$scope);
-    //}
-
 }
 
 function generate_transcript_data(transcript_data,$scope)

@@ -436,7 +436,7 @@
                 <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}" class="tab-pane transcript" id="transcript" data-id="transcript_data">
                     <ul class="flexbox transcript">
                         <li>
-                            <dl>
+                            <dl class="scholl_history_bottom_space">
                                 <dt class="bold bold-title">{{ ::credit_earned }}</dt>
                                 <dd>
                                     <ng-pluralize count="transcripts.info.totalEarned"
@@ -484,10 +484,8 @@
                                 <dd>{{ ::grade_level }}</dd>
                             </dl>
 
-                            <div>
                                 <div ng-click="showHistory()" class="button transcript-school-history display-inline-blk uppercase">{{ 'general.see_school' | i18n }}
                                     <br>HISTORY</div>
-                            </div>
 
                         </li>
                         <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="transSubject in transcripts.source.subjectValues track by $index">{{ ::transSubject.name }}

@@ -27,36 +27,36 @@
                                 <th>
                                     <a href="#" ng-click="sortType = 'name';sortReverse = !sortReverse">
                                     {{ 'general.name' | i18n }}
-                                        <i ng-show="sortType == 'name' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
-                                        <i ng-show="sortType == 'name' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
+                                        <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
 								<th>
                                     <a href="#" ng-click="sortType = 'active';sortReverse = !sortReverse">
                                     {{ 'general.active' | i18n }}
-                                        <i ng-show="sortType == 'active' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
-                                        <i ng-show="sortType == 'active' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
+                                        <span ng-show="sortType == 'active' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'active' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
 								<th>
                                     <a href="#" ng-click="sortType = 'start_date';sortReverse = !sortReverse">
                                     {{ 'general.start_date' | i18n }}
-                                        <i ng-show="sortType == 'start_date' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
-                                        <i ng-show="sortType == 'start_date' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
+                                        <span ng-show="sortType == 'start_date' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'start_date' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
 								<th>
                                     <a href="#" ng-click="sortType = 'end_date';sortReverse = !sortReverse">
                                     {{ 'general.end_date' | i18n }}
-                                        <i ng-show="sortType == 'end_date' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
-                                        <i ng-show="sortType == 'end_date' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
+                                        <span ng-show="sortType == 'end_date' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'end_date' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
 								<th>
                                     <a href="#" ng-click="sortType = 'cohort';sortReverse = !sortReverse">
                                     {{ 'general.cohorts' | i18n }}
-                                        <i ng-show="sortType == 'cohort' && !sortReverse" class="material-icons post-abs">keyboard_arrow_down</i>
-                                        <i ng-show="sortType == 'cohort' && sortReverse" class="material-icons post-abs">keyboard_arrow_up</i>
+                                        <span ng-show="sortType == 'cohort' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'cohort' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
 								<th class="text-center" style="width:8%">{{ 'general.edit' | i18n }}</th>
