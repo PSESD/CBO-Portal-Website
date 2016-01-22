@@ -56,6 +56,8 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 $scope.select_cohort = $scope.cohortData[0];
                 $scope.select_caseload = $scope.caseloadData[0];
 
+                $scope.filterChart();
+
             })
             .error(function (response, status) {
 
@@ -311,7 +313,6 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 });
 
         };
-
 
     }
 ]);
