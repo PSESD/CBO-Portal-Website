@@ -177,7 +177,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                     {
                         temp = {
                             color: colors[color_number],
-                            name: response[index].gradeYear,
+                            name: response[index].gradeLevel,
                             y: response[index].total
                         };
 
