@@ -24,7 +24,6 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
         })
             .success(function (response) {
 
-                console.log(response);
                 var i, temp;
 
                 $scope.programData = ["All Programs"];
@@ -105,11 +104,50 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
                     var temp_districts = [];
                     var temp_studentSchools = [];
-                    var district = 0;
+                    var temp_container = [];
+                    var temp;
                     $scope.total_school = 0;
 
                     for (var index in response)
                     {
+                        if(typeof response[index].schoolDistrict !== "undefined")
+                        {
+                            var have = 0;
+                            for (var index2 in temp_container)
+                            {
+                                if(temp_container[index2].name == response[index].schoolDistrict)
+                                {
+                                    have = 1;
+                                    var temp_schools = [];
+                                    temp = {
+                                        name: response[index].schoolName,
+                                        total: response[index].total
+                                    };
+                                    temp_schools = temp_container[index2].schools;
+                                    temp_schools.push(temp);
+                                    temp_container[index2].total += response[index].total;
+                                    temp_container[index2].schools = temp_schools;
+
+                                }
+                            }
+
+                            if(have == 0)
+                            {
+                                temp = {
+                                    name: response[index].schoolDistrict,
+                                    total: response[index].total,
+                                    schools: [{
+                                        name: response[index].schoolName,
+                                        total: response[index].total
+                                    }]
+                                };
+
+                                temp_container.push(temp);
+
+                            }
+                        }
+                        /*
+
                         var color_number = district%9;
                         var temp;
                         if(typeof response[index].schoolDistrict !== "undefined")
@@ -162,9 +200,33 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                                 district++;
                             }
 
-                        }
+                        }*/
 
                     }
+
+                    for (var index in temp_container)
+                    {
+                        var color_number = index%9;
+                        temp = {
+                            color: colors[color_number],
+                            name: temp_container[index].name,
+                            y: temp_container[index].total
+                        };
+                        temp_districts.push(temp);
+                        for (var index2 in temp_container[index].schools)
+                        {
+                            temp = {
+                                color: colors[color_number],
+                                name: temp_container[index].schools[index2].name,
+                                y: temp_container[index].schools[index2].total
+                            };
+                            temp_studentSchools.push(temp);
+                            $scope.total_school++;
+                        }
+                    }
+
+                    console.log(temp_districts);
+                    console.log(temp_studentSchools);
 
                     $scope.districts = temp_districts;
                     $scope.studentSchools = temp_studentSchools;
@@ -189,8 +251,6 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 }
             })
                 .success(function (response) {
-
-                    console.log(response);
 
                     var temp_grade = [];
 
