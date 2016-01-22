@@ -173,7 +173,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 {
                     var color_number = index%9;
                     var temp;
-                    if(typeof response[index].gradeYear !== "undefined")
+                    if(typeof response[index].gradeLevel !== "undefined")
                     {
                         temp = {
                             color: colors[color_number],
@@ -216,12 +216,12 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 {
                     var color_number = index%9;
                     var temp;
-                    if(typeof response[index].ethnicity !== "undefined")
+                    if(typeof response[index].ethnicityName !== "undefined")
                     {
                         $scope.total_student += response[index].total;
                         temp = {
                             color: colors[color_number],
-                            name: response[index].ethnicity,
+                            name: response[index].ethnicityName,
                             y: response[index].total
                         };
 
@@ -258,11 +258,11 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 {
                     var color_number = index%9;
                     var temp;
-                    if(typeof response[index].gender !== "undefined")
+                    if(typeof response[index].genderName !== "undefined")
                     {
                         temp = {
                             color: colors[color_number],
-                            name: response[index].gender,
+                            name: response[index].genderName,
                             y: response[index].total
                         };
 
