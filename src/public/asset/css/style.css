@@ -924,3 +924,47 @@ select{
 .full-width{
     width: 100%;
 }
+
+
+.report-page .card .title span
+{
+    letter-spacing: 0;
+}
+.report-page .card .select-chart
+{
+    margin: auto 5px;
+}
+.report-page .card .report-page-filter
+{
+    margin-bottom: 45px;
+}
+.report-page .card .border-black
+{
+    border: 1px solid black;
+}
+.report-page .card .border-black.summary-information
+{
+    text-align: center;
+    padding: 10px 10px 20px 10px;
+    margin-bottom: 30px;
+}
+.report-page .card .border-black.summary-information .font-count
+{
+    font-size: 44px;
+    font-weight: bolder;
+}
+.report-page .card .border-black.summary-information .font-medium
+{
+    font-size: 24px;
+}
+.report-page .card .pie-information
+{
+    margin-bottom: 30px;
+}
+@media (min-width: 992px)
+{
+    .report-page .col-md-4
+    {
+        width: 33.33333333%;
+    }
+}
