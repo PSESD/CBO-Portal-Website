@@ -628,6 +628,7 @@ ul li.transcript-content:nth-child(7) {
     padding-left: 10px;
     padding-bottom: 30px;
     width: 96%;
+    padding-right: 5px;
 }
 @media (max-width: 1280px) {
     .studentdetail-filter{

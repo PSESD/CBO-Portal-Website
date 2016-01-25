@@ -2,6 +2,7 @@ var screen = '';
 var global_redirect_url = '/';
 $(document).ready(function () {
     'use strict';
+
     $(window).on('hashchange', function(e){
         var url = [];
         url.push(window.location.href);
@@ -124,24 +125,32 @@ $(document).ready(function () {
     //}
     $(window).on("resize", function () {
         if ($(window).width() < 776 && screen ==="desktop") {
-            this.location.reload(false);
-            $("#mobile").css({
-                "display": ""
-            });
-            $("#desktop").css({
-                "display": "none"
-            });
-            $(".col-md-offset-4.col-md-5").removeClass("login-page");
+            //this.location.reload(false);
+            //$("#mobile").css({
+            //    "display": ""
+            //});
+            //$("#desktop").css({
+            //    "display": "none"
+            //});
+            //$(".col-md-offset-4.col-md-5").removeClass("login-page");
+            $('#desktop-nav').addClass('collapse');
+            $('#center-panel').css({
+                'margin-left':'initial'
+            })
             screen = "mobile";
         }else if($(window).width() > 776 && screen === "mobile"){
-            this.location.reload(false);
-            $("#mobile").css({
-                "display": "none"
-            });
-            $("#desktop").css({
-                "display": ""
-            });
-            $(".col-md-offset-4.col-md-5").addClass("login-page");
+            //this.location.reload(false);
+            //$("#mobile").css({
+            //    "display": "none"
+            //});
+            //$("#desktop").css({
+            //    "display": ""
+            //});
+            //$(".col-md-offset-4.col-md-5").addClass("login-page");
+            $('#desktop-nav').removeClass('collapse');
+            $('#center-panel').css({
+                'margin-left':'15%'
+            })
             screen = "desktop";
         }
 

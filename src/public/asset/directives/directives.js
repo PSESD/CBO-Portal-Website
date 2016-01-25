@@ -12,7 +12,7 @@ app.directive('attendance', function(){
             eventdate:'@',
             description:'@'
         },
-        template:'<div popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="grid-item {{slug}} {{stripping}} {{na}}"></div>'
+        template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="grid-item {{slug}} {{stripping}} {{na}}"></div>'
 
     };
 });
