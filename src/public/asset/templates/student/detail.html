@@ -77,7 +77,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="title">
-                        <h2 class="inline">
+                        <h2 class="inline headline-title">
                             {{ ::student.firstName }} {{ ::student.lastName }}
                             <span class="last-update">{{ 'general.last_update' | i18n }} : &nbsp {{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
                             <img ng-show="showLoading" class="loading-icon" src="asset/img/ajax-loader.gif">
@@ -252,9 +252,9 @@
         <div class="col-md-12">
 
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior" class="uppercase">{{ 'general.attendance_and_behavior' | i18n }}</a></li>
-                <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" class="uppercase">{{ 'general.transcript' | i18n}}</a></li>
-                <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation" class="uppercase">{{ 'general.program_participation' | i18n }}</a></li>
+                <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior" class="uppercase headline-title">{{ 'general.attendance_and_behavior' | i18n }}</a></li>
+                <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" class="uppercase headline-title">{{ 'general.transcript' | i18n}}</a></li>
+                <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation" class="uppercase headline-title">{{ 'general.program_participation' | i18n }}</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -275,7 +275,7 @@
                         <li class="uppercase">{{ 'general.attendance_dates' | i18n }}</li>
                         <li>
                             <div class="col-separator"></div>
-                            <div class="uppercase inline-block">{{ 'general.LM' | i18n }}</div>
+                            <div class="uppercase inline-block font-bold">{{ 'general.LM' | i18n }}</div>
                         </li>
                         <li class="uppercase">{{ 'general.LT' | i18n }}</li>
                         <li class="uppercase">{{ 'general.LW' | i18n }}</li>
@@ -283,7 +283,7 @@
                         <li class="uppercase">{{ 'general.LF' | i18n }}</li>
                         <li class="uppercase">
                             <div class="col-separator"></div>
-                            <div class="uppercase inline-block">{{ 'general.delta_change' | i18n}}</div>
+                            <div class="uppercase inline-block font-bold">{{ 'general.delta_change' | i18n}}</div>
 
                         </li>
                     </ul>
