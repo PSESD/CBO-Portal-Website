@@ -5,7 +5,7 @@
         <div class="card">
             <div class="col-md-12">
                 <div class="title">
-                    <h1>
+                    <h1 class="headline-title">
                         {{ 'general.edit_program_student_name' | i18n:[program.name, student.name] }}
                     </h1>
                     <hr>
@@ -49,8 +49,8 @@
                         <div class="form-actions form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
-                                <a href="#/program/students/{{ program._id }}" class="btn btn-default">{{ 'general.back' | i18n }}</a>
+                                <button type="submit" class="button" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
+                                <a href="#/program/students/{{ program._id }}" class="button">{{ 'general.back' | i18n }}</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>

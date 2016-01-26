@@ -64,7 +64,8 @@ II MEDIA
     /*- Typography -*/
     
     * {
-        font-family: 'Lato', sans-serif;
+
+        font-family: "proxima-nova",sans-serif;
         font-weight: 400;
     }
     h1 {
@@ -72,13 +73,13 @@ II MEDIA
         letter-spacing: .2em;
         color: #555;
         text-transform: uppercase;
-        font-family: 'Lato', sans-serif;
+        font-family: "futura-pt",sans-serif;
         font-weight: 700;
     }
     p {
         font-size: 1em;
         color: #555;
-        font-family: 'Lato', sans-serif;
+        font-family: "proxima-nova",sans-serif;
         letter-spacing: .2em;
         font-weight: 400;
         max-width: 400px;
@@ -510,7 +511,7 @@ select{
     /*- Buttons -*/
 
     .button {
-        font-family: 'Lato', sans-serif;
+        font-family: "proxima-nova",sans-serif;
         font-weight: 700;
         background: transparent;
         font-size: 1em;

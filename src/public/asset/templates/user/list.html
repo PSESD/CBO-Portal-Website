@@ -5,7 +5,7 @@
             <div class="col-md-12">
 
                 <div class="title">
-                    <h1 class="uppercase">{{ 'general.users' | i18n }}</h1>
+                    <h1 class="uppercase headline-title">{{ 'general.users' | i18n }}</h1>
                     <hr>
 
                 </div>
@@ -69,7 +69,7 @@
                                     <a href="#/user/edit/{{ user._id }}" class="glyphicon glyphicon-lock" ng-disabled="working"></a>
 								</td>
 								<td class="text-center">
-                                    <a href="#/user/group/{{ user._id }}" class="fa fa-users" ng-disabled="working"></a>
+                                    <a href="#/user/group/{{ user._id }}" class="glyphicon glyphicon-user" ng-disabled="working"></a>
 								</td>
 								<td class="text-center">
                                     <a class="glyphicon glyphicon-trash" confirmed-click="deleteUser(user._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>

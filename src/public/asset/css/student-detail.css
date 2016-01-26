@@ -110,14 +110,15 @@ ul.attendance-behavior li:nth-child(2) {
     width: 10%;
     color: black;
     font-size: 14px;
-    font-weight: bold;
     position: relative;
+    font-weight: bold;
 }
 ul.attendance-behavior li:nth-child(3) {
     width: 10%;
     color: black;
     font-size: 14px;
     font-weight: bold;
+
 }
 ul.attendance-behavior li:nth-child(4) {
     width: 10%;
@@ -141,8 +142,8 @@ ul.attendance-behavior li:nth-child(7) {
     width: 25%;
     color: black;
     font-size: 14px;
-    font-weight: bold;
     position: relative;
+    font-weight: bold;
 }
 .panel-heading.attendance-behavior {
     padding: 0;
@@ -195,6 +196,8 @@ ul.period-col.menu li {
     height: 50px;
     line-height: 50px;
     font-size: 14px;
+}
+ul.period-col.menu li:last-child {
     font-weight: bold;
 }
 hr.attendance-separator {
@@ -1378,4 +1381,10 @@ dt, dd {
 .transcript-json:hover{
     cursor: pointer;
     color: #337ab7;
+}
+.font-bold{
+    font-weight: bold;
+}
+.headline-title{
+    font-family: "futura-pt",sans-serif;
 }

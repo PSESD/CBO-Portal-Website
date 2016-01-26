@@ -2,8 +2,9 @@
 	margin: 0; 
 	padding: 0; 
 }
-body { 
-	font: 14px/1.4 Georgia, Serif; 
+body {
+
+	font-family: "proxima-nova",sans-serif;
 }
 #page-wrap {
 	margin: 50px;

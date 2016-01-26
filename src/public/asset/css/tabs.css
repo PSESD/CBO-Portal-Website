@@ -12,7 +12,7 @@
 }
 .ng-isolate-scope {
     background-color: #00B4BC;
-    border-radius: none;
+    border-radius: initial;
 }
 .nav-tabs.nav-justified>li>a {
     border-bottom: 1px solid #ddd;
