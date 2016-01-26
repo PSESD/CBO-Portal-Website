@@ -1,5 +1,5 @@
-app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore) {
+app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore','$filter',
+    function ($rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore,$filter) {
         'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
@@ -8,6 +8,8 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
         var start_date = '';
         var end_date = '';
         var cohort = '';
+        $scope.sortType="name";
+        $scope.sortReverse=false;
         $scope.students = [];
         $http.get(api_url + AuthenticationService.organization_id + '/programs/' + program_id, {
             headers: {
@@ -58,11 +60,9 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                                     "cohort": cohort
                                 };
                                 $scope.students.push(student);
+                                $scope.students = $filter('orderBy')($scope.students,'name');
                             }
                         });
-
-
-
                     });
                 }
                 $rootScope.doingResolve = false;

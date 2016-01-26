@@ -101,6 +101,10 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
                 var refresh_token = this.get('refresh_token');
                 var last_url = $location.url();
 
+                if(last_url === '/loading'){
+                    last_url = '/student';
+                }
+
                 $http.get(api_url + 'user', {
                     headers: {
                         'Authorization': 'Bearer ' + token
@@ -162,9 +166,11 @@ app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $
 
                                                         if (role === 'admin') {
                                                             $rootScope.users_link = true;
+                                                            $rootScope.reports_link = true;
                                                             $rootScope.tags_link = true;
                                                         } else {
                                                             $rootScope.users_link = false;
+                                                            $rootScope.reports_link = false;
                                                             $rootScope.tags_link = false;
                                                         }
                                                         $rootScope.completeName = complete_name;

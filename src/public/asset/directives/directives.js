@@ -12,7 +12,7 @@ app.directive('attendance', function(){
             eventdate:'@',
             description:'@'
         },
-        template:'<div popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="grid-item {{slug}} {{stripping}} {{na}}"></div>'
+        template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="grid-item {{slug}} {{stripping}} {{na}}"></div>'
 
     };
 });
@@ -273,3 +273,287 @@ app.directive('datepicker', function () {
     };
 
 });
+
+app.directive('studentSchoolDistrictPie', function () {
+    'use strict';
+    return {
+        restrict: 'C',
+        replace: true,
+        scope: {
+            districts: '=',
+            schools: '='
+        },
+        controller: function($scope, $element, $attrs) {
+
+        },
+        template: '<div id="student-school-district-pie" style="margin: 20px auto">not working</div>',
+        link: function(scope, element, attrs) {
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'student-school-district-pie',
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'School'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    percentageDecimals: 1
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            connectorColor: '#000000',
+                            formatter: function() {
+                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
+                            }
+                        }
+                    }
+                },
+                series: [
+                    {
+                        type: 'pie',
+                        name: 'Districts',
+                        size: '50%',
+                        dataLabels: {
+                            formatter: function () {
+                                return this.y >= 1 ? this.point.name : null;
+                            },
+                            color: '#ffffff',
+                            distance: -30
+                        },
+                        data: scope.districts
+                    },
+                    {
+                        type: 'pie',
+                        name: 'Schools',
+                        size: '100%',
+                        innerSize: '53%',
+                        dataLabels: {
+                            formatter: function () {
+                                // display only if larger than 1
+                                return this.y >= 1 ? '<b>' + this.point.name + ':</b> ' + this.y : null;
+                            }
+                        },
+                        data: scope.schools
+                    }
+                ]
+            });
+
+            scope.$watch("districts", function(newValue) {
+                chart.series[0].setData(newValue, true);
+            }, true);
+
+            scope.$watch("schools", function(newValue) {
+                chart.series[1].setData(newValue, true);
+            }, true);
+
+        }
+    }
+
+});
+
+
+app.directive('studentGradeGradPie', function () {
+    'use strict';
+    return {
+        restrict: 'C',
+        replace: true,
+        scope: {
+            grade: '='
+        },
+        controller: function($scope, $element, $attrs) {
+
+        },
+        template: '<div id="student-grade-grad-pie" style="margin: 20px auto">not working</div>',
+        link: function(scope, element, attrs) {
+            var chart2 = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'student-grade-grad-pie',
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Grade/Grad'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    percentageDecimals: 1
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            connectorColor: '#000000',
+                            formatter: function() {
+                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
+                            }
+                        }
+                    }
+                },
+                series: [
+                    {
+                        type: 'pie',
+                        name: 'Grade',
+                        size: '100%',
+                        dataLabels: {
+                            formatter: function () {
+                                return this.y >= 1 ? this.point.name : null;
+                            }
+                        },
+                        data: scope.grade
+                    }
+                ]
+            });
+
+            scope.$watch("grade", function(newValue) {
+                chart2.series[0].setData(newValue, true);
+            }, true);
+
+        }
+    }
+
+});
+
+
+app.directive('studentRaceEthnicityPie', function () {
+    'use strict';
+    return {
+        restrict: 'C',
+        replace: true,
+        scope: {
+            ethnicity: '='
+        },
+        controller: function($scope, $element, $attrs) {
+
+        },
+        template: '<div id="student-race-ethnicity-pie" style="margin: 20px auto">not working</div>',
+        link: function(scope, element, attrs) {
+            var chart3 = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'student-race-ethnicity-pie',
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Race/Ethnicity'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    percentageDecimals: 1
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            connectorColor: '#000000',
+                            formatter: function() {
+                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
+                            }
+                        }
+                    }
+                },
+                series: [
+                    {
+                        type: 'pie',
+                        name: 'Ethnicity',
+                        size: '100%',
+                        dataLabels: {
+                            formatter: function () {
+                                return this.y >= 1 ? this.point.name : null;
+                            }
+                        },
+                        data: scope.ethnicity
+                    }
+                ]
+            });
+
+            scope.$watch("ethnicity", function(newValue) {
+                chart3.series[0].setData(newValue, true);
+            }, true);
+
+        }
+    }
+
+});
+
+
+app.directive('studentGenderPie', function () {
+    'use strict';
+    return {
+        restrict: 'C',
+        replace: true,
+        scope: {
+            gender: '='
+        },
+        controller: function($scope, $element, $attrs) {
+
+        },
+        template: '<div id="student-gender-pie" style="margin: 20px auto">not working</div>',
+        link: function(scope, element, attrs) {
+            var chart4 = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'student-gender-pie',
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Gender'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    percentageDecimals: 1
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            connectorColor: '#000000',
+                            formatter: function() {
+                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
+                            }
+                        }
+                    }
+                },
+                series: [
+                    {
+                        type: 'pie',
+                        name: 'Gender',
+                        size: '100%',
+                        dataLabels: {
+                            formatter: function () {
+                                return this.y >= 1 ? this.point.name : null;
+                            }
+                        },
+                        data: scope.gender
+                    }
+                ]
+            });
+
+            scope.$watch("gender", function(newValue) {
+                chart4.series[0].setData(newValue, true);
+            }, true);
+
+        }
+    }
+
+});
+

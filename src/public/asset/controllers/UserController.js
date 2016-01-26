@@ -1,8 +1,10 @@
-app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore','$filter',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore,$filter) {
         'use strict';
         $rootScope.full_screen = false;
         $scope.users = [];
+        $scope.sortType="first_name";
+        $scope.sortReverse=false;
         $scope.deleteUser = function (id, index) {
             if (AuthenticationService.user_id === id) {
                 showError('Cannot Remove your own data', 1);
@@ -54,8 +56,6 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
             })
             .error(function (response, status) {
 
-                //console.log(response);
-                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status === 401) {

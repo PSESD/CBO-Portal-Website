@@ -1,0 +1,79 @@
+<div class="row report-page">
+
+    <div class="col-md-12">
+
+        <div class="card">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="title">
+                        <h1>
+                            {{ 'general.reports' | i18n }}
+                        </h1>
+                        <hr>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="report-page-filter text-center">
+
+                        <h1><span>{{ 'general.filters' | i18n }}</span></h1>
+
+                        <select class="select-chart" ng-change="filterChart()" ng-model="select_program" ng-options="o for o in programData"></select>
+                        <select class="select-chart" ng-change="filterChart()" ng-model="select_district" ng-options="o for o in districtData"></select>
+                        <select class="select-chart" ng-change="filterChart()" ng-model="select_cohort" ng-options="o for o in cohortData"></select>
+                        <select class="select-chart" ng-change="filterChart()" ng-model="select_caseload" ng-options="o for o in caseloadData"></select>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="col-md-4">
+                        <div class="border-black summary-information">
+                            <div class="font-count">{{total_student}}</div>
+                            <div class="font-medium">Students</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="border-black summary-information">
+                            <div class="font-count">{{total_school}}</div>
+                            <div class="font-medium">Schools</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="border-black summary-information">
+                            <div class="font-count">{{total_user}}</div>
+                            <div class="font-medium">Users</div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="col-md-6">
+                        <div class="border-black pie-information">
+                            <div class="student-school-district-pie" districts="districts" schools="studentSchools"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="border-black pie-information">
+                            <div class="student-grade-grad-pie" grade="grade"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="border-black pie-information">
+                            <div class="student-race-ethnicity-pie" ethnicity="ethnicity"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="border-black pie-information">
+                            <div class="student-gender-pie" gender="gender"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+</div>

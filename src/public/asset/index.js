@@ -1,6 +1,6 @@
 var __i = false; if(typeof __local !== 'undefined') {__i = __local;}
 
-var app = angular.module('CboPortal', ['ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize', 'ui.codemirror',
+var app = angular.module('CboPortal', ['anotherpit/angular-rollbar','ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize', 'ui.codemirror',
     'ngLocalize.Config'
 ]).value('localeConf', {
     basePath: 'languages',
@@ -37,6 +37,31 @@ app.config(['$httpProvider', function ($httpProvider) {
     if (__i){$httpProvider.interceptors.push('headerInjector');}
     $httpProvider.defaults.timeout = 15000;
 
+    //$httpProvider.interceptors.push(function ($rootScope, $q,$rollbar,$interval) {
+    //    return {
+    //        request: function (config) {
+    //
+    //        },
+    //        responseError: function (rejection) {
+    //            switch (rejection.status){
+    //                case 408 :
+    //                    $rollbar.error('connection timed out');
+    //                    showError('connection timed out',1);
+    //                    break;
+    //            }
+    //            return $q.reject(rejection);
+    //        }
+    //    }
+    //});
+
+}]);
+
+app.config(['$rollbarProvider', function($rollbarProvider) {
+    $rollbarProvider.config.accessToken = '20ac49c365454dd186678ec15b56b13a';
+    $rollbarProvider.config.captureUncaught = true;
+    $rollbarProvider.config.payload = {
+        environment : rollbar_env
+    };
 }]);
 
 app.run(['$window', '$rootScope', '$route',
@@ -75,6 +100,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
     $rootScope.$on("$routeChangeStart", function (event, nextRoute) {
         //redirect only if both isAuthenticated is false and no token is set
         $rootScope.doingResolve = true;
+
         if (nextRoute !== null && /*nextRoute.access !== null &&  nextRoute.access.requiredAuthentication */nextRoute.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             if(nextRoute.originalPath === "/login")
             {
@@ -89,6 +115,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                 $location.path("/login");
             }
             $rootScope.showNavBar = false;
+
         }
 
         if (nextRoute !== null && /*nextRoute.access !== null && nextRoute.access.requiredAdmin*/nextRoute.requiredAdmin && (AuthenticationService.role+'').indexOf('case-worker') !== -1) {
@@ -110,7 +137,6 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             if(nextRoute.$$route.originalPath !== '/login' && nextRoute.$$route.originalPath !== '/forget'){
                 $rootScope.is_logged_in = true;
                 $rootScope.showFooter = true;
-
 
                 intended_url = _.get(nextRoute.$$route, 'originalPath');
                 if(intended_url === '/program/students/:program_id'){
@@ -149,9 +175,18 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                     intended_url = '/user/edit/'+_.get(nextRoute.params,'user_id');
                 }else if(intended_url ==='/user/detail/:user_id'){
                     intended_url = '/user/detail/'+_.get(nextRoute.params,'user_id');
+                }else if(intended_url === '/loading'){
+                    intended_url ='/student';
+
                 }
 
                 localStorage.setItem('intended_url',intended_url);
+            }
+            else if(nextRoute.$$route.originalPath === '/forget'){
+                $location.path("/forget");
+            }
+            else{
+                $location.path("/login");
             }
 
         }
@@ -185,13 +220,15 @@ app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $loc
 
 function showError(message, alert) {
     'use strict';
-    var passingClass = 'alert-danger';
+    var passingClass = 'alert-danger error-color';
     var messages = "";
+    var sidebar_width = 0;
+    sidebar_width = $("#desktop-nav").width() + "px";
     if (alert === 2) {
         passingClass = 'alert-success';
     }
-    if(message.hasOwnProperty("error")){
-        if(message.error.hasOwnProperty("message"))
+    if(_.has(message,'error')){
+        if(_.has(message.error,'message'))
         {
             messages = message.error.message;
         }
@@ -200,25 +237,26 @@ function showError(message, alert) {
             messages = message.error;
         }
 
-    }else if( message.hasOwnProperty("message"))
+    }else if(_.has(message,'message'))
     {
         messages = message.message;
     }
     else{
         messages = message;
     }
-    var message_alert = '<div class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
+    var message_alert = '<div style="margin-left:'+sidebar_width+'" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
+
     if(message !== null) {
         if (window.location.href.indexOf('/login') === -1) {
             jQuery(".error-container.visible-on").append(message_alert);
             setTimeout(function () {
-                jQuery('.alert').remove();
-            }, 3000);
+               jQuery('.alert').remove();
+            }, 9000);
         } else {
             jQuery("#login-error-message").append(message_alert);
             setTimeout(function () {
-                jQuery('.alert').remove();
-            }, 3000);
+               jQuery('.alert').remove();
+            }, 9000);
         }
     }
 }

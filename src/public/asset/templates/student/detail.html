@@ -1,3 +1,76 @@
+
+<div class="modal fade" id="schoolEnrollment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">School History</h4>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+
+                <scrollable-table watch="visibleProjects">
+
+                <table class="table table-striped school-history">
+                <thead>
+                <tr>
+                <th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>
+                <th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="data in visibleProjects">
+                <td>
+                {{::data.schoolName}}
+                </td>
+                <td>
+                {{::data.schoolYear}}
+                </td>
+                </tr>
+                </tbody>
+
+                </table>
+
+                </scrollable-table>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="debugModal" tabindex="-1" role="dialog" aria-labelledby="debugModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="debugTitle">{{debug_title}} JSON Data</h4>
+            </div>
+            <div class="modal-body">
+                <div class="ng-binding help">
+                    <dl>
+                        <dt>Ctrl-F / Cmd-F</dt><dd>Start searching</dd>
+                        <dt>Ctrl-G / Cmd-G</dt><dd>Find next</dd>
+                        <dt>Shift-Ctrl-G / Shift-Cmd-G</dt><dd>Find previous</dd>
+                        <dt>Shift-Ctrl-F / Cmd-Option-F</dt><dd>Replace</dd>
+                        <dt>Shift-Ctrl-R / Shift-Cmd-Option-F</dt><dd>Replace all</dd>
+                        <dt>Alt-F</dt><dd>Persistent search (dialog doesn't autoclose,
+                        enter to find next, Shift-Enter to find previous)</dd>
+                        <dt>Alt-G</dt><dd>Jump to line</dd>
+                    </dl>
+                </div>
+                <div ui-codemirror ui-codemirror-opts="editorOptions" ui-refresh="refresh" ng-model="snippet"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -7,8 +80,8 @@
                         <h2 class="inline">
                             {{ ::student.firstName }} {{ ::student.lastName }}
                             <span class="last-update">{{ 'general.last_update' | i18n }} : &nbsp {{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
-                            <img class="loading-icon" src="asset/img/ajax-loader.gif">
-                            <a ng-show="loading_icon" ng-click="updateNow()" style="font-size: 14px;font-weight: bold;">(Update Now)</a>
+                            <img ng-show="showLoading" class="loading-icon" src="asset/img/ajax-loader.gif">
+                            <a ng-hide="showLoading" ng-click="updateNow()" style="font-size: 14px;font-weight: bold;">(Update Now)</a>
                             <a ng-show="loading_icon && viewDebug" ng-click="showDebug()" style="font-size: 14px;font-weight: bold;">(View XSRE)</a>
                         </h2>
                         <a  class="btn btn-default student-edit-btn" aria-label="Left Align" ng-href="#/student/edit/{{ ::student._id }}">
@@ -187,10 +260,17 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}" class="tab-pane" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
-                    <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}">
-                        <li class="text-center">{{ 'general.attendance_and_behavior_error_message' | i18n}}</li>
-                    </ul>
 
+                    <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}">
+                        <li class="text-center" ng-hide="attendance_loading">{{ 'general.attendance_and_behavior_error_message' | i18n}}</li>
+                        <li class="text-center" ng-show="attendance_loading">{{ 'general.loading_data' | i18n}}</li>
+                    </ul>
+                    <!--<dropdown-multiselect class="studentdetail-filter no-background-color" ng-class="attendanceBehavior.length > 0 ? '':'hide'" model="selected_years" title="Years" options="optionsOfYears"></dropdown-multiselect>-->
+                    <!--<select class="studentdetail-filter" name="academic_select" ng-init="academic_year = 'option.name'" ng-model="academic_year" ng-class="attendanceBehavior.length > 0 ? '':'hide'">-->
+                        <!--<option ng-repeat="option in academic_years" value="{{option.id}}">{{option.name}}</option>-->
+                    <!--</select>-->
+                    <select class="studentdetail-filter" name="academic_select" ng-model="academic_year" ng-options="option.name for option in academic_years" ng-class="attendanceBehavior.length > 0 ? '':'hide'">
+                    </select>
                     <ul class="flexbox attendance-behavior {{attendanceBehavior.length > 0 ? '' : 'hide'}}">
                         <li class="uppercase">{{ 'general.attendance_dates' | i18n }}</li>
                         <li>
@@ -209,48 +289,48 @@
                     </ul>
 
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <div class="panel attendance-behavior" ng-if="attendanceBehavior" ng-repeat="(indexBehavior, behavior) in attendanceBehavior">
+                        <div class="panel attendance-behavior" ng-if="attendanceBehavior" ng-repeat="(indexBehavior, behavior) in attendanceBehavior | filter:filterAttendanceOfYears()">
                             <div class="panel-heading attendance-behavior" role="tab" id='heading_{{ indexBehavior+1 }}'>
                                 <h4 class="panel-title">
-                                
-                                 <ul class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
-                                    <li>
-                                        {{ ::behavior.summary.title }}
-                                     </li>
-                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].M) < 100 }">
-                                        <div class="col-separator"></div>
-                                        {{ ::behavior.summary.M }}
-                                     </li>
-                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].T) < 100 }">{{ ::behavior.summary.T }}</li>
-                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].W) < 100 }">{{ ::behavior.summary.W }}</li>
-                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.TH }}</li>
-                                    <li ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ ::behavior.summary.F }}</li>
-                                    <li>
-                                        <div class="col-separator"></div>
-                                        {{ behavior.summary.weeklyChange }}
-                                        <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
-                                     </li>
-                                </ul>
-                               
-                                <ul  class="flexbox attendance-behavior attendance-detail{{indexBehavior > 0 ? ' hide' : '' }}">
-                                    <li>
-                                        {{ behavior.details[0].title }}
-                                     </li>
-                                    <li>
-                                        <div class="col-separator"></div>
-                                        {{ behavior.details[0].M }}
-                                     </li>
-                                    <li>{{ behavior.details[0].T }}</li>
-                                    <li>{{ behavior.details[0].W }}</li>
-                                    <li>{{ behavior.details[0].TH }}</li>
-                                    <li>{{ behavior.details[0].F }}</li>
-                                    <li>
-                                        <div class="col-separator"></div>
 
-                                     </li>
-                                </ul>    
-                                
-                            </h4>
+                                    <ul ng-click="openHeader($event)" data-key="{{behavior.summary.title}}" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
+                                        <li>
+                                            {{ ::behavior.summary.title }}
+                                        </li>
+                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].M) < 100 }">
+                                            <div class="col-separator"></div>
+                                            {{ ::behavior.summary.M }}
+                                        </li>
+                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].T) < 100 }">{{ ::behavior.summary.T }}</li>
+                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].W) < 100 }">{{ ::behavior.summary.W }}</li>
+                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.TH }}</li>
+                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ ::behavior.summary.F }}</li>
+                                        <li>
+                                            <div class="col-separator"></div>
+                                            {{ behavior.summary.weeklyChange }}
+                                            <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
+                                        </li>
+                                    </ul>
+
+                                    <ul ng-click="closeHeader($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior attendance-detail{{indexBehavior > 0 ? ' hide' : '' }}">
+                                        <li>
+                                            {{ behavior.details[0].title }}
+                                        </li>
+                                        <li>
+                                            <div class="col-separator"></div>
+                                            {{ behavior.details[0].M }}
+                                        </li>
+                                        <li>{{ behavior.details[0].T }}</li>
+                                        <li>{{ behavior.details[0].W }}</li>
+                                        <li>{{ behavior.details[0].TH }}</li>
+                                        <li>{{ behavior.details[0].F }}</li>
+                                        <li>
+                                            <div class="col-separator"></div>
+
+                                        </li>
+                                    </ul>
+
+                                </h4>
                             </div>
                             <!-- panel heading -->
 
@@ -356,7 +436,7 @@
                 <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}" class="tab-pane transcript" id="transcript" data-id="transcript_data">
                     <ul class="flexbox transcript">
                         <li>
-                            <dl>
+                            <dl class="scholl_history_bottom_space">
                                 <dt class="bold bold-title">{{ ::credit_earned }}</dt>
                                 <dd>
                                     <ng-pluralize count="transcripts.info.totalEarned"
@@ -401,13 +481,11 @@
                                     {{ 'general.attempted' | i18n }}
                                 </dd>
                                 <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
-                                <dd>{{ ::transcripts.info.gradeLevel }}</dd>
+                                <dd>{{ ::grade_level }}</dd>
                             </dl>
 
-                            <div>
-                                <div ng-click="showSchoolHistory()" class="button transcript-school-history display-inline-blk uppercase">{{ 'general.see_school' | i18n }}
+                                <div ng-click="showHistory()" class="button transcript-school-history display-inline-blk uppercase">{{ 'general.see_school' | i18n }}
                                     <br>HISTORY</div>
-                            </div>
 
                         </li>
                         <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="transSubject in transcripts.source.subjectValues track by $index">{{ ::transSubject.name }}
@@ -432,7 +510,7 @@
                     <hr class="separator-transcript">
                     <div class="transcript-container">
                         <div class="inner-transcript-container">
-                            <ul class="flexbox transcript-content {{$index % 2 == 0 ? '' : 'dark'}}" ng-repeat="transDetail in transcripts | orderBy:'-schoolYear'">
+                            <ul class="flexbox transcript-content {{$index % 2 == 0 ? '' : 'dark'}}" ng-repeat="transDetail in transcripts.data | orderBy:'-schoolYear'">
                                 <li class="transcript-content">
                                     <dl>
                                         <dd>{{ ::transDetail.schoolYear }} - {{ ::transDetail.session }}</dd>
@@ -459,6 +537,7 @@
                                         </dd>
                                         <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                         <dd>{{ ::transDetail.gradeLevel }}</dd>
+                                        <dt><div ng-show="viewDebug" class="transcript-json" ng-click="showTranscriptJson(transDetail.schoolYear+transDetail.session)">Show Json</div> </dt>
                                     </dl>
                                 </li>
                                 <li class="transcript-content tcontent-{{total_data}}-col" ng-repeat="course in transDetail.transcriptsOrder">
@@ -482,7 +561,7 @@
                                                     <dd>{{ ::c.gradeLevel }}</dd>
                                                     <dt class="bold bold-title">
                                                         <ng-pluralize count="c.creditsEarned"
-                                                          when="{
+                                                                      when="{
                                                           '0':'Credit Earned',
                                                           '0.1':'Credit Earned',
                                                           '0.2':'Credit Earned',
@@ -581,43 +660,43 @@
                     </div>
                 </div>
             </div>
-            <div id="school-history-transcript" class="school history" ng-show="sch_history">
+            <!--<div id="school-history-transcript" class="school history" ng-show="sch_history">-->
 
-                <div class="title">
-                    <span ng-click="closeSchoolHistory()" class="school-history glyphicon glyphicon-remove"></span>
-                    <p class="subhead transcript">School History</p>
-                    <hr class="subhead separator-transcript">
+                <!--<div class="title">-->
+                    <!--<span ng-click="closeSchoolHistory()" class="school-history glyphicon glyphicon-remove"></span>-->
+                    <!--<p class="subhead transcript">School History</p>-->
+                    <!--<hr class="subhead separator-transcript">-->
 
-                </div>
-                <div class="content">
+                <!--</div>-->
+                <!--<div class="content">-->
 
-                    <scrollable-table watch="visibleProjects">
+                    <!--<scrollable-table watch="visibleProjects">-->
 
-                        <table class="table table-striped school-history">
-                            <thead>
-                                <tr>
-                                    <th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>
-                                    <th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-if="sch_history" ng-repeat="data in history">
-                                    <td>
-                                        {{::data.schoolName}}
-                                    </td>
-                                    <td>
-                                        {{::data.schoolYear}}
-                                    </td>
-                                </tr>
-                            </tbody>
+                        <!--<table class="table table-striped school-history">-->
+                            <!--<thead>-->
+                            <!--<tr>-->
+                                <!--<th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>-->
+                                <!--<th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--<tr ng-if="sch_history" ng-repeat="data in history">-->
+                                <!--<td>-->
+                                    <!--{{::data.schoolName}}-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--{{::data.schoolYear}}-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
 
-                        </table>
+                        <!--</table>-->
 
-                    </scrollable-table>
+                    <!--</scrollable-table>-->
 
-                </div>
+                <!--</div>-->
 
-            </div>
+            <!--</div>-->
         </div>
     </div>
 </div>

@@ -64,6 +64,13 @@ app.config(function ($routeProvider) {
                 requiredAuthentication: true
             //}
         }).
+        when('/report', {
+            templateUrl: 'asset/templates/report/index.html',
+            controller: 'ReportController',
+            //access: {
+                requiredAuthentication: true
+            //}
+        }).
         when('/profile/edit', {
             templateUrl: 'asset/templates/profile/edit.html',
             controller: 'ProfileEditController',

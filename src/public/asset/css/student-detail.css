@@ -179,6 +179,7 @@ ul.attendance-behavior li:nth-child(7) {
 }
 .attendance-content {
     width: 50%;
+    padding-top:5px;
 }
 .attendance-legend {
     width: 25%;
@@ -300,7 +301,7 @@ ul.list-group.legend-list li {
     display: none;
 }
 .show {
-    display: "";
+    display: block;
 }
 .button.btn-legend {
     position: relative;
@@ -582,6 +583,7 @@ ul li.transcript-content:nth-child(7) {
 
 .transcript-display{
 	margin-bottom:35px;
+    padding:0px 5px;
 }
 
 /*
@@ -626,8 +628,14 @@ ul li.transcript-content:nth-child(7) {
     padding-left: 10px;
     padding-bottom: 30px;
     width: 96%;
+    padding-right: 5px;
 }
 @media (max-width: 1280px) {
+    .studentdetail-filter{
+        position: relative;
+        left: 43%;
+        width: 200px;
+    }
     ul.transcript li:nth-child(2) {
         width: 16.8%;
         font-size: 14px;
@@ -803,7 +811,7 @@ li.transcript-content>.transcript-content-array:hover .transcript-descriptor {
     height: auto;
 }
 .transcript-descriptor:hover ~ .transcript-display {
-    visibility: none;
+    visibility: hidden;
 }
 
 ul.flexbox.attendance-behavior,
@@ -961,7 +969,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -972,7 +980,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -983,7 +991,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -994,7 +1002,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1005,7 +1013,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1016,7 +1024,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1027,7 +1035,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1038,7 +1046,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1049,7 +1057,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1060,7 +1068,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1071,7 +1079,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1082,7 +1090,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1093,7 +1101,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1104,7 +1112,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1115,7 +1123,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1126,7 +1134,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1137,7 +1145,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1148,7 +1156,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1159,7 +1167,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1170,7 +1178,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1181,7 +1189,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1192,7 +1200,7 @@ ul.cohorts {
     font-weight: bold!important;
     color: white!important;
     letter-spacing: 1px!important;
-    padding-top: 2%!important;
+    padding-top: 1%!important;
     padding-left:5px!important;
     padding-right: 5px!important;
     padding-bottom: 5px!important;
@@ -1321,11 +1329,18 @@ background-color:#eee;
 }
 
 .icon-ok {
-    background: url(../img/check-small.png);
+    /*background: url(../img/check-small.png);*/
     width: 16px;
     height: 16px;
     display: block;
     position: relative;
+}
+
+.icon-ok:before{
+    content: "\e013";
+    font-family:"Glyphicons Halflings";
+    line-height:1;
+    display:inline-block;
 }
 
 .filter-caret{
@@ -1349,4 +1364,18 @@ dt, dd {
 }
 .popover{
     background-color: white!important;
+}
+
+.studentdetail-filter{
+    position: relative;
+    left: 43%;
+    width: 200px;
+    top:10px;
+}
+.transcript-json{
+    color:#29B6D8;
+}
+.transcript-json:hover{
+    cursor: pointer;
+    color: #337ab7;
 }
