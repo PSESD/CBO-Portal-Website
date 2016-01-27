@@ -27,8 +27,105 @@ II MEDIA
 ==================== 1.Body ===================
 ===============================================
 */
-    
-    html {}
+
+    .help p {
+        font-weight: 300; /* change from 400 */
+        font-size: 10px;  /* change from 12 */
+        font-size: 1rem;
+    }
+
+    html {
+        font-weight: 300;
+        font-size: 10px;
+        font-family: "proxima-nova", sans-serif;
+    }
+    body {
+        line-height: 1.35em; /* note we are using em here for the line-height */
+        font-size: 10px;
+        font-size: 1rem;
+    }
+    h1, h2, h3, .futura {
+        font-weight: 700;
+        font-family: "futura-pt",sans-serif;
+    }
+    h4, h5, h6 {
+        font-weight: 700;
+    }
+    h1 {
+        font-size: 18px;
+        font-size: 1.8rem;
+        letter-spacing: 0.2em; /* note we are using em here for letter spacing */
+        text-transform: uppercase;
+    }
+    h2 {
+        font-size: 16px;
+        font-size: 1.6rem;
+    }
+    h3 {
+        font-size: 14px;
+        font-size: 1.4rem;
+    }
+    h4 {
+        font-size: 16px;
+        font-size: 1.6rem;
+    }
+    h5 {
+        font-size: 14px;
+        font-size: 1.4rem;
+    }
+    h6 {
+        font-size: 12px;
+        font-size: 1.2rem;
+    }
+    .btn {
+        font-size: 14px;
+        font-size: 1.4rem;
+        letter-spacing: 0.1em;
+        outline: 0px !important;
+        border-radius: 0 0 0 0;
+        padding: 3px 25px;
+        margin: 1em 0;
+        white-space: nowrap;
+    }
+    .btn-default,.btn-secondary {
+	background: #fff!important;
+    background-image: none!important;
+	font-weight: bold!important;;
+	color: #000!important;;
+	border: 2px solid #000!important;;
+}
+    .btn-primary {
+        background: #fff;
+        border: 2px solid #209920;
+        color: #209920;
+    }
+    .btn-primary:hover {
+        background: #209920;
+        color: #fff;
+    }
+    .btn-danger {
+        background: #fff;
+        border: 2px solid #992020;
+        color: #992020;
+    }
+    .btn-danger:hover {
+        background: #992020;
+        color: #fff;
+    }
+    .title h1{
+        float: left;
+    }
+    .title hr{
+        clear: both;
+    }
+    .title span.title-lastupdate{
+        float: left;
+        margin-top: 20px;
+    }
+    .title a.btn{
+        float: right;
+    }
+
     body {
         overflow: auto;
         padding-bottom: 50px;
@@ -62,20 +159,15 @@ II MEDIA
         color: #29B6D8;
     }
     /*- Typography -*/
-    
-    * {
 
-        font-family: "proxima-nova",sans-serif;
-        font-weight: 400;
-    }
-    h1 {
-        font-size: 1.6em;
-        letter-spacing: .2em;
-        color: #555;
-        text-transform: uppercase;
-        font-family: "futura-pt",sans-serif;
-        font-weight: 700;
-    }
+    /*h1 {*/
+        /*font-size: 1.6em;*/
+        /*letter-spacing: .2em;*/
+        /*color: #555;*/
+        /*text-transform: uppercase;*/
+        /*font-family: "futura-pt",sans-serif;*/
+        /*font-weight: 700;*/
+    /*}*/
     p {
         font-size: 1em;
         color: #555;
@@ -318,11 +410,11 @@ select{
         font-weight: bolder;
         background-color: #0080FF
     }
-    .last-update {
-        margin-left: 2%;
-        font-size: 14px;
-        color: #aaa;
-    }
+    /*.last-update {*/
+        /*margin-left: 2%;*/
+        /*font-size: 14px;*/
+        /*color: #aaa;*/
+    /*}*/
     .attendance-card {
         background-color: #ededed;
         height: 5%;
@@ -764,14 +856,14 @@ select{
         /**
      Help Style
     **/
-        .help p {
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: normal;
-            width: 284px;
-            color: #858585;
-            padding-bottom: 13px;
-        }
+        /*.help p {*/
+            /*font-size: 12px;*/
+            /*font-weight: bold;*/
+            /*letter-spacing: normal;*/
+            /*width: 284px;*/
+            /*color: #858585;*/
+            /*padding-bottom: 13px;*/
+        /*}*/
 
         .icon-sidebarmenu {
             left: 85%;
@@ -807,11 +899,6 @@ select{
         .add-select-student {
             width: 60% !important
         }
-
-        .uppercase {
-            text-transform: uppercase;
-        }
-
         .inline-block {
             display: inline-block;
         }
@@ -951,12 +1038,12 @@ select{
 }
 .report-page .card .border-black.summary-information .font-count
 {
-    font-size: 44px;
+    font-size: 1.5rem;
     font-weight: bolder;
 }
 .report-page .card .border-black.summary-information .font-medium
 {
-    font-size: 24px;
+    font-size: 1.5rem;
 }
 .report-page .card .pie-information
 {

@@ -73,8 +73,6 @@ ul.nav.nav-tabs.nav-justified li,
     border: 0px;
 }
 ul.nav.nav-tabs.nav-justified li a {
-    font-size: 14px;
-    font-weight: bold;
     color: black;
 }
 ul.flexbox.attendance-behavior,
@@ -103,40 +101,39 @@ ul.attendance-behavior li {
 ul.attendance-behavior li:nth-child(1) {
     width: 25%;
     color: black;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 1.4rem;
 }
 ul.attendance-behavior li:nth-child(2) {
     width: 10%;
     color: black;
-    font-size: 14px;
     position: relative;
     font-weight: bold;
+    font-size: 1.4rem;
 }
 ul.attendance-behavior li:nth-child(3) {
     width: 10%;
     color: black;
-    font-size: 14px;
     font-weight: bold;
-
+    font-size: 1.4rem;
 }
 ul.attendance-behavior li:nth-child(4) {
     width: 10%;
     color: black;
-    font-size: 14px;
     font-weight: bold;
+    font-size: 1.4rem;
 }
 ul.attendance-behavior li:nth-child(5) {
     width: 10%;
     color: black;
-    font-size: 14px;
     font-weight: bold;
+    font-size: 1.4rem;
 }
 ul.attendance-behavior li:nth-child(6) {
     width: 10%;
     color: black;
     font-size: 14px;
     font-weight: bold;
+    font-size: 1.4rem;
 }
 ul.attendance-behavior li:nth-child(7) {
     width: 25%;
@@ -144,6 +141,7 @@ ul.attendance-behavior li:nth-child(7) {
     font-size: 14px;
     position: relative;
     font-weight: bold;
+    font-size: 1.4rem;
 }
 .panel-heading.attendance-behavior {
     padding: 0;
@@ -197,9 +195,6 @@ ul.period-col.menu li {
     line-height: 50px;
     font-size: 14px;
 }
-ul.period-col.menu li:last-child {
-    font-weight: bold;
-}
 hr.attendance-separator {
     margin: 0;
     padding: 0px;
@@ -208,18 +203,7 @@ hr.attendance-separator {
     position: absolute;
     width: 99%;
 }
-/*.monday,*/
-/*.tuesday,*/
-/*.wednesday,*/
-/*.thursday,*/
-/*.friday {*/
-    /*display: block;*/
-    /*width: 20%;*/
-    /*height: 300px;*/
-    /*margin: 0;*/
-    /*padding: 1px;*/
-    /*float: left;*/
-/*}*/
+
 .days {
     display: block;
     width: 20%;
@@ -1384,7 +1368,4 @@ dt, dd {
 }
 .font-bold{
     font-weight: bold;
-}
-.headline-title{
-    font-family: "futura-pt",sans-serif;
 }
