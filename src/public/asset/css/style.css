@@ -968,6 +968,10 @@ select{
 {
     margin-bottom: 30px;
 }
+.report-page .ng-isolate-scope
+{
+    background-color: #fff;
+}
 @media (min-width:768px)
 {
     .report-page .col-md-4
