@@ -100,8 +100,6 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
             })
                 .success(function (response) {
 
-                    console.log(response);
-
                     var temp_districts = [];
                     var temp_studentSchools = [];
                     var temp_container = [];
@@ -224,9 +222,6 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                             $scope.total_school++;
                         }
                     }
-
-                    console.log(temp_districts);
-                    console.log(temp_studentSchools);
 
                     $scope.districts = temp_districts;
                     $scope.studentSchools = temp_studentSchools;
