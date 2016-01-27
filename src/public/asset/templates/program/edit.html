@@ -5,7 +5,7 @@
         <div class="card">
             <div class="col-md-12">
                 <div class="title">
-                    <h1 class="headline-title">
+                    <h1>
                         {{ 'general.edit_program' | i18n }}: {{ program.name }}
                     </h1>
                     <hr>
@@ -24,8 +24,8 @@
                         <div class="form-actions form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
-                                <button type="submit" class="button" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
-                                <a href="#/program" class="button">{{ 'general.back' | i18n }}</a>
+                                <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
+                                <a href="#/program" class="btn btn-danger">{{ 'general.back' | i18n }}</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>

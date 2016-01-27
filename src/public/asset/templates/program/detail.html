@@ -5,7 +5,7 @@
         <div class="card">
             <div class="col-md-12">
                 <div class="title">
-                    <h1 class="headline-title">
+                    <h1>
                         {{ 'general.detail_program' | i18n }}: {{ program.name }}
                     </h1>
                     <hr>
@@ -17,7 +17,7 @@
                     <form class="form-horizontal" role="form" ng-submit="editProgram(program)">
                         <div class="form-actions form-group">
                             <div class="row no-gutter">
-                                <div class="col-md-2 pull-right">
+                                <div class="col-md-3 pull-right">
                                     <a class="btn btn-default" ng-href="#/program/students/{{ program._id }}/add">
                                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add
                                     </a>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
-                                <a href="#/program" class="btn btn-default">{{ 'general.back' | i18n }}</a>
+                                <a href="#/program" class="btn btn-danger">{{ 'general.back' | i18n }}</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>

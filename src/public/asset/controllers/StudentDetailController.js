@@ -7,8 +7,8 @@ var transcript_debug = [];
 var attendance_state = false;
 var transcript_state = false;
 
-app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
-    function ($route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
+app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
+    function ($interval,$route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
         'use strict';
         $scope.editorOptions = {
             lineWrapping : true,
@@ -23,6 +23,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
         showLoadingIcon($scope);
         $scope.loading_icon = true;
         $scope.showLoading = false;
+        $scope.attendance_load_first_time = true;
         var attendance = "";
         var transcript = "";
         var program_participation = "";
@@ -257,7 +258,7 @@ app.controller('StudentDetailController', ['$route', '$rootScope', '$scope', '$r
             var is = (activeTab === tabName || (activeTab === null && index === 0));
             return is;
         };
-        load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
+        load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache,$interval);
 
         $scope.showDebug = function () {
             $window.open($window.location.origin + '/#/student/xsre/' + student_id);
@@ -594,10 +595,9 @@ function generate_general_data(general_data,$scope,student_id)
     $scope.xsreLastUpdated = general_data.lastUpdated;
 }
 
-function load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache)
+function load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache,$interval)
 {
     'use strict';
-
     $scope.attendanceBehavior = [];
     var urlTemplate = 'asset/templates/popoverTemplate.html';
     //if(angular.isUndefined(StudentCache.get(student_id + "attendance")) === true)
@@ -624,10 +624,13 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
                     $scope.academic_years.push(year);
                 });
                 $scope.academic_year = $scope.academic_years[0];
+                $scope.attendance_load_first_time = false;
+
             }else{
                 $rootScope.doingResolve = false;
-
+                $scope.attendance_load_first_time = false;
             }
+
         })
             .error(function (response, status) {
 
@@ -637,6 +640,7 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
                     $rootScope.show_footer = false;
                     CookieStore.clearData();
                     $location.path('/login');
+                    $scope.attendance_load_first_time = false;
                 }
 
             });
@@ -653,6 +657,7 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
 {
     var years = [];
     var yearsOptions = "";
+
     angular.forEach(attendance_data, function (behavior) {
 
         Object.keys(behavior).forEach(function (key) {
@@ -783,7 +788,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
 
         });
     });
+
     yearsOptions = _.uniq(years,'id');
+    $scope.attendance_load_first_time = false;
 }
 
 function load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache)
@@ -888,10 +895,10 @@ function load_program_participation_data($http,student_id,AuthenticationService,
         });
 }
 
-function load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache){
+function load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache,$interval){
     'use strict';
     load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
-    load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
+    load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache,$interval);
     load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
     load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
     //$('.loading-icon').addClass('hide');
