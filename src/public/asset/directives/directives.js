@@ -289,6 +289,9 @@ app.directive('studentSchoolDistrictPie', function () {
         template: '<div id="student-school-district-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-school-district-pie',
                     plotBackgroundColor: null,
@@ -374,6 +377,9 @@ app.directive('studentGradeGradPie', function () {
         template: '<div id="student-grade-grad-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart2 = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-grade-grad-pie',
                     plotBackgroundColor: null,
@@ -440,6 +446,9 @@ app.directive('studentRaceEthnicityPie', function () {
         template: '<div id="student-race-ethnicity-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart3 = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-race-ethnicity-pie',
                     plotBackgroundColor: null,
@@ -506,6 +515,9 @@ app.directive('studentGenderPie', function () {
         template: '<div id="student-gender-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart4 = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-gender-pie',
                     plotBackgroundColor: null,
