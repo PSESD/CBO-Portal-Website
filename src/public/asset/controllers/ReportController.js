@@ -24,7 +24,6 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
         })
             .success(function (response) {
 
-                console.log(response);
                 var i, temp;
 
                 $scope.programData = ["All Programs"];
