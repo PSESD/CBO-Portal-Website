@@ -934,6 +934,7 @@ select{
 .report-page .card .select-chart
 {
     margin: auto 5px;
+    min-width: 15%;
 }
 .report-page .card .report-page-filter
 {

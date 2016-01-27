@@ -296,7 +296,7 @@ app.directive('studentSchoolDistrictPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'School'
+                    text: 'Student by District and School'
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.y}</b>',
@@ -381,7 +381,7 @@ app.directive('studentGradeGradPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'Grade/Grad'
+                    text: 'Student by Grade Level'
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.y}</b>',
@@ -447,7 +447,7 @@ app.directive('studentRaceEthnicityPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'Race/Ethnicity'
+                    text: 'Student by Race/Ethnicity'
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.y}</b>',
@@ -513,7 +513,7 @@ app.directive('studentGenderPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'Gender'
+                    text: 'Student by Gender'
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.y}</b>',
