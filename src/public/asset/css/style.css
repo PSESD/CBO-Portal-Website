@@ -972,6 +972,9 @@ select{
 {
     background-color: #fff;
 }
+.report-page .highcharts-container {
+    width: auto !important;
+}
 @media (min-width:768px)
 {
     .report-page .col-md-4
