@@ -24,6 +24,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
         })
             .success(function (response) {
 
+                console.log(response);
                 var i, temp;
 
                 $scope.programData = ["All Programs"];
@@ -33,13 +34,13 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 }
 
                 $scope.districtData = ["All District"];
-                for(i=0; i<response.programs.length; i++)
+                for(i=0; i<response.districts.length; i++)
                 {
                     $scope.districtData.push(response.districts[i]);
                 }
 
                 $scope.cohortData = ["All Cohort"];
-                for(i=0; i<response.programs.length; i++)
+                for(i=0; i<response.cohorts.length; i++)
                 {
                     $scope.cohortData.push(response.cohorts[i]);
                 }
