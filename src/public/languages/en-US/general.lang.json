@@ -202,9 +202,10 @@
     "case": "Assigned",
     "success_logout": "Successful Logout",
     "password_not_match": "Password does not match",
-    "program_participation_error_message": "This Student haven't participated in any program yet",
+    "program_participation_error_message": "This student hasn't participated in any program yet",
     "attendance_and_behavior_error_message": "This Student is not linked yet to school data",
     "loading_data": "Loading...",
+    "total_credits": "Total Credits",
 
     "credit" : "Credit",
     "credits": "Credits",

@@ -95,7 +95,7 @@
                         <div class="ng-binding help">
                             <p>{{ 'help.student_detail' | i18n }}</p>
                         </div>
-                        <div class="row" >
+                        <div class="row student-summary">
                             <div class="col-md-12 no-padding-left">
                                 <div class="col-md-6 vertical-line ">
                                     <div class="col-md-4 col-sm-12 no-padding-left">
@@ -442,49 +442,61 @@
                     <ul class="flexbox transcript">
                         <li>
                             <dl class="scholl_history_bottom_space">
-                                <dt class="bold bold-title">{{ ::credit_earned }}</dt>
+                                <dt class="bold bold-title">
+                                    {{ 'general.total_credits' | i18n }}
+                                </dt>
                                 <dd>
-                                    <ng-pluralize count="transcripts.info.totalEarned"
-                                                  when="{
-                                                  '0':'Credit',
-                                                  '0.1':'Credit',
-                                                  '0.2':'Credit',
-                                                  '0.3':'Credit',
-                                                  '0.4':'Credit',
-                                                  '0.5':'Credit',
-                                                  '0.6':'Credit',
-                                                  '0.7':'Credit',
-                                                  '0.8':'Credit',
-                                                  '0.9':'Credit',
-                                                  '1.0':'Credit',
-                                                  'zero':'Credit',
-                                                  'one': 'Credit',
-                                                 'other': 'Credits'}">
-                                    </ng-pluralize>
-                                    {{ 'general.earned' | i18n }}
+                                    {{ ::credit_earned }}
                                 </dd>
+                                <dt class="bold bold-title">
+                                    Cumulative GPA
+                                </dt>
+                                <dd>
 
-                                <dt class="bold bold-title">{{ ::credit_attempted }}</dt>
-                                <dd>
-                                    <ng-pluralize count="transcripts.info.totalAttempted"
-                                                  when="{
-                                                  '0':'Credit',
-                                                  '0.1':'Credit',
-                                                  '0.2':'Credit',
-                                                  '0.3':'Credit',
-                                                  '0.4':'Credit',
-                                                  '0.5':'Credit',
-                                                  '0.6':'Credit',
-                                                  '0.7':'Credit',
-                                                  '0.8':'Credit',
-                                                  '0.9':'Credit',
-                                                  '1.0':'Credit',
-                                                  'zero':'Credit',
-                                                  'one': 'Credit',
-                                                 'other': 'Credits'}">
-                                    </ng-pluralize>
-                                    {{ 'general.attempted' | i18n }}
                                 </dd>
+                                <!--<dt class="bold bold-title">{{ ::credit_earned }}</dt>-->
+                                <!--<dd>-->
+                                    <!--<ng-pluralize count="transcripts.info.totalEarned"-->
+                                                  <!--when="{-->
+                                                  <!--'0':'Credit',-->
+                                                  <!--'0.1':'Credit',-->
+                                                  <!--'0.2':'Credit',-->
+                                                  <!--'0.3':'Credit',-->
+                                                  <!--'0.4':'Credit',-->
+                                                  <!--'0.5':'Credit',-->
+                                                  <!--'0.6':'Credit',-->
+                                                  <!--'0.7':'Credit',-->
+                                                  <!--'0.8':'Credit',-->
+                                                  <!--'0.9':'Credit',-->
+                                                  <!--'1.0':'Credit',-->
+                                                  <!--'zero':'Credit',-->
+                                                  <!--'one': 'Credit',-->
+                                                 <!--'other': 'Credits'}">-->
+                                    <!--</ng-pluralize>-->
+                                    <!--{{ 'general.earned' | i18n }}-->
+                                <!--</dd>-->
+
+                                <!--<dt class="bold bold-title">{{ ::credit_attempted }}</dt>-->
+                                <!--<dd>-->
+                                    <!--<ng-pluralize count="transcripts.info.totalAttempted"-->
+                                                  <!--when="{-->
+                                                  <!--'0':'Credit',-->
+                                                  <!--'0.1':'Credit',-->
+                                                  <!--'0.2':'Credit',-->
+                                                  <!--'0.3':'Credit',-->
+                                                  <!--'0.4':'Credit',-->
+                                                  <!--'0.5':'Credit',-->
+                                                  <!--'0.6':'Credit',-->
+                                                  <!--'0.7':'Credit',-->
+                                                  <!--'0.8':'Credit',-->
+                                                  <!--'0.9':'Credit',-->
+                                                  <!--'1.0':'Credit',-->
+                                                  <!--'zero':'Credit',-->
+                                                  <!--'one': 'Credit',-->
+                                                 <!--'other': 'Credits'}">-->
+                                    <!--</ng-pluralize>-->
+                                    <!--{{ 'general.attempted' | i18n }}-->
+                                <!--</dd>-->
                                 <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                 <dd>{{ ::grade_level }}</dd>
                             </dl>
@@ -521,8 +533,7 @@
                                         <dd>{{ ::transDetail.schoolYear }} - {{ ::transDetail.session }}</dd>
                                         <dt></dt>
                                         <dd class="bold bold-title">{{ ::transDetail.schoolName }}</dd>
-                                        <dt class="bold bold-title">{{ ::transDetail.summary.termCreditsAttempted }}</dt>
-                                        <dd>
+                                        <dt class="bold bold-title">
                                             <ng-pluralize count="transDetail.summary.termCreditsAttempted"
                                                           when="{
                                                           '0':'Credit',
@@ -539,6 +550,10 @@
                                                           'one': 'Credit',
                                                           'other': 'Credits'}">
                                             </ng-pluralize>
+
+                                            </dt>
+                                        <dd>
+                                            {{ ::transDetail.summary.termCreditsAttempted }}
                                         </dd>
                                         <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                         <dd>{{ ::transDetail.gradeLevel }}</dd>

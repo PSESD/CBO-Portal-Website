@@ -28,10 +28,11 @@ II MEDIA
 ===============================================
 */
 
+    .active{
+        background-color: #eee;
+    }
     .help p {
-        font-weight: 300; /* change from 400 */
-        font-size: 10px;  /* change from 12 */
-        font-size: 1rem;
+    color:#555;
     }
 
     html {
@@ -41,8 +42,9 @@ II MEDIA
     }
     body {
         line-height: 1.35em; /* note we are using em here for the line-height */
-        font-size: 16px;
-        font-size: 1.6rem;
+        font-size: 12px;
+        font-size: 1.2rem;
+        font-family: "proxima-nova",sans-serif;
     }
     h1, h2, h3, .futura {
         font-weight: 700;
@@ -86,6 +88,9 @@ II MEDIA
         padding: 3px 25px;
         margin: 1em 0;
         white-space: nowrap;
+        text-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
     }
     .btn-default,.btn-secondary {
 	background: #fff!important;
@@ -102,6 +107,7 @@ II MEDIA
     .btn-primary:hover {
         background: #209920;
         color: #fff;
+        border-color: #209920;
     }
     .btn-danger {
         background: #fff;
@@ -110,7 +116,8 @@ II MEDIA
     }
     .btn-danger:hover {
         background: #992020;
-        color: #fff;
+        color: #fff!important;
+        border-color:#992020 ;
     }
     .title h1{
         float: left;
@@ -120,10 +127,16 @@ II MEDIA
     }
     .title span.title-lastupdate{
         float: left;
-        margin-top: 20px;
+        margin-top: 23px;
+        margin-left: 10px;
     }
     .title a.btn{
         float: right;
+    }
+    .sidemenu{
+        font-family: "futura-pt", sans-serif;
+        text-transform: uppercase;
+        font-weight: 700;
     }
     a.sidemenu{
         color: #9d9d9d;
@@ -132,7 +145,7 @@ II MEDIA
     }
     a.sidemenu:hover{
         color: white;
-        background-color:transparent!important;
+        background-color:transparent;
     }
 
     #border{
@@ -172,7 +185,13 @@ II MEDIA
     a,
     a:focus,
     a:hover {
-        color: #29B6D8;
+        color : #ef7700!important;
+    }
+    a h1{
+        color: #555;
+    }
+    .jumbotron h1{
+        font-size: 1.6rem;
     }
     /*- Typography -*/
 
@@ -184,14 +203,7 @@ II MEDIA
         /*font-family: "futura-pt",sans-serif;*/
         /*font-weight: 700;*/
     /*}*/
-    p {
-        font-size: 1em;
-        color: #555;
-        font-family: "proxima-nova",sans-serif;
-        letter-spacing: .2em;
-        font-weight: 400;
-        max-width: 400px;
-    }
+
     /*b,*/
     /*strong {*/
         /*color: #999 !important;*/
@@ -264,7 +276,7 @@ II MEDIA
     
     .container-fluid {}
     #center-panel {
-        background-color: none !important;
+        background-color: initial !important;
     }
     /*- Cards -*/
     
@@ -447,9 +459,7 @@ select{
         padding-left: 0;
     }
     .link-nav {
-        letter-spacing: 2px;
-        font-weight: bold;
-        width: 70%;
+
     }
     .underline_text {
         border-bottom: solid 2px #000000;
@@ -952,7 +962,7 @@ select{
 
         dt:before {
             /* insert line break before <dt> */
-            content: "\A";
+            /*content: "\A";*/
             white-space: pre;
         }
 
