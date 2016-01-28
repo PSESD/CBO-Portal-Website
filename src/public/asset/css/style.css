@@ -41,8 +41,8 @@ II MEDIA
     }
     body {
         line-height: 1.35em; /* note we are using em here for the line-height */
-        font-size: 10px;
-        font-size: 1rem;
+        font-size: 12px;
+        font-size: 1.2rem;
     }
     h1, h2, h3, .futura {
         font-weight: 700;
@@ -124,6 +124,13 @@ II MEDIA
     }
     .title a.btn{
         float: right;
+    }
+    a.sidemenu{
+        color: #9d9d9d;
+    }
+    a.sidemenu:hover{
+        color: white;
+        background-color: transparent;
     }
 
     body {
