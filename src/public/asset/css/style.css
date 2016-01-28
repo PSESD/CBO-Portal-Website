@@ -1087,12 +1087,14 @@ select{
 }
 .report-page .card .border-black.summary-information .font-count
 {
-    font-size: 1.5rem;
+    font-size: 4rem;
+    line-height: 4rem;
     font-weight: bolder;
 }
 .report-page .card .border-black.summary-information .font-medium
 {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    line-height: 2rem;
 }
 .report-page .card .pie-information
 {
