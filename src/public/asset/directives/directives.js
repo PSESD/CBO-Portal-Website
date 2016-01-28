@@ -289,6 +289,9 @@ app.directive('studentSchoolDistrictPie', function () {
         template: '<div id="student-school-district-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-school-district-pie',
                     plotBackgroundColor: null,
@@ -296,7 +299,7 @@ app.directive('studentSchoolDistrictPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'School'
+                    text: 'Students by District and School'
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.y}</b>',
@@ -374,6 +377,9 @@ app.directive('studentGradeGradPie', function () {
         template: '<div id="student-grade-grad-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart2 = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-grade-grad-pie',
                     plotBackgroundColor: null,
@@ -381,7 +387,7 @@ app.directive('studentGradeGradPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'Grade/Grad'
+                    text: 'Students by Grade Level'
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.y}</b>',
@@ -440,6 +446,9 @@ app.directive('studentRaceEthnicityPie', function () {
         template: '<div id="student-race-ethnicity-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart3 = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-race-ethnicity-pie',
                     plotBackgroundColor: null,
@@ -447,7 +456,7 @@ app.directive('studentRaceEthnicityPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'Race/Ethnicity'
+                    text: 'Students by Race/Ethnicity'
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.y}</b>',
@@ -506,6 +515,9 @@ app.directive('studentGenderPie', function () {
         template: '<div id="student-gender-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart4 = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-gender-pie',
                     plotBackgroundColor: null,
@@ -513,7 +525,7 @@ app.directive('studentGenderPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'Gender'
+                    text: 'Students by Gender'
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.y}</b>',

@@ -1020,7 +1020,13 @@ select{
 }
 .report-page .card .select-chart
 {
+    -webkit-border-radius: 0px !important;
+    -webkit-appearance: none;
+    background: url(../img/arrow.png) no-repeat 99%;
+    border: 1px solid black;
+    padding: 7px 22px 7px 7px;
     margin: auto 5px;
+    min-width: 15%;
 }
 .report-page .card .report-page-filter
 {
@@ -1049,10 +1055,29 @@ select{
 {
     margin-bottom: 30px;
 }
-@media (min-width: 992px)
+.report-page .ng-isolate-scope
+{
+    background-color: #fff;
+}
+.report-page .highcharts-container {
+    width: auto !important;
+}
+@media (min-width:768px)
 {
     .report-page .col-md-4
     {
         width: 33.33333333%;
+    }
+}
+@media (max-width:767px)
+{
+    .report-page .col-md-4
+    {
+        width: 100%;
+    }
+    .report-page .card .select-chart
+    {
+        width: 100%;
+        margin-bottom: 15px;
     }
 }
