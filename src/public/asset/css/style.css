@@ -41,8 +41,8 @@ II MEDIA
     }
     body {
         line-height: 1.35em; /* note we are using em here for the line-height */
-        font-size: 12px;
-        font-size: 1.2rem;
+        font-size: 16px;
+        font-size: 1.6rem;
     }
     h1, h2, h3, .futura {
         font-weight: 700;
@@ -127,10 +127,19 @@ II MEDIA
     }
     a.sidemenu{
         color: #9d9d9d;
+        font-size: 16px;
+        font-size: 1.6rem;
     }
     a.sidemenu:hover{
         color: white;
-        background-color: transparent;
+        background-color:transparent!important;
+    }
+
+    #border{
+        position: relative;
+        border-top: 2px solid #555;
+        width: 30px;
+        left: 15px;
     }
 
     body {
