@@ -29,11 +29,15 @@ II MEDIA
 */
 
     .active{
-        background-color: #eee;
+        color: white;
     }
+
     .help p {
     color:#555;
     }
+    /*a{*/
+        /*color: #337AB7;*/
+    /*}*/
 
     html {
         font-weight: 300;
@@ -91,6 +95,7 @@ II MEDIA
         text-shadow: none;
         -webkit-box-shadow: none;
         box-shadow: none;
+        text-transform: uppercase;
     }
     .btn-default,.btn-secondary {
 	background: #fff!important;
@@ -154,6 +159,10 @@ II MEDIA
         width: 30px;
         left: 15px;
     }
+    .link-nav.sidemenu:hover,.sidebar_selected{
+        background-color: #eeeeee;
+        color:#ef7700 ;
+    }
 
     body {
         overflow: auto;
@@ -182,16 +191,24 @@ II MEDIA
     li {
         list-style: none;
     }
-    a,
-    a:focus,
+    /*a,*/
+    /*a:focus,*/
+    /*a:hover {*/
+        /*color : #ef7700;*/
+    /*}*/
+    a, a:focus, a:hover {
+        color: #29B6D8;
+    }
     a:hover {
-        color : #ef7700!important;
+        text-decoration: none;
+        color: #3572b0;
+        cursor: pointer;
     }
     a h1{
         color: #555;
     }
     .jumbotron h1{
-        font-size: 1.6rem;
+        font-size: 2rem;
     }
     /*- Typography -*/
 
@@ -263,11 +280,11 @@ II MEDIA
         text-decoration: none;
         border-bottom: 3px solid white;
     }
-    a:hover {
-        text-decoration: none;
-        color: #3572b0;
-        cursor: pointer;
-    }
+    /*a:hover {*/
+        /*text-decoration: none;*/
+        /*color: #3572b0;*/
+        /*cursor: pointer;*/
+    /*}*/
     /*
 ===============================================
 ================= 3.Container =================

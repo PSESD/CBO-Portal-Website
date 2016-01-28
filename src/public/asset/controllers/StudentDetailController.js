@@ -863,7 +863,7 @@ function generate_transcript_data(transcript_data,$scope)
     angular.forEach(transcript_data.data,function(v){
         temp.push(_.get(v,'summary.totalCreditsEarned'));
     });
-    console.log(temp);
+
     $scope.transcripts = transcript_data;
     $scope.credit_earned = transcript_data.source.totalCreditsEarned;
     $scope.credit_attempted = transcript_data.source.totalCreditsAttempted;

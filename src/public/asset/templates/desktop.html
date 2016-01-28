@@ -18,12 +18,12 @@
                     <li></li>
                     <li role="presentation"><a href="#" class="link-nav sidemenu">{{completeName }}</a></li>
                     <div id="border"></div>
-                    <li ng-class="{ active: isActive('/student') }" role="presentation"><a ng-href="#/student" class="link-nav sidemenu">{{ 'general.dashboard' | i18n  }}</a></li>
-                    <li ng-class="{ active: isActive('/program') }" role="presentation"><a ng-href="#/program" class="link-nav sidemenu">{{ 'general.programs' | i18n  }}</a></li>
-                    <li ng-class="{ active: isActive('/report') }" role="presentation"><a ng-href="#/report" class="link-nav sidemenu">{{ 'general.reports' | i18n  }}</a></li>
-                    <li ng-class="{ active: isActive('/user') }" role="presentation"><a ng-href="#/user" class="link-nav sidemenu">{{ 'general.users' | i18n  }}</a></li>
-                    <li ng-class="{ active: isActive('/profile') }" role="presentation"><a ng-href="#/profile" class="link-nav sidemenu">{{ 'general.account_settings' | i18n  }}</a></li>
-                    <li ng-class="{ active: isActive('/logout') }" role="presentation"><a ng-click="logoutMe()" class="link-nav sidemenu">{{ 'general.logout' | i18n  }}</a></li>
+                    <li id="dashboard" ng-class="{ sidebar_selected: isActive('/student') }" role="presentation"><a ng-href="#/student" class="link-nav sidemenu">{{ 'general.dashboard' | i18n  }}</a></li>
+                    <li id="programs" ng-class="{ sidebar_selected: isActive('/program') }" role="presentation"><a ng-href="#/program" class="link-nav sidemenu">{{ 'general.programs' | i18n  }}</a></li>
+                    <li id="reports" ng-class="{ sidebar_selected: isActive('/report') }" role="presentation"><a ng-href="#/report" class="link-nav sidemenu">{{ 'general.reports' | i18n  }}</a></li>
+                    <li id="users" ng-class="{ sidebar_selected: isActive('/user') }" role="presentation"><a ng-href="#/user" class="link-nav sidemenu">{{ 'general.users' | i18n  }}</a></li>
+                    <li id="edit_profile" ng-class="{ sidebar_selected: isActive('/profile') }" role="presentation"><a ng-href="#/profile" class="link-nav sidemenu">{{ 'general.account_settings' | i18n  }}</a></li>
+                    <li ng-class="{ sidebar_selected: isActive('/logout') }" role="presentation"><a ng-click="logoutMe()" class="link-nav sidemenu">{{ 'general.logout' | i18n  }}</a></li>
                 </ul>
                 <ul id="footer">
                 <li><a>&copy;&nbsp;2015&nbsp;</a><a href="http://www.psesd.org/" target="_blank">PSESD</a></li>

@@ -8,7 +8,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
 
         $rootScope.full_screen = false;
-        console.log(CookieStore.get('organization_name'));
+
         if(CookieStore.get('organization_name') !== undefined)
         {
             localStorage.setItem('organization_name',CookieStore.get('organization_name'));
