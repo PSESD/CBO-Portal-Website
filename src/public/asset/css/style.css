@@ -28,8 +28,9 @@ II MEDIA
 ===============================================
 */
 
-    .active{
-        color: white;
+    
+    select{
+        color: black;
     }
 
     .help p {
