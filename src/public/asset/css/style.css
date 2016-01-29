@@ -28,9 +28,36 @@ II MEDIA
 ===============================================
 */
 
-    
+    .last_update_date{
+        margin-left:10px;
+    }
+    .nav-tabs h1{
+        margin-top: 10px;
+    }
+
+    form{
+        padding-top:20px;
+    }
+
+    .form-horizontal,.control-label{
+        padding-top: 9px;
+    }
+    .form-control{
+        font-size: 12px;
+        line-height: 1.35em;
+    }
+    ul.tagit{
+        margin-top: 5px;
+    }
     select{
         color: black;
+        background: url(../img/arrow.png) no-repeat 96%;
+        border: 1px solid black;
+        padding: 7px 22px 7px 7px;
+    }
+
+    .dropdown-label{
+        padding-top: 12px;
     }
 
     .help p {
@@ -99,12 +126,19 @@ II MEDIA
         text-transform: uppercase;
     }
     .btn-default,.btn-secondary {
-	background: #fff!important;
-    background-image: none!important;
-	font-weight: bold!important;;
-	color: #000!important;;
-	border: 2px solid #000!important;;
-}
+        background: #fff!important;
+        background-image: none!important;
+        font-weight: bold!important;;
+        color: #000!important;;
+        border: 2px solid #000!important;;
+    }
+    .btn-default:hover,.btn-secondary:hover {
+        background: #000!important;
+        background-image: none!important;
+        font-weight: bold!important;;
+        color: #fff!important;;
+        border: 2px solid #000!important;;
+    }
     .btn-primary {
         background: #fff;
         border: 2px solid #209920;
@@ -134,7 +168,7 @@ II MEDIA
     .title span.title-lastupdate{
         float: left;
         margin-top: 23px;
-        margin-left: 10px;
+        margin-left: 20px;
     }
     .title a.btn{
         float: right;
@@ -197,12 +231,21 @@ II MEDIA
     /*a:hover {*/
         /*color : #ef7700;*/
     /*}*/
-    a, a:focus, a:hover {
+    /*a, a:focus, a:hover {*/
+        /*color: #29B6D8;*/
+    /*}*/
+
+    /*a:hover {*/
+        /*text-decoration: none;*/
+        /*color: #3572b0;*/
+        /*cursor: pointer;*/
+    /*}*/
+    a{
         color: #29B6D8;
     }
     a:hover {
         text-decoration: none;
-        color: #3572b0;
+        color : #ef7700;
         cursor: pointer;
     }
     a h1{
@@ -928,10 +971,7 @@ select{
         select {
             -webkit-border-radius: 0px !important;
             -webkit-appearance: none;
-            background: url(../img/arrow.png) no-repeat 99%;
             margin-top: 5px;
-            border: 1px solid black;
-            padding: 7px 22px 7px 7px;
         }
 
         .organization_header {

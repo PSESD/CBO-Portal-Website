@@ -1,10 +1,14 @@
+li.transcript-summary{
+    text-align: left!important;
+    padding: 10px!important;
+}
 .student-summary .title{
     margin-top: 10px;
     font-weight: bold;
     letter-spacing: 0.2em;
 }
 .transcript-title{
-    font-size: 12px;
+    font-weight: bold;
 }
 dl{
     margin-bottom: 0;
@@ -96,58 +100,28 @@ ul.flexbox.transcript-content {
     margin: 0;
     padding: 0;
 }
+.uppercase{
+    text-transform: uppercase;
+}
+ul.attendance-behavior li.attendance-date{
+    width: 25%;
+}
+
+ul.attendance-behavior li.att-content{
+    width: 10%;
+}
+ul.attendance-behavior li.attendance-weekly{
+    width: 25%;
+}
 ul.attendance-behavior li {
     padding: 0;
     margin: 0;
     text-align: center;
     height: 50px;
     line-height: 50px;
+    color:black;
 }
-ul.attendance-behavior li:nth-child(1) {
-    width: 25%;
-    color: black;
-    font-size: 1.4rem;
-}
-ul.attendance-behavior li:nth-child(2) {
-    width: 10%;
-    color: black;
-    position: relative;
-    font-weight: bold;
-    font-size: 1.4rem;
-}
-ul.attendance-behavior li:nth-child(3) {
-    width: 10%;
-    color: black;
-    font-weight: bold;
-    font-size: 1.4rem;
-}
-ul.attendance-behavior li:nth-child(4) {
-    width: 10%;
-    color: black;
-    font-weight: bold;
-    font-size: 1.4rem;
-}
-ul.attendance-behavior li:nth-child(5) {
-    width: 10%;
-    color: black;
-    font-weight: bold;
-    font-size: 1.4rem;
-}
-ul.attendance-behavior li:nth-child(6) {
-    width: 10%;
-    color: black;
-    font-size: 14px;
-    font-weight: bold;
-    font-size: 1.4rem;
-}
-ul.attendance-behavior li:nth-child(7) {
-    width: 25%;
-    color: black;
-    font-size: 14px;
-    position: relative;
-    font-weight: bold;
-    font-size: 1.4rem;
-}
+
 .panel-heading.attendance-behavior {
     padding: 0;
     margin: 0;
@@ -277,11 +251,11 @@ ul.list-group.legend-list li {
     border-bottom: solid 3px rgba(0, 0, 0, 0.1);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
 }
-.col-separator {
+.border-attendance-left{
     border-left: 3px solid #aaa;
-    position: absolute;
-    top: 15%;
-    bottom: 15%
+}
+.border-attendance-right{
+    border-right: 3px solid #aaa;
 }
 .last-col-separator {
     border-left: 3px solid #aaa;
@@ -365,7 +339,6 @@ ul.list-group.legend-list li {
     /*padding: 1%;*/
 /*}*/
 ul.flexbox.transcript {
-    padding: 10px;
     display: -webkit-box;
     /* OLD - iOS 6-, Safari 3.1-6 */
     display: -moz-box;
@@ -377,65 +350,22 @@ ul.flexbox.transcript {
     display: flex;
     /* NEW, Spec - Opera 12.1, Firefox 20+ */
     margin: 0;
-    padding: 1%;
-}
-ul.transcript li:nth-child(1) {
-    width: 16%;
-    text-align: left;
-}
-ul.transcript li:nth-child(2) {
-    width: 16.8%;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    letter-spacing: 1px;
-    padding-top: 2%;
-}
-ul.transcript li:nth-child(3) {
-    width: 16.8%;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    letter-spacing: 1px;
-    padding-top: 2%;
-}
-ul.transcript li:nth-child(4) {
-    width: 16.8%;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    letter-spacing: 1px;
-    padding-top: 2%;
-}
-ul.transcript li:nth-child(5) {
-    width: 16.8%;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    letter-spacing: 1px;
-    padding-top: 2%;
-}
-ul.transcript li:nth-child(6) {
-    width: 16.8%;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    letter-spacing: 1px;
-    padding-top: 2%;
-}
-ul.transcript li:nth-child(7) {
-    width: 14%;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    letter-spacing: 1px;
-    padding-top: 2%;
+    padding:20px 10px 10px;
 }
 ul.transcript li {
     text-align: center;
-    padding: 0;
     margin: 0;
 }
+.transcript-subject{
+    font-size: 14px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color:#fff;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+
 .button.transcript-school-history {
     margin: 0;
     letter-spacing: 1px;
@@ -464,7 +394,6 @@ ul.transcript li {
 ul li.transcript-content {
     padding: 0;
     margin: 0;
-    font-size: 14px;
     font-weight: bold;
     letter-spacing: 1px;
 }
@@ -957,245 +886,69 @@ ul.cohorts {
 
 .tc-1-col{
     width: 84%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-2-col{
     width: 42%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-3-col{
     width: 28%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-4-col{
     width: 21%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-5-col{
     width: 16.8%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-6-col{
     width: 14%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-7-col{
     width: 12%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-8-col{
     width: 10.5%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-9-col{
     width: 9.3333%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-10-col{
     width: 8.4%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-11-col{
     width: 7.6363%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-12-col{
     width: 7%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-13-col{
     width: 6.4615%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-14-col{
     width: 6%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-15-col{
     width: 5.6%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-16-col{
     width: 5.25%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-17-col{
     width: 4.9411%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-18-col{
     width: 4.6666%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-19-col{
     width: 4.4210%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-20-col{
     width: 4.2222%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-21-col{
     width: 4%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 .tc-22-col{
     width: 3.8181%!important;
-    font-size: 14px!important;
-    font-weight: bold!important;
-    color: white!important;
-    letter-spacing: 1px!important;
-    padding-top: 1%!important;
-    padding-left:5px!important;
-    padding-right: 5px!important;
-    padding-bottom: 5px!important;
 }
 
 .tcontent-1-col{
@@ -1309,13 +1062,6 @@ ul.cohorts {
     padding-left:0!important;
 }
 
-.vertical-line{
-    border-right: 3px solid #eee;
-}
-.extra-space{
-    padding-left:5%;
-}
-
 .dark{
 background-color:#eee;
 }
@@ -1362,7 +1108,7 @@ dt, dd {
     position: relative;
     left: 43%;
     width: 200px;
-    top:10px;
+    margin:20px 0 0;
 }
 .transcript-json{
     color:#29B6D8;
