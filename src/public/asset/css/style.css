@@ -1064,13 +1064,7 @@ select{
 }
 .report-page .card .select-chart
 {
-    -webkit-border-radius: 0px !important;
-    -webkit-appearance: none;
-    background: url(../img/arrow.png) no-repeat 99%;
-    border: 1px solid black;
-    padding: 7px 22px 7px 7px;
-    margin: auto 5px;
-    min-width: 15%;
+    min-width: 20%;
 }
 .report-page .card .report-page-filter
 {

@@ -17,10 +17,9 @@
 
                         <h1><span>{{ 'general.filters' | i18n }}</span></h1>
 
-                        <select class="select-chart" ng-change="filterChart()" ng-model="select_program" ng-options="o for o in programData"></select>
-                        <select class="select-chart" ng-change="filterChart()" ng-model="select_district" ng-options="o for o in districtData"></select>
-                        <select class="select-chart" ng-change="filterChart()" ng-model="select_cohort" ng-options="o for o in cohortData"></select>
-                        <select class="select-chart" ng-change="filterChart()" ng-model="select_caseload" ng-options="o for o in caseloadData"></select>
+                        <dropdown-multiselect class="select-chart no-background-color" title="Programs" model="select_program" options="programData"></dropdown-multiselect>
+                        <dropdown-multiselect class="select-chart no-background-color" title="Districts" model="select_district" options="districtData"></dropdown-multiselect>
+                        <dropdown-multiselect class="select-chart no-background-color" title="Cohorts" model="select_cohort" options="cohortData"></dropdown-multiselect>
 
                     </div>
 
@@ -29,19 +28,19 @@
                     <div class="col-md-4">
                         <div class="border-black summary-information">
                             <div class="font-count">{{total_student}}</div>
-                            <div class="font-medium">Students</div>
+                            <div class="font-medium">{{total_student_word}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="border-black summary-information">
+                            <div class="font-count">{{total_district}}</div>
+                            <div class="font-medium">{{total_district_word}}</div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="border-black summary-information">
                             <div class="font-count">{{total_school}}</div>
-                            <div class="font-medium">Schools</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="border-black summary-information">
-                            <div class="font-count">{{total_user}}</div>
-                            <div class="font-medium">Users</div>
+                            <div class="font-medium">{{total_school_word}}</div>
                         </div>
                     </div>
 

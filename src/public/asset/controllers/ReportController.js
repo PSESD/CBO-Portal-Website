@@ -4,16 +4,20 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
         $rootScope.full_screen = false;
 
-        //report/students/school_district
-        //report/students/grade
-        //report/students/gender
-        //report/students/race
-
         var colors = ["#7cb5ec", "#434348", "#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"];
 
         $scope.total_student = 0;
+        $scope.total_district = 0;
         $scope.total_school = 0;
-        $scope.total_user = 0;
+        $scope.total_student_word = "";
+        $scope.total_district_word = "";
+        $scope.total_school_word = "";
+        $scope.programData = [];
+        $scope.districtData = [];
+        $scope.cohortData = [];
+        $scope.select_program = [];
+        $scope.select_district = [];
+        $scope.select_cohort = [];
 
         $rootScope.doingResolve = false;
 
@@ -26,34 +30,32 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
                 var i, temp;
 
-                $scope.programData = ["All Programs"];
                 for(i=0; i<response.programs.length; i++)
                 {
-                    $scope.programData.push(response.programs[i]);
+                    temp = {
+                        id: response.programs[i],
+                        name: response.programs[i]
+                    };
+                    $scope.programData.push(temp);
                 }
 
-                $scope.districtData = ["All District"];
                 for(i=0; i<response.districts.length; i++)
                 {
-                    $scope.districtData.push(response.districts[i]);
+                    temp = {
+                        id: response.districts[i],
+                        name: response.districts[i]
+                    };
+                    $scope.districtData.push(temp);
                 }
 
-                $scope.cohortData = ["All Cohort"];
                 for(i=0; i<response.cohorts.length; i++)
                 {
-                    $scope.cohortData.push(response.cohorts[i]);
+                    temp = {
+                        id: response.cohorts[i],
+                        name: response.cohorts[i]
+                    };
+                    $scope.cohortData.push(temp);
                 }
-
-                $scope.caseloadData = ["All Case Load"];
-                for(i=0; i<response.caseload.length; i++)
-                {
-                    $scope.cohortData.push(response.caseload[i]);
-                }
-
-                $scope.select_program = $scope.programData[0];
-                $scope.select_district = $scope.districtData[0];
-                $scope.select_cohort = $scope.cohortData[0];
-                $scope.select_caseload = $scope.caseloadData[0];
 
                 $scope.filterChart();
 
@@ -78,17 +80,14 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
             var cohort = "";
             var caseload = "";
 
-            if($scope.select_program !== "All Programs")
+            if($scope.select_program !== "Programs")
                 program = $scope.select_program;
 
-            if($scope.select_district !== "All District")
+            if($scope.select_district !== "Districts")
                 district = $scope.select_district;
 
-            if($scope.select_cohort !== "All Cohort")
+            if($scope.select_cohort !== "Cohorts")
                 cohort = $scope.select_cohort;
-
-            if($scope.select_caseload !== "All Case Load")
-                caseload = $scope.select_caseload;
 
             var passing_string = '?program='+encodeURIComponent(program)+'&district='+encodeURIComponent(district)+'&cohort='+encodeURIComponent(cohort)+'&caseload='+encodeURIComponent(caseload);
 
@@ -144,66 +143,13 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
                             }
                         }
-                        /*
-
-                        var color_number = district%9;
-                        var temp;
-                        if(typeof response[index].schoolDistrict !== "undefined")
-                        {
-                            var get_same = -1;
-                            for (var index2 in temp_districts)
-                            {
-                                if(temp_districts[index2].name == response[index].schoolDistrict)
-                                {
-                                    get_same = index2;
-                                }
-                            }
-
-                            $scope.total_school += response[index].total;
-
-                            if(get_same >= 0)
-                            {
-                                temp_districts[get_same].y = temp_districts[get_same].y + response[index].total
-
-                                temp = {
-                                    color: temp_districts[get_same].color,
-                                    name: response[index].schoolName,
-                                    y: response[index].total
-                                };
-
-                                temp_studentSchools.push(temp);
-
-                            }
-                            else
-                            {
-                                temp = {
-                                    color: colors[color_number],
-                                    name: response[index].schoolDistrict,
-                                    y: response[index].total
-                                };
-
-                                temp_districts.push(temp);
-
-                                temp = {
-                                    color: colors[color_number],
-                                    name: response[index].schoolName,
-                                    y: response[index].total
-                                };
-
-                                temp_studentSchools.push(temp);
-                            }
-
-                            if(get_same >= 0)
-                            {
-                                district++;
-                            }
-
-                        }*/
 
                     }
 
                     for (var index in temp_container)
                     {
+                        $scope.total_district++;
+
                         var color_number = index%9;
                         temp = {
                             color: colors[color_number],
@@ -221,6 +167,24 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                             temp_studentSchools.push(temp);
                             $scope.total_school++;
                         }
+                    }
+
+                    if($scope.total_school > 1)
+                    {
+                        $scope.total_school_word = "Schools";
+                    }
+                    else
+                    {
+                        $scope.total_school_word = "School";
+                    }
+
+                    if($scope.total_district > 1)
+                    {
+                        $scope.total_district_word = "Districts";
+                    }
+                    else
+                    {
+                        $scope.total_district_word = "District";
                     }
 
                     $scope.districts = temp_districts;
@@ -308,6 +272,15 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                             temp_ethnicity.push(temp);
                         }
 
+                    }
+
+                    if($scope.total_student > 1)
+                    {
+                        $scope.total_student_word = "Students";
+                    }
+                    else
+                    {
+                        $scope.total_student_word = "Student";
                     }
 
                     $scope.ethnicity = temp_ethnicity;

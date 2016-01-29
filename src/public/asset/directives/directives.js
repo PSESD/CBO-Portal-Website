@@ -307,7 +307,7 @@ app.directive('studentSchoolDistrictPie', function () {
                 },
                 plotOptions: {
                     pie: {
-                        allowPointSelect: true,
+                        allowPointSelect: false,
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
