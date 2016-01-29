@@ -14,11 +14,14 @@
                         <p>{{ 'help.user_list' | i18n }}</p>
                     </div>
                     <h1><a href="#/user/invite"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.invite_user' | i18n | uppercase }}</a></h1>
-                    <form class="form-inline" role="form" ng-submit="searchStudent(student)">
-                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_users' | i18n }}"/>
-                        <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
-                    </form>
-
+                    <!--<form class="form-inline" role="form" ng-submit="searchStudent(student)">-->
+                        <!--<input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_users' | i18n }}"/>-->
+                        <!--<span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>-->
+                    <!--</form>-->
+                    <div class="form-search">
+                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_program' | i18n }}"/>
+                        <span class="glyphicon glyphicon-search glass" aria-hidden="true"></span>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>

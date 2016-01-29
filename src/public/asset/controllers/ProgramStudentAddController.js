@@ -96,10 +96,11 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
             });
         $scope.addProgramStudent = function (program) {
             if (program) {
-                if (program.cohort !== null) {
+
+                if (_.has('cohort',program)) {
                     rawCohart = program.cohort.split(',');
                 } else if (program.cohort === 'undefined' || program.cohort === 'undefined') {
-                    rawCohart = '';
+                    rawCohart = [];
                 }
                 program.cohort = rawCohart;
                 $scope.working = true;

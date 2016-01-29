@@ -165,6 +165,7 @@ app.directive('phonenumberDirective', ['$filter', function ($filter) {
     function link(scope, element, attributes) {
         'use strict';
         // scope.inputValue is the value of input element used in template
+        console.log(element);
         scope.inputValue = scope.phonenumberModel;
 
         scope.$watch('inputValue', function (value, oldValue) {

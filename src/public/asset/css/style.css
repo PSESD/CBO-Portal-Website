@@ -28,6 +28,24 @@ II MEDIA
 ===============================================
 */
 
+    .form-search{
+        width: 25%;
+        margin: 0;
+        padding: 0;
+    }
+    .form-search.user{
+        width: 40%;
+    }
+    .form-search>.glass{
+        position: absolute;
+        top:158px;
+        left: 190px;
+    }
+    .form-search>.glass.user{
+
+        top:176px;
+
+    }
     .popover{
         font-size: 12px;
         font-size: 1.2rem;
@@ -604,7 +622,7 @@ select{
     }
     .subhead {
         text-transform: uppercase;
-        width: 150px;
+        width: 135px;
     }
     #collapse-sidebarmenu:hover {
         cursor: pointer;
