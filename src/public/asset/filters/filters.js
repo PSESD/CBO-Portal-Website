@@ -41,6 +41,8 @@ app.filter('phonenumber', function () {
     'use strict';
     return function (number) {
 
+        return number;
+
         if (!number) {
             return '';
         }
