@@ -859,10 +859,6 @@ function generate_transcript_data(transcript_data,$scope)
             item.transcriptsOrder.push({name: k, value: i});
         });
     });
-    var temp = [];
-    angular.forEach(transcript_data.data,function(v){
-        temp.push(_.get(v,'summary.totalCreditsEarned'));
-    });
 
     $scope.transcripts = transcript_data;
     $scope.credit_earned = transcript_data.source.totalCreditsEarned;

@@ -80,7 +80,7 @@
                         <h1>
                             {{ ::student.firstName }} {{ ::student.lastName }}
                         </h1>
-                        <span class="title-lastupdate">{{ 'general.last_update' | i18n }} : &nbsp {{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}
+                        <span class="title-lastupdate">{{ 'general.last_update' | i18n }}:<span class="last_update_date">{{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
                         <img ng-show="showLoading" class="loading-icon" src="asset/img/ajax-loader.gif">
                         <a ng-hide="showLoading" ng-click="updateNow()">(Update Now)</a>
                         <a ng-show="loading_icon && viewDebug" ng-click="showDebug()">(View XSRE)</a>
@@ -96,143 +96,276 @@
                             <p>{{ 'help.student_detail' | i18n }}</p>
                         </div>
                         <div class="row student-summary">
-                            <div class="col-md-12 no-padding-left">
-                                <div class="col-md-6 vertical-line ">
-                                    <div class="col-md-4 col-sm-12 no-padding-left">
-                                        <div class="two-lines">
-                                            <div class="title">
-                                                <p class="subhead uppercase">{{ 'general.personal_info' | i18n }}</p>
-                                                <hr>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <dl>
-                                                <dt class="bold bold-title">{{ 'general.district_id' | i18n }}</dt>
-                                                <dd>{{ ::student.districtID }}</dd>
-                                                <dt class="bold bold-title">{{ 'general.brithday' | i18n }}</dt>
-                                                <dd>{{ ::personal.birthday | date : 'MM/dd/yyyy' : timezone}}</dd>
-                                                <dt class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</dt>
-                                                <dd>{{ ::student.race}}</dd>
-                                                <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
-                                                <dd>{{ ::student.gender}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="two-lines">
-                                            <div class="title">
-                                                <p class="subhead personal uppercase">{{ 'general.personal_contact' | i18n }}</p>
-                                                <hr>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <dl>
-                                                <dt></dt>
-                                                <dd>{{ ::student.email}}</dd>
-                                                <dt></dt>
-                                                <dd>{{ ::student.phone | phonenumber}}</dd>
-                                                <dt></dt>
-                                                <dd>{{ ::student.address}}</dd>
-                                            </dl>
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="two-lines">
+                                        <div class="title">
+                                            <p class="subhead uppercase">{{ 'general.personal_info' | i18n }}</p>
+                                            <hr>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-12" id="emergency_section">
-                                        <div class="two-lines">
-                                            <div class="title">
-                                                <p class="subhead uppercase">{{ 'general.emergency_contacts' | i18n }}</p>
-                                                <hr>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <dl>
-                                                <dt class="bold bold-title">{{ ::student.emergency1.name}}</dt>
-                                                <dd></dd>
-                                                <dt></dt>
-                                                <dd>{{ ::student.emergency1.relationship}}</dd>
-                                                <dt></dt>
-                                                <dd>{{ ::student.emergency1.email}}</dd>
-                                                <dt></dt>
-                                                <dd>{{ ::student.emergency1.phone | phonenumber}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="content personal">
-                                            <dl>
-                                                <dt class="bold-title bold">{{ ::student.emergency2.name}}</dt>
-                                                <dd></dd>
-                                                <dt></dt>
-                                                <dd>{{ ::student.emergency2.relationship}}</dd>
-                                                <dt></dt>
-                                                <dd>{{ ::student.emergency2.email}}</dd>
-                                                <dt></dt>
-                                                <dd>{{ ::student.emergency2.phone | phonenumber}}</dd>
-                                            </dl>
+                                    <div class="content">
+                                        <dl>
+                                            <dt class="bold bold-title">{{ 'general.district_id' | i18n }}</dt>
+                                            <dd>{{ ::student.districtID }}</dd>
+                                            <dt class="bold bold-title">{{ 'general.brithday' | i18n }}</dt>
+                                            <dd>{{ ::personal.birthday | date : 'MM/dd/yyyy' : timezone}}</dd>
+                                            <dt class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</dt>
+                                            <dd>{{ ::student.race}}</dd>
+                                            <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
+                                            <dd>{{ ::student.gender}}</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="two-lines">
+                                        <div class="title">
+                                            <p class="subhead personal uppercase">{{ 'general.personal_contact' | i18n }}</p>
+                                            <hr>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-12" id="assigned_user_section">
-                                        <div class="two-lines">
-                                            <div class="title">
-                                                <p class="subhead">{{ 'general.case_workers' | i18n }}</p>
-                                                <hr>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-
-                                            <div ng-repeat="person in case_workers">
-                                                <dl>
-                                                    <dt></dt>
-                                                    <dd>{{ ::person.fullname}}</dd>
-                                                </dl>
-
-                                            </div>
-
-                                        </div>
+                                    <div class="content">
+                                        <dl>
+                                            <dt></dt>
+                                            <dd>{{ ::student.email}}</dd>
+                                            <dt></dt>
+                                            <dd>{{ ::student.phone | phonenumber}}</dd>
+                                            <dt></dt>
+                                            <dd>{{ ::student.address}}</dd>
+                                        </dl>
                                     </div>
                                 </div>
-                                <div class="col-md-6 extra-space">
-                                    <div class="col-md-6">
-                                        <div class="two-lines">
-                                            <div class="title">
-                                                <p class="subhead uppercase">{{ 'general.school_info' | i18n}}</p>
-                                                <hr>
-                                            </div>
-                                        </div>
-                                        <div class="content bottom-space">
-                                            <dl>
-                                                <dt class="bold bold-title">{{ 'general.current_school' | i18n }}</dt>
-                                                <dd>{{ ::academicInfo.currentSchool }}</dd>
-                                                <dt class="bold bold-title">{{ 'general.expected_graduation_year' | i18n }}</dt>
-                                                <dd>{{ ::academicInfo.expectedGraduationYear }}</dd>
-                                                <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
-                                                <dd class="uppercase">{{ ::academicInfo.gradeLevel }}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="content top-space">
-                                            <dl>
-                                                <dt class="bold bold-title">{{ 'general.language_spoken_at_home' | i18n }}</dt>
-                                                <dd class="uppercase">{{ ::academicInfo.languageSpokenAtHome }}</dd>
-                                                <dt class="bold bold-title">{{ 'general.iep' | i18n }}</dt>
-                                                <dd class="uppercase">{{ ::academicInfo.iep }}</dd>
-                                                <dt class="bold bold-title">{{ 'general.s504' | i18n }}</dt>
-                                                <dd class="uppercase">{{ ::academicInfo.s504 }}</dd>
-                                                <dt class="bold bold-title">{{ 'general.free_or_reduced_lunch' | i18n }}</dt>
-                                                <dd class="uppercase">{{ ::academicInfo.freeReducedLunch }}</dd>
-                                            </dl>
+                                <div class="col-md-2">
+                                    <div class="two-lines">
+                                        <div class="title">
+                                            <p class="subhead uppercase">{{ 'general.emergency_contacts' | i18n }}</p>
+                                            <hr>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="two-lines-current-class">
-                                            <div class="title">
-                                                <p class="subhead uppercase">{{ 'general.current_courses' | i18n }} <span class="bold bold-title">{{ ::transcipts.info.currentSchoolYear}}</span></p>
-                                                <hr>
-                                            </div>
+                                    <div class="content">
+                                        <dl>
+                                            <dt class="bold bold-title">{{ ::student.emergency1.name}}</dt>
+                                            <dd></dd>
+                                            <dt></dt>
+                                            <dd>{{ ::student.emergency1.relationship}}</dd>
+                                            <dt></dt>
+                                            <dd>{{ ::student.emergency1.email}}</dd>
+                                            <dt></dt>
+                                            <dd>{{ ::student.emergency1.phone | phonenumber}}</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="content personal">
+                                        <dl>
+                                            <dt class="bold-title bold">{{ ::student.emergency2.name}}</dt>
+                                            <dd></dd>
+                                            <dt></dt>
+                                            <dd>{{ ::student.emergency2.relationship}}</dd>
+                                            <dt></dt>
+                                            <dd>{{ ::student.emergency2.email}}</dd>
+                                            <dt></dt>
+                                            <dd>{{ ::student.emergency2.phone | phonenumber}}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="two-lines">
+                                        <div class="title">
+                                            <p class="subhead">{{ 'general.case_workers' | i18n }}</p>
+                                            <hr>
                                         </div>
-                                        <div class="content">
-                                            <div ng-repeat="courseTitle in courses">
-                                                <span>{{::courseTitle}}</span>
-                                                <br/>
-                                            </div>
+                                    </div>
+                                    <div class="content">
+
+                                        <div ng-repeat="person in case_workers">
+                                            <dl>
+                                                <dt></dt>
+                                                <dd>{{ ::person.fullname}}</dd>
+                                            </dl>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="two-lines">
+                                        <div class="title">
+                                            <p class="subhead uppercase">{{ 'general.school_info' | i18n}}</p>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="content bottom-space">
+                                        <dl>
+                                            <dt class="bold bold-title">{{ 'general.current_school' | i18n }}</dt>
+                                            <dd>{{ ::academicInfo.currentSchool }}</dd>
+                                            <dt class="bold bold-title">{{ 'general.expected_graduation_year' | i18n }}</dt>
+                                            <dd>{{ ::academicInfo.expectedGraduationYear }}</dd>
+                                            <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
+                                            <dd class="uppercase">{{ ::academicInfo.gradeLevel }}</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="content top-space">
+                                        <dl>
+                                            <dt class="bold bold-title">{{ 'general.language_spoken_at_home' | i18n }}</dt>
+                                            <dd class="uppercase">{{ ::academicInfo.languageSpokenAtHome }}</dd>
+                                            <dt class="bold bold-title">{{ 'general.iep' | i18n }}</dt>
+                                            <dd class="uppercase">{{ ::academicInfo.iep }}</dd>
+                                            <dt class="bold bold-title">{{ 'general.s504' | i18n }}</dt>
+                                            <dd class="uppercase">{{ ::academicInfo.s504 }}</dd>
+                                            <dt class="bold bold-title">{{ 'general.free_or_reduced_lunch' | i18n }}</dt>
+                                            <dd class="uppercase">{{ ::academicInfo.freeReducedLunch }}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="two-lines-current-class">
+                                        <div class="title">
+                                            <p class="subhead uppercase">{{ 'general.current_courses' | i18n }} <span class="bold bold-title">{{ ::transcipts.info.currentSchoolYear}}</span></p>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <div ng-repeat="courseTitle in courses">
+                                            <span>{{::courseTitle}}</span>
+                                            <br/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--<div class="col-md-12 no-padding-left">-->
+                                <!--<div class="col-md-6 vertical-line ">-->
+                                    <!--<div class="col-md-4 col-sm-12 no-padding-left">-->
+                                        <!--&lt;!&ndash;<div class="two-lines">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="title">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<p class="subhead uppercase">{{ 'general.personal_info' | i18n }}</p>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<hr>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class="content">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<dl>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt class="bold bold-title">{{ 'general.district_id' | i18n }}</dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.districtID }}</dd>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt class="bold bold-title">{{ 'general.brithday' | i18n }}</dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::personal.birthday | date : 'MM/dd/yyyy' : timezone}}</dd>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.race}}</dd>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.gender}}</dd>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</dl>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class="two-lines">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="title">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<p class="subhead personal uppercase">{{ 'general.personal_contact' | i18n }}</p>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<hr>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class="content">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<dl>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt></dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.email}}</dd>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt></dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.phone | phonenumber}}</dd>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt></dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.address}}</dd>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</dl>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-4 col-sm-12" id="emergency_section">-->
+                                         <!--&lt;!&ndash;<div class="two-lines">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="title">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<p class="subhead uppercase">{{ 'general.emergency_contacts' | i18n }}</p>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<hr>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class="content">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<dl>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt class="bold bold-title">{{ ::student.emergency1.name}}</dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd></dd>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt></dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.emergency1.relationship}}</dd>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt></dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.emergency1.email}}</dd>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt></dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.emergency1.phone | phonenumber}}</dd>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</dl>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<div class="content personal">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<dl>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt class="bold-title bold">{{ ::student.emergency2.name}}</dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd></dd>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt></dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.emergency2.relationship}}</dd>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt></dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.emergency2.email}}</dd>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dt></dt>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<dd>{{ ::student.emergency2.phone | phonenumber}}</dd>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</dl>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-4 col-sm-12" id="assigned_user_section">-->
+                                        <!--<div class="two-lines">-->
+                                            <!--<div class="title">-->
+                                                <!--<p class="subhead">{{ 'general.case_workers' | i18n }}</p>-->
+                                                <!--<hr>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="content">-->
+
+                                            <!--<div ng-repeat="person in case_workers">-->
+                                                <!--<dl>-->
+                                                    <!--<dt></dt>-->
+                                                    <!--<dd>{{ ::person.fullname}}</dd>-->
+                                                <!--</dl>-->
+
+                                            <!--</div>-->
+
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-6 extra-space">-->
+                                    <!--<div class="col-md-6">-->
+                                        <!--<div class="two-lines">-->
+                                            <!--<div class="title">-->
+                                                <!--<p class="subhead uppercase">{{ 'general.school_info' | i18n}}</p>-->
+                                                <!--<hr>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="content bottom-space">-->
+                                            <!--<dl>-->
+                                                <!--<dt class="bold bold-title">{{ 'general.current_school' | i18n }}</dt>-->
+                                                <!--<dd>{{ ::academicInfo.currentSchool }}</dd>-->
+                                                <!--<dt class="bold bold-title">{{ 'general.expected_graduation_year' | i18n }}</dt>-->
+                                                <!--<dd>{{ ::academicInfo.expectedGraduationYear }}</dd>-->
+                                                <!--<dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>-->
+                                                <!--<dd class="uppercase">{{ ::academicInfo.gradeLevel }}</dd>-->
+                                            <!--</dl>-->
+                                        <!--</div>-->
+                                        <!--<div class="content top-space">-->
+                                            <!--<dl>-->
+                                                <!--<dt class="bold bold-title">{{ 'general.language_spoken_at_home' | i18n }}</dt>-->
+                                                <!--<dd class="uppercase">{{ ::academicInfo.languageSpokenAtHome }}</dd>-->
+                                                <!--<dt class="bold bold-title">{{ 'general.iep' | i18n }}</dt>-->
+                                                <!--<dd class="uppercase">{{ ::academicInfo.iep }}</dd>-->
+                                                <!--<dt class="bold bold-title">{{ 'general.s504' | i18n }}</dt>-->
+                                                <!--<dd class="uppercase">{{ ::academicInfo.s504 }}</dd>-->
+                                                <!--<dt class="bold bold-title">{{ 'general.free_or_reduced_lunch' | i18n }}</dt>-->
+                                                <!--<dd class="uppercase">{{ ::academicInfo.freeReducedLunch }}</dd>-->
+                                            <!--</dl>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-6">-->
+                                        <!--<div class="two-lines-current-class">-->
+                                            <!--<div class="title">-->
+                                                <!--<p class="subhead uppercase">{{ 'general.current_courses' | i18n }} <span class="bold bold-title">{{ ::transcipts.info.currentSchoolYear}}</span></p>-->
+                                                <!--<hr>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="content">-->
+                                            <!--<div ng-repeat="courseTitle in courses">-->
+                                                <!--<span>{{::courseTitle}}</span>-->
+                                                <!--<br/>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                         </div>
                     </div>
@@ -277,17 +410,17 @@
                     <select class="studentdetail-filter" name="academic_select" ng-model="academic_year" ng-options="option.name for option in academic_years" ng-class="attendanceBehavior.length > 0 ? '':'hide'">
                     </select>
                     <ul class="flexbox attendance-behavior {{attendanceBehavior.length > 0 ? '' : 'hide'}}">
-                        <li class="uppercase">{{ 'general.attendance_dates' | i18n }}</li>
-                        <li>
-                            <div class="col-separator"></div>
-                            <div class="uppercase inline-block font-bold">{{ 'general.LM' | i18n }}</div>
+                        <li class="attendance-date uppercase">{{ 'general.attendance_dates' | i18n }}</li>
+                        <li class="att-content uppercase border-attendance-left">
+
+                            <div class="uppercase">{{ 'general.LM' | i18n }}</div>
                         </li>
-                        <li class="uppercase">{{ 'general.LT' | i18n }}</li>
-                        <li class="uppercase">{{ 'general.LW' | i18n }}</li>
-                        <li class="uppercase">{{ 'general.TH' | i18n }}</li>
-                        <li class="uppercase">{{ 'general.LF' | i18n }}</li>
-                        <li class="uppercase">
-                            <div class="col-separator"></div>
+                        <li class="att-content uppercase">{{ 'general.LT' | i18n }}</li>
+                        <li class="att-content uppercase">{{ 'general.LW' | i18n }}</li>
+                        <li class="att-content uppercase">{{ 'general.TH' | i18n }}</li>
+                        <li class="att-content uppercase border-attendance-right">{{ 'general.LF' | i18n }}</li>
+                        <li class="attendance-weekly uppercase ">
+
                             <div class="uppercase inline-block font-bold">{{ 'general.delta_change' | i18n}}</div>
 
                         </li>
@@ -299,38 +432,36 @@
                                 <h4 class="panel-title">
 
                                     <ul ng-click="openHeader($event)" data-key="{{behavior.summary.title}}" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
-                                        <li>
+                                        <li class="attendance-date uppercase">
                                             {{ ::behavior.summary.title }}
                                         </li>
-                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].M) < 100 }">
-                                            <div class="col-separator"></div>
+                                        <li class="att-content border-attendance-left" ng-class="{ unexcused: parseInt(behavior.details[0].M) < 100 }">
+
                                             {{ ::behavior.summary.M }}
                                         </li>
-                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].T) < 100 }">{{ ::behavior.summary.T }}</li>
-                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].W) < 100 }">{{ ::behavior.summary.W }}</li>
-                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.TH }}</li>
-                                        <li ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ ::behavior.summary.F }}</li>
-                                        <li>
-                                            <div class="col-separator"></div>
+                                        <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].T) < 100 }">{{ ::behavior.summary.T }}</li>
+                                        <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].W) < 100 }">{{ ::behavior.summary.W }}</li>
+                                        <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.TH }}</li>
+                                        <li class="att-content border-attendance-right" ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ ::behavior.summary.F }}</li>
+                                        <li class="attendance-weekly">
                                             {{ behavior.summary.weeklyChange }}
                                             <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
                                         </li>
                                     </ul>
 
                                     <ul ng-click="closeHeader($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior attendance-detail{{indexBehavior > 0 ? ' hide' : '' }}">
-                                        <li>
+                                        <li class="attendance-date uppercase">
                                             {{ behavior.details[0].title }}
                                         </li>
-                                        <li>
-                                            <div class="col-separator"></div>
+                                        <li class="att-content border-attendance-left">
+
                                             {{ behavior.details[0].M }}
                                         </li>
-                                        <li>{{ behavior.details[0].T }}</li>
-                                        <li>{{ behavior.details[0].W }}</li>
-                                        <li>{{ behavior.details[0].TH }}</li>
-                                        <li>{{ behavior.details[0].F }}</li>
-                                        <li>
-                                            <div class="col-separator"></div>
+                                        <li class="att-content">{{ behavior.details[0].T }}</li>
+                                        <li class="att-content">{{ behavior.details[0].W }}</li>
+                                        <li class="att-content">{{ behavior.details[0].TH }}</li>
+                                        <li class="att-content border-attendance-right" >{{ behavior.details[0].F }}</li>
+                                        <li class="attendance-weekly">
 
                                         </li>
                                     </ul>
@@ -440,7 +571,7 @@
                 <!-- TRANSCRIPT TAB //-->
                 <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}" class="tab-pane transcript" id="transcript" data-id="transcript_data">
                     <ul class="flexbox transcript">
-                        <li>
+                        <li class="transcript-summary">
                             <dl class="scholl_history_bottom_space">
                                 <dt class="bold bold-title">
                                     {{ 'general.total_credits' | i18n }}
@@ -454,58 +585,15 @@
                                 <dd>
 
                                 </dd>
-                                <!--<dt class="bold bold-title">{{ ::credit_earned }}</dt>-->
-                                <!--<dd>-->
-                                    <!--<ng-pluralize count="transcripts.info.totalEarned"-->
-                                                  <!--when="{-->
-                                                  <!--'0':'Credit',-->
-                                                  <!--'0.1':'Credit',-->
-                                                  <!--'0.2':'Credit',-->
-                                                  <!--'0.3':'Credit',-->
-                                                  <!--'0.4':'Credit',-->
-                                                  <!--'0.5':'Credit',-->
-                                                  <!--'0.6':'Credit',-->
-                                                  <!--'0.7':'Credit',-->
-                                                  <!--'0.8':'Credit',-->
-                                                  <!--'0.9':'Credit',-->
-                                                  <!--'1.0':'Credit',-->
-                                                  <!--'zero':'Credit',-->
-                                                  <!--'one': 'Credit',-->
-                                                 <!--'other': 'Credits'}">-->
-                                    <!--</ng-pluralize>-->
-                                    <!--{{ 'general.earned' | i18n }}-->
-                                <!--</dd>-->
-
-                                <!--<dt class="bold bold-title">{{ ::credit_attempted }}</dt>-->
-                                <!--<dd>-->
-                                    <!--<ng-pluralize count="transcripts.info.totalAttempted"-->
-                                                  <!--when="{-->
-                                                  <!--'0':'Credit',-->
-                                                  <!--'0.1':'Credit',-->
-                                                  <!--'0.2':'Credit',-->
-                                                  <!--'0.3':'Credit',-->
-                                                  <!--'0.4':'Credit',-->
-                                                  <!--'0.5':'Credit',-->
-                                                  <!--'0.6':'Credit',-->
-                                                  <!--'0.7':'Credit',-->
-                                                  <!--'0.8':'Credit',-->
-                                                  <!--'0.9':'Credit',-->
-                                                  <!--'1.0':'Credit',-->
-                                                  <!--'zero':'Credit',-->
-                                                  <!--'one': 'Credit',-->
-                                                 <!--'other': 'Credits'}">-->
-                                    <!--</ng-pluralize>-->
-                                    <!--{{ 'general.attempted' | i18n }}-->
-                                <!--</dd>-->
                                 <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                 <dd>{{ ::grade_level }}</dd>
                             </dl>
 
-                                <div ng-click="showHistory()" class="button transcript-school-history display-inline-blk uppercase">{{ 'general.see_school' | i18n }}
+                                <div ng-click="showHistory()" class="btn btn-default transcript-school-history display-inline-blk uppercase">{{ 'general.see_school' | i18n }}
                                     <br>HISTORY</div>
 
                         </li>
-                        <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  uppercase" ng-repeat="transSubject in transcripts.source.subjectValues track by $index">{{ ::transSubject.name }}
+                        <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  transcript-subject" ng-repeat="transSubject in transcripts.source.subjectValues track by $index">{{ ::transSubject.name }}
                             <br/>{{ ::transSubject.value }}
                             <ng-pluralize count="transSubject.value"
                                           when="{'0':'CREDIT',
@@ -530,7 +618,7 @@
                             <ul class="flexbox transcript-content {{$index % 2 == 0 ? '' : 'dark'}}" ng-repeat="transDetail in transcripts.data | orderBy:'-schoolYear'">
                                 <li class="transcript-content">
                                     <dl>
-                                        <dd>{{ ::transDetail.schoolYear }} - {{ ::transDetail.session }}</dd>
+                                        <dd class="transcript-title">{{ ::transDetail.schoolYear }} - {{ ::transDetail.session }}</dd>
                                         <dt></dt>
                                         <dd class="bold bold-title">{{ ::transDetail.schoolName }}</dd>
                                         <dt class="bold bold-title">

@@ -54,7 +54,7 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
 
                             if (responseClient.success === true && responseClient.total > 0) {
                                 $rootScope.organization_name = responseClient.data[0].name;
-
+                                localStorage.setItem('organization_name',responseClient.data[0].name);
                                 for (var i = 0; i < responseClient.total; i++) {
                                     if (__i || get_hosting_name === responseClient.data[i].url) {
                                         grand_access = true;
