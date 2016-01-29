@@ -302,7 +302,8 @@ app.directive('studentSchoolDistrictPie', function () {
                     text: 'Students by District and School'
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    headerFormat: '<b>{point.key}</b><br/>',
+                    pointFormat: '<small style="font-size: 11px;">{series.name}: {point.y}</small>',
                     percentageDecimals: 1
                 },
                 plotOptions: {
@@ -312,22 +313,16 @@ app.directive('studentSchoolDistrictPie', function () {
                         dataLabels: {
                             enabled: true,
                             color: '#000000',
-                            connectorColor: '#000000',
-                            formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
-                            }
+                            connectorColor: '#000000'
                         }
                     }
                 },
                 series: [
                     {
                         type: 'pie',
-                        name: 'Districts',
+                        name: 'Total',
                         size: '50%',
                         dataLabels: {
-                            formatter: function () {
-                                return this.y >= 1 ? this.point.name : null;
-                            },
                             color: '#ffffff',
                             distance: -30
                         },
@@ -335,13 +330,13 @@ app.directive('studentSchoolDistrictPie', function () {
                     },
                     {
                         type: 'pie',
-                        name: 'Schools',
+                        name: 'Total',
                         size: '100%',
                         innerSize: '53%',
                         dataLabels: {
                             formatter: function () {
                                 // display only if larger than 1
-                                return this.y >= 1 ? '<b>' + this.point.name + ':</b> ' + this.y : null;
+                                return this.y >= 1 ? this.point.name + ': ' + this.y : null;
                             }
                         },
                         data: scope.schools
@@ -390,7 +385,8 @@ app.directive('studentGradeGradPie', function () {
                     text: 'Students by Grade Level'
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    headerFormat: '<b>{point.key}</b><br/>',
+                    pointFormat: '<small style="font-size: 11px;">{series.name}: {point.y}</small>',
                     percentageDecimals: 1
                 },
                 plotOptions: {
@@ -400,23 +396,15 @@ app.directive('studentGradeGradPie', function () {
                         dataLabels: {
                             enabled: true,
                             color: '#000000',
-                            connectorColor: '#000000',
-                            formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
-                            }
+                            connectorColor: '#000000'
                         }
                     }
                 },
                 series: [
                     {
                         type: 'pie',
-                        name: 'Grade',
+                        name: 'Total',
                         size: '100%',
-                        dataLabels: {
-                            formatter: function () {
-                                return this.y >= 1 ? this.point.name : null;
-                            }
-                        },
                         data: scope.grade
                     }
                 ]
@@ -459,7 +447,8 @@ app.directive('studentRaceEthnicityPie', function () {
                     text: 'Students by Race/Ethnicity'
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    headerFormat: '<b>{point.key}</b><br/>',
+                    pointFormat: '<small style="font-size: 11px;">{series.name}: {point.y}</small>',
                     percentageDecimals: 1
                 },
                 plotOptions: {
@@ -469,23 +458,15 @@ app.directive('studentRaceEthnicityPie', function () {
                         dataLabels: {
                             enabled: true,
                             color: '#000000',
-                            connectorColor: '#000000',
-                            formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
-                            }
+                            connectorColor: '#000000'
                         }
                     }
                 },
                 series: [
                     {
                         type: 'pie',
-                        name: 'Ethnicity',
+                        name: 'Total',
                         size: '100%',
-                        dataLabels: {
-                            formatter: function () {
-                                return this.y >= 1 ? this.point.name : null;
-                            }
-                        },
                         data: scope.ethnicity
                     }
                 ]
@@ -528,7 +509,8 @@ app.directive('studentGenderPie', function () {
                     text: 'Students by Gender'
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    headerFormat: '<b>{point.key}</b><br/>',
+                    pointFormat: '<small style="font-size: 11px;">{series.name}: {point.y}</small>',
                     percentageDecimals: 1
                 },
                 plotOptions: {
@@ -538,23 +520,15 @@ app.directive('studentGenderPie', function () {
                         dataLabels: {
                             enabled: true,
                             color: '#000000',
-                            connectorColor: '#000000',
-                            formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
-                            }
+                            connectorColor: '#000000'
                         }
                     }
                 },
                 series: [
                     {
                         type: 'pie',
-                        name: 'Gender',
+                        name: 'Total',
                         size: '100%',
-                        dataLabels: {
-                            formatter: function () {
-                                return this.y >= 1 ? this.point.name : null;
-                            }
-                        },
                         data: scope.gender
                     }
                 ]
