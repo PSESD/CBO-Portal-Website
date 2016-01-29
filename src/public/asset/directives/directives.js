@@ -289,6 +289,9 @@ app.directive('studentSchoolDistrictPie', function () {
         template: '<div id="student-school-district-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-school-district-pie',
                     plotBackgroundColor: null,
@@ -296,35 +299,30 @@ app.directive('studentSchoolDistrictPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'School'
+                    text: 'Students by District and School'
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    headerFormat: '<b>{point.key}</b><br/>',
+                    pointFormat: '<small style="font-size: 11px;">{series.name}: {point.y}</small>',
                     percentageDecimals: 1
                 },
                 plotOptions: {
                     pie: {
-                        allowPointSelect: true,
+                        allowPointSelect: false,
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
                             color: '#000000',
-                            connectorColor: '#000000',
-                            formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
-                            }
+                            connectorColor: '#000000'
                         }
                     }
                 },
                 series: [
                     {
                         type: 'pie',
-                        name: 'Districts',
+                        name: 'Total',
                         size: '50%',
                         dataLabels: {
-                            formatter: function () {
-                                return this.y >= 1 ? this.point.name : null;
-                            },
                             color: '#ffffff',
                             distance: -30
                         },
@@ -332,13 +330,13 @@ app.directive('studentSchoolDistrictPie', function () {
                     },
                     {
                         type: 'pie',
-                        name: 'Schools',
+                        name: 'Total',
                         size: '100%',
                         innerSize: '53%',
                         dataLabels: {
                             formatter: function () {
                                 // display only if larger than 1
-                                return this.y >= 1 ? '<b>' + this.point.name + ':</b> ' + this.y : null;
+                                return this.y >= 1 ? this.point.name + ': ' + this.y : null;
                             }
                         },
                         data: scope.schools
@@ -374,6 +372,9 @@ app.directive('studentGradeGradPie', function () {
         template: '<div id="student-grade-grad-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart2 = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-grade-grad-pie',
                     plotBackgroundColor: null,
@@ -381,10 +382,11 @@ app.directive('studentGradeGradPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'Grade/Grad'
+                    text: 'Students by Grade Level'
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    headerFormat: '<b>{point.key}</b><br/>',
+                    pointFormat: '<small style="font-size: 11px;">{series.name}: {point.y}</small>',
                     percentageDecimals: 1
                 },
                 plotOptions: {
@@ -394,23 +396,15 @@ app.directive('studentGradeGradPie', function () {
                         dataLabels: {
                             enabled: true,
                             color: '#000000',
-                            connectorColor: '#000000',
-                            formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
-                            }
+                            connectorColor: '#000000'
                         }
                     }
                 },
                 series: [
                     {
                         type: 'pie',
-                        name: 'Grade',
+                        name: 'Total',
                         size: '100%',
-                        dataLabels: {
-                            formatter: function () {
-                                return this.y >= 1 ? this.point.name : null;
-                            }
-                        },
                         data: scope.grade
                     }
                 ]
@@ -440,6 +434,9 @@ app.directive('studentRaceEthnicityPie', function () {
         template: '<div id="student-race-ethnicity-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart3 = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-race-ethnicity-pie',
                     plotBackgroundColor: null,
@@ -447,10 +444,11 @@ app.directive('studentRaceEthnicityPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'Race/Ethnicity'
+                    text: 'Students by Race/Ethnicity'
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    headerFormat: '<b>{point.key}</b><br/>',
+                    pointFormat: '<small style="font-size: 11px;">{series.name}: {point.y}</small>',
                     percentageDecimals: 1
                 },
                 plotOptions: {
@@ -460,23 +458,15 @@ app.directive('studentRaceEthnicityPie', function () {
                         dataLabels: {
                             enabled: true,
                             color: '#000000',
-                            connectorColor: '#000000',
-                            formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
-                            }
+                            connectorColor: '#000000'
                         }
                     }
                 },
                 series: [
                     {
                         type: 'pie',
-                        name: 'Ethnicity',
+                        name: 'Total',
                         size: '100%',
-                        dataLabels: {
-                            formatter: function () {
-                                return this.y >= 1 ? this.point.name : null;
-                            }
-                        },
                         data: scope.ethnicity
                     }
                 ]
@@ -506,6 +496,9 @@ app.directive('studentGenderPie', function () {
         template: '<div id="student-gender-pie" style="margin: 20px auto">not working</div>',
         link: function(scope, element, attrs) {
             var chart4 = new Highcharts.Chart({
+                credits: {
+                    enabled: false
+                },
                 chart: {
                     renderTo: 'student-gender-pie',
                     plotBackgroundColor: null,
@@ -513,10 +506,11 @@ app.directive('studentGenderPie', function () {
                     plotShadow: false
                 },
                 title: {
-                    text: 'Gender'
+                    text: 'Students by Gender'
                 },
                 tooltip: {
-                    pointFormat: '{series.name}: <b>{point.y}</b>',
+                    headerFormat: '<b>{point.key}</b><br/>',
+                    pointFormat: '<small style="font-size: 11px;">{series.name}: {point.y}</small>',
                     percentageDecimals: 1
                 },
                 plotOptions: {
@@ -526,23 +520,15 @@ app.directive('studentGenderPie', function () {
                         dataLabels: {
                             enabled: true,
                             color: '#000000',
-                            connectorColor: '#000000',
-                            formatter: function() {
-                                return '<b>' + this.point.name + '</b>: ' + this.y + '';
-                            }
+                            connectorColor: '#000000'
                         }
                     }
                 },
                 series: [
                     {
                         type: 'pie',
-                        name: 'Gender',
+                        name: 'Total',
                         size: '100%',
-                        dataLabels: {
-                            formatter: function () {
-                                return this.y >= 1 ? this.point.name : null;
-                            }
-                        },
                         data: scope.gender
                     }
                 ]
