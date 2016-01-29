@@ -24,6 +24,18 @@
                     </div>
 
                     <div class="clearfix"></div>
+                    <div class="selected_container col-md-12">
+                        <div ng-show="select_program.length > 0" class="filter-selected">
+                            {{ total_program_info }}
+                        </div>
+                        <div ng-show="select_district.length > 0" class="filter-selected">
+                            {{ total_district_info }}
+                        </div>
+                        <div ng-show="select_cohort.length > 0" class="filter-selected">
+                            {{ total_cohort_info }}
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
 
                     <div class="col-md-4">
                         <div class="border-black summary-information">

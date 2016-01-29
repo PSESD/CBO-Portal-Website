@@ -1018,11 +1018,19 @@ select{
 .on_track, .off_track {
 }
 
-.district-filter-selected, .school-filter-selected{
+.filter-selected,
+.district-filter-selected,
+.school-filter-selected
+{
     display: inline-block;
     margin-left: 5px;
     font-size: 16px;
 }
+.report-page .filter-selected
+{
+    margin-bottom: 15px;
+}
+
     .popup {
         margin: 0;
         background: #fff;

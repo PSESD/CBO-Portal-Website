@@ -12,6 +12,9 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
         $scope.total_student_word = "";
         $scope.total_district_word = "";
         $scope.total_school_word = "";
+        $scope.total_program_info = "";
+        $scope.total_district_info = "";
+        $scope.total_cohort_info = "";
         $scope.programData = [];
         $scope.districtData = [];
         $scope.cohortData = [];
@@ -79,18 +82,98 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
             var district = "";
             var cohort = "";
             var caseload = "";
+            var i;
+            var first = 1;
 
-            if($scope.select_program !== "Programs")
-                program = $scope.select_program;
+            for(i=0; i<$scope.select_program.length; i++)
+            {
+                if(first == 1)
+                {
+                    first = 0;
+                    program += "?program[]=" + encodeURIComponent($scope.select_program[i]);
+                }
+                else
+                {
+                    program += "&program[]=" + encodeURIComponent($scope.select_program[i]);
+                }
+            }
 
-            if($scope.select_district !== "Districts")
-                district = $scope.select_district;
+            for(i=0; i<$scope.select_district.length; i++)
+            {
+                if(first == 1)
+                {
+                    first = 0;
+                    district += "?district[]=" + encodeURIComponent($scope.select_district[i]);
+                }
+                else
+                {
+                    district += "&district[]=" + encodeURIComponent($scope.select_district[i]);
+                }
+            }
 
-            if($scope.select_cohort !== "Cohorts")
-                cohort = $scope.select_cohort;
+            for(i=0; i<$scope.select_cohort.length; i++)
+            {
+                if(first == 1)
+                {
+                    first = 0;
+                    cohort += "?cohort[]=" + encodeURIComponent($scope.select_cohort[i]);
+                }
+                else
+                {
+                    cohort += "&cohort[]=" + encodeURIComponent($scope.select_cohort[i]);
+                }
+            }
 
-            var passing_string = '?program='+encodeURIComponent(program)+'&district='+encodeURIComponent(district)+'&cohort='+encodeURIComponent(cohort)+'&caseload='+encodeURIComponent(caseload);
 
+            if($scope.select_program.length > 0)
+            {
+                if($scope.select_program.length == 1)
+                {
+                    $scope.total_program_info = $scope.select_program.length + " Program Selected";
+                }
+                else
+                {
+                    $scope.total_program_info = $scope.select_program.length + " Programs Selected";
+                }
+            }
+            else
+            {
+                $scope.total_program_info = "";
+            }
+
+            if($scope.select_district.length > 0)
+            {
+                if($scope.select_district.length == 1)
+                {
+                    $scope.total_district_info = $scope.select_district.length + " District Selected";
+                }
+                else
+                {
+                    $scope.total_district_info = $scope.select_district.length + " Districts Selected";
+                }
+            }
+            else
+            {
+                $scope.total_district_info = "";
+            }
+
+            if($scope.select_cohort.length > 0)
+            {
+                if($scope.select_cohort.length == 1)
+                {
+                    $scope.total_cohort_info = $scope.select_cohort.length + " Cohort Selected";
+                }
+                else
+                {
+                    $scope.total_cohort_info = $scope.select_cohort.length + " Cohorts Selected";
+                }
+            }
+            else
+            {
+                $scope.total_cohort_info = "";
+            }
+
+            var passing_string = program + district + cohort;
 
             $http.get(api_url + AuthenticationService.organization_id + '/report/students/school_district'+passing_string, {
                 headers: {
@@ -104,6 +187,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                     var temp_container = [];
                     var temp;
                     $scope.total_school = 0;
+                    $scope.total_district = 0;
 
                     for (var index in response)
                     {
@@ -186,6 +270,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                     {
                         $scope.total_district_word = "District";
                     }
+
 
                     $scope.districts = temp_districts;
                     $scope.studentSchools = temp_studentSchools;
@@ -341,6 +426,24 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 });
 
         };
+
+        $scope.$watch(function() {
+            return $scope.select_program;
+        }, function(newValue, oldValue) {
+            $scope.filterChart();
+        }, true);
+
+        $scope.$watch(function() {
+            return $scope.select_district;
+        }, function(newValue, oldValue) {
+            $scope.filterChart();
+        }, true);
+
+        $scope.$watch(function() {
+            return $scope.select_cohort;
+        }, function(newValue, oldValue) {
+            $scope.filterChart();
+        }, true);
 
     }
 ]);
