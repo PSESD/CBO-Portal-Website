@@ -577,8 +577,16 @@ function generate_general_data(general_data,$scope,student_id)
         }
     });
 
+    if(typeof general_data.personal.address !== "undefined")
+    {
+        $scope.student.address = general_data.personal.address.length === 0 ? "": general_data.personal.address;
+    }
+    else
+    {
+        $scope.student.address = "";
+    }
+
     $scope.student = general_data.personal;
-    $scope.student.address = general_data.personal.address.length === 0 ? "": general_data.personal.address;
     $scope.student._id = student_id;
     $scope.student.race = general_data.personal.race.split(/(?=[A-Z])/).join(" ");
     assignedUsers = ('users' in general_data._embedded) ? general_data._embedded.users : {};
