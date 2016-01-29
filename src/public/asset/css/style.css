@@ -161,7 +161,7 @@ II MEDIA
     }
     .link-nav.sidemenu:hover,.sidebar_selected{
         background-color: #eeeeee;
-        color:#ef7700 ;
+        color: #ef7700 !important;
     }
 
     body {
