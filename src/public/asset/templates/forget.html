@@ -11,12 +11,14 @@
                 </div>
                 <div class="content">
                     <p>
-                        <input type="text" class="form-control" ng-model="forgot.email" name="email" placeholder="{{ 'general.email' | i18n | uppercase }}" required autofocus>
+                        <input type="text" class="form-control full-width" ng-model="forgot.email" name="email" placeholder="{{ 'general.email' | i18n | uppercase }}" required autofocus>
                         <p class="help-block">{{ 'general.enter_email_associated_with_account' | i18n }}</p>
                     </p>
                 </div>
-                <button class="button send-password" ng-disabled="login.working">{{ 'general.send_password' | i18n }}</button>
-                <a href="#/login" class="button back-to-login padding">{{ 'general.back_to_login_page' | i18n }}</a>
+                <div class="text-center">
+                <button class="btn btn-default" ng-disabled="login.working">{{ 'general.send_password' | i18n }}</button>
+                <a href="#/login" class="btn btn-default">{{ 'general.back_to_login_page' | i18n }}</a>
+                    </div>
                 <div class="login-help-link">{{ 'general.help_login_link' | i18n }}<a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a></div>
             </div>
 

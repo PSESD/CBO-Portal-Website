@@ -8,12 +8,20 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
 
         $rootScope.full_screen = false;
-        $rootScope.organization_name = CookieStore.get('organization_name');
+
+        if(CookieStore.get('organization_name') !== undefined)
+        {
+            localStorage.setItem('organization_name',CookieStore.get('organization_name'));
+            $rootScope.organization_name = localStorage.getItem("organization_name");
+        }
+
         if (CookieStore.get('role') === 'admin') {
             $rootScope.users_link = true;
+            $rootScope.reports_link = true;
             $rootScope.tags_link = true;
         } else {
             $rootScope.users_link = false;
+            $rootScope.reports_link = false;
             $rootScope.tags_link = false;
         }
         $scope.isActive = function (route) {

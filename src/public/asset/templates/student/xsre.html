@@ -3,6 +3,7 @@
     <div class="col-md-12">
 
         <div class="card">
+
             <div class="col-md-12">
                 <div class="title">
                     <h2 class="inline">
@@ -14,12 +15,25 @@
                     <hr>
                 </div>
                 <div class="content">
+                    <!--<div class="ng-binding help">-->
+                        <!--<p>{{ 'help.student_xsre' | i18n }}</p>-->
+                    <!--</div>-->
                     <div class="ng-binding help">
-                        <p>{{ 'help.student_xsre' | i18n }}</p>
+                        <dl>
+                            <dt>Ctrl-F / Cmd-F</dt><dd>Start searching</dd>
+                            <dt>Ctrl-G / Cmd-G</dt><dd>Find next</dd>
+                            <dt>Shift-Ctrl-G / Shift-Cmd-G</dt><dd>Find previous</dd>
+                            <dt>Shift-Ctrl-F / Cmd-Option-F</dt><dd>Replace</dd>
+                            <dt>Shift-Ctrl-R / Shift-Cmd-Option-F</dt><dd>Replace all</dd>
+                            <dt>Alt-F</dt><dd>Persistent search (dialog doesn't autoclose,
+                            enter to find next, Shift-Enter to find previous)</dd>
+                            <dt>Alt-G</dt><dd>Jump to line</dd>
+                        </dl>
                     </div>
                     <div ui-codemirror ui-codemirror-opts="editorOptions" ui-refresh="refresh" ng-model="snippet"></div>
                 </div>
             </div>
+
             <div class="clearfix"></div>
         </div>
 

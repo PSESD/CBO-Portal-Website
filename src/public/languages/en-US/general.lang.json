@@ -4,6 +4,7 @@
     "version":"version",
     "dashboard": "Students",
     "users": "Users",
+    "reports": "Reports",
     "edit_user": "Edit User: {1}",
     "user_students": "User Students: {1}",
     "user_add_students": "User Add Students: {1}",
@@ -196,17 +197,21 @@
     "school_info": "School Information",
     "current": "Current Class Schedule",
     "courses": "Class Schedule",
-    "see_school": "See Enrollment",
+    "see_school": "Enrollment History",
     "history": "History",
     "case": "Assigned",
     "success_logout": "Successful Logout",
     "password_not_match": "Password does not match",
-    "program_participation_error_message": "This Student haven't participated in any program yet",
+    "program_participation_error_message": "This student hasn't participated in any program yet",
     "attendance_and_behavior_error_message": "This Student is not linked yet to school data",
+    "loading_data": "Loading...",
+    "total_credits": "Total Credits",
 
     "credit" : "Credit",
     "credits": "Credits",
     "earned" : "Earned",
     "attempted" : "Attempted",
-    "student_xsre": "Student XSRE: "
+    "student_xsre": "Student XSRE: ",
+
+    "filters":"Filters"
 }

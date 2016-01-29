@@ -17,7 +17,7 @@
                     </div>
                     <form class="form-horizontal" role="form" ng-submit="addProgramStudent(program)">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label" for="studentId">{{ 'general.student' | i18n }}:</label>
+                            <label class="col-sm-3 control-label dropdown-label" for="studentId">{{ 'general.student' | i18n }}:</label>
                             <div class="col-sm-9">
                                 <select class="btn-block" ng-model="program.studentId" id="studentId" required autofocus ng-options="student._id as student.first_name+' '+student.last_name for student in list_student">
                                 </select>
@@ -52,7 +52,7 @@
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9">
                                 <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
-                                <a href="#" ng-click="goBack()" class="btn btn-default">{{ 'general.back' | i18n }}</a>
+                                <a href="#" ng-click="goBack()" class="btn btn-danger">{{ 'general.back' | i18n }}</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>

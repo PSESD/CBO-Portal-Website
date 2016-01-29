@@ -19,8 +19,6 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function (response, status) {
 
-                //console.log(response);
-                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status === 401) {
@@ -98,10 +96,11 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
             });
         $scope.addProgramStudent = function (program) {
             if (program) {
-                if (program.cohort !== null) {
+
+                if (_.has('cohort',program)) {
                     rawCohart = program.cohort.split(',');
                 } else if (program.cohort === 'undefined' || program.cohort === 'undefined') {
-                    rawCohart = '';
+                    rawCohart = [];
                 }
                 program.cohort = rawCohart;
                 $scope.working = true;

@@ -18,6 +18,9 @@
                     <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
                         <a ng-href="#/user" style="width:55%;padding-left:0">{{ 'general.users' | i18n | uppercase }}</a>
                     </li>
+                    <li ng-class="{ active: isActive('/report') }" ng-show="reports_link">
+                        <a ng-href="#/report" class="link-nav uppercase">{{ 'general.reports' | i18n  }}</a>
+                    </li>
                     <li ng-class="{ active: isActive('/program') }">
                         <a ng-href="#/program" style="width:55%;padding-left:0">{{ 'general.programs' | i18n | uppercase }}</a>
                     </li>

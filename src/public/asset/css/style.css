@@ -27,8 +27,208 @@ II MEDIA
 ==================== 1.Body ===================
 ===============================================
 */
-    
-    html {}
+
+    .form-search{
+        width: 25%;
+        margin: 0;
+        padding: 0;
+    }
+    .form-search.user{
+        width: 40%;
+    }
+    .form-search>.glass{
+        position: absolute;
+        top:158px;
+        left: 190px;
+    }
+    .form-search>.glass.user{
+
+        top:176px;
+
+    }
+    .popover{
+        font-size: 12px;
+        font-size: 1.2rem;
+        font-family: "proxima-nova", sans-serif;
+    }
+    .panel-title{
+        font-size: 12px;
+        font-size: 1.2rem;
+    }
+    .last_update_date{
+        margin-left:10px;
+    }
+    .nav-tabs h1{
+        margin-top: 10px;
+    }
+
+    form{
+        padding-top:20px;
+    }
+
+    .form-horizontal,.control-label{
+        padding-top: 9px;
+    }
+    .form-control{
+        font-size: 12px;
+        line-height: 1.35em;
+    }
+    ul.tagit{
+        margin-top: 5px;
+    }
+    select{
+        color: black;
+        background: url(../img/arrow.png) no-repeat 96%;
+        border: 1px solid black;
+        padding: 7px 22px 7px 7px;
+    }
+
+    .dropdown-label{
+        padding-top: 12px;
+    }
+
+    .help p {
+    color:#555;
+    }
+    /*a{*/
+        /*color: #337AB7;*/
+    /*}*/
+
+    html {
+        font-weight: 300;
+        font-size: 10px;
+        font-family: "proxima-nova", sans-serif;
+    }
+    body {
+        line-height: 1.35em; /* note we are using em here for the line-height */
+        font-size: 12px;
+        font-size: 1.2rem;
+        font-family: "proxima-nova",sans-serif;
+    }
+    h1, h2, h3, .futura {
+        font-weight: 700;
+        font-family: "futura-pt",sans-serif;
+    }
+    h4, h5, h6 {
+        font-weight: 700;
+    }
+    h1 {
+        font-size: 18px;
+        font-size: 1.8rem;
+        letter-spacing: 0.2em; /* note we are using em here for letter spacing */
+        text-transform: uppercase;
+    }
+    h2 {
+        font-size: 16px;
+        font-size: 1.6rem;
+    }
+    h3 {
+        font-size: 14px;
+        font-size: 1.4rem;
+    }
+    h4 {
+        font-size: 16px;
+        font-size: 1.6rem;
+    }
+    h5 {
+        font-size: 14px;
+        font-size: 1.4rem;
+    }
+    h6 {
+        font-size: 12px;
+        font-size: 1.2rem;
+    }
+    .btn {
+        font-size: 14px;
+        font-size: 1.4rem;
+        letter-spacing: 0.1em;
+        outline: 0px !important;
+        border-radius: 0 0 0 0;
+        padding: 3px 25px;
+        margin: 1em 0;
+        white-space: nowrap;
+        text-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        text-transform: uppercase;
+    }
+    .btn-default,.btn-secondary {
+        background: #fff!important;
+        background-image: none!important;
+        font-weight: bold!important;;
+        color: #000!important;;
+        border: 2px solid #000!important;;
+    }
+    .btn-default:hover,.btn-secondary:hover {
+        background: #000!important;
+        background-image: none!important;
+        font-weight: bold!important;;
+        color: #fff!important;;
+        border: 2px solid #000!important;;
+    }
+    .btn-primary {
+        background: #fff;
+        border: 2px solid #209920;
+        color: #209920;
+    }
+    .btn-primary:hover {
+        background: #209920;
+        color: #fff;
+        border-color: #209920;
+    }
+    .red{
+        color: #992020;
+    }
+    .btn-danger{
+        background: #fff;
+        border: 2px solid #992020;
+        color: #992020;
+    }
+    .btn-danger:hover {
+        background: #992020;
+        color: #fff!important;
+        border-color:#992020 ;
+    }
+    .title h1{
+        float: left;
+    }
+    .title hr{
+        clear: both;
+    }
+    .title span.title-lastupdate{
+        float: left;
+        margin-top: 23px;
+        margin-left: 20px;
+    }
+    .title a.btn{
+        float: right;
+    }
+    .sidemenu{
+        font-family: "futura-pt", sans-serif;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+    a.sidemenu{
+        color: #9d9d9d;
+        font-size: 16px;
+        font-size: 1.6rem;
+    }
+    a.sidemenu:hover{
+        color: white;
+        background-color:transparent;
+    }
+
+    #border{
+        position: relative;
+        border-top: 2px solid #555;
+        width: 30px;
+        left: 15px;
+    }
+    .link-nav.sidemenu:hover,.sidebar_selected{
+        background-color: #eeeeee;
+        color: #ef7700 !important;
+    }
+
     body {
         overflow: auto;
         padding-bottom: 50px;
@@ -51,37 +251,50 @@ II MEDIA
         /* W3C */
         filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fce623', endColorstr='#ef7700', GradientType=1);
         /* IE6-9 fallback on horizontal gradient */
+        background-attachment: fixed;
     }
     li {
         list-style: none;
     }
-    a,
-    a:focus,
-    a:hover {
+    /*a,*/
+    /*a:focus,*/
+    /*a:hover {*/
+        /*color : #ef7700;*/
+    /*}*/
+    /*a, a:focus, a:hover {*/
+        /*color: #29B6D8;*/
+    /*}*/
+
+    /*a:hover {*/
+        /*text-decoration: none;*/
+        /*color: #3572b0;*/
+        /*cursor: pointer;*/
+    /*}*/
+    a{
         color: #29B6D8;
     }
+    a:hover {
+        text-decoration: none;
+        color : #ef7700;
+        cursor: pointer;
+    }
+    a h1{
+        color: #555;
+    }
+    .jumbotron h1{
+        font-size: 2rem;
+    }
     /*- Typography -*/
-    
-    * {
-        font-family: 'Lato', sans-serif;
-        font-weight: 400;
-    }
-    h1 {
-        font-size: 1.6em;
-        letter-spacing: .2em;
-        color: #555;
-        text-transform: uppercase;
-        font-family: 'Lato', sans-serif;
-        font-weight: 700;
-    }
-    p {
-        font-size: 1em;
-        color: #555;
-        font-family: 'Lato', sans-serif;
-        letter-spacing: .2em;
-        font-weight: 400;
-        max-width: 400px;
-    }
+
+    /*h1 {*/
+        /*font-size: 1.6em;*/
+        /*letter-spacing: .2em;*/
+        /*color: #555;*/
+        /*text-transform: uppercase;*/
+        /*font-family: "futura-pt",sans-serif;*/
+        /*font-weight: 700;*/
+    /*}*/
+
     /*b,*/
     /*strong {*/
         /*color: #999 !important;*/
@@ -141,11 +354,11 @@ II MEDIA
         text-decoration: none;
         border-bottom: 3px solid white;
     }
-    a:hover {
-        text-decoration: none;
-        color: #3572b0;
-        cursor: pointer;
-    }
+    /*a:hover {*/
+        /*text-decoration: none;*/
+        /*color: #3572b0;*/
+        /*cursor: pointer;*/
+    /*}*/
     /*
 ===============================================
 ================= 3.Container =================
@@ -154,7 +367,7 @@ II MEDIA
     
     .container-fluid {}
     #center-panel {
-        background-color: none !important;
+        background-color: initial !important;
     }
     /*- Cards -*/
     
@@ -316,11 +529,11 @@ select{
         font-weight: bolder;
         background-color: #0080FF
     }
-    .last-update {
-        margin-left: 2%;
-        font-size: 14px;
-        color: #aaa;
-    }
+    /*.last-update {*/
+        /*margin-left: 2%;*/
+        /*font-size: 14px;*/
+        /*color: #aaa;*/
+    /*}*/
     .attendance-card {
         background-color: #ededed;
         height: 5%;
@@ -337,9 +550,7 @@ select{
         padding-left: 0;
     }
     .link-nav {
-        letter-spacing: 2px;
-        font-weight: bold;
-        width: 70%;
+
     }
     .underline_text {
         border-bottom: solid 2px #000000;
@@ -411,7 +622,7 @@ select{
     }
     .subhead {
         text-transform: uppercase;
-        width: 150px;
+        width: 135px;
     }
     #collapse-sidebarmenu:hover {
         cursor: pointer;
@@ -509,7 +720,7 @@ select{
     /*- Buttons -*/
 
     .button {
-        font-family: 'Lato', sans-serif;
+        font-family: "proxima-nova",sans-serif;
         font-weight: 700;
         background: transparent;
         font-size: 1em;
@@ -762,14 +973,14 @@ select{
         /**
      Help Style
     **/
-        .help p {
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: normal;
-            width: 284px;
-            color: #858585;
-            padding-bottom: 13px;
-        }
+        /*.help p {*/
+            /*font-size: 12px;*/
+            /*font-weight: bold;*/
+            /*letter-spacing: normal;*/
+            /*width: 284px;*/
+            /*color: #858585;*/
+            /*padding-bottom: 13px;*/
+        /*}*/
 
         .icon-sidebarmenu {
             left: 85%;
@@ -790,10 +1001,7 @@ select{
         select {
             -webkit-border-radius: 0px !important;
             -webkit-appearance: none;
-            background: url(../img/arrow.png) no-repeat 99%;
             margin-top: 5px;
-            border: 1px solid black;
-            padding: 7px;
         }
 
         .organization_header {
@@ -805,11 +1013,6 @@ select{
         .add-select-student {
             width: 60% !important
         }
-
-        .uppercase {
-            text-transform: uppercase;
-        }
-
         .inline-block {
             display: inline-block;
         }
@@ -847,7 +1050,7 @@ select{
 
         dt:before {
             /* insert line break before <dt> */
-            content: "\A";
+            /*content: "\A";*/
             white-space: pre;
         }
 
@@ -885,11 +1088,19 @@ select{
 .on_track, .off_track {
 }
 
-.district-filter-selected, .school-filter-selected{
+.filter-selected,
+.district-filter-selected,
+.school-filter-selected
+{
     display: inline-block;
     margin-left: 5px;
     font-size: 16px;
 }
+.report-page .filter-selected
+{
+    margin-bottom: 15px;
+}
+
     .popup {
         margin: 0;
         background: #fff;
@@ -908,4 +1119,83 @@ select{
 }
 .selected_container{
     margin-top:10px;
+}
+.margin-bottom-general-info,
+.privacy_policy_bottom_space,
+.scholl_history_bottom_space{
+    margin-bottom: 10px;
+}
+.error-color{
+    background-color: #ED0707;
+}
+.post-abs{
+    top:3px;
+}
+.full-width{
+    width: 100%;
+}
+
+
+.report-page .card .title span
+{
+    letter-spacing: 0;
+}
+.report-page .card .select-chart
+{
+    min-width: 20%;
+}
+.report-page .card .report-page-filter
+{
+    margin-bottom: 45px;
+}
+.report-page .card .border-black
+{
+    border: 1px solid black;
+}
+.report-page .card .border-black.summary-information
+{
+    text-align: center;
+    padding: 10px 10px 20px 10px;
+    margin-bottom: 30px;
+}
+.report-page .card .border-black.summary-information .font-count
+{
+    font-size: 4rem;
+    line-height: 4rem;
+    font-weight: bolder;
+}
+.report-page .card .border-black.summary-information .font-medium
+{
+    font-size: 2rem;
+    line-height: 2rem;
+}
+.report-page .card .pie-information
+{
+    margin-bottom: 30px;
+}
+.report-page .ng-isolate-scope
+{
+    background-color: #fff;
+}
+.report-page .highcharts-container {
+    width: auto !important;
+}
+@media (min-width:768px)
+{
+    .report-page .col-md-4
+    {
+        width: 33.33333333%;
+    }
+}
+@media (max-width:767px)
+{
+    .report-page .col-md-4
+    {
+        width: 100%;
+    }
+    .report-page .card .select-chart
+    {
+        width: 100%;
+        margin-bottom: 15px;
+    }
 }
