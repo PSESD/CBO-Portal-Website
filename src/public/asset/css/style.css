@@ -1058,11 +1058,19 @@ select{
 .on_track, .off_track {
 }
 
-.district-filter-selected, .school-filter-selected{
+.filter-selected,
+.district-filter-selected,
+.school-filter-selected
+{
     display: inline-block;
     margin-left: 5px;
     font-size: 16px;
 }
+.report-page .filter-selected
+{
+    margin-bottom: 15px;
+}
+
     .popup {
         margin: 0;
         background: #fff;
@@ -1104,13 +1112,7 @@ select{
 }
 .report-page .card .select-chart
 {
-    -webkit-border-radius: 0px !important;
-    -webkit-appearance: none;
-    background: url(../img/arrow.png) no-repeat 99%;
-    border: 1px solid black;
-    padding: 7px 22px 7px 7px;
-    margin: auto 5px;
-    min-width: 15%;
+    min-width: 20%;
 }
 .report-page .card .report-page-filter
 {
