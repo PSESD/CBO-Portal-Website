@@ -1,6 +1,8 @@
-li.transcript-summary{
+
+li.first-column{
     text-align: left!important;
     padding: 10px!important;
+    width: 16%;
 }
 .student-summary .title{
     margin-top: 10px;
@@ -172,7 +174,6 @@ ul.period-col.menu li {
     text-align: center;
     height: 50px;
     line-height: 50px;
-    font-size: 14px;
 }
 hr.attendance-separator {
     margin: 0;
@@ -366,15 +367,8 @@ ul.transcript li {
 }
 
 
-.button.transcript-school-history {
-    margin: 0;
-    letter-spacing: 1px;
-    font-size: 12px;
-    border: 2px solid black;
-    text-align: center;
-    white-space: normal;
-    width: 90%;
-    padding: 0;
+.btn.btn-default.transcript-school-history {
+    margin-right: 10px;
 }
 .separator-transcript {
     width: 99.7%;
@@ -403,45 +397,47 @@ ul li.transcript-content {
     margin: 0;
     position: relative;
 }
-ul li.transcript-content:nth-child(1) {
-    width: 16%;
-}
-ul li.transcript-content:nth-child(2) {
-    width: 16.8%;
-    padding-top: 2.5%;
-    padding-left: 15px;
-}
-ul li.transcript-content:nth-child(3) {
-    width: 16.8%;
-    padding-top: 2.5%;
-    padding-left: 15px;
-}
-ul li.transcript-content:nth-child(4) {
-    width: 16.8%;
-    padding-top: 2.5%;
-    padding-left: 15px;
-}
-ul li.transcript-content:nth-child(5) {
-    width: 16.8%;
-    padding-top: 2.5%;
-    padding-left: 15px;
-}
-ul li.transcript-content:nth-child(6) {
-    width: 16.8%;
-    padding-top: 2.5%;
-    padding-left: 15px;
-}
-ul li.transcript-content:nth-child(7) {
-    width: 14%;
-    padding-top: 2.5%;
-    padding-left: 15px;
-}
+/*ul li.transcript-content:nth-child(1) {*/
+    /*width: 16%;*/
+/*}*/
+
+/*ul li.transcript-content:nth-child(2) {*/
+    /*width: 16.8%;*/
+    /*padding-top: 2.5%;*/
+    /*padding-left: 15px;*/
+/*}*/
+/*ul li.transcript-content:nth-child(3) {*/
+    /*width: 16.8%;*/
+    /*padding-top: 2.5%;*/
+    /*padding-left: 15px;*/
+/*}*/
+/*ul li.transcript-content:nth-child(4) {*/
+    /*width: 16.8%;*/
+    /*padding-top: 2.5%;*/
+    /*padding-left: 15px;*/
+/*}*/
+/*ul li.transcript-content:nth-child(5) {*/
+    /*width: 16.8%;*/
+    /*padding-top: 2.5%;*/
+    /*padding-left: 15px;*/
+/*}*/
+/*ul li.transcript-content:nth-child(6) {*/
+    /*width: 16.8%;*/
+    /*padding-top: 2.5%;*/
+    /*padding-left: 15px;*/
+/*}*/
+/*ul li.transcript-content:nth-child(7) {*/
+    /*width: 14%;*/
+    /*padding-top: 2.5%;*/
+    /*padding-left: 15px;*/
+/*}*/
 .attempted-credit {
     position: relative;
     top: 6px;
 }
 .descriptor-title {
     font-size: 14px;
+    font-size:1.4rem;
     font-weight: bolder;
     letter-spacing: 2px;
     margin-bottom: 21px;

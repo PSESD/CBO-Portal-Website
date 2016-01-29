@@ -28,6 +28,15 @@ II MEDIA
 ===============================================
 */
 
+    .popover{
+        font-size: 12px;
+        font-size: 1.2rem;
+        font-family: "proxima-nova", sans-serif;
+    }
+    .panel-title{
+        font-size: 12px;
+        font-size: 1.2rem;
+    }
     .last_update_date{
         margin-left:10px;
     }
@@ -149,7 +158,10 @@ II MEDIA
         color: #fff;
         border-color: #209920;
     }
-    .btn-danger {
+    .red{
+        color: #992020;
+    }
+    .btn-danger{
         background: #fff;
         border: 2px solid #992020;
         color: #992020;
