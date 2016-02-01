@@ -6,6 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">School History</h4>
             </div>
+            <div class="enrollment-divider"/>
             <div class="modal-body">
                 <div class="content">
 
@@ -13,10 +14,8 @@
 
                 <table class="table table-striped school-history">
                 <thead>
-                <tr>
                 <th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>
                 <th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>
-                </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="data in visibleProjects">
@@ -417,7 +416,6 @@
                     <ul class="flexbox attendance-behavior {{attendanceBehavior.length > 0 ? '' : 'hide'}}">
                         <li class="attendance-date uppercase">{{ 'general.attendance_dates' | i18n }}</li>
                         <li class="att-content uppercase border-attendance-left">
-
                             <div class="uppercase">{{ 'general.LM' | i18n }}</div>
                         </li>
                         <li class="att-content uppercase">{{ 'general.LT' | i18n }}</li>
@@ -425,7 +423,6 @@
                         <li class="att-content uppercase">{{ 'general.TH' | i18n }}</li>
                         <li class="att-content uppercase border-attendance-right">{{ 'general.LF' | i18n }}</li>
                         <li class="attendance-weekly uppercase ">
-
                             <div class="uppercase inline-block font-bold">{{ 'general.delta_change' | i18n}}</div>
 
                         </li>
@@ -441,7 +438,6 @@
                                             {{ ::behavior.summary.title }}
                                         </li>
                                         <li class="att-content border-attendance-left" ng-class="{ unexcused: parseInt(behavior.details[0].M) < 100 }">
-
                                             {{ ::behavior.summary.M }}
                                         </li>
                                         <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].T) < 100 }">{{ ::behavior.summary.T }}</li>
@@ -458,16 +454,33 @@
                                         <li class="attendance-date uppercase">
                                             {{ behavior.details[0].title }}
                                         </li>
-                                        <li class="att-content border-attendance-left">
-
+                                        <li class="att-content border-attendance-left behavior-center">
                                             {{ behavior.details[0].M }}
+                                            <br/>
+                                            {{ ::behavior.summary.M }}
                                         </li>
-                                        <li class="att-content">{{ behavior.details[0].T }}</li>
-                                        <li class="att-content">{{ behavior.details[0].W }}</li>
-                                        <li class="att-content">{{ behavior.details[0].TH }}</li>
-                                        <li class="att-content border-attendance-right" >{{ behavior.details[0].F }}</li>
+                                        <li class="att-content behavior-center">
+                                            {{ behavior.details[0].T }}
+                                            <br/>
+                                            {{ ::behavior.summary.T }}
+                                        </li>
+                                        <li class="att-content behavior-center">
+                                            {{ behavior.details[0].W }}
+                                            <br/>
+                                            {{ ::behavior.summary.W }}
+                                        </li>
+                                        <li class="att-content behavior-center">
+                                            {{ behavior.details[0].TH }}
+                                            <br/>
+                                            {{ ::behavior.summary.TH }}
+                                        </li>
+                                        <li class="att-content behavior-center border-attendance-right" >
+                                            {{ behavior.details[0].F }}
+                                            <br/>
+                                            {{ ::behavior.summary.F }}
+                                        </li>
                                         <li class="attendance-weekly">
-
+                                            {{ behavior.summary.weeklyChange }}
                                         </li>
                                     </ul>
 
@@ -524,8 +537,8 @@
                                             <ul class="list-group legend-list">
                                                 <li class="list-group-item present uppercase">{{ 'general.present' | i18n }}</li>
                                                 <li class="list-group-item excused uppercase">{{ 'general.excused' | i18n }}</li>
-                                                <li class="list-group-item late uppercase">{{ 'general.late' | i18n }}</li>
-                                                <li class="list-group-item holiday uppercase">{{ 'general.holiday' | i18n }}</li>
+                                                <li class="list-group-item tardy uppercase">{{ 'general.tardy' | i18n }}</li>
+                                                <li class="list-group-item other uppercase">{{ 'general.other' | i18n }}</li>
                                                 <li class="list-group-item unexcused uppercase">{{ 'general.unexcused' | i18n }}</li>
                                             </ul>
                                         </div>
@@ -588,7 +601,7 @@
                                     Cumulative GPA
                                 </dt>
                                 <dd>
-
+                                    {{::cumulative_gpa}}
                                 </dd>
                                 <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                 <dd>{{ ::grade_level }}</dd>

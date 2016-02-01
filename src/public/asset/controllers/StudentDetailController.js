@@ -847,11 +847,11 @@ function load_transcript_data($http,student_id,AuthenticationService,$rootScope,
 
 function generate_transcript_data(transcript_data,$scope)
 {
-    //$scope.history = transcript_data.source.history;
-    $scope.visibleProjects = transcript_data.source.history;
 
+    $scope.visibleProjects = transcript_data.source.history;
     var courseTitle = transcript_data.source.info.courseTitle;
     $scope.courses = courseTitle;
+    $scope.cumulative_gpa = transcript_data.source.totalCumulativeGpa;
     $scope.total_data = _.size(transcript_data.source.subject);
     $scope.transcripts =
     {

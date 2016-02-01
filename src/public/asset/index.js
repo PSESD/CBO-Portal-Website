@@ -1,6 +1,6 @@
 var __i = false; if(typeof __local !== 'undefined') {__i = __local;}
 
-var app = angular.module('CboPortal', ['anotherpit/angular-rollbar','ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize', 'ui.codemirror',
+var app = angular.module('CboPortal', ['ui.mask','anotherpit/angular-rollbar','ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize', 'ui.codemirror',
     'ngLocalize.Config'
 ]).value('localeConf', {
     basePath: 'languages',

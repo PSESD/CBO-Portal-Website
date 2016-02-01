@@ -12,11 +12,11 @@
 
                 <ul id="sidebar-panel-menu" class="link-nav nav nav-stacked">
                     <li>
-                        <a class="sidemenu">{{organization_name}}</a>
+                        <a class="sidemenu organization_name">{{organization_name}}</a>
                     </li>
                     <li></li>
                     <li></li>
-                    <li role="presentation"><a class="link-nav sidemenu">{{completeName }}</a></li>
+                    <li role="presentation"><a class="link-nav sidemenu username">{{completeName }}</a></li>
                     <div id="border"></div>
                     <li id="dashboard" ng-class="{ sidebar_selected: isActive('/student') }" role="presentation"><a ng-class="{ sidebar_selected: isActive('/student') }" ng-href="#/student" class="link-nav sidemenu">{{ 'general.dashboard' | i18n  }}</a></li>
                     <li id="programs" ng-class="{ sidebar_selected: isActive('/program') }" role="presentation"><a ng-class="{ sidebar_selected: isActive('/program') }" ng-href="#/program" class="link-nav sidemenu">{{ 'general.programs' | i18n  }}</a></li>

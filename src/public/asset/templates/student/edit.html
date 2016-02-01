@@ -58,12 +58,17 @@
                                 </div>
                             </div>
                             <fieldset>
-                                <legend>{{ 'general.personal_contact_info' | i18n }}</legend>
+                                <legend>
+                                    <h1>
+                                        {{ 'general.personal_contact_info' | i18n }}
+                                    </h1>
+                                </legend>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="phone">{{ 'general.phone' | i18n }}:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" ng-model="student.phone">
+                                        <!--<input type="text" class="form-control" ng-model="student.phone">-->
                                         <!--<phonenumber-directive placeholder="" model='student.phone'></phonenumber-directive>-->
+                                        <input type="text" class="form-control" ng-model="student.phone" ui-mask="+9 (999) 999-9999"  ui-mask-placeholder ui-mask-placeholder-char=""/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -80,7 +85,11 @@
                                 </div>
                             </fieldset>
                             <fieldset>
-                                <legend>{{ 'general.emergency_contact_1' | i18n }}</legend>
+                                <legend>
+                                    <h1>
+                                        {{ 'general.emergency_contact_1' | i18n }}
+                                    </h1>
+                                </legend>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="name">{{ 'general.name' | i18n }}:</label>
                                     <div class="col-sm-9">
@@ -104,13 +113,18 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="phone_emergency1">{{ 'general.phone' | i18n }}:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" ng-model="student.emergency1_phone" id="phone_emergency1">
+                                        <!--<input type="text" class="form-control" ng-model="student.emergency1_phone" id="phone_emergency1">-->
                                         <!--<phonenumber-directive placeholder="" model='student.emergency1_phone'></phonenumber-directive>-->
+                                        <input type="text" class="form-control" ng-model="student.emergency1_phone" ui-mask="+9 (999) 999-9999"  ui-mask-placeholder ui-mask-placeholder-char=""/>
                                     </div>
                                 </div>
                             </fieldset>
                             <fieldset>
-                                <legend>{{ 'general.emergency_contact_2' | i18n }}</legend>
+                                <legend>
+                                    <h1>
+                                        {{ 'general.emergency_contact_2' | i18n }}
+                                    </h1>
+                                </legend>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="name_emergency1">{{ 'general.name' | i18n }}:</label>
                                     <div class="col-sm-9">
@@ -134,8 +148,9 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="phone_emergency2">{{ 'general.phone' | i18n }}:</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" ng-model="student.emergency2_phone" id="phone_emergency2">
+                                        <!--<input type="text" class="form-control" ng-model="student.emergency2_phone" id="phone_emergency2">-->
                                         <!--<phonenumber-directive placeholder="" model='student.emergency2_phone'></phonenumber-directive>-->
+                                        <input type="text" class="form-control" ng-model="student.emergency2_phone" ui-mask="+9 (999) 999-9999"  ui-mask-placeholder ui-mask-placeholder-char=""/>
                                     </div>
                                 </div>
                             </fieldset>

@@ -25,8 +25,6 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                     })
                     .error(function (response, status) {
 
-                        //console.log(response);
-                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status === 401) {
@@ -47,7 +45,26 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
             .success(function (response) {
 
                 if (response.success === true && response.total > 0) {
+
+
+                    angular.forEach(response.data,function(v){
+                        if(v.full_name === 'n/a')
+                        {
+                            v.full_name = "N/A";
+                        }
+                        if(v.first_name === 'n/a')
+                        {
+                            v.first_name = "N/A";
+                        }
+                        if(v.last_name === 'n/a')
+                        {
+                            v.last_name = "N/A";
+                        }
+
+                    });
                     $scope.users = response.data;
+
+
                 } else {
                     showError(response.error.message, 1);
                 }
