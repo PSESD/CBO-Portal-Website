@@ -49,7 +49,6 @@ II MEDIA
     .popover{
         font-size: 12px;
         font-size: 1.2rem;
-        font-family: "proxima-nova", sans-serif;
     }
     .panel-title{
         font-size: 12px;
@@ -97,17 +96,16 @@ II MEDIA
     html {
         font-weight: 300;
         font-size: 10px;
-        font-family: "proxima-nova", sans-serif;
+
     }
     body {
         line-height: 1.35em; /* note we are using em here for the line-height */
         font-size: 12px;
         font-size: 1.2rem;
-        font-family: "proxima-nova",sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;
     }
     h1, h2, h3, .futura {
         font-weight: 700;
-        font-family: "futura-pt",sans-serif;
     }
     h4, h5, h6 {
         font-weight: 700;
