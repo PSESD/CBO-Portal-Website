@@ -166,9 +166,9 @@ app.directive('phonenumberDirective', ['$filter', function ($filter) {
         'use strict';
         // scope.inputValue is the value of input element used in template
         scope.inputValue = scope.phonenumberModel;
-
+        console.log(scope.phonenumberModel);
         scope.$watch('inputValue', function (value, oldValue) {
-            console.log(value);
+
             value = String(value);
             var number = value.replace(/[^0-9]+/g, '');
             scope.phonenumberModel = number;

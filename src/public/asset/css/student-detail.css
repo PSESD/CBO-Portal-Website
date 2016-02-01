@@ -1,4 +1,21 @@
-
+.scrollArea table th .box {
+    padding: 0px 11px 0px 0px!important;
+}
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+    position: relative;
+    top: 6px;
+}
+.modal-header{
+    border-bottom: none;
+}
+.enrollment-divider{
+    width: 100%;
+    margin: 10px 0px;
+    height: 2px;
+    background: transparent linear-gradient(135deg, #EF7700 0%, #F2A900 37%, #F2CC10 69%, #FCE623 100%) repeat scroll 0% 0%;
+}
 li.first-column{
     text-align: left!important;
     padding: 10px!important;
@@ -499,8 +516,9 @@ ul li.transcript-content {
 }
 
 .transcript-display{
-	margin-bottom:35px;
-    padding:0px 5px;
+    margin-bottom: 35px;
+    padding: 10px 5px;
+
 }
 
 /*

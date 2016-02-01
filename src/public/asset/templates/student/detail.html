@@ -6,6 +6,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">School History</h4>
             </div>
+            <div class="enrollment-divider"/>
             <div class="modal-body">
                 <div class="content">
 
@@ -13,10 +14,8 @@
 
                 <table class="table table-striped school-history">
                 <thead>
-                <tr>
                 <th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>
                 <th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>
-                </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="data in visibleProjects">
