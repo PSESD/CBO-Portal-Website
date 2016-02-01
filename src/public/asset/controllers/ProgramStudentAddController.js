@@ -3,9 +3,12 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
         'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
-        var rawCohart = '';
+        var rawCohart = "";
         var program_id = $routeParams.program_id;
 
+        $scope.$watch('program.cohort',function(cohort){
+            rawCohart=cohort;
+        });
 
         $http.get(api_url + AuthenticationService.organization_id + '/programs/' + program_id, {
             headers: {
@@ -83,8 +86,6 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
             })
             .error(function (response, status) {
 
-                //console.log(response);
-                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status === 401) {
@@ -95,12 +96,16 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
 
             });
         $scope.addProgramStudent = function (program) {
+
+
+
             if (program) {
 
-                if (_.has('cohort',program)) {
-                    rawCohart = program.cohort.split(',');
-                } else if (program.cohort === 'undefined' || program.cohort === 'undefined') {
+                if(rawCohart === "" || rawCohart === undefined)
+                {
                     rawCohart = [];
+                }else{
+                    rawCohart = rawCohart.split(',');
                 }
                 program.cohort = rawCohart;
                 $scope.working = true;
