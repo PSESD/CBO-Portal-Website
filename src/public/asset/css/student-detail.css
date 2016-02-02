@@ -1,5 +1,6 @@
 .att-content.behavior-center{
-    line-height: 2.5;
+    padding-top: 10px;
+    line-height: 1.5;
 }
 .scrollArea table th .box {
     padding: 0px 11px 0px 0px!important;
@@ -456,11 +457,11 @@ ul li.transcript-content {
     top: 6px;
 }
 .descriptor-title {
-    font-size: 14px;
-    font-size:1.4rem;
+    font-size: 12px;
+    font-size: 1.2rem;
     font-weight: bolder;
     letter-spacing: 2px;
-    margin-bottom: 21px;
+    margin-bottom: 5px;
     line-height: 16px;
 }
 .present-font-color {
@@ -1118,6 +1119,7 @@ dt, dd {
     cursor: pointer;
 }
 .popover{
+    font-family: 'Source Sans Pro', sans-serif;
     background-color: white!important;
 }
 

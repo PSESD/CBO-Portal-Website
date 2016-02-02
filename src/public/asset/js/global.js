@@ -13,38 +13,38 @@ $(document).ready(function () {
         $(".dropdown-menu").hide();
     });
 
-    if (typeof env !== 'undefined' && env === 'production') {
-        window.intercomSettings = {
-            app_id: intercom_id
-        };
-        (function () {
-            var w = window;
-            var ic = w.Intercom;
-            console.log(ic);
-            if (typeof ic === "function") {
-                ic('reattach_activator');
-                ic('update', intercomSettings);
-            } else {
-                var d = document;
-                var i = function () {
-                    i.c(arguments);
-                };
-                i.q = [];
-                i.c = function (args) {
-                    i.q.push(args);
-                };
-                w.Intercom = i;
-
-
-                if (w.attachEvent) {
-                    w.attachEvent('onload', l);
-                } else {
-                    w.addEventListener('load', l, false);
-                }
-            }
-        })();
-
-    }
+    //if (typeof env !== 'undefined' && env === 'production') {
+    //    window.intercomSettings = {
+    //        app_id: intercom_id
+    //    };
+    //    (function () {
+    //        var w = window;
+    //        var ic = w.Intercom;
+    //        console.log(ic);
+    //        if (typeof ic === "function") {
+    //            ic('reattach_activator');
+    //            ic('update', intercomSettings);
+    //        } else {
+    //            var d = document;
+    //            var i = function () {
+    //                i.c(arguments);
+    //            };
+    //            i.q = [];
+    //            i.c = function (args) {
+    //                i.q.push(args);
+    //            };
+    //            w.Intercom = i;
+    //
+    //
+    //            if (w.attachEvent) {
+    //                w.attachEvent('onload', l);
+    //            } else {
+    //                w.addEventListener('load', l, false);
+    //            }
+    //        }
+    //    })();
+    //
+    //}
 
     if ($(window).width() < 776) {
         screen = "mobile";
@@ -214,12 +214,12 @@ function showContent(curr) {
     jQuery(curr).parent().find('.menu-up').show();
     jQuery(curr).parent().find('.menu-down').hide();
 }
-function l() {
-    'use strict';
-    var s = d.createElement('script');
-    s.type = 'text/javascript';
-    s.async = true;
-    s.src = 'https://widget.intercom.io/widget/m9w2ywgr';
-    var x = d.getElementsByTagName('script')[0];
-    x.parentNode.insertBefore(s, x);
-}
+//function l() {
+//    'use strict';
+//    var s = d.createElement('script');
+//    s.type = 'text/javascript';
+//    s.async = true;
+//    s.src = 'https://widget.intercom.io/widget/m9w2ywgr';
+//    var x = d.getElementsByTagName('script')[0];
+//    x.parentNode.insertBefore(s, x);
+//}
