@@ -230,10 +230,10 @@ hr.attendance-separator {
 .n_a {
     background-color: #efefef;
 }
-.late {
+.tardy {
     background-color: #4E73A7;
 }
-.holiday {
+.other {
     background-color: #765B74;
 }
 .unexcused {
@@ -469,10 +469,10 @@ ul li.transcript-content {
 .excused-font-color {
     color: #2F9DBB;
 }
-.late-font-color {
+.tardy-font-color {
     color: #4E73A7;
 }
-.holiday-font-color {
+.other-font-color {
     color: #765B74;
 }
 .unexcused-font-color {
