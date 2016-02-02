@@ -101,6 +101,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
         //redirect only if both isAuthenticated is false and no token is set
         $rootScope.doingResolve = true;
         $rootScope.organization_name = localStorage.getItem('organization_name');
+        $rootScope.sidebarButtonOpen = false;
         if (nextRoute !== null && /*nextRoute.access !== null &&  nextRoute.access.requiredAuthentication */nextRoute.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             if(nextRoute.originalPath === "/login")
             {
@@ -109,6 +110,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             if(checkCookie === true)
             {
                 $location.path("/loading");
+                $rootScope.sidebarButtonOpen = false;
             }
             else
             {
@@ -134,10 +136,14 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                 $rootScope.is_logged_in = false;
             }
 
+            if(nextRoute.$$route.originalPath === '/loading'){
+                $rootScope.sidebarButtonOpen = false;
+            }
+
             if(nextRoute.$$route.originalPath !== '/login' && nextRoute.$$route.originalPath !== '/forget'){
                 $rootScope.is_logged_in = true;
                 $rootScope.showFooter = true;
-
+                $rootScope.sidebarButtonOpen = true;
                 intended_url = _.get(nextRoute.$$route, 'originalPath');
                 if(intended_url === '/program/students/:program_id'){
                     intended_url = '/program/students/'+ _.get(nextRoute.params,'program_id');
@@ -177,16 +183,18 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                     intended_url = '/user/detail/'+_.get(nextRoute.params,'user_id');
                 }else if(intended_url === '/loading'){
                     intended_url ='/student';
-
+                    $rootScope.sidebarButtonOpen = false;
                 }
 
                 localStorage.setItem('intended_url',intended_url);
             }
             else if(nextRoute.$$route.originalPath === '/forget'){
                 $location.path("/forget");
+                $rootScope.sidebarButtonOpen = false;
             }
             else{
                 $location.path("/login");
+                $rootScope.sidebarButtonOpen = false;
             }
 
         }

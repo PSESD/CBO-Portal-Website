@@ -15,16 +15,19 @@
                         <p>{{ 'help.student_list' | i18n }}</p>
                     </div>
                     <h1><a href="#/student/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_a_student' | i18n }}</a></h1>
-                    <form class="form-inline inline" role="form" ng-submit="searchStudent(student)">
-                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_student' | i18n }}"/>
-                        <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
-                    </form>
 
-                    <dropdown-multiselect class="no-background-color" model="selected_districts" title="District" options="districtData"></dropdown-multiselect>
-                    <dropdown-multiselect class="no-background-color" model="selected_schools" title="School" options="schoolNameData"></dropdown-multiselect>
-                    <!--<div class="inline no-background-color"  ng-dropdown-multiselect="" translation-texts="disctict"  options="districtData" selected-model="districtmod" extra-settings="filterSettings"></div>-->
-
-                    <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                            <span class="search-btn">
+                                <input type="text" class="input-search" ng-model="search" placeholder="{{ 'general.search_student' | i18n }}">
+                            </span>
+                        </div>
+                        <div class="col-xs-12 col-md-9">
+                            <dropdown-multiselect class="no-background-color" model="selected_districts" title="District" options="districtData"></dropdown-multiselect>
+                            <dropdown-multiselect class="no-background-color" model="selected_schools" title="School" options="schoolNameData"></dropdown-multiselect>
+                        </div>
+                    </div>
+                    <div class="table-responsive col-xs-12">
                         <div class="selected_container">
                         <div ng-show="district_counter > 0" class="district-filter-selected">
                             {{district_counter}}

@@ -1,6 +1,7 @@
 app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
     function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService, locale) {
         'use strict';
+        $rootScope.sidebarButtonOpen = false;
         var location = window.location.hash;
         if (location.indexOf('login') === -1) {
             $rootScope.show_footer = true;
@@ -69,6 +70,36 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                 });
 
         };
+
+        $scope.openSidebar = function(){
+            $('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-menu-hamburger');
+            $('#collapse-sidebarmenu').addClass('glyphicon glyphicon-remove');
+            $('#side-panel').removeClass('hide');
+            $('.link-nav').css({
+                'display': ''
+            });
+            $('#border').css({
+                'display': ''
+            });
+            $('#desktop-nav').css({
+                'width': '15%'
+            });
+            $('#desktop-nav').css({
+                'position': 'fixed'
+            });
+            $('#desktop-nav').css({
+                'height': '100%'
+            });
+            $('#collapse-sidebarmenu').removeClass('icon-collapse-menu');
+            $('#collapse-sidebarmenu').addClass('icon-sidebarmenu');
+            $('#center-panel').css({
+                'margin-left': '15%'
+            });
+            $('#footer').removeClass('hide');
+            $('.confidentiality-footer').css({'margin-left':'15.3%'});
+            $('.version').css({'margin-left':'15.3%'});
+            $('#sidebar-open-btn').css({'z-index':'-999'});
+        }
 
         $scope.refreshMe = function () {
 

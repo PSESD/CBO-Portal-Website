@@ -27,6 +27,26 @@ II MEDIA
 ==================== 1.Body ===================
 ===============================================
 */
+    span.search-btn:before{
+        content:"\e003";
+        font-family:"Glyphicons Halflings";
+        line-height:1;
+        margin:5px;
+    }
+
+    .input-search{
+        width: 160px;
+        border: none;
+        border-bottom: 1px solid black;
+    }
+
+    #sidebar-open-btn{
+        position: fixed;
+        top: -1em;
+        padding: 10px;
+        background: black none repeat scroll 0% 0% !important;
+        color: white !important;
+    }
 
     .form-search{
         width: 25%;
@@ -719,7 +739,7 @@ select{
         box-shadow: none !important;
         border-bottom: 1px #000 solid !important;
         border-radius: 0 !important;
-        width: 60%;
+        /*width: 60%;*/
     }
     .form-inline {
         padding-bottom: 40px;
@@ -1037,9 +1057,12 @@ select{
 
             position: relative;
             bottom: 95px;
-            margin-left: 15.8%;
-            font-size: 12px;
+            margin-left: 15.4%;
 
+        }
+        .confidentiality-footer.card{
+            padding: 24px 15px;
+            margin-top: 0px;
         }
         .version{
             margin-top:15px;
@@ -1129,7 +1152,8 @@ select{
 }
 .margin-bottom-general-info,
 .privacy_policy_bottom_space,
-.scholl_history_bottom_space{
+.scholl_history_bottom_space,
+.extra-space-search-btn{
     margin-bottom: 10px;
 }
 .error-color{

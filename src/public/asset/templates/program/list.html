@@ -16,17 +16,15 @@
                     </div>
                     <h1><a href="#/program/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_program' | i18n }}</a></h1>
 
-                    <div class="form-search">
-                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_program' | i18n }}"/>
-                        <span class="glyphicon glyphicon-search glass" aria-hidden="true"></span>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <span class="search-btn">
+                                <input type="text" class="input-search" ng-model="search" placeholder="{{ 'general.search_program' | i18n }}">
+                            </span>
+                        </div>
                     </div>
 
-                    <!--<form class="form-search"  role="form" ng-submit="searchStudent(student)">-->
-                        <!--<input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_program' | i18n }}"/>-->
-                        <!--<span class="glyphicon glyphicon-search" aria-hidden="true"></span>-->
-                    <!--</form>-->
-
-                    <div class="table-responsive">
+                    <div class="table-responsive col-xs-12">
                         <table class="table table-striped">
                             <thead>
                             <tr>
