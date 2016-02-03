@@ -1139,3 +1139,58 @@ dt, dd {
 .font-bold{
     font-weight: bold;
 }
+
+/*FIXED HEADER*/
+.header-fixed {
+    width: 100%
+}
+
+.header-fixed > thead,
+.header-fixed > tbody,
+.header-fixed > thead > tr,
+.header-fixed > tbody > tr,
+.header-fixed > thead > tr > th,
+.header-fixed > tbody > tr > td {
+    display: block;
+}
+
+.header-fixed > tbody > tr:after,
+.header-fixed > thead > tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.header-fixed > tbody {
+    overflow-y: auto;
+    height: 150px;
+}
+
+.header-fixed > tbody > tr > td,
+.header-fixed > thead > tr > th {
+    width: 16.66%;
+    float: left;
+}
+.modal-dialog.enrollment{
+    width: 700px;
+    margin: 30px auto;
+}
+td.school-name{
+
+}
+td.school-year{
+    padding-left: 13px !important;
+}
+td.entry-date{
+    padding-left: 14px !important;
+}
+td.exit-date{
+    padding-left: 15px !important;
+}
+td.grade-level{
+    padding-left: 20px !important;
+}
+td.description{
+    padding-left: 22px !important;
+}

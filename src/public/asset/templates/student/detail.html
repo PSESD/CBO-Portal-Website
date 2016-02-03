@@ -1,6 +1,6 @@
 
 <div class="modal fade" id="schoolEnrollment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog enrollment" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -10,27 +10,79 @@
             <div class="modal-body">
                 <div class="content">
 
-                <scrollable-table watch="visibleProjects">
+                <!--<scrollable-table watch="visibleProjects">-->
 
-                <table class="table table-striped school-history">
-                <thead>
-                <th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>
-                <th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>
-                </thead>
-                <tbody>
-                <tr ng-repeat="data in visibleProjects">
-                <td>
-                {{::data.schoolName}}
-                </td>
-                <td>
-                {{::data.schoolYear}}
-                </td>
-                </tr>
-                </tbody>
+                <!--<table class="table table-striped school-history">-->
+                <!--<thead>-->
+                <!--<th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>-->
+                <!--<th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>-->
+                <!--<th><span class="bold bold-title">{{ 'general.school_entryDate' | i18n }}</span></th>-->
+                <!--<th><span class="bold bold-title">{{ 'general.school_exitDate' | i18n }}</span></th>-->
+                <!--<th><span class="bold bold-title">{{ 'general.school_gradeLevel' | i18n }}</span></th>-->
+                <!--<th><span class="bold bold-title">{{ 'general.school_description' | i18n }}</span></th>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--<tr ng-repeat="data in visibleProjects">-->
+                <!--<td>-->
+                <!--{{::data.schoolName}}-->
+                <!--</td>-->
+                <!--<td>-->
+                <!--{{::data.schoolYear}}-->
+                <!--</td>-->
+                    <!--<td>-->
+                        <!--{{::data.entryDate}}-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--{{::data.exitDate}}-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--{{::data.gradeLevel}}-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--{{::data.description}}-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
 
-                </table>
+                <!--</table>-->
 
-                </scrollable-table>
+                    <table class="table table-striped header-fixed">
+                        <thead>
+                        <tr>
+                            <th class="bold">{{ 'general.school_name' | i18n }}</th>
+                            <th class="bold">{{ 'general.school_year' | i18n }}</th>
+                            <th class="bold">{{ 'general.school_entryDate' | i18n }}</th>
+                            <th class="bold">{{ 'general.school_exitDate' | i18n }}</th>
+                            <th class="bold">{{ 'general.school_gradeLevel' | i18n }}</th>
+                            <th class="bold">{{ 'general.school_description' | i18n }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="data in visibleProjects">
+                            <td class="school-name">
+                                {{::data.schoolName}}
+                            </td>
+                            <td class="school-year">
+                                {{::data.schoolYear}}
+                            </td>
+                            <td class="entry-date">
+                                {{::data.entryDate}}
+                            </td>
+                            <td class="exit-date">
+                                {{::data.exitDate}}
+                            </td>
+                            <td class="grade-level">
+                                {{::data.gradeLevel}}
+                            </td>
+                            <td class="description">
+                                {{::data.description}}
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+
+                <!--</scrollable-table>-->
 
                 </div>
             </div>
@@ -701,46 +753,6 @@
                                                             <span>{{c.creditsEarned}}</span>
                                                         </dd>
                                                     </div>
-                                                    <!--<dt class="bold bold-title">-->
-                                                        <!--<ng-pluralize count="c.creditsEarned"-->
-                                                                      <!--when="{-->
-                                                          <!--'0':'Credit Earned',-->
-                                                          <!--'0.1':'Credit Earned',-->
-                                                          <!--'0.2':'Credit Earned',-->
-                                                          <!--'0.3':'Credit Earned',-->
-                                                          <!--'0.4':'Credit Earned',-->
-                                                          <!--'0.5':'Credit Earned',-->
-                                                          <!--'0.6':'Credit Earned',-->
-                                                          <!--'0.7':'Credit Earned',-->
-                                                          <!--'0.8':'Credit Earned',-->
-                                                          <!--'0.9':'Credit Earned',-->
-                                                          <!--'1.0':'Credit Earned',-->
-                                                          <!--'one': 'Credit Earned',-->
-                                                          <!--'other': 'Credits Earned'}">-->
-                                                        <!--</ng-pluralize>-->
-                                                    <!--</dt>-->
-                                                    <!--<br/>-->
-                                                    <!--<dd>{{ ::c.creditsEarned }}</dd>-->
-                                                    <!--<dt class="bold bold-title">-->
-                                                        <!--<ng-pluralize count="c.creditsAttempted"-->
-                                                                      <!--when="{-->
-                                                          <!--'0':'Credit Attempted',-->
-                                                          <!--'0.1':'Credit Attempted',-->
-                                                          <!--'0.2':'Credit Attempted',-->
-                                                          <!--'0.3':'Credit Attempted',-->
-                                                          <!--'0.4':'Credit Attempted',-->
-                                                          <!--'0.5':'Credit Attempted',-->
-                                                          <!--'0.6':'Credit Attempted',-->
-                                                          <!--'0.7':'Credit Attempted',-->
-                                                          <!--'0.8':'Credit Attempted',-->
-                                                          <!--'0.9':'Credit Attempted',-->
-                                                          <!--'1.0':'Credit Attempted',-->
-                                                          <!--'one': 'Credit Attempted',-->
-                                                          <!--'other': 'Credits Attempted'}">-->
-                                                        <!--</ng-pluralize>-->
-                                                    <!--</dt>-->
-                                                    <!--<br/>-->
-                                                    <!--<dd>{{ ::c.creditsAttempted }}</dd>-->
                                                 </dl>
 
                                             </div>
@@ -768,46 +780,6 @@
                                                             <span>{{c.creditsEarned}}</span>
                                                         </dd>
                                                     </div>
-                                                    <!--<dt class="bold bold-title">-->
-                                                        <!--<ng-pluralize count="c.creditsEarned"-->
-                                                                      <!--when="{-->
-                                                          <!--'0':'Credit Earned',-->
-                                                          <!--'0.1':'Credit Earned',-->
-                                                          <!--'0.2':'Credit Earned',-->
-                                                          <!--'0.3':'Credit Earned',-->
-                                                          <!--'0.4':'Credit Earned',-->
-                                                          <!--'0.5':'Credit Earned',-->
-                                                          <!--'0.6':'Credit Earned',-->
-                                                          <!--'0.7':'Credit Earned',-->
-                                                          <!--'0.8':'Credit Earned',-->
-                                                          <!--'0.9':'Credit Earned',-->
-                                                          <!--'1.0':'Credit Earned',-->
-                                                          <!--'one': 'Credit Earned',-->
-                                                          <!--'other': 'Credits Earned'}">-->
-                                                        <!--</ng-pluralize>-->
-                                                    <!--</dt>-->
-                                                    <!--<br/>-->
-                                                    <!--<dd>{{ ::c.creditsEarned }}</dd>-->
-                                                    <!--<dt class="bold bold-title">-->
-                                                        <!--<ng-pluralize count="c.creditsAttempted"-->
-                                                                      <!--when="{-->
-                                                          <!--'0':'Credit Attempted',-->
-                                                          <!--'0.1':'Credit Attempted',-->
-                                                          <!--'0.2':'Credit Attempted',-->
-                                                          <!--'0.3':'Credit Attempted',-->
-                                                          <!--'0.4':'Credit Attempted',-->
-                                                          <!--'0.5':'Credit Attempted',-->
-                                                          <!--'0.6':'Credit Attempted',-->
-                                                          <!--'0.7':'Credit Attempted',-->
-                                                          <!--'0.8':'Credit Attempted',-->
-                                                          <!--'0.9':'Credit Attempted',-->
-                                                          <!--'1.0':'Credit Attempted',-->
-                                                          <!--'one': 'Credit Attempted',-->
-                                                          <!--'other': 'Credits Attempted'}">-->
-                                                        <!--</ng-pluralize>-->
-                                                    <!--</dt>-->
-                                                    <!--<br/>-->
-                                                    <!--<dd>{{ ::c.creditsAttempted }}</dd>-->
                                                 </dl>
                                             </div>
                                         </div>
@@ -818,43 +790,6 @@
                     </div>
                 </div>
             </div>
-            <!--<div id="school-history-transcript" class="school history" ng-show="sch_history">-->
-
-                <!--<div class="title">-->
-                    <!--<span ng-click="closeSchoolHistory()" class="school-history glyphicon glyphicon-remove"></span>-->
-                    <!--<p class="subhead transcript">School History</p>-->
-                    <!--<hr class="subhead separator-transcript">-->
-
-                <!--</div>-->
-                <!--<div class="content">-->
-
-                    <!--<scrollable-table watch="visibleProjects">-->
-
-                        <!--<table class="table table-striped school-history">-->
-                            <!--<thead>-->
-                            <!--<tr>-->
-                                <!--<th><span class="bold bold-title">{{ 'general.school_name' | i18n }}</span></th>-->
-                                <!--<th><span class="bold bold-title">{{ 'general.school_year' | i18n }}</span></th>-->
-                            <!--</tr>-->
-                            <!--</thead>-->
-                            <!--<tbody>-->
-                            <!--<tr ng-if="sch_history" ng-repeat="data in history">-->
-                                <!--<td>-->
-                                    <!--{{::data.schoolName}}-->
-                                <!--</td>-->
-                                <!--<td>-->
-                                    <!--{{::data.schoolYear}}-->
-                                <!--</td>-->
-                            <!--</tr>-->
-                            <!--</tbody>-->
-
-                        <!--</table>-->
-
-                    <!--</scrollable-table>-->
-
-                <!--</div>-->
-
-            <!--</div>-->
         </div>
     </div>
 </div>

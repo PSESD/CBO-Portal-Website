@@ -212,6 +212,10 @@
     "earned" : "Earned",
     "attempted" : "Attempted",
     "student_xsre": "Student XSRE: ",
+    "school_entryDate": "Entry Date",
+    "school_exitDate": "Exit Date",
+    "school_gradeLevel": "Grade Level",
+    "school_description":"Description",
 
     "filters":"Filters"
 }
