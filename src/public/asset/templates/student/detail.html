@@ -54,6 +54,7 @@
                             <th class="bold">{{ 'general.school_entryDate' | i18n }}</th>
                             <th class="bold">{{ 'general.school_exitDate' | i18n }}</th>
                             <th class="bold">{{ 'general.school_gradeLevel' | i18n }}</th>
+                            <th class="bold">{{ 'general.school_status' | i18n }}</th>
                             <th class="bold">{{ 'general.school_description' | i18n }}</th>
                         </tr>
                         </thead>
@@ -73,6 +74,9 @@
                             </td>
                             <td class="grade-level">
                                 {{::data.gradeLevel}}
+                            </td>
+                            <td class="status">
+                                {{::data.status}}
                             </td>
                             <td class="description">
                                 {{::data.description}}

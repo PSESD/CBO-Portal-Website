@@ -1169,7 +1169,7 @@ dt, dd {
 
 .header-fixed > tbody > tr > td,
 .header-fixed > thead > tr > th {
-    width: 16.66%;
+    width: 14.28%;
     float: left;
 }
 .modal-dialog.enrollment{
@@ -1189,6 +1189,9 @@ td.exit-date{
     padding-left: 15px !important;
 }
 td.grade-level{
+    padding-left: 20px !important;
+}
+td.status{
     padding-left: 20px !important;
 }
 td.description{

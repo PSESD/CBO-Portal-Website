@@ -215,6 +215,7 @@
     "school_entryDate": "Entry Date",
     "school_exitDate": "Exit Date",
     "school_gradeLevel": "Grade Level",
+    "school_status": "Status",
     "school_description":"Description",
 
     "filters":"Filters"
