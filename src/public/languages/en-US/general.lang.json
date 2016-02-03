@@ -217,6 +217,7 @@
     "school_gradeLevel": "Grade Level",
     "school_status": "Status",
     "school_description":"Description",
+    "enrollment_history":"Enrollment History",
 
     "filters":"Filters"
 }
