@@ -219,5 +219,7 @@
     "school_description":"Description",
     "enrollment_history":"Enrollment History",
 
+    "assigned_students": "Assigned Students",
+
     "filters":"Filters"
 }
