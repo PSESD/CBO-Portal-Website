@@ -95,7 +95,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
             $('#rootDoc').addClass('center-panel');
             $('#footer').removeClass('hide');
             //$('.confidentiality-footer').css({'margin-left':'15.3%'});
-            $('.version').css({'margin-left':'15.3%'});
+            //$('.version').css({'margin-left':'15.3%'});
             $('#sidebar-open-btn').css({'z-index':'-999'});
         }
 

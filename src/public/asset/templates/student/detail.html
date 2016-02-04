@@ -100,18 +100,18 @@
                         </h1>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-4 last-update-position">
+                <div class="col-xs-12 col-md-3 last-update-position">
                     <span class="title-lastupdate">{{ 'general.last_update' | i18n }}:<span class="last_update_date">{{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
                         <img ng-show="showLoading" class="loading-icon" src="asset/img/ajax-loader.gif">
                         <a ng-hide="showLoading" ng-click="updateNow()">(Update Now)</a>
                         <a ng-show="loading_icon && viewDebug" ng-click="showDebug()">(View XSRE)</a>
                     </span>
                 </div>
-                <div class="col-xs-12 col-md-offset-3 col-md-3">
-                    <a  class="btn btn-default" aria-label="Left Align" ng-href="#/student/edit/{{ ::student._id }}">
+                <div class="col-xs-12 col-md-7 text-right">
+                    <a  class="btn btn-default transcript-school-history" aria-label="Left Align" ng-href="#/student/edit/{{ ::student._id }}">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
                     </a>
-                    <div ng-click="showHistory()" class="pull-right btn btn-default transcript-school-history uppercase">{{ 'general.see_school' | i18n }}</div>
+                    <div ng-click="showHistory()" class="pull-right btn btn-default uppercase">{{ 'general.see_school' | i18n }}</div>
                 </div>
             </div>
             <div class="col-xs-12">

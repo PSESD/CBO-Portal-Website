@@ -61,11 +61,11 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="program in programs | filter:search | orderBy:sortType:sortReverse">
-                        <!--<td>{{ program._id }}</td>-->
                         <td><a ng-href="#/program/detail/{{ program._id }}">{{ program.name }}</a></td>
                         <td class="text-center">{{ program.totalActive }}</td>
                         <td class="text-center">{{ program.totalStudent }}</td>
-                        <td>{{ program.cohorts.join(",") }}</td>
+                        <!--<td>{{ program.cohorts.join(",") }}</td>-->
+                        <td ng-bind-html="program.cohorts"></td>
                         <td class="text-center">
                             <a class="glyphicon glyphicon-user" ng-href="#/program/students/{{ program._id }}"></a>
                         </td>
