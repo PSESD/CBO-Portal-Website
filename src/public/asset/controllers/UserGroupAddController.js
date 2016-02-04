@@ -101,7 +101,7 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
 
             });
 
-        $http.get(api_url + AuthenticationService.organization_id + '/students', {
+        $http.get(api_url + AuthenticationService.organization_id + '/students?noxsre=1&noprogram=1&userId='+ user_id, {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
@@ -109,7 +109,13 @@ app.controller('UserGroupAddController', ['$rootScope', '$scope', '$routeParams'
             .success(function (response) {
 
                 if (response.success === true && response.total > 0) {
-                    $scope.list_student = response.data;
+                    //$scope.list_student = response.data;
+                    $scope.list_student = _.filter(response.data, function(val){
+                        if(!('added' in val)){
+                            return false;
+                        }
+                        return val.added === false;
+                    });
                 } else {
                     showError(response.error.message, 1);
                 }
