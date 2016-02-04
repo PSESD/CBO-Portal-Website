@@ -222,5 +222,6 @@
     "assigned_students": "Assigned Students",
     "total_active_students": "Active Students",
     "total_students": "Total Students",
-    "filters":"Filters"
+    "filters":"Filters",
+    "middle_name": "Middle Name"
 }
