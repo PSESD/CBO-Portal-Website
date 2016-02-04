@@ -36,18 +36,25 @@
                                         <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
-                                <th>
-                                    <a href="#" ng-click="sortType = 'created';sortReverse = !sortReverse">
-                                    {{ 'general.created' | i18n }}
-                                        <span ng-show="sortType == 'created' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                        <span ng-show="sortType == 'created' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                                <th class="text-center">
+                                    <a href="#" ng-click="sortType = 'totalActive';sortReverse = !sortReverse">
+                                        {{ 'general.total_active_students' | i18n }}
+                                        <span ng-show="sortType == 'totalActive' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'totalActive' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                                    </a>
+                                </th>
+                                <th class="text-center">
+                                    <a href="#" ng-click="sortType = 'totalStudent';sortReverse = !sortReverse">
+                                        {{ 'general.total_students' | i18n }}
+                                        <span ng-show="sortType == 'totalStudent' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'totalStudent' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
                                 <th>
-                                    <a href="#" ng-click="sortType = 'last_updated';sortReverse = !sortReverse">
-                                    {{ 'general.last_update' | i18n }}
-                                        <span ng-show="sortType == 'last_updated' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                        <span ng-show="sortType == 'last_updated' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                                    <a href="#" ng-click="sortType = 'cohorts';sortReverse = !sortReverse">
+                                        {{ 'general.cohorts' | i18n }}
+                                        <span ng-show="sortType == 'cohorts' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                        <span ng-show="sortType == 'cohorts' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                     </a>
                                 </th>
                                 <th class="text-center" style="width:9%">{{ 'general.assign_students' | i18n }}</th>
@@ -58,8 +65,9 @@
                             <tr ng-repeat="program in programs | filter:search | orderBy:sortType:sortReverse">
                                 <!--<td>{{ program._id }}</td>-->
                                 <td><a ng-href="#/program/detail/{{ program._id }}">{{ program.name }}</a></td>
-                                <td>{{ program.created | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</td>
-                                <td>{{ program.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</td>
+                                <td class="text-center">{{ program.totalActive }}</td>
+                                <td class="text-center">{{ program.totalStudent }}</td>
+                                <td>{{ program.cohorts.join(",") }}</td>
                                 <td class="text-center">
                                     <a class="glyphicon glyphicon-user" ng-href="#/program/students/{{ program._id }}"></a>
 									</td>
