@@ -219,5 +219,8 @@
     "school_description":"Description",
     "enrollment_history":"Enrollment History",
     "permission":"Permission",
+    "assigned_students": "Assigned Students",
+    "total_active_students": "Active Students",
+    "total_students": "Total Students",
     "filters":"Filters"
 }
