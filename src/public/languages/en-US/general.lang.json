@@ -218,6 +218,6 @@
     "school_status": "Status",
     "school_description":"Description",
     "enrollment_history":"Enrollment History",
-
+    "permission":"Permission",
     "filters":"Filters"
 }

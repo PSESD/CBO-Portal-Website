@@ -37,23 +37,6 @@ app.config(['$httpProvider', function ($httpProvider) {
     if (__i){$httpProvider.interceptors.push('headerInjector');}
     $httpProvider.defaults.timeout = 15000;
 
-    //$httpProvider.interceptors.push(function ($rootScope, $q,$rollbar,$interval) {
-    //    return {
-    //        request: function (config) {
-    //
-    //        },
-    //        responseError: function (rejection) {
-    //            switch (rejection.status){
-    //                case 408 :
-    //                    $rollbar.error('connection timed out');
-    //                    showError('connection timed out',1);
-    //                    break;
-    //            }
-    //            return $q.reject(rejection);
-    //        }
-    //    }
-    //});
-
 }]);
 
 app.config(['$rollbarProvider', function($rollbarProvider) {
@@ -102,9 +85,15 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
         $rootScope.doingResolve = true;
         $rootScope.organization_name = localStorage.getItem('organization_name');
         $rootScope.sidebarButtonOpen = false;
+
+
+
+
+
         if (nextRoute !== null && /*nextRoute.access !== null &&  nextRoute.access.requiredAuthentication */nextRoute.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             if(nextRoute.originalPath === "/login")
             {
+
                 return;
             }
             if(checkCookie === true)
@@ -114,6 +103,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             }
             else
             {
+                $("#rootDoc").removeClass('center-panel');
                 $location.path("/login");
             }
             $rootScope.showNavBar = false;
@@ -134,6 +124,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             var intended_url = '';
             if(nextRoute.$$route.originalPath === '/login'){
                 $rootScope.is_logged_in = false;
+
             }
 
             if(nextRoute.$$route.originalPath === '/loading'){
@@ -189,10 +180,12 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
                 localStorage.setItem('intended_url',intended_url);
             }
             else if(nextRoute.$$route.originalPath === '/forget'){
+
                 $location.path("/forget");
                 $rootScope.sidebarButtonOpen = false;
             }
             else{
+
                 $location.path("/login");
                 $rootScope.sidebarButtonOpen = false;
             }
@@ -202,6 +195,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
             start_time_idle();
         }
         if($location.$$path === '/login'){
+
             $rootScope.showNavBar = false;
         }
     });

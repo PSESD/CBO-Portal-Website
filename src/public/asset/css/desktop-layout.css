@@ -11,9 +11,8 @@ h1.sign-logo{
     height: 100%;
     border-right: 1px solid #dddddd;
 }
-#center-panel {
+.center-panel {
     margin-left: 15%;
-    /*background-color: ;*/
 }
 #center-panel .row-fluid {
     overflow: auto;

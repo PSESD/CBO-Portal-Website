@@ -35,9 +35,10 @@ $(document).ready(function () {
                 //    'width': '3%'
                 //});
                 $('#collapse-sidebarmenu').addClass('icon-collapse-menu');
-                $('#center-panel').css({
-                    'margin-left': '0px'
-                });
+                //$('#center-panel').css({
+                //    'margin-left': '0px'
+                //});
+                $('#rootDoc').removeClass('center-panel');
                 status = 'close';
                 $('#footer').addClass('hide');
                 $('.confidentiality-footer').css({'margin-left':'0px'});

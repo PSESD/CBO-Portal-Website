@@ -48,20 +48,17 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
             })
                 .success(function () {
+                    showError($rootScope.lang.success_logout, 2);
                     $rootScope.showNavBar = true;
                     CookieStore.clearData();
-                    showError($rootScope.lang.success_logout, 2);
                     localStorage.setItem('url_intended','');
-                    //console.log(localStorage);
                     $location.path("/login");
-
+                    console.log("logout");
                 })
                 .error(function () {
 
                     var myEl = angular.element(document.querySelector('body'));
                     myEl.removeClass('cbp-spmenu-push');
-                    //console.log(response);
-                    //console.log(status);
 
                     CookieStore.clearData();
                     showError($rootScope.lang.success_logout, 2);
@@ -92,11 +89,12 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
             });
             $('#collapse-sidebarmenu').removeClass('icon-collapse-menu');
             $('#collapse-sidebarmenu').addClass('icon-sidebarmenu');
-            $('#center-panel').css({
-                'margin-left': '15%'
-            });
+            //$('#center-panel').css({
+            //    'margin-left': '15%'
+            //});
+            $('#rootDoc').addClass('center-panel');
             $('#footer').removeClass('hide');
-            $('.confidentiality-footer').css({'margin-left':'15.3%'});
+            //$('.confidentiality-footer').css({'margin-left':'15.3%'});
             $('.version').css({'margin-left':'15.3%'});
             $('#sidebar-open-btn').css({'z-index':'-999'});
         }

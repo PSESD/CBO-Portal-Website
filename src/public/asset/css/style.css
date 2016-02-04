@@ -31,11 +31,19 @@ II MEDIA
         content:"\e003";
         font-family:"Glyphicons Halflings";
         line-height:1;
-        margin:5px;
+        margin: 0 5px 0 0;
+    }
+
+    .extra-space{
+        margin-top: 13px;
+        margin-bottom: 13px;
+    }
+
+    .remove-center-panel-margin{
+        margin-left:0!important;
     }
 
     .input-search{
-        width: 160px;
         border: none;
         border-bottom: 1px solid black;
     }
@@ -48,24 +56,24 @@ II MEDIA
         color: white !important;
     }
 
-    .form-search{
-        width: 25%;
-        margin: 0;
-        padding: 0;
-    }
-    .form-search.user{
-        width: 40%;
-    }
-    .form-search>.glass{
-        position: absolute;
-        top: 29%;
-        left: 16%;
-    }
-    .form-search>.glass.user{
+    /*.form-search{*/
+        /*width: 25%;*/
+        /*margin: 0;*/
+        /*padding: 0;*/
+    /*}*/
+    /*.form-search.user{*/
+        /*width: 40%;*/
+    /*}*/
+    /*.form-search>.glass{*/
+        /*position: absolute;*/
+        /*top: 29%;*/
+        /*left: 16%;*/
+    /*}*/
+    /*.form-search>.glass.user{*/
 
-        top:176px;
+        /*top:176px;*/
 
-    }
+    /*}*/
     .popover{
         font-size: 12px;
         font-size: 1.2rem;
@@ -97,7 +105,7 @@ II MEDIA
     }
     select{
         color: black;
-        background: url(../img/arrow.png) no-repeat 96%;
+        background: url(../img/arrow.png) no-repeat 98%;
         border: 1px solid black;
         padding: 7px 22px 7px 7px;
     }
@@ -225,8 +233,13 @@ II MEDIA
         text-transform: uppercase;
         font-weight: 700;
     }
+    .top-space{
+        position: relative;
+        top:23px;
+    }
     a.sidemenu.organization_name:hover,
-    a.sidemenu.link-nav.username:hover{
+    a.sidemenu.link-nav.username:hover,
+    a.sidemenu.beta{
         cursor:default;
         background:transparent;
         color:#9D9D9D!important;
@@ -400,7 +413,8 @@ II MEDIA
     
     .card {
         background: #fff;
-        padding: 24px 50px;
+        /*padding: 24px 50px;*/
+        padding: 0px 10px;
         border-bottom: solid 5px rgba(0, 0, 0, 0.1);
         border-radius: 2px;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
@@ -1030,7 +1044,10 @@ select{
             -webkit-appearance: none;
             margin-top: 5px;
         }
-
+        .last-update-position{
+            position: relative;
+            top: 20px;
+        }
         .organization_header {
             color: white !important;
             font-size: 1.6em;
@@ -1057,7 +1074,7 @@ select{
 
             position: relative;
             bottom: 95px;
-            margin-left: 15.4%;
+            /*margin-left: 15.4%;*/
 
         }
         .confidentiality-footer.card{
@@ -1153,7 +1170,7 @@ select{
 .margin-bottom-general-info,
 .privacy_policy_bottom_space,
 .scholl_history_bottom_space,
-.extra-space-search-btn{
+{
     margin-bottom: 10px;
 }
 .error-color{

@@ -3,48 +3,16 @@ var global_redirect_url = '/';
 $(document).ready(function () {
     'use strict';
 
+    var urlPath = window.location.href;
+
     $(window).on('hashchange', function(e){
         var url = [];
         url.push(window.location.href);
-
     });
 
     $(".dropdown-menu").mouseout(function(){
         $(".dropdown-menu").hide();
     });
-
-    //if (typeof env !== 'undefined' && env === 'production') {
-    //    window.intercomSettings = {
-    //        app_id: intercom_id
-    //    };
-    //    (function () {
-    //        var w = window;
-    //        var ic = w.Intercom;
-    //        console.log(ic);
-    //        if (typeof ic === "function") {
-    //            ic('reattach_activator');
-    //            ic('update', intercomSettings);
-    //        } else {
-    //            var d = document;
-    //            var i = function () {
-    //                i.c(arguments);
-    //            };
-    //            i.q = [];
-    //            i.c = function (args) {
-    //                i.q.push(args);
-    //            };
-    //            w.Intercom = i;
-    //
-    //
-    //            if (w.attachEvent) {
-    //                w.attachEvent('onload', l);
-    //            } else {
-    //                w.addEventListener('load', l, false);
-    //            }
-    //        }
-    //    })();
-    //
-    //}
 
     if ($(window).width() < 776) {
         screen = "mobile";
@@ -134,9 +102,10 @@ $(document).ready(function () {
             //});
             //$(".col-md-offset-4.col-md-5").removeClass("login-page");
             $('#desktop-nav').addClass('collapse');
-            $('#center-panel').css({
-                'margin-left':'initial'
-            })
+            //$('.center-panel').css({
+            //    'margin-left':'initial'
+            //})
+            $('#rootDoc').removeClass('center-panel');
             screen = "mobile";
         }else if($(window).width() > 776 && screen === "mobile"){
             //this.location.reload(false);
@@ -148,9 +117,10 @@ $(document).ready(function () {
             //});
             //$(".col-md-offset-4.col-md-5").addClass("login-page");
             $('#desktop-nav').removeClass('collapse');
-            $('#center-panel').css({
-                'margin-left':'15%'
-            })
+            //$('.center-panel').css({
+            //    'margin-left':'15%'
+            //})
+            $('#rootDoc').addClass('center-panel');
             screen = "desktop";
         }
 
