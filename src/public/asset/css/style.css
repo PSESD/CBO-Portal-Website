@@ -49,11 +49,13 @@ II MEDIA
         height: 2px;
         background: transparent linear-gradient(135deg, #EF7700 0%, #F2A900 37%, #F2CC10 69%, #FCE623 100%) repeat scroll 0% 0%;
     }
-    span.search-btn:before{
-        content:"\e003";
-        font-family:"Glyphicons Halflings";
-        line-height:1;
+    .search-btn:before {
+        content: "\e003";
+        font-family: "Glyphicons Halflings";
+        line-height: 1;
         margin: 0 5px 0 0;
+        position: absolute;
+        line-height: 32px;
     }
 
     .extra-space{
@@ -65,9 +67,12 @@ II MEDIA
         margin-left:0!important;
     }
 
-    .input-search{
+    .input-search {
         border: none;
         border-bottom: 1px solid black;
+        width: 100%;
+        padding-left: 20px;
+        line-height: 32px;
     }
 
     #sidebar-open-btn{
