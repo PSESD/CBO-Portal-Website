@@ -34,6 +34,13 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
         };
 
+        $scope.checkPath = function(){
+            if($location.path() === '/login'  || $location.path() ==='/forget'){
+                return false;
+            }
+                return true;
+        }
+
 
         $scope.logoutMe = function () {
             $rootScope.showFooter = false;

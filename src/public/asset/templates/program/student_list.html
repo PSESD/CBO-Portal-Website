@@ -71,7 +71,7 @@
 								<td><input type="checkbox" ng-model="student.active" ng-disabled="true"/></td>
 								<td>{{student.start_date | date : 'MM/dd/yyyy' : timezone}}</td>
 								<td>{{student.end_date | date : 'MM/dd/yyyy' : timezone}}</td>
-								<td>{{student.cohort}}</td>
+								<td ng-bind-html="student.cohort"></td>
 								<td class="text-center">
                                     <a class="glyphicon glyphicon-pencil" ng-href="#/program/students/{{program._id}}/edit/{{student._id}}"></a>
 									</td>

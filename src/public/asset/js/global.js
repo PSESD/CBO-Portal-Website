@@ -105,7 +105,7 @@ $(document).ready(function () {
             //$('.center-panel').css({
             //    'margin-left':'initial'
             //})
-            $('#rootDoc').removeClass('center-panel');
+            //$('#rootDoc').removeClass('center-panel');
             screen = "mobile";
         }else if($(window).width() > 776 && screen === "mobile"){
             //this.location.reload(false);
@@ -120,7 +120,7 @@ $(document).ready(function () {
             //$('.center-panel').css({
             //    'margin-left':'15%'
             //})
-            $('#rootDoc').addClass('center-panel');
+            //$('#rootDoc').addClass('center-panel');
             screen = "desktop";
         }
 

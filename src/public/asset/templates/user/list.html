@@ -45,20 +45,20 @@
                                 <span ng-show="sortType == 'studentCount' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                             </a>
                         </th>
-                        <th>
-                            <a href="#" ng-click="sortType = 'created';sortReverse = !sortReverse">
-                                {{ 'general.created' | i18n }}
-                                <span ng-show="sortType == 'created' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                <span ng-show="sortType == 'created' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a href="#" ng-click="sortType = 'last_update';sortReverse = !sortReverse">
-                                {{ 'general.last_update' | i18n }}
-                                <span ng-show="sortType == 'last_update' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                <span ng-show="sortType == 'last_update' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                            </a>
-                        </th>
+                        <!--<th>-->
+                            <!--<a href="#" ng-click="sortType = 'created';sortReverse = !sortReverse">-->
+                                <!--{{ 'general.created' | i18n }}-->
+                                <!--<span ng-show="sortType == 'created' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>-->
+                                <!--<span ng-show="sortType == 'created' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>-->
+                            <!--</a>-->
+                        <!--</th>-->
+                        <!--<th>-->
+                            <!--<a href="#" ng-click="sortType = 'last_update';sortReverse = !sortReverse">-->
+                                <!--{{ 'general.last_update' | i18n }}-->
+                                <!--<span ng-show="sortType == 'last_update' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>-->
+                                <!--<span ng-show="sortType == 'last_update' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>-->
+                            <!--</a>-->
+                        <!--</th>-->
                         <th class="text-center" style="width:9%;">{{ 'general.permissions' | i18n }}</th>
                         <th class="text-center" style="width:9%;">{{ 'general.assign_students' | i18n }}</th>
                         <th class="text-center" style="width:9%;">{{ 'general.delete' | i18n }}</th>
@@ -69,8 +69,8 @@
                         <td><a ng-href="#/user/detail/{{ user._id }}">{{ user.first_name }} {{ user.last_name }}</a></td>
                         <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
                         <td class="text-center">{{ user.studentCount }}</td>
-                        <td>{{ user.created | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</td>
-                        <td>{{ user.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</td>
+                        <!--<td>{{ user.created | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</td>-->
+                        <!--<td>{{ user.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</td>-->
                         <td class="text-center">
                             <a href="#/user/edit/{{ user._id }}" class="glyphicon glyphicon-lock" ng-disabled="working"></a>
                         </td>

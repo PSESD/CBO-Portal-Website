@@ -67,7 +67,7 @@ function ($window, $rootScope) {
 
 
 
-app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
+app.run(function ($timeout,$state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
     'use strict';
     var returnData = CookieStore.getData();
     var checkCookie = CookieStore.checkCookie();
@@ -113,6 +113,7 @@ app.run(function ($state, $stateParams,$rootScope, $http, $location, $window, Au
         if (nextRoute !== null && /*nextRoute.access !== null && nextRoute.access.requiredAdmin*/nextRoute.requiredAdmin && (AuthenticationService.role+'').indexOf('case-worker') !== -1) {
             showError($rootScope.lang.you_dont_have_any_permission_page, 1);
             event.preventDefault();
+            $rootScope.doingResolve = false;
         }
 
         if(nextRoute.$$route.originalPath !== '/login' && $rootScope.doingResolve === true){

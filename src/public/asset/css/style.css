@@ -27,6 +27,28 @@ II MEDIA
 ==================== 1.Body ===================
 ===============================================
 */
+
+    .login-container {
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    .login-form {
+        position: relative;
+        top: 50%;
+        transform: translateY(50%);
+    }
+    .title.detail{
+        position: relative;
+        top: 20px;
+    }
+    hr.rainbow{
+        width: 100%;
+        margin: 10px 0px;
+        height: 2px;
+        background: transparent linear-gradient(135deg, #EF7700 0%, #F2A900 37%, #F2CC10 69%, #FCE623 100%) repeat scroll 0% 0%;
+    }
     span.search-btn:before{
         content:"\e003";
         font-family:"Glyphicons Halflings";
@@ -83,7 +105,10 @@ II MEDIA
         font-size: 1.2rem;
     }
     .last_update_date{
-        margin-left:10px;
+
+        position: relative;
+        top: 42px;
+        left: 10px;
     }
     .nav-tabs h1{
         margin-top: 10px;
@@ -414,7 +439,7 @@ II MEDIA
     .card {
         background: #fff;
         /*padding: 24px 50px;*/
-        padding: 0px 10px;
+        padding: 10px 30px;
         border-bottom: solid 5px rgba(0, 0, 0, 0.1);
         border-radius: 2px;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
@@ -663,7 +688,7 @@ select{
     }
     .subhead {
         text-transform: uppercase;
-        width: 120px;
+        width: 84px;
     }
     #collapse-sidebarmenu:hover {
         cursor: pointer;

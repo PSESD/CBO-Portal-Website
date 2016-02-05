@@ -23,6 +23,7 @@
                     <li></li>
                     <li role="presentation"><a class="link-nav sidemenu username">{{completeName }}</a></li>
                     <div id="border"></div>
+                    <li>&nbsp</li>
                     <li id="dashboard" ng-class="{ sidebar_selected: isActive('/student') }" role="presentation"><a ng-class="{ sidebar_selected: isActive('/student') }" ng-href="#/student" class="link-nav sidemenu">{{ 'general.dashboard' | i18n  }}</a></li>
                     <li id="programs" ng-class="{ sidebar_selected: isActive('/program') }" role="presentation"><a ng-class="{ sidebar_selected: isActive('/program') }" ng-href="#/program" class="link-nav sidemenu">{{ 'general.programs' | i18n  }}</a></li>
                     <li id="reports" ng-class="{ sidebar_selected: isActive('/report') }" role="presentation"><a ng-class="{ sidebar_selected: isActive('/report') }" ng-href="#/report" class="link-nav sidemenu">{{ 'general.reports' | i18n  }}</a></li>
@@ -40,7 +41,7 @@
     </div>
 
     <div ng-class="is_logged_in ? 'visible-on' : 'visible-off remove-pad'" class="error-container"></div>
-    <div id="rootDoc" class="center-panel container-fluid">
+    <div id="rootDoc" class="container-fluid" ng-class="checkPath()?'center-panel':''">
         <ng-view ng-class="ng-view" ng-hide="doingResolve"></ng-view>
         <div class="separator-content"></div>
         <div ng-if="showNavBar">
