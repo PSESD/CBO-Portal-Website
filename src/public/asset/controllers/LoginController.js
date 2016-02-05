@@ -128,6 +128,7 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                             start_time_idle();
                                             if('intended_url' in localStorage && localStorage.getItem('intended_url')!==''){
                                                 $location.path(localStorage.getItem('intended_url'));
+                                                $rootScope.sidebarButtonOpen = false;
                                             }else {
                                                 $location.path('/');
                                             }

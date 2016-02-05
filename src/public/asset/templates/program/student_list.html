@@ -1,7 +1,6 @@
 <div class="row">
 
     <div class="col-md-12">
-
         <div class="card">
             <div class="col-md-12">
                 <div class="title">
@@ -15,12 +14,15 @@
                     <h1>
                         <a href="#/program/students/{{ program._id }}/add"><i class="glyphicon glyphicon-plus font16"></i>{{ 'general.add_student_to' | i18n:[program.name] }}</a>
                     </h1>
-                    <form class="form-inline" role="form" ng-submit="searchStudent(student)">
-                        <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="{{ 'general.search_student' | i18n }}"/>
-                        <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
-                    </form>
+                    <div class="row">
+                        <div class="col-xs-12 extra-space-search-btn col-md-3">
+                            <span class="search-btn extra-space">
+                                <input type="text" class="input-search" ng-model="search" placeholder="{{ 'general.search_student' | i18n }}">
+                            </span>
+                        </div>
+                    </div>
 
-                    <div class="table-responsive">
+                    <div class="col-xs-12 no-padding">
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -69,7 +71,7 @@
 								<td><input type="checkbox" ng-model="student.active" ng-disabled="true"/></td>
 								<td>{{student.start_date | date : 'MM/dd/yyyy' : timezone}}</td>
 								<td>{{student.end_date | date : 'MM/dd/yyyy' : timezone}}</td>
-								<td>{{student.cohort}}</td>
+								<td ng-bind-html="student.cohort"></td>
 								<td class="text-center">
                                     <a class="glyphicon glyphicon-pencil" ng-href="#/program/students/{{program._id}}/edit/{{student._id}}"></a>
 									</td>

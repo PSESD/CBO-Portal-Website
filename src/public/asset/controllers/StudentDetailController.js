@@ -665,7 +665,6 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
 {
     var years = [];
     var yearsOptions = "";
-
     angular.forEach(attendance_data, function (behavior) {
 
         Object.keys(behavior).forEach(function (key) {

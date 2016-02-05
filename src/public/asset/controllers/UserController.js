@@ -43,7 +43,6 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
             }
         })
             .success(function (response) {
-
                 if (response.success === true && response.total > 0) {
 
 

@@ -1,5 +1,10 @@
+.search-btn.detail{
+    position: relative;
+    margin-top: 8px;
+}
 .att-content.behavior-center{
-    line-height: 2.5;
+    padding-top: 10px;
+    line-height: 1.5;
 }
 .scrollArea table th .box {
     padding: 0px 11px 0px 0px!important;
@@ -56,6 +61,12 @@ dl{
     float: right;
     top: 5px;
     position: relative;
+}
+.no-padding{
+    padding:0!important;
+}
+.no-margin{
+    margin: 0!important;
 }
 .no-padding-left{
     padding-left:0;
@@ -387,7 +398,7 @@ ul.transcript li {
 }
 
 
-.btn.btn-default.transcript-school-history {
+.btn.btn-default.transcript-school-history{
     margin-right: 10px;
 }
 .separator-transcript {
@@ -456,11 +467,11 @@ ul li.transcript-content {
     top: 6px;
 }
 .descriptor-title {
-    font-size: 14px;
-    font-size:1.4rem;
+    font-size: 12px;
+    font-size: 1.2rem;
     font-weight: bolder;
     letter-spacing: 2px;
-    margin-bottom: 21px;
+    margin-bottom: 5px;
     line-height: 16px;
 }
 .present-font-color {
@@ -1118,6 +1129,7 @@ dt, dd {
     cursor: pointer;
 }
 .popover{
+    font-family: 'Source Sans Pro', sans-serif;
     background-color: white!important;
 }
 
@@ -1136,4 +1148,62 @@ dt, dd {
 }
 .font-bold{
     font-weight: bold;
+}
+
+/*FIXED HEADER*/
+.header-fixed {
+    width: 100%
+}
+
+.header-fixed > thead,
+.header-fixed > tbody,
+.header-fixed > thead > tr,
+.header-fixed > tbody > tr,
+.header-fixed > thead > tr > th,
+.header-fixed > tbody > tr > td {
+    display: block;
+}
+
+.header-fixed > tbody > tr:after,
+.header-fixed > thead > tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.header-fixed > tbody {
+    overflow-y: auto;
+    height: 150px;
+}
+
+.header-fixed > tbody > tr > td,
+.header-fixed > thead > tr > th {
+    width: 14.28%;
+    float: left;
+}
+.modal-dialog.enrollment{
+    width: 700px;
+    margin: 30px auto;
+}
+td.school-name{
+
+}
+td.school-year{
+    padding-left: 13px !important;
+}
+td.entry-date{
+    padding-left: 14px !important;
+}
+td.exit-date{
+    padding-left: 15px !important;
+}
+td.grade-level{
+    padding-left: 20px !important;
+}
+td.status{
+    padding-left: 20px !important;
+}
+td.description{
+    padding-left: 22px !important;
 }

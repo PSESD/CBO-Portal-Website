@@ -212,6 +212,16 @@
     "earned" : "Earned",
     "attempted" : "Attempted",
     "student_xsre": "Student XSRE: ",
-
-    "filters":"Filters"
+    "school_entryDate": "Entry Date",
+    "school_exitDate": "Exit Date",
+    "school_gradeLevel": "Grade Level",
+    "school_status": "Status",
+    "school_description":"Description",
+    "enrollment_history":"Enrollment History",
+    "permission":"Permission",
+    "assigned_students": "Assigned Students",
+    "total_active_students": "Active Students",
+    "total_students": "Total Students",
+    "filters":"Filters",
+    "middle_name": "Middle Name"
 }

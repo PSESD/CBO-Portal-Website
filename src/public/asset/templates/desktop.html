@@ -1,3 +1,6 @@
+<button type="button" id="sidebar-open-btn" class="btn btn-default" aria-label="Left Align" ng-click="openSidebar()" ng-show="sidebarButtonOpen">
+    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+</button>
 <div class="desktop">
 
     <div id="side-panel">
@@ -12,12 +15,15 @@
 
                 <ul id="sidebar-panel-menu" class="link-nav nav nav-stacked">
                     <li>
-                        <a class="sidemenu organization_name">{{organization_name}}</a>
+                        <a class="sidemenu organization_name">{{organization_name}}<br/><label class="label label-danger">BETA</label></a>
+
                     </li>
+
                     <li></li>
                     <li></li>
                     <li role="presentation"><a class="link-nav sidemenu username">{{completeName }}</a></li>
                     <div id="border"></div>
+                    <li>&nbsp</li>
                     <li id="dashboard" ng-class="{ sidebar_selected: isActive('/student') }" role="presentation"><a ng-class="{ sidebar_selected: isActive('/student') }" ng-href="#/student" class="link-nav sidemenu">{{ 'general.dashboard' | i18n  }}</a></li>
                     <li id="programs" ng-class="{ sidebar_selected: isActive('/program') }" role="presentation"><a ng-class="{ sidebar_selected: isActive('/program') }" ng-href="#/program" class="link-nav sidemenu">{{ 'general.programs' | i18n  }}</a></li>
                     <li id="reports" ng-class="{ sidebar_selected: isActive('/report') }" role="presentation"><a ng-class="{ sidebar_selected: isActive('/report') }" ng-href="#/report" class="link-nav sidemenu">{{ 'general.reports' | i18n  }}</a></li>
@@ -30,71 +36,34 @@
                 <li><a href="http://roadmapracetothetop.org/" target="_blank">ROADMAP PROJECT</a></li>
                 <li class="privacy_policy_bottom_space"><a>PRIVACY POLICY</a></li>
                 </ul>
-
-                <!--<ul id="sidebar-panel-menu" class="nav navbar-nav">-->
-                    <!--<li>-->
-                        <!--<div class="link-nav organization_header uppercase">{{organization_name }}</div>-->
-                        <!--<br/>-->
-                        <!--<br/>-->
-                    <!--</li>-->
-                    <!--<li>-->
-
-                        <!--<a href="#" class="link-nav uppercase">{{completeName }}</a>-->
-                        <!--<div id="border" style="position:relative;border-top:2px solid #555; width:30px;left:15px;">-->
-                        <!--</div>-->
-                    <!--</li>-->
-                    <!--<li ng-class="{ active: isActive('/student') }">-->
-                        <!--<a ng-href="#/student" class="link-nav uppercase">{{ 'general.dashboard' | i18n  }}</a>-->
-                    <!--</li>-->
-                    <!--<li ng-class="{ active: isActive('/program') }">-->
-                        <!--<a ng-href="#/program" class="link-nav uppercase">{{ 'general.programs' | i18n  }}</a>-->
-                    <!--</li>-->
-                    <!--<li ng-class="{ active: isActive('/report') }" ng-show="reports_link">-->
-                        <!--<a ng-href="#/report" class="link-nav uppercase">{{ 'general.reports' | i18n  }}</a>-->
-                    <!--</li>-->
-
-                    <!--<li ng-class="{ active: isActive('/user') }" ng-show="users_link">-->
-                        <!--<a ng-href="#/user" class="link-nav uppercase">{{ 'general.users' | i18n  }}</a>-->
-                    <!--</li>-->
-                    <!--<li ng-class="{ active: isActive('/profile') }">-->
-                        <!--<a ng-href="#/profile" class="link-nav uppercase">{{ 'general.account_settings' | i18n }}</a>-->
-                    <!--</li>-->
-                    <!--<li ng-class="{ active: isActive('/logout') }">-->
-                        <!--<a href="javascript:void(0)" ng-click="logoutMe()" class="link-nav uppercase">{{ 'general.logout' | i18n  }}</a>-->
-                    <!--</li>-->
-                    <!--<div id="footer">-->
-                        <!--<li><a>&copy;&nbsp;2015&nbsp;</a><a href="http://www.psesd.org/" target="_blank">PSESD</a></li>-->
-                        <!--<li><a href="http://roadmapracetothetop.org/" target="_blank">ROADMAP PROJECT</a></li>-->
-                        <!--<li class="privacy_policy_bottom_space"><a>PRIVACY POLICY</a></li>-->
-                    <!--</div>-->
-                <!--</ul>-->
             </div>
         </div>
     </div>
 
     <div ng-class="is_logged_in ? 'visible-on' : 'visible-off remove-pad'" class="error-container"></div>
-    <div id="center-panel" class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-
-            </div>
-        </div>
+    <div id="rootDoc" class="container-fluid" ng-class="checkPath()?'center-panel':''">
         <ng-view ng-class="ng-view" ng-hide="doingResolve"></ng-view>
         <div class="separator-content"></div>
         <div ng-if="showNavBar">
-            <!--<div style="margin-left:70px;" class="jumbotron loading-jumbo text-center" ng-show="doingResolve">-->
             <div class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
                 <h1><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h1>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card confidentiality-footer" ng-show="!showFooter == doingResolve && is_logged_in">
+                    {{ 'general.footer_confidentiality1' | i18n }} <a href="http://www2.ed.gov/ferpa/">FERPA</a> {{ 'general.footer_confidentiality2' | i18n }} <a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a>
+                </div>
+                <div class="version" ng-show="!showFooter == doingResolve && is_logged_in">
+                    {{'general.version' | i18n}}&nbsp; 1.0
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
 
     </div>
-    <div class="confidentiality-footer" ng-show="!showFooter == doingResolve && is_logged_in">
-        {{ 'general.footer_confidentiality1' | i18n }} <a href="http://www2.ed.gov/ferpa/">FERPA</a> {{ 'general.footer_confidentiality2' | i18n }} <a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a>
-    </div>
-    <div class="version" ng-show="!showFooter == doingResolve && is_logged_in">
-        {{'general.version' | i18n}}&nbsp; 1.0
-    </div>
+
 </div>
 
 <script src="asset/js/custom-slide.js"></script>
