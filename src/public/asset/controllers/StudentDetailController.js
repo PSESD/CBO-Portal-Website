@@ -718,7 +718,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     pagetitle: item.slug.toUpperCase(),
                                     eventdate: item.event.calendarEventDate,
                                     description: item.event.attendanceStatusTitle,
-                                    url: urlTemplate
+                                    url: urlTemplate,
+                                    reason:item.event.absentReasonDescription,
+                                    category:item.event.absentAttendanceCategoryTitle,
                                 };
                             } else {
                                 html = {
@@ -729,7 +731,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     pagetitle: '',
                                     eventdate: '',
                                     description: '',
-                                    url: ''
+                                    url: '',
+                                    reason:'',
+                                    category:'',
                                 };
                             }
                             xhtml.push(html);
@@ -745,7 +749,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                             pagetitle: '',
                             eventdate: '',
                             description: '',
-                            url: ''
+                            url: '',
+                            reason:'',
+                            category:'',
                         };
                         xhtml.push(html);
                     }
@@ -764,7 +770,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     pagetitle: (item.incidentCategoryTitle + '').toUpperCase(),
                                     eventdate: item.incidentDate,
                                     description: item.description,
-                                    url: urlTemplate
+                                    url: urlTemplate,
+                                    reason:item.event.absentReasonDescription,
+                                    category:item.event.absentAttendanceCategoryTitle,
                                 };
                             } else {
                                 html = {
@@ -775,7 +783,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     pagetitle: '',
                                     eventdate: '',
                                     description: '',
-                                    url: ''
+                                    url: '',
+                                    reason:'',
+                                    category:'',
                                 };
                             }
                             xhtml.push(html);
@@ -789,7 +799,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                             pagetitle: '',
                             eventdate: '',
                             description: '',
-                            url: ''
+                            url: '',
+                            reason:'',
+                            category:'',
                         };
                         xhtml.push(html);
                     }

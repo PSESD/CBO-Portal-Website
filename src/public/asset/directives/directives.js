@@ -3,6 +3,8 @@ app.directive('attendance', function(){
     return {
         restrict: 'E',
         scope:{
+            reason:'@',
+            category:'@',
             url:'@',
             slug:'@',
             stripping:'@',
