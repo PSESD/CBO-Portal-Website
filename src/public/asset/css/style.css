@@ -1063,7 +1063,8 @@ select{
             margin-left: 14px;
         }
 
-        .add-select-student {
+        .add-select-student,
+        .invite-user-email{
             width: 60% !important
         }
         .inline-block {
