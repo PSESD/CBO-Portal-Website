@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="schoolEnrollment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog enrollment" role="document">
         <div class="modal-content">
@@ -89,10 +88,10 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="col-xs-12 card">
-            <div class="col-xs-12">
+<div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="title detail">
                     <h1>
                         {{ ::student.firstName }} {{ ::student.lastName }}
@@ -111,366 +110,350 @@
                 </div>
                 <hr class="rainbow">
             </div>
-            <div id="content-help" class="col-xs-12">
-                <div class="col-xs-12 col-md-3 no-padding">
-                    <div class="col-xs-12 no-padding">
-                        <div class="two-lines">
-                            <div class="title">
-                                <p class="subhead uppercase">{{ 'general.personal_info' | i18n }}</p>
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <dl>
-                                <dt class="bold bold-title">{{ 'general.district_id' | i18n }}</dt>
-                                <dd>{{ ::student.districtID }}</dd>
-                                <dt class="bold bold-title">{{ 'general.brithday' | i18n }}</dt>
-                                <dd>{{ ::personal.birthday | date : 'MM/dd/yyyy' : timezone}}</dd>
-                                <dt class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</dt>
-                                <dd>{{ ::student.race}}</dd>
-                                <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
-                                <dd>{{ ::student.gender}}</dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 no-padding">
-                        <div class="two-lines">
-                            <div class="title">
-                                <p class="subhead personal uppercase">{{ 'general.personal_contact' | i18n }}</p>
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <dl>
-                                <dt></dt>
-                                <dd>{{ ::student.email}}</dd>
-                                <dt></dt>
-                                <dd>{{ ::student.phone }}</dd>
-                                <dt></dt>
-                                <dd>{{ ::student.address}}</dd>
-                            </dl>
-                        </div>
+        </div>
+        <div id="content-help" class="row" ng-hide="show_content">
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <div class="two-lines">
+                    <div class="title">
+                        <p class="subhead uppercase">{{ 'general.personal_info' | i18n }}</p>
+                        <hr>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-2">
-                    <div class="two-lines">
-                        <div class="title">
-                            <p class="subhead uppercase">{{ 'general.emergency_contacts' | i18n }}</p>
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <dl>
-                            <dt class="bold bold-title">{{ ::student.emergency1.name}}</dt>
-                            <dd></dd>
-                            <dt></dt>
-                            <dd>{{ ::student.emergency1.relationship}}</dd>
-                            <dt></dt>
-                            <dd>{{ ::student.emergency1.email}}</dd>
-                            <dt></dt>
-                            <!--<dd>{{ ::student.emergency1.phone | phonenumber}}</dd>-->
-                            <dd>{{ ::student.emergency1.phone }}</dd>
-                        </dl>
-                    </div>
-                    <div class="content personal">
-                        <dl>
-                            <dt class="bold-title bold">{{ ::student.emergency2.name}}</dt>
-                            <dd></dd>
-                            <dt></dt>
-                            <dd>{{ ::student.emergency2.relationship}}</dd>
-                            <dt></dt>
-                            <dd>{{ ::student.emergency2.email}}</dd>
-                            <dt></dt>
-                            <dd>{{ ::student.emergency2.phone }}</dd>
-                        </dl>
+                <div class="content">
+                    <dl>
+                        <dt class="bold bold-title">{{ 'general.district_id' | i18n }}</dt>
+                        <dd>{{ ::student.districtID }}</dd>
+                        <dt class="bold bold-title">{{ 'general.brithday' | i18n }}</dt>
+                        <dd>{{ ::personal.birthday | date : 'MM/dd/yyyy' : timezone}}</dd>
+                        <dt class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</dt>
+                        <dd>{{ ::student.race}}</dd>
+                        <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
+                        <dd>{{ ::student.gender}}</dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2">
+                <div class="two-lines">
+                    <div class="title">
+                        <p class="subhead uppercase">{{ 'general.emergency_contacts' | i18n }}</p>
+                        <hr>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-2">
-                    <div class="two-lines">
-                        <div class="title">
-                            <p class="subhead">{{ 'general.case_workers' | i18n }}</p>
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div ng-repeat="person in case_workers">
-                            <dl>
-                                <dt></dt>
-                                <dd>{{ ::person.fullname}}</dd>
-                            </dl>
-                        </div>
+                <div class="content">
+                    <dl>
+                        <dt class="bold bold-title">{{ ::student.emergency1.name}}</dt>
+                        <dd></dd>
+                        <dt></dt>
+                        <dd>{{ ::student.emergency1.relationship}}</dd>
+                        <dt></dt>
+                        <dd>{{ ::student.emergency1.email}}</dd>
+                        <dt></dt>
+                        <dd>{{ ::student.emergency1.phone }}</dd>
+                    </dl>
+                </div>
+                <div class="content personal">
+                    <dl>
+                        <dt class="bold-title bold">{{ ::student.emergency2.name}}</dt>
+                        <dd></dd>
+                        <dt></dt>
+                        <dd>{{ ::student.emergency2.relationship}}</dd>
+                        <dt></dt>
+                        <dd>{{ ::student.emergency2.email}}</dd>
+                        <dt></dt>
+                        <dd>{{ ::student.emergency2.phone }}</dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2">
+                <div class="two-lines">
+                    <div class="title">
+                        <p class="subhead">{{ 'general.case_workers' | i18n }}</p>
+                        <hr>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-3">
-                    <div class="two-lines">
-                        <div class="title">
-                            <p class="subhead uppercase">{{ 'general.school_info' | i18n}}</p>
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="content bottom-space">
+                <div class="content">
+                    <div ng-repeat="person in case_workers">
                         <dl>
-                            <dt class="bold bold-title">{{ 'general.current_school' | i18n }}</dt>
-                            <dd>{{ ::academicInfo.currentSchool }}</dd>
-                            <dt class="bold bold-title">{{ 'general.expected_graduation_year' | i18n }}</dt>
-                            <dd>{{ ::academicInfo.expectedGraduationYear }}</dd>
-                            <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
-                            <dd class="uppercase">{{ ::academicInfo.gradeLevel }}</dd>
+                            <dt></dt>
+                            <dd>{{ ::person.fullname}}</dd>
                         </dl>
-                    </div>
-                    <div class="content top-space">
-                        <dl>
-                            <dt class="bold bold-title">{{ 'general.language_spoken_at_home' | i18n }}</dt>
-                            <dd class="uppercase">{{ ::academicInfo.languageSpokenAtHome }}</dd>
-                            <dt class="bold bold-title">{{ 'general.iep' | i18n }}</dt>
-                            <dd class="uppercase">{{ ::academicInfo.iep }}</dd>
-                            <dt class="bold bold-title">{{ 'general.s504' | i18n }}</dt>
-                            <dd class="uppercase">{{ ::academicInfo.s504 }}</dd>
-                            <dt class="bold bold-title">{{ 'general.free_or_reduced_lunch' | i18n }}</dt>
-                            <dd class="uppercase">{{ ::academicInfo.freeReducedLunch }}</dd>
-                        </dl>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-md-2 no-padding">
-                    <div class="two-lines-current-class">
-                        <div class="title">
-                            <p class="subhead uppercase">{{ 'general.current_courses' | i18n }} <span class="bold bold-title">{{ ::transcipts.info.currentSchoolYear}}</span></p>
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div ng-repeat="courseTitle in courses">
-                            <span>{{::courseTitle}}</span>
-                            <br/>
-                        </div>
                     </div>
                 </div>
             </div>
-            <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up display-blk"><i class="glyphicon glyphicon-menu-up"></i></a>
-            <a href="javascript:void(0)" onclick="showContent(this)" class="pull-right menu-down display-none"><i class="glyphicon glyphicon-menu-down"></i></a>
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <div class="two-lines">
+                    <div class="title">
+                        <p class="subhead uppercase">{{ 'general.school_info' | i18n}}</p>
+                        <hr>
+                    </div>
+                </div>
+                <div class="content bottom-space">
+                    <dl>
+                        <dt class="bold bold-title">{{ 'general.current_school' | i18n }}</dt>
+                        <dd>{{ ::academicInfo.currentSchool }}</dd>
+                        <dt class="bold bold-title">{{ 'general.expected_graduation_year' | i18n }}</dt>
+                        <dd>{{ ::academicInfo.expectedGraduationYear }}</dd>
+                        <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
+                        <dd class="uppercase">{{ ::academicInfo.gradeLevel }}</dd>
+                    </dl>
+                </div>
+                <div class="content top-space">
+                    <dl>
+                        <dt class="bold bold-title">{{ 'general.language_spoken_at_home' | i18n }}</dt>
+                        <dd class="uppercase">{{ ::academicInfo.languageSpokenAtHome }}</dd>
+                        <dt class="bold bold-title">{{ 'general.iep' | i18n }}</dt>
+                        <dd class="uppercase">{{ ::academicInfo.iep }}</dd>
+                        <dt class="bold bold-title">{{ 'general.s504' | i18n }}</dt>
+                        <dd class="uppercase">{{ ::academicInfo.s504 }}</dd>
+                        <dt class="bold bold-title">{{ 'general.free_or_reduced_lunch' | i18n }}</dt>
+                        <dd class="uppercase">{{ ::academicInfo.freeReducedLunch }}</dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2">
+                <div class="two-lines-current-class">
+                    <div class="title">
+                        <p class="subhead uppercase">{{ 'general.current_courses' | i18n }} <span class="bold bold-title">{{ ::transcipts.info.currentSchoolYear}}</span></p>
+                        <hr>
+                    </div>
+                </div>
+                <div class="content">
+                    <div ng-repeat="courseTitle in courses">
+                        <span>{{::courseTitle}}</span>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <!--<a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up display-blk"><i class="glyphicon glyphicon-menu-up"></i></a>-->
+                <!--<a href="javascript:void(0)" onclick="showContent(this)" class="pull-right menu-down display-none"><i class="glyphicon glyphicon-menu-down"></i></a>-->
+                <a ng-click="flip()" class="pull-right menu-up display-blk" ng-hide="show_content"><i class="glyphicon glyphicon-menu-up"></i></a>
+                <a ng-click="flip()" class="pull-right menu-down display-none" ng-show="show_content"><i class="glyphicon glyphicon-menu-down"></i></a>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="col-xs-12 card no-padding">
+<div class="card no-padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 no-padding-left-right">
 
-            <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior"><h1>{{ 'general.attendance_and_behavior' | i18n }}</h1></a></li>
-                <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" ><h1>{{ 'general.transcript' | i18n}}</h1></a></li>
-                <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation"><h1>{{ 'general.program_participation' | i18n }}</h1></a></li>
-            </ul>
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior"><h1>{{ 'general.attendance_and_behavior' | i18n }}</h1></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" ><h1>{{ 'general.transcript' | i18n}}</h1></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation"><h1>{{ 'general.program_participation' | i18n }}</h1></a></li>
+                </ul>
 
-            <div class="tab-content">
-                <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}" class="tab-pane" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
-                    <ul ng-show="attendance_load_first_time">
-                        <li class="text-center"><img src="asset/img/loading_32px.svg"></li>
-                    </ul>
-                    <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}" ng-hide="attendance_load_first_time">
-                        <li class="text-center" ng-hide="attendance_loading">{{ 'general.attendance_and_behavior_error_message' | i18n}}</li>
-                        <li class="text-center" ng-show="attendance_loading">{{ 'general.loading_data' | i18n}}</li>
-                    </ul>
-                    <select class="studentdetail-filter" name="academic_select" ng-model="academic_year" ng-options="option.name for option in academic_years" ng-class="attendanceBehavior.length > 0 ? '':'hide'">
-                    </select>
-                    <ul class="flexbox attendance-behavior {{attendanceBehavior.length > 0 ? '' : 'hide'}}">
-                        <li class="attendance-date uppercase">{{ 'general.attendance_dates' | i18n }}</li>
-                        <li class="att-content uppercase border-attendance-left">
-                            <div class="uppercase">{{ 'general.LM' | i18n }}</div>
-                        </li>
-                        <li class="att-content uppercase">{{ 'general.LT' | i18n }}</li>
-                        <li class="att-content uppercase">{{ 'general.LW' | i18n }}</li>
-                        <li class="att-content uppercase">{{ 'general.TH' | i18n }}</li>
-                        <li class="att-content uppercase border-attendance-right">{{ 'general.LF' | i18n }}</li>
-                        <li class="attendance-weekly uppercase ">
-                            <div class="uppercase inline-block font-bold">{{ 'general.delta_change' | i18n}}</div>
+                <div class="tab-content">
+                    <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}" class="tab-pane" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
+                        <ul ng-show="attendance_load_first_time">
+                            <li class="text-center"><img src="asset/img/loading_32px.svg"></li>
+                        </ul>
+                        <ul class="no-data {{attendanceBehavior.length > 0 ? 'hide' : ''}}" ng-hide="attendance_load_first_time">
+                            <li class="text-center" ng-hide="attendance_loading">{{ 'general.attendance_and_behavior_error_message' | i18n}}</li>
+                            <li class="text-center" ng-show="attendance_loading">{{ 'general.loading_data' | i18n}}</li>
+                        </ul>
+                        <select class="studentdetail-filter" name="academic_select" ng-model="academic_year" ng-options="option.name for option in academic_years" ng-class="attendanceBehavior.length > 0 ? '':'hide'">
+                        </select>
+                        <ul class="flexbox attendance-behavior {{attendanceBehavior.length > 0 ? '' : 'hide'}}">
+                            <li class="attendance-date uppercase">{{ 'general.attendance_dates' | i18n }}</li>
+                            <li class="att-content uppercase border-attendance-left">
+                                <div class="uppercase">{{ 'general.LM' | i18n }}</div>
+                            </li>
+                            <li class="att-content uppercase">{{ 'general.LT' | i18n }}</li>
+                            <li class="att-content uppercase">{{ 'general.LW' | i18n }}</li>
+                            <li class="att-content uppercase">{{ 'general.TH' | i18n }}</li>
+                            <li class="att-content uppercase border-attendance-right">{{ 'general.LF' | i18n }}</li>
+                            <li class="attendance-weekly uppercase ">
+                                <div class="uppercase inline-block font-bold">{{ 'general.delta_change' | i18n}}</div>
+                            </li>
+                        </ul>
+                        <div class="panel-group no-margin" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel attendance-behavior" ng-if="attendanceBehavior" ng-repeat="(indexBehavior, behavior) in attendanceBehavior | filter:filterAttendanceOfYears()">
+                                <div class="panel-heading attendance-behavior" role="tab" id='heading_{{ indexBehavior+1 }}'>
+                                    <h4 class="panel-title">
 
-                        </li>
-                    </ul>
-
-                    <div class="panel-group no-margin" id="accordion" role="tablist" aria-multiselectable="true">
-                        <div class="panel attendance-behavior" ng-if="attendanceBehavior" ng-repeat="(indexBehavior, behavior) in attendanceBehavior | filter:filterAttendanceOfYears()">
-                            <div class="panel-heading attendance-behavior" role="tab" id='heading_{{ indexBehavior+1 }}'>
-                                <h4 class="panel-title">
-
-                                    <ul ng-click="openHeader($event)" data-key="{{behavior.summary.title}}" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
-                                        <li class="attendance-date uppercase">
-                                            {{ ::behavior.summary.title }}
-                                        </li>
-                                        <li class="att-content border-attendance-left" ng-class="{ unexcused: parseInt(behavior.details[0].M) < 100 }">
-                                            {{ ::behavior.summary.M }}
-                                        </li>
-                                        <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].T) < 100 }">{{ ::behavior.summary.T }}</li>
-                                        <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].W) < 100 }">{{ ::behavior.summary.W }}</li>
-                                        <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.TH }}</li>
-                                        <li class="att-content border-attendance-right" ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ ::behavior.summary.F }}</li>
-                                        <li class="attendance-weekly">
-                                            {{ behavior.summary.weeklyChange }}
-                                            <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
-                                        </li>
-                                    </ul>
-
-                                    <ul ng-click="closeHeader($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior attendance-detail{{indexBehavior > 0 ? ' hide' : '' }}">
-                                        <li class="attendance-date uppercase">
-                                            {{ behavior.details[0].title }}
-                                        </li>
-                                        <li class="att-content border-attendance-left behavior-center">
-                                            {{ behavior.details[0].M }}
-                                            <br/>
-                                            {{ ::behavior.summary.M }}
-                                        </li>
-                                        <li class="att-content behavior-center">
-                                            {{ behavior.details[0].T }}
-                                            <br/>
-                                            {{ ::behavior.summary.T }}
-                                        </li>
-                                        <li class="att-content behavior-center">
-                                            {{ behavior.details[0].W }}
-                                            <br/>
-                                            {{ ::behavior.summary.W }}
-                                        </li>
-                                        <li class="att-content behavior-center">
-                                            {{ behavior.details[0].TH }}
-                                            <br/>
-                                            {{ ::behavior.summary.TH }}
-                                        </li>
-                                        <li class="att-content behavior-center border-attendance-right" >
-                                            {{ behavior.details[0].F }}
-                                            <br/>
-                                            {{ ::behavior.summary.F }}
-                                        </li>
-                                        <li class="attendance-weekly">
-                                            {{ behavior.summary.weeklyChange }}
-                                        </li>
-                                    </ul>
-
-                                </h4>
-                            </div>
-                            <!-- panel heading -->
-
-                            <div id="collapse_{{ indexBehavior+1 }}" class="panel-collapse collapse{{indexBehavior == 0 ? ' in' : '' }}" role="tabpanel" aria-labelledby="heading_{{ indexBehavior+1 }}">
-                                <div class="panel-body attendance-behavior">
-                                    <div class="period-col">
-                                        <ul class="period-col menu uppercase">
-                                            <li ng-if="$index > 0" ng-repeat="period in behavior.detailColumns.periods track by $index">{{::period}}</li>
-                                            <li>&nbsp;</li>
-                                            <li class="uppercase">{{ 'general.behavior' | i18n}}</li>
+                                        <ul ng-click="openHeader($event)" data-key="{{behavior.summary.title}}" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior{{indexBehavior < 1 ? ' hide' : '' }}">
+                                            <li class="attendance-date uppercase">
+                                                {{ ::behavior.summary.title }}
+                                            </li>
+                                            <li class="att-content border-attendance-left" ng-class="{ unexcused: parseInt(behavior.details[0].M) < 100 }">
+                                                {{ ::behavior.summary.M }}
+                                            </li>
+                                            <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].T) < 100 }">{{ ::behavior.summary.T }}</li>
+                                            <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].W) < 100 }">{{ ::behavior.summary.W }}</li>
+                                            <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.TH }}</li>
+                                            <li class="att-content border-attendance-right" ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ ::behavior.summary.F }}</li>
+                                            <li class="attendance-weekly">
+                                                {{ behavior.summary.weeklyChange }}
+                                                <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
+                                            </li>
                                         </ul>
-                                    </div>
-                                    <div class="attendance-content">
-                                        <hr class="attendance-separator">
-                                        <div class="days">
-                                            <div ng-repeat="item in behavior.columnHtml.M track by $index">
-                                                <attendance url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
-                                            </div>
-                                        </div>
-                                        <div class="days">
-                                            <div ng-repeat="item in behavior.columnHtml.T track by $index">
-                                                <attendance url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
-                                            </div>
-                                        </div>
-                                        <div class="days">
-                                            <div ng-repeat="item in behavior.columnHtml.W track by $index">
-                                                <attendance url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
-                                            </div>
-                                        </div>
-                                        <div class="days">
-                                            <div ng-repeat="item in behavior.columnHtml.TH track by $index">
-                                                <attendance url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
-                                            </div>
-                                        </div>
-                                        <div class="days">
-                                            <div ng-repeat="item in behavior.columnHtml.F track by $index">
-                                                <attendance url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="attendance-legend">
-                                        <a ng-click="open()" class="button btn-legend open_button uppercase" ng-show="open_button">{{ 'general.legend' | i18n }}</a>
-                                        <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right" data-id='1'></a>
-                                        <div class="panel legend-list" ng-show="icon_legend">
-                                            <!-- Default panel contents -->
-                                            <div class="panel-heading uppercase">
-                                                {{ 'general.legend' | i18n }}
-                                                <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
-                                            </div>
-                                            <ul class="list-group legend-list">
-                                                <li class="list-group-item present uppercase">{{ 'general.present' | i18n }}</li>
-                                                <li class="list-group-item excused uppercase">{{ 'general.excused' | i18n }}</li>
-                                                <li class="list-group-item tardy uppercase">{{ 'general.tardy' | i18n }}</li>
-                                                <li class="list-group-item other uppercase">{{ 'general.other' | i18n }}</li>
-                                                <li class="list-group-item unexcused uppercase">{{ 'general.unexcused' | i18n }}</li>
+
+                                        <ul ng-click="closeHeader($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="flexbox attendance-behavior attendance-detail{{indexBehavior > 0 ? ' hide' : '' }}">
+                                            <li class="attendance-date uppercase">
+                                                {{ behavior.details[0].title }}
+                                            </li>
+                                            <li class="att-content border-attendance-left behavior-center">
+                                                {{ behavior.details[0].M }}
+                                                <br/>
+                                                {{ ::behavior.summary.M }}
+                                            </li>
+                                            <li class="att-content behavior-center">
+                                                {{ behavior.details[0].T }}
+                                                <br/>
+                                                {{ ::behavior.summary.T }}
+                                            </li>
+                                            <li class="att-content behavior-center">
+                                                {{ behavior.details[0].W }}
+                                                <br/>
+                                                {{ ::behavior.summary.W }}
+                                            </li>
+                                            <li class="att-content behavior-center">
+                                                {{ behavior.details[0].TH }}
+                                                <br/>
+                                                {{ ::behavior.summary.TH }}
+                                            </li>
+                                            <li class="att-content behavior-center border-attendance-right" >
+                                                {{ behavior.details[0].F }}
+                                                <br/>
+                                                {{ ::behavior.summary.F }}
+                                            </li>
+                                            <li class="attendance-weekly">
+                                                {{ behavior.summary.weeklyChange }}
+                                            </li>
+                                        </ul>
+
+                                    </h4>
+                                </div>
+                                <!-- panel heading -->
+
+                                <div id="collapse_{{ indexBehavior+1 }}" class="panel-collapse collapse{{indexBehavior == 0 ? ' in' : '' }}" role="tabpanel" aria-labelledby="heading_{{ indexBehavior+1 }}">
+                                    <div class="panel-body attendance-behavior">
+                                        <div class="period-col">
+                                            <ul class="period-col menu uppercase">
+                                                <li ng-if="$index > 0" ng-repeat="period in behavior.detailColumns.periods track by $index">{{::period}}</li>
+                                                <li>&nbsp;</li>
+                                                <li class="uppercase">{{ 'general.behavior' | i18n}}</li>
                                             </ul>
                                         </div>
+                                        <div class="attendance-content">
+                                            <hr class="attendance-separator">
+                                            <div class="days">
+                                                <div ng-repeat="item in behavior.columnHtml.M track by $index">
+                                                    <attendance url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
+                                                </div>
+                                            </div>
+                                            <div class="days">
+                                                <div ng-repeat="item in behavior.columnHtml.T track by $index">
+                                                    <attendance url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
+                                                </div>
+                                            </div>
+                                            <div class="days">
+                                                <div ng-repeat="item in behavior.columnHtml.W track by $index">
+                                                    <attendance url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
+                                                </div>
+                                            </div>
+                                            <div class="days">
+                                                <div ng-repeat="item in behavior.columnHtml.TH track by $index">
+                                                    <attendance url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
+                                                </div>
+                                            </div>
+                                            <div class="days">
+                                                <div ng-repeat="item in behavior.columnHtml.F track by $index">
+                                                    <attendance url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="attendance-legend">
+                                            <a ng-click="open()" class="button btn-legend open_button uppercase" ng-show="open_button">{{ 'general.legend' | i18n }}</a>
+                                            <a ng-click="showIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right" data-id='1'></a>
+                                            <div class="panel legend-list" ng-show="icon_legend">
+                                                <!-- Default panel contents -->
+                                                <div class="panel-heading uppercase">
+                                                    {{ 'general.legend' | i18n }}
+                                                    <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
+                                                </div>
+                                                <ul class="list-group legend-list">
+                                                    <li class="list-group-item present uppercase">{{ 'general.present' | i18n }}</li>
+                                                    <li class="list-group-item excused uppercase">{{ 'general.excused' | i18n }}</li>
+                                                    <li class="list-group-item tardy uppercase">{{ 'general.tardy' | i18n }}</li>
+                                                    <li class="list-group-item other uppercase">{{ 'general.other' | i18n }}</li>
+                                                    <li class="list-group-item unexcused uppercase">{{ 'general.unexcused' | i18n }}</li>
+                                                </ul>
+                                            </div>
 
+                                        </div>
                                     </div>
                                 </div>
+                                <!--end content panel-->
+                                <!--end content panel-->
                             </div>
-                            <!--end content panel-->
-                            <!--end content panel-->
+                            <!-- default panel -->
+
+
+
                         </div>
-                        <!-- default panel -->
-
-
-
+                        <!-- panel group -->
                     </div>
-                    <!-- panel group -->
-                </div>
-                <!-- tab panel -->
+                    <!-- tab panel -->
 
-                <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}" class="tab-pane program_participation" id="program_participation" data-id="program_participation_data">
+                    <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}" class="tab-pane program_participation" id="program_participation" data-id="program_participation_data">
 
-                    <ul class="no-data {{list_programs.length > 0 ? 'hide' : ''}}">
-                        <li class="text-center">{{ 'general.program_participation_error_message' | i18n }}</li>
-                    </ul>
-                    <ul class="student-program-participation">
-                        <li ng-repeat="program in list_programs">
-                            <div class="program_date">
-                                <h3>{{::program.years}}</h3>
-                            </div>
-                            <ul class="flexbox program_participation">
+                        <ul class="no-data {{list_programs.length > 0 ? 'hide' : ''}}">
+                            <li class="text-center">{{ 'general.program_participation_error_message' | i18n }}</li>
+                        </ul>
+                        <ul class="student-program-participation">
+                            <li ng-repeat="program in list_programs">
+                                <div class="program_date">
+                                    <h3>{{::program.years}}</h3>
+                                </div>
+                                <ul class="flexbox program_participation">
 
-                                <li ng-repeat="item in program.programs">
-                                    <span class="bold bold-title">{{::item.name}}</span>
-                                    <br>
-                                    <span class="bold bold-title">{{::item.active}}</span>
-                                    <br> {{::item.start_date | date:'MM/dd/yyyy'}} - {{::item.end_date | date:'MM/dd/yyyy'}}
-                                    <ul class="cohorts">
-                                        <li ng-repeat="cohort in item.cohorts">
-                                            {{::cohort}}
-                                        </li>
-                                    </ul>
-                                    <br>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <!-- TRANSCRIPT TAB //-->
-                <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}" class="tab-pane transcript" id="transcript" data-id="transcript_data">
-                    <ul class="flexbox transcript">
-                        <li class="first-column">
-                            <dl class="scholl_history_bottom_space">
-                                <dt class="bold bold-title">
-                                    {{ 'general.total_credits' | i18n }}
-                                </dt>
-                                <dd>
-                                    {{ ::credit_earned }}
-                                </dd>
-                                <dt class="bold bold-title">
-                                    Cumulative GPA
-                                </dt>
-                                <dd>
-                                    {{::cumulative_gpa}}
-                                </dd>
-                                <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
-                                <dd>{{ ::grade_level }}</dd>
-                            </dl>
-                        </li>
-                        <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  transcript-subject" ng-repeat="transSubject in transcripts.source.subjectValues track by $index">{{ ::transSubject.name }}
-                            <br/>{{ ::transSubject.value }}
-                            <ng-pluralize count="transSubject.value"
-                                          when="{'0':'CREDIT',
+                                    <li ng-repeat="item in program.programs">
+                                        <span class="bold bold-title">{{::item.name}}</span>
+                                        <br>
+                                        <span class="bold bold-title">{{::item.active}}</span>
+                                        <br> {{::item.start_date | date:'MM/dd/yyyy'}} - {{::item.end_date | date:'MM/dd/yyyy'}}
+                                        <ul class="cohorts">
+                                            <li ng-repeat="cohort in item.cohorts">
+                                                {{::cohort}}
+                                            </li>
+                                        </ul>
+                                        <br>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- TRANSCRIPT TAB //-->
+                    <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}" class="tab-pane transcript" id="transcript" data-id="transcript_data">
+                        <ul class="flexbox transcript">
+                            <li class="first-column">
+                                <dl class="scholl_history_bottom_space">
+                                    <dt class="bold bold-title">
+                                        {{ 'general.total_credits' | i18n }}
+                                    </dt>
+                                    <dd>
+                                        {{ ::credit_earned }}
+                                    </dd>
+                                    <dt class="bold bold-title">
+                                        Cumulative GPA
+                                    </dt>
+                                    <dd>
+                                        {{::cumulative_gpa}}
+                                    </dd>
+                                    <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
+                                    <dd>{{ ::grade_level }}</dd>
+                                </dl>
+                            </li>
+                            <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  transcript-subject" ng-repeat="transSubject in transcripts.source.subjectValues track by $index">{{ ::transSubject.name }}
+                                <br/>{{ ::transSubject.value }}
+                                <ng-pluralize count="transSubject.value"
+                                              when="{'0':'CREDIT',
                                                   '0.1':'CREDIT',
                                                   '0.2':'CREDIT',
                                                   '0.3':'CREDIT',
@@ -483,21 +466,21 @@
                                                   '1.0':'CREDIT',
                                                  'one': 'CREDIT',
                                                  'other': 'CREDITS'}">
-                            </ng-pluralize>
-                        </li>
-                    </ul>
-                    <hr class="separator-transcript">
-                    <div class="transcript-container">
-                        <div class="inner-transcript-container">
-                            <ul class="flexbox transcript-content {{$index % 2 == 0 ? '' : 'dark'}}" ng-repeat="transDetail in transcripts.data | orderBy:'-schoolYear'">
-                                <li class="transcript-content first-column">
-                                    <dl>
-                                        <dd class="transcript-title">{{ ::transDetail.schoolYear }} - {{ ::transDetail.session }}</dd>
-                                        <dt></dt>
-                                        <dd class="bold bold-title">{{ ::transDetail.schoolName }}</dd>
-                                        <dt class="bold bold-title">
-                                            <ng-pluralize count="transDetail.summary.termCreditsAttempted"
-                                                          when="{
+                                </ng-pluralize>
+                            </li>
+                        </ul>
+                        <hr class="separator-transcript">
+                        <div class="transcript-container">
+                            <div class="inner-transcript-container">
+                                <ul class="flexbox transcript-content {{$index % 2 == 0 ? '' : 'dark'}}" ng-repeat="transDetail in transcripts.data | orderBy:'-schoolYear'">
+                                    <li class="transcript-content first-column">
+                                        <dl>
+                                            <dd class="transcript-title">{{ ::transDetail.schoolYear }} - {{ ::transDetail.session }}</dd>
+                                            <dt></dt>
+                                            <dd class="bold bold-title">{{ ::transDetail.schoolName }}</dd>
+                                            <dt class="bold bold-title">
+                                                <ng-pluralize count="transDetail.summary.termCreditsAttempted"
+                                                              when="{
                                                           '0':'Credit',
                                                           '0.1':'Credit',
                                                           '0.2':'Credit',
@@ -511,85 +494,86 @@
                                                           '1.0':'Credit',
                                                           'one': 'Credit',
                                                           'other': 'Credits'}">
-                                            </ng-pluralize>
+                                                </ng-pluralize>
 
-                                        </dt>
-                                        <dd>
-                                            {{ ::transDetail.summary.termCreditsAttempted }}
-                                        </dd>
-                                        <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
-                                        <dd>{{ ::transDetail.gradeLevel }}</dd>
-                                        <dt><div ng-show="viewDebug" class="transcript-json" ng-click="showTranscriptJson(transDetail.schoolYear+transDetail.session)">Show Json</div> </dt>
-                                    </dl>
-                                </li>
-                                <li class="transcript-content tcontent-{{total_data}}-col" ng-repeat="course in transDetail.transcriptsOrder">
-                                    <div class="transcript-descriptor" ng-if="course.value === null">
+                                            </dt>
+                                            <dd>
+                                                {{ ::transDetail.summary.termCreditsAttempted }}
+                                            </dd>
+                                            <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
+                                            <dd>{{ ::transDetail.gradeLevel }}</dd>
+                                            <dt><div ng-show="viewDebug" class="transcript-json" ng-click="showTranscriptJson(transDetail.schoolYear+transDetail.session)">Show Json</div> </dt>
+                                        </dl>
+                                    </li>
+                                    <li class="transcript-content tcontent-{{total_data}}-col" ng-repeat="course in transDetail.transcriptsOrder">
+                                        <div class="transcript-descriptor" ng-if="course.value === null">
 
-                                    </div>
-                                    <div class="transcript-display" ng-if="course.value === null">
+                                        </div>
+                                        <div class="transcript-display" ng-if="course.value === null">
 
-                                    </div>
-                                    <div class="transcript-content-array" ng-if="course.value !== null" ng-repeat="c in course.value">
-                                        <div class="transcript-descriptor">
-                                            <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }} transcript-title">{{ ::c.title }}</div>
-                                            <hr class="hr-transcript">
-                                            <div class="attempted-credit">
-                                                <dl>
-                                                    <dt></dt>
-                                                    <dd class="bold bold-title">{{ ::c.courseId }}</dd>
-                                                    <dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>
-                                                    <dd>{{ ::c.mark }}</dd>
-                                                    <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
-                                                    <dd>{{ ::c.gradeLevel }}</dd>
-                                                    <div ng-if="c.creditsEarned !== c.creditsAttempted">
-                                                        <dt class="bold bold-title">
-                                                            Credits
-                                                        </dt>
-                                                        <dd>
-                                                            <span class="red" >{{c.creditsEarned}}/{{c.creditsAttempted}}</span>
-                                                        </dd>
-                                                    </div>
-                                                    <div ng-if="c.creditsEarned === c.creditsAttempted">
-                                                        <dt class="bold bold-title">
-                                                            Credits
-                                                        </dt>
-                                                        <dd>
-                                                            <span>{{c.creditsEarned}}</span>
-                                                        </dd>
-                                                    </div>
-                                                </dl>
+                                        </div>
+                                        <div class="transcript-content-array" ng-if="course.value !== null" ng-repeat="c in course.value">
+                                            <div class="transcript-descriptor">
+                                                <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }} transcript-title">{{ ::c.title }}</div>
+                                                <hr class="hr-transcript">
+                                                <div class="attempted-credit">
+                                                    <dl>
+                                                        <dt></dt>
+                                                        <dd class="bold bold-title">{{ ::c.courseId }}</dd>
+                                                        <dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>
+                                                        <dd>{{ ::c.mark }}</dd>
+                                                        <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
+                                                        <dd>{{ ::c.gradeLevel }}</dd>
+                                                        <div ng-if="c.creditsEarned !== c.creditsAttempted">
+                                                            <dt class="bold bold-title">
+                                                                Credits
+                                                            </dt>
+                                                            <dd>
+                                                                <span class="red" >{{c.creditsEarned}}/{{c.creditsAttempted}}</span>
+                                                            </dd>
+                                                        </div>
+                                                        <div ng-if="c.creditsEarned === c.creditsAttempted">
+                                                            <dt class="bold bold-title">
+                                                                Credits
+                                                            </dt>
+                                                            <dd>
+                                                                <span>{{c.creditsEarned}}</span>
+                                                            </dd>
+                                                        </div>
+                                                    </dl>
 
+                                                </div>
+                                            </div>
+                                            <div class="transcript-display">
+                                                <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }} transcript-title">{{ ::c.title }}</div>
+                                                <hr class="hr-transcript">
+                                                <div class="attempted-credit">
+                                                    <dl>
+                                                        <dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>
+                                                        <dd> {{ ::c.mark }}</dd>
+                                                        <div ng-if="c.creditsEarned !== c.creditsAttempted">
+                                                            <dt class="bold bold-title">
+                                                                Credits
+                                                            </dt>
+                                                            <dd>
+                                                                <span class="red" >{{c.creditsEarned}}/{{c.creditsAttempted}}</span>
+                                                            </dd>
+                                                        </div>
+                                                        <div ng-if="c.creditsEarned === c.creditsAttempted">
+                                                            <dt class="bold bold-title">
+                                                                Credits
+                                                            </dt>
+                                                            <dd>
+                                                                <span>{{c.creditsEarned}}</span>
+                                                            </dd>
+                                                        </div>
+                                                    </dl>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="transcript-display">
-                                            <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }} transcript-title">{{ ::c.title }}</div>
-                                            <hr class="hr-transcript">
-                                            <div class="attempted-credit">
-                                                <dl>
-                                                    <dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>
-                                                    <dd> {{ ::c.mark }}</dd>
-                                                    <div ng-if="c.creditsEarned !== c.creditsAttempted">
-                                                        <dt class="bold bold-title">
-                                                            Credits
-                                                        </dt>
-                                                        <dd>
-                                                            <span class="red" >{{c.creditsEarned}}/{{c.creditsAttempted}}</span>
-                                                        </dd>
-                                                    </div>
-                                                    <div ng-if="c.creditsEarned === c.creditsAttempted">
-                                                        <dt class="bold bold-title">
-                                                            Credits
-                                                        </dt>
-                                                        <dd>
-                                                            <span>{{c.creditsEarned}}</span>
-                                                        </dd>
-                                                    </div>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

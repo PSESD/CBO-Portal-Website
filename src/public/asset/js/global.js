@@ -171,6 +171,7 @@ $(document).ready(function () {
 
 function hideContent(curr) {
     'use strict';
+    console.log(curr);
     jQuery(curr).parent().find('div.data-content').hide();
     jQuery(curr).parent().find('#content-help').hide();
     jQuery(curr).parent().find('.menu-up').hide();
@@ -179,6 +180,7 @@ function hideContent(curr) {
 
 function showContent(curr) {
     'use strict';
+    console.log(curr);
     jQuery(curr).parent().find('div.data-content').show();
     jQuery(curr).parent().find('#content-help').show();
     jQuery(curr).parent().find('.menu-up').show();

@@ -6,6 +6,7 @@ var json_debug = [];
 var transcript_debug = [];
 var attendance_state = false;
 var transcript_state = false;
+var flip_status = false;
 
 app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
     function ($interval,$route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
@@ -20,6 +21,12 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
             theme: 'monokai',
             extraKeys: {"Alt-F": "findPersistent"}
         };
+
+
+        $scope.flip = function(){
+            $scope.show_content = !flip_status;
+            console.log(flip_status);
+        }
         showLoadingIcon($scope);
         $scope.loading_icon = true;
         $scope.showLoading = false;

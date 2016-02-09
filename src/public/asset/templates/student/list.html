@@ -1,7 +1,7 @@
-<div class="row">
-    <div class="col-xs-12">
-        <div class="col-xs-12 card">
-            <div class="col-xs-12">
+<div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="title">
                     <h1>
                         {{ 'general.students' | i18n }}
@@ -9,24 +9,32 @@
                     <hr>
                 </div>
             </div>
-            <div class="col-xs-12">
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="ng-binding help">
                     <p>{{ 'help.student_list' | i18n }}</p>
                 </div>
             </div>
-            <div class="col-xs-12">
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <h1><a href="#/student/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_a_student' | i18n }}</a></h1>
             </div>
-            <div class="col-xs-12 col-md-3">
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3">
                 <div class="search-btn detail">
                     <input type="text" class="input-search" ng-model="search" placeholder="{{ 'general.search_student' | i18n }}">
                 </div>
             </div>
-            <div class="col-xs-12 col-md-7">
-                <dropdown-multiselect class="no-background-color" model="selected_districts" title="District" options="districtData"></dropdown-multiselect>
-                <dropdown-multiselect class="no-background-color" model="selected_schools" title="School" options="schoolNameData"></dropdown-multiselect>
+            <div class="col-xs-12 col-sm-12 col-md-9">
+                    <dropdown-multiselect class="no-background-color" model="selected_districts" title="District" options="districtData"></dropdown-multiselect>
+                    <dropdown-multiselect class="no-background-color" model="selected_schools" title="School" options="schoolNameData"></dropdown-multiselect>
             </div>
-            <div class="col-xs-12 col-md-12">
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="selected_container">
                     <div ng-show="district_counter > 0" class="district-filter-selected">
                         {{district_counter}}
@@ -34,16 +42,20 @@
                                       when="{'one': 'district',
                                                  'other': 'districts'}">
                         </ng-pluralize>
-                        {{ 'general.selected' | i18n }}</div>
+                        {{ 'general.selected' | i18n }}
+                    </div>
                     <div ng-show="school_counter > 0" class="school-filter-selected">{{school_counter}}
                         <ng-pluralize count="school_counter"
                                       when="{'one': 'school',
                                                  'other': 'schools'}">
                         </ng-pluralize>
-                        {{ 'general.selected' | i18n }}</div>
+                        {{ 'general.selected' | i18n }}
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-12">
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <table class="table table-striped">
                     <thead>
                     <tr>
