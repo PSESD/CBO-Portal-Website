@@ -213,6 +213,14 @@ app.config(function ($routeProvider) {
                 requiredAdmin: true
             //}
         }).
+        when('/user/pending', {
+            templateUrl: 'asset/templates/user/pending_list.html',
+            controller: 'UserController',
+            //access: {
+                requiredAuthentication: true,
+                requiredAdmin: true
+            //}
+        }).
         when('/heartbeat', {
             templateUrl: 'asset/templates/heartbeat/list.html',
             controller: 'HeartbeatController',

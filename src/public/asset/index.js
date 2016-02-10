@@ -86,10 +86,6 @@ app.run(function ($timeout,$state, $stateParams,$rootScope, $http, $location, $w
         $rootScope.organization_name = localStorage.getItem('organization_name');
         $rootScope.sidebarButtonOpen = false;
 
-
-
-
-
         if (nextRoute !== null && /*nextRoute.access !== null &&  nextRoute.access.requiredAuthentication */nextRoute.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
             if(nextRoute.originalPath === "/login")
             {
@@ -251,12 +247,12 @@ function showError(message, alert) {
 
     if(message !== null) {
         if (window.location.href.indexOf('/login') === -1) {
-            jQuery(".error-container.visible-on").append(message_alert);
+            jQuery(".error-container.visible-on").empty().append(message_alert);
             setTimeout(function () {
                jQuery('.alert').remove();
             }, 9000);
         } else {
-            jQuery("#login-error-message").append(message_alert);
+            jQuery("#login-error-message").empty().append(message_alert);
             setTimeout(function () {
                jQuery('.alert').remove();
             }, 9000);

@@ -186,12 +186,3 @@ function showContent(curr) {
     jQuery(curr).parent().find('.menu-up').show();
     jQuery(curr).parent().find('.menu-down').hide();
 }
-//function l() {
-//    'use strict';
-//    var s = d.createElement('script');
-//    s.type = 'text/javascript';
-//    s.async = true;
-//    s.src = 'https://widget.intercom.io/widget/m9w2ywgr';
-//    var x = d.getElementsByTagName('script')[0];
-//    x.parentNode.insertBefore(s, x);
-//}

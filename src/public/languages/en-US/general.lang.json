@@ -226,5 +226,7 @@
     "total_active_students": "Active Students",
     "total_students": "Total Students",
     "filters":"Filters",
-    "middle_name": "Middle Name"
+    "middle_name": "Middle Name",
+    "show_pending_users":"Show Pending Users",
+    "pending_users":"Pending Users"
 }
