@@ -39,7 +39,7 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
 
 
 
-        $http.get(api_url + AuthenticationService.organization_id + '/users', {
+        $http.get(api_url + AuthenticationService.organization_id + '/users?pending=true', {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
