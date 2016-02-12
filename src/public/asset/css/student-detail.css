@@ -865,8 +865,9 @@ ul.cohorts {
 }
 
 .loading-icon{
-    position: relative;
-    top:5px;
+    position: absolute;
+    top: 2em;
+    left: 34em;
 }
 /**
  * Student Detail

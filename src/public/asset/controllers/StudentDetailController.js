@@ -633,6 +633,14 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
 
             if(response.success === true && response.info.data !== undefined)
             {
+                $scope.legend = response.info.source.legend;
+                $scope.legend_url = "asset/templates/legendTemplate.html";
+                $scope.present = "present";
+                $scope.excused = "excused";
+                $scope.tardy = "tardy";
+                $scope.other = "other";
+                $scope.unexcused = "unexcused";
+
 
                 //attendance_data = response.info.data;
                 attendance_data = "";

@@ -90,30 +90,41 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="title detail">
-                    <h1>
+                    <h1 class="pull-left">
                         {{ ::student.firstName }} {{ ::student.lastName }}
                     </h1>
-                </div>
-                <span class="last_update_date">{{ 'general.last_update' | i18n }}:<span>{{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
-                    <img ng-show="showLoading" class="loading-icon" src="asset/img/ajax-loader.gif">
-                    <a ng-hide="showLoading" ng-click="updateNow()">(Update Now)</a>
-                    <a ng-show="loading_icon && viewDebug" ng-click="showDebug()">(View XSRE)</a>
-                </span>
                 <div class="text-right">
                     <div ng-click="showHistory()" class="btn btn-default uppercase">{{ 'general.see_school' | i18n }}</div>
                     <a class="btn btn-default" aria-label="Left Align" ng-href="#/student/edit/{{ ::student._id }}">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
                     </a>
                 </div>
-                <hr class="rainbow">
+            </div>
+            <!--<div class="col-xs-12 col-sm-12 col-md-4 text-right">-->
+                <!--<div ng-click="showHistory()" class="btn btn-default uppercase">{{ 'general.see_school' | i18n }}</div>-->
+            <!--</div>-->
+            <!--<div class="col-xs-12 col-sm-12 col-md-4 ">-->
+                <!--<a class="btn btn-default" aria-label="Left Align" ng-href="#/student/edit/{{ ::student._id }}">-->
+                    <!--<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit-->
+                <!--</a>-->
+            <!--</div>-->
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <span ng-show="showLoading"  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
+                {{ 'general.last_update' | i18n }}:<span>{{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
+                    <!--<img  class="loading-icon" src="asset/img/ajax-loader.gif">-->
+                    <a ng-hide="showLoading" ng-click="updateNow()">(Update Now)</a>
+                    <a ng-show="loading_icon && viewDebug" ng-click="showDebug()">(View XSRE)</a>
             </div>
         </div>
+        <hr class="rainbow"/>
         <div id="content-help" class="row" ng-show="show_content">
+
             <div class="col-xs-12 col-sm-12 col-md-3">
                 <div class="two-lines">
                     <div class="title">
-                        <p class="subhead uppercase">{{ 'general.personal_info' | i18n }}</p>
+                        <p class="subhead uppercase bold">{{ 'general.personal_info' | i18n }}</p>
                         <hr>
                     </div>
                 </div>
@@ -133,7 +144,7 @@
             <div class="col-xs-12 col-sm-12 col-md-2">
                 <div class="two-lines">
                     <div class="title">
-                        <p class="subhead uppercase">{{ 'general.emergency_contacts' | i18n }}</p>
+                        <p class="subhead uppercase bold">{{ 'general.emergency_contacts' | i18n }}</p>
                         <hr>
                     </div>
                 </div>
@@ -165,7 +176,7 @@
             <div class="col-xs-12 col-sm-12 col-md-2">
                 <div class="two-lines">
                     <div class="title">
-                        <p class="subhead">{{ 'general.case_workers' | i18n }}</p>
+                        <p class="subhead bold">{{ 'general.case_workers' | i18n }}</p>
                         <hr>
                     </div>
                 </div>
@@ -181,7 +192,7 @@
             <div class="col-xs-12 col-sm-12 col-md-3">
                 <div class="two-lines">
                     <div class="title">
-                        <p class="subhead uppercase">{{ 'general.school_info' | i18n}}</p>
+                        <p class="subhead uppercase bold">{{ 'general.school_info' | i18n}}</p>
                         <hr>
                     </div>
                 </div>
@@ -211,7 +222,7 @@
             <div class="col-xs-12 col-sm-12 col-md-2">
                 <div class="two-lines-current-class">
                     <div class="title">
-                        <p class="subhead uppercase">{{ 'general.current_courses' | i18n }} <span class="bold bold-title">{{ ::transcipts.info.currentSchoolYear}}</span></p>
+                        <p class="subhead uppercase bold">{{ 'general.current_courses' | i18n }} <span class="bold bold-title">{{ ::transcipts.info.currentSchoolYear}}</span></p>
                         <hr>
                     </div>
                 </div>
@@ -376,11 +387,16 @@
                                                     <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
                                                 </div>
                                                 <ul class="list-group legend-list">
-                                                    <li class="list-group-item present uppercase">{{ 'general.present' | i18n }}</li>
-                                                    <li class="list-group-item excused uppercase">{{ 'general.excused' | i18n }}</li>
-                                                    <li class="list-group-item tardy uppercase">{{ 'general.tardy' | i18n }}</li>
-                                                    <li class="list-group-item other uppercase">{{ 'general.other' | i18n }}</li>
-                                                    <li class="list-group-item unexcused uppercase">{{ 'general.unexcused' | i18n }}</li>
+                                                    <legend class="no-margin" url="{{legend_url}}" type="{{present}}" description="{{legend.present}}" pagetitle="{{present}}" fontcolor="{{present}}"></legend>
+                                                    <legend class="no-margin" url="{{legend_url}}" type="{{excused}}" description="{{legend.excused}}" pagetitle="{{excused}}" fontcolor="{{excused}}"></legend>
+                                                    <legend class="no-margin" url="{{legend_url}}" type="{{tardy}}" description="{{legend.tardy}}" pagetitle="{{tardy}}" fontcolor="{{tardy}}"></legend>
+                                                    <legend class="no-margin" url="{{legend_url}}" type="{{other}}" description="{{legend.other}}" pagetitle="{{other}}" fontcolor="{{other}}"></legend>
+                                                    <legend class="no-margin" url="{{legend_url}}" type="{{unexcused}}" description="{{legend.unexcused}}" pagetitle="{{unexcused}}" fontcolor="{{unexcused}}"></legend>
+                                                    <!--<li class="list-group-item present uppercase">{{ 'general.present' | i18n }}</li>-->
+                                                    <!--<li class="list-group-item excused uppercase">{{ 'general.excused' | i18n }}</li>-->
+                                                    <!--<li class="list-group-item tardy uppercase">{{ 'general.tardy' | i18n }}</li>-->
+                                                    <!--<li class="list-group-item other uppercase">{{ 'general.other' | i18n }}</li>-->
+                                                    <!--<li class="list-group-item unexcused uppercase">{{ 'general.unexcused' | i18n }}</li>-->
                                                 </ul>
                                             </div>
 

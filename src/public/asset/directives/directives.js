@@ -19,6 +19,22 @@ app.directive('attendance', function(){
     };
 });
 
+app.directive('legend', function(){
+    'use strict';
+    return {
+        restrict: 'E',
+        scope:{
+            url:'@',
+            pagetitle:'@',
+            description:'@',
+            fontcolor:'@',
+            type:'@'
+        },
+        template:'<li uib-popover-template="url" popover-trigger="mouseenter" popover-placement="left" class="list-group-item {{type}} uppercase">{{type}}</li>'
+
+    };
+});
+
 app.directive('dropdownMultiselect', function($document){
     'use strict';
     return {

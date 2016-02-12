@@ -672,7 +672,7 @@ select{
     }
     .subhead {
         text-transform: uppercase;
-        width: 84px;
+        width: 90px;
     }
     #collapse-sidebarmenu:hover {
         cursor: pointer;
