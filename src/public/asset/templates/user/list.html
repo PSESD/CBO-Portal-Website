@@ -59,6 +59,13 @@
                             </a>
                         </th>
                         <th class="text-center">
+                            <a href="#" ng-click="sortType = 'activate';sortReverse = !sortReverse">
+                                {{ 'general.activate' | i18n }}
+                                <span ng-show="sortType == 'activate' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'activate' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                        <th class="text-center">
                             <a href="#" ng-click="sortType = 'studentCount';sortReverse = !sortReverse">
                                 {{ 'general.assigned_students' | i18n }}
                                 <span ng-show="sortType == 'studentCount' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
@@ -75,6 +82,7 @@
                         <td><a ng-href="#/user/detail/{{ user._id }}">{{ user.first_name }} {{ user.last_name }}</a></td>
                         <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
                         <td>{{ ('general.'+user.role).split('-').join('_') | i18n }}</td>
+                        <td class="text-center">{{ 'general.'+(user.activate ? 'pending': 'active' ) | i18n  }}</td>
                         <td class="text-center">{{ user.studentCount }}</td>
                         <td class="text-center">
                             <a href="#/user/edit/{{ user._id }}" class="glyphicon glyphicon-lock" ng-disabled="working"></a>
