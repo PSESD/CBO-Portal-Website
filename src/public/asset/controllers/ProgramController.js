@@ -11,7 +11,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'asset/templates/modalTemplate.html',
-                controller: 'ModalInstanceCtrl',
+                controller: 'ProgramModalInstanceCtrl',
                 size: "sm",
                 resolve:{
                     items:function(){
@@ -78,7 +78,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
 
     }
 ]);
-app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items,AuthenticationService,$rootScope,CookieStore,$location,$http) {
+app.controller('ProgramModalInstanceCtrl', function ($scope, $uibModalInstance, items,AuthenticationService,$rootScope,CookieStore,$location,$http) {
 
     $scope.yes = function () {
         var id = items.id;

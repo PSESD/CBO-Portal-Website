@@ -70,7 +70,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             var modalInstance = $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'asset/templates/modalTemplate.html',
-                controller: 'ModalInstanceCtrl',
+                controller: 'StudentModalInstanceCtrl',
                 size: "sm",
                 resolve:{
                     items:function(){
@@ -309,7 +309,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
     }
 ]);
 
-app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items,AuthenticationService,$rootScope,CookieStore,$location,$http) {
+app.controller('StudentModalInstanceCtrl', function ($scope, $uibModalInstance, items,AuthenticationService,$rootScope,CookieStore,$location,$http) {
 
     $scope.yes = function () {
         var id = items.id;
