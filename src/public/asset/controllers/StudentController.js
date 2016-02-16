@@ -1,5 +1,5 @@
-app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$q','$filter',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout,$q,$filter) {
+app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$q','$filter','$uibModal',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout,$q,$filter,$uibModal) {
         'use strict';
 
         var deferred = $q.defer();
@@ -66,33 +66,38 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
 
         $scope.deleteStudent = function (id, index) {
-            if (id) {
-                $scope.working = true;
-                $http.delete(api_url + AuthenticationService.organization_id + '/students/' + id, {
-                    headers: {
-                        'Authorization': 'Bearer ' + AuthenticationService.token
-                    }
-                })
-                    .success(function () {
 
-                        $scope.students.splice(index, 1);
-                        $scope.working = false;
-
-                    })
-                    .error(function (response, status) {
-
-                        //console.log(response);
-                        //console.log(status);
-                        showError(response.error, 1);
-                        $scope.working = false;
-                        if (status === 401) {
-                            $rootScope.show_footer = false;
-                            CookieStore.clearData();
-                            $location.path('/login');
+            var modalInstance = $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'asset/templates/modalTemplate.html',
+                controller: 'ModalInstanceCtrl',
+                size: "sm",
+                resolve:{
+                    items:function(){
+                        return {
+                            "id":id,
+                            index:index
                         }
+                    }
+                }
+            });
 
-                    });
-            }
+            modalInstance.result.then(function (result) {
+                if(result.success === true)
+                {
+                    showError(result.message, 2);
+                    $scope.students.splice(index, 1);
+                    $scope.working = false;
+                    $location.path('/student');
+                }else{
+                    showError(result.message, 1);
+                    $location.path('/student');
+                }
+
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+
         };
 
 
@@ -303,3 +308,38 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
     }
 ]);
+
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items,AuthenticationService,$rootScope,CookieStore,$location,$http) {
+
+    $scope.yes = function () {
+        var id = items.id;
+        if (id) {
+            $scope.working = true;
+            $http.delete(api_url + AuthenticationService.organization_id + '/students/' + id, {
+                headers: {
+                    'Authorization': 'Bearer ' + AuthenticationService.token
+                }
+            })
+                .success(function (response) {
+                    items.message = response.message;
+                    items.success = true;
+                    $uibModalInstance.close(items);
+                })
+                .error(function (response, status) {
+
+                    showError(response, 1);
+                    $scope.working = false;
+                    if (status === 401) {
+                        $rootScope.show_footer = false;
+                        CookieStore.clearData();
+                        $location.path('/login');
+                    }
+
+                });
+        }
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});

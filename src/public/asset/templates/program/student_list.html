@@ -83,7 +83,7 @@
                         <td class="text-center">
                             <a class="glyphicon glyphicon-pencil" ng-href="#/program/students/{{program._id}}/edit/{{student._id}}"></a>
                         </td>
-                        <td class="text-center"><a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a></td>
+                        <td class="text-center"><a class="glyphicon glyphicon-trash" ng-click="deleteStudent(student._id, $index)"  ng-disabled="working"></a></td>
                     </tr>
                     </tbody>
             </div>
