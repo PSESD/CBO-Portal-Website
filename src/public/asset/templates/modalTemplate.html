@@ -1,0 +1,12 @@
+<div class="panel panel-default delete-confirmation">
+    <div class="panel-heading">
+        <h3 class="panel-title">Delete Confirmation</h3>
+    </div>
+    <div class="panel-body text-center">
+        {{ 'general.confirm_delete' | i18n }}
+    </div>
+    <div class="panel-footer delete-confirmation text-center">
+        <button class="btn btn-primary" ng-click="yes()">Yes</button>
+        <button class="btn btn-danger" ng-click="cancel()">No</button>
+    </div>
+</div>

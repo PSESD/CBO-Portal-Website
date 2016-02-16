@@ -201,6 +201,15 @@ II MEDIA
         color: #fff!important;;
         border: 2px solid #000!important;;
     }
+    .modal.fade.ng-isolate-scope.in{
+        background-color: initial!important;
+    }
+    .panel-footer.delete-confirmation{
+        padding: initial;
+    }
+    .panel.delete-confirmation{
+        margin-bottom: initial;
+    }
     .btn-primary {
         background: #fff;
         border: 2px solid #209920;

@@ -91,7 +91,8 @@
                             <a href="#/user/group/{{ user._id }}" class="glyphicon glyphicon-user" ng-disabled="working"></a>
                         </td>
                         <td class="text-center">
-                            <a class="glyphicon glyphicon-trash" confirmed-click="deleteUser(user._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>
+                            <!--<a class="glyphicon glyphicon-trash" confirmed-click="deleteUser(user._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>-->
+                            <a class="glyphicon glyphicon-trash" ng-click="deleteUser(user._id, $index)"  ng-disabled="working"></a>
                         </td>
                     </tr>
                     </tbody>
