@@ -1,3 +1,10 @@
+.modal-body.enrollment{
+    padding: 0;
+}
+.no-padding-left-right{
+    padding-left: 0;
+    padding-right: 0;
+}
 .search-btn.detail{
     position: relative;
     margin-top: 8px;
@@ -858,8 +865,9 @@ ul.cohorts {
 }
 
 .loading-icon{
-    position: relative;
-    top:5px;
+    position: absolute;
+    top: 2em;
+    left: 34em;
 }
 /**
  * Student Detail

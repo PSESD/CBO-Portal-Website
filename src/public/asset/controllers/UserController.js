@@ -37,7 +37,9 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
             }
         };
 
-        $http.get(api_url + AuthenticationService.organization_id + '/users', {
+
+
+        $http.get(api_url + AuthenticationService.organization_id + '/users?pending=true', {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
@@ -64,6 +66,33 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
                     $scope.users = response.data;
 
 
+                } else {
+                    showError(response.error.message, 1);
+                }
+                $rootScope.doingResolve = false;
+
+            })
+            .error(function (response, status) {
+
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if (status === 401) {
+                    $rootScope.show_footer = false;
+                    CookieStore.clearData();
+                    $location.path('/login');
+                }
+
+            });
+
+        $http.get(api_url + AuthenticationService.organization_id + '/pending/users', {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+        })
+            .success(function (response) {
+
+                if (response.success === true && response.total > 0) {
+                    $scope.pending_users = response.data;
                 } else {
                     showError(response.error.message, 1);
                 }

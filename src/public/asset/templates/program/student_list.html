@@ -1,91 +1,92 @@
-<div class="row">
-
-    <div class="col-md-12">
-        <div class="card">
-            <div class="col-md-12">
+<div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="title">
                     <h1>{{ program.name }} {{ 'general.student' | i18n }}</h1>
                     <hr>
                 </div>
-                <div class="content">
-                    <div class="ng-binding help">
-                        <p>{{ 'help.program_student_list' | i18n }}</p>
-                    </div>
-                    <h1>
-                        <a href="#/program/students/{{ program._id }}/add"><i class="glyphicon glyphicon-plus font16"></i>{{ 'general.add_student_to' | i18n:[program.name] }}</a>
-                    </h1>
-                    <div class="row">
-                        <div class="col-xs-12 extra-space-search-btn col-md-3">
-                            <span class="search-btn extra-space">
-                                <input type="text" class="input-search" ng-model="search" placeholder="{{ 'general.search_student' | i18n }}">
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 no-padding">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <a href="#" ng-click="sortType = 'name';sortReverse = !sortReverse">
-                                    {{ 'general.name' | i18n }}
-                                        <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                        <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                                    </a>
-                                </th>
-								<th>
-                                    <a href="#" ng-click="sortType = 'active';sortReverse = !sortReverse">
-                                    {{ 'general.active' | i18n }}
-                                        <span ng-show="sortType == 'active' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                        <span ng-show="sortType == 'active' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                                    </a>
-                                </th>
-								<th>
-                                    <a href="#" ng-click="sortType = 'start_date';sortReverse = !sortReverse">
-                                    {{ 'general.start_date' | i18n }}
-                                        <span ng-show="sortType == 'start_date' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                        <span ng-show="sortType == 'start_date' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                                    </a>
-                                </th>
-								<th>
-                                    <a href="#" ng-click="sortType = 'end_date';sortReverse = !sortReverse">
-                                    {{ 'general.end_date' | i18n }}
-                                        <span ng-show="sortType == 'end_date' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                        <span ng-show="sortType == 'end_date' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                                    </a>
-                                </th>
-								<th>
-                                    <a href="#" ng-click="sortType = 'cohort';sortReverse = !sortReverse">
-                                    {{ 'general.cohorts' | i18n }}
-                                        <span ng-show="sortType == 'cohort' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                        <span ng-show="sortType == 'cohort' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                                    </a>
-                                </th>
-								<th class="text-center" style="width:8%">{{ 'general.edit' | i18n }}</th>
-								<th class="text-center" style="width:8%">{{ 'general.delete' | i18n }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="student in students | filter:search | orderBy:sortType:sortReverse">
-                                <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.name }}</a></td>
-								<td><input type="checkbox" ng-model="student.active" ng-disabled="true"/></td>
-								<td>{{student.start_date | date : 'MM/dd/yyyy' : timezone}}</td>
-								<td>{{student.end_date | date : 'MM/dd/yyyy' : timezone}}</td>
-								<td ng-bind-html="student.cohort"></td>
-								<td class="text-center">
-                                    <a class="glyphicon glyphicon-pencil" ng-href="#/program/students/{{program._id}}/edit/{{student._id}}"></a>
-									</td>
-								<td class="text-center"><a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="ng-binding help">
+                    <p>{{ 'help.program_student_list' | i18n }}</p>
                 </div>
             </div>
-            <div class="clearfix"></div>
         </div>
-
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <h1>
+                    <a href="#/program/students/{{ program._id }}/add"><i class="glyphicon glyphicon-plus font16"></i>{{ 'general.add_student_to' | i18n:[program.name] }}</a>
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <span class="search-btn">
+                    <input type="text" class="input-search" ng-model="search" placeholder="{{ 'general.search_student' | i18n }}">
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a href="#" ng-click="sortType = 'name';sortReverse = !sortReverse">
+                                {{ 'general.name' | i18n }}
+                                <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortType = 'active';sortReverse = !sortReverse">
+                                {{ 'general.active' | i18n }}
+                                <span ng-show="sortType == 'active' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'active' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortType = 'start_date';sortReverse = !sortReverse">
+                                {{ 'general.start_date' | i18n }}
+                                <span ng-show="sortType == 'start_date' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'start_date' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortType = 'end_date';sortReverse = !sortReverse">
+                                {{ 'general.end_date' | i18n }}
+                                <span ng-show="sortType == 'end_date' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'end_date' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortType = 'cohort';sortReverse = !sortReverse">
+                                {{ 'general.cohorts' | i18n }}
+                                <span ng-show="sortType == 'cohort' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'cohort' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                        <th class="text-center" style="width:8%">{{ 'general.edit' | i18n }}</th>
+                        <th class="text-center" style="width:8%">{{ 'general.delete' | i18n }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="student in students | filter:search | orderBy:sortType:sortReverse">
+                        <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.name }}</a></td>
+                        <td><input type="checkbox" ng-model="student.active" ng-disabled="true"/></td>
+                        <td>{{student.start_date | date : 'MM/dd/yyyy' : timezone}}</td>
+                        <td>{{student.end_date | date : 'MM/dd/yyyy' : timezone}}</td>
+                        <td ng-bind-html="student.cohort"></td>
+                        <td class="text-center">
+                            <a class="glyphicon glyphicon-pencil" ng-href="#/program/students/{{program._id}}/edit/{{student._id}}"></a>
+                        </td>
+                        <td class="text-center"><a class="glyphicon glyphicon-trash" confirmed-click="deleteStudent(student._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a></td>
+                    </tr>
+                    </tbody>
+            </div>
+        </div>
     </div>
-
 </div>

@@ -83,24 +83,6 @@ II MEDIA
         color: white !important;
     }
 
-    /*.form-search{*/
-        /*width: 25%;*/
-        /*margin: 0;*/
-        /*padding: 0;*/
-    /*}*/
-    /*.form-search.user{*/
-        /*width: 40%;*/
-    /*}*/
-    /*.form-search>.glass{*/
-        /*position: absolute;*/
-        /*top: 29%;*/
-        /*left: 16%;*/
-    /*}*/
-    /*.form-search>.glass.user{*/
-
-        /*top:176px;*/
-
-    /*}*/
     .popover{
         font-size: 12px;
         font-size: 1.2rem;
@@ -145,11 +127,8 @@ II MEDIA
     }
 
     .help p {
-    color:#555;
+        color:#555;
     }
-    /*a{*/
-        /*color: #337AB7;*/
-    /*}*/
 
     html {
         font-weight: 300;
@@ -693,7 +672,7 @@ select{
     }
     .subhead {
         text-transform: uppercase;
-        width: 84px;
+        width: 90px;
     }
     #collapse-sidebarmenu:hover {
         cursor: pointer;
@@ -1084,7 +1063,8 @@ select{
             margin-left: 14px;
         }
 
-        .add-select-student {
+        .add-select-student,
+        .invite-user-email{
             width: 60% !important
         }
         .inline-block {

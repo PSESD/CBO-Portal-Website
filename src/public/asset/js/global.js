@@ -171,6 +171,7 @@ $(document).ready(function () {
 
 function hideContent(curr) {
     'use strict';
+    console.log(curr);
     jQuery(curr).parent().find('div.data-content').hide();
     jQuery(curr).parent().find('#content-help').hide();
     jQuery(curr).parent().find('.menu-up').hide();
@@ -179,17 +180,9 @@ function hideContent(curr) {
 
 function showContent(curr) {
     'use strict';
+    console.log(curr);
     jQuery(curr).parent().find('div.data-content').show();
     jQuery(curr).parent().find('#content-help').show();
     jQuery(curr).parent().find('.menu-up').show();
     jQuery(curr).parent().find('.menu-down').hide();
 }
-//function l() {
-//    'use strict';
-//    var s = d.createElement('script');
-//    s.type = 'text/javascript';
-//    s.async = true;
-//    s.src = 'https://widget.intercom.io/widget/m9w2ywgr';
-//    var x = d.getElementsByTagName('script')[0];
-//    x.parentNode.insertBefore(s, x);
-//}
