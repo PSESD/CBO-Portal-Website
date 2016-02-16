@@ -28,17 +28,74 @@ II MEDIA
 ===============================================
 */
 
+    .login-container {
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    .login-form {
+        position: relative;
+        top: 50%;
+        transform: translateY(20%);
+    }
+    .title.detail{
+        position: relative;
+        top: 20px;
+    }
+    hr.rainbow{
+        width: 100%;
+        margin: 10px 0px;
+        height: 2px;
+        background: transparent linear-gradient(135deg, #EF7700 0%, #F2A900 37%, #F2CC10 69%, #FCE623 100%) repeat scroll 0% 0%;
+    }
+    .search-btn:before {
+        content: "\e003";
+        font-family: "Glyphicons Halflings";
+        line-height: 1;
+        margin: 0 5px 0 0;
+        position: absolute;
+        line-height: 32px;
+    }
+
+    .extra-space{
+        margin-top: 13px;
+        margin-bottom: 13px;
+    }
+
+    .remove-center-panel-margin{
+        margin-left:0!important;
+    }
+
+    .input-search {
+        border: none;
+        border-bottom: 1px solid black;
+        width: 100%;
+        padding-left: 20px;
+        line-height: 32px;
+    }
+
+    #sidebar-open-btn{
+        position: fixed;
+        top: -1em;
+        padding: 10px;
+        background: black none repeat scroll 0% 0% !important;
+        color: white !important;
+    }
+
     .popover{
         font-size: 12px;
         font-size: 1.2rem;
-        font-family: "proxima-nova", sans-serif;
     }
     .panel-title{
         font-size: 12px;
         font-size: 1.2rem;
     }
     .last_update_date{
-        margin-left:10px;
+
+        position: relative;
+        top: 42px;
+        left: 10px;
     }
     .nav-tabs h1{
         margin-top: 10px;
@@ -60,7 +117,7 @@ II MEDIA
     }
     select{
         color: black;
-        background: url(../img/arrow.png) no-repeat 96%;
+        background: url(../img/arrow.png) no-repeat 98%;
         border: 1px solid black;
         padding: 7px 22px 7px 7px;
     }
@@ -70,26 +127,22 @@ II MEDIA
     }
 
     .help p {
-    color:#555;
+        color:#555;
     }
-    /*a{*/
-        /*color: #337AB7;*/
-    /*}*/
 
     html {
         font-weight: 300;
         font-size: 10px;
-        font-family: "proxima-nova", sans-serif;
+
     }
     body {
-        line-height: 1.35em; /* note we are using em here for the line-height */
+        /*line-height: 1.35em; /!* note we are using em here for the line-height *!/*/
         font-size: 12px;
         font-size: 1.2rem;
-        font-family: "proxima-nova",sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;
     }
     h1, h2, h3, .futura {
         font-weight: 700;
-        font-family: "futura-pt",sans-serif;
     }
     h4, h5, h6 {
         font-weight: 700;
@@ -186,14 +239,28 @@ II MEDIA
         float: right;
     }
     .sidemenu{
-        font-family: "futura-pt", sans-serif;
         text-transform: uppercase;
         font-weight: 700;
+    }
+    .top-space{
+        position: relative;
+        top:23px;
+    }
+    a.sidemenu.organization_name:hover,
+    a.sidemenu.link-nav.username:hover,
+    a.sidemenu.beta{
+        cursor:default;
+        background:transparent;
+        color:#9D9D9D!important;
     }
     a.sidemenu{
         color: #9d9d9d;
         font-size: 16px;
         font-size: 1.6rem;
+    }
+    a.sidemenu.organization_name{
+        font-size:24px;
+        font-size: 2.4rem;
     }
     a.sidemenu:hover{
         color: white;
@@ -355,7 +422,8 @@ II MEDIA
     
     .card {
         background: #fff;
-        padding: 24px 50px;
+        /*padding: 24px 50px;*/
+        padding: 10px 30px;
         border-bottom: solid 5px rgba(0, 0, 0, 0.1);
         border-radius: 2px;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
@@ -450,7 +518,7 @@ select{
     .table>thead>tr>td,
     .table>thead>tr>th {
         border-top: none !important;
-        padding: 16px 8px !important;
+        /*padding: 16px 8px !important;*/
     }
     /*
 ===============================================
@@ -604,7 +672,7 @@ select{
     }
     .subhead {
         text-transform: uppercase;
-        width: 150px;
+        width: 90px;
     }
     #collapse-sidebarmenu:hover {
         cursor: pointer;
@@ -694,7 +762,7 @@ select{
         box-shadow: none !important;
         border-bottom: 1px #000 solid !important;
         border-radius: 0 !important;
-        width: 60%;
+        /*width: 60%;*/
     }
     .form-inline {
         padding-bottom: 40px;
@@ -985,14 +1053,18 @@ select{
             -webkit-appearance: none;
             margin-top: 5px;
         }
-
+        .last-update-position{
+            position: relative;
+            top: 20px;
+        }
         .organization_header {
             color: white !important;
             font-size: 1.6em;
             margin-left: 14px;
         }
 
-        .add-select-student {
+        .add-select-student,
+        .invite-user-email{
             width: 60% !important
         }
         .inline-block {
@@ -1012,9 +1084,12 @@ select{
 
             position: relative;
             bottom: 95px;
-            margin-left: 15.8%;
-            font-size: 12px;
+            /*margin-left: 15.4%;*/
 
+        }
+        .confidentiality-footer.card{
+            padding: 24px 15px;
+            margin-top: 0px;
         }
         .version{
             margin-top:15px;
@@ -1104,7 +1179,8 @@ select{
 }
 .margin-bottom-general-info,
 .privacy_policy_bottom_space,
-.scholl_history_bottom_space{
+.scholl_history_bottom_space,
+{
     margin-bottom: 10px;
 }
 .error-color{

@@ -1,71 +1,62 @@
-<div class="row">
-
-    <div class="col-md-12">
-
-        <div class="card">
-            <div class="col-md-12">
+<div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="title">
                     <h1>
                         {{ 'general.detail_program' | i18n }}: {{ program.name }}
                     </h1>
                     <hr>
                 </div>
-                <div class="content">
-                    <div class="ng-binding help">
-                        <p>{{ 'help.program_detail' | i18n }}</p>
-                    </div>
-                    <form class="form-horizontal" role="form" ng-submit="editProgram(program)">
-                        <div class="form-actions form-group">
-                            <div class="row no-gutter">
-                                <div class="col-md-3 pull-right">
-                                    <a class="btn btn-default" ng-href="#/program/students/{{ program._id }}/add">
-                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add
-                                    </a>
-                                    <a class="btn btn-default" confirmed-click="deleteProgram(program._id, $index)" ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working">
-                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> {{ 'general.delete' | i18n }}
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-sm-3"></div>
-                            <!--<div class="col-sm-9">-->
-                                <!--<a href="#/program" class="btn btn-danger">{{ 'general.back' | i18n }}</a>-->
-                            <!--</div>-->
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="name">{{ 'general.name' | i18n }}:</label>
-                            <div class="col-sm-9">
-                                <div confirmed-action="editProgram(program)" ng-click="activateEditable()" contentEditable={{editable}} type="text" class="form-control" ng-model="program.name" id="name">{{program.name}}</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="created">{{ 'general.created' | i18n }}:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="program.created" id="created" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="last_updated">{{ 'general.last_update' | i18n }}:</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="program.last_updated" id="last_updated" readonly>
-                            </div>
-                        </div>
-
-                        <div class="form-actions form-group">
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-9">
-                                <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.save' | i18n }}</button>
-                                <a href="#/program" class="btn btn-danger">{{ 'general.back' | i18n }}</a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </form>
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="ng-binding help">
+                    <p>{{ 'help.program_detail' | i18n }}</p>
                 </div>
             </div>
-            <div class="clearfix"></div>
         </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <form class="form-horizontal" role="form" ng-submit="editProgram(program)">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-12 col-md-offset-9 col-md-3">
+                            <a class="btn btn-default" ng-href="#/program/students/{{ program._id }}/add">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add
+                            </a>
+                            <a class="btn btn-default" confirmed-click="deleteProgram(program._id, $index)" ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> {{ 'general.delete' | i18n }}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-12 col-md-2 control-label" for="name">{{ 'general.name' | i18n }}:</label>
+                        <div class="col-xs-12 col-sm-12 col-md-9">
+                            <div confirmed-action="editProgram(program)" ng-click="activateEditable()" contentEditable={{editable}} type="text" class="form-control" ng-model="program.name" id="name">{{program.name}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-12 col-md-2 control-label" for="created">{{ 'general.created' | i18n }}:</label>
+                        <div class="col-xs-12 col-sm-12 col-md-9">
+                            <input type="text" class="form-control" ng-model="program.created" id="created" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-12 col-md-2 control-label" for="last_updated">{{ 'general.last_update' | i18n }}:</label>
+                        <div class="col-xs-12 col-sm-12 col-md-9">
+                            <input type="text" class="form-control" ng-model="program.last_updated" id="last_updated" readonly>
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-9">
+                            <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.save' | i18n }}</button>
+                            <a href="#/program" class="btn btn-danger">{{ 'general.back' | i18n }}</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
 </div>

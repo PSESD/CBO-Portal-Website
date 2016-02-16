@@ -118,7 +118,10 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     .success(function (student) {
                         if(student._id in studentKeys){
                             var onTrack = _.get(student,'xsre.onTrackToGraduate');
-                            if(parseInt(_.get(student,'xsre.behavior')) <= 1){
+
+                            if(parseInt(_.get(student,'xsre.behavior')) === 0){
+                                pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')]);
+                            }else if(parseInt(_.get(student,'xsre.behavior')) === 1){
                                 pluralBehavior =  locale.getString('general.incident', [_.get(student,'xsre.behavior')]);
                             }else{
                                 pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')]);
@@ -212,7 +215,9 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         });
 
                         var onTrack = _.get(student,'xsre.onTrackToGraduate');
-                        if(parseInt(_.get(student,'xsre.behavior')) <= 1){
+                        if(parseInt(_.get(student,'xsre.behavior')) === 0) {
+                            pluralBehavior = locale.getString('general.incidents', [_.get(student, 'xsre.behavior')]);
+                        }else if(parseInt(_.get(student,'xsre.behavior')) === 1){
                             pluralBehavior =  locale.getString('general.incident', [_.get(student,'xsre.behavior')]);
                         }else{
                             pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')]);

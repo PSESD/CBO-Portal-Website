@@ -7,9 +7,11 @@ var transcript_debug = [];
 var attendance_state = false;
 var transcript_state = false;
 
+
 app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
     function ($interval,$route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
         'use strict';
+        $scope.show_content = true;
         $scope.editorOptions = {
             lineWrapping : true,
             mode: 'javascript',
@@ -20,10 +22,22 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
             theme: 'monokai',
             extraKeys: {"Alt-F": "findPersistent"}
         };
+
+
+        $scope.flip = function(){
+            if($scope.show_content === true)
+            {
+                $scope.show_content = false;
+            }else if($scope.show_content === false)
+            {
+                $scope.show_content = true;
+            }
+        }
         showLoadingIcon($scope);
         $scope.loading_icon = true;
         $scope.showLoading = false;
         $scope.attendance_load_first_time = true;
+
         var attendance = "";
         var transcript = "";
         var program_participation = "";
@@ -577,8 +591,16 @@ function generate_general_data(general_data,$scope,student_id)
         }
     });
 
+    if(typeof general_data.personal.address !== "undefined")
+    {
+        $scope.student.address = general_data.personal.address.length === 0 ? "": general_data.personal.address;
+    }
+    else
+    {
+        $scope.student.address = "";
+    }
+
     $scope.student = general_data.personal;
-    $scope.student.address = general_data.personal.address.length === 0 ? "": general_data.personal.address;
     $scope.student._id = student_id;
     $scope.student.race = general_data.personal.race.split(/(?=[A-Z])/).join(" ");
     assignedUsers = ('users' in general_data._embedded) ? general_data._embedded.users : {};
@@ -611,6 +633,14 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
 
             if(response.success === true && response.info.data !== undefined)
             {
+                $scope.legend = response.info.source.legend;
+                $scope.legend_url = "asset/templates/legendTemplate.html";
+                $scope.present = "present";
+                $scope.excused = "excused";
+                $scope.tardy = "tardy";
+                $scope.other = "other";
+                $scope.unexcused = "unexcused";
+
 
                 //attendance_data = response.info.data;
                 attendance_data = "";
@@ -657,7 +687,6 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
 {
     var years = [];
     var yearsOptions = "";
-
     angular.forEach(attendance_data, function (behavior) {
 
         Object.keys(behavior).forEach(function (key) {
@@ -697,7 +726,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     pagetitle: item.slug.toUpperCase(),
                                     eventdate: item.event.calendarEventDate,
                                     description: item.event.attendanceStatusTitle,
-                                    url: urlTemplate
+                                    url: urlTemplate,
+                                    reason:item.event.absentReasonDescription,
+                                    category:item.event.absentAttendanceCategoryTitle,
                                 };
                             } else {
                                 html = {
@@ -708,7 +739,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     pagetitle: '',
                                     eventdate: '',
                                     description: '',
-                                    url: ''
+                                    url: '',
+                                    reason:'',
+                                    category:'',
                                 };
                             }
                             xhtml.push(html);
@@ -724,7 +757,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                             pagetitle: '',
                             eventdate: '',
                             description: '',
-                            url: ''
+                            url: '',
+                            reason:'',
+                            category:'',
                         };
                         xhtml.push(html);
                     }
@@ -743,7 +778,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     pagetitle: (item.incidentCategoryTitle + '').toUpperCase(),
                                     eventdate: item.incidentDate,
                                     description: item.description,
-                                    url: urlTemplate
+                                    url: urlTemplate,
+                                    reason:item.event.absentReasonDescription,
+                                    category:item.event.absentAttendanceCategoryTitle,
                                 };
                             } else {
                                 html = {
@@ -754,7 +791,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     pagetitle: '',
                                     eventdate: '',
                                     description: '',
-                                    url: ''
+                                    url: '',
+                                    reason:'',
+                                    category:'',
                                 };
                             }
                             xhtml.push(html);
@@ -768,7 +807,9 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                             pagetitle: '',
                             eventdate: '',
                             description: '',
-                            url: ''
+                            url: '',
+                            reason:'',
+                            category:'',
                         };
                         xhtml.push(html);
                     }
@@ -839,11 +880,11 @@ function load_transcript_data($http,student_id,AuthenticationService,$rootScope,
 
 function generate_transcript_data(transcript_data,$scope)
 {
-    //$scope.history = transcript_data.source.history;
-    $scope.visibleProjects = transcript_data.source.history;
 
+    $scope.visibleProjects = transcript_data.source.history;
     var courseTitle = transcript_data.source.info.courseTitle;
     $scope.courses = courseTitle;
+    $scope.cumulative_gpa = transcript_data.source.totalCumulativeGpa;
     $scope.total_data = _.size(transcript_data.source.subject);
     $scope.transcripts =
     {

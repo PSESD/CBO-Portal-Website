@@ -41,7 +41,6 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
             .success(function (response) {
                 //console.log(response);
                 if (response.success === true && response.total > 0) {
-
                     angular.forEach(response.data, function (value, key) {
 
                         cohort = '';
@@ -50,7 +49,10 @@ app.controller('ProgramStudentController', ['$rootScope', '$scope', '$routeParam
                                 active_status = v.active;
                                 start_date = v.participation_start_date;
                                 end_date = v.participation_end_date;
-                                cohort = v.cohort.join();
+                                //cohort = v.cohort.join();
+                                cohort = _.map(v.cohort, function(c){
+                                    return "<span class='label label-primary'>"+c+"</span>";
+                                }).join(' ');
                                 var student = {
                                     "_id": value._id,
                                     "name": value.first_name + ' ' + value.last_name,

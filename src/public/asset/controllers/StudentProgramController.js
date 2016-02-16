@@ -16,7 +16,8 @@ app.controller('StudentProgramController', ['$rootScope', '$scope', '$routeParam
         })
             .success(function (response) {
 
-                $scope.student = response;
+
+                console.log(response);
                 $rootScope.doingResolve = false;
             })
             .error(function (response, status) {

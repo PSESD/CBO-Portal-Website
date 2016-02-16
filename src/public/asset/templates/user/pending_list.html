@@ -1,0 +1,56 @@
+<div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="title">
+                    <h1>{{ 'general.pending_users' | i18n }}</h1>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="ng-binding help">
+                    <p>{{ 'help.user_list' | i18n }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <span class="search-btn">
+                    <input type="text" class="input-search" ng-model="search" placeholder="{{ 'general.search_users' | i18n }}">
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a href="#" ng-click="sortType = 'first_name';sortReverse = !sortReverse">
+                                {{ 'general.name' | i18n }}
+                                <span ng-show="sortType == 'first_name' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'first_name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortType = 'email';sortReverse = !sortReverse">
+                                {{ 'general.email' | i18n }}
+                                <span ng-show="sortType == 'email' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'email' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="user in pending_users | filter:search | orderBy:'first_name' | orderBy:sortType:sortReverse">
+                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

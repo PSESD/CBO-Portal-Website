@@ -1,4 +1,36 @@
-
+.modal-body.enrollment{
+    padding: 0;
+}
+.no-padding-left-right{
+    padding-left: 0;
+    padding-right: 0;
+}
+.search-btn.detail{
+    position: relative;
+    margin-top: 8px;
+}
+.att-content.behavior-center{
+    padding-top: 10px;
+    line-height: 1.5;
+}
+.scrollArea table th .box {
+    padding: 0px 11px 0px 0px!important;
+}
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+    position: relative;
+    top: 6px;
+}
+.modal-header{
+    border-bottom: none;
+}
+.enrollment-divider{
+    width: 100%;
+    margin: 10px 0px;
+    height: 2px;
+    background: transparent linear-gradient(135deg, #EF7700 0%, #F2A900 37%, #F2CC10 69%, #FCE623 100%) repeat scroll 0% 0%;
+}
 li.first-column{
     text-align: left!important;
     padding: 10px!important;
@@ -36,6 +68,12 @@ dl{
     float: right;
     top: 5px;
     position: relative;
+}
+.no-padding{
+    padding:0!important;
+}
+.no-margin{
+    margin: 0!important;
 }
 .no-padding-left{
     padding-left:0;
@@ -210,10 +248,10 @@ hr.attendance-separator {
 .n_a {
     background-color: #efefef;
 }
-.late {
+.tardy {
     background-color: #4E73A7;
 }
-.holiday {
+.other {
     background-color: #765B74;
 }
 .unexcused {
@@ -367,7 +405,7 @@ ul.transcript li {
 }
 
 
-.btn.btn-default.transcript-school-history {
+.btn.btn-default.transcript-school-history{
     margin-right: 10px;
 }
 .separator-transcript {
@@ -436,11 +474,11 @@ ul li.transcript-content {
     top: 6px;
 }
 .descriptor-title {
-    font-size: 14px;
-    font-size:1.4rem;
+    font-size: 12px;
+    font-size: 1.2rem;
     font-weight: bolder;
     letter-spacing: 2px;
-    margin-bottom: 21px;
+    margin-bottom: 5px;
     line-height: 16px;
 }
 .present-font-color {
@@ -449,10 +487,10 @@ ul li.transcript-content {
 .excused-font-color {
     color: #2F9DBB;
 }
-.late-font-color {
+.tardy-font-color {
     color: #4E73A7;
 }
-.holiday-font-color {
+.other-font-color {
     color: #765B74;
 }
 .unexcused-font-color {
@@ -499,8 +537,9 @@ ul li.transcript-content {
 }
 
 .transcript-display{
-	margin-bottom:35px;
-    padding:0px 5px;
+    margin-bottom: 35px;
+    padding: 10px 5px;
+
 }
 
 /*
@@ -826,8 +865,9 @@ ul.cohorts {
 }
 
 .loading-icon{
-    position: relative;
-    top:5px;
+    position: absolute;
+    top: 2em;
+    left: 34em;
 }
 /**
  * Student Detail
@@ -1097,6 +1137,7 @@ dt, dd {
     cursor: pointer;
 }
 .popover{
+    font-family: 'Source Sans Pro', sans-serif;
     background-color: white!important;
 }
 
@@ -1115,4 +1156,62 @@ dt, dd {
 }
 .font-bold{
     font-weight: bold;
+}
+
+/*FIXED HEADER*/
+.header-fixed {
+    width: 100%
+}
+
+.header-fixed > thead,
+.header-fixed > tbody,
+.header-fixed > thead > tr,
+.header-fixed > tbody > tr,
+.header-fixed > thead > tr > th,
+.header-fixed > tbody > tr > td {
+    display: block;
+}
+
+.header-fixed > tbody > tr:after,
+.header-fixed > thead > tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.header-fixed > tbody {
+    overflow-y: auto;
+    height: 150px;
+}
+
+.header-fixed > tbody > tr > td,
+.header-fixed > thead > tr > th {
+    width: 14.28%;
+    float: left;
+}
+.modal-dialog.enrollment{
+    width: 700px;
+    margin: 30px auto;
+}
+td.school-name{
+
+}
+td.school-year{
+    padding-left: 13px !important;
+}
+td.entry-date{
+    padding-left: 14px !important;
+}
+td.exit-date{
+    padding-left: 15px !important;
+}
+td.grade-level{
+    padding-left: 20px !important;
+}
+td.status{
+    padding-left: 20px !important;
+}
+td.description{
+    padding-left: 22px !important;
 }

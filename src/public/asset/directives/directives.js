@@ -3,6 +3,8 @@ app.directive('attendance', function(){
     return {
         restrict: 'E',
         scope:{
+            reason:'@',
+            category:'@',
             url:'@',
             slug:'@',
             stripping:'@',
@@ -13,6 +15,22 @@ app.directive('attendance', function(){
             description:'@'
         },
         template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="grid-item {{slug}} {{stripping}} {{na}}"></div>'
+
+    };
+});
+
+app.directive('legend', function(){
+    'use strict';
+    return {
+        restrict: 'E',
+        scope:{
+            url:'@',
+            pagetitle:'@',
+            description:'@',
+            fontcolor:'@',
+            type:'@'
+        },
+        template:'<li uib-popover-template="url" popover-trigger="mouseenter" popover-placement="left" class="list-group-item {{type}} uppercase">{{type}}</li>'
 
     };
 });
@@ -166,7 +184,7 @@ app.directive('phonenumberDirective', ['$filter', function ($filter) {
         'use strict';
         // scope.inputValue is the value of input element used in template
         scope.inputValue = scope.phonenumberModel;
-
+        console.log(scope.phonenumberModel);
         scope.$watch('inputValue', function (value, oldValue) {
 
             value = String(value);

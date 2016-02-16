@@ -2,15 +2,17 @@ html,
 body {
     height: 100%
 }
+h1.sign-logo{
+    font-size: 2.4rem;
+}
 #side-panel {
     float: left;
     width: 15%;
     height: 100%;
     border-right: 1px solid #dddddd;
 }
-#center-panel {
+.center-panel {
     margin-left: 15%;
-    /*background-color: ;*/
 }
 #center-panel .row-fluid {
     overflow: auto;
