@@ -67,3 +67,100 @@ h1.sign-logo{
     }
     
 }
+
+nav.mobile-navbar{
+    position: fixed;
+    top:0;
+    width: 100%;
+    z-index: 10;
+}
+.mobile-menu{
+    position: relative;
+    height: 44px;
+    width: 100%;
+    background: black;
+}
+ul.vertical-menu{
+    position: absolute;
+    top:100%;
+    margin: 0;
+    padding: 0;
+    width:100%;
+    display:none;
+}
+ul.vertical-menu li a{
+    font-size: 1.6rem;
+    color: #9d9d9d;
+    font-weight: 700;
+    display: block;
+    width: 100%;
+    padding: 10px 0 10px 0;
+}
+ul.vertical-menu li.vertical-menu-item{
+    background: black;
+    width: 100%;
+    text-align: center;
+}
+#mobile-button{
+    position: absolute;
+    font-size: 2rem;
+    color: white;
+    z-index: 11;
+    margin: 10px;
+}
+.mobile_organization_name{
+    position: absolute;
+    z-index: 11;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #9d9d9d;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    padding-top: .5em;
+}
+#mobile-button:hover{
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    body{
+        padding-top: 50px!important;
+    }
+    
+    .mobile-navbar {
+        display: block;
+    }
+    #side-panel{
+        display: none;
+    }
+    #sidebar-open-btn{
+        display: none;
+    }
+    .center-panel{
+        margin: initial!important;
+    }
+    .login-page-title{
+        text-align: center;
+    }
+}
+@media (min-width:767px) {
+    body{
+        padding-top:initial;
+    }
+    .mobile-navbar{
+        display: none;
+    }
+    #side-panel{
+        display: block;
+    }
+    #sidebar-open-btn{
+        display: block;
+    }
+    .center-panel{
+        margin-left: 15%;
+    }
+    .login-page-title{
+        text-align: center;
+    }
+}

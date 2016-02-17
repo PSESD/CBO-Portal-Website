@@ -27,6 +27,9 @@ II MEDIA
 ==================== 1.Body ===================
 ===============================================
 */
+    .general-spacing{
+        padding-bottom: 30px!important;
+    }
 
     .login-container {
         -webkit-transform-style: preserve-3d;
@@ -94,8 +97,8 @@ II MEDIA
     .last_update_date{
 
         position: relative;
-        top: 42px;
-        left: 10px;
+        top: -15px;
+
     }
     .nav-tabs h1{
         margin-top: 10px;
@@ -282,7 +285,8 @@ II MEDIA
         width: 30px;
         left: 15px;
     }
-    .link-nav.sidemenu:hover,.sidebar_selected{
+    .link-nav.sidemenu:hover,.sidebar_selected,
+    li.vertical-menu-item a:hover{
         background-color: #eeeeee;
         color: #ef7700 !important;
     }
@@ -331,7 +335,8 @@ II MEDIA
     a{
         color: #29B6D8;
     }
-    a:hover {
+    a:hover
+    {
         text-decoration: none;
         color : #ef7700;
         cursor: pointer;
