@@ -1,3 +1,36 @@
+<nav class="mobile-navbar" ng-show="showNavBar">
+        <div class="mobile_organization_name">
+            {{organization_name}}
+            <label class="label label-danger">BETA</label>
+        </div>
+    <div id="mobile-button" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></div>
+    <div class="mobile-menu">
+        <ul class="vertical-menu">
+            <li class="vertical-menu-item">
+                <a class="uppercase">{{completeName }}</a>
+            </li>
+            <li class="vertical-menu-item">
+                <a ng-class="{ sidebar_selected: isActive('/student') }" href="#/student" class="uppercase">{{ 'general.dashboard' | i18n  }}</a>
+            </li>
+            <li class="vertical-menu-item">
+                <a ng-class="{ sidebar_selected: isActive('/program') }" href="#/program" class="uppercase">{{ 'general.programs' | i18n  }}</a>
+            </li>
+            <li class="vertical-menu-item">
+                <a ng-class="{ sidebar_selected: isActive('/report') }" href="#/report" class="uppercase">{{ 'general.reports' | i18n  }}</a>
+            </li>
+            <li class="vertical-menu-item">
+                <a ng-class="{ sidebar_selected: isActive('/user') }" href="#/users" class="uppercase">{{ 'general.users' | i18n  }}</a>
+            </li>
+            <li class="vertical-menu-item">
+                <a ng-class="{ sidebar_selected: isActive('/profile') }" href="#/profile" class="uppercase">{{ 'general.account_settings' | i18n  }}</a>
+            </li>
+            <li class="vertical-menu-item">
+                <a ng-click="logoutMe()" class="uppercase">{{ 'general.logout' | i18n  }}</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <button type="button" id="sidebar-open-btn" class="btn btn-default" aria-label="Left Align" ng-click="openSidebar()" ng-show="sidebarButtonOpen">
     <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
 </button>
@@ -18,7 +51,6 @@
                         <a class="sidemenu organization_name">{{organization_name}}<br/><label class="label label-danger">BETA</label></a>
 
                     </li>
-
                     <li></li>
                     <li></li>
                     <li role="presentation"><a class="link-nav sidemenu username">{{completeName }}</a></li>

@@ -43,6 +43,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
 
         $scope.logoutMe = function () {
+            $("body").css({"padding-top":"initial"});
             $rootScope.showFooter = false;
             var logout = {
                 token: AuthenticationService.token

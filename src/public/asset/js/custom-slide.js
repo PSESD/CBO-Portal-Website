@@ -1,6 +1,7 @@
 $(document).ready(function () {
     'use strict';
     var status = 'open';
+    var mobile_menu_status = "close";
     var menuLeft = document.getElementById('cbp-spmenu-s1'),
         showLeftPush = document.getElementById('showLeftPush'),
         sidebarmenu = document.getElementById('collapse-sidebarmenu'),
@@ -45,37 +46,21 @@ $(document).ready(function () {
                 $('.version').css({'margin-left':'0px'});
                 $('#sidebar-open-btn').css({'z-index':'999'});
 
-            //} else if (status === 'close') {
-            //
-            //    $('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-menu-hamburger');
-            //    $('#collapse-sidebarmenu').addClass('glyphicon glyphicon-remove');
-            //    $('.link-nav').css({
-            //        'display': ''
-            //    });
-            //    $('#border').css({
-            //        'display': ''
-            //    });
-            //    $('#desktop-nav').css({
-            //        'width': '15%'
-            //    });
-            //    $('#desktop-nav').css({
-            //        'position': 'fixed'
-            //    });
-            //    $('#desktop-nav').css({
-            //        'height': '100%'
-            //    });
-            //    $('#collapse-sidebarmenu').removeClass('icon-collapse-menu');
-            //    $('#collapse-sidebarmenu').addClass('icon-sidebarmenu');
-            //    $('#center-panel').css({
-            //        'margin-left': '15%'
-            //    });
-            //    status = 'open';
-            //    $('#footer').removeClass('hide');
-            //    $('.confidentiality-footer').css({'margin-left':'15.8%'});
-            //    $('.version').css({'margin-left':'15.8%'});
-            //    $('#sidebar-open-btn').css({'z-index':'-999'});
-            //}
 
         };
     }
+
+    $("#mobile-button").on("click",function(){
+        if(mobile_menu_status === "close"){
+            $("ul.vertical-menu").slideDown( "slow" );
+            mobile_menu_status = "open";
+        }else{
+            $("ul.vertical-menu").slideUp();
+            mobile_menu_status = "close";
+        }
+
+    });
+    $("li.vertical-menu-item").on("click",function(){
+        $("ul.vertical-menu").slideUp();
+    });
 });

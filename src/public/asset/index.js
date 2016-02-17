@@ -54,14 +54,14 @@ function ($window, $rootScope) {
             $window.history.back();
         };
         $rootScope.data_content = "asset/templates/desktop.html";
-        //var element = angular.element("#login-container");
-        if ($window.innerWidth > 767) {
-            $rootScope.loginClass = "col-md-offset-4 col-md-4 login-page";
-            $rootScope.data_content = "asset/templates/desktop.html";
-        } else if ($window.innerWidth < 767) {
-            $rootScope.loginClass = "col-md-offset-4 col-md-4 login-page-mobile";
-            $rootScope.data_content = "asset/templates/mobile.html";
-        }
+        ////var element = angular.element("#login-container");
+        //if ($window.innerWidth > 767) {
+        //    $rootScope.loginClass = "col-md-offset-4 col-md-4 login-page";
+        //    $rootScope.data_content = "asset/templates/desktop.html";
+        //} else if ($window.innerWidth < 767) {
+        //    $rootScope.loginClass = "col-md-offset-4 col-md-4 login-page-mobile";
+        //    $rootScope.data_content = "asset/templates/mobile.html";
+        //}
 
 }]);
 
