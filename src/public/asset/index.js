@@ -124,9 +124,6 @@ app.run(function ($timeout,$state, $stateParams,$rootScope, $http, $location, $w
                 $rootScope.is_logged_in = true;
                 $rootScope.showFooter = true;
                 $rootScope.sidebarButtonOpen = true;
-                if($(window).width()>1110){
-                    $("body").css({"padding-left":"220px"});
-                }
                 intended_url = _.get(nextRoute.$$route, 'originalPath');
                 if(intended_url === '/program/students/:program_id'){
                     intended_url = '/program/students/'+ _.get(nextRoute.params,'program_id');

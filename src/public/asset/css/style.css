@@ -292,7 +292,7 @@ II MEDIA
         background-color:transparent;
     }
 
-    #border{
+    .border{
         position: relative;
         border-top: 2px solid #555;
         width: 30px;
@@ -388,13 +388,13 @@ II MEDIA
 ===============================================
 */
     
-    .navbar {
-        position: fixed;
-        margin-bottom: 0;
-        height: 100%;
-        left: 0;
-        overflow: auto;
-    }
+    /*.navbar {*/
+        /*position: fixed;*/
+        /*margin-bottom: 0;*/
+        /*height: 100%;*/
+        /*left: 0;*/
+        /*overflow: auto;*/
+    /*}*/
     /*
 ===============================================
 =================== 2a.Menu ===================
@@ -888,9 +888,9 @@ select{
     =================== 2.Header ==================
     ===============================================
     */
-        .navbar {
-            width: 75px;
-        }
+        /*.navbar {*/
+            /*width: 75px;*/
+        /*}*/
         #forgot_button {
             display: block;
         }
@@ -962,9 +962,7 @@ select{
     =================== 2.Header ==================
     ===============================================
     */
-        .navbar {
-            width: 15%;
-        }
+
 
         /*
     ===============================================
@@ -991,22 +989,22 @@ select{
             overflow-x: hidden;
         }
 
-        .navbar-header {
-            float: none;
-        }
+        /*.navbar-header {*/
+            /*float: none;*/
+        /*}*/
 
-        .navbar-nav {
-            float: none;
-        }
+        /*.navbar-nav {*/
+            /*float: none;*/
+        /*}*/
 
         .navbar-right {
             float: none !important;
         }
 
-        .navbar-nav li,
-        .navbar-right li {
-            float: none;
-        }
+        /*.navbar-nav li,*/
+        /*.navbar-right li {*/
+            /*float: none;*/
+        /*}*/
 
         .navbar-nav .dropdown-menu,
         .navbar-right .dropdown-menu {
