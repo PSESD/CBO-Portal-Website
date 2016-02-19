@@ -54,14 +54,6 @@ function ($window, $rootScope) {
             $window.history.back();
         };
         $rootScope.data_content = "asset/templates/desktop.html";
-        ////var element = angular.element("#login-container");
-        //if ($window.innerWidth > 767) {
-        //    $rootScope.loginClass = "col-md-offset-4 col-md-4 login-page";
-        //    $rootScope.data_content = "asset/templates/desktop.html";
-        //} else if ($window.innerWidth < 767) {
-        //    $rootScope.loginClass = "col-md-offset-4 col-md-4 login-page-mobile";
-        //    $rootScope.data_content = "asset/templates/mobile.html";
-        //}
 
 }]);
 
@@ -132,6 +124,9 @@ app.run(function ($timeout,$state, $stateParams,$rootScope, $http, $location, $w
                 $rootScope.is_logged_in = true;
                 $rootScope.showFooter = true;
                 $rootScope.sidebarButtonOpen = true;
+                if($(window).width()>1110){
+                    $("body").css({"padding-left":"220px"});
+                }
                 intended_url = _.get(nextRoute.$$route, 'originalPath');
                 if(intended_url === '/program/students/:program_id'){
                     intended_url = '/program/students/'+ _.get(nextRoute.params,'program_id');
@@ -222,7 +217,6 @@ function showError(message, alert) {
     var passingClass = 'alert-danger error-color';
     var messages = "";
     var sidebar_width = 0;
-    sidebar_width = $("#desktop-nav").width() + "px";
     if (alert === 2) {
         passingClass = 'alert-success';
     }
@@ -247,15 +241,19 @@ function showError(message, alert) {
 
     if(message !== null) {
         if (window.location.href.indexOf('/login') === -1) {
-            jQuery(".error-container.visible-on").empty().append(message_alert);
+            jQuery(".error-container").empty().append(message_alert);
             setTimeout(function () {
-               jQuery('.alert').remove();
+                jQuery('.alert').remove();
             }, 9000);
         } else {
-            jQuery("#login-error-message").empty().append(message_alert);
+            jQuery(".error-container").empty().append(message_alert);
             setTimeout(function () {
-               jQuery('.alert').remove();
+                jQuery('.alert').remove();
             }, 9000);
+            //jQuery("#login-error-message").empty().append(message_alert);
+            //setTimeout(function () {
+            //   jQuery('.alert').remove();
+            //}, 9000);
         }
     }
 }

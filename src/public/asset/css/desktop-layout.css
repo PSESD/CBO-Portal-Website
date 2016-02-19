@@ -5,12 +5,16 @@ body {
 h1.sign-logo{
     font-size: 2.4rem;
 }
-#side-panel {
-    float: left;
-    width: 15%;
-    height: 100%;
-    border-right: 1px solid #dddddd;
+.sidemenu.organization_name,
+.sidemenu.username{
+    font-size: 2.4rem;
 }
+/*#side-panel {*/
+    /*float: left;*/
+    /*width: 15%;*/
+    /*height: 100%;*/
+    /*border-right: 1px solid #dddddd;*/
+/*}*/
 .center-panel {
     margin-left: 15%;
 }
@@ -23,12 +27,17 @@ h1.sign-logo{
     background-color: #f17f49
 }
 #desktop-nav {
+    background: black;
     position: fixed;
-    width: 14.8%;
+    width: 220px;
     height: 100%;
     box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1) inset;
     overflow-y: auto;
     overflow-x: hidden;
+    padding-top: 3em;
+    z-index: 1;
+    top:0;
+    left: 0;
 }
 #footer {
     position: fixed;
@@ -47,12 +56,7 @@ h1.sign-logo{
         font-size: 12px;
         font-weight: bold;
     }
-    #desktop-nav {
-        position: fixed;
-        width: 16%;
-        height: 100%;
-        box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1) inset;
-    }
+
 
     .padding-left{
         padding-left: 25px;
@@ -109,7 +113,7 @@ ul.vertical-menu li.vertical-menu-item{
     margin: 10px;
 }
 .mobile_organization_name{
-    position: absolute;
+    position: absolute;+
     z-index: 11;
     font-size: 1.8rem;
     font-weight: 700;
@@ -122,45 +126,54 @@ ul.vertical-menu li.vertical-menu-item{
 #mobile-button:hover{
     cursor: pointer;
 }
-
-@media (max-width: 768px) {
+.mobile-org-name{
+    display: none;
+}
+.beta-mobile{
+    position: relative;
+    bottom: 5px;
+}
+#border{
+    margin-bottom: 15px;
+}
+@media (max-width: 1009px) {
     body{
-        padding-top: 50px!important;
+        padding-left: 0;
+        padding-top: 47px;
     }
-    
-    .mobile-navbar {
+
+    .top-toolbar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: black;
+        width: 100%;
+        height: 47px;
+        z-index: 10;
+    }
+    .mobile-org-name{
         display: block;
     }
-    #side-panel{
+    .desktop-org-name{
         display: none;
     }
-    #sidebar-open-btn{
+    #desktop-nav{
+        top:47px;
+        width: 100%;
+        height: initial;
         display: none;
     }
-    .center-panel{
-        margin: initial!important;
+    #button-close-open{
+        left: 0!important;
     }
-    .login-page-title{
-        text-align: center;
+    #footer{
+        display: none;
+    }
+    #border{
+        display: none;
     }
 }
-@media (min-width:767px) {
-    body{
-        padding-top:initial;
-    }
-    .mobile-navbar{
-        display: none;
-    }
-    #side-panel{
-        display: block;
-    }
-    #sidebar-open-btn{
-        display: block;
-    }
-    .center-panel{
-        margin-left: 15%;
-    }
-    .login-page-title{
-        text-align: center;
-    }
+@media (min-width:1110px) {
+
+
 }

@@ -60,9 +60,9 @@ only screen and (max-width: 760px),
 		padding: 16px 55% !important;
 	}
 
-	.text-center{
-		text-align:left;
-	}
+	/*.text-center{*/
+		/*text-align:left;*/
+	/*}*/
 
 	/*
     Label the data

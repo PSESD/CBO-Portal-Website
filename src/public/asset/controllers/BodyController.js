@@ -43,7 +43,7 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
 
         $scope.logoutMe = function () {
-            $("body").css({"padding-top":"initial"});
+
             $rootScope.showFooter = false;
             var logout = {
                 token: AuthenticationService.token
@@ -60,8 +60,9 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                     $rootScope.showNavBar = true;
                     CookieStore.clearData();
                     localStorage.setItem('url_intended','');
+                    $("body").css({"padding":"initial"});
                     $location.path("/login");
-                    console.log("logout");
+
                 })
                 .error(function () {
 
@@ -76,36 +77,36 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
 
         };
 
-        $scope.openSidebar = function(){
-            $('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-menu-hamburger');
-            $('#collapse-sidebarmenu').addClass('glyphicon glyphicon-remove');
-            $('#side-panel').removeClass('hide');
-            $('.link-nav').css({
-                'display': ''
-            });
-            $('#border').css({
-                'display': ''
-            });
-            $('#desktop-nav').css({
-                'width': '15%'
-            });
-            $('#desktop-nav').css({
-                'position': 'fixed'
-            });
-            $('#desktop-nav').css({
-                'height': '100%'
-            });
-            $('#collapse-sidebarmenu').removeClass('icon-collapse-menu');
-            $('#collapse-sidebarmenu').addClass('icon-sidebarmenu');
-            //$('#center-panel').css({
-            //    'margin-left': '15%'
-            //});
-            $('#rootDoc').addClass('center-panel');
-            $('#footer').removeClass('hide');
-            //$('.confidentiality-footer').css({'margin-left':'15.3%'});
-            //$('.version').css({'margin-left':'15.3%'});
-            $('#sidebar-open-btn').css({'z-index':'-999'});
-        }
+        //$scope.openSidebar = function(){
+        //    $('#collapse-sidebarmenu').removeClass('glyphicon glyphicon-menu-hamburger');
+        //    $('#collapse-sidebarmenu').addClass('glyphicon glyphicon-remove');
+        //    $('#side-panel').removeClass('hide');
+        //    $('.link-nav').css({
+        //        'display': ''
+        //    });
+        //    $('#border').css({
+        //        'display': ''
+        //    });
+        //    $('#desktop-nav').css({
+        //        'width': '15%'
+        //    });
+        //    $('#desktop-nav').css({
+        //        'position': 'fixed'
+        //    });
+        //    $('#desktop-nav').css({
+        //        'height': '100%'
+        //    });
+        //    $('#collapse-sidebarmenu').removeClass('icon-collapse-menu');
+        //    $('#collapse-sidebarmenu').addClass('icon-sidebarmenu');
+        //    //$('#center-panel').css({
+        //    //    'margin-left': '15%'
+        //    //});
+        //    $('#rootDoc').addClass('center-panel');
+        //    $('#footer').removeClass('hide');
+        //    //$('.confidentiality-footer').css({'margin-left':'15.3%'});
+        //    //$('.version').css({'margin-left':'15.3%'});
+        //    $('#sidebar-open-btn').css({'z-index':'-999'});
+        //}
 
         $scope.refreshMe = function () {
 

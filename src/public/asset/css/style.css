@@ -27,6 +27,17 @@ II MEDIA
 ==================== 1.Body ===================
 ===============================================
 */
+    #button-close-open{
+        color: white;
+        background: black;
+        outline: none;
+        border: none;
+        padding: 15px;
+        position: fixed;
+        top: 0;
+        left: 175px;
+        z-index: 2;
+    }
     .general-spacing{
         padding-bottom: 30px!important;
     }
@@ -253,6 +264,8 @@ II MEDIA
     .sidemenu{
         text-transform: uppercase;
         font-weight: 700;
+        color: #9d9d9d;
+        padding: 10px 15px;
     }
     .top-space{
         position: relative;
