@@ -1,3 +1,129 @@
+$(document).ready(function(){
+    var url = window.location.href;
+    if(url.indexOf("login") > -1)
+    {
+        $("body").addClass("login");
+    }else if( url.indexOf("forget") > -1)
+    {
+        $("body").addClass("forget");
+    }
+    if($(window).width()<992)
+    {
+        $("body").addClass("closed");
+        if( $("button.navbar-toggle").hasClass("glyphicon glyphicon-remove")){
+            $("button.navbar-toggle").removeClass("glyphicon glyphicon-remove");
+            $("button.navbar-toggle").addClass("glyphicon glyphicon-menu-hamburger");
+        }
+    }else if($(window).width()>992)
+    {
+        $("body").addClass("opened");
+        if( $("button.navbar-toggle").hasClass("glyphicon glyphicon-menu-hamburger")){
+
+            $("button.navbar-toggle").removeClass("glyphicon glyphicon-menu-hamburger");
+            $("button.navbar-toggle").addClass("glyphicon glyphicon-remove");
+        }
+    }
+    $("button.navbar-toggle").on("click",function(){
+        if( $("body").hasClass("closed")){
+
+            $("button.navbar-toggle").removeClass("glyphicon-remove");
+            $("button.navbar-toggle").addClass("glyphicon-menu-hamburger");
+        }else{
+
+            $("button.navbar-toggle").removeClass("glyphicon-menu-hamburger");
+            $("button.navbar-toggle").addClass("glyphicon-remove");
+        }
+        if($(window).width()>992){
+            if($("body").hasClass("opened")) {
+                $("body.logged-in").addClass("close-sidebar");
+                $("button.navbar-toggle").addClass("close-sidebar");
+                $(".desktop").addClass("close-sidebar");
+                $(".navbar").addClass("close-sidebar");
+                $(".navbar-nav").addClass("close-sidebar");
+                $(".footer").addClass("close-sidebar");
+                $("body").removeClass("opened");
+                $("body").addClass("closed");
+            }else if($("body").hasClass("closed")) {
+                $("body.logged-in").removeClass("close-sidebar");
+                $("button.navbar-toggle").removeClass("close-sidebar");
+                $(".navbar-nav").removeClass("close-sidebar");
+                $(".desktop").removeClass("close-sidebar");
+                $(".footer").removeClass("close-sidebar");
+                $(".navbar").removeClass("close-sidebar");
+                $("body").removeClass("closed");
+                $("body").addClass("opened");
+            }
+        }
+    });
+});
+$(window).resize(function () {
+    var url = window.location.href;
+    if($(window).width()<992)
+    {
+        if( $("button.navbar-toggle").hasClass("glyphicon-remove")){
+            $("button.navbar-toggle").removeClass("glyphicon-remove");
+            $("button.navbar-toggle").addClass("glyphicon-menu-hamburger");
+        }
+    }else if($(window).width()>992)
+    {
+        if( $("button.navbar-toggle").hasClass("glyphicon-menu-hamburger")){
+
+            $("button.navbar-toggle").removeClass("glyphicon-menu-hamburger");
+            $("button.navbar-toggle").addClass("glyphicon-remove");
+        }
+    }
+    $("button.navbar-toggle").on("click",function(){
+        if( $("button.navbar-toggle").hasClass("glyphicon-remove")){
+
+            $("button.navbar-toggle").removeClass("glyphicon-remove");
+            $("button.navbar-toggle").addClass("glyphicon-menu-hamburger");
+        }else if( $("button.navbar-toggle").hasClass("glyphicon-menu-hamburger")){
+
+            $("button.navbar-toggle").removeClass("glyphicon-menu-hamburger");
+            $("button.navbar-toggle").addClass("glyphicon-remove");
+        }
+    });
+})
+$(window).on('hashchange', function(e){
+    var url = window.location.href;
+    if(url.indexOf("login") > -1)
+    {
+        $("body").addClass("login");
+    }else if( url.indexOf("forget") > -1)
+    {
+        $("body").addClass("forget");
+    }else{
+        $("body").addClass("logged-in");
+        if($(window).width()<992)
+        {
+            if( $("button.navbar-toggle").hasClass("glyphicon-remove")){
+                $("button.navbar-toggle").removeClass("glyphicon-remove");
+                $("button.navbar-toggle").addClass("glyphicon-menu-hamburger");
+            }
+        }else if($(window).width()>992)
+        {
+
+            if( $("button.navbar-toggle").hasClass("glyphicon-menu-hamburger")){
+
+                $("button.navbar-toggle").removeClass("glyphicon-menu-hamburger");
+                $("button.navbar-toggle").addClass("glyphicon-remove");
+            }
+
+        }
+        $("button.navbar-toggle").on("click",function(){
+            if( $("button.navbar-toggle").hasClass("glyphicon-remove")){
+
+                $("button.navbar-toggle").removeClass("glyphicon-remove");
+                $("button.navbar-toggle").addClass("glyphicon-menu-hamburger");
+            }else if( $("button.navbar-toggle").hasClass("glyphicon-menu-hamburger")){
+
+                $("button.navbar-toggle").removeClass("glyphicon-menu-hamburger");
+                $("button.navbar-toggle").addClass("glyphicon-remove");
+            }
+        });
+    }
+
+});
 //var screenWidth;
 //var mobile = false;
 //var url;

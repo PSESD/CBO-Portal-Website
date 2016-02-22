@@ -1,21 +1,21 @@
 <nav class="navbar navbar-inverse" ng-show="showNavBar">
          <div class="navbar-header">
-            <button type="button" class="glyphicon glyphicon-remove navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse" aria-expanded="false">
+            <button type="button" class="mobile glyphicon glyphicon-remove navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse" aria-expanded="false">
             </button>
              <div class="mobile uppercase org">{{organization_name}} <label class="label label-danger">BETA</label></div>
         </div>
     <div class="desktop uppercase org">{{organization_name}}<br/><label class="label label-danger">BETA</label></div>
     <div class="desktop uppercase usr">{{completeName }}</div>
-    <div class="border"></div>
+    <div class="border desktop"></div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse">
             <ul class="nav navbar-nav">
                 <div class="mobile uppercase usr">{{completeName }}</div>
-                <li><a href="#" class="uppercase">{{ 'general.dashboard' | i18n  }}</a></li>
-                <li><a href="#" class="uppercase">{{ 'general.programs' | i18n  }}</a></li>
-                <li><a href="#" class="uppercase">{{ 'general.reports' | i18n  }}</a></li>
-                <li><a href="#" class="uppercase">{{ 'general.users' | i18n  }}</a></li>
-                <li><a href="#" class="uppercase">{{ 'general.account_settings' | i18n  }}</a></li>
-                <li><a href="#" class="uppercase">{{ 'general.logout' | i18n  }}</a></li>
+                <li><a ng-class="{ sidebar_selected: isActive('/student') }" class="uppercase" ng-href="#/student">{{ 'general.dashboard' | i18n  }}</a></li>
+                <li><a ng-class="{ sidebar_selected: isActive('/program') }" class="uppercase" ng-href="#/program">{{ 'general.programs' | i18n  }}</a></li>
+                <li><a ng-class="{ sidebar_selected: isActive('/report') }"  class="uppercase" ng-href="#/report">{{ 'general.reports' | i18n  }}</a></li>
+                <li><a ng-class="{ sidebar_selected: isActive('/users') }"  class="uppercase" ng-href="#/user">{{ 'general.users' | i18n  }}</a></li>
+                <li><a ang-class="{ sidebar_selected: isActive('/profile') }" class="uppercase" ng-href="#/profile">{{ 'general.account_settings' | i18n  }}</a></li>
+                <li><a href="#" class="uppercase" ng-click="logoutMe()">{{ 'general.logout' | i18n  }}</a></li>
             </ul>
         </div>
         <div class="collapse navbar-collapse">
