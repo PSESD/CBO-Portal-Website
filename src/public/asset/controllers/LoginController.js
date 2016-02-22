@@ -91,13 +91,6 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                                         complete_name += data[i].last_name;
                                                     }
 
-                                                    //if (data[i].permissions.length > 0) {
-                                                    //    for (var j = 0; j < data[i].permissions.length; j++) {
-                                                    //        if (data[i].permissions[j].organization == get_id) {
-                                                    //            role = data[i].permissions[j].role;
-                                                    //        }
-                                                    //    }
-                                                    //}
                                                     role = data[i].role;
 
                                                     if (role === 'admin') {

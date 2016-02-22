@@ -6,7 +6,7 @@ var json_debug = [];
 var transcript_debug = [];
 var attendance_state = false;
 var transcript_state = false;
-
+var full_name = "";
 
 app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
     function ($interval,$route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
@@ -159,6 +159,8 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
 
         }
         );
+
+
 
         $scope.filterAttendanceOfYears = function () {
             return function (p) {
@@ -510,6 +512,7 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
                 if(response.success === true && response.info !== undefined)
                 {
 
+                    full_name = response.info.personal.firstName + response.info.personal.lastName;
                     $rootScope.doingResolve = false;
                     general_data = response.info;
                     //StudentCache.put(student_id +"general",general_data);
@@ -936,12 +939,104 @@ function load_program_participation_data($http,student_id,AuthenticationService,
         });
 }
 
-function load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache,$interval){
+function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope)
+{
+    'use strict';
+    $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/report', {
+        headers: {
+            'Authorization': 'Bearer ' + AuthenticationService.token
+        }
+    }).success(function (response){
+        if(response.success === true && response.info !== undefined)
+        {
+            $scope.categories = [];
+            $scope.data = [];
+            $scope.plot = [];
+            angular.forEach(response.info.attendance,function(v){
+                $scope.categories.push(v.x);
+                $scope.data.push(v.y);
+
+            });
+            angular.forEach(response.info.programs,function(v){
+                $scope.plot.push({
+                    from: new Date(v.from).toUTCString(),
+                    to: new Date(v.to).toUTCString(),
+                    label:{
+                        align:'center',
+                        text: v.name
+                    },
+                    color:'rgba(68, 170, 213, .2)'
+                });
+            });
+            $('#student-graph').highcharts({
+                chart: {
+                    type: 'areaspline'
+                },
+                title: {
+                    text: 'Attendance Graph'
+                },
+                //legend: {
+                //    layout: 'vertical',
+                //    align: 'left',
+                //    verticalAlign: 'top',
+                //    x: 150,
+                //    y: 100,
+                //    floating: true,
+                //    borderWidth: 1,
+                //    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                //},
+                xAxis: {
+                    categories: $scope.categories,
+                    plotBands: $scope.plot
+                },
+                yAxis: {
+                    title: {
+                        text: 'Days'
+                    }
+                },
+                tooltip: {
+                    shared: true,
+                    valueSuffix: ' day(s)'
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    areaspline: {
+                        fillOpacity: 0.5
+                    }
+                },
+                series: [{
+                    name: full_name,
+                    data: $scope.data
+                }]
+            });
+
+        }
+        else{
+            $rootScope.doingResolve = false;
+        }
+    })
+        .error(function (response, status) {
+
+            showError(response, 1);
+            $rootScope.doingResolve = false;
+            if (status === 401) {
+                $rootScope.show_footer = false;
+                CookieStore.clearData();
+                $location.path('/login');
+            }
+
+        });
+}
+
+function load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache,$interval,$filter){
     'use strict';
     load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
     load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache,$interval);
     load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
     load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
+    load_graph($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,$filter);
     //$('.loading-icon').addClass('hide');
 }
 
