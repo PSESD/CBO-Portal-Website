@@ -86,7 +86,7 @@
     </div>
 </div>
 
-<div class="card">
+<div class="card general-spacing">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -110,7 +110,7 @@
             <!--</div>-->
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-4">
+            <div class="col-xs-12 col-sm-12 col-md-4 last_update_date">
                 <span ng-show="showLoading"  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
                 {{ 'general.last_update' | i18n }}:<span>{{ xsreLastUpdated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
                     <!--<img  class="loading-icon" src="asset/img/ajax-loader.gif">-->
@@ -254,9 +254,15 @@
                     <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior"><h1>{{ 'general.attendance_and_behavior' | i18n }}</h1></a></li>
                     <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" ><h1>{{ 'general.transcript' | i18n}}</h1></a></li>
                     <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation"><h1>{{ 'general.program_participation' | i18n }}</h1></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#graph', 3)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#graph"><h1 class="stat"></h1></a></li>
                 </ul>
 
                 <div class="tab-content">
+
+                    <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#graph', 3)}" class="tab-pane" id="graph" data-id="graph">
+                        <div id="student-graph"></div>
+                    </div>
+
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}" class="tab-pane" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
                         <ul ng-show="attendance_load_first_time">
                             <li class="text-center"><img src="asset/img/loading_32px.svg"></li>
@@ -527,7 +533,7 @@
 
                                         </div>
                                         <div class="transcript-content-array" ng-if="course.value !== null" ng-repeat="c in course.value">
-                                            <div class="transcript-descriptor">
+                                            <!--<div class="transcript-descriptor">-->
                                                 <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }} transcript-title">{{ ::c.title }}</div>
                                                 <hr class="hr-transcript">
                                                 <div class="attempted-credit">
@@ -557,33 +563,33 @@
                                                     </dl>
 
                                                 </div>
-                                            </div>
-                                            <div class="transcript-display">
-                                                <div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }} transcript-title">{{ ::c.title }}</div>
-                                                <hr class="hr-transcript">
-                                                <div class="attempted-credit">
-                                                    <dl>
-                                                        <dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>
-                                                        <dd> {{ ::c.mark }}</dd>
-                                                        <div ng-if="c.creditsEarned !== c.creditsAttempted">
-                                                            <dt class="bold bold-title">
-                                                                Credits
-                                                            </dt>
-                                                            <dd>
-                                                                <span class="red" >{{c.creditsEarned}}/{{c.creditsAttempted}}</span>
-                                                            </dd>
-                                                        </div>
-                                                        <div ng-if="c.creditsEarned === c.creditsAttempted">
-                                                            <dt class="bold bold-title">
-                                                                Credits
-                                                            </dt>
-                                                            <dd>
-                                                                <span>{{c.creditsEarned}}</span>
-                                                            </dd>
-                                                        </div>
-                                                    </dl>
-                                                </div>
-                                            </div>
+
+                                            <!--<div class="transcript-display">-->
+                                                <!--<div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }} transcript-title">{{ ::c.title }}</div>-->
+                                                <!--<hr class="hr-transcript">-->
+                                                <!--<div class="attempted-credit">-->
+                                                    <!--<dl>-->
+                                                        <!--<dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>-->
+                                                        <!--<dd> {{ ::c.mark }}</dd>-->
+                                                        <!--<div ng-if="c.creditsEarned !== c.creditsAttempted">-->
+                                                            <!--<dt class="bold bold-title">-->
+                                                                <!--Credits-->
+                                                            <!--</dt>-->
+                                                            <!--<dd>-->
+                                                                <!--<span class="red" >{{c.creditsEarned}}/{{c.creditsAttempted}}</span>-->
+                                                            <!--</dd>-->
+                                                        <!--</div>-->
+                                                        <!--<div ng-if="c.creditsEarned === c.creditsAttempted">-->
+                                                            <!--<dt class="bold bold-title">-->
+                                                                <!--Credits-->
+                                                            <!--</dt>-->
+                                                            <!--<dd>-->
+                                                                <!--<span>{{c.creditsEarned}}</span>-->
+                                                            <!--</dd>-->
+                                                        <!--</div>-->
+                                                    <!--</dl>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
                                         </div>
                                     </li>
                                 </ul>

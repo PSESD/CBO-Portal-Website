@@ -27,6 +27,20 @@ II MEDIA
 ==================== 1.Body ===================
 ===============================================
 */
+    #button-close-open{
+        color: white;
+        background: black;
+        outline: none;
+        border: none;
+        padding: 15px;
+        position: fixed;
+        top: 0;
+        left: 175px;
+        z-index: 2;
+    }
+    .general-spacing{
+        padding-bottom: 30px!important;
+    }
 
     .login-container {
         -webkit-transform-style: preserve-3d;
@@ -94,8 +108,8 @@ II MEDIA
     .last_update_date{
 
         position: relative;
-        top: 42px;
-        left: 10px;
+        top: -15px;
+
     }
     .nav-tabs h1{
         margin-top: 10px;
@@ -250,6 +264,8 @@ II MEDIA
     .sidemenu{
         text-transform: uppercase;
         font-weight: 700;
+        color: #9d9d9d;
+        padding: 10px 15px;
     }
     .top-space{
         position: relative;
@@ -276,13 +292,14 @@ II MEDIA
         background-color:transparent;
     }
 
-    #border{
+    .border{
         position: relative;
         border-top: 2px solid #555;
         width: 30px;
         left: 15px;
     }
-    .link-nav.sidemenu:hover,.sidebar_selected{
+    .link-nav.sidemenu:hover,.sidebar_selected,
+    li.vertical-menu-item a:hover{
         background-color: #eeeeee;
         color: #ef7700 !important;
     }
@@ -331,7 +348,8 @@ II MEDIA
     a{
         color: #29B6D8;
     }
-    a:hover {
+    a:hover
+    {
         text-decoration: none;
         color : #ef7700;
         cursor: pointer;
@@ -370,13 +388,13 @@ II MEDIA
 ===============================================
 */
     
-    .navbar {
-        position: fixed;
-        margin-bottom: 0;
-        height: 100%;
-        left: 0;
-        overflow: auto;
-    }
+    /*.navbar {*/
+        /*position: fixed;*/
+        /*margin-bottom: 0;*/
+        /*height: 100%;*/
+        /*left: 0;*/
+        /*overflow: auto;*/
+    /*}*/
     /*
 ===============================================
 =================== 2a.Menu ===================
@@ -870,9 +888,9 @@ select{
     =================== 2.Header ==================
     ===============================================
     */
-        .navbar {
-            width: 75px;
-        }
+        /*.navbar {*/
+            /*width: 75px;*/
+        /*}*/
         #forgot_button {
             display: block;
         }
@@ -944,9 +962,7 @@ select{
     =================== 2.Header ==================
     ===============================================
     */
-        .navbar {
-            width: 15%;
-        }
+
 
         /*
     ===============================================
@@ -973,22 +989,22 @@ select{
             overflow-x: hidden;
         }
 
-        .navbar-header {
-            float: none;
-        }
+        /*.navbar-header {*/
+            /*float: none;*/
+        /*}*/
 
-        .navbar-nav {
-            float: none;
-        }
+        /*.navbar-nav {*/
+            /*float: none;*/
+        /*}*/
 
         .navbar-right {
             float: none !important;
         }
 
-        .navbar-nav li,
-        .navbar-right li {
-            float: none;
-        }
+        /*.navbar-nav li,*/
+        /*.navbar-right li {*/
+            /*float: none;*/
+        /*}*/
 
         .navbar-nav .dropdown-menu,
         .navbar-right .dropdown-menu {

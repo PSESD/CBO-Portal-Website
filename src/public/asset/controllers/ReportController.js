@@ -24,7 +24,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
         $rootScope.doingResolve = false;
 
-        $http.get(api_url + AuthenticationService.organization_id + '/report/filters', {
+        $http.get(api_url + AuthenticationService.organization_id + '/reports/students/filters', {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
@@ -175,7 +175,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
             var passing_string = program + district + cohort;
 
-            $http.get(api_url + AuthenticationService.organization_id + '/report/students/school_district'+passing_string, {
+            $http.get(api_url + AuthenticationService.organization_id + '/reports/students/school_district'+passing_string, {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
@@ -289,7 +289,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 });
 
 
-            $http.get(api_url + AuthenticationService.organization_id + '/report/students/grade'+passing_string, {
+            $http.get(api_url + AuthenticationService.organization_id + '/reports/students/grade'+passing_string, {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
@@ -331,7 +331,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 });
 
 
-            $http.get(api_url + AuthenticationService.organization_id + '/report/students/race'+passing_string, {
+            $http.get(api_url + AuthenticationService.organization_id + '/reports/students/race'+passing_string, {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }
@@ -384,7 +384,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
                 });
 
 
-            $http.get(api_url + AuthenticationService.organization_id + '/report/students/gender'+passing_string, {
+            $http.get(api_url + AuthenticationService.organization_id + '/reports/students/gender'+passing_string, {
                 headers: {
                     'Authorization': 'Bearer ' + AuthenticationService.token
                 }

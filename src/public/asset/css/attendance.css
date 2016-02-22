@@ -20,12 +20,12 @@
     float: left;
     clear: none;
 }
-.col-md-4 {
-    width: 33%;
-    position: relative;
-    float: left;
-    clear: none;
-}
+/*.col-md-4 {*/
+    /*width: 33%;*/
+    /*position: relative;*/
+    /*float: left;*/
+    /*clear: none;*/
+/*}*/
 .col-md-1.start {
     width: 23%;
     border-top: 1px solid #fff;
