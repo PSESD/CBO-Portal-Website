@@ -21,11 +21,6 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <h1><a href="#/user/pending">{{ 'general.show_pending_users' | i18n | uppercase }}</a></h1>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-3">
                 <span class="search-btn">
                     <input type="text" class="input-search" ng-model="search" placeholder="{{ 'general.search_users' | i18n }}">
@@ -101,3 +96,25 @@
         </div>
     </div>
 </div>
+<script>
+    if(document.getElementById("programList")){
+        document.getElementById("programList").remove();
+    }else if(document.getElementById("studentList")){
+        document.getElementById("studentList").remove();
+    }else if (document.getElementById("userList")){
+        document.getElementById("userList").remove();
+    }else if(document.getElementById("programStudentAssignList")){
+        document.getElementById("programStudentAssignList").remove();
+    }
+    var cssId = 'userList';  // you could encode the css path itself to generate id..
+    if (!document.getElementById(cssId))
+    {
+        var head  = document.getElementsByTagName('head')[0];
+        var link  = document.createElement('link');
+        link.id   = cssId;
+        link.rel  = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'asset/css/responsive-user-table.css';
+        head.appendChild(link);
+    }
+</script>
