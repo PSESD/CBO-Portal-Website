@@ -46,56 +46,19 @@ only screen and (max-width: 760px),
 		padding-left: 50%;
 	}
 
-	td:before {
-		position: absolute;
-		top: 15px;
-		left: 6px;
-		width: 45%;
-		padding-right: 10px;
-		white-space: nowrap;
-	}
+	/*td:before {*/
+		/*position: absolute;*/
+		/*top: 15px;*/
+		/*left: 6px;*/
+		/*width: 45%;*/
+		/*padding-right: 10px;*/
+		/*white-space: nowrap;*/
+	/*}*/
 
 	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
 		border-top: none !important;
-		padding: 16px 55% !important;
+		/*padding: 16px 55% !important;*/
 	}
-
-	/*.text-center{*/
-		/*text-align:left;*/
-	/*}*/
-
-	/*
-    Label the data
-    */
-	td:nth-of-type(1):before { content: "Program Name"; }
-	td:nth-of-type(2):before { content: "Created"; }
-	td:nth-of-type(3):before { content: "Last Updated"; }
-	td:nth-of-type(4):before { content: "Assign Students"; }
-	td:nth-of-type(5):before { content: "Delete"; }
-
-	td:nth-of-type(1):before { content: "Name"; }
-	td:nth-of-type(2):before { content: "District Student ID"; }
-	td:nth-of-type(3):before { content: "School District"; }
-	td:nth-of-type(4):before { content: "Grade Level"; }
-	td:nth-of-type(5):before { content: "Current School"; }
-	td:nth-of-type(6):before { content: "Attendance"; }
-	td:nth-of-type(7):before { content: "Behavior"; }
-	td:nth-of-type(8):before { content: "On Track to Graduate"; }
-	td:nth-of-type(9):before { content: "Edit"; }
-	td:nth-of-type(10):before { content: "Delete"; }
-
-	td:nth-of-type(1):before { content: "Name"; }
-	td:nth-of-type(2):before { content: "Email"; }
-	td:nth-of-type(3):before { content: "Created"; }
-	td:nth-of-type(4):before { content: "Last Updated"; }
-	td:nth-of-type(5):before { content: "Permissions"; }
-	td:nth-of-type(6):before { content: "Assign Students"; }
-	td:nth-of-type(7):before { content: "Delete"; }
-
-	td:nth-of-type(1):before { content: "Name"; }
-	td:nth-of-type(2):before { content: "School ID"; }
-	td:nth-of-type(3):before { content: "School District"; }
-
 
 }
 
@@ -107,9 +70,7 @@ and (max-device-width : 480px) {
 		padding: 0;
 		margin: 0;
 		width: 320px; }
-	.text-center{
-		text-align:left;
-	}
+
 }
 
 /* iPads (portrait and landscape) ----------- */
@@ -117,7 +78,5 @@ and (max-device-width : 480px) {
 	body {
 		width: 495px;
 	}
-	.text-center{
-		text-align:left;
-	}
+
 }

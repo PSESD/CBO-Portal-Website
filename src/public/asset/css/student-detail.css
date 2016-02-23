@@ -1,6 +1,7 @@
 #student-graph{
     overflow: auto;
     width: 100%;
+    padding: 20px 10px 10px;
 }
 .modal-body.enrollment{
     padding: 0;
@@ -72,7 +73,8 @@ dl{
     background-color:transparent!important;
 }
 .filter-btn{
-    width: 250px!important;
+    /*width: 250px!important;*/
+    width: 250px;
     margin-bottom: 0;
 }
 .student-edit-btn{
@@ -836,9 +838,7 @@ ul.student-program-participation {
     padding: 0;
 }
 ul.student-program-participation > li {
-    padding-left: 3%;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    padding: 20px 10px 10px;
 }
 ul.student-program-participation > li:nth-child(even) {
     background-color: #ededed;

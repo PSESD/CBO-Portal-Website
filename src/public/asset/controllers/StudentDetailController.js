@@ -7,6 +7,18 @@ var transcript_debug = [];
 var attendance_state = false;
 var transcript_state = false;
 var full_name = "";
+var colors = [
+    'rgba(0,0,128,.1)',
+    'rgba(0,0,255,.1)',
+    'rgba(0,128,0,.1)',
+    'rgba(0,128,128,.1)',
+    'rgba(0,255,0,.1)',
+    'rgba(0,255,255,.1)',
+    'rgba(128,0,,.1)',
+    'rgba(128,0,128,.1)',
+    'rgba(128,128,0,.1)',
+    'rgba(255,0,255,.1)'
+]
 
 app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
     function ($interval,$route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
@@ -949,25 +961,46 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
     }).success(function (response){
         if(response.success === true && response.info !== undefined)
         {
-            $scope.categories = [];
-            $scope.data = [];
-            $scope.plot = [];
-            angular.forEach(response.info.attendance,function(v){
-                $scope.categories.push(v.x);
-                $scope.data.push(v.y);
 
+            var categories = [];
+            var plotBands = [];
+            var data = {};
+            var yData = [];
+            $scope.plot = [];
+            angular.forEach(response.info.attendance,function(v,k){
+                categories.push(v.x);
+                data[v.x] = categories.length -1;
+                yData.push(v.y);
             });
+
             angular.forEach(response.info.programs,function(v){
-                $scope.plot.push({
-                    from: new Date(v.from).toUTCString(),
-                    to: new Date(v.to).toUTCString(),
-                    label:{
-                        align:'center',
-                        text: v.name
-                    },
-                    color:'rgba(68, 170, 213, .2)'
-                });
+                var from = moment(new Date(v.from)).format('MMMM YYYY');
+                var to = moment(new Date(v.to)).format('MMMM YYYY');
+                if(from === to){
+                    plotBands.push({
+                        from: data[from] - 0.5,
+                        to: data[from] + 0.5,
+                        color: colors[Math.floor((Math.random() * 9) + 0)],
+                        label:{
+                            align:'center',
+                            text: v.name,
+                            rotation:45
+                        }
+                    })
+                } else {
+                    plotBands.push({
+                        from: data[from] - 0.5,
+                        to: data[to] + 0.5,
+                        color: colors[Math.floor((Math.random() * 9) + 0)],
+                        label:{
+                            align:'center',
+                            text: v.name,
+                            rotation:45
+                        }
+                    })
+                }
             });
+
             $('#student-graph').highcharts({
                 chart: {
                     type: 'areaspline'
@@ -975,19 +1008,9 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                 title: {
                     text: 'Attendance Graph'
                 },
-                //legend: {
-                //    layout: 'vertical',
-                //    align: 'left',
-                //    verticalAlign: 'top',
-                //    x: 150,
-                //    y: 100,
-                //    floating: true,
-                //    borderWidth: 1,
-                //    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-                //},
                 xAxis: {
-                    categories: $scope.categories,
-                    plotBands: $scope.plot
+                    categories: categories,
+                    plotBands:plotBands
                 },
                 yAxis: {
                     title: {
@@ -996,7 +1019,7 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                 },
                 tooltip: {
                     shared: true,
-                    valueSuffix: ' day(s)'
+                    valueSuffix: 'day(s)'
                 },
                 credits: {
                     enabled: false
@@ -1008,7 +1031,7 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                 },
                 series: [{
                     name: full_name,
-                    data: $scope.data
+                    data: yData
                 }]
             });
 
