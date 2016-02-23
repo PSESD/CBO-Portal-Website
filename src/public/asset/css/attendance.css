@@ -1,25 +1,25 @@
-.container {
-    margin: 0 1%;
-    display: block;
-}
-.col-md-1 {
-    width: 15.33%;
-    position: relative;
-    float: left;
-    clear: none;
-}
-.col-md-2 {
-    width: 16.67%;
-    position: relative;
-    float: left;
-    clear: none;
-}
-.col-md-3 {
-    width: 24.99%;
-    position: relative;
-    float: left;
-    clear: none;
-}
+/*.container {*/
+    /*margin: 0 1%;*/
+    /*display: block;*/
+/*}*/
+/*.col-md-1 {*/
+    /*width: 15.33%;*/
+    /*position: relative;*/
+    /*float: left;*/
+    /*clear: none;*/
+/*}*/
+/*.col-md-2 {*/
+    /*width: 16.67%;*/
+    /*position: relative;*/
+    /*float: left;*/
+    /*clear: none;*/
+/*}*/
+/*.col-md-3 {*/
+    /*width: 24.99%;*/
+    /*position: relative;*/
+    /*float: left;*/
+    /*clear: none;*/
+/*}*/
 /*.col-md-4 {*/
     /*width: 33%;*/
     /*position: relative;*/

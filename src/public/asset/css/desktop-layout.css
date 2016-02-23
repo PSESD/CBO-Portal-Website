@@ -170,8 +170,16 @@ ul.vertical-menu li.vertical-menu-item{
     .mobile{
         display: none;
     }
-    .org,.usr{
+    .org{
         font-size: 2.6rem;
+        line-height: 1;
+        margin-bottom: 20px;
+    }
+    .usr{
+        font-size: 1.6rem;
+    }
+    .org,.usr{
+
         color: #7d7d7d;
         font-weight: 700;
         padding-left: 15px;
@@ -256,8 +264,16 @@ ul.vertical-menu li.vertical-menu-item{
     .mobile{
         display: none;
     }
-    .org,.usr{
+    .org{
         font-size: 2.6rem;
+        line-height: 1;
+        margin-bottom: 20px;
+    }
+    .usr{
+        font-size: 1.6rem;
+    }
+    .org,.usr{
+
         color: #7d7d7d;
         font-weight: 700;
         padding-left: 15px;
@@ -311,6 +327,15 @@ ul.vertical-menu li.vertical-menu-item{
 
 /* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
+    .version{
+        margin-bottom: 10px!important;
+    }
+    .card{
+        padding: 0 10px!important;
+    }
+    .input-search {
+        margin-bottom: 20px;
+    }
     body.login,body.forget{
         padding: 0;
     }
@@ -321,8 +346,18 @@ ul.vertical-menu li.vertical-menu-item{
     .desktop{
         display: none;
     }
-    .org,.usr{
+    .org{
         font-size: 2.6rem;
+    }
+    .usr{
+        font-size: 1.6rem;
+    }
+    .beta{
+        position: relative;
+        top: -3px;
+    }
+    .org,.usr{
+
         color: #7d7d7d;
         font-weight: 700;
         padding-left: 15px;
@@ -349,6 +384,28 @@ ul.vertical-menu li.vertical-menu-item{
 
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
+    .version{
+        margin-bottom: 10px!important;
+    }
+    .card{
+        padding: 0 10px!important;
+    }
+    tr{
+        margin-bottom: 15px;
+    }
+    td.text-center{
+        text-align: left;
+    }
+    .input-search {
+        margin-bottom: 20px;
+    }
+    .top-space {
+        position: relative;
+        top:0!important;
+    }
+    .btn{
+        width: 100%;
+    }
     body.login,body.forget{
         padding: 0;
     }
@@ -358,8 +415,18 @@ ul.vertical-menu li.vertical-menu-item{
     .desktop{
         display: none;
     }
-    .org,.usr{
+    .org{
         font-size: 2.6rem;
+    }
+    .beta{
+        position: relative;
+        top: -3px;
+    }
+    .usr{
+        font-size: 1.6rem;
+    }
+    .org,.usr{
+
         color: #7d7d7d;
         font-weight: 700;
         padding-left: 15px;
@@ -387,18 +454,50 @@ ul.vertical-menu li.vertical-menu-item{
 
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
+
+    .version{
+        margin-bottom: 10px!important;
+    }
+    .card{
+        padding: 0 10px!important;
+    }
+    tr{
+        margin-bottom: 15px;
+    }
+    td.text-center{
+        text-align: left;
+    }
+    .input-search {
+        margin-bottom: 20px;
+    }
+    .top-space {
+        position: relative;
+        top:0!important;
+    }
+    .btn{
+        width: 100%;
+    }
     body.login,body.forget{
         padding: 0;
     }
     body{
         padding-left:0;
     }
-
+    .org{
+        
+        font-size: 2.6rem;
+    }
+    .usr{
+        font-size: 1.6rem;
+    }
+    .beta{
+        position: relative;
+        top: -3px;
+    }
     .desktop{
         display: none;
     }
     .org,.usr{
-        font-size: 2.6rem;
         color: #7d7d7d;
         font-weight: 700;
         padding-left: 15px;
