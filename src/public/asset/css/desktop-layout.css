@@ -9,12 +9,6 @@ h1.sign-logo{
 .sidemenu.username{
     font-size: 2.4rem;
 }
-/*#side-panel {*/
-    /*float: left;*/
-    /*width: 15%;*/
-    /*height: 100%;*/
-    /*border-right: 1px solid #dddddd;*/
-/*}*/
 .center-panel {
     margin-left: 15%;
 }
@@ -139,6 +133,11 @@ ul.vertical-menu li.vertical-menu-item{
 
 @media (min-width: 1200px) {
 
+
+    #sidebarBtn{
+        z-index: 20;
+    }
+
     .navbar.close-sidebar{
         background: transparent;
         width: 50px;
@@ -151,10 +150,10 @@ ul.vertical-menu li.vertical-menu-item{
     }
     .desktop.close-sidebar,
     .navbar-nav.close-sidebar,
-    .footer.close-sidebar{
+    #footer.close-sidebar{
         display: none;
     }
-    body.login,body.forget{
+    body.not-logged-in{
         padding: 0;
     }
     body.logged-in{
@@ -233,6 +232,10 @@ ul.vertical-menu li.vertical-menu-item{
 
 /* Landscape tablets and medium desktops */
 @media (min-width: 992px) and (max-width: 1199px) {
+
+    #sidebarBtn{
+        z-index: 20;
+    }
     .navbar.close-sidebar{
         background: transparent;
         width: 50px;
@@ -327,6 +330,13 @@ ul.vertical-menu li.vertical-menu-item{
 
 /* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
+
+    #sidebarBtn{
+        z-index: 20;
+    }
+    .mobile-align-center{
+        text-align: center;
+    }
     .version{
         margin-bottom: 10px!important;
     }
@@ -348,6 +358,7 @@ ul.vertical-menu li.vertical-menu-item{
     }
     .org{
         font-size: 2.6rem;
+        transform: translateY(5px);
     }
     .usr{
         font-size: 1.6rem;
@@ -384,6 +395,12 @@ ul.vertical-menu li.vertical-menu-item{
 
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
+    #sidebarBtn{
+        z-index: 20;
+    }
+    .mobile-align-center{
+        text-align: center;
+    }
     .version{
         margin-bottom: 10px!important;
     }
@@ -417,6 +434,7 @@ ul.vertical-menu li.vertical-menu-item{
     }
     .org{
         font-size: 2.6rem;
+        transform: translateY(5px);
     }
     .beta{
         position: relative;
@@ -455,6 +473,13 @@ ul.vertical-menu li.vertical-menu-item{
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
 
+
+    #sidebarBtn{
+        z-index: 20;
+    }
+    .mobile-align-center{
+        text-align: center;
+    }
     .version{
         margin-bottom: 10px!important;
     }
@@ -477,15 +502,17 @@ ul.vertical-menu li.vertical-menu-item{
     .btn{
         width: 100%;
     }
-    body.login,body.forget{
+    body.login,
+    body.forget{
         padding: 0;
     }
     body{
         padding-left:0;
     }
     .org{
-        
+
         font-size: 2.6rem;
+        transform: translateY(5px);
     }
     .usr{
         font-size: 1.6rem;

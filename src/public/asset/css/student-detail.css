@@ -73,8 +73,7 @@ dl{
     background-color:transparent!important;
 }
 .filter-btn{
-    /*width: 250px!important;*/
-    width: 250px;
+    width: 250px!important;
     margin-bottom: 0;
 }
 .student-edit-btn{
