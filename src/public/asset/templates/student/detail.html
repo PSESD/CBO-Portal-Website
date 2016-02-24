@@ -248,7 +248,6 @@
                 </ul>
 
                 <div class="tab-content">
-
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#graph', 3)}" class="tab-pane" id="graph" data-id="graph">
                         <div id="student-graph"></div>
                     </div>
@@ -388,11 +387,7 @@
                                                     <legend class="no-margin" url="{{legend_url}}" type="{{tardy}}" description="{{legend.tardy}}" pagetitle="{{tardy}}" fontcolor="{{tardy}}"></legend>
                                                     <legend class="no-margin" url="{{legend_url}}" type="{{other}}" description="{{legend.other}}" pagetitle="{{other}}" fontcolor="{{other}}"></legend>
                                                     <legend class="no-margin" url="{{legend_url}}" type="{{unexcused}}" description="{{legend.unexcused}}" pagetitle="{{unexcused}}" fontcolor="{{unexcused}}"></legend>
-                                                    <!--<li class="list-group-item present uppercase">{{ 'general.present' | i18n }}</li>-->
-                                                    <!--<li class="list-group-item excused uppercase">{{ 'general.excused' | i18n }}</li>-->
-                                                    <!--<li class="list-group-item tardy uppercase">{{ 'general.tardy' | i18n }}</li>-->
-                                                    <!--<li class="list-group-item other uppercase">{{ 'general.other' | i18n }}</li>-->
-                                                    <!--<li class="list-group-item unexcused uppercase">{{ 'general.unexcused' | i18n }}</li>-->
+
                                                 </ul>
                                             </div>
 
@@ -403,8 +398,6 @@
                                 <!--end content panel-->
                             </div>
                             <!-- default panel -->
-
-
 
                         </div>
                         <!-- panel group -->
@@ -447,17 +440,17 @@
                                     <dt class="bold bold-title">
                                         {{ 'general.total_credits' | i18n }}
                                     </dt>
-                                    <dd>
+                                    <dd class="bold">
                                         {{ ::credit_earned }}
                                     </dd>
                                     <dt class="bold bold-title">
                                         Cumulative GPA
                                     </dt>
-                                    <dd>
+                                    <dd class="bold">
                                         {{::cumulative_gpa}}
                                     </dd>
                                     <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
-                                    <dd>{{ ::grade_level }}</dd>
+                                    <dd class="bold">{{ ::grade_level }}</dd>
                                 </dl>
                             </li>
                             <li class="ctype-{{ $index+1 }} tc-{{total_data}}-col  transcript-subject" ng-repeat="transSubject in transcripts.source.subjectValues track by $index">{{ ::transSubject.name }}

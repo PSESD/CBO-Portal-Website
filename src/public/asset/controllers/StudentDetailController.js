@@ -8,16 +8,12 @@ var attendance_state = false;
 var transcript_state = false;
 var full_name = "";
 var colors = [
-    'rgba(0,0,128,.1)',
-    'rgba(0,0,255,.1)',
-    'rgba(0,128,0,.1)',
     'rgba(0,128,128,.1)',
     'rgba(0,255,0,.1)',
     'rgba(0,255,255,.1)',
-    'rgba(128,0,,.1)',
-    'rgba(128,0,128,.1)',
     'rgba(128,128,0,.1)',
-    'rgba(255,0,255,.1)'
+    'rgba(255,0,255,.1)',
+    'rgba(255,255,0,.1)'
 ]
 
 app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
@@ -980,7 +976,7 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                     plotBands.push({
                         from: data[from] - 0.5,
                         to: data[from] + 0.5,
-                        color: colors[Math.floor((Math.random() * 9) + 0)],
+                        color: colors[Math.floor((Math.random() * 6) + 0)],
                         label:{
                             align:'center',
                             text: v.name,
@@ -991,7 +987,7 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                     plotBands.push({
                         from: data[from] - 0.5,
                         to: data[to] + 0.5,
-                        color: colors[Math.floor((Math.random() * 9) + 0)],
+                        color: colors[Math.floor((Math.random() * 6) + 0)],
                         label:{
                             align:'center',
                             text: v.name,
