@@ -361,7 +361,8 @@ ul.vertical-menu li.vertical-menu-item{
         transform: translateY(5px);
     }
     .usr{
-        font-size: 1.6rem;
+        font-size: 1.6rem
+        padding:5px 0 5px 0;
     }
     .beta{
         position: relative;
@@ -371,7 +372,6 @@ ul.vertical-menu li.vertical-menu-item{
 
         color: #7d7d7d;
         font-weight: 700;
-        padding-left: 15px;
         text-align: center;
     }
     .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
@@ -395,6 +395,7 @@ ul.vertical-menu li.vertical-menu-item{
 
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
+
     #sidebarBtn{
         z-index: 20;
     }
@@ -442,12 +443,12 @@ ul.vertical-menu li.vertical-menu-item{
     }
     .usr{
         font-size: 1.6rem;
+        padding:5px 0 5px 0;
     }
     .org,.usr{
 
         color: #7d7d7d;
         font-weight: 700;
-        padding-left: 15px;
         text-align: center;
     }
     .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
@@ -472,7 +473,6 @@ ul.vertical-menu li.vertical-menu-item{
 
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
-
 
     #sidebarBtn{
         z-index: 20;
@@ -516,6 +516,7 @@ ul.vertical-menu li.vertical-menu-item{
     }
     .usr{
         font-size: 1.6rem;
+        padding:5px 0 5px 0;
     }
     .beta{
         position: relative;
@@ -527,7 +528,6 @@ ul.vertical-menu li.vertical-menu-item{
     .org,.usr{
         color: #7d7d7d;
         font-weight: 700;
-        padding-left: 15px;
         text-align: center;
     }
     .navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
