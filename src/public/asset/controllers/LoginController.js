@@ -43,7 +43,6 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                         }
                     })
                         .success(function (responseClient) {
-                            console.log(responseClient);
                             $rootScope.show_footer = true;
                             var get_hosting_name = $location.host();
                             var grand_access = false;
@@ -153,7 +152,7 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
 
                 })
                 .error(function (response) {
-                    showError(response.error_description, 1);
+                    showError("Server error", 1);
                     $scope.login.working = false;
                 });
 

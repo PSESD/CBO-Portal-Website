@@ -39,6 +39,19 @@ app.config(['$httpProvider', function ($httpProvider) {
 
 }]);
 
+app.config(function($httpProvider) {
+    $httpProvider.interceptors.push(function($q,$rollbar) {
+
+        return {
+            responseError: function(rejection) {
+
+                    $rollbar.error(rejection);
+                showError("Server error", 1);
+            }
+        };
+    });
+});
+
 app.config(['$rollbarProvider', function($rollbarProvider) {
     $rollbarProvider.config.accessToken = '20ac49c365454dd186678ec15b56b13a';
     $rollbarProvider.config.captureUncaught = true;
