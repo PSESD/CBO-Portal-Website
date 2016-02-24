@@ -54,7 +54,6 @@ $(document).ready(function () {
 
         $('#page-content, .navbar, body, .navbar-header').toggleClass('slide-active');
 
-
     });
 
 
