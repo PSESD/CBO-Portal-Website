@@ -34,7 +34,7 @@ h1.stat:after{
     content:"\e185";
     font-family:"Glyphicons Halflings";
     /*line-height:1;*/
-    /*margin:10px;*/
+    margin: -2px;
     display:inline-block;
 }
 .enrollment-divider{

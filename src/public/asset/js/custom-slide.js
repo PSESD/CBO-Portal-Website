@@ -155,6 +155,7 @@ $(window).on('hashchange', function(e){
         xButton();
     }else if($("body").hasClass("closed")){
         hamburgerButton();
+        $("#bs-example-navbar-collapse").removeClass("in");
     }
 });
 

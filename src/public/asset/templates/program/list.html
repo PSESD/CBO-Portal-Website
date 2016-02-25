@@ -63,17 +63,21 @@
                         </a>
                     </th>
                     <th class="text-center" style="width:9%">{{ 'general.assign_students' | i18n }}</th>
+                    <th class="text-center" style="width:8%">{{ 'general.edit' | i18n }}</th>
                     <th class="text-center" style="width:9%">{{ 'general.delete' | i18n }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="program in programs | filter:search | orderBy:sortType:sortReverse">
-                    <td><a ng-href="#/program/detail/{{ program._id }}">{{ program.name }}</a></td>
+                    <td><a ng-href="#/program/students/{{ program._id }}">{{ program.name }}</a></td>
                     <td class="text-center">{{ program.totalActive }}</td>
                     <td class="text-center">{{ program.totalStudent }}</td>
                     <td ng-bind-html="program.cohorts"></td>
                     <td class="text-center">
                         <a class="glyphicon glyphicon-user mobile-listview" ng-href="#/program/students/{{ program._id }}"></a>
+                    </td>
+                    <td class="text-center">
+                        <a class="glyphicon glyphicon-pencil" ng-href="#/program/detail/{{ program._id }}"></a>
                     </td>
                     <td class="text-center">
                         <!--<a class="glyphicon glyphicon-trash" confirmed-click="deleteProgram(program._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>-->

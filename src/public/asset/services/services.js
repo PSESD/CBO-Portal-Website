@@ -355,7 +355,8 @@ app.factory('httpInterceptor', function ($q,$rollbar,$location) {
             return response;
         },
         responseError: function (response) {
-            if(response.status === 500){
+            if(response.status === 500 || response.status === 502){
+                $rollbar.error(response);
                 showError(response.statusText, 1);
             }else if(response.status === 401)
             {

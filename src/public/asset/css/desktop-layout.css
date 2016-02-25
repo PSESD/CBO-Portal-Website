@@ -233,6 +233,10 @@ ul.vertical-menu li.vertical-menu-item{
 /* Landscape tablets and medium desktops */
 @media (min-width: 992px) and (max-width: 1199px) {
 
+    [data-target="#transcript"],
+    [data-target="#graph"]{
+        height: 6.8em;
+    }
     #sidebarBtn{
         z-index: 20;
     }
@@ -331,7 +335,10 @@ ul.vertical-menu li.vertical-menu-item{
 /* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
 
-
+    [data-target="#transcript"],
+    [data-target="#graph"]{
+        height: 6.8em;
+    }
     .tab-content{
         overflow: auto;
     }
@@ -522,6 +529,16 @@ ul.vertical-menu li.vertical-menu-item{
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
 
+    .nav-justified>li>a {
+        margin-bottom: 1px;
+        text-align: center;
+    }
+
+    .nav-tabs.nav-justified>li>a {
+        margin-bottom: 1px;
+        text-align: center;
+    }
+
     .tab-content{
         overflow: auto;
     }
@@ -569,6 +586,7 @@ ul.vertical-menu li.vertical-menu-item{
 
     #sidebarBtn{
         z-index: 20;
+        background: #3b3b3b;
     }
     .mobile-align-center{
         text-align: center;
@@ -645,6 +663,11 @@ ul.vertical-menu li.vertical-menu-item{
 
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
+
+    .nav-justified>li>a {
+        margin-bottom: 1px;
+        text-align: center;
+    }
 
     .tab-content{
         overflow: auto;

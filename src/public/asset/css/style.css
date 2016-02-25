@@ -1293,3 +1293,8 @@ select{
     .glyphicon.glyphicon-refresh.glyphicon-spin{
         top: 2px;
     }
+    h1>.glyphicon.glyphicon-refresh.glyphicon-spin {
+        top: 2px;
+        width: 20px;
+        height: 20px;
+    }
