@@ -144,15 +144,15 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
 
                         })
                         .error(function (responseClient) {
-                            $rollbar.error(responseClient);
-                            showError("Server error", 1);
+                            //$rollbar.error(responseClient);
+                            //showError("Server error", 1);
                             $scope.login.working = false;
 
                         });
 
                 })
                 .error(function (response) {
-                    showError("Server error", 1);
+                    //showError("Server error", 1);
                     $scope.login.working = false;
                 });
 

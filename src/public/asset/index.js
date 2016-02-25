@@ -36,21 +36,9 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.common.Accept = '*/*';
     if (__i){$httpProvider.interceptors.push('headerInjector');}
     $httpProvider.defaults.timeout = 15000;
+    $httpProvider.interceptors.push('httpInterceptor');
 
 }]);
-
-app.config(function($httpProvider) {
-    $httpProvider.interceptors.push(function($q,$rollbar) {
-
-        return {
-            responseError: function(rejection) {
-
-                    $rollbar.error(rejection);
-                showError("Server error", 1);
-            }
-        };
-    });
-});
 
 app.config(['$rollbarProvider', function($rollbarProvider) {
     $rollbarProvider.config.accessToken = '20ac49c365454dd186678ec15b56b13a';
@@ -69,8 +57,6 @@ function ($window, $rootScope) {
         $rootScope.data_content = "asset/templates/desktop.html";
 
 }]);
-
-
 
 app.run(function ($timeout,$state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
     'use strict';

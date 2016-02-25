@@ -1291,7 +1291,5 @@ select{
     padding: 10px 20px!important;
 }
     .glyphicon.glyphicon-refresh.glyphicon-spin{
-        width: 20px;
-        height: 20px;
         top: 2px;
     }

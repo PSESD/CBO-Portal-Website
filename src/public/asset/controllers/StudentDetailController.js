@@ -8,12 +8,11 @@ var attendance_state = false;
 var transcript_state = false;
 var full_name = "";
 var colors = [
-    'rgba(0,128,128,.1)',
-    'rgba(0,255,0,.1)',
-    'rgba(0,255,255,.1)',
-    'rgba(128,128,0,.1)',
-    'rgba(255,0,255,.1)',
-    'rgba(255,255,0,.1)'
+    'rgba(145,255,135,.1)',
+    'rgba(156,217,255,.1)',
+    'rgba(244,156,255,.1)',
+    'rgba(201,255,156,.1)',
+    'rgba(210,156,255,.1)',
 ]
 
 app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
@@ -421,33 +420,6 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
                     transcript_state = false;
                     showLoadingIcon($scope);
                 });
-
-            //$http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre?separate=assessment', {
-            //    headers: {
-            //        'Authorization': 'Bearer ' + AuthenticationService.token
-            //    }
-            //})
-            //    .success(function () {
-            //        //getXsre();
-            //        $scope.loading_icon = true;
-            //        //$('.loading-icon').addClass('hide');
-            //    })
-            //    .error(function (response, status) {
-            //
-            //        $scope.loading_icon = true;
-            //        $('.loading-icon').addClass('hide');
-            //        showError(response, 1);
-            //        $rootScope.doingResolve = false;
-            //        if (status === 401) {
-            //            $rootScope.show_footer = false;
-            //            CookieStore.clearData();
-            //            $location.path('/login');
-            //        }
-            //
-            //    });
-            //
-
-
         };
 
     }]);
@@ -976,7 +948,7 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                     plotBands.push({
                         from: data[from] - 0.5,
                         to: data[from] + 0.5,
-                        color: colors[Math.floor((Math.random() * 6) + 0)],
+                        color: colors[Math.floor((Math.random() * 5) + 0)],
                         label:{
                             align:'center',
                             text: v.name,
@@ -987,7 +959,7 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                     plotBands.push({
                         from: data[from] - 0.5,
                         to: data[to] + 0.5,
-                        color: colors[Math.floor((Math.random() * 6) + 0)],
+                        color: colors[Math.floor((Math.random() * 5) + 0)],
                         label:{
                             align:'center',
                             text: v.name,
