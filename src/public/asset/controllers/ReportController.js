@@ -24,7 +24,7 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
 
         $rootScope.doingResolve = false;
 
-        $http.get(api_url + AuthenticationService.organization_id + '/reports/students/filters', {
+        $http.get(api_url + AuthenticationService.organization_id + '/reports/student-filters', {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
@@ -32,7 +32,6 @@ app.controller('ReportController', ['$rootScope', '$scope', '$http', '$location'
             .success(function (response) {
 
                 var i, temp;
-
                 for(i=0; i<response.programs.length; i++)
                 {
                     temp = {

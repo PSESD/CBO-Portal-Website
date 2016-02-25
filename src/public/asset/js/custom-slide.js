@@ -1,237 +1,194 @@
+var sidebarBtn;
+var url;
+var initial = true;
+var screenWidth;
+var sidebarStatus;
 $(document).ready(function(){
-    var url = window.location.href;
-    if(url.indexOf("login") > -1)
+
+    if(isLoggedIn())
     {
-        $("body").addClass("login");
-    }else if( url.indexOf("forget") > -1)
-    {
-        $("body").addClass("forget");
+        $("body").removeClass("not-logged-in");
+        $("body").addClass("logged-in");
+
+    }else{
+        $("body").removeClass("logged-in");
+        $("body").addClass("not-logged-in");
     }
-    if($(window).width()<992)
-    {
-        $("body").addClass("closed");
-        if( $("button.navbar-toggle").hasClass("glyphicon glyphicon-remove")){
-            $("button.navbar-toggle").removeClass("glyphicon glyphicon-remove");
-            $("button.navbar-toggle").addClass("glyphicon glyphicon-menu-hamburger");
-        }
-    }else if($(window).width()>992)
-    {
-        $("body").addClass("opened");
-        if( $("button.navbar-toggle").hasClass("glyphicon glyphicon-menu-hamburger")){
-
-            $("button.navbar-toggle").removeClass("glyphicon glyphicon-menu-hamburger");
-            $("button.navbar-toggle").addClass("glyphicon glyphicon-remove");
-        }
+    if($("body").hasClass("opened")){
+        xButton();
+    }else if($("body").hasClass("closed")){
+        hamburgerButton();
     }
-    $("button.navbar-toggle").on("click",function(){
-        if( $("body").hasClass("closed")){
-
-            $("button.navbar-toggle").removeClass("glyphicon-remove");
-            $("button.navbar-toggle").addClass("glyphicon-menu-hamburger");
-        }else{
-
-            $("button.navbar-toggle").removeClass("glyphicon-menu-hamburger");
-            $("button.navbar-toggle").addClass("glyphicon-remove");
-        }
-        if($(window).width()>992){
-            if($("body").hasClass("opened")) {
-                $("body.logged-in").addClass("close-sidebar");
-                $("button.navbar-toggle").addClass("close-sidebar");
-                $(".desktop").addClass("close-sidebar");
-                $(".navbar").addClass("close-sidebar");
-                $(".navbar-nav").addClass("close-sidebar");
-                $(".footer").addClass("close-sidebar");
-                $("body").removeClass("opened");
-                $("body").addClass("closed");
-            }else if($("body").hasClass("closed")) {
-                $("body.logged-in").removeClass("close-sidebar");
-                $("button.navbar-toggle").removeClass("close-sidebar");
-                $(".navbar-nav").removeClass("close-sidebar");
-                $(".desktop").removeClass("close-sidebar");
-                $(".footer").removeClass("close-sidebar");
-                $(".navbar").removeClass("close-sidebar");
+    sidebarBtn = $("#sidebarBtn");
+    sidebarBtn.on("click",function(){
+        if($("body").hasClass("closed")){
+            if(isMobile())
+            {
                 $("body").removeClass("closed");
                 $("body").addClass("opened");
             }
+            xButton();
+        }else if($("body").hasClass("opened")){
+            if(isMobile())
+            {
+                $("body").removeClass("opened");
+                $("body").addClass("closed");
+            }
+            hamburgerButton();
+        }
+        if(!isMobile()){
+            if($("body").hasClass("opened")){
+                $(".navbar").addClass("close-sidebar");
+                $("button.navbar-toggle").addClass("close-sidebar");
+                $(".desktop").addClass("close-sidebar");
+                $(".navbar-nav").addClass("close-sidebar");
+                $("#footer").addClass("close-sidebar");
+                $("body.logged-in").addClass("close-sidebar")
+                $("body").removeClass("opened");
+                $("body").addClass("closed");
+            }else if($("body").hasClass("closed")){
+                $(".navbar").removeClass("close-sidebar");
+                $("button.navbar-toggle").removeClass("close-sidebar");
+                $(".desktop").removeClass("close-sidebar");
+                $(".navbar-nav").removeClass("close-sidebar");
+                $("#footer").removeClass("close-sidebar");
+                $("body.logged-in").removeClass("close-sidebar")
+                $("body").removeClass("closed");
+                $("body").addClass("opened");
+            }
+
         }
     });
 });
-$(window).resize(function () {
-    var url = window.location.href;
-    if($(window).width()<992)
-    {
-        if( $("button.navbar-toggle").hasClass("glyphicon-remove")){
-            $("button.navbar-toggle").removeClass("glyphicon-remove");
-            $("button.navbar-toggle").addClass("glyphicon-menu-hamburger");
-        }
-    }else if($(window).width()>992)
-    {
-        if( $("button.navbar-toggle").hasClass("glyphicon-menu-hamburger")){
 
-            $("button.navbar-toggle").removeClass("glyphicon-menu-hamburger");
-            $("button.navbar-toggle").addClass("glyphicon-remove");
-        }
-    }
-    $("button.navbar-toggle").on("click",function(){
-        if( $("button.navbar-toggle").hasClass("glyphicon-remove")){
+$(window).resize(function(){
 
-            $("button.navbar-toggle").removeClass("glyphicon-remove");
-            $("button.navbar-toggle").addClass("glyphicon-menu-hamburger");
-        }else if( $("button.navbar-toggle").hasClass("glyphicon-menu-hamburger")){
 
-            $("button.navbar-toggle").removeClass("glyphicon-menu-hamburger");
-            $("button.navbar-toggle").addClass("glyphicon-remove");
-        }
-    });
-})
-$(window).on('hashchange', function(e){
-    var url = window.location.href;
-    if(url.indexOf("login") > -1)
+    if(isLoggedIn())
     {
-        $("body").addClass("login");
-    }else if( url.indexOf("forget") > -1)
-    {
-        $("body").addClass("forget");
-    }else{
+        $("body").removeClass("not-logged-in");
         $("body").addClass("logged-in");
-        if($(window).width()<992)
-        {
-            if( $("button.navbar-toggle").hasClass("glyphicon-remove")){
-                $("button.navbar-toggle").removeClass("glyphicon-remove");
-                $("button.navbar-toggle").addClass("glyphicon-menu-hamburger");
+    }else{
+        $("body").removeClass("logged-in");
+        $("body").addClass("not-logged-in");
+        $("body").removeClass("opened");
+        $("body").removeClass("closed");
+    }
+        if(isMobile()){
+            sidebarStatus = "closed";
+            if($("#bs-example-navbar-collapse").hasClass("in")){
+                xButton();
+                sidebarStatus = "opened";
+                $("body").removeClass("closed");
+                $("body").addClass("opened");
+            }else{
+                hamburgerButton();
+                sidebarStatus = "closed";
+                $("body").removeClass("opened");
+                $("body").addClass("closed");
             }
-        }else if($(window).width()>992)
+        }else
         {
-
-            if( $("button.navbar-toggle").hasClass("glyphicon-menu-hamburger")){
-
-                $("button.navbar-toggle").removeClass("glyphicon-menu-hamburger");
-                $("button.navbar-toggle").addClass("glyphicon-remove");
-            }
-
+            sidebarStatus = "opened";
         }
-        $("button.navbar-toggle").on("click",function(){
-            if( $("button.navbar-toggle").hasClass("glyphicon-remove")){
+        initial = false;
 
-                $("button.navbar-toggle").removeClass("glyphicon-remove");
-                $("button.navbar-toggle").addClass("glyphicon-menu-hamburger");
-            }else if( $("button.navbar-toggle").hasClass("glyphicon-menu-hamburger")){
-
-                $("button.navbar-toggle").removeClass("glyphicon-menu-hamburger");
-                $("button.navbar-toggle").addClass("glyphicon-remove");
-            }
-        });
+    if(!isMobile()){
+            $(".navbar").removeClass("close-sidebar");
+            $("button.navbar-toggle").removeClass("close-sidebar");
+            $(".desktop").removeClass("close-sidebar");
+            $(".navbar-nav").removeClass("close-sidebar");
+            $("#footer").removeClass("close-sidebar");
+            $("body.logged-in").removeClass("close-sidebar")
+            $("body").removeClass("closed");
+            $("body").addClass("opened");
+            xButton();
     }
 
+    if(sidebarStatus === "closed")
+    {
+        $("body").removeClass("opened");
+        $("body").addClass("closed");
+    }else if(sidebarStatus === "opened")
+    {
+        $("body").removeClass("closed");
+        $("body").addClass("opened");
+    }
+    if($("body").hasClass("opened")){
+        xButton();
+    }else if($("body").hasClass("closed")){
+        hamburgerButton();
+    }
 });
-//var screenWidth;
-//var mobile = false;
-//var url;
-//var isLoogedIn = false;
-//var status = "open";
-//$(document).ready(function () {
-//    'use strict';
-//    $("#button-close-open").on("click", function () {
-//        if(status === "open")
-//        {
-//            closeState();
-//            setDesktopClosePadding();
-//            setDesktopNavCloseState();
-//            status = "close";
-//        }else{
-//            openState();
-//            setDesktopOpenPadding();
-//            setDesktopNavOpenState();
-//            status = "open";
-//        }
-//    });
-//
-//});
-//$(window).on('hashchange', function(e){
-//    checkUrl();
-//    if(isLoogedIn === false) {
-//        setNormalPadding();
-//    }
-//});
-//function isMobile()
-//{
-//    getScreenWidth();
-//    if(screenWidth < 992)
-//    {
-//        mobile = true;
-//    }else if(screenWidth > 992){
-//        mobile = false;
-//    }
-//}
-//
-//function setNormalPadding()
-//{
-//    $("body").css({"padding":"initial"});
-//}
-//
-//function removeMobileNavBar()
-//{
-//    $(".top-toolbar").hide();
-//}
-//
-//function setMobilePadding(){
-//    $("body").css({"padding-left":"initial"});
-//    $("body").css({"padding-top":"47px"});
-//}
-//
-//function setDesktopOpenPadding(){
-//    $("body").css({"padding-left":"220px"});
-//    $("body").css({"padding-top":"initial"});
-//}
-//function setDesktopClosePadding(){
-//    $("body").css({"padding-left":"0px"});
-//    $("body").css({"padding-top":"initial"});
-//}
-//
-//function setDesktopNavOpenState(){
-//    $("#button-close-open").css({"left":"175px"});
-//    $("#desktop-nav").show();
-//    openState();
-//}
-//
-//function setDesktopNavCloseState(){
-//    $("#button-close-open").css({"left":"0"});
-//    $("#desktop-nav").hide();
-//    closeState();
-//}
-//
-//function setMobileNavOpenState(){
-//    $("#desktop-nav").slideDown();
-//    openState();
-//}
-//function setMobileNavCloseState(){
-//    $("#desktop-nav").slideUp();
-//    closeState();
-//}
-//
-//function checkUrl()
-//{
-//    url = window.location.href;
-//    if(url.indexOf("login") === -1 && url.indexOf("forget") === -1){
-//        isLoogedIn = true;
-//    }else if(url.indexOf("login") > -1){
-//        isLoogedIn = false;
-//    }else if(url.indexOf("forget")>-1){
-//        isLoogedIn = false;
-//    }
-//}
-//
-//function getScreenWidth()
-//{
-//    screenWidth = $(window).width();
-//}
-//
-//function closeState(){
-//    $("#button-close-open span").removeClass("glyphicon glyphicon-remove");
-//    $("#button-close-open span").addClass("glyphicon  glyphicon-menu-hamburger");
-//}
-//
-//function openState(){
-//    $("#button-close-open span").removeClass("glyphicon  glyphicon-menu-hamburger");
-//    $("#button-close-open span").addClass("glyphicon glyphicon-remove");
-//}
+
+$(window).on('hashchange', function(e){
+    if(isLoggedIn())
+    {
+        $("body").removeClass("not-logged-in");
+        $("body").addClass("logged-in");
+    }else{
+        $("body").removeClass("logged-in");
+        $("body").addClass("not-logged-in");
+        $("body").removeClass("opened");
+        $("body").removeClass("closed");
+    }
+    if(initial){
+        if(isMobile()){
+            sidebarStatus = "closed";
+        }else
+        {
+            sidebarStatus = "opened";
+        }
+        initial = false;
+    }
+
+    if(sidebarStatus === "closed")
+    {
+        $("body").removeClass("opened");
+        $("body").addClass("closed");
+    }else if(sidebarStatus === "opened")
+    {
+        $("body").removeClass("closed");
+        $("body").addClass("opened");
+    }
+    if($("body").hasClass("opened")){
+        xButton();
+    }else if($("body").hasClass("closed")){
+        hamburgerButton();
+        $("#bs-example-navbar-collapse").removeClass("in");
+    }
+});
+
+function xButton()
+{
+    sidebarBtn.removeClass("glyphicon-menu-hamburger");
+    sidebarBtn.addClass("glyphicon-remove");
+}
+function hamburgerButton()
+{
+    sidebarBtn.removeClass("glyphicon-remove");
+    sidebarBtn.addClass("glyphicon-menu-hamburger");
+}
+
+function isLoggedIn()
+{
+    url = window.location.href;
+    if(url.indexOf("login") > -1){
+        return false;
+    }else if(url.indexOf("forget") > -1){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function isMobile()
+{
+    screenWidth = $(window).width();
+    if(screenWidth > 991)
+    {
+        return false;
+    }else{
+        return true;
+    }
+}

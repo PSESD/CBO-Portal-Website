@@ -31,7 +31,7 @@
                         <div class="col-xs-12 col-md-12 text-center">
                             <button id="sign_in_button " class="btn btn-default" ng-disabled="login.working">{{ 'general.sign_in' | i18n }}</button>
                             <a id="forgot_button forgot-btn" href="#/forget" class="btn btn-default">{{ 'general.forgot_password' | i18n }}</a>
-                            <span ng-show="login.working" class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
+                            <span id="login-spinner" ng-show="login.working" class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">

@@ -36,6 +36,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.common.Accept = '*/*';
     if (__i){$httpProvider.interceptors.push('headerInjector');}
     $httpProvider.defaults.timeout = 15000;
+    $httpProvider.interceptors.push('httpInterceptor');
 
 }]);
 
@@ -56,8 +57,6 @@ function ($window, $rootScope) {
         $rootScope.data_content = "asset/templates/desktop.html";
 
 }]);
-
-
 
 app.run(function ($timeout,$state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
     'use strict';

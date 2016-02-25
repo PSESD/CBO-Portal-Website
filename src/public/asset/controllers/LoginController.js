@@ -37,7 +37,6 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                 }
             })
                 .success(function (response) {
-
                     $http.get(api_url + 'organizations', {
                         headers: {
                             'Authorization': 'Bearer ' + response.access_token
@@ -145,16 +144,15 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
 
                         })
                         .error(function (responseClient) {
-
-                            showError(responseClient, 1);
+                            //$rollbar.error(responseClient);
+                            //showError("Server error", 1);
                             $scope.login.working = false;
 
                         });
 
                 })
                 .error(function (response) {
-                    console.log(response);
-                    showError(response.error_description, 1);
+                    //showError("Server error", 1);
                     $scope.login.working = false;
                 });
 
