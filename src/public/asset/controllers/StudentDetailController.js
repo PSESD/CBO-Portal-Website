@@ -8,11 +8,11 @@ var attendance_state = false;
 var transcript_state = false;
 var full_name = "";
 var colors = [
-    'rgba(145,255,135,.1)',
-    'rgba(156,217,255,.1)',
-    'rgba(244,156,255,.1)',
-    'rgba(201,255,156,.1)',
-    'rgba(210,156,255,.1)',
+    'rgba(145,255,135,.5)',
+    'rgba(156,217,255,.5)',
+    'rgba(244,156,255,.5)',
+    'rgba(201,255,156,.5)',
+    'rgba(210,156,255,.5)',
 ]
 
 app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
@@ -929,7 +929,6 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
     }).success(function (response){
         if(response.success === true && response.info !== undefined)
         {
-
             var categories = [];
             var plotBands = [];
             var data = {};
