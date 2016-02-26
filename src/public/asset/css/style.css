@@ -1298,3 +1298,10 @@ select{
         width: 20px;
         height: 20px;
     }
+
+.student-loading-circle{
+    position: absolute;
+    margin-top: 1.2em;
+    font-size: 1.5em;
+    right: 6.4em;
+}

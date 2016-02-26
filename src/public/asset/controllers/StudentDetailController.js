@@ -138,7 +138,6 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
                         // StudentCache.put(student_id + "attendance",attendance_data);
                         generate_attendance_data(attendance_data,$scope,urlTemplate);
                         first_time = false;
-
                     }else{
                         $rootScope.doingResolve = false;
 
@@ -705,13 +704,13 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     slug: item.slug,
                                     stripping: cls,
                                     na: '',
-                                    fontcolor: item.slug + '-font-color',
-                                    pagetitle: item.slug.toUpperCase(),
-                                    eventdate: item.event.calendarEventDate,
-                                    description: item.event.attendanceStatusTitle,
+                                    fontcolor: _.get('item.slug') + '-font-color',
+                                    pagetitle: _.get('item.slug.toUpperCase()'),
+                                    eventdate: _.get('item.event.calendarEventDate'),
+                                    description: _.get('item.event.attendanceStatusTitle'),
                                     url: urlTemplate,
-                                    reason:item.event.absentReasonDescription,
-                                    category:item.event.absentAttendanceCategoryTitle,
+                                    reason: _.get('item.event.absentReasonDescription'),
+                                    category: _.get('item.event.absentAttendanceCategoryTitle'),
                                 };
                             } else {
                                 html = {
@@ -758,12 +757,12 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     stripping: cls,
                                     na: '',
                                     fontcolor: 'unexcused-font-color',
-                                    pagetitle: (item.incidentCategoryTitle + '').toUpperCase(),
-                                    eventdate: item.incidentDate,
-                                    description: item.description,
-                                    url: urlTemplate,
-                                    reason:item.event.absentReasonDescription,
-                                    category:item.event.absentAttendanceCategoryTitle,
+                                    pagetitle: (_.get('item.incidentCategoryTitle') + '').toUpperCase(),
+                                    eventdate: _.get('item.incidentDate'),
+                                    description: _.get('item.description'),
+                                    url: _.get('urlTemplate'),
+                                    reason: _.get('item.event.absentReasonDescription'),
+                                    category: _.get('item.event.absentAttendanceCategoryTitle'),
                                 };
                             } else {
                                 html = {

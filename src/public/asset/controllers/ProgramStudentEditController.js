@@ -75,7 +75,8 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 
 
                         jQuery("#cohort").tagit({
-                            availableTags: availableTags
+                            availableTags: availableTags,
+                            allowSpaces:true
                         });
 
 

@@ -1,7 +1,7 @@
 #student-graph{
     overflow: auto;
     width: 100%;
-    padding: 20px 10px 10px;
+    padding: 20px 20px 10px 20px;
 }
 .modal-body.enrollment{
     padding: 0;
@@ -213,7 +213,7 @@ ul.attendance-behavior li {
 }
 .attendance-legend {
     width: 25%;
-    padding: 1%;
+    padding: 20px;
 }
 ul.period-col.menu {
     width: 100%;
@@ -252,7 +252,7 @@ hr.attendance-separator {
     display: block;
 }
 .present {
-    background-color: #B1E0E8;
+    background-color: #A9D8BE;
 }
 .excused {
     background-color: #2F9DBB;
@@ -401,7 +401,7 @@ ul.flexbox.transcript {
     display: flex;
     /* NEW, Spec - Opera 12.1, Firefox 20+ */
     margin: 0;
-    padding:20px 10px 10px;
+    padding:20px 20px 10px 20px;
 }
 ul.transcript li {
     text-align: center;
@@ -494,7 +494,7 @@ ul li.transcript-content {
     line-height: 16px;
 }
 .present-font-color {
-    color: #B1E0E8;
+    color: #A9D8BE;
 }
 .excused-font-color {
     color: #2F9DBB;
@@ -790,7 +790,7 @@ ul.flexbox.transcript-content {
     display: -webkit-flex;
     display: flex;
     margin: 0;
-    padding: 1%;
+    padding:20px 20px 10px 20px;
 }
 .scrollableContainer {
     height: 310px;
