@@ -276,9 +276,11 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
 
         // Check if current tab is active
         $scope.isStudentDetailActiveTab = function (tabName, index) {
-            var activeTab = $scope.getStudentDetailActiveTab();
-            var is = (activeTab === tabName || (activeTab === null && index === 0));
-            return is;
+            if($(window).width() > 972){
+                var activeTab = $scope.getStudentDetailActiveTab();
+                var is = (activeTab === tabName || (activeTab === null && index === 0));
+                return is;
+            }
         };
         load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache,$interval);
 
