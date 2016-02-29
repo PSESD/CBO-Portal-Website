@@ -77,7 +77,7 @@
                         <td><a ng-href="#/user/detail/{{ user._id }}">{{ user.first_name }} {{ user.last_name }}</a></td>
                         <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
                         <td>{{ ('general.'+(user.role || 'n_a')).split('-').join('_') | i18n }}</td>
-                        <td class="text-center">{{ 'general.'+(user.activate ? 'pending': 'active' ) | i18n  }}</td>
+                        <td class="text-center">{{ 'general.'+(!user.activate ? 'pending': 'active' ) | i18n  }}</td>
                         <td class="text-center">{{ user.studentCount }}</td>
                         <td class="text-center">
                             <a href="#/user/edit/{{ user._id }}" class="glyphicon glyphicon-lock" ng-disabled="working"></a>

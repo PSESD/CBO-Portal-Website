@@ -26,6 +26,7 @@
                             <select class="btn-block" ng-model="program.studentId" id="studentId" required autofocus ng-options="student._id as student.first_name+' '+student.last_name for student in list_student">
                             </select>
                         </div>
+                        <span class="glyphicon glyphicon-refresh glyphicon-spin student-loading-circle" aria-hidden="true" ng-show="load_student"></span>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-12 col-sm-12 col-md-2 control-label">{{ 'general.status' | i18n }}:</label>

@@ -8,16 +8,11 @@ var attendance_state = false;
 var transcript_state = false;
 var full_name = "";
 var colors = [
-    'rgba(0,0,128,.1)',
-    'rgba(0,0,255,.1)',
-    'rgba(0,128,0,.1)',
-    'rgba(0,128,128,.1)',
-    'rgba(0,255,0,.1)',
-    'rgba(0,255,255,.1)',
-    'rgba(128,0,,.1)',
-    'rgba(128,0,128,.1)',
-    'rgba(128,128,0,.1)',
-    'rgba(255,0,255,.1)'
+    'rgba(145,255,135,.5)',
+    'rgba(156,217,255,.5)',
+    'rgba(244,156,255,.5)',
+    'rgba(201,255,156,.5)',
+    'rgba(210,156,255,.5)',
 ]
 
 app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
@@ -143,7 +138,6 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
                         // StudentCache.put(student_id + "attendance",attendance_data);
                         generate_attendance_data(attendance_data,$scope,urlTemplate);
                         first_time = false;
-
                     }else{
                         $rootScope.doingResolve = false;
 
@@ -282,9 +276,11 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
 
         // Check if current tab is active
         $scope.isStudentDetailActiveTab = function (tabName, index) {
-            var activeTab = $scope.getStudentDetailActiveTab();
-            var is = (activeTab === tabName || (activeTab === null && index === 0));
-            return is;
+            if($(window).width() > 972){
+                var activeTab = $scope.getStudentDetailActiveTab();
+                var is = (activeTab === tabName || (activeTab === null && index === 0));
+                return is;
+            }
         };
         load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache,$interval);
 
@@ -425,33 +421,6 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
                     transcript_state = false;
                     showLoadingIcon($scope);
                 });
-
-            //$http.delete(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/xsre?separate=assessment', {
-            //    headers: {
-            //        'Authorization': 'Bearer ' + AuthenticationService.token
-            //    }
-            //})
-            //    .success(function () {
-            //        //getXsre();
-            //        $scope.loading_icon = true;
-            //        //$('.loading-icon').addClass('hide');
-            //    })
-            //    .error(function (response, status) {
-            //
-            //        $scope.loading_icon = true;
-            //        $('.loading-icon').addClass('hide');
-            //        showError(response, 1);
-            //        $rootScope.doingResolve = false;
-            //        if (status === 401) {
-            //            $rootScope.show_footer = false;
-            //            CookieStore.clearData();
-            //            $location.path('/login');
-            //        }
-            //
-            //    });
-            //
-
-
         };
 
     }]);
@@ -737,13 +706,13 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     slug: item.slug,
                                     stripping: cls,
                                     na: '',
-                                    fontcolor: item.slug + '-font-color',
-                                    pagetitle: item.slug.toUpperCase(),
-                                    eventdate: item.event.calendarEventDate,
-                                    description: item.event.attendanceStatusTitle,
+                                    fontcolor: _.get('item.slug') + '-font-color',
+                                    pagetitle: _.get('item.slug.toUpperCase()'),
+                                    eventdate: _.get('item.event.calendarEventDate'),
+                                    description: _.get('item.event.attendanceStatusTitle'),
                                     url: urlTemplate,
-                                    reason:item.event.absentReasonDescription,
-                                    category:item.event.absentAttendanceCategoryTitle,
+                                    reason: _.get('item.event.absentReasonDescription'),
+                                    category: _.get('item.event.absentAttendanceCategoryTitle'),
                                 };
                             } else {
                                 html = {
@@ -790,12 +759,12 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     stripping: cls,
                                     na: '',
                                     fontcolor: 'unexcused-font-color',
-                                    pagetitle: (item.incidentCategoryTitle + '').toUpperCase(),
-                                    eventdate: item.incidentDate,
-                                    description: item.description,
-                                    url: urlTemplate,
-                                    reason:item.event.absentReasonDescription,
-                                    category:item.event.absentAttendanceCategoryTitle,
+                                    pagetitle: (_.get('item.incidentCategoryTitle') + '').toUpperCase(),
+                                    eventdate: _.get('item.incidentDate'),
+                                    description: _.get('item.description'),
+                                    url: _.get('urlTemplate'),
+                                    reason: _.get('item.event.absentReasonDescription'),
+                                    category: _.get('item.event.absentAttendanceCategoryTitle'),
                                 };
                             } else {
                                 html = {
@@ -961,7 +930,6 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
     }).success(function (response){
         if(response.success === true && response.info !== undefined)
         {
-
             var categories = [];
             var plotBands = [];
             var data = {};
@@ -980,7 +948,7 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                     plotBands.push({
                         from: data[from] - 0.5,
                         to: data[from] + 0.5,
-                        color: colors[Math.floor((Math.random() * 9) + 0)],
+                        color: colors[Math.floor((Math.random() * 5) + 0)],
                         label:{
                             align:'center',
                             text: v.name,
@@ -991,7 +959,7 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                     plotBands.push({
                         from: data[from] - 0.5,
                         to: data[to] + 0.5,
-                        color: colors[Math.floor((Math.random() * 9) + 0)],
+                        color: colors[Math.floor((Math.random() * 5) + 0)],
                         label:{
                             align:'center',
                             text: v.name,

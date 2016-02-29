@@ -84,7 +84,8 @@ app.controller('StudentProgramAddController', ['$rootScope', '$scope', '$routePa
 
 
                 jQuery("#cohort").tagit({
-                    availableTags: availableTags
+                    availableTags: availableTags,
+                    allowSpaces:true
                 });
 
 
