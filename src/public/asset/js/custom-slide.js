@@ -3,7 +3,16 @@ var url;
 var initial = true;
 var screenWidth;
 var sidebarStatus;
+var status;
 $(document).ready(function(){
+
+    if(isMobile())
+    {
+        status = "mobile";
+    }else if(!isMobile())
+    {
+        status = "desktop";
+    }
 
     if(isLoggedIn())
     {
@@ -76,6 +85,10 @@ $(window).resize(function(){
     }
         if(isMobile()){
             sidebarStatus = "closed";
+            //if(status === "desktop"){
+            //    window.location.reload(true);
+            //    status = "mobile";
+            //}
             if($("#bs-example-navbar-collapse").hasClass("in")){
                 xButton();
                 sidebarStatus = "opened";
@@ -90,6 +103,10 @@ $(window).resize(function(){
         }else
         {
             sidebarStatus = "opened";
+            //if(status === "mobile"){
+            //    window.location.reload(true);
+            //    status = "desktop";
+            //}
         }
         initial = false;
 
@@ -185,7 +202,7 @@ function isLoggedIn()
 function isMobile()
 {
     screenWidth = $(window).width();
-    if(screenWidth > 991)
+    if(screenWidth > 972)
     {
         return false;
     }else{

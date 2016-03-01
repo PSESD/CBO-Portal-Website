@@ -5,7 +5,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
         $rootScope.doingResolve = false;
         var rawCohart = "";
         var program_id = $routeParams.program_id;
-
+        $scope.load_student = true;
         $scope.$watch('program.cohort',function(cohort){
             rawCohart=cohort;
         });
@@ -46,7 +46,8 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
 
 
                 jQuery("#cohort").tagit({
-                    availableTags: availableTags
+                    availableTags: availableTags,
+                    allowSpaces:true
                 });
 
 
@@ -83,9 +84,10 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                 $scope.program ? $scope.program.active = true : $scope.program = {
                     active: true
                 };
+                $scope.load_student = false;
             })
             .error(function (response, status) {
-
+                $scope.load_student = false;
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status === 401) {

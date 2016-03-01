@@ -86,7 +86,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 if(result.success === true)
                 {
                     showError(result.message, 2);
-                    $scope.students.splice(index, 1);
+                    $scope.students.splice(result.index, 1);
                     $scope.working = false;
                     $location.path('/student');
                 }else{

@@ -133,6 +133,9 @@ ul.vertical-menu li.vertical-menu-item{
 
 @media (min-width: 1200px) {
 
+    a.collapsed{
+        display: none;
+    }
 
     #sidebarBtn{
         z-index: 20;
@@ -232,6 +235,11 @@ ul.vertical-menu li.vertical-menu-item{
 
 /* Landscape tablets and medium desktops */
 @media (min-width: 992px) and (max-width: 1199px) {
+
+
+    a.collapsed{
+        display: none;
+    }
 
     [data-target="#transcript"],
     [data-target="#graph"]{
@@ -335,18 +343,33 @@ ul.vertical-menu li.vertical-menu-item{
 /* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
 
+    ul.detail-nav{
+        display: none;
+    }
+
+    a.collapsed h1,
+    a h1{
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        background: #B1E0E8;
+    }
+
     [data-target="#transcript"],
     [data-target="#graph"]{
         height: 6.8em;
     }
-    .tab-content{
-        overflow: auto;
+
+    .scrollable-content,
+    .highcharts-container{
+        width: 1869px!important;
     }
 
     #attendance_and_behavior,
     #program_participation,
-    #transcript{
-        width: 1869px;
+    #transcript,
+    #graph{
+        overflow: auto;
     }
 
     .top-space {
@@ -529,6 +552,18 @@ ul.vertical-menu li.vertical-menu-item{
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
 
+    a.collapsed h1,
+    a h1{
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        background: #B1E0E8;
+    }
+
+    ul.detail-nav{
+        display: none;
+    }
+
     .nav-justified>li>a {
         margin-bottom: 1px;
         text-align: center;
@@ -539,14 +574,16 @@ ul.vertical-menu li.vertical-menu-item{
         text-align: center;
     }
 
-    .tab-content{
-        overflow: auto;
+    .scrollable-content,
+    .highcharts-container{
+        width: 1869px!important;
     }
 
     #attendance_and_behavior,
     #program_participation,
-    #transcript{
-        width: 1869px;
+    #transcript,
+    #graph{
+        overflow: auto;
     }
 
     td{
@@ -664,19 +701,33 @@ ul.vertical-menu li.vertical-menu-item{
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
 
+    a.collapsed h1,
+    a h1{
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        background: #B1E0E8;
+    }
+
+    ul.detail-nav{
+        display: none;
+    }
+
     .nav-justified>li>a {
         margin-bottom: 1px;
         text-align: center;
     }
 
-    .tab-content{
-        overflow: auto;
+    .scrollable-content,
+    .highcharts-container{
+        width: 1869px!important;
     }
 
     #attendance_and_behavior,
     #program_participation,
-    #transcript{
-        width: 1869px;
+    #transcript,
+    #graph{
+        overflow: auto;
     }
 
     td{
