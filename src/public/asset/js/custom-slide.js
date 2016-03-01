@@ -85,10 +85,10 @@ $(window).resize(function(){
     }
         if(isMobile()){
             sidebarStatus = "closed";
-            if(status === "desktop"){
-                window.location.reload(true);
-                status = "mobile";
-            }
+            //if(status === "desktop"){
+            //    window.location.reload(true);
+            //    status = "mobile";
+            //}
             if($("#bs-example-navbar-collapse").hasClass("in")){
                 xButton();
                 sidebarStatus = "opened";
@@ -103,10 +103,10 @@ $(window).resize(function(){
         }else
         {
             sidebarStatus = "opened";
-            if(status === "mobile"){
-                window.location.reload(true);
-                status = "desktop";
-            }
+            //if(status === "mobile"){
+            //    window.location.reload(true);
+            //    status = "desktop";
+            //}
         }
         initial = false;
 

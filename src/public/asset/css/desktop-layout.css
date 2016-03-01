@@ -343,7 +343,7 @@ ul.vertical-menu li.vertical-menu-item{
 /* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
 
-    ul.nav{
+    ul.detail-nav{
         display: none;
     }
 
@@ -560,7 +560,7 @@ ul.vertical-menu li.vertical-menu-item{
         background: #B1E0E8;
     }
 
-    ul.nav{
+    ul.detail-nav{
         display: none;
     }
 
@@ -709,7 +709,7 @@ ul.vertical-menu li.vertical-menu-item{
         background: #B1E0E8;
     }
 
-    ul.nav{
+    ul.detail-nav{
         display: none;
     }
 

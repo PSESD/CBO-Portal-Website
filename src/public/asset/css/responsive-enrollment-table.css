@@ -1,0 +1,27 @@
+@media (min-width: 768px) and (max-width: 991px) {
+    td:nth-of-type(1):before { content: "School Name"; padding:0 25px 0 10px}
+    td:nth-of-type(2):before { content: "School Year";padding:0 25px 0 10px }
+    td:nth-of-type(3):before { content: "Entry Date";padding:0 25px 0 10px }
+    td:nth-of-type(4):before { content: "Exit Date"; padding:0 25px 0 10px}
+    td:nth-of-type(5):before { content: "Grade Level"; padding:0 25px 0 10px}
+    td:nth-of-type(6):before { content: "Status"; padding:0 25px 0 10px}
+    td:nth-of-type(7):before { content: "Description"; padding:0 25px 0 10px}
+}
+@media (max-width: 767px) {
+    td:nth-of-type(1):before { content: "School Name"; padding:0 25px 0 10px}
+    td:nth-of-type(2):before { content: "School Year";padding:0 25px 0 10px }
+    td:nth-of-type(3):before { content: "Entry Date";padding:0 25px 0 10px }
+    td:nth-of-type(4):before { content: "Exit Date"; padding:0 25px 0 10px}
+    td:nth-of-type(5):before { content: "Grade Level"; padding:0 25px 0 10px}
+    td:nth-of-type(6):before { content: "Status"; padding:0 25px 0 10px}
+    td:nth-of-type(7):before { content: "Description"; padding:0 25px 0 10px}
+}
+@media (max-width: 480px) {
+    td:nth-of-type(1):before { content: "School Name"; padding:0 25px 0 10px}
+    td:nth-of-type(2):before { content: "School Year";padding:0 25px 0 10px }
+    td:nth-of-type(3):before { content: "Entry Date";padding:0 25px 0 10px }
+    td:nth-of-type(4):before { content: "Exit Date"; padding:0 25px 0 10px}
+    td:nth-of-type(5):before { content: "Grade Level"; padding:0 25px 0 10px}
+    td:nth-of-type(6):before { content: "Status"; padding:0 25px 0 10px}
+    td:nth-of-type(7):before { content: "Description"; padding:0 25px 0 10px}
+}
