@@ -228,6 +228,13 @@ app.config(function ($routeProvider) {
                 requiredAuthentication: true
             //}
         }).
+        when('/applications', {
+            templateUrl: 'asset/templates/user/application.html',
+            controller: 'ApplicationsController',
+            //access: {
+            requiredAuthentication: true
+            //}
+        }).
         when('/login', {
             templateUrl: 'asset/templates/login.html',
             controller: 'LoginController'

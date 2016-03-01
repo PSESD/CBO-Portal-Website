@@ -1,7 +1,10 @@
+.highcharts-container{
+    width: 100%;
+}
 #student-graph{
     padding: 20px 20px 10px 20px;
     overflow: auto;
-
+    width: 100%;
 }
 .modal-body.enrollment{
     padding: 0;

@@ -51,7 +51,7 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
         var first_time = true;
         var urlTemplate = 'asset/templates/popoverTemplate.html';
         var attendance_cache = {};
-
+        $scope.selected_programs = [];
         $scope.templateUrl = 'asset/templates/popoverTemplate.html';
         $rootScope.full_screen = false;
         //$scope.student = {};
@@ -62,7 +62,6 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
         $scope.selected_years = [];
         $scope.attendance_loading = false;
         $scope.academic_years = [];
-
         $scope.close = function () {
             $scope.open_button = true;
             $scope.icon_legend = false;
@@ -76,10 +75,6 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
         $scope.viewDebug = $routeParams.debug ? true : false;
         $scope.sch_history = false;
         $scope.academic = true;
-        //$scope.showSchoolHistory = function () {
-        //    //$scope.sch_history = true;
-        //   $('#enrollmentHistoryModal').modal('show');
-        //};
 
         $scope.showHistory = function()
         {
@@ -706,13 +701,13 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     slug: item.slug,
                                     stripping: cls,
                                     na: '',
-                                    fontcolor: _.get('item.slug') + '-font-color',
-                                    pagetitle: _.get('item.slug.toUpperCase()'),
-                                    eventdate: _.get('item.event.calendarEventDate'),
-                                    description: _.get('item.event.attendanceStatusTitle'),
+                                    fontcolor: _.get(item,'slug') + '-font-color',
+                                    pagetitle: _.get(item,'slug.toUpperCase()'),
+                                    eventdate: _.get(item,'event.calendarEventDate'),
+                                    description: _.get(item,'event.attendanceStatusTitle'),
                                     url: urlTemplate,
-                                    reason: _.get('item.event.absentReasonDescription'),
-                                    category: _.get('item.event.absentAttendanceCategoryTitle'),
+                                    reason: _.get(item,'event.absentReasonDescription'),
+                                    category: _.get(item,'event.absentAttendanceCategoryTitle'),
                                 };
                             } else {
                                 html = {
@@ -759,12 +754,12 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     stripping: cls,
                                     na: '',
                                     fontcolor: 'unexcused-font-color',
-                                    pagetitle: (_.get('item.incidentCategoryTitle') + '').toUpperCase(),
-                                    eventdate: _.get('item.incidentDate'),
-                                    description: _.get('item.description'),
-                                    url: _.get('urlTemplate'),
-                                    reason: _.get('item.event.absentReasonDescription'),
-                                    category: _.get('item.event.absentAttendanceCategoryTitle'),
+                                    pagetitle: (_.get(item,'incidentCategoryTitle') + '').toUpperCase(),
+                                    eventdate: _.get(item,'incidentDate'),
+                                    description: _.get(item,'description'),
+                                    url: urlTemplate,
+                                    reason: _.get(item,'event.absentReasonDescription'),
+                                    category: _.get(item,'event.absentAttendanceCategoryTitle'),
                                 };
                             } else {
                                 html = {
@@ -816,6 +811,8 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
 
     yearsOptions = _.uniq(years,'id');
     $scope.attendance_load_first_time = false;
+
+
 }
 
 function load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache)
@@ -934,7 +931,10 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
             var plotBands = [];
             var data = {};
             var yData = [];
+            var programs = {};
+            var listPrograms = [];
             $scope.plot = [];
+            $scope.programData = [];
             angular.forEach(response.info.attendance,function(v,k){
                 categories.push(v.x);
                 data[v.x] = categories.length -1;
@@ -942,6 +942,12 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
             });
 
             angular.forEach(response.info.programs,function(v){
+                programs = {
+                    id: v.name,
+                    name: v.name
+                };
+                listPrograms.push(programs)
+
                 var from = moment(new Date(v.from)).format('MMMM YYYY');
                 var to = moment(new Date(v.to)).format('MMMM YYYY');
                 if(from === to){
@@ -969,9 +975,16 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                 }
             });
 
+            $scope.programData = _.uniq(listPrograms,'id');
+
             $('#student-graph').highcharts({
                 chart: {
-                    type: 'areaspline'
+                    type: 'areaspline',
+                    marginLeft:50,
+                    marginRight:50
+                },
+                position:{
+                  align:'center'
                 },
                 title: {
                     text: 'Attendance Graph'

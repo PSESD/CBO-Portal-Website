@@ -1305,3 +1305,8 @@ select{
     font-size: 1.5em;
     right: 6.4em;
 }
+
+.key-container{
+    height: 100px;
+    word-wrap: break-word;
+}

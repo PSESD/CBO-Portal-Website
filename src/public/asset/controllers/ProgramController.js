@@ -36,7 +36,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
                 }
 
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+                //$log.info('Modal dismissed at: ' + new Date());
             });
 
         };

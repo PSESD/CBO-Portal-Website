@@ -226,8 +226,6 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <!--<a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up display-blk"><i class="glyphicon glyphicon-menu-up"></i></a>-->
-                <!--<a href="javascript:void(0)" onclick="showContent(this)" class="pull-right menu-down display-none"><i class="glyphicon glyphicon-menu-down"></i></a>-->
                 <a ng-click="flip()" class="pull-right menu-up" ng-show="show_content"><i class="glyphicon glyphicon-menu-up"></i></a>
                 <a ng-click="flip()" class="pull-right menu-down" ng-hide="show_content"><i class="glyphicon glyphicon-menu-down"></i></a>
             </div>
@@ -240,7 +238,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 no-padding-left-right">
 
-                <ul class="nav nav-tabs nav-justified" role="tablist">
+                <ul class="detail-nav nav nav-tabs nav-justified" role="tablist">
                     <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior"><h1>{{ 'general.attendance_and_behavior' | i18n }}</h1></a></li>
                     <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" ><h1>{{ 'general.transcript' | i18n}}</h1></a></li>
                     <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation"><h1>{{ 'general.program_participation' | i18n }}</h1></a></li>
@@ -588,14 +586,41 @@
                     </a>
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#graph', 3)}" class="tab-pane" id="graph" data-id="graph">
                         <div class="scrollable-content">
+                            <!--<div class="graph-filter text-center">-->
+                                <!--<dropdown-multiselect class="no-background-color" model="selected_programs" title="Programs" options="programData"></dropdown-multiselect>-->
+                            <!--</div>-->
                             <div id="student-graph"></div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script src="asset/js/accordion.js"></script>
+<script>
+    if(document.getElementById("programList")){
+        document.getElementById("programList").remove();
+    }else if(document.getElementById("studentList")){
+        document.getElementById("studentList").remove();
+    }else if (document.getElementById("userList")){
+        document.getElementById("userList").remove();
+    }else if(document.getElementById("programStudentAssignList")){
+        document.getElementById("programStudentAssignList").remove();
+    }else if(document.getElementById("applicationList")){
+        document.getElementById("applicationList").remove();
+    }else if(document.getElementById("enrollmentList")){
+        document.getElementById("enrollmentList").remove();
+    }
+    var cssId = 'enrollmentList';  // you could encode the css path itself to generate id..
+    if (!document.getElementById(cssId))
+    {
+        var head  = document.getElementsByTagName('head')[0];
+        var link  = document.createElement('link');
+        link.id   = cssId;
+        link.rel  = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'asset/css/responsive-enrollment-table.css';
+        head.appendChild(link);
+    }
+</script>

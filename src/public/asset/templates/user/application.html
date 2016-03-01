@@ -1,0 +1,117 @@
+<div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="title">
+                    <h1>{{ 'general.applications' | i18n }}</h1>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="ng-binding help">
+                    <!--<p>{{ 'help.user_list' | i18n }}</p>-->
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-hide="showForm">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <h1><a ng-click="openForm()"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.create_key' | i18n | uppercase }}</a></h1>
+            </div>
+        </div>
+        <div class="row" ng-show="showForm">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <form class="form-horizontal" role="form" ng-submit="createKey(apps)">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-12 col-md-2 control-label" for="app_name">{{ 'general.application_name' | i18n }}:</label>
+                        <div class="col-xs-12 col-sm-12 col-md-9">
+                            <input type="text" class="form-control" ng-model="apps.app_name" id="app_name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-12 col-md-2 control-label" for="userId">{{ 'general.student' | i18n }}:</label>
+                        <div class="col-xs-12 col-sm-12 col-md-9">
+                            <select class="btn-block" ng-model="apps.user_id" id="userId" required autofocus ng-options="user._id as user.first_name+' '+user.last_name for user in list_users">
+                            </select>
+                        </div>
+                        <span class="glyphicon glyphicon-refresh glyphicon-spin student-loading-circle" aria-hidden="true" ng-show="load_student"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-9">
+                            <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
+                            <a class="btn btn-danger" ng-click="closeForm()">{{ 'general.cancel' | i18n }}</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <span class="search-btn">
+                    <input type="text" class="input-search" ng-model="search" placeholder="{{ 'general.search_users' | i18n }}">
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            <a href="#" ng-click="sortType = 'app_name';sortReverse = !sortReverse">
+                                {{ 'general.application_name' | i18n }}
+                                <span ng-show="sortType == 'app_name' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'app_name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortType = 'created';sortReverse = !sortReverse">
+                                {{ 'general.created' | i18n }}
+                                <span ng-show="sortType == 'created' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'created' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                        <th class="text-center" style="width:9%;">{{ 'general.delete' | i18n }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="app in applications | filter:search | orderBy:'app_name' | orderBy:sortType:sortReverse">
+
+                        <td>{{app.app_name}}</td>
+                        <td>{{app.created | date : 'yyyy-MM-dd' : timezone}}</td>
+                        <td class="text-center">
+                            <a class="glyphicon glyphicon-trash" ng-click="deleteApplication(app._id, $index)"  ng-disabled="working"></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    if(document.getElementById("programList")){
+        document.getElementById("programList").remove();
+    }else if(document.getElementById("studentList")){
+        document.getElementById("studentList").remove();
+    }else if (document.getElementById("userList")){
+        document.getElementById("userList").remove();
+    }else if(document.getElementById("programStudentAssignList")){
+        document.getElementById("programStudentAssignList").remove();
+    }else if(document.getElementById("applicationList")){
+        document.getElementById("applicationList").remove();
+    }
+
+    var cssId = 'applicationList';  // you could encode the css path itself to generate id..
+    if (!document.getElementById(cssId))
+    {
+        var head  = document.getElementsByTagName('head')[0];
+        var link  = document.createElement('link');
+        link.id   = cssId;
+        link.rel  = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'asset/css/responsive-application-table.css';
+        head.appendChild(link);
+    }
+</script>
