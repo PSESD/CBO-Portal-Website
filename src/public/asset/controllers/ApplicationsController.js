@@ -1,6 +1,6 @@
 app.controller('ApplicationsController',['$scope','$http','$rootScope','AuthenticationService','$location','$uibModal',function($scope,$http,$rootScope,AuthenticationService,$location,$uibModal){
     $scope.showForm = false;
-
+$scope.showLoadingIcon = false;
     $scope.openForm = function(){
         $scope.showForm = true;
     }
@@ -32,12 +32,14 @@ app.controller('ApplicationsController',['$scope','$http','$rootScope','Authenti
     });
 
     $scope.createKey = function(app){
+        $scope.showLoadingIcon = true;
         $http.post(api_url + AuthenticationService.organization_id + '/applications/', $.param(app), {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
         }).success(function(response){
             if(response.success === true){
+                $scope.showLoadingIcon = false;
                 showError(response.message,2);
                 $scope.applications.push({
                     "app_name":app.app_name,
@@ -60,7 +62,9 @@ app.controller('ApplicationsController',['$scope','$http','$rootScope','Authenti
                 showError(response.message,1);
             }
             $scope.showForm = false;
+            $scope.showLoadingIcon = false;
         }).error(function(response){
+            $scope.showLoadingIcon = false;
             $scope.showForm = false;
             showError(response, 1);
             $scope.working = false;

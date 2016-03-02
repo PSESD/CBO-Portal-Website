@@ -41,6 +41,7 @@
                         <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-9">
                             <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
                             <a class="btn btn-danger" ng-click="closeForm()">{{ 'general.cancel' | i18n }}</a>
+                            <span id="login-spinner" ng-show="showLoadingIcon" class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
                         </div>
                     </div>
                 </form>
