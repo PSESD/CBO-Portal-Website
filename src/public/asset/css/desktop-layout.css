@@ -446,6 +446,9 @@ ul.vertical-menu li.vertical-menu-item{
     .navbar-nav>li {
         float: none;
     }
+    .btn{
+        width: 100%;
+    }
 
     .nav>li {
         position: relative;
@@ -739,7 +742,6 @@ ul.vertical-menu li.vertical-menu-item{
         display: block;
     }
 
-    /* Hide table headers (but not display: none;, for accessibility) */
     thead tr {
         position: absolute;
         top: -9999px;
@@ -749,7 +751,6 @@ ul.vertical-menu li.vertical-menu-item{
     tr { border: 1px solid #ccc; }
 
     td {
-        /* Behave  like a "row" */
         border: none;
         border-bottom: 1px solid #eee;
         position: relative;

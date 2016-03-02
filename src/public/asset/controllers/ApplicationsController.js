@@ -53,7 +53,8 @@ $scope.showLoadingIcon = false;
                     resolve: {
                         items: function () {
                             return {
-                                "keys":response.info.token
+                                "keys":response.info.secretKey,
+                                "clientID":response.info.clientId
                             }
                         }
                     }
@@ -159,6 +160,7 @@ $scope.showLoadingIcon = false;
 app.controller('ModalKeyInstanceCtrl', function ($scope, $uibModalInstance, items) {
 
     $scope.keys = items.keys;
+    $scope.clientid = items.clientID;
 
     $scope.ok = function () {
         $uibModalInstance.dismiss('cancel');

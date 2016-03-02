@@ -586,9 +586,21 @@
                     </a>
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#graph', 3)}" class="tab-pane" id="graph" data-id="graph">
                         <div class="scrollable-content">
-                            <!--<div class="graph-filter text-center">-->
-                                <!--<dropdown-multiselect class="no-background-color" model="selected_programs" title="Programs" options="programData"></dropdown-multiselect>-->
-                            <!--</div>-->
+                            <div class="graph-filter text-center">
+                                <!--<select class="filter-graph" name="startMonth" id="startMonth" ng-model="data.startMonth">-->
+                                    <!--<option ng-repeat="option in months |orderBy:'index'" value="{{option.id}}">{{option.name}}</option>-->
+                                <!--</select>-->
+                                <!--<select class="filter-graph" name="startYears" id="startYears" ng-model="data.startYears">-->
+                                    <!--<option ng-repeat="option in years" value="{{option.id}}">{{option.name}}</option>-->
+                                <!--</select>-->
+                                <!--<select class="filter-graph" name="endMonth" id="endMonth" ng-model="data.endMonth">-->
+                                    <!--<option ng-repeat="option in months |orderBy:'index'" value="{{option.id}}">{{option.name}}</option>-->
+                                <!--</select>-->
+                                <!--<select class="filter-graph" name="endYears" id="endYears" ng-model="data.endYears">-->
+                                    <!--<option ng-repeat="option in years" value="{{option.id}}">{{option.name}}</option>-->
+                                <!--</select>-->
+                                <filter-multiselect class="no-background-color" model="selected_programs" title="Programs" options="programData"></filter-multiselect>
+                            </div>
                             <div id="student-graph"></div>
                         </div>
                     </div>

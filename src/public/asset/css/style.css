@@ -1310,3 +1310,19 @@ select{
     height: 100px;
     word-wrap: break-word;
 }
+table.listview{
+    margin-top: 15px;
+}
+
+.filter-graph{
+    border: 2px solid #555;
+    min-width: 100px;
+    position: relative;
+    top: -1px;
+}
+.button.fltr-graph{
+    min-height: 35px;
+}
+.attendance-icon{
+    left: 25px;
+}

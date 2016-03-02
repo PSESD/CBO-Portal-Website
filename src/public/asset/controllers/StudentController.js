@@ -22,8 +22,11 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             scrollableHeight: '250px',
             scrollable: true
         };
+        $scope.ok_icon = "attendance-icon glyphicon glyphicon-ok-sign alert-success";
+        $scope.danger_icon = "attendance-icon glyphicon glyphicon-exclamation-sign alert-danger";
+        $scope.warning_icon = "attendance-icon glyphicon glyphicon-warning-sign alert-warning";
         $scope.test = "Test";
-
+        $scope.url = "asset/templates/attendanceListTemplate.html";
         $scope.sortType="first_name";
         $scope.sortReverse=false;
 

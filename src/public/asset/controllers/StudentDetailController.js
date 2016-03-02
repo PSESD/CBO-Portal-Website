@@ -919,6 +919,43 @@ function load_program_participation_data($http,student_id,AuthenticationService,
 
 function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope)
 {
+    var months_index = [{
+        index:1,
+        value:"January"
+        },{
+        index:2,
+        value:"February"
+        },{
+        index:3,
+        value:"March"
+        },{
+        index:4,
+        value:"April"
+        },{
+        index:5,
+        value:"May"
+        },{
+        index:6,
+        value:"June"
+        },{
+        index:7,
+        value:"July"
+        },{
+        index:8,
+        value:"August"
+        },{
+        index:9,
+        value:"September"
+        },{
+        index:10,
+        value:"October"
+        },{
+        index:11,
+        value:"November"
+        },{
+        index:12,
+        value:"December"
+        }];
     'use strict';
     $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/report', {
         headers: {
@@ -933,6 +970,10 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
             var yData = [];
             var programs = {};
             var listPrograms = [];
+            var list_months = [];
+            var list_years = []
+            $scope.months = [];
+            $scope.years = [];
             $scope.plot = [];
             $scope.programData = [];
             angular.forEach(response.info.attendance,function(v,k){
@@ -940,18 +981,42 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                 data[v.x] = categories.length -1;
                 yData.push(v.y);
             });
+            angular.forEach(response.info.attendance,function(v){
+                var items = v.x.split(" ");
+                var month = {
+                    id:items[0],
+                    name:items[0],
+                    index:0
+                }
+                var years = {
+                    id:items[1],
+                    name:items[1]
+                }
+                list_months.push(month);
+                list_years.push(years);
+            })
 
+            list_months = _.uniq(list_months,"id");
+            $scope.years = _.uniq(list_years,"id");
+            angular.forEach(list_months,function(v){
+                for(var i = 0; i<months_index.length;i++)
+                {
+                    if(months_index[i].value === v.name){
+                        $scope.months.push({
+                            id: v.name,
+                            name: v.name,
+                            index:months_index[i].index
+                        })
+                    }
+                }
+            });
             angular.forEach(response.info.programs,function(v){
-                programs = {
-                    id: v.name,
-                    name: v.name
-                };
-                listPrograms.push(programs)
 
                 var from = moment(new Date(v.from)).format('MMMM YYYY');
                 var to = moment(new Date(v.to)).format('MMMM YYYY');
                 if(from === to){
                     plotBands.push({
+                        id:Math.floor((Math.random() * 999999) + 1) +"-"+ v.name,
                         from: data[from] - 0.5,
                         to: data[from] + 0.5,
                         color: colors[Math.floor((Math.random() * 5) + 0)],
@@ -961,8 +1026,23 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                             rotation:45
                         }
                     })
+                    programs = {
+                        id:{
+                            id:Math.floor((Math.random() * 999999) + 1) +"-"+ v.name,
+                            from: data[from] - 0.5,
+                            to: data[from] + 0.5,
+                            color: colors[Math.floor((Math.random() * 5) + 0)],
+                            label:{
+                                align:'center',
+                                text: v.name,
+                                rotation:45
+                            }
+                        },
+                        name: v.name
+                    };
                 } else {
                     plotBands.push({
+                        id:Math.floor((Math.random() * 999999) + 1) +"-"+ v.name,
                         from: data[from] - 0.5,
                         to: data[to] + 0.5,
                         color: colors[Math.floor((Math.random() * 5) + 0)],
@@ -972,10 +1052,26 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                             rotation:45
                         }
                     })
+                    programs = {
+                        id:{
+                            id:Math.floor((Math.random() * 999999) + 1) +"-"+ v.name,
+                            from: data[from] - 0.5,
+                            to: data[to] + 0.5,
+                            color: colors[Math.floor((Math.random() * 5) + 0)],
+                            label:{
+                                align:'center',
+                                text: v.name,
+                                rotation:45
+                            }
+                        },
+                        name: v.name
+                    };
                 }
+
+                listPrograms.push(programs)
             });
 
-            $scope.programData = _.uniq(listPrograms,'id');
+            $scope.programData = _.uniq(listPrograms,'name');
 
             $('#student-graph').highcharts({
                 chart: {
@@ -991,7 +1087,7 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
                 },
                 xAxis: {
                     categories: categories,
-                    plotBands:plotBands
+                    //plotBands:plotBands
                 },
                 yAxis: {
                     title: {
