@@ -83,7 +83,7 @@
     "back": "Back",
     "not_ready": "<span class=\"not_ready\">NOT READY</span>",
     "retrieving": "<span  class=\"retrieving\">Retrieving ...</span>",
-    "unavailable": "<span class=\"unavailable\">UNAVAILABLE</span>",
+    "unavailable": "<span class=\"glyphicon glyphicon-minus-sign\" aria-hidden=\"true\"></span>",
     "on_track": "<span class=\"on_track\">On Track</span>",
     "off_track": "<span class=\"off_track\">Off Track</span>",
     "incidents": "{1} Incidents",

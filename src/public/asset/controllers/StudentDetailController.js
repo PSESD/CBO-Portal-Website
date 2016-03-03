@@ -7,6 +7,12 @@ var transcript_debug = [];
 var attendance_state = false;
 var transcript_state = false;
 var full_name = "";
+var startMonth;
+var endMonth;
+var startYears;
+var endYears;
+var startDate;
+var endDate;
 var colors = [
     'rgba(145,255,135,.5)',
     'rgba(156,217,255,.5)',
@@ -919,6 +925,7 @@ function load_program_participation_data($http,student_id,AuthenticationService,
 
 function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope)
 {
+    var categories = [];
     var months_index = [{
         index:1,
         value:"January"
@@ -962,9 +969,9 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
             'Authorization': 'Bearer ' + AuthenticationService.token
         }
     }).success(function (response){
+
         if(response.success === true && response.info !== undefined)
         {
-            var categories = [];
             var plotBands = [];
             var data = {};
             var yData = [];
@@ -1128,6 +1135,28 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
             }
 
         });
+    $scope.startMonthChange = function(item){
+        startMonth = item;
+    }
+    $scope.startYearsChange = function(item){
+        startYears = item;
+    }
+
+    $scope.endMonthChange = function(item){
+        endMonth = item;
+    }
+    $scope.endYearsChange = function(item){
+        endYears = item;
+    }
+
+    $scope.update_graph = function(){
+        var chart = $("#student-graph").highcharts();
+        startDate = startMonth + " " + startYears;
+        endDate = endMonth + " " + endYears;
+        categories = categories.slice(categories.indexOf(startDate),categories.indexOf(endDate));
+        chart.xAxis[0].setCategories(categories, true);
+
+    }
 }
 
 function load_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache,$interval,$filter){

@@ -513,33 +513,6 @@
                                                     </dl>
 
                                                 </div>
-
-                                                <!--<div class="transcript-display">-->
-                                                <!--<div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }} transcript-title">{{ ::c.title }}</div>-->
-                                                <!--<hr class="hr-transcript">-->
-                                                <!--<div class="attempted-credit">-->
-                                                <!--<dl>-->
-                                                <!--<dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>-->
-                                                <!--<dd> {{ ::c.mark }}</dd>-->
-                                                <!--<div ng-if="c.creditsEarned !== c.creditsAttempted">-->
-                                                <!--<dt class="bold bold-title">-->
-                                                <!--Credits-->
-                                                <!--</dt>-->
-                                                <!--<dd>-->
-                                                <!--<span class="red" >{{c.creditsEarned}}/{{c.creditsAttempted}}</span>-->
-                                                <!--</dd>-->
-                                                <!--</div>-->
-                                                <!--<div ng-if="c.creditsEarned === c.creditsAttempted">-->
-                                                <!--<dt class="bold bold-title">-->
-                                                <!--Credits-->
-                                                <!--</dt>-->
-                                                <!--<dd>-->
-                                                <!--<span>{{c.creditsEarned}}</span>-->
-                                                <!--</dd>-->
-                                                <!--</div>-->
-                                                <!--</dl>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
                                             </div>
                                         </li>
                                     </ul>
@@ -587,19 +560,25 @@
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#graph', 3)}" class="tab-pane" id="graph" data-id="graph">
                         <div class="scrollable-content">
                             <div class="graph-filter text-center">
-                                <!--<select class="filter-graph" name="startMonth" id="startMonth" ng-model="data.startMonth">-->
-                                    <!--<option ng-repeat="option in months |orderBy:'index'" value="{{option.id}}">{{option.name}}</option>-->
-                                <!--</select>-->
-                                <!--<select class="filter-graph" name="startYears" id="startYears" ng-model="data.startYears">-->
-                                    <!--<option ng-repeat="option in years" value="{{option.id}}">{{option.name}}</option>-->
-                                <!--</select>-->
-                                <!--<select class="filter-graph" name="endMonth" id="endMonth" ng-model="data.endMonth">-->
-                                    <!--<option ng-repeat="option in months |orderBy:'index'" value="{{option.id}}">{{option.name}}</option>-->
-                                <!--</select>-->
-                                <!--<select class="filter-graph" name="endYears" id="endYears" ng-model="data.endYears">-->
-                                    <!--<option ng-repeat="option in years" value="{{option.id}}">{{option.name}}</option>-->
-                                <!--</select>-->
+                                <select class="filter-graph" name="startMonth" id="startMonth" ng-model="data.startMonth" ng-change="startMonthChange(data.startMonth)">
+                                    <option value="">Start Month</option>
+                                    <option ng-repeat="option in months |orderBy:'index'" value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                                <select class="filter-graph" name="startYears" id="startYears" ng-model="data.startYears" ng-change="startYearsChange(data.startYears)">
+                                    <option value="">Start Years</option>
+                                    <option ng-repeat="option in years" value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                                -
+                                <select class="filter-graph" name="endMonth" id="endMonth" ng-model="data.endMonth" ng-change="endMonthChange(data.endMonth)">
+                                    <option value="">End Month</option>
+                                    <option ng-repeat="option in months |orderBy:'index'" value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                                <select class="filter-graph" name="endYears" id="endYears" ng-model="data.endYears" ng-change="endYearsChange(data.endYears)">
+                                    <option value="">End Years</option>
+                                    <option ng-repeat="option in years" value="{{option.id}}">{{option.name}}</option>
+                                </select>
                                 <filter-multiselect class="no-background-color" model="selected_programs" title="Programs" options="programData"></filter-multiselect>
+                                <button class="btn btn-primary update-graph" ng-click="update_graph()">Update Graph</button>
                             </div>
                             <div id="student-graph"></div>
                         </div>

@@ -15,24 +15,28 @@ app.directive('attendance', function(){
             description:'@'
         },
         template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="grid-item {{slug}} {{stripping}} {{na}}"></div>'
-
     };
 });
 
-app.directive('attendanceList', function(){
+app.directive('listAttendance',function(){
     'use strict';
-    return {
-        restrict: 'E',
+    return{
+        restrict:'E',
         scope:{
-            title:'@',
-            notes:'@',
             url:'@',
-            icon:'@'
+            label:'@',
+            info:'@',
+            items:'@'
         },
-        template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="{{icon}}"></div>'
+        template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="left"><label class="{{label}}">{{info}}</label></div>',
+        link:function(scope,elm,attrs){
+            var notes = attrs.items.replace('["','').replace('"]','').replace('","',",").replace('"[]"','');
+            scope.list = notes.split(",");
 
-    };
+        }
+    }
 });
+
 
 app.directive('legend', function(){
     'use strict';
