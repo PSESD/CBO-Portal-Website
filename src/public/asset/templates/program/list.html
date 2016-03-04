@@ -31,7 +31,7 @@
             </div>
         <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <table class="table table-striped">
+            <table class="table table-striped listview">
                 <thead>
                 <tr>
                     <th>
@@ -80,7 +80,6 @@
                         <a class="glyphicon glyphicon-pencil" ng-href="#/program/detail/{{ program._id }}"></a>
                     </td>
                     <td class="text-center">
-                        <!--<a class="glyphicon glyphicon-trash" confirmed-click="deleteProgram(program._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>-->
                         <a class="glyphicon glyphicon-trash" ng-click="deleteProgram(program._id, $index)" ng-disabled="working"></a>
                     </td>
                 </tr>

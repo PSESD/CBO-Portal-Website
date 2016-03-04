@@ -22,11 +22,13 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             scrollableHeight: '250px',
             scrollable: true
         };
+        $scope.success_label = "label label-success";
+        $scope.danger_label = "label label-danger";
+        $scope.warning_label = "label label-warning";
         $scope.test = "Test";
-
         $scope.sortType="first_name";
         $scope.sortReverse=false;
-
+        $scope.urlTemplate = "asset/templates/listTemplate.html"
         $scope.filterDistrict = function () {
             return function (p) {
                 if(String($scope.selected_districts) !== '') {
@@ -132,6 +134,14 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                                 pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')]);
                             }
 
+                            //if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear')) === 0){
+                            //    pluralBehavior = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                            //}else if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear') === 1)){
+                            //    pluralBehavior = locale.getString('general.day_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                            //}else{
+                            //    pluralBehavior = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                            //}
+
                             if(parseInt(_.get(student,'xsre.attendance')) <= 1){
                                 pluralAttendance =  locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]);
                             }else{
@@ -220,36 +230,42 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         });
 
                         var onTrack = _.get(student,'xsre.onTrackToGraduate');
-                        if(parseInt(_.get(student,'xsre.behavior')) === 0) {
-                            pluralBehavior = locale.getString('general.incidents', [_.get(student, 'xsre.behavior')]);
-                        }else if(parseInt(_.get(student,'xsre.behavior')) === 1){
-                            pluralBehavior =  locale.getString('general.incident', [_.get(student,'xsre.behavior')]);
-                        }else{
-                            pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')]);
-                        }
-
-                        if(parseInt(_.get(student,'xsre.attendance')) <= 1){
-                            pluralAttendance =  locale.getString('general.day_missed', [_.get(student,'xsre.attendance')]);
-                        }else{
-                            pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance')]);
-                        }
+                        pluralBehavior = _.get(student,'xsre.behavior.incidents.incidentAcademicYear');
+                        //if(parseInt(_.get(student,'xsre.behavior')) === 0) {
+                        //    pluralBehavior = locale.getString('general.incidents', [_.get(student, 'xsre.behavior')]);
+                        //}else if(parseInt(_.get(student,'xsre.behavior')) === 1){
+                        //    pluralBehavior =  locale.getString('general.incident', [_.get(student,'xsre.behavior')]);
+                        //}else{
+                        //    pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')]);
+                        //}
+                        pluralAttendance = _.get(student,'xsre.attendance.absents.attendanceAcademicYear');
+                        //if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear')) === 0){
+                        //    pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                        //}else if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear') === 1)){
+                        //    pluralAttendance = locale.getString('general.day_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                        //}else{
+                        //    pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                        //}
                         if(onTrack === 'Y' || onTrack === 'On Track' || onTrack === 'Yes'){
-                            onTrack = locale.getString('general.on_track');
+                            //onTrack = locale.getString('general.on_track');
+                            onTrack = "Y";
                         } else if(onTrack === 'N' || onTrack === 'Off Track' || onTrack === 'No') {
-                            onTrack = locale.getString('general.off_track');
+                            //onTrack = locale.getString('general.off_track');
+                            onTrack = "N";
                         } else {
-                            onTrack = locale.getString('general.unavailable');
+                            //onTrack = locale.getString('general.unavailable');
+                            onTrack = "U";
                         }
                         student.gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.unavailable');
                         student.schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
                         student.schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.unavailable');
-                        student.attendance = _.has(student,'xsre.attendance') ? pluralAttendance : locale.getString('general.unavailable');
+                        student.attendance = _.has(student,'xsre.attendance.absents.attendanceAcademicYear') ? pluralAttendance : locale.getString('general.unavailable');
                         student.behavior = _.has(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
                         if(student.gradeLevel === 'N/A') student.gradeLevel =  locale.getString('general.unavailable');
                         if(student.schoolYear === 'N/A') student.schoolYear =  locale.getString('general.unavailable');
                         if(student.schoolName === 'N/A') student.schoolName =  locale.getString('general.unavailable');
-                        if(student.attendance.indexOf('N/A') !== -1) student.attendance =  locale.getString('general.unavailable');
-                        if(student.behavior.indexOf('N/A') !== -1) student.behavior =  locale.getString('general.unavailable');
+                        //if(student.attendance.indexOf('N/A') !== -1) student.attendance =  locale.getString('general.unavailable');
+                        //if(student.behavior.indexOf('N/A') !== -1) student.behavior =  locale.getString('general.unavailable');
                         student.onTrackGraduate = onTrack;
                         var find = student.schoolName;
                         if(find){
@@ -263,13 +279,11 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         }
 
                         $scope.students.push(student);
-
                         studentKeys[student._id] = o;
                         o++;
                         if(options.indexOf(student.school_district) === -1){
                             options.push(student.school_district);
                         }
-
                     });
                     $scope.students = $filter('orderBy')($scope.students,'first_name');
                     /**

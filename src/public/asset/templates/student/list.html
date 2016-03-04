@@ -56,7 +56,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <table class="table table-striped">
+                <table class="table table-striped listview">
                     <thead>
                     <tr>
                         <th>
@@ -126,9 +126,37 @@
                         <td>{{ student.school_district }}</td>
                         <td ng-bind-html="student.gradeLevel"></td>
                         <td ng-bind-html="student.schoolName"></td>
-                        <td ng-bind-html="student.attendance"></td>
-                        <td ng-bind-html="student.behavior"></td>
-                        <td ng-bind-html="student.onTrackGraduate"></td>
+                        <td >
+                            <div ng-if="student.xsre.attendance.flag === 'SUCCESS'" class="attendance-icon">
+                                <list-attendance url="{{urlTemplate}}" label="{{success_label}}" info="{{student.attendance}}" items="{{student.xsre.attendance.notes.items}}"></list-attendance>
+                            </div>
+                            <div ng-if="student.xsre.attendance.flag === 'WARNING'" class="attendance-icon">
+                                <list-attendance url="{{urlTemplate}}" label="{{warning_label}}" info="{{student.attendance}}" items="{{student.xsre.attendance.notes.items}}"></list-attendance>
+                            </div>
+                            <div ng-if="student.xsre.attendance.flag === 'DANGER'" class="attendance-icon">
+                                <list-attendance url="{{urlTemplate}}" label="{{danger_label}}" info="{{student.attendance}}" items="{{student.xsre.attendance.notes.items}}"></list-attendance>
+                            </div>
+                        </td>
+                        <!--<td ng-bind-html="student.behavior"></td>-->
+                        <td>
+                            <div ng-if="student.xsre.behavior.flag === 'SUCCESS'" class="behavior-icon">
+                                <list-attendance url="{{urlTemplate}}" label="{{success_label}}" info="{{student.behavior}}" items="{{student.xsre.behavior.notes.items}}"></list-attendance>
+                            </div>
+                            <div ng-if="student.xsre.behavior.flag === 'DANGER'" class="behavior-icon">
+                                <list-attendance url="{{urlTemplate}}" label="{{danger_label}}" info="{{student.behavior}}" items="{{student.xsre.behavior.notes.items}}"></list-attendance>
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-if="student.onTrackGraduate === 'Y'">
+                                <span class="glyphicon glyphicon-ok-sign alert-success on-track-icon" aria-hidden="true"></span>
+                            </div>
+                            <div ng-if="student.onTrackGraduate === 'N'">
+                                <span class="glyphicon glyphicon-remove-sign alert-danger on-track-icon" aria-hidden="true"></span>
+                            </div>
+                            <div ng-if="student.onTrackGraduate === 'U'">
+                                <span class="glyphicon glyphicon-minus-sign on-track-icon" aria-hidden="true"></span>
+                            </div>
+                        </td>
                         <td class="text-center">
                             <a class="glyphicon glyphicon-pencil" ng-href="#/student/edit/{{ student._id }}"></a>
                         </td>

@@ -41,6 +41,7 @@
                         <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-9">
                             <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
                             <a class="btn btn-danger" ng-click="closeForm()">{{ 'general.cancel' | i18n }}</a>
+                            <span id="login-spinner" ng-show="showLoadingIcon" class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
                         </div>
                     </div>
                 </form>
@@ -55,7 +56,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <table class="table table-striped">
+                <table class="table table-striped listview">
                     <thead>
                     <tr>
                         <th>
@@ -72,6 +73,13 @@
                                 <span ng-show="sortType == 'created' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                             </a>
                         </th>
+                        <th>
+                            <a href="#" ng-click="sortType = 'created';sortReverse = !sortReverse">
+                                {{ 'general.created_by' | i18n }}
+                                <span ng-show="sortType == 'created' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'created' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
                         <th class="text-center" style="width:9%;">{{ 'general.delete' | i18n }}</th>
                     </tr>
                     </thead>
@@ -79,7 +87,8 @@
                     <tr ng-repeat="app in applications | filter:search | orderBy:'app_name' | orderBy:sortType:sortReverse">
 
                         <td>{{app.app_name}}</td>
-                        <td>{{app.created | date : 'yyyy-MM-dd' : timezone}}</td>
+                        <td>{{app.created | date : 'yyyy-MM-dd HH:mm:s' : timezone}}</td>
+                        <td>{{app.email}}</td>
                         <td class="text-center">
                             <a class="glyphicon glyphicon-trash" ng-click="deleteApplication(app._id, $index)"  ng-disabled="working"></a>
                         </td>

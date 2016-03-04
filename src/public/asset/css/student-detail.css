@@ -1200,8 +1200,10 @@ dt, dd {
 
 .header-fixed > tbody > tr > td,
 .header-fixed > thead > tr > th {
-    width: 14.28%;
+    width: 16%;
     float: left;
+    margin-left: 4px;
+
 }
 .modal-dialog.enrollment{
     width: 700px;

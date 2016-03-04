@@ -15,9 +15,28 @@ app.directive('attendance', function(){
             description:'@'
         },
         template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="grid-item {{slug}} {{stripping}} {{na}}"></div>'
-
     };
 });
+
+app.directive('listAttendance',function(){
+    'use strict';
+    return{
+        restrict:'E',
+        scope:{
+            url:'@',
+            label:'@',
+            info:'@',
+            items:'@'
+        },
+        template:'<div uib-popover-template="url"  popover-trigger="mouseenter" popover-placement="left"><label class="{{label}}">{{info}}</label></div>',
+        link:function(scope,elm,attrs){
+            var notes = attrs.items.replace('["','').replace('"]','').replace('","',",").replace('"[]"','');
+            scope.list = notes.split(",");
+
+        }
+    }
+});
+
 
 app.directive('legend', function(){
     'use strict';
@@ -77,6 +96,81 @@ app.directive('dropdownMultiselect', function($document){
                 } else {
                     $scope.model.push(id);
                 }
+                return false;
+            };
+            $scope.isChecked = function (id) {
+                if (_.contains($scope.model, id)) {
+                    return 'icon-ok pull-right';
+                }
+                return false;
+            };
+        }
+    };
+});
+
+app.directive('filterMultiselect', function($document){
+    'use strict';
+    return {
+        restrict: 'E',
+        scope:{
+            model: '=',
+            options: '=',
+            title:'@'
+        },
+
+        template: "<div class='multiselect'>"+
+        "<button class='button fltr-graph filter-btn' ng-click='toggleSelect()'>{{title}}<span class='filter-caret caret'></span></button>"+
+        "<ul  class='filter-btn popup' ng-show='isPopupVisible'>" +
+        "<li class='list-dropdown-padding' data-ng-repeat='option in options' data-ng-click='setSelectedItem()'>{{option.name}}<span data-ng-class='isChecked(option.id)'></span></li>" +
+        "</ul>" +
+        "</div>",
+        link:function(scope,element,attr){
+
+            scope.isPopupVisible = false;
+            scope.toggleSelect = function(){
+                scope.isPopupVisible = !scope.isPopupVisible;
+            };
+            $document.bind('click', function(event){
+                var isClickedElementChildOfPopup = element
+                        .find(event.target)
+                        .length > 0;
+
+                if (isClickedElementChildOfPopup)
+                {return;}
+
+                scope.isPopupVisible = false;
+                scope.$apply();
+            });
+        },
+        controller: function($scope){
+
+            var unselected_items = [];
+            var selected_items = [];
+            var temp = [];
+            var chart;
+            $scope.setSelectedItem = function(){
+                var id = this.option.id;
+                if (_.contains($scope.model, id)) {
+                    $scope.model = _.without($scope.model, id);
+                    if($scope.model.length >0){
+                        for(var i=0;i<selected_items.length;i++){
+                            var id = _.get($scope.model[i],'id');
+                            unselected_items.splice(id,1);
+                        }
+                    }
+                    angular.forEach(unselected_items,function(v){
+                        chart.xAxis[0].removePlotBand(v.id);
+                    });
+                } else {
+                    $scope.model.push(id);
+                }
+                chart = $('#student-graph').highcharts();
+                angular.forEach($scope.model,function(v){
+                    chart.xAxis[0].addPlotBand(v);
+                    temp.push(v);
+                    unselected_items = _.uniq(temp,'id');
+                    selected_items = unselected_items;
+                });
                 return false;
             };
             $scope.isChecked = function (id) {

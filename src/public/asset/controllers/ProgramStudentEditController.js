@@ -3,7 +3,10 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
         'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
-
+        var rawCohart = "";
+        $scope.$watch('student.cohort',function(cohort){
+            rawCohart=cohort;
+        });
         var student_id = $routeParams.student_id;
         var program_id = $routeParams.program_id;
         var cohort = '';
@@ -114,7 +117,15 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
 
 
         $scope.editProgramStudent = function (student) {
+
             if (student) {
+                if(rawCohart === "" || rawCohart === undefined)
+                {
+                    rawCohart = [];
+                }else{
+                    rawCohart = rawCohart.split(',');
+                }
+                student.cohort = rawCohart;
                 $scope.working = true;
 
                 $http.put(api_url + AuthenticationService.organization_id + '/programs/' + program_id + '/students/' + student_id, $.param(student), {
@@ -130,8 +141,6 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                     })
                     .error(function (response, status) {
 
-                        //console.log(response);
-                        //console.log(status);
                         showError(response.error, 1);
                         $scope.working = false;
                         if (status === 401) {
@@ -141,6 +150,7 @@ app.controller('ProgramStudentEditController', ['$rootScope', '$scope', '$routeP
                         }
 
                     });
+
             }
 
             $rootScope.editable = false;

@@ -99,8 +99,6 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
             });
         $scope.addProgramStudent = function (program) {
 
-
-
             if (program) {
 
                 if(rawCohart === "" || rawCohart === undefined)

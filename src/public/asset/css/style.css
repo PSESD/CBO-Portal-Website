@@ -164,7 +164,7 @@ II MEDIA
     h1 {
         font-size: 18px;
         font-size: 1.8rem;
-/*        letter-spacing: 0.2em; /* note we are using em here for letter spacing */*/
+/*        letter-spacing: 0.2em; /* note we are using em here for letter spacing */
         text-transform: uppercase;
     }
     h2 {
@@ -386,7 +386,7 @@ II MEDIA
 ================== 2.Header ===================
 ===============================================
 */
-    
+
     /*.navbar {*/
         /*position: fixed;*/
         /*margin-bottom: 0;*/
@@ -399,7 +399,7 @@ II MEDIA
 =================== 2a.Menu ===================
 ===============================================
 */
-    
+
     .navbar-nav .dropdown-menu > li > a,
     .navbar-right .dropdown-menu > li > a {
         color: #9d9d9d;
@@ -439,13 +439,13 @@ II MEDIA
 ================= 3.Container =================
 ===============================================
 */
-    
+
     .container-fluid {}
     #center-panel {
         background-color: initial !important;
     }
     /*- Cards -*/
-    
+
     .card {
         background: #fff;
         /*padding: 24px 50px;*/
@@ -502,7 +502,7 @@ II MEDIA
 ============= 3a.Login/Forget Form ============
 ===============================================
 */
-    
+
     #login-container,
     #forget-container {
         position: absolute;
@@ -533,7 +533,7 @@ select{
 =================== 3b.Table ==================
 ===============================================
 */
-    
+
     .table-striped>tbody>tr:nth-of-type(odd) {
         background-color: none !important;
     }
@@ -556,7 +556,7 @@ select{
 ================== 5.Utility ==================
 ===============================================
 */
-    
+
     .panel-border {
         border: 2px solid black;
     }
@@ -653,10 +653,10 @@ select{
     }
     /*
 .table{
-	height:350px;	
+	height:350px;
 }
 */
-    
+
     div[contentEditable] {
         cursor: pointer;
         background-color: white;
@@ -707,7 +707,7 @@ select{
         cursor: pointer;
     }
     /*- Flags -*/
-    
+
     .flag {
         background: #E75051;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -723,7 +723,7 @@ select{
         border-top: solid 2px #fff;
     }
     /*- View/Read Icons -*/
-    
+
     .lock {
         background-image: url(../img/icon-lock.png);
         background-repeat: no-repeat;
@@ -773,7 +773,7 @@ select{
         }
     }
     /*- Sidebar Collapse Icon -*/
-    
+
     .collapse-icon {
         color: white;
     }
@@ -785,7 +785,7 @@ select{
 =================== 6.Form ====================
 ===============================================
 */
-    
+
     .form-control {
         border: 0 !important;
         box-shadow: none !important;
@@ -874,7 +874,7 @@ select{
 ================ 6.Auto Logout ================
 ===============================================
 */
-    
+
     .modal-body p {
         max-width: 100%;
     }
@@ -883,7 +883,7 @@ select{
 =========== media (max-width:767px) ===========
 ===============================================
 */
-    
+
     @media (max-width:767px) {
         /*
     ===============================================
@@ -957,7 +957,7 @@ select{
 =========== media (min-width:768px) ===========
 ===============================================
 */
-    
+
     @media (min-width:768px) {
         /*
     ===============================================
@@ -1311,4 +1311,36 @@ select{
 .key-container{
     height: 100px;
     word-wrap: break-word;
+}
+table.listview{
+    margin-top: 15px;
+}
+
+.filter-graph {
+    border: 2px solid #555;
+    min-width: 100px;
+    position: relative;
+    top: 1px;
+}
+.button.fltr-graph {
+    min-height: 37px;
+}
+.on-track-icon{
+    background-image: none;
+    background-color: transparent;
+    border-color: transparent;
+    left: 50px;
+}
+.attendance-icon{
+    margin-left: 23px;
+    position: relative;
+}
+.behavior-icon{
+    margin-left: 16px;
+    position: relative;
+}
+.update-graph{
+    height: 37px;
+    top: -1px;
+    position: relative;
 }
