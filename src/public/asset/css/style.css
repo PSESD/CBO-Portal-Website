@@ -629,6 +629,9 @@ select{
     .link-nav {
 
     }
+    ul.nav.navbar-nav .glyphicon {
+        margin-right: 0.5em;
+    }
     .underline_text {
         border-bottom: solid 2px #000000;
         display: inline;
