@@ -54,7 +54,7 @@ li.first-column{
 .student-summary .title{
     margin-top: 10px;
     font-weight: bold;
-    letter-spacing: 0.2em;
+/*    letter-spacing: 0.2em;*/
 }
 .transcript-title{
     font-weight: bold;
@@ -492,7 +492,7 @@ ul li.transcript-content {
     font-size: 12px;
     font-size: 1.2rem;
     font-weight: bolder;
-    letter-spacing: 2px;
+/*    letter-spacing: 2px;*/
     margin-bottom: 5px;
     line-height: 16px;
 }
@@ -612,7 +612,7 @@ ul li.transcript-content {
         font-size: 14px;
         font-weight: bold;
         color: white;
-        letter-spacing: 1px;
+/*        letter-spacing: 1px;*/
         padding-top: 3%;
     }
     ul.transcript li:nth-child(3) {
@@ -620,7 +620,7 @@ ul li.transcript-content {
         font-size: 14px;
         font-weight: bold;
         color: white;
-        letter-spacing: 1px;
+/*        letter-spacing: 1px;*/
         padding-top: 3%;
     }
     ul.transcript li:nth-child(4) {
@@ -628,7 +628,7 @@ ul li.transcript-content {
         font-size: 14px;
         font-weight: bold;
         color: white;
-        letter-spacing: 1px;
+/*        letter-spacing: 1px;*/
         padding-top: 3%;
     }
     ul.transcript li:nth-child(5) {
@@ -636,7 +636,7 @@ ul li.transcript-content {
         font-size: 14px;
         font-weight: bold;
         color: white;
-        letter-spacing: 1px;
+/*        letter-spacing: 1px;*/
         padding-top: 3%;
     }
     ul.transcript li:nth-child(6) {
@@ -644,7 +644,7 @@ ul li.transcript-content {
         font-size: 14px;
         font-weight: bold;
         color: white;
-        letter-spacing: 1px;
+/*        letter-spacing: 1px;*/
         padding-top: 3%;
     }
     ul.transcript li:nth-child(7) {
@@ -652,7 +652,7 @@ ul li.transcript-content {
         font-size: 14px;
         font-weight: bold;
         color: white;
-        letter-spacing: 1px;
+/*        letter-spacing: 1px;*/
         padding-top: 3%;
     }
     ul li.transcript-content:nth-child(2) {
@@ -1200,8 +1200,10 @@ dt, dd {
 
 .header-fixed > tbody > tr > td,
 .header-fixed > thead > tr > th {
-    width: 14.28%;
+    width: 16%;
     float: left;
+    margin-left: 4px;
+
 }
 .modal-dialog.enrollment{
     width: 700px;

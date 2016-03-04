@@ -89,4 +89,5 @@ $(document).ready(function () {
 
         $('#school-history').show();
     });
+
 });

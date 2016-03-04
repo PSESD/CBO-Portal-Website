@@ -43,6 +43,18 @@ h1.sign-logo{
     font-size: 13px;
     font-weight: bold;
 }
+.detail-nav h2 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-size: 1.4rem;
+}
+.detail-nav h2 .glyphicon {
+    margin-right: 0.5em;
+}
+
 @media (max-width: 1280px) {
     #footer li a {
         color: white;
@@ -446,6 +458,9 @@ ul.vertical-menu li.vertical-menu-item{
     .navbar-nav>li {
         float: none;
     }
+    .btn{
+        width: 100%;
+    }
 
     .nav>li {
         position: relative;
@@ -739,7 +754,6 @@ ul.vertical-menu li.vertical-menu-item{
         display: block;
     }
 
-    /* Hide table headers (but not display: none;, for accessibility) */
     thead tr {
         position: absolute;
         top: -9999px;
@@ -749,7 +763,6 @@ ul.vertical-menu li.vertical-menu-item{
     tr { border: 1px solid #ccc; }
 
     td {
-        /* Behave  like a "row" */
         border: none;
         border-bottom: 1px solid #eee;
         position: relative;

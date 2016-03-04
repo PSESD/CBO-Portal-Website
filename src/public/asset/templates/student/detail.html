@@ -16,7 +16,7 @@
                             <th class="bold">{{ 'general.school_exitDate' | i18n }}</th>
                             <th class="bold">{{ 'general.school_gradeLevel' | i18n }}</th>
                             <th class="bold">{{ 'general.school_status' | i18n }}</th>
-                            <th class="bold">{{ 'general.school_description' | i18n }}</th>
+                            <!--<th class="bold">{{ 'general.school_description' | i18n }}</th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -36,9 +36,9 @@
                             <td class="grade-level">
                                 {{::data.gradeLevel}}
                             </td>
-                            <td class="status">
-                                {{::data.status}}
-                            </td>
+                            <!--<td class="status">-->
+                                <!--{{::data.status}}-->
+                            <!--</td>-->
                             <td class="description">
                                 {{::data.description}}
                             </td>
@@ -128,6 +128,8 @@
                         <dd>{{ ::student.race}}</dd>
                         <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
                         <dd>{{ ::student.gender}}</dd>
+                        <dt class="bold bold-title">{{ 'general.coll_bound' | i18n }}</dt>
+                        <dd>{{ ::student.collegeBound}}</dd>
                     </dl>
                 </div>
             </div>
@@ -239,15 +241,15 @@
             <div class="col-xs-12 col-sm-12 col-md-12 no-padding-left-right">
 
                 <ul class="detail-nav nav nav-tabs nav-justified" role="tablist">
-                    <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior"><h1>{{ 'general.attendance_and_behavior' | i18n }}</h1></a></li>
-                    <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" ><h1>{{ 'general.transcript' | i18n}}</h1></a></li>
-                    <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation"><h1>{{ 'general.program_participation' | i18n }}</h1></a></li>
-                    <li ng-class="{active: isStudentDetailActiveTab('#graph', 3)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#graph"><h1 class="stat"></h1></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior"><h2><span class="glyphicon glyphicon-calendar"></span> {{ 'general.attendance_and_behavior' | i18n }}</h2></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" ><h2><span class="glyphicon glyphicon-list-alt"></span> {{ 'general.transcript' | i18n}}</h2></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation"><h2><span class="glyphicon glyphicon-tags"></span> {{ 'general.program_participation' | i18n }}</h2></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#graph', 3)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#graph"><h2 class="stat"><span class="glyphicon glyphicon-stats"></span> </h2></a></li>
                 </ul>
 
                 <div id="accordion-container" class="tab-content">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#attendance_and_behavior" aria-expanded="false" aria-controls="attendance_and_behavior">
-                        <h1 class="behavior">{{ 'general.attendance_and_behavior' | i18n }}</h1>
+                        <h2 class="behavior">{{ 'general.attendance_and_behavior' | i18n }}</h2>
                     </a>
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}" class="tab-pane" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
                         <div class="scrollable-content">
@@ -397,7 +399,7 @@
                     </div>
 
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#transcript" aria-expanded="false" aria-controls="transcript">
-                        <h1>{{ 'general.transcript' | i18n}}</h1>
+                        <h2>{{ 'general.transcript' | i18n}}</h2>
                     </a>
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}" class="tab-pane transcript" id="transcript" data-id="transcript_data">
                         <div class="scrollable-content">
@@ -513,33 +515,6 @@
                                                     </dl>
 
                                                 </div>
-
-                                                <!--<div class="transcript-display">-->
-                                                <!--<div class="transcript-font-color uppercase ctype-font-{{ c.index+1 }} transcript-title">{{ ::c.title }}</div>-->
-                                                <!--<hr class="hr-transcript">-->
-                                                <!--<div class="attempted-credit">-->
-                                                <!--<dl>-->
-                                                <!--<dt class="bold bold-title">{{ 'general.grade' | i18n }}</dt>-->
-                                                <!--<dd> {{ ::c.mark }}</dd>-->
-                                                <!--<div ng-if="c.creditsEarned !== c.creditsAttempted">-->
-                                                <!--<dt class="bold bold-title">-->
-                                                <!--Credits-->
-                                                <!--</dt>-->
-                                                <!--<dd>-->
-                                                <!--<span class="red" >{{c.creditsEarned}}/{{c.creditsAttempted}}</span>-->
-                                                <!--</dd>-->
-                                                <!--</div>-->
-                                                <!--<div ng-if="c.creditsEarned === c.creditsAttempted">-->
-                                                <!--<dt class="bold bold-title">-->
-                                                <!--Credits-->
-                                                <!--</dt>-->
-                                                <!--<dd>-->
-                                                <!--<span>{{c.creditsEarned}}</span>-->
-                                                <!--</dd>-->
-                                                <!--</div>-->
-                                                <!--</dl>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
                                             </div>
                                         </li>
                                     </ul>
@@ -549,7 +524,7 @@
                     </div>
 
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#program_participation" aria-expanded="false" aria-controls="program_participation">
-                        <h1>{{ 'general.program_participation' | i18n }}</h1>
+                        <h2>{{ 'general.program_participation' | i18n }}</h2>
                     </a>
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}" class="tab-pane program_participation" id="program_participation" data-id="program_participation_data">
                         <div class="scrollable-content">
@@ -582,13 +557,32 @@
                     </div>
 
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#graph" aria-expanded="false" aria-controls="graph">
-                        <h1 class="stat"></h1>
+                        <h2 class="stat"></h2>
                     </a>
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#graph', 3)}" class="tab-pane" id="graph" data-id="graph">
                         <div class="scrollable-content">
-                            <!--<div class="graph-filter text-center">-->
-                                <!--<dropdown-multiselect class="no-background-color" model="selected_programs" title="Programs" options="programData"></dropdown-multiselect>-->
-                            <!--</div>-->
+                            <div class="graph-filter text-center">
+                                <select class="filter-graph" name="startMonth" id="startMonth" ng-model="data.startMonth" ng-change="startMonthChange(data.startMonth)">
+                                    <option value="">Start Month</option>
+                                    <option ng-repeat="option in months |orderBy:'index'" value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                                <select class="filter-graph" name="startYears" id="startYears" ng-model="data.startYears" ng-change="startYearsChange(data.startYears)">
+                                    <option value="">Start Years</option>
+                                    <option ng-repeat="option in years" value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                                -
+                                <select class="filter-graph" name="endMonth" id="endMonth" ng-model="data.endMonth" ng-change="endMonthChange(data.endMonth)">
+                                    <option value="">End Month</option>
+                                    <option ng-repeat="option in months |orderBy:'index'" value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                                <select class="filter-graph" name="endYears" id="endYears" ng-model="data.endYears" ng-change="endYearsChange(data.endYears)">
+                                    <option value="">End Years</option>
+                                    <option ng-repeat="option in years" value="{{option.id}}">{{option.name}}</option>
+                                </select>
+                                <filter-multiselect class="no-background-color" model="selected_programs" title="Programs" options="programData"></filter-multiselect>
+                                <button class="btn btn-primary update-graph" ng-click="update_graph()">{{ 'general.update_graph' | i18n }}</button>
+                                <button class="btn btn-danger update-graph" ng-click="reset_graph()">{{ 'general.reset_graph' | i18n }}</button>
+                            </div>
                             <div id="student-graph"></div>
                         </div>
                     </div>
