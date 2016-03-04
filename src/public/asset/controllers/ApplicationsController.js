@@ -41,10 +41,10 @@ $scope.showLoadingIcon = false;
             if(response.success === true){
                 $scope.showLoadingIcon = false;
                 showError(response.message,2);
-                $scope.applications.push({
-                    "app_name":app.app_name,
-                    "created":Date.now()
-                });
+                //$scope.applications.push({
+                //    "app_name":app.app_name,
+                //    "created":Date.now()
+                //});
                 $uibModal.open({
                     animation: true,
                     templateUrl: 'asset/templates/apiTemplate.html',
@@ -158,13 +158,57 @@ $scope.showLoadingIcon = false;
 
 }]);
 
-app.controller('ModalKeyInstanceCtrl', function ($scope, $uibModalInstance, items) {
+app.controller('ModalKeyInstanceCtrl', function ($rootScope,$scope, $uibModalInstance, items,$http,AuthenticationService) {
 
     $scope.keys = items.keys;
     $scope.clientid = items.clientID;
 
     $scope.ok = function () {
-        $uibModalInstance.dismiss('cancel');
+        $http.get(api_url + AuthenticationService.organization_id + '/users?pending=true', {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+        })
+            .success(function (response) {
+                if (response.success === true && response.total > 0) {
+
+
+                    angular.forEach(response.data,function(v){
+                        if(v.full_name === 'n/a')
+                        {
+                            v.full_name = "N/A";
+                        }
+                        if(v.first_name === 'n/a')
+                        {
+                            v.first_name = "N/A";
+                        }
+                        if(v.last_name === 'n/a')
+                        {
+                            v.last_name = "N/A";
+                        }
+
+                    });
+                    $scope.list_users = response.data;
+
+                } else {
+                    showError(response.error.message, 1);
+                }
+                $rootScope.doingResolve = false;
+                $uibModalInstance.dismiss('cancel');
+
+            })
+            .error(function (response, status) {
+
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if (status === 401) {
+                    $rootScope.show_footer = false;
+                    CookieStore.clearData();
+                    $location.path('/login');
+                }
+
+            });
+
     };
 
 });
