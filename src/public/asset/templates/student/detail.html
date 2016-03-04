@@ -239,15 +239,15 @@
             <div class="col-xs-12 col-sm-12 col-md-12 no-padding-left-right">
 
                 <ul class="detail-nav nav nav-tabs nav-justified" role="tablist">
-                    <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior"><h1>{{ 'general.attendance_and_behavior' | i18n }}</h1></a></li>
-                    <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" ><h1>{{ 'general.transcript' | i18n}}</h1></a></li>
-                    <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation"><h1>{{ 'general.program_participation' | i18n }}</h1></a></li>
-                    <li ng-class="{active: isStudentDetailActiveTab('#graph', 3)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#graph"><h1 class="stat"></h1></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior"><h2><span class="glyphicon glyphicon-calendar"></span> {{ 'general.attendance_and_behavior' | i18n }}</h2></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" ><h2><span class="glyphicon glyphicon-list-alt"></span> {{ 'general.transcript' | i18n}}</h2></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation"><h2><span class="glyphicon glyphicon-tags"></span> {{ 'general.program_participation' | i18n }}</h2></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#graph', 3)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#graph"><h2 class="stat"><span class="glyphicon glyphicon-stats"></span> </h2></a></li>
                 </ul>
 
                 <div id="accordion-container" class="tab-content">
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#attendance_and_behavior" aria-expanded="false" aria-controls="attendance_and_behavior">
-                        <h1 class="behavior">{{ 'general.attendance_and_behavior' | i18n }}</h1>
+                        <h2 class="behavior">{{ 'general.attendance_and_behavior' | i18n }}</h2>
                     </a>
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}" class="tab-pane" id="attendance_and_behavior" data-id="attendance_and_behavior_data">
                         <div class="scrollable-content">
@@ -397,7 +397,7 @@
                     </div>
 
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#transcript" aria-expanded="false" aria-controls="transcript">
-                        <h1>{{ 'general.transcript' | i18n}}</h1>
+                        <h2>{{ 'general.transcript' | i18n}}</h2>
                     </a>
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}" class="tab-pane transcript" id="transcript" data-id="transcript_data">
                         <div class="scrollable-content">
@@ -549,7 +549,7 @@
                     </div>
 
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#program_participation" aria-expanded="false" aria-controls="program_participation">
-                        <h1>{{ 'general.program_participation' | i18n }}</h1>
+                        <h2>{{ 'general.program_participation' | i18n }}</h2>
                     </a>
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}" class="tab-pane program_participation" id="program_participation" data-id="program_participation_data">
                         <div class="scrollable-content">
@@ -582,7 +582,7 @@
                     </div>
 
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#graph" aria-expanded="false" aria-controls="graph">
-                        <h1 class="stat"></h1>
+                        <h2 class="stat"></h2>
                     </a>
                     <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#graph', 3)}" class="tab-pane" id="graph" data-id="graph">
                         <div class="scrollable-content">
