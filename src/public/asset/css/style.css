@@ -1329,7 +1329,10 @@ table.listview{
     border-color: transparent;
     left: 50px;
 }
-
+.attendance-icon{
+    margin-left: 23px;
+    position: relative;
+}
 .update-graph{
     height: 37px;
     top: -1px;

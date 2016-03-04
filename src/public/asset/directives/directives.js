@@ -28,7 +28,7 @@ app.directive('listAttendance',function(){
             info:'@',
             items:'@'
         },
-        template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="left"><label class="{{label}}">{{info}}</label></div>',
+        template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="left" ><label class="{{label}}">{{info}}</label></div>',
         link:function(scope,elm,attrs){
             var notes = attrs.items.replace('["','').replace('"]','').replace('","',",").replace('"[]"','');
             scope.list = notes.split(",");

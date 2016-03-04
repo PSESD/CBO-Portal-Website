@@ -926,6 +926,7 @@ function load_program_participation_data($http,student_id,AuthenticationService,
 function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope)
 {
     var categories = [];
+    var yData = [];
     var months_index = [{
         index:1,
         value:"January"
@@ -974,7 +975,6 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
         {
             var plotBands = [];
             var data = {};
-            var yData = [];
             var programs = {};
             var listPrograms = [];
             var list_months = [];
@@ -1154,8 +1154,11 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
         startDate = startMonth + " " + startYears;
         endDate = endMonth + " " + endYears;
         categories = categories.slice(categories.indexOf(startDate),categories.indexOf(endDate));
-        chart.xAxis[0].setCategories(categories, true);
-
+        yData = yData.slice(categories.indexOf(startDate),categories.indexOf(endDate));
+        console.log(yData,categories);
+        //chart.xAxis[0].setCategories(categories, true);
+        //chart.series[0].setData(yData,true);
+        //chart.redraw();
     }
 }
 

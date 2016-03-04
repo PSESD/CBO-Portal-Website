@@ -237,14 +237,14 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         }else{
                             pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')]);
                         }
-
-                        if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear')) === 0){
-                            pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
-                        }else if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear') === 1)){
-                            pluralAttendance = locale.getString('general.day_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
-                        }else{
-                            pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
-                        }
+                        pluralAttendance = _.get(student,'xsre.attendance.absents.attendanceAcademicYear');
+                        //if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear')) === 0){
+                        //    pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                        //}else if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear') === 1)){
+                        //    pluralAttendance = locale.getString('general.day_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                        //}else{
+                        //    pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                        //}
                         if(onTrack === 'Y' || onTrack === 'On Track' || onTrack === 'Yes'){
                             //onTrack = locale.getString('general.on_track');
                             onTrack = "Y";
@@ -263,7 +263,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         if(student.gradeLevel === 'N/A') student.gradeLevel =  locale.getString('general.unavailable');
                         if(student.schoolYear === 'N/A') student.schoolYear =  locale.getString('general.unavailable');
                         if(student.schoolName === 'N/A') student.schoolName =  locale.getString('general.unavailable');
-                        if(student.attendance.indexOf('N/A') !== -1) student.attendance =  locale.getString('general.unavailable');
+                        //if(student.attendance.indexOf('N/A') !== -1) student.attendance =  locale.getString('general.unavailable');
                         if(student.behavior.indexOf('N/A') !== -1) student.behavior =  locale.getString('general.unavailable');
                         student.onTrackGraduate = onTrack;
                         var find = student.schoolName;

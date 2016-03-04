@@ -126,15 +126,15 @@
                         <td>{{ student.school_district }}</td>
                         <td ng-bind-html="student.gradeLevel"></td>
                         <td ng-bind-html="student.schoolName"></td>
-                        <td>
-                            <div ng-if="student.xsre.attendance.flag === 'SUCCESS'">
+                        <td >
+                            <div ng-if="student.xsre.attendance.flag === 'SUCCESS'" class="attendance-icon">
                                 <!--<list-attendance url="{{urlTemplate}}" label="{{success_label}}" info="{{student.attendance}}" items="{{student.xsre.attendance.notes.items}}"></list-attendance>-->
                                 <label class="{{success_label}}">{{student.attendance}}</label>
                             </div>
-                            <div ng-if="student.xsre.attendance.flag === 'WARNING'">
+                            <div ng-if="student.xsre.attendance.flag === 'WARNING'" class="attendance-icon">
                                 <list-attendance url="{{urlTemplate}}" label="{{warning_label}}" info="{{student.attendance}}" items="{{student.xsre.attendance.notes.items}}"></list-attendance>
                             </div>
-                            <div ng-if="student.xsre.attendance.flag === 'DANGER'">
+                            <div ng-if="student.xsre.attendance.flag === 'DANGER'" class="attendance-icon">
                                 <list-attendance url="{{urlTemplate}}" label="{{danger_label}}" info="{{student.attendance}}" items="{{student.xsre.attendance.notes.items}}"></list-attendance>
                             </div>
                         </td>
