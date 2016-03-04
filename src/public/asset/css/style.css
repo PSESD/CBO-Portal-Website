@@ -164,7 +164,7 @@ II MEDIA
     h1 {
         font-size: 18px;
         font-size: 1.8rem;
-/*        letter-spacing: 0.2em; /* note we are using em here for letter spacing */*/
+/*        letter-spacing: 0.2em; /* note we are using em here for letter spacing */
         text-transform: uppercase;
     }
     h2 {

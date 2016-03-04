@@ -49,6 +49,7 @@ $scope.showLoadingIcon = false;
                     animation: true,
                     templateUrl: 'asset/templates/apiTemplate.html',
                     controller: 'ModalKeyInstanceCtrl',
+                    backdrop:'static',
                     size: "lg",
                     resolve: {
                         items: function () {
