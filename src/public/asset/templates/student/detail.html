@@ -128,6 +128,8 @@
                         <dd>{{ ::student.race}}</dd>
                         <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
                         <dd>{{ ::student.gender}}</dd>
+                        <dt class="bold bold-title">{{ 'general.coll_bound' | i18n }}</dt>
+                        <dd>{{ ::student.collegeBound}}</dd>
                     </dl>
                 </div>
             </div>
@@ -578,7 +580,8 @@
                                     <option ng-repeat="option in years" value="{{option.id}}">{{option.name}}</option>
                                 </select>
                                 <filter-multiselect class="no-background-color" model="selected_programs" title="Programs" options="programData"></filter-multiselect>
-                                <button class="btn btn-primary update-graph" ng-click="update_graph()">Update Graph</button>
+                                <button class="btn btn-primary update-graph" ng-click="update_graph()">{{ 'general.update_graph' | i18n }}</button>
+                                <button class="btn btn-danger update-graph" ng-click="reset_graph()">{{ 'general.reset_graph' | i18n }}</button>
                             </div>
                             <div id="student-graph"></div>
                         </div>

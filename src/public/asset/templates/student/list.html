@@ -139,12 +139,12 @@
                         </td>
                         <!--<td ng-bind-html="student.behavior"></td>-->
                         <td>
-                            <!--<div ng-if="student.xsre.attendance.flag === 'SUCCESS'" class="attendance-icon">-->
-                                <!--<list-attendance url="{{urlTemplate}}" label="{{success_label}}" info="{{student.attendance}}" items="{{student.xsre.attendance.notes.items}}"></list-attendance>-->
-                            <!--</div>-->
-                            <!--<div ng-if="student.xsre.attendance.flag === 'DANGER'" class="attendance-icon">-->
-                                <!--<list-attendance url="{{urlTemplate}}" label="{{danger_label}}" info="{{student.attendance}}" items="{{student.xsre.attendance.notes.items}}"></list-attendance>-->
-                            <!--</div>-->
+                            <div ng-if="student.xsre.behavior.flag === 'SUCCESS'" class="behavior-icon">
+                                <list-attendance url="{{urlTemplate}}" label="{{success_label}}" info="{{student.behavior}}" items="{{student.xsre.behavior.notes.items}}"></list-attendance>
+                            </div>
+                            <div ng-if="student.xsre.behavior.flag === 'DANGER'" class="behavior-icon">
+                                <list-attendance url="{{urlTemplate}}" label="{{danger_label}}" info="{{student.behavior}}" items="{{student.xsre.behavior.notes.items}}"></list-attendance>
+                            </div>
                         </td>
                         <td>
                             <div ng-if="student.onTrackGraduate === 'Y'">

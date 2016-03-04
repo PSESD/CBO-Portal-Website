@@ -1151,13 +1151,20 @@ function load_graph($http,student_id,AuthenticationService,$rootScope,CookieStor
 
     $scope.update_graph = function(){
         var chart = $("#student-graph").highcharts();
+        var updatedCategories;
+        var updatedData;
         startDate = startMonth + " " + startYears;
         endDate = endMonth + " " + endYears;
-        categories = categories.slice(categories.indexOf(startDate),categories.indexOf(endDate));
-        yData = yData.slice(categories.indexOf(startDate),categories.indexOf(endDate));
-        console.log(yData,categories);
-        //chart.xAxis[0].setCategories(categories, true);
-        //chart.series[0].setData(yData,true);
+        updatedCategories = categories.slice(categories.indexOf(startDate),categories.indexOf(endDate) + 1);
+        updatedData = yData.slice(categories.indexOf(startDate),categories.indexOf(endDate) + 1);
+        chart.xAxis[0].setCategories(updatedCategories, true);
+        chart.series[0].setData(updatedData,true);
+        //chart.redraw();
+    }
+    $scope.reset_graph = function(){
+        var chart = $("#student-graph").highcharts();
+        chart.xAxis[0].setCategories(categories, true);
+        chart.series[0].setData(yData,true);
         //chart.redraw();
     }
 }

@@ -1335,6 +1335,10 @@ table.listview{
     margin-left: 23px;
     position: relative;
 }
+.behavior-icon{
+    margin-left: 16px;
+    position: relative;
+}
 .update-graph{
     height: 37px;
     top: -1px;
