@@ -293,8 +293,8 @@
                                                 <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].W) < 100 }">{{ ::behavior.summary.W }}</li>
                                                 <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.TH }}</li>
                                                 <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.F }}</li>
-                                                <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.SA }}</li>
-                                                <li class="att-content border-attendance-right" ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ ::behavior.summary.S }}</li>
+                                                <li class="att-content" ng-class="{ unexcused: parseInt(behavior.details[0].TH) < 100 }">{{ ::behavior.summary.S }}</li>
+                                                <li class="att-content border-attendance-right" ng-class="{ unexcused: parseInt(behavior.details[0].F) < 100 }">{{ ::behavior.summary.SU }}</li>
                                                 <li class="attendance-weekly">
                                                     {{ behavior.summary.weeklyChange }}
                                                     <a ng-click="hideIcon($event)" role="button" data-toggle="collapse" href="javascript:;" aria-expanded="true" aria-controls="collapse_{{ indexBehavior+1 }}" data-target="#collapse_{{ indexBehavior+1 }}" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
@@ -331,14 +331,14 @@
                                                     {{ ::behavior.summary.F }}
                                                 </li>
                                                 <li class="att-content behavior-center" >
-                                                    {{ behavior.details[0].SA }}
-                                                    <br/>
-                                                    {{ ::behavior.summary.SA }}
-                                                </li>
-                                                <li class="att-content behavior-center border-attendance-right" >
                                                     {{ behavior.details[0].S }}
                                                     <br/>
                                                     {{ ::behavior.summary.S }}
+                                                </li>
+                                                <li class="att-content behavior-center border-attendance-right" >
+                                                    {{ behavior.details[0].SU }}
+                                                    <br/>
+                                                    {{ ::behavior.summary.SU }}
                                                 </li>
                                                 <li class="attendance-weekly">
                                                     {{ behavior.summary.weeklyChange }}
@@ -386,12 +386,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="days">
-                                                    <div ng-repeat="item in behavior.columnHtml.SA track by $index">
+                                                    <div ng-repeat="item in behavior.columnHtml.S track by $index">
                                                         <attendance reason="{{item.reason}}" category="{{item.category}}" url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
                                                     </div>
                                                 </div>
                                                 <div class="days">
-                                                    <div ng-repeat="item in behavior.columnHtml.S track by $index">
+                                                    <div ng-repeat="item in behavior.columnHtml.SU track by $index">
                                                         <attendance reason="{{item.reason}}" category="{{item.category}}" url="{{item.url}}" slug="{{item.slug}}" stripping="{{item.stripping}}" na="{{item.na}}" fontcolor="{{item.fontcolor}}" pagetitle="{{item.pagetitle}}" eventdate="{{item.eventdate}}" description="{{item.description}}"></attendance>
                                                     </div>
                                                 </div>
