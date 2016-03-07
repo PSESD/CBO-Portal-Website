@@ -86,6 +86,13 @@
                                 <span ng-show="sortType == 'created' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                             </a>
                         </th>
+                        <th>
+                            <a href="#" ng-click="sortType = 'redirect_uri';sortReverse = !sortReverse">
+                                {{ 'general.redirect_uri' | i18n }}
+                                <span ng-show="sortType == 'redirect_uri' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'redirect_uri' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
                         <th class="text-center" style="width:9%;">{{ 'general.delete' | i18n }}</th>
                     </tr>
                     </thead>
@@ -95,6 +102,7 @@
                         <td>{{app.app_name}}</td>
                         <td>{{app.created | date : 'yyyy-MM-dd HH:mm:s' : timezone}}</td>
                         <td>{{app.email}}</td>
+                        <td>{{app.redirect_uri}}</td>
                         <td class="text-center">
                             <a class="glyphicon glyphicon-trash" ng-click="deleteApplication(app._id, $index)"  ng-disabled="working"></a>
                         </td>
