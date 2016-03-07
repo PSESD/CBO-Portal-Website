@@ -38,6 +38,12 @@
                         <span class="glyphicon glyphicon-refresh glyphicon-spin student-loading-circle" aria-hidden="true" ng-show="load_student"></span>
                     </div>
                     <div class="form-group">
+                        <label class="col-xs-12 col-sm-12 col-md-2 control-label" for="app_name">{{ 'general.callback_url' | i18n }}:</label>
+                        <div class="col-xs-12 col-sm-12 col-md-9">
+                            <input type="text" class="form-control" ng-model="apps.callback_url" id="callback_url" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-9">
                             <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
                             <a class="btn btn-danger" ng-click="closeForm()">{{ 'general.cancel' | i18n }}</a>
