@@ -28,7 +28,6 @@
     "applications":"Applications",
     "application_name":"Application Name",
     "callback_url":"Callback URL",
-    "redirect_uri":"Redirect URI",
     "password": "Password",
     "first_name": "First Name",
     "middle_name": "Middle Name",

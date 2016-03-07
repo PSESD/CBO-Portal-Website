@@ -15,42 +15,9 @@
                 </div>
             </div>
         </div>
-        <div class="row" ng-hide="showForm">
+        <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <h1><a ng-click="openForm()"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.create_key' | i18n | uppercase }}</a></h1>
-            </div>
-        </div>
-        <div class="row" ng-show="showForm">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <form class="form-horizontal" role="form" ng-submit="createKey(apps)">
-                    <div class="form-group">
-                        <label class="col-xs-12 col-sm-12 col-md-2 control-label" for="app_name">{{ 'general.application_name' | i18n }}:</label>
-                        <div class="col-xs-12 col-sm-12 col-md-9">
-                            <input type="text" class="form-control" ng-model="apps.app_name" id="app_name" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-12 col-sm-12 col-md-2 control-label" for="userId">{{ 'general.user' | i18n }}:</label>
-                        <div class="col-xs-12 col-sm-12 col-md-9">
-                            <select class="btn-block" ng-model="apps.user_id" id="userId" required autofocus ng-options="user._id as user.first_name+' '+user.last_name for user in list_users">
-                            </select>
-                        </div>
-                        <span class="glyphicon glyphicon-refresh glyphicon-spin student-loading-circle" aria-hidden="true" ng-show="load_student"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-xs-12 col-sm-12 col-md-2 control-label" for="app_name">{{ 'general.callback_url' | i18n }}:</label>
-                        <div class="col-xs-12 col-sm-12 col-md-9">
-                            <input type="text" class="form-control" ng-model="apps.callback_url" id="callback_url" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-9">
-                            <button type="submit" class="btn btn-primary" ng-disabled="working">{{ 'general.submit' | i18n }}</button>
-                            <a class="btn btn-danger" ng-click="closeForm()">{{ 'general.cancel' | i18n }}</a>
-                            <span id="login-spinner" ng-show="showLoadingIcon" class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                </form>
+                <h1><a href="#/applications/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.create_key' | i18n | uppercase }}</a></h1>
             </div>
         </div>
         <div class="row">
@@ -87,10 +54,10 @@
                             </a>
                         </th>
                         <th>
-                            <a href="#" ng-click="sortType = 'redirect_uri';sortReverse = !sortReverse">
-                                {{ 'general.redirect_uri' | i18n }}
-                                <span ng-show="sortType == 'redirect_uri' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                <span ng-show="sortType == 'redirect_uri' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            <a href="#" ng-click="sortType = 'callback_url';sortReverse = !sortReverse">
+                                {{ 'general.callback_url' | i18n }}
+                                <span ng-show="sortType == 'callback_url' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'callback_url' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                             </a>
                         </th>
                         <th class="text-center" style="width:9%;">{{ 'general.delete' | i18n }}</th>
@@ -102,7 +69,7 @@
                         <td>{{app.app_name}}</td>
                         <td>{{app.created | date : 'yyyy-MM-dd HH:mm:s' : timezone}}</td>
                         <td>{{app.email}}</td>
-                        <td>{{app.redirect_uri}}</td>
+                        <td>{{app.callback_url}}</td>
                         <td class="text-center">
                             <a class="glyphicon glyphicon-trash" ng-click="deleteApplication(app._id, $index)"  ng-disabled="working"></a>
                         </td>
