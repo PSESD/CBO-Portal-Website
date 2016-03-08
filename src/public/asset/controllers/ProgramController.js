@@ -58,7 +58,7 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
                     $scope.programs = response.data;
                     $scope.programs = $filter('orderBy')($scope.programs,'name');
                 } else {
-                    showError(response.error.message, 1);
+                    showError(_.get(response,'error.message','An unknown error has occurred'),1);
                 }
                 $rootScope.doingResolve = false;
 
@@ -90,7 +90,7 @@ app.controller('ProgramModalInstanceCtrl', function ($scope, $uibModalInstance, 
                 }
             })
                 .success(function (response) {
-                    items.message = response.message;
+                    items.message = _.get(response,'message');
                     items.success = true;
                     $uibModalInstance.close(items);
                 })
