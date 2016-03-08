@@ -300,35 +300,35 @@ app.directive('phonenumberDirective', ['$filter', function ($filter) {
     };
 }]);
 
-app.directive('resize', function ($window) {
-    'use strict';
-    return function (scope, element) {
-        var w = angular.element($window);
-        scope.getWindowDimensions = function () {
-            return {
-                'h': w.height(),
-                'w': w.width()
-            };
-        };
-        scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
-            scope.windowHeight = newValue.h;
-            scope.windowWidth = newValue.w;
-            if (w.innerWidth < 767) {
-                $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
-                $rootScope.data_content = "asset/templates/mobile.html";
-
-            } else if (w.innerWidth > 767) {
-                $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
-                $rootScope.data_content = "asset/templates/desktop.html";
-            }
-
-        }, true);
-
-        w.bind('resize', function () {
-            scope.$apply();
-        });
-    };
-});
+//app.directive('resize', function ($window) {
+//    'use strict';
+//    return function (scope, element) {
+//        var w = angular.element($window);
+//        scope.getWindowDimensions = function () {
+//            return {
+//                'h': w.height(),
+//                'w': w.width()
+//            };
+//        };
+//        scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+//            scope.windowHeight = newValue.h;
+//            scope.windowWidth = newValue.w;
+//            //if (w.innerWidth < 767) {
+//            //    $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
+//            //    $rootScope.data_content = "asset/templates/mobile.html";
+//            //
+//            //} else if (w.innerWidth > 767) {
+//            //    $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
+//            //    $rootScope.data_content = "asset/templates/desktop.html";
+//            //}
+//
+//        }, true);
+//
+//        w.bind('resize', function () {
+//            scope.$apply();
+//        });
+//    };
+//});
 
 app.directive('a', function () {
     'use strict';

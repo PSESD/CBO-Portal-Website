@@ -9,7 +9,7 @@ app.controller('ApplicationsAddController',['$scope','$http','$rootScope','Authe
         }).success(function(response){
             if(response.success === true){
                 $scope.showLoadingIcon = false;
-                showError(response.message,2);
+                showError(_.get(response,'message'),2);
                 $uibModal.open({
                     animation: true,
                     templateUrl: 'asset/templates/apiTemplate.html',
@@ -27,7 +27,7 @@ app.controller('ApplicationsAddController',['$scope','$http','$rootScope','Authe
                 });
 
             }else{
-                showError(response.message,1);
+                showError(_.get(response,'message'),1);
             }
         }).error(function(response){
             showError(response, 1);
