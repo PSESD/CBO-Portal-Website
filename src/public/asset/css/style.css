@@ -1110,6 +1110,13 @@ select{
 {
     margin-bottom: 10px;
 }
+.error-container {
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%);
+    max-width: 50%;
 }
 .post-abs{
     top:3px;

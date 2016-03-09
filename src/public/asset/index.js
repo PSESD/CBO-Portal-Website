@@ -212,7 +212,7 @@ function showError(message, alert) {
     'use strict';
     var passingClass = 'alert-danger error-color';
     var messages = "";
-    var sidebar_width = 0;
+    var sidebar_width = $("nav.navbar").width();
     if (alert === 2) {
         passingClass = 'alert-success';
     }
@@ -233,7 +233,7 @@ function showError(message, alert) {
     else{
         messages = message;
     }
-    var message_alert = '<div style="margin-left:'+sidebar_width+'" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
+    var message_alert = '<div style="margin-left:'+sidebar_width+'px" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
 
     if(message !== null) {
         if (window.location.href.indexOf('/login') === -1) {
