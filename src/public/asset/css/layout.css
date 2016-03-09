@@ -460,7 +460,7 @@ table.listview td .label {
         display: inline;
     }
     .main-content {
-        margin: 0;
+        margin: 0 !important;
         padding: 0;
     }
     .card:first-child {
