@@ -1,0 +1,552 @@
+html, body {
+    height: 100%
+}
+.main-content {
+    margin-left: 220px;
+    transition: margin 0.25s ease-in;
+}
+.navbar-minimized .main-content {
+    margin-left: 50px;
+}
+.center-panel {
+    margin-left: 15%;
+}
+#center-panel .row-fluid {
+    overflow: auto;
+}
+#center-panel .large {
+    height: 400px;
+    padding: 10px;
+    background-color: #f17f49
+}
+#footer {
+    line-height: 25px;
+    padding-left: 13px;
+}
+#footer li a {
+    color: rgba(255,255,255,0.75);
+    font-size: 12px;
+    font-weight: 400;
+}
+.loading-jumbo {
+    padding: 0.5em 1em;
+    margin: 5em auto;
+    font-size: 1.75rem;
+    border-radius: 20px;
+    width: 10em;
+    font-weight: 400;
+    background-color: #eee;
+}
+.loading-jumbo .glyphicon {
+    margin-right: 0.5em;
+}
+.detail-nav h2 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-size: 1.4rem;
+}
+.detail-nav h2 .glyphicon {
+    margin-right: 0.5em;
+}
+nav p {
+    float: none !important;
+}
+.navbar-text.beta-label {
+    font-size: 1.8rem;
+}
+
+a.collapsed {
+    display: none;
+}
+
+.navbar #sidebarBtn {
+    z-index: 20;
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin-left: 180px;
+    color: #eee;
+    clear: both;
+    float: none !important;
+    transition: margin 0.25s ease-out, transform 0.25s ease-out 0.25s;
+    font-size: 1rem;
+}
+.navbar-minimized #sidebarBtn {
+    margin-left: 0;
+    transform: rotate(-180deg);
+}
+.navbar {
+    transition: all 0.25s ease-out;
+}
+.navbar p, .navbar h2, .navbar ul#footer, .navbar a.navbar-brand {
+    transition: all 0.25s ease-out;
+    position: relative;
+    display: block;
+    width: 200px;
+}
+.navbar-minimized .navbar {
+    width: 50px;
+    overflow-x: hidden;
+    opacity: 0.95;
+}
+.navbar-minimized .navbar p, .navbar-minimized .navbar h2, .navbar-minimized .navbar ul#footer, .navbar-minimized .navbar a.navbar-brand {
+    left: -300px;
+    opacity: 0;
+}
+    
+.navbar-minimized .navbar:hover p, .navbar-minimized .navbar:hover h2, .navbar-minimized .navbar:hover ul#footer, .navbar-minimized .navbar:hover a.navbar-brand {
+    left: 0;
+    opacity: 1;
+}
+    
+.navbar-minimized .navbar li>a {
+    height: 50px;
+    overflow: hidden;
+    width: 250px;
+}
+.navbar-minimized .navbar li>a>span {
+    opacity: 0;
+    transition: left 0.2s ease-in, opacity 0.15s ease-in 0.15s;
+    left: -200px;
+    position: relative;
+}
+.navbar-minimized .navbar li>a>span.glyphicon {
+    opacity: 1;
+    left: 0;
+}
+.navbar-minimized .navbar:hover li>a>span {
+    opacity: 1;
+    left: 0;
+}
+.navbar-minimized .navbar:hover {
+    width: 225px;
+}
+    
+body.not-logged-in {
+    padding: 0;
+}
+body.logged-in {
+    padding-left: 220px;
+}
+
+body.logged-in .main-content {
+    transition: margin 0.25s ease-out;
+}
+body.logged-in.navbar-minimized .main-content {
+    margin-left: 50px;
+}
+.navbar-inverse .navbar-nav>li>a {
+    text-shadow: none;
+}
+.navbar-nav>li>a {
+    text-shadow: none;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #7d7d7d;
+}
+.navbar {
+    z-index: 1;
+    position: fixed;
+    width: 220px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+    border-radius: 0;
+}
+.navbar-nav {
+    float: none;
+}
+.navbar-header {
+    float: none;
+}
+nav hr {
+    border: 1px solid #101010;
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+}
+.navbar-text {
+    float: none !important;
+}
+.navbar-brand {
+    height: auto;
+}
+.navbar h2 {
+    margin-bottom: 5px;
+}
+.navbar-text.org {
+    margin-bottom: 5px;
+}
+.navbar-text.usr {
+    margin-top: 0;
+}
+.navbar-collapse {
+    padding-left: 0;
+    padding-right: 0;
+}
+.navbar-nav>li {
+    float: none;
+}
+.navbar-inverse .navbar-toggle {
+    border-color: transparent;
+    color: white;
+    background: #393939;
+}
+.navbar-inverse {
+    border-color: transparent;
+}
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover {
+    background-color: #eeeeee;
+    color: #ef7700;
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+    a.collapsed h1,
+    a h1 {
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        background: #B1E0E8;
+    }
+
+    [data-target="#transcript"],
+    [data-target="#graph"] {
+        height: 6.8em;
+    }
+
+    .scrollable-content,
+    .highcharts-container {
+        width: 1869px!important;
+    }
+
+    #attendance_and_behavior,
+    #program_participation,
+    #transcript,
+    #graph {
+        overflow: auto;
+    }
+
+    .top-space {
+        position: relative;
+        top: 0!important;
+    }
+
+    td {
+        text-align: right;
+        padding-right: 20px!important;
+    }
+
+    td:before {
+        float: left;
+    }
+
+    tr {
+        margin-bottom: 15px;
+    }
+
+    td.text-center {
+        text-align: right;
+        padding-right: 20px!important;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        border-top: none !important;
+        /*padding: 16px 55% !important;*/
+    }
+
+    .version {
+        margin-bottom: 10px!important;
+    }
+    .card {
+        padding: 0 10px!important;
+    }
+    .input-search {
+        margin-bottom: 20px;
+    }
+    body.login,body.forget {
+        padding: 0;
+    }
+    body.logged-in {
+        padding-left: 0px;
+    }
+
+    .desktop {
+        display: none;
+    }
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+
+    a.collapsed h1,
+    a h1 {
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        background: #B1E0E8;
+    }
+
+    ul.detail-nav {
+        display: none;
+    }
+
+    .nav-justified>li>a {
+        margin-bottom: 1px;
+        text-align: center;
+    }
+
+    .nav-tabs.nav-justified>li>a {
+        margin-bottom: 1px;
+        text-align: center;
+    }
+
+    .scrollable-content,
+    .highcharts-container {
+        width: 1869px!important;
+    }
+
+    #attendance_and_behavior,
+    #program_participation,
+    #transcript,
+    #graph {
+        overflow: auto;
+    }
+
+    td {
+        text-align: right;
+        padding-right: 20px!important;
+    }
+
+    td:before {
+        float: left;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        border-top: none !important;
+        /*padding: 16px 55% !important;*/
+    }
+
+    .mobile-align-center {
+        text-align: center;
+    }
+    .version {
+        margin-bottom: 10px!important;
+    }
+    .card {
+        padding: 0 10px!important;
+    }
+    tr {
+        margin-bottom: 15px;
+    }
+    td.text-center {
+        text-align: right;
+        padding-right: 20px!important;
+    }
+    .input-search {
+        margin-bottom: 20px;
+    }
+    .top-space {
+        position: relative;
+        top: 0!important;
+    }
+    .btn {
+        width: 100%;
+    }
+    body.login,body.forget {
+        padding: 0;
+    }
+    body.logged-in {
+        padding-left: 0px;
+    }
+    .desktop {
+        display: none;
+    }
+    .beta {
+        display: inline-block;
+    }
+    .navbar {
+        z-index: 1;
+        position: inherit;
+        width: inherit;
+        height: inherit;
+        margin-bottom: 0;
+    }
+    .navbar #sidebarBtn {
+        display: none;
+    }
+    .navbar p {
+        width: 80%;
+        display: inline !important;
+    }
+    .navbar-collapse {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    a.navbar-brand {
+        width: 80% !important;
+    }
+    .main-content {
+        margin: 0;
+        padding: 0;
+    }
+    .card:first-child {
+        margin-top: 0;
+    }
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+
+    a.collapsed h1,
+    a h1 {
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+        background: #B1E0E8;
+    }
+
+    .nav-justified>li>a {
+        margin-bottom: 1px;
+        text-align: center;
+    }
+
+    .scrollable-content,
+    .highcharts-container {
+        width: 1869px!important;
+    }
+
+    #attendance_and_behavior,
+    #program_participation,
+    #transcript,
+    #graph {
+        overflow: auto;
+    }
+
+    td {
+        text-align: right;
+        padding-right: 20px!important;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        border-top: none !important;
+        /*padding: 16px 55% !important;*/
+    }
+
+    #sidebarBtn {
+        z-index: 20;
+    }
+    .mobile-align-center {
+        text-align: center;
+    }
+    .version {
+        margin-bottom: 10px!important;
+    }
+    .card {
+        padding: 0 10px!important;
+    }
+    tr {
+        margin-bottom: 15px;
+    }
+    td.text-center {
+        text-align: right;
+        padding-right: 20px!important;
+    }
+    .input-search {
+        margin-bottom: 20px;
+    }
+    .top-space {
+        position: relative;
+        top: 0!important;
+    }
+    .btn {
+        width: 100%;
+    }
+    body.login,
+    body.forget {
+        padding: 0;
+    }
+    body {
+        padding-left: 0;
+    }
+    .beta {
+        position: relative;
+        top: -3px;
+    }
+    .desktop {
+        display: none;
+    }
+
+}
