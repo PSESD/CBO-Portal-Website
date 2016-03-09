@@ -1,0 +1,102 @@
+<nav class="navbar navbar-inverse" ng-show="showNavBar">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <button type="button" class="close navbar-minimize" id="sidebarBtn" aria-label="Hide">
+            <span class="glyphicon glyphicon-triangle-left"></span>
+        </button>
+        <a class="navbar-brand" ng-href="#/student">
+            <p><span class="beta label label-danger">BETA</span></p>
+            Student Success Link
+        </a>
+    </div>
+    
+    <hr class="hidden-xs" />
+    
+    <div class="collapse navbar-collapse" id="main-navbar-collapse">
+
+        <h2 class="navbar-text org">{{ organization_name }}</h2>
+        <p class="navbar-text usr">Logged in as <b>{{ completeName }}</b></p>
+                
+        <ul class="nav navbar-nav">
+            <li>
+                <a ng-class="{ sidebar_selected: isActive('/student') }" ng-href="#/student">
+                    <span class="glyphicon glyphicon-education"></span> 
+                    <span>{{ 'general.dashboard' | i18n  }}</span>
+                </a>
+            </li>
+            <li>
+                <a ng-class="{ sidebar_selected: isActive('/program') }" ng-href="#/program">
+                    <span class="glyphicon glyphicon-tag"></span> 
+                    <span>{{ 'general.programs' | i18n  }}</span>
+                </a>
+            </li>
+            <li>
+                <a ng-class="{ sidebar_selected: isActive('/report') }"  ng-href="#/report">
+                    <span class="glyphicon glyphicon-stats"></span> 
+                    <span>{{ 'general.reports' | i18n  }}</span>
+                </a>
+            </li>
+            <li>
+                <a ng-class="{ sidebar_selected: isActive('/users') }"  ng-href="#/user">
+                    <span class="glyphicon glyphicon-lock"></span>
+                    <span>{{ 'general.users' | i18n  }}</span>
+                </a>
+            </li>
+            <li>
+                <a ng-class="{ sidebar_selected: isActive('/applications') }" ng-href="#/applications">
+                    <span class="glyphicon glyphicon-transfer"></span> 
+                    <span>{{ 'general.applications' | i18n  }}</span>
+                </a>
+            </li>
+            <li>
+                <a ng-class="{ sidebar_selected: isActive('/profile') }" ng-href="#/profile">
+                    <span class="glyphicon glyphicon-user"></span> 
+                    <span>{{ 'general.account_settings' | i18n  }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" ng-click="logoutMe()">
+                    <span class="glyphicon glyphicon-log-out"></span> 
+                    <span>{{ 'general.logout' | i18n  }}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    <hr class="hidden-xs" />
+    
+    <div class="collapse navbar-collapse">
+        <ul id="footer">
+            <li><a>&copy;&nbsp;2016&nbsp;</a><a href="http://www.psesd.org/" target="_blank">PSESD</a></li>
+            <li><a href="http://studentsuccesslink.org/" target="_blank">About this Project</a></li>
+            <li class="privacy_policy_bottom_space"><a>Privacy Policy</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid main-content">
+    <div class="error-container"></div>
+    <ng-view ng-class="ng-view" ng-hide="doingResolve"></ng-view>
+    <div class="separator-content"></div>
+    <div ng-if="showNavBar">
+        <div class="loading-jumbo text-center center-block" ng-show="doingResolve">
+            <span class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
+            {{ 'general.loading' | i18n }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card confidentiality-footer" ng-show="!showFooter == doingResolve && is_logged_in">
+                {{ 'general.footer_confidentiality1' | i18n }} <a href="http://www2.ed.gov/ferpa/">FERPA</a> {{ 'general.footer_confidentiality2' | i18n }} <a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a>
+            </div>
+            <div class="version" ng-show="!showFooter == doingResolve && is_logged_in">
+                {{'general.version' | i18n}}&nbsp; 1.0
+            </div>
+        </div>
+    </div>
+</div>
+<script src="asset/js/custom-slide.js"></script>

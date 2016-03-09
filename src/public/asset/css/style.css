@@ -330,20 +330,6 @@ II MEDIA
     li {
         list-style: none;
     }
-    /*a,*/
-    /*a:focus,*/
-    /*a:hover {*/
-        /*color : #ef7700;*/
-    /*}*/
-    /*a, a:focus, a:hover {*/
-        /*color: #29B6D8;*/
-    /*}*/
-
-    /*a:hover {*/
-        /*text-decoration: none;*/
-        /*color: #3572b0;*/
-        /*cursor: pointer;*/
-    /*}*/
     a{
         color: #29B6D8;
     }
@@ -359,22 +345,6 @@ II MEDIA
     .jumbotron h1{
         font-size: 2rem;
     }
-    /*- Typography -*/
-
-    /*h1 {*/
-        /*font-size: 1.6em;*/
-        /*letter-spacing: .2em;*/
-        /*color: #555;*/
-        /*text-transform: uppercase;*/
-        /*font-family: "futura-pt",sans-serif;*/
-        /*font-weight: 700;*/
-    /*}*/
-
-    /*b,*/
-    /*strong {*/
-        /*color: #999 !important;*/
-        /*padding: 0 10px 10px 0 !important;*/
-    /*}*/
     .bold{
         color: #999 !important;
     }
@@ -382,58 +352,7 @@ II MEDIA
         padding: 0 10px 10px 0 !important;
     }
     /*
-===============================================
-================== 2.Header ===================
-===============================================
-*/
 
-    /*.navbar {*/
-        /*position: fixed;*/
-        /*margin-bottom: 0;*/
-        /*height: 100%;*/
-        /*left: 0;*/
-        /*overflow: auto;*/
-    /*}*/
-    /*
-===============================================
-=================== 2a.Menu ===================
-===============================================
-*/
-
-    .navbar-nav .dropdown-menu > li > a,
-    .navbar-right .dropdown-menu > li > a {
-        color: #9d9d9d;
-    }
-    .navbar-nav .dropdown-menu > li > a:hover,
-    .navbar-right .dropdown-menu > li > a:hover {
-        background: transparent;
-        background-image: none;
-        color: #FFFFFF;
-    }
-    .navbar-inverse .navbar-nav>.active>a,
-    .navbar-inverse .navbar-nav>.active>a:focus,
-    .navbar-inverse .navbar-nav>.active>a:hover,
-    .navbar-inverse .navbar-nav>.open>a,
-    .navbar-inverse .navbar-nav>.open>a:focus,
-    .navbar-inverse .navbar-nav>.open>a:hover {
-        background: transparent;
-        background-color: transparent;
-        background-image: none;
-        box-shadow: none;
-    }
-    #desktop .navbar-inverse .navbar-nav .active>a {
-        text-decoration: none;
-        border-bottom: 3px solid white;
-    }
-    #mobile .navbar-inverse .navbar-nav .active>a {
-        text-decoration: none;
-        border-bottom: 3px solid white;
-    }
-    /*a:hover {*/
-        /*text-decoration: none;*/
-        /*color: #3572b0;*/
-        /*cursor: pointer;*/
-    /*}*/
     /*
 ===============================================
 ================= 3.Container =================
@@ -724,18 +643,6 @@ select{
     }
     /*- View/Read Icons -*/
 
-    .lock {
-        background-image: url(../img/icon-lock.png);
-        background-repeat: no-repeat;
-        background-position: right 10px top 10px;
-        background-size: 18px;
-    }
-    .pencil {
-        background-image: url(../img/icon-pencil.png);
-        background-repeat: no-repeat;
-        background-position: right 10px top 10px;
-        background-size: 18px;
-    }
     .colour {
         width: 100%;
         height: 10px;
@@ -772,14 +679,7 @@ select{
             transform: rotate(359deg);
         }
     }
-    /*- Sidebar Collapse Icon -*/
 
-    .collapse-icon {
-        color: white;
-    }
-    .collapse-icon:hover {
-        cursor: pointer;
-    }
     /*
 ===============================================
 =================== 6.Form ====================
@@ -1210,8 +1110,6 @@ select{
 {
     margin-bottom: 10px;
 }
-.error-color{
-    background-color: #ED0707;
 }
 .post-abs{
     top:3px;

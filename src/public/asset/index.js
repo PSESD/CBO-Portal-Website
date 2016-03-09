@@ -54,7 +54,7 @@ function ($window, $rootScope) {
         $rootScope.goBack = function () {
             $window.history.back();
         };
-        $rootScope.data_content = "asset/templates/desktop.html";
+        $rootScope.data_content = "asset/templates/layout.html";
 
 }]);
 
