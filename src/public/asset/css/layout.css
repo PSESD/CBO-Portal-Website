@@ -202,6 +202,10 @@ nav hr {
     background-color: #eeeeee;
     color: #ef7700;
 }
+table.listview td .label {
+    padding: .1em .5em .1em;
+    font-size: 100%;
+}
 
 /* Portrait tablets and small desktops */
 @media (min-width: 768px) and (max-width: 991px) {
