@@ -93,9 +93,9 @@
             <div class="card confidentiality-footer" ng-show="!showFooter == doingResolve && is_logged_in">
                 {{ 'general.footer_confidentiality1' | i18n }} <a href="http://www2.ed.gov/ferpa/">FERPA</a> {{ 'general.footer_confidentiality2' | i18n }} <a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a>
             </div>
-            <div class="version" ng-show="!showFooter == doingResolve && is_logged_in">
-                {{'general.version' | i18n}}&nbsp; 1.0
-            </div>
+            <code class="version text-capitalize" ng-show="!showFooter == doingResolve && is_logged_in">
+                {{'general.version' | i18n}} 1.0
+            </code>
         </div>
     </div>
 </div>
