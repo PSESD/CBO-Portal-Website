@@ -78,7 +78,7 @@
         </ul>
     </div>
 </nav>
-<div class="container-fluid main-content">
+<div class="container-fluid main-content {{ is_logged_in ? 'logged-in' : 'logged-out' }}">
     <div class="error-container"></div>
     <ng-view ng-class="ng-view" ng-hide="doingResolve"></ng-view>
     <div class="separator-content"></div>
