@@ -158,6 +158,8 @@ body.logged-in.navbar-minimized .main-content {
     font-size: 1.4rem;
     font-weight: 400;
     color: #7d7d7d;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .navbar {
     z-index: 1;
