@@ -81,6 +81,29 @@ app.directive('listBehavior',function(locale){
     }
 });
 
+app.directive('lastupdatelist',function(){
+    'use strict';
+    return{
+        restrict:'E',
+        scope:{
+            url:'@',
+            data:'=listData'
+        },
+        template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="left"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></div>'
+    }
+});
+
+app.directive('studentlastupdate',function(){
+    'use strict';
+    return{
+        restrict:'E',
+        scope:{
+            url:'@',
+            lastupdate:'@'
+        },
+        template:'<div uib-popover-template="url" class="student_last_update" popover-trigger="mouseenter" popover-placement="right"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></div>'
+    }
+});
 
 app.directive('legend', function(){
     'use strict';

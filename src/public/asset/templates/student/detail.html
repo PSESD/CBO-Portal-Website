@@ -216,8 +216,10 @@
                 </div>
                 <div class="content top-space">
                     <dl>
-                        <dt class="bold bold-title">{{ 'general.language_spoken_at_home' | i18n }}</dt>
-                        <dd>{{ ::academicInfo.languageSpokenAtHome }}</dd>
+                        <div ng-repeat="language in student.languages">
+                            <dt class="bold bold-title">Language Spoken at {{language.type}}</dt>
+                            <dd>{{ ::language.description }}</dd>
+                        </div>
                         <dt class="bold bold-title">{{ 'general.iep' | i18n }}</dt>
                         <dd class="uppercase">{{ ::academicInfo.iep }}</dd>
                         <dt class="bold bold-title">{{ 'general.s504' | i18n }}</dt>

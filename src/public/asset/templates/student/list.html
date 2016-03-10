@@ -6,6 +6,7 @@
                     <h1>
                         {{ 'general.students' | i18n }}
                     </h1>
+                    <lastupdatelist url="{{lastUpdatedUrl}}" class="pull-right list-last-updated" list-data="list"></lastupdatelist>
                     <hr>
                 </div>
             </div>
@@ -121,7 +122,11 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="student in students | filter:search | filter:filterDistrict() | filter:filterSchools()|orderBy:sortType:sortReverse">
-                        <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.first_name }} {{ student.last_name }}</a></td>
+                        <td>
+                            <a ng-href="#/student/detail/{{ student._id }}">{{ student.first_name }} {{ student.last_name }}</a>
+
+                            <studentlastupdate url="{{studentLastUpdatedUrl}}"  lastupdate="{{student.last_updated}}" ng-show="student.isDifferent"></studentlastupdate>
+                        </td>
                         <td>{{student.district_student_id}}</td>
                         <td>{{ student.school_district }}</td>
                         <td ng-bind-html="student.gradeLevel"></td>

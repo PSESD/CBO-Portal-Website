@@ -379,7 +379,7 @@ II MEDIA
         color: #999 !important;
     }
     .bold-title{
-        padding: 0 10px 10px 0 !important;
+        padding: 0 10px 0 0 !important;
     }
     /*
 ===============================================
@@ -1343,4 +1343,14 @@ table.listview{
     height: 37px;
     top: -1px;
     position: relative;
+}
+.list-last-updated{
+    font-size: 14px;
+    position: absolute;
+    top: 25px;
+    right: 15px;
+}
+.student_last_update{
+    display: inline;
+    margin-left: 10px;
 }
