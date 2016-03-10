@@ -28,7 +28,8 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         $scope.test = "Test";
         $scope.sortType="first_name";
         $scope.sortReverse=false;
-        $scope.urlTemplate = "asset/templates/listTemplate.html"
+        $scope.urlBehaviorTemplate = "asset/templates/listBehaviorTemplate.html"
+        $scope.urlAttendanceTemplate = "asset/templates/listAttendanceTemplate.html"
         $scope.filterDistrict = function () {
             return function (p) {
                 if(String($scope.selected_districts) !== '') {
