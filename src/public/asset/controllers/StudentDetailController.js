@@ -50,7 +50,7 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
         $scope.loading_icon = true;
         $scope.showLoading = false;
         $scope.attendance_load_first_time = true;
-
+        $scope.nonPromotionalStatus = false;
         var attendance = "";
         var transcript = "";
         var program_participation = "";
@@ -479,7 +479,7 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
     var assignedUsers = {};
     $scope.student = {};
     $scope.xsreLastUpdated = null;
-
+    $scope.lastUpdated = null;
     //if(angular.isUndefined(StudentCache.get(student_id + "general")) === true)
     //{
 
@@ -492,7 +492,7 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
 
                 if(response.success === true && response.info !== undefined)
                 {
-
+                    $scope.lastUpdated = response.info.lastUpdated;
                     full_name = response.info.personal.firstName + response.info.personal.lastName;
                     $rootScope.doingResolve = false;
                     general_data = response.info;
@@ -864,6 +864,12 @@ function generate_transcript_data(transcript_data,$scope)
 {
 
     $scope.visibleProjects = transcript_data.source.history;
+    _.each(transcript_data.source.history,function(item,key){
+        if(item.nonPromotionalChange === true && $scope.nonPromotionalStatus === false){
+            $scope.nonPromotionalStatus = true;
+            console.log($scope.nonPromotionalStatus);
+        }
+    });
     var courseTitle = transcript_data.source.info.courseTitle;
     $scope.courses = courseTitle;
     $scope.cumulative_gpa = transcript_data.source.totalCumulativeGpa;

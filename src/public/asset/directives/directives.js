@@ -27,7 +27,9 @@ app.directive('listAttendance',function(locale){
             label:'@',
             info:'@',
             attendanceacademicyear:'@',
-            lastmonthattendance:'@'
+            lastmonthattendance:'@',
+            risklevel:'@',
+            trend:'@'
         },
         template:'<div uib-popover-template="url"  popover-trigger="mouseenter" popover-placement="left"><span class="{{label}}">{{info}}</span></div>',
         link:function(scope,elm,attrs){

@@ -1201,7 +1201,7 @@ dt, dd {
 
 .header-fixed > tbody > tr > td,
 .header-fixed > thead > tr > th {
-    width: 16%;
+    width: 13.5%;
     float: left;
     margin-left: 4px;
 
@@ -1230,4 +1230,7 @@ td.status{
 }
 td.description{
     padding-left: 22px !important;
+}
+td.non-promotional-change{
+    text-align: center;
 }

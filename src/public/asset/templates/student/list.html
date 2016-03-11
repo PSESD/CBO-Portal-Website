@@ -132,23 +132,23 @@
                         <td ng-bind-html="student.gradeLevel"></td>
                         <td ng-bind-html="student.schoolName"></td>
                         <td >
-                            <div ng-if="student.xsre.attendance.flag === 'SUCCESS'" class="attendance-icon">
-                                <list-attendance url="{{urlAttendanceTemplate}}" label="{{success_label}}" info="{{student.attendance}}" lastmonthattendance="{{student.xsre.attendance.absents.lastMonthAttendance}}" attendanceacademicyear="{{student.xsre.attendance.absents.attendanceAcademicYear}}"></list-attendance>
+                            <div ng-if="student.xsre.attendanceCount[1].flag === 'SUCCESS'" class="attendance-icon">
+                                <list-attendance url="{{urlAttendanceTemplate}}" label="{{success_label}}" info="{{student.xsre.attendanceCount[1].count}}" lastmonthattendance="{{student.xsre.attendanceCount[0].count}}" attendanceacademicyear="{{student.xsre.attendanceCount[1].count}}" risklevel="{{student.xsre.attendanceRiskFlag[0].riskLevel}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance>
                             </div>
-                            <div ng-if="student.xsre.attendance.flag === 'WARNING'" class="attendance-icon">
-                                <list-attendance url="{{urlAttendanceTemplate}}" label="{{warning_label}}" info="{{student.attendance}}" lastmonthattendance="{{student.xsre.attendance.absents.lastMonthAttendance}}" attendanceacademicyear="{{student.xsre.attendance.absents.attendanceAcademicYear}}"></list-attendance>
+                            <div ng-if="student.xsre.attendanceCount[1].flag === 'WARNING'" class="attendance-icon">
+                                <list-attendance url="{{urlAttendanceTemplate}}" label="{{warning_label}}" info="{{student.xsre.attendanceCount[1].count}}" lastmonthattendance="{{student.xsre.attendanceCount[0].count}}" attendanceacademicyear="{{student.xsre.attendanceCount[1].count}}" risklevel="{{student.xsre.attendanceRiskFlag[0].riskLevel}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance>
                             </div>
-                            <div ng-if="student.xsre.attendance.flag === 'DANGER'" class="attendance-icon">
-                                <list-attendance url="{{urlAttendanceTemplate}}" label="{{danger_label}}" info="{{student.attendance}}" lastmonthattendance="{{student.xsre.attendance.absents.lastMonthAttendance}}" attendanceacademicyear="{{student.xsre.attendance.absents.attendanceAcademicYear}}"></list-attendance>
+                            <div ng-if="student.xsre.attendanceCount[1].flag === 'DANGER'" class="attendance-icon">
+                                <list-attendance url="{{urlAttendanceTemplate}}" label="{{danger_label}}" info="{{student.xsre.attendanceCount[1].count}}" lastmonthattendance="{{student.xsre.attendanceCount[0].count}}" attendanceacademicyear="{{student.xsre.attendanceCount[1].count}}" risklevel="{{student.xsre.attendanceRiskFlag[0].riskLevel}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance>
                             </div>
                         </td>
                         <!--<td ng-bind-html="student.behavior"></td>-->
                         <td>
-                            <div ng-if="student.xsre.behavior.flag === 'SUCCESS'" class="behavior-icon">
-                                <list-behavior url="{{urlBehaviorTemplate}}" label="{{success_label}}" info="{{student.behavior}}" incidentacademicyear="{{student.xsre.behavior.incidents.incidentAcademicYear}}" lastmonthincident="{{student.xsre.behavior.incidents.lastMonthIncident}}"></list-behavior>
+                            <div ng-if="student.xsre.behaviorCount[1].flag === 'SUCCESS'" class="behavior-icon">
+                                <list-behavior url="{{urlBehaviorTemplate}}" label="{{success_label}}" info="{{student.xsre.behaviorCount[1].count}}" incidentacademicyear="{{student.xsre.behaviorCount[1].count}}" lastmonthincident="{{student.xsre.behaviorCount[0].count}}"></list-behavior>
                             </div>
-                            <div ng-if="student.xsre.behavior.flag === 'DANGER'" class="behavior-icon">
-                                <list-behavior url="{{urlBehaviorTemplate}}" label="{{danger_label}}" info="{{student.behavior}}" incidentacademicyear="{{student.xsre.behavior.incidents.incidentAcademicYear}}" lastmonthincident="{{student.xsre.behavior.incidents.lastMonthIncident}}"></list-behavior>
+                            <div ng-if="student.xsre.behaviorCount[1].flag === 'DANGER'" class="behavior-icon">
+                                <list-behavior url="{{urlBehaviorTemplate}}" label="{{danger_label}}" info="{{student.xsre.behaviorCount[1].count}}" incidentacademicyear="{{student.xsre.behaviorCount[1].count}}" lastmonthincident="{{student.xsre.behaviorCount[0].count}}"></list-behavior>
                             </div>
                         </td>
                         <td>
