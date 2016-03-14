@@ -22,6 +22,9 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             scrollableHeight: '250px',
             scrollable: true
         };
+        $scope.improving = "improving";
+        $scope.steady = "steady";
+        $scope.worsening = "worsening";
         $scope.success_label = "label label-success";
         $scope.danger_label = "label label-danger";
         $scope.warning_label = "label label-warning";
@@ -32,6 +35,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         $scope.urlAttendanceTemplate = "asset/templates/listAttendanceTemplate.html";
         $scope.lastUpdatedUrl = "asset/templates/lastUpdatedTemplate.html";
         $scope.studentLastUpdatedUrl = "asset/templates/studentLastUpdateTemplate.html";
+        $scope.urlAttendancePerformanceTemplate = 'asset/templates/listAttendancePerformanceTemplate.html';
         $scope.filterDistrict = function () {
             return function (p) {
                 if(String($scope.selected_districts) !== '') {
@@ -371,14 +375,24 @@ function comparison($scope){
         angular.forEach($scope.students,function(student){
             angular.forEach($scope.list,function(list){
                 if(student.school_district.toLowerCase() === list.schoolDistrict.toLowerCase()){
-                    if(!moment(student.last_updated).isAfter(list.latestDate, 'day')){
+
+                    var firstDate = new Date(student.xsre.latestDate);
+                    var secondDate = new Date(list.latestDate);
+                    var date1 = Date.UTC(firstDate.getFullYear(),firstDate.getMonth()+1,firstDate.getDate());
+                    var date2 = Date.UTC(secondDate.getFullYear(),secondDate.getMonth()+1,secondDate.getDate())
+                    if(parseFloat(date1)<parseFloat(date2)){
                         student.isDifferent = true;
-                    }else{
+                    }else if(parseFloat(date1)>parseFloat(date2)){
+                        student.isDifferent = true;
+                    }else if(parseFloat(date1)==parseFloat(date2)){
                         student.isDifferent = false;
                     }
+
                 }
             });
+
         });
+
     }
 
 }

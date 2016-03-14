@@ -124,13 +124,13 @@
                 <div class="content">
                     <dl>
                         <dt class="bold bold-title">{{ 'general.district_id' | i18n }}</dt>
-                        <dd>{{ ::student.districtID }}</dd>
+                        <dd>{{ ::student.localId }}</dd>
                         <dt class="bold bold-title">{{ 'general.brithday' | i18n }}</dt>
-                        <dd>{{ ::personal.birthday | date : 'MM/dd/yyyy' : timezone}}</dd>
+                        <dd>{{ ::personal.birthDate  | date : 'MM/dd/yyyy' : timezone}}</dd>
                         <dt class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</dt>
                         <dd>{{ ::student.race}}</dd>
                         <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
-                        <dd>{{ ::student.gender}}</dd>
+                        <dd>{{ ::student.sex}}</dd>
                         <dt class="bold bold-title">{{ 'general.coll_bound' | i18n }}</dt>
                         <dd>{{ ::student.collegeBound}}</dd>
                     </dl>

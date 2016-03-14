@@ -1334,6 +1334,7 @@ table.listview{
 .attendance-icon{
     margin-left: 23px;
     position: relative;
+    display: inline-block
 }
 .behavior-icon{
     margin-left: 16px;
@@ -1353,4 +1354,29 @@ table.listview{
 .student_last_update{
     display: inline;
     margin-left: 10px;
+}
+.improving{
+    -ms-transform: rotate(-45deg); /* IE 9 */
+    -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+    transform: rotate(-45deg);
+    color:#5cb85c;
+}
+.steady{
+    -ms-transform: rotate(0deg); /* IE 9 */
+    -webkit-transform: rotate(0deg); /* Chrome, Safari, Opera */
+    transform: rotate(0deg);
+    color:black;
+}
+.worsening{
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);
+    color:#d9534f;
+}
+.attendance-display{
+    display: inline-block;
+}
+.attendance-arrow{
+    padding-left: 5px;
+    top:3px;
 }

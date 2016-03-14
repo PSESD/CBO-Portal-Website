@@ -18,6 +18,19 @@ app.directive('attendance', function(){
     };
 });
 
+app.directive('listAttendancePerformance', function(){
+    'use strict';
+    return {
+        restrict: 'E',
+        scope:{
+            url:'@',
+            trend:'@',
+            status:'@',
+        },
+        template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="attendance-arrow glyphicon glyphicon-arrow-right {{status}}"></div>'
+    };
+});
+
 app.directive('listAttendance',function(locale){
     'use strict';
     return{
@@ -31,7 +44,7 @@ app.directive('listAttendance',function(locale){
             risklevel:'@',
             trend:'@'
         },
-        template:'<div uib-popover-template="url"  popover-trigger="mouseenter" popover-placement="left"><span class="{{label}}">{{info}}</span></div>',
+        template:'<div uib-popover-template="url" class="attendance-display"  popover-trigger="mouseenter" popover-placement="left"><span class="{{label}}">{{info}}</span></div>',
         link:function(scope,elm,attrs){
             var lastTermsDay = "";
             var currAcademicDay = "";
