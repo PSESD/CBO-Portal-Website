@@ -36,7 +36,7 @@
                             <td class="grade-level">
                                 {{::data.gradeLevel}}
                             </td>
-                            <td class="description">
+                            <td class="status">
                                 {{::data.description}}
                             </td>
                             <td class="non-promotional-change">
@@ -143,12 +143,20 @@
                 </div>
                 <div class="content">
                     <dl>
-                        <dt class="bold bold-title">{{ 'general.email' | i18n }}</dt>
-                        <dd>{{ ::student.email}}</dd>
-                        <dt class="bold bold-title">{{ 'general.phone' | i18n }}</dt>
-                        <dd>{{ ::student.phone | phonenumber}}</dd>
-                        <dt class="bold bold-title">{{ 'general.address' | i18n }}</dt>
-                        <dd>{{ ::student.address}}</dd>
+                        <div ng-if="student.email !==''">
+                            <div ng-repeat="email in listEmail">
+                                <dt class="bold bold-title">{{ 'general.email' | i18n }}</dt>
+                                <dd>{{ ::email}}</dd>
+                            </div>
+                        </div>
+                        <div ng-if="student.phone !==''">
+                            <dt class="bold bold-title">{{ 'general.phone' | i18n }}</dt>
+                            <dd>{{ ::student.phone | phonenumber}}</dd>
+                        </div>
+                        <div ng-if="student.address !==''">
+                            <dt class="bold bold-title">{{ 'general.address' | i18n }}</dt>
+                            <dd>{{ ::student.address}}</dd>
+                        </div>
                     </dl>
                 </div>
             </div>

@@ -1214,23 +1214,20 @@ td.school-name{
 
 }
 td.school-year{
-    padding-left: 13px !important;
+    padding-left: 12px !important;
 }
 td.entry-date{
-    padding-left: 14px !important;
+    padding-left: 13px !important;
 }
 td.exit-date{
     padding-left: 15px !important;
 }
 td.grade-level{
-    padding-left: 20px !important;
-}
-td.status{
-    padding-left: 20px !important;
-}
-td.description{
     padding-left: 22px !important;
 }
+td.status{
+    padding-left: 21px !important;
+}
 td.non-promotional-change{
-    text-align: center;
+    padding-left: 25px !important;
 }
