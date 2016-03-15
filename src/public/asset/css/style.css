@@ -379,7 +379,7 @@ II MEDIA
         color: #999 !important;
     }
     .bold-title{
-        padding: 0 10px 10px 0 !important;
+        padding: 0 10px 0 0 !important;
     }
     /*
 ===============================================
@@ -1334,6 +1334,7 @@ table.listview{
 .attendance-icon{
     margin-left: 23px;
     position: relative;
+    display: inline-block
 }
 .behavior-icon{
     margin-left: 16px;
@@ -1343,4 +1344,39 @@ table.listview{
     height: 37px;
     top: -1px;
     position: relative;
+}
+.list-last-updated{
+    font-size: 14px;
+    position: absolute;
+    top: 25px;
+    right: 15px;
+}
+.student_last_update{
+    display: inline;
+    margin-left: 10px;
+}
+.improving{
+    -ms-transform: rotate(-45deg); /* IE 9 */
+    -webkit-transform: rotate(-45deg); /* Chrome, Safari, Opera */
+    transform: rotate(-45deg);
+    color:#5cb85c;
+}
+.steady{
+    -ms-transform: rotate(0deg); /* IE 9 */
+    -webkit-transform: rotate(0deg); /* Chrome, Safari, Opera */
+    transform: rotate(0deg);
+    color:black;
+}
+.worsening{
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);
+    color:#d9534f;
+}
+.attendance-display{
+    display: inline-block;
+}
+.attendance-arrow{
+    padding-left: 5px;
+    top:3px;
 }

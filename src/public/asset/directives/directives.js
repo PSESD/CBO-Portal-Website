@@ -18,7 +18,20 @@ app.directive('attendance', function(){
     };
 });
 
-app.directive('listAttendance',function(){
+app.directive('listAttendancePerformance', function(){
+    'use strict';
+    return {
+        restrict: 'E',
+        scope:{
+            url:'@',
+            trend:'@',
+            status:'@',
+        },
+        template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="right" class="attendance-arrow glyphicon glyphicon-arrow-right {{status}}"></div>'
+    };
+});
+
+app.directive('listAttendance',function(locale){
     'use strict';
     return{
         restrict:'E',
@@ -26,17 +39,86 @@ app.directive('listAttendance',function(){
             url:'@',
             label:'@',
             info:'@',
-            items:'@'
+            attendanceacademicyear:'@',
+            lastmonthattendance:'@',
+            risklevel:'@',
+            trend:'@'
         },
-        template:'<div uib-popover-template="url"  popover-trigger="mouseenter" popover-placement="left"><label class="{{label}}">{{info}}</label></div>',
+        template:'<div uib-popover-template="url" class="attendance-display"  popover-trigger="mouseenter" popover-placement="left"><span class="{{label}}">{{info}}</span></div>',
         link:function(scope,elm,attrs){
-            var notes = attrs.items.replace('["','').replace('"]','').replace('","',",").replace('"[]"','');
-            scope.list = notes.split(",");
+            var lastTermsDay = "";
+            var currAcademicDay = "";
+            if(attrs.attendanceacademicyear == 1){
+                currAcademicDay = locale.getString('general.attendance_day');
+            }else if(attrs.attendanceacademicyear >= 0){
+                currAcademicDay = locale.getString('general.attendance_days');
+            }
+            if(attrs.lastmonthattendance == 1){
+                lastTermsDay = locale.getString('general.attendance_day');
+            }else if(attrs.lastmonthattendance >= 0){
+                lastTermsDay = locale.getString('general.attendance_days');
+            }
+            scope.first_message = locale.getString('general.attendance_latest_term_message',[attrs.lastmonthattendance,lastTermsDay]);
+            scope.second_message = locale.getString('general.attendance_current_academic_message',[attrs.attendanceacademicyear,currAcademicDay]);
 
         }
     }
 });
 
+app.directive('listBehavior',function(locale){
+    'use strict';
+    return{
+        restrict:'E',
+        scope:{
+            url:'@',
+            label:'@',
+            info:'@',
+            incidentacademicyear:'@',
+            lastmonthincident:'@'
+        },
+        template:'<div uib-popover-template="url"  popover-trigger="mouseenter" popover-placement="left"><span class="{{label}}">{{info}}</span></div>',
+        link:function(scope,elm,attrs){
+           var lastTermsIncident = "";
+           var currAcademicIncident = "";
+            if(attrs.incidentacademicyear == 1){
+                currAcademicIncident = locale.getString('general.behavior_incident');
+            }else if(attrs.incidentacademicyear >= 0){
+                currAcademicIncident = locale.getString('general.behavior_incidents');
+            }
+            if(attrs.lastmonthincident == 1){
+                lastTermsIncident = locale.getString('general.behavior_incident');
+            }else if(attrs.lastmonthincident >= 0){
+                lastTermsIncident = locale.getString('general.behavior_incidents');
+            }
+            scope.first_message = locale.getString('general.latest_term_message',[attrs.lastmonthincident,lastTermsIncident]);
+            scope.second_message = locale.getString('general.current_academic_message',[attrs.incidentacademicyear,currAcademicIncident]);
+        }
+    }
+});
+
+app.directive('lastupdatelist',function(){
+    'use strict';
+    return{
+        restrict:'E',
+        scope:{
+            url:'@',
+            data:'=listData'
+        },
+        template:'<div uib-popover-template="url" popover-trigger="mouseenter" popover-placement="left"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></div>'
+    }
+});
+
+app.directive('studentlastupdate',function(){
+    'use strict';
+    return{
+        restrict:'E',
+        scope:{
+            url:'@',
+            lastupdate:'@'
+        },
+        template:'<div uib-popover-template="url" class="student_last_update" popover-trigger="mouseenter" popover-placement="right"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></div>'
+    }
+});
 
 app.directive('legend', function(){
     'use strict';
@@ -300,35 +382,6 @@ app.directive('phonenumberDirective', ['$filter', function ($filter) {
     };
 }]);
 
-app.directive('resize', function ($window) {
-    'use strict';
-    return function (scope, element) {
-        var w = angular.element($window);
-        scope.getWindowDimensions = function () {
-            return {
-                'h': w.height(),
-                'w': w.width()
-            };
-        };
-        scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
-            scope.windowHeight = newValue.h;
-            scope.windowWidth = newValue.w;
-            if (w.innerWidth < 767) {
-                $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page-mobile";
-                $rootScope.data_content = "asset/templates/mobile.html";
-
-            } else if (w.innerWidth > 767) {
-                $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
-                $rootScope.data_content = "asset/templates/desktop.html";
-            }
-
-        }, true);
-
-        w.bind('resize', function () {
-            scope.$apply();
-        });
-    };
-});
 
 app.directive('a', function () {
     'use strict';

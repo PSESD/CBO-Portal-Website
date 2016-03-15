@@ -20,7 +20,10 @@ var colors = [
     'rgba(201,255,156,.5)',
     'rgba(210,156,255,.5)',
 ]
-
+var refresh_template = '<div class="alert alert-info" role="alert"> ' +
+    '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ' +
+    '<span class="sr-only">Error:</span> We have not been able to pull this student\'s record from the school district yet. We will try again soon, but you can also try to ' +
+    '<a ng-hide="showLoading" ng-click="updateNow()">manually refresh the record</a> again now.</div>';
 app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
     function ($interval,$route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
         'use strict';
@@ -50,7 +53,7 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
         $scope.loading_icon = true;
         $scope.showLoading = false;
         $scope.attendance_load_first_time = true;
-
+        $scope.nonPromotionalStatus = false;
         var attendance = "";
         var transcript = "";
         var program_participation = "";
@@ -193,7 +196,6 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
 
         $scope.openHeader = function(event)
         {
-
             var attendance_header = $(event.target).parent()[0];
             var attendance_detail = $(attendance_header).siblings()[0];
             $(attendance_detail).removeClass('hide');
@@ -330,9 +332,7 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
                     $scope.attendanceBehavior = [];
                     //load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
                     //$scope.loading_icon = true;
-
-
-                    $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/attendance?pageSize=all&year='+$scope.academic_year.id, {
+                    $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/attendance?pageSize=all&year='+ _.get($scope.academic_year,'id'), {
                         headers: {
                             'Authorization': 'Bearer ' + AuthenticationService.token
                         }
@@ -480,7 +480,7 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
     var assignedUsers = {};
     $scope.student = {};
     $scope.xsreLastUpdated = null;
-
+    $scope.lastUpdated = null;
     //if(angular.isUndefined(StudentCache.get(student_id + "general")) === true)
     //{
 
@@ -493,7 +493,7 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
 
                 if(response.success === true && response.info !== undefined)
                 {
-
+                    $scope.lastUpdated = response.info.personal.summary.date.latest;
                     full_name = response.info.personal.firstName + response.info.personal.lastName;
                     $rootScope.doingResolve = false;
                     general_data = response.info;
@@ -502,7 +502,8 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
 
                 }else{
                     $rootScope.doingResolve = false;
-                    showError(response.error,1);
+                    //showError(response.error,1);
+                    showError(refresh_template,1);
                 }
             })
             .error(function (response, status) {
@@ -533,6 +534,12 @@ function generate_general_data(general_data,$scope,student_id)
     var embedPrograms = [];
     embedPrograms = ('programs' in general_data._embedded) ? general_data._embedded.programs : [];
 
+    $scope.visibleProjects = general_data.personal.enrollmentHistories;
+    _.each(general_data.personal.enrollmentHistories,function(item,key){
+        if(item.nonPromotionalChange === true && $scope.nonPromotionalStatus === false){
+            $scope.nonPromotionalStatus = true;
+        }
+    });
     angular.forEach(embedPrograms, function (v) {
         var program = {
             "years": new Date(v.participation_start_date).getFullYear(),
@@ -591,13 +598,13 @@ function generate_general_data(general_data,$scope,student_id)
     assignedUsers = ('users' in general_data._embedded) ? general_data._embedded.users : {};
     $scope.case_workers = assignedUsers;
     $scope.academicInfo = {
-        currentSchool: general_data.personal.enrollment.currentSchool || 'N/A',
-        expectedGraduationYear: general_data.personal.enrollment.expectedGraduationYear || 'N/A',
-        gradeLevel: general_data.personal.enrollment.gradeLevel || 'N/A',
-        languageSpokenAtHome: general_data.personal.languageHome || 'N/A',
-        iep: general_data.personal.ideaIndicator || 'N/A',
-        s504: general_data.personal.section504Status || 'N/A',
-        freeReducedLunch: (general_data.personal.eligibilityStatus && general_data.personal.enrollmentStatus) ? general_data.personal.enrollmentStatus : 'N/A'
+        currentSchool: general_data.personal.enrollment.schoolName || '',
+        expectedGraduationYear: general_data.personal.enrollment.projectedGraduationYear || '',
+        gradeLevel: general_data.personal.enrollment.gradeLevel || '',
+        languageSpokenAtHome: general_data.personal.languageHome || '',
+        iep: general_data.personal.ideaIndicator || '',
+        s504: general_data.personal.section504Status || '',
+        freeReducedLunch: (general_data.personal.eligibilityStatus && general_data.personal.enrollmentStatus) ? general_data.personal.enrollmentStatus : ''
     };
     $scope.xsreLastUpdated = general_data.lastUpdated;
 }
@@ -615,7 +622,6 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }
         }).success(function (response){
-
             if(response.success === true && response.info.data !== undefined)
             {
                 $scope.legend = response.info.source.legend;
@@ -671,18 +677,17 @@ function load_attendance_data($http,student_id,AuthenticationService,$rootScope,
 function generate_attendance_data(attendance_data,$scope,urlTemplate)
 {
     var years = [];
-    var yearsOptions = "";
     angular.forEach(attendance_data, function (behavior) {
 
-        Object.keys(behavior).forEach(function (key) {
+        //Object.keys(behavior).forEach(function (key) {
+
+        for(var key in behavior) {
             var columnHtml = {};
             var valOfYears
-
             valOfYears = key.trim().replace(/\s/g, '').split("/")[4];
-
             var year = {
-                id:'',
-                name:''
+                id: '',
+                name: ''
             };
 
             year.id = valOfYears;
@@ -707,13 +712,13 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     slug: item.slug,
                                     stripping: cls,
                                     na: '',
-                                    fontcolor: _.get(item,'slug') + '-font-color',
-                                    pagetitle: _.get(item,'slug.toUpperCase()'),
-                                    eventdate: _.get(item,'event.calendarEventDate'),
-                                    description: _.get(item,'event.attendanceStatusTitle'),
+                                    fontcolor: _.get(item, 'slug') + '-font-color',
+                                    pagetitle: _.get(item, 'slug.toUpperCase()'),
+                                    eventdate: _.get(item, 'event.calendarEventDate'),
+                                    description: _.get(item, 'event.attendanceStatusTitle'),
                                     url: urlTemplate,
-                                    reason: _.get(item,'event.absentReasonDescription'),
-                                    category: _.get(item,'event.absentAttendanceCategoryTitle'),
+                                    reason: _.get(item, 'event.absentReasonDescription'),
+                                    category: _.get(item, 'event.absentAttendanceCategoryTitle'),
                                 };
                             } else {
                                 html = {
@@ -725,8 +730,8 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     eventdate: '',
                                     description: '',
                                     url: '',
-                                    reason:'',
-                                    category:'',
+                                    reason: '',
+                                    category: '',
                                 };
                             }
                             xhtml.push(html);
@@ -743,8 +748,8 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                             eventdate: '',
                             description: '',
                             url: '',
-                            reason:'',
-                            category:'',
+                            reason: '',
+                            category: '',
                         };
                         xhtml.push(html);
                     }
@@ -760,12 +765,12 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     stripping: cls,
                                     na: '',
                                     fontcolor: 'unexcused-font-color',
-                                    pagetitle: (_.get(item,'incidentCategoryTitle') + '').toUpperCase(),
-                                    eventdate: _.get(item,'incidentDate'),
-                                    description: _.get(item,'description'),
+                                    pagetitle: (_.get(item, 'incidentCategoryTitle') + '').toUpperCase(),
+                                    eventdate: _.get(item, 'incidentDate'),
+                                    description: _.get(item, 'description'),
                                     url: urlTemplate,
-                                    reason: _.get(item,'event.absentReasonDescription'),
-                                    category: _.get(item,'event.absentAttendanceCategoryTitle'),
+                                    reason: _.get(item, 'incidentCategoryTitle'),
+                                    category: _.get(item, 'incidentCategory'),
                                 };
                             } else {
                                 html = {
@@ -777,8 +782,8 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                                     eventdate: '',
                                     description: '',
                                     url: '',
-                                    reason:'',
-                                    category:'',
+                                    reason: '',
+                                    category: '',
                                 };
                             }
                             xhtml.push(html);
@@ -793,8 +798,8 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
                             eventdate: '',
                             description: '',
                             url: '',
-                            reason:'',
-                            category:'',
+                            reason: '',
+                            category: '',
                         };
                         xhtml.push(html);
                     }
@@ -812,13 +817,11 @@ function generate_attendance_data(attendance_data,$scope,urlTemplate)
             behavior[key].columnHtml = columnHtml;
             $scope.attendanceBehavior.push(behavior[key]);
 
-        });
+            //});
+        }
     });
-
     yearsOptions = _.uniq(years,'id');
     $scope.attendance_load_first_time = false;
-
-
 }
 
 function load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache)
@@ -868,7 +871,13 @@ function load_transcript_data($http,student_id,AuthenticationService,$rootScope,
 function generate_transcript_data(transcript_data,$scope)
 {
 
-    $scope.visibleProjects = transcript_data.source.history;
+    //$scope.visibleProjects = transcript_data.source.history;
+    //_.each(transcript_data.source.history,function(item,key){
+    //    if(item.nonPromotionalChange === true && $scope.nonPromotionalStatus === false){
+    //        $scope.nonPromotionalStatus = true;
+    //        console.log($scope.nonPromotionalStatus);
+    //    }
+    //});
     var courseTitle = transcript_data.source.info.courseTitle;
     $scope.courses = courseTitle;
     $scope.cumulative_gpa = transcript_data.source.totalCumulativeGpa;
