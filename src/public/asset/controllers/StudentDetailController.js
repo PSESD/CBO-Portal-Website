@@ -19,7 +19,8 @@ var colors = [
     'rgba(244,156,255,.5)',
     'rgba(201,255,156,.5)',
     'rgba(210,156,255,.5)',
-]
+];
+var listEmail = [];
 var refresh_template = '<div class="alert alert-info" role="alert"> ' +
     '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ' +
     '<span class="sr-only">Error:</span> We have not been able to pull this student\'s record from the school district yet. We will try again soon, but you can also try to ' +
@@ -28,6 +29,7 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
     function ($interval,$route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
         'use strict';
         $scope.show_content = true;
+        $scope.listEmail = [];
         $scope.editorOptions = {
             lineWrapping : true,
             mode: 'javascript',
@@ -497,6 +499,11 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
                     full_name = response.info.personal.firstName + response.info.personal.lastName;
                     $rootScope.doingResolve = false;
                     general_data = response.info;
+                    listEmail.push(_.get(general_data,'personal.email'));
+                    _.forEach(_.get(general_data,'personal.xSre.email'),function(v){
+                        listEmail.push(v);
+                    })
+                   $scope.listEmail = listEmail;
                     //StudentCache.put(student_id +"general",general_data);
                     generate_general_data(general_data,$scope,student_id);
 

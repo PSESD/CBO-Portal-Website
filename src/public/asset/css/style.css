@@ -1380,3 +1380,8 @@ table.listview{
     padding-left: 5px;
     top:3px;
 }
+.attendance-label{
+    display: inline-block;
+    height: 16px;
+    width: 30px;
+}
