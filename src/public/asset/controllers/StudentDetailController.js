@@ -493,7 +493,7 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
 
                 if(response.success === true && response.info !== undefined)
                 {
-                    $scope.lastUpdated = response.info.lastUpdated;
+                    $scope.lastUpdated = response.info.personal.summary.date.latest;
                     full_name = response.info.personal.firstName + response.info.personal.lastName;
                     $rootScope.doingResolve = false;
                     general_data = response.info;
