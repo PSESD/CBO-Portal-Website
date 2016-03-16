@@ -539,10 +539,11 @@ function generate_general_data(general_data,$scope,student_id)
 {
 
     var embedPrograms = [];
+    $scope.races="";
     embedPrograms = ('programs' in general_data._embedded) ? general_data._embedded.programs : [];
 
-    $scope.visibleProjects = general_data.personal.enrollmentHistories;
-    _.each(general_data.personal.enrollmentHistories,function(item,key){
+    $scope.visibleProjects = general_data.personal.xSre.otherEnrollments;
+    _.each(general_data.personal.xSre.otherEnrollments,function(item,key){
         if(item.nonPromotionalChange === true && $scope.nonPromotionalStatus === false){
             $scope.nonPromotionalStatus = true;
         }
@@ -598,16 +599,20 @@ function generate_general_data(general_data,$scope,student_id)
     {
         $scope.student.address = "";
     }
-
+    if(general_data.personal.xSre.demographics.races.length > 0){
+        $scope.races = general_data.personal.xSre.demographics.races.join();
+    }else{
+        $scope.races ="";
+    }
     $scope.student = general_data.personal;
     $scope.student._id = student_id;
-    $scope.student.race = general_data.personal.race.split(/(?=[A-Z])/).join(" ");
+    $scope.student.race = general_data.personal.xSre.demographics;
     assignedUsers = ('users' in general_data._embedded) ? general_data._embedded.users : {};
     $scope.case_workers = assignedUsers;
     $scope.academicInfo = {
-        currentSchool: general_data.personal.enrollment.schoolName || '',
-        expectedGraduationYear: general_data.personal.enrollment.projectedGraduationYear || '',
-        gradeLevel: general_data.personal.enrollment.gradeLevel || '',
+        currentSchool: general_data.personal.xSre.enrollment.schoolName || '',
+        expectedGraduationYear: general_data.personal.xSre.enrollment.projectedGraduationYear || '',
+        gradeLevel: general_data.personal.xSre.enrollment.gradeLevel || '',
         languageSpokenAtHome: general_data.personal.languageHome || '',
         iep: general_data.personal.ideaIndicator || '',
         s504: general_data.personal.section504Status || '',
