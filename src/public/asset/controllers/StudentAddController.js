@@ -38,7 +38,9 @@ app.controller('StudentAddController', ['$rootScope', '$scope', '$http', '$locat
                             $location.path('/student');
                         } else if(response.success === false) {
                             var message = "";
-                            if(_.has(response,'error.message')){
+                            if(_.has(response,'error')){
+                                message = _.get(response,'error');
+                            }else if(_.has(response,'error.message')){
                                 message = _.get(response,'error.message');
                             }else{
                                 message = _.get(response,'message');
