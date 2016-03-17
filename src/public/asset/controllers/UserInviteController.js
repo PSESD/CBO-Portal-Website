@@ -1,5 +1,5 @@
-app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore','locale',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore,locale) {
         'use strict';
         $rootScope.full_screen = false;
         $rootScope.doingResolve = false;
@@ -24,7 +24,8 @@ app.controller('UserInviteController', ['$rootScope', '$scope', '$http', '$locat
 
                     .success(function (response) {
                         if (response.success === true) {
-                            showError(response.message, 2);
+                            var message = locale.getString('general.reinvite_message', [_.get(response,'info.email')]);
+                            showError(message, 2);
 
                             $location.path('/user');
                         } else {

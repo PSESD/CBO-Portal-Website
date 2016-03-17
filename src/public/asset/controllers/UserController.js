@@ -1,5 +1,5 @@
-app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore','$filter','$uibModal',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore,$filter,$uibModal) {
+app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore','$filter','$uibModal','locale',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore,$filter,$uibModal,locale) {
         'use strict';
         $rootScope.full_screen = false;
         $scope.users = [];
@@ -127,7 +127,7 @@ $scope.reinvite = function(user){
         })
             .success(function (response) {
 
-                var message = response.message + ' to ' + response.info.email
+                var message = locale.getString('general.reinvite_message', [_.get(response,'info.email')]);
 
                 showError(message,2);
 
