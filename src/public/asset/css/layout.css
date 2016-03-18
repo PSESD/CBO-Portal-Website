@@ -74,6 +74,11 @@ a.collapsed {
     display: none;
 }
 
+.student_last_update{
+    display: inline-block;
+    margin-left: 5px;
+}
+
 .navbar #sidebarBtn {
     z-index: 20;
     display: block;
