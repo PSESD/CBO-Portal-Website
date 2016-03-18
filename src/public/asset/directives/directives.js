@@ -44,7 +44,7 @@ app.directive('listAttendance',function(locale){
             risklevel:'@',
             trend:'@'
         },
-        template:'<div uib-popover-template="url" class="attendance-display"  popover-trigger="mouseenter" popover-placement="left"><span class="attendance-label {{label}}">{{info}}</span></div>',
+        template:'<div uib-popover-template="url" class="attendance-display"  popover-trigger="mouseenter" popover-placement="left"><span class="{{label}}">{{info}}</span></div>',
         link:function(scope,elm,attrs){
             var lastTermsDay = "";
             var currAcademicDay = "";

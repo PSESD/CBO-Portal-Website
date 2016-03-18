@@ -124,13 +124,13 @@
                 <div class="content">
                     <dl>
                         <dt class="bold bold-title">{{ 'general.district_id' | i18n }}</dt>
-                        <dd>{{ ::student.localId }}</dd>
+                        <dd>{{ ::student.xSre.localId }}</dd>
                         <dt class="bold bold-title">{{ 'general.brithday' | i18n }}</dt>
-                        <dd>{{ ::personal.birthDate  | date : 'MM/dd/yyyy' : timezone}}</dd>
+                        <dd>{{ ::student.xSre.demographics.birthDate  | date : 'MM/dd/yyyy' : timezone}}</dd>
                         <dt class="bold bold-title">{{ 'general.race_ethnicity' | i18n }}</dt>
-                        <dd>{{ ::student.race}}</dd>
+                        <dd>{{ ::races}}</dd>
                         <dt class="bold bold-title">{{ 'general.gender' | i18n }}</dt>
-                        <dd>{{ ::student.sex}}</dd>
+                        <dd>{{ ::student.xSre.demographics.sex}}</dd>
                         <dt class="bold bold-title">{{ 'general.coll_bound' | i18n }}</dt>
                         <dd>{{ ::student.collegeBound}}</dd>
                     </dl>
@@ -227,7 +227,7 @@
                 </div>
                 <div class="content top-space">
                     <dl>
-                        <div ng-repeat="language in student.languages">
+                        <div ng-repeat="language in student.xSre.languages">
                             <dt class="bold bold-title">{{language.type}} {{ 'general.language' | i18n }}</dt>
                             <dd>{{ ::language.description }}</dd>
                         </div>

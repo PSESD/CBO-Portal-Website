@@ -163,7 +163,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                             }
                             $scope.students[studentKeys[student._id]].gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.unavailable');
+                            $scope.students[studentKeys[student._id]].schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.school_unavailable');
                             $scope.students[studentKeys[student._id]].attendance = _.has(student,'xsre.attendance') ? pluralAttendance : locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].behavior = _.has(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].onTrackGraduate = onTrack;
@@ -172,7 +172,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
                             $scope.students[studentKeys[student._id]].gradeLevel = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].schoolYear = locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.unavailable');
+                            $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.school_unavailable');
                             $scope.students[studentKeys[student._id]].attendance = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].behavior = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].onTrackGraduate = locale.getString('general.unavailable');
@@ -200,7 +200,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         } else if(status >= 500 || (response === null && status === 0)){
                             $scope.students[studentKeys[student._id]].gradeLevel = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].schoolYear = locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.unavailable');
+                            $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.school_unavailable');
                             $scope.students[studentKeys[student._id]].attendance = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].behavior = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].onTrackGraduate = locale.getString('general.unavailable');
@@ -303,12 +303,12 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                             //onTrack = locale.getString('general.unavailable');
                             onTrack = "U";
                         }
-                        student.gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.unavailable');
+                        student.gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.grade_unavailable');
                         student.schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
-                        student.schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.unavailable');
+                        student.schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.school_unavailable');
                         student.attendance = _.has(student,'xsre.attendance.absents.attendanceAcademicYear') ? pluralAttendance : locale.getString('general.unavailable');
                         student.behavior = _.has(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
-                        if(student.gradeLevel === 'N/A') student.gradeLevel =  locale.getString('general.unavailable');
+                        if(student.gradeLevel === 'N/A') student.gradeLevel =  locale.getString('general.grade_unavailable');
                         if(student.schoolYear === 'N/A') student.schoolYear =  locale.getString('general.unavailable');
                         if(student.schoolName === 'N/A') student.schoolName =  locale.getString('general.unavailable');
                         //if(student.attendance.indexOf('N/A') !== -1) student.attendance =  locale.getString('general.unavailable');

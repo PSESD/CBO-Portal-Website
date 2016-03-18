@@ -103,6 +103,13 @@
                             </a>
                         </th>
                         <th>
+                            <a href="#" ng-click="sortType = 'trend';sortReverse = !sortReverse">
+                                {{ 'general.trend' | i18n }}
+                                <span ng-show="sortType == 'trend' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'trend' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                        <th>
                             <a href="#" ng-click="sortType = 'behavior';sortReverse = !sortReverse">
                                 {{ 'general.behavior' | i18n }}
                                 <span ng-show="sortType == 'behavior' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
@@ -131,7 +138,7 @@
                         <td>{{ student.school_district }}</td>
                         <td ng-bind-html="student.gradeLevel"></td>
                         <td ng-bind-html="student.schoolName"></td>
-                        <td >
+                        <td>
                             <div ng-if="student.xsre.attendanceCount[1].flag === 'SUCCESS'" class="attendance-icon">
                                 <list-attendance url="{{urlAttendanceTemplate}}" label="{{success_label}}" info="{{student.xsre.attendanceCount[1].count}}" lastmonthattendance="{{student.xsre.attendanceCount[0].count}}" attendanceacademicyear="{{student.xsre.attendanceCount[1].count}}" risklevel="{{student.xsre.attendanceRiskFlag[0].riskLevel}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance>
                             </div>
@@ -141,6 +148,8 @@
                             <div ng-if="student.xsre.attendanceCount[1].flag === 'DANGER'" class="attendance-icon">
                                 <list-attendance url="{{urlAttendanceTemplate}}" label="{{danger_label}}" info="{{student.xsre.attendanceCount[1].count}}" lastmonthattendance="{{student.xsre.attendanceCount[0].count}}" attendanceacademicyear="{{student.xsre.attendanceCount[1].count}}" risklevel="{{student.xsre.attendanceRiskFlag[0].riskLevel}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance>
                             </div>
+                        </td>
+                        <td>
                             <div ng-if="student.xsre.attendanceRiskFlag[0].trend === 'Improving'" class="attendance-display">
                                 <list-attendance-performance url="{{urlAttendancePerformanceTemplate}}" status="{{improving}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance-performance>
                             </div>
