@@ -125,12 +125,7 @@ dl{
 .hoverable:not(:hover) + .show-on-hover {
     display: none;
 }
-* {
-    border-top-left-radius: 0px!important;
-    border-top-right-radius: 0px!important;
-    border-bottom-left-radius: 0px!important;
-    border-bottom-right-radius: 0px!important;
-}
+
 ul.nav.nav-tabs.nav-justified li,
 .panel.attendance-behavior {
     background-color: #B1E0E8;
@@ -1196,7 +1191,7 @@ dt, dd {
 
 .header-fixed > tbody {
     overflow-y: auto;
-    height: 150px;
+    height: 350px;
 }
 
 .header-fixed > tbody > tr > td,

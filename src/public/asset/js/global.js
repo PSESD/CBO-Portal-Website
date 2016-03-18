@@ -56,37 +56,20 @@ $(document).ready(function () {
 
     });
 
-
     var selected = '#slidemenu, #page-content, body, .navbar, .navbar-header, .navbar-toggle';
     var selected2 = '.navbar-header, #slidemenu, #navbar-height-col, #page-content';
 
-
-    $('.collapse-icon').on("click", function () {
-        if (isCollapse === false) {
-            $('#slide-menu').removeAttr('class');
-            $('#slide-menu').addClass('collapse-icon glyphicon glyphicon-menu-hamburger');
-            $('.navbar').hide();
-            $('#dashboard-menu').show();
-
-            isCollapse = true;
-        } else if (isCollapse === true) {
-            isCollapse = false;
-            $('#slide-menu').removeAttr('class');
-            $('#slide-menu').addClass('collapse-icon glyphicon glyphicon-remove');
-            $('.navbar').show();
-            $('#dashboard-menu').hide();
-
+    $(document).on('click.nav','.navbar-collapse.in',function(e) {
+        if( $(e.target).is('a') ) {
+            $(this).removeClass('in').addClass('collapse');
         }
     });
 
     $('#school-history-close').on('click', function () {
         $('#academic').show();
-
-
     });
 
     $('#school-history-open').on('click', function () {
-
         $('#school-history').show();
     });
 
