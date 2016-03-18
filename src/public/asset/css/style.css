@@ -1126,6 +1126,7 @@ text-decoration: none;
     margin-right: -50%;
     transform: translate(-50%);
     max-width: 50%;
+    top: 5px;
 }
 .post-abs{
     top:3px;
