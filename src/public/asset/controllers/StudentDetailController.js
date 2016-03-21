@@ -30,6 +30,7 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
         'use strict';
         $scope.show_content = true;
         $scope.listEmail = [];
+        $rootScope.links = [];
         $scope.editorOptions = {
             lineWrapping : true,
             mode: 'javascript',
@@ -40,8 +41,7 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
             theme: 'monokai',
             extraKeys: {"Alt-F": "findPersistent"}
         };
-
-
+        $rootScope.prevURL = localStorage.getItem("intended_url");
         $scope.flip = function(){
             if($scope.show_content === true)
             {
@@ -51,6 +51,26 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
                 $scope.show_content = true;
             }
         }
+        $http.get(api_url + AuthenticationService.organization_id + '/students', {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+
+        }).success(function(response){
+
+        }).error(function (response, status) {
+
+            //console.log(response);
+            //console.log(status);
+            showError(response, 1);
+            $rootScope.doingResolve = false;
+            if (status === 401) {
+                $rootScope.show_footer = false;
+                CookieStore.clearData();
+                $location.path('/login');
+            }
+
+        });
         showLoadingIcon($scope);
         $scope.loading_icon = true;
         $scope.showLoading = false;
@@ -292,6 +312,38 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
         $scope.showDebug = function () {
             $window.open($window.location.origin + '/#/student/xsre/' + student_id);
         };
+        $http.get(api_url + AuthenticationService.organization_id + '/students', {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+
+        })
+            .success(function (response) {
+                if ($rootScope.links.length === 0) {
+                    angular.forEach(_.get(response, 'data'), function (v) {
+                        $rootScope.links.push({
+                            studentId: v._id,
+                            value: "#/student/detail/" + v._id
+                        });
+                    });
+                }
+                console.log();
+                generateLink($scope,_.findIndex($rootScope.links,{'studentId':student_id}),$rootScope);
+            })
+            .error(function (response, status) {
+
+                //console.log(response);
+                //console.log(status);
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if (status === 401) {
+                    $rootScope.show_footer = false;
+                    CookieStore.clearData();
+                    $location.path('/login');
+                }
+
+            });
+
 
         /**
          * Update Now, remove cache and reload the page content
@@ -1210,4 +1262,25 @@ function showLoadingIcon($scope)
     else{
         $scope.showLoading = true;
     }
+}
+
+function generateLink($scope,index,$rootScope){
+    var prevIndex="";
+    var nextIndex="";
+    $scope.prevLink = "";
+    $scope.nextLink ="";
+    if(index !== 0 && index !== $rootScope.links.length - 1){
+        prevIndex = index - 1;
+        nextIndex = index + 1;
+        $scope.prevLink = $rootScope.links[prevIndex].value;
+        $scope.nextLink = $rootScope.links[nextIndex].value;
+    }else if(index === 0){
+        nextIndex = index + 1;
+        $scope.nextLink = $rootScope.links[nextIndex].value;
+    }else if(index === $rootScope.links.length -1){
+        prevIndex = index - 1;
+        nextIndex = index + 1;
+        $scope.prevLink = $rootScope.links[prevIndex].value;
+    }
+
 }

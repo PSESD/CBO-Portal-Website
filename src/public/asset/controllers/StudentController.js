@@ -22,6 +22,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             scrollableHeight: '250px',
             scrollable: true
         };
+
         $scope.improving = "improving";
         $scope.steady = "steady";
         $scope.worsening = "worsening";
@@ -266,6 +267,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                     var embedData = [];
                     embedData = ('data' in response) ? response.data : [];
 
+
                     var data = [];
                     var o = 0;
                     var studentKeys = {};
@@ -303,6 +305,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                             //onTrack = locale.getString('general.unavailable');
                             onTrack = "U";
                         }
+                        $rootScope.prevURL = localStorage.getItem("intended_url");
                         student.gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.grade_unavailable');
                         student.schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
                         student.schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.school_unavailable');
@@ -364,7 +367,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 }
 
             });
-
 
 
     }

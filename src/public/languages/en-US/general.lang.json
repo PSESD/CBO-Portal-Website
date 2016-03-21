@@ -103,7 +103,7 @@
     "attendance_latest_term_message":"Student has missed {1} {2} in the latest month of which we have data.",
     "attendance_days":"days",
     "attendance_day":"day",
-    "reinvite_message":"An invitation e-mail has beens successfully sent to {1}",
+    "reinvite_message":"An invitation e-mail has been successfully sent to {1}",
     "day_missed": "{1} Day Missed",
     "trend":"Trend",
     "risk_level":"Risk Level",
