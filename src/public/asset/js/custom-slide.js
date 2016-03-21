@@ -2,4 +2,3 @@
 $('nav button.navbar-minimize').on('click', function () {
     $("body").toggleClass("navbar-minimized");
 });
-

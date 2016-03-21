@@ -6,6 +6,7 @@
                     <h1>
                         {{ 'general.students' | i18n }}
                     </h1>
+                    <lastupdatelist url="{{lastUpdatedUrl}}" class="pull-right list-last-updated" list-data="list"></lastupdatelist>
                     <hr>
                 </div>
             </div>
@@ -102,6 +103,13 @@
                             </a>
                         </th>
                         <th>
+                            <a href="#" ng-click="sortType = 'trend';sortReverse = !sortReverse">
+                                {{ 'general.trend' | i18n }}
+                                <span ng-show="sortType == 'trend' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                <span ng-show="sortType == 'trend' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                            </a>
+                        </th>
+                        <th>
                             <a href="#" ng-click="sortType = 'behavior';sortReverse = !sortReverse">
                                 {{ 'general.behavior' | i18n }}
                                 <span ng-show="sortType == 'behavior' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
@@ -121,29 +129,44 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="student in students | filter:search | filter:filterDistrict() | filter:filterSchools()|orderBy:sortType:sortReverse">
-                        <td><a ng-href="#/student/detail/{{ student._id }}">{{ student.first_name }} {{ student.last_name }}</a></td>
+                        <td>
+                            <a ng-href="#/student/detail/{{ student._id }}">{{ student.first_name }} {{ student.last_name }}</a>
+
+                            <studentlastupdate url="{{studentLastUpdatedUrl}}"  lastupdate="{{student.xsre.latestDate}}" ng-show="student.isDifferent"></studentlastupdate>
+                        </td>
                         <td>{{student.district_student_id}}</td>
                         <td>{{ student.school_district }}</td>
                         <td ng-bind-html="student.gradeLevel"></td>
                         <td ng-bind-html="student.schoolName"></td>
-                        <td >
-                            <div ng-if="student.xsre.attendance.flag === 'SUCCESS'" class="attendance-icon">
-                                <list-attendance url="{{urlTemplate}}" label="{{success_label}}" info="{{student.attendance}}" items="{{student.xsre.attendance.notes.items}}"></list-attendance>
+                        <td>
+                            <div ng-if="student.xsre.attendanceCount[1].flag === 'SUCCESS'" class="attendance-icon">
+                                <list-attendance url="{{urlAttendanceTemplate}}" label="{{success_label}}" info="{{student.xsre.attendanceCount[1].count}}" lastmonthattendance="{{student.xsre.attendanceCount[0].count}}" attendanceacademicyear="{{student.xsre.attendanceCount[1].count}}" risklevel="{{student.xsre.attendanceRiskFlag[0].riskLevel}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance>
                             </div>
-                            <div ng-if="student.xsre.attendance.flag === 'WARNING'" class="attendance-icon">
-                                <list-attendance url="{{urlTemplate}}" label="{{warning_label}}" info="{{student.attendance}}" items="{{student.xsre.attendance.notes.items}}"></list-attendance>
+                            <div ng-if="student.xsre.attendanceCount[1].flag === 'WARNING'" class="attendance-icon">
+                                <list-attendance url="{{urlAttendanceTemplate}}" label="{{warning_label}}" info="{{student.xsre.attendanceCount[1].count}}" lastmonthattendance="{{student.xsre.attendanceCount[0].count}}" attendanceacademicyear="{{student.xsre.attendanceCount[1].count}}" risklevel="{{student.xsre.attendanceRiskFlag[0].riskLevel}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance>
                             </div>
-                            <div ng-if="student.xsre.attendance.flag === 'DANGER'" class="attendance-icon">
-                                <list-attendance url="{{urlTemplate}}" label="{{danger_label}}" info="{{student.attendance}}" items="{{student.xsre.attendance.notes.items}}"></list-attendance>
+                            <div ng-if="student.xsre.attendanceCount[1].flag === 'DANGER'" class="attendance-icon">
+                                <list-attendance url="{{urlAttendanceTemplate}}" label="{{danger_label}}" info="{{student.xsre.attendanceCount[1].count}}" lastmonthattendance="{{student.xsre.attendanceCount[0].count}}" attendanceacademicyear="{{student.xsre.attendanceCount[1].count}}" risklevel="{{student.xsre.attendanceRiskFlag[0].riskLevel}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance>
+                            </div>
+                        </td>
+                        <td>
+                            <div ng-if="student.xsre.attendanceRiskFlag[0].trend === 'Improving'" class="attendance-display">
+                                <list-attendance-performance url="{{urlAttendancePerformanceTemplate}}" status="{{improving}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance-performance>
+                            </div>
+                            <div ng-if="student.xsre.attendanceRiskFlag[0].trend === 'Worsening'" class="attendance-display">
+                                <list-attendance-performance url="{{urlAttendancePerformanceTemplate}}" status="{{worsening}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance-performance>
+                            </div>
+                            <div ng-if="student.xsre.attendanceRiskFlag[0].trend === 'Steady'" class="attendance-display">
+                                <list-attendance-performance url="{{urlAttendancePerformanceTemplate}}" status="{{steady}}" trend="{{student.xsre.attendanceRiskFlag[0].trend}}"></list-attendance-performance>
                             </div>
                         </td>
                         <!--<td ng-bind-html="student.behavior"></td>-->
                         <td>
-                            <div ng-if="student.xsre.behavior.flag === 'SUCCESS'" class="behavior-icon">
-                                <list-attendance url="{{urlTemplate}}" label="{{success_label}}" info="{{student.behavior}}" items="{{student.xsre.behavior.notes.items}}"></list-attendance>
+                            <div ng-if="student.xsre.behaviorCount[1].flag === 'SUCCESS'" class="behavior-icon">
+                                <list-behavior url="{{urlBehaviorTemplate}}" label="{{success_label}}" info="{{student.xsre.behaviorCount[1].count}}" incidentacademicyear="{{student.xsre.behaviorCount[1].count}}" lastmonthincident="{{student.xsre.behaviorCount[0].count}}"></list-behavior>
                             </div>
-                            <div ng-if="student.xsre.behavior.flag === 'DANGER'" class="behavior-icon">
-                                <list-attendance url="{{urlTemplate}}" label="{{danger_label}}" info="{{student.behavior}}" items="{{student.xsre.behavior.notes.items}}"></list-attendance>
+                            <div ng-if="student.xsre.behaviorCount[1].flag === 'DANGER'" class="behavior-icon">
+                                <list-behavior url="{{urlBehaviorTemplate}}" label="{{danger_label}}" info="{{student.xsre.behaviorCount[1].count}}" incidentacademicyear="{{student.xsre.behaviorCount[1].count}}" lastmonthincident="{{student.xsre.behaviorCount[0].count}}"></list-behavior>
                             </div>
                         </td>
                         <td>
@@ -154,7 +177,7 @@
                                 <span class="glyphicon glyphicon-remove-sign alert-danger on-track-icon" aria-hidden="true"></span>
                             </div>
                             <div ng-if="student.onTrackGraduate === 'U'">
-                                <span class="glyphicon glyphicon-minus-sign on-track-icon" aria-hidden="true"></span>
+                                <!--<span class="glyphicon glyphicon-minus-sign on-track-icon" aria-hidden="true"></span>-->
                             </div>
                         </td>
                         <td class="text-center">

@@ -14,30 +14,30 @@
             <h1>Student Success Link</h1>
         </a>
     </div>
-    
+
     <hr class="hidden-xs" />
-    
+
     <div class="collapse navbar-collapse" id="main-navbar-collapse">
 
         <h2 class="navbar-text org">{{ organization_name }}</h2>
         <p class="navbar-text usr">Logged in as <b>{{ completeName }}</b></p>
-                
+
         <ul class="nav navbar-nav">
             <li>
                 <a ng-class="{ sidebar_selected: isActive('/student') }" ng-href="#/student">
-                    <span class="glyphicon glyphicon-education"></span> 
+                    <span class="glyphicon glyphicon-education"></span>
                     <span>{{ 'general.dashboard' | i18n  }}</span>
                 </a>
             </li>
             <li>
                 <a ng-class="{ sidebar_selected: isActive('/program') }" ng-href="#/program">
-                    <span class="glyphicon glyphicon-tag"></span> 
+                    <span class="glyphicon glyphicon-tag"></span>
                     <span>{{ 'general.programs' | i18n  }}</span>
                 </a>
             </li>
             <li>
                 <a ng-class="{ sidebar_selected: isActive('/report') }"  ng-href="#/report">
-                    <span class="glyphicon glyphicon-stats"></span> 
+                    <span class="glyphicon glyphicon-stats"></span>
                     <span>{{ 'general.reports' | i18n  }}</span>
                 </a>
             </li>
@@ -49,27 +49,27 @@
             </li>
             <li>
                 <a ng-class="{ sidebar_selected: isActive('/applications') }" ng-href="#/applications">
-                    <span class="glyphicon glyphicon-transfer"></span> 
+                    <span class="glyphicon glyphicon-transfer"></span>
                     <span>{{ 'general.applications' | i18n  }}</span>
                 </a>
             </li>
             <li>
                 <a ng-class="{ sidebar_selected: isActive('/profile') }" ng-href="#/profile">
-                    <span class="glyphicon glyphicon-user"></span> 
+                    <span class="glyphicon glyphicon-user"></span>
                     <span>{{ 'general.account_settings' | i18n  }}</span>
                 </a>
             </li>
             <li>
                 <a href="#" ng-click="logoutMe()">
-                    <span class="glyphicon glyphicon-log-out"></span> 
+                    <span class="glyphicon glyphicon-log-out"></span>
                     <span>{{ 'general.logout' | i18n  }}</span>
                 </a>
             </li>
         </ul>
     </div>
-    
+
     <hr class="hidden-xs" />
-    
+
     <div class="collapse navbar-collapse">
         <ul id="footer">
             <li><a>&copy;&nbsp;2016&nbsp;</a><a href="http://www.psesd.org/" target="_blank">PSESD</a></li>

@@ -1,5 +1,5 @@
-app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore','$filter','$uibModal',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore,$filter,$uibModal) {
+app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore','$filter','$uibModal','locale',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore,$filter,$uibModal,locale) {
         'use strict';
         $rootScope.full_screen = false;
         $scope.users = [];
@@ -66,7 +66,6 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
 
                     });
                     $scope.users = response.data;
-                    console.log($scope.users);
 
                 } else {
                     showError(response.error.message, 1);
@@ -113,7 +112,39 @@ app.controller('UserController', ['$rootScope', '$scope', '$http', '$location', 
         //
         //    });
 
+$scope.reinvite = function(user){
+    var objUser = {
+        email:"",
+        redirect_url:""
+    };
+    objUser.email = user.email;
+    objUser.redirect_url = AuthenticationService.redirect_url;
+    if(objUser){
+        $http.put(auth_url  + 'user/invite',$.param(objUser), {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+        })
+            .success(function (response) {
 
+                var message = locale.getString('general.reinvite_message', [_.get(response,'info.email')]);
+
+                showError(message,2);
+
+        })
+            .error(function (response, status) {
+
+                showError(response, 1);
+                $scope.working = false;
+                if (status === 401) {
+                    $rootScope.show_footer = false;
+                    CookieStore.clearData();
+                    $location.path('/login');
+                }
+
+            });
+    }
+}
 
     }
 ]);

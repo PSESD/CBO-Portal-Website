@@ -125,6 +125,7 @@ dl{
 .hoverable:not(:hover) + .show-on-hover {
     display: none;
 }
+
 ul.nav.nav-tabs.nav-justified li,
 .panel.attendance-behavior {
     background-color: #B1E0E8;
@@ -1195,7 +1196,7 @@ dt, dd {
 
 .header-fixed > tbody > tr > td,
 .header-fixed > thead > tr > th {
-    width: 16%;
+    width: 13.5%;
     float: left;
     margin-left: 4px;
 
@@ -1208,20 +1209,20 @@ td.school-name{
 
 }
 td.school-year{
-    padding-left: 13px !important;
+    padding-left: 12px !important;
 }
 td.entry-date{
-    padding-left: 14px !important;
+    padding-left: 13px !important;
 }
 td.exit-date{
     padding-left: 15px !important;
 }
 td.grade-level{
-    padding-left: 20px !important;
+    padding-left: 22px !important;
 }
 td.status{
-    padding-left: 20px !important;
+    padding-left: 21px !important;
 }
-td.description{
-    padding-left: 22px !important;
+td.non-promotional-change{
+    padding-left: 25px !important;
 }

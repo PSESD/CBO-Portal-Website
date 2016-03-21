@@ -29,69 +29,75 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <table class="table table-striped listview">
-                    <thead>
-                    <tr>
-                        <th>
-                            <a href="#" ng-click="sortType = 'first_name';sortReverse = !sortReverse">
-                                {{ 'general.name' | i18n }}
-                                <span ng-show="sortType == 'first_name' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                <span ng-show="sortType == 'first_name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a href="#" ng-click="sortType = 'email';sortReverse = !sortReverse">
-                                {{ 'general.email' | i18n }}
-                                <span ng-show="sortType == 'email' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                <span ng-show="sortType == 'email' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                            </a>
-                        </th>
-                        <th>
-                            <a href="#" ng-click="sortType = 'role';sortReverse = !sortReverse">
-                                {{ 'general.role' | i18n }}
-                                <span ng-show="sortType == 'role' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                <span ng-show="sortType == 'role' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                            </a>
-                        </th>
-                        <th class="text-center">
-                            <a href="#" ng-click="sortType = 'activate';sortReverse = !sortReverse">
-                                {{ 'general.activate' | i18n }}
-                                <span ng-show="sortType == 'activate' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                <span ng-show="sortType == 'activate' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                            </a>
-                        </th>
-                        <th class="text-center">
-                            <a href="#" ng-click="sortType = 'studentCount';sortReverse = !sortReverse">
-                                {{ 'general.assigned_students' | i18n }}
-                                <span ng-show="sortType == 'studentCount' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
-                                <span ng-show="sortType == 'studentCount' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
-                            </a>
-                        </th>
-                        <th class="text-center" style="width:9%;">{{ 'general.permissions' | i18n }}</th>
-                        <th class="text-center" style="width:9%;">{{ 'general.assign_students' | i18n }}</th>
-                        <th class="text-center" style="width:9%;">{{ 'general.delete' | i18n }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="user in users | filter:search | orderBy:'first_name' | orderBy:sortType:sortReverse">
-                        <td><a ng-href="#/user/detail/{{ user._id }}">{{ user.first_name }} {{ user.last_name }}</a></td>
-                        <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
-                        <td>{{ ('general.'+(user.role || 'n_a')).split('-').join('_') | i18n }}</td>
-                        <td class="text-center">{{ 'general.'+(!user.activate ? 'pending': 'active' ) | i18n  }}</td>
-                        <td class="text-center">{{ user.studentCount }}</td>
-                        <td class="text-center">
-                            <a href="#/user/edit/{{ user._id }}" class="glyphicon glyphicon-lock" ng-disabled="working"></a>
-                        </td>
-                        <td class="text-center">
-                            <a href="#/user/group/{{ user._id }}" class="glyphicon glyphicon-user" ng-disabled="working"></a>
-                        </td>
-                        <td class="text-center">
-                            <!--<a class="glyphicon glyphicon-trash" confirmed-click="deleteUser(user._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>-->
-                            <a class="glyphicon glyphicon-trash" ng-click="deleteUser(user._id, $index)"  ng-disabled="working"></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table class="table table-striped listview">
+                        <thead>
+                        <tr>
+                            <th>
+                                <a href="#" ng-click="sortType = 'first_name';sortReverse = !sortReverse">
+                                    {{ 'general.name' | i18n }}
+                                    <span ng-show="sortType == 'first_name' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                    <span ng-show="sortType == 'first_name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="#" ng-click="sortType = 'email';sortReverse = !sortReverse">
+                                    {{ 'general.email' | i18n }}
+                                    <span ng-show="sortType == 'email' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                    <span ng-show="sortType == 'email' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="#" ng-click="sortType = 'role';sortReverse = !sortReverse">
+                                    {{ 'general.role' | i18n }}
+                                    <span ng-show="sortType == 'role' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                    <span ng-show="sortType == 'role' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                                </a>
+                            </th>
+                            <th class="text-center">
+                                <a href="#" ng-click="sortType = 'activate';sortReverse = !sortReverse">
+                                    {{ 'general.activate' | i18n }}
+                                    <span ng-show="sortType == 'activate' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                    <span ng-show="sortType == 'activate' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                                </a>
+                            </th>
+                            <th class="text-center">
+                                <a href="#" ng-click="sortType = 'studentCount';sortReverse = !sortReverse">
+                                    {{ 'general.assigned_students' | i18n }}
+                                    <span ng-show="sortType == 'studentCount' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
+                                    <span ng-show="sortType == 'studentCount' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
+                                </a>
+                            </th>
+                            <th class="text-center" style="width:9%;">{{ 'general.permissions' | i18n }}</th>
+                            <th class="text-center" style="width:9%;">{{ 'general.assign_students' | i18n }}</th>
+                            <th class="text-center" style="width:9%;">{{ 'general.delete' | i18n }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in users | filter:search | orderBy:'first_name' | orderBy:sortType:sortReverse">
+                            <td><a ng-href="#/user/detail/{{ user._id }}">{{ user.first_name }} {{ user.last_name }}</a></td>
+                            <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                            <td>{{ ('general.'+(user.role || 'n_a')).split('-').join('_') | i18n }}</td>
+                            <td class="text-center">{{ 'general.'+(!user.activate ? 'pending': 'active' ) | i18n  }}
+                                <div ng-if="!user.activate">
+                                    <a href="#" ng-click="reinvite(user)">Reinvite</a>
+                                </div>
+                            </td>
+                            <td class="text-center">{{ user.studentCount }}</td>
+                            <td class="text-center">
+                                <a href="#/user/edit/{{ user._id }}" class="glyphicon glyphicon-lock" ng-disabled="working"></a>
+                            </td>
+                            <td class="text-center">
+                                <a href="#/user/group/{{ user._id }}" class="glyphicon glyphicon-user" ng-disabled="working"></a>
+                            </td>
+                            <td class="text-center">
+                                <!--<a class="glyphicon glyphicon-trash" confirmed-click="deleteUser(user._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>-->
+                                <a class="glyphicon glyphicon-trash" ng-click="deleteUser(user._id, $index)"  ng-disabled="working"></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

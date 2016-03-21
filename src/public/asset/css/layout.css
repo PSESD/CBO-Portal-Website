@@ -74,6 +74,11 @@ a.collapsed {
     display: none;
 }
 
+.student_last_update{
+    display: inline-block;
+    margin-left: 5px;
+}
+
 .navbar #sidebarBtn {
     z-index: 20;
     display: block;
@@ -108,12 +113,12 @@ a.collapsed {
     left: -300px;
     opacity: 0;
 }
-    
+
 .navbar-minimized .navbar:hover p, .navbar-minimized .navbar:hover h2, .navbar-minimized .navbar:hover ul#footer, .navbar-minimized .navbar:hover a.navbar-brand {
     left: 0;
     opacity: 1;
 }
-    
+
 .navbar-minimized .navbar li>a {
     height: 40px;
     overflow: hidden;
@@ -136,7 +141,7 @@ a.collapsed {
 .navbar-minimized .navbar:hover {
     width: 225px;
 }
-    
+
 body.not-logged-in {
     padding: 0;
 }
@@ -168,7 +173,6 @@ body.logged-in.navbar-minimized .main-content {
     height: 100%;
     top: 0;
     left: 0;
-    overflow-y: scroll;
     border-radius: 0;
 }
 .navbar-nav {

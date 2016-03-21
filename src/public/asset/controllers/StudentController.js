@@ -22,13 +22,20 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             scrollableHeight: '250px',
             scrollable: true
         };
+        $scope.improving = "improving";
+        $scope.steady = "steady";
+        $scope.worsening = "worsening";
         $scope.success_label = "label label-success";
         $scope.danger_label = "label label-danger";
         $scope.warning_label = "label label-warning";
         $scope.test = "Test";
         $scope.sortType="first_name";
         $scope.sortReverse=false;
-        $scope.urlTemplate = "asset/templates/listTemplate.html"
+        $scope.urlBehaviorTemplate = "asset/templates/listBehaviorTemplate.html";
+        $scope.urlAttendanceTemplate = "asset/templates/listAttendanceTemplate.html";
+        $scope.lastUpdatedUrl = "asset/templates/lastUpdatedTemplate.html";
+        $scope.studentLastUpdatedUrl = "asset/templates/studentLastUpdateTemplate.html";
+        $scope.urlAttendancePerformanceTemplate = 'asset/templates/listAttendancePerformanceTemplate.html';
         $scope.filterDistrict = function () {
             return function (p) {
                 if(String($scope.selected_districts) !== '') {
@@ -156,7 +163,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                             }
                             $scope.students[studentKeys[student._id]].gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.unavailable');
+                            $scope.students[studentKeys[student._id]].schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.school_unavailable');
                             $scope.students[studentKeys[student._id]].attendance = _.has(student,'xsre.attendance') ? pluralAttendance : locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].behavior = _.has(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].onTrackGraduate = onTrack;
@@ -165,7 +172,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
                             $scope.students[studentKeys[student._id]].gradeLevel = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].schoolYear = locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.unavailable');
+                            $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.school_unavailable');
                             $scope.students[studentKeys[student._id]].attendance = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].behavior = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].onTrackGraduate = locale.getString('general.unavailable');
@@ -193,7 +200,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                         } else if(status >= 500 || (response === null && status === 0)){
                             $scope.students[studentKeys[student._id]].gradeLevel = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].schoolYear = locale.getString('general.unavailable');
-                            $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.unavailable');
+                            $scope.students[studentKeys[student._id]].schoolName = locale.getString('general.school_unavailable');
                             $scope.students[studentKeys[student._id]].attendance = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].behavior = locale.getString('general.unavailable');
                             $scope.students[studentKeys[student._id]].onTrackGraduate = locale.getString('general.unavailable');
@@ -207,6 +214,46 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         $timeout(function() {
             deferred.resolve(); // this aborts the request!
         }, 1000);
+
+        $http.get(api_url + AuthenticationService.organization_id + '/students?summary=1', {
+            headers: {
+                'Authorization': 'Bearer ' + AuthenticationService.token
+            }
+
+        })
+            .success(function (response) {
+                if (response.success === true && response.total > 0) {
+                    $scope.list = response.data;
+                } else {
+                    showError(response.error.message, 1);
+                }
+                $rootScope.doingResolve = false;
+            })
+            .error(function (response, status) {
+
+                showError(response, 1);
+                $rootScope.doingResolve = false;
+                if (status === 401) {
+                    $rootScope.show_footer = false;
+                    CookieStore.clearData();
+                    $location.path('/login');
+                }
+
+            });
+
+        $scope.$watchCollection('list', function(list) {
+
+            if(list !== undefined){
+                comparison($scope);
+            }
+        });
+
+        $scope.$watchCollection('students', function(list) {
+
+            if(list !== undefined){
+                comparison($scope);
+            }
+        });
 
         $http.get(api_url + AuthenticationService.organization_id + '/students', {
             headers: {
@@ -256,12 +303,12 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                             //onTrack = locale.getString('general.unavailable');
                             onTrack = "U";
                         }
-                        student.gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.unavailable');
+                        student.gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.grade_unavailable');
                         student.schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
-                        student.schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.unavailable');
+                        student.schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.school_unavailable');
                         student.attendance = _.has(student,'xsre.attendance.absents.attendanceAcademicYear') ? pluralAttendance : locale.getString('general.unavailable');
                         student.behavior = _.has(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
-                        if(student.gradeLevel === 'N/A') student.gradeLevel =  locale.getString('general.unavailable');
+                        if(student.gradeLevel === 'N/A') student.gradeLevel =  locale.getString('general.grade_unavailable');
                         if(student.schoolYear === 'N/A') student.schoolYear =  locale.getString('general.unavailable');
                         if(student.schoolName === 'N/A') student.schoolName =  locale.getString('general.unavailable');
                         //if(student.attendance.indexOf('N/A') !== -1) student.attendance =  locale.getString('general.unavailable');
@@ -322,6 +369,33 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
 
     }
 ]);
+
+function comparison($scope){
+    if(_.size($scope.list) !== 0 && _.size($scope.students) !== 0){
+        angular.forEach($scope.students,function(student){
+            angular.forEach($scope.list,function(list){
+                if(student.school_district.toLowerCase() === list.schoolDistrict.toLowerCase()){
+
+                    var firstDate = new Date(student.xsre.latestDate);
+                    var secondDate = new Date(list.latestDate);
+                    var date1 = Date.UTC(firstDate.getFullYear(),firstDate.getMonth()+1,firstDate.getDate());
+                    var date2 = Date.UTC(secondDate.getFullYear(),secondDate.getMonth()+1,secondDate.getDate())
+                    if(parseFloat(date1)<parseFloat(date2)){
+                        student.isDifferent = true;
+                    }else if(parseFloat(date1)>parseFloat(date2)){
+                        student.isDifferent = true;
+                    }else if(parseFloat(date1)==parseFloat(date2)){
+                        student.isDifferent = false;
+                    }
+
+                }
+            });
+
+        });
+
+    }
+
+}
 
 app.controller('StudentModalInstanceCtrl', function ($scope, $uibModalInstance, items,AuthenticationService,$rootScope,CookieStore,$location,$http) {
 

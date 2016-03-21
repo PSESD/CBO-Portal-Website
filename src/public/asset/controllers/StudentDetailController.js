@@ -19,12 +19,17 @@ var colors = [
     'rgba(244,156,255,.5)',
     'rgba(201,255,156,.5)',
     'rgba(210,156,255,.5)',
-]
-
+];
+var listEmail = [];
+var refresh_template = '<div class="alert alert-info" role="alert"> ' +
+    '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ' +
+    '<span class="sr-only">Error:</span> We have not been able to pull this student\'s record from the school district yet. We will try again soon, but you can also try to ' +
+    '<a ng-hide="showLoading" ng-click="updateNow()">manually refresh the record</a> again now.</div>';
 app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '$scope', '$routeParams', '$http', '$location', 'AuthenticationService', 'CookieStore', '$sce', '$window','StudentCache','$uibModal',
     function ($interval,$route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
         'use strict';
         $scope.show_content = true;
+        $scope.listEmail = [];
         $scope.editorOptions = {
             lineWrapping : true,
             mode: 'javascript',
@@ -50,7 +55,7 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
         $scope.loading_icon = true;
         $scope.showLoading = false;
         $scope.attendance_load_first_time = true;
-
+        $scope.nonPromotionalStatus = false;
         var attendance = "";
         var transcript = "";
         var program_participation = "";
@@ -329,9 +334,7 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
                     $scope.attendanceBehavior = [];
                     //load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
                     //$scope.loading_icon = true;
-
-
-                    $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/attendance?pageSize=all&year='+$scope.academic_year.id, {
+                    $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/attendance?pageSize=all&year='+ _.get($scope.academic_year,'id'), {
                         headers: {
                             'Authorization': 'Bearer ' + AuthenticationService.token
                         }
@@ -479,7 +482,7 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
     var assignedUsers = {};
     $scope.student = {};
     $scope.xsreLastUpdated = null;
-
+    $scope.lastUpdated = null;
     //if(angular.isUndefined(StudentCache.get(student_id + "general")) === true)
     //{
 
@@ -492,16 +495,22 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
 
                 if(response.success === true && response.info !== undefined)
                 {
-
+                    $scope.lastUpdated = response.info.personal.summary.date.latest;
                     full_name = response.info.personal.firstName + response.info.personal.lastName;
                     $rootScope.doingResolve = false;
                     general_data = response.info;
+                    listEmail.push(_.get(general_data,'personal.email'));
+                    _.forEach(_.get(general_data,'personal.xSre.email'),function(v){
+                        listEmail.push(v);
+                    })
+                   $scope.listEmail = listEmail;
                     //StudentCache.put(student_id +"general",general_data);
                     generate_general_data(general_data,$scope,student_id);
 
                 }else{
                     $rootScope.doingResolve = false;
-                    showError(response.error,1);
+                    //showError(response.error,1);
+                    showError(refresh_template,1);
                 }
             })
             .error(function (response, status) {
@@ -530,8 +539,15 @@ function generate_general_data(general_data,$scope,student_id)
 {
 
     var embedPrograms = [];
+    $scope.races="";
     embedPrograms = ('programs' in general_data._embedded) ? general_data._embedded.programs : [];
 
+    $scope.visibleProjects = general_data.personal.xSre.otherEnrollments;
+    _.each(general_data.personal.xSre.otherEnrollments,function(item,key){
+        if(item.nonPromotionalChange === true && $scope.nonPromotionalStatus === false){
+            $scope.nonPromotionalStatus = true;
+        }
+    });
     angular.forEach(embedPrograms, function (v) {
         var program = {
             "years": new Date(v.participation_start_date).getFullYear(),
@@ -583,16 +599,20 @@ function generate_general_data(general_data,$scope,student_id)
     {
         $scope.student.address = "";
     }
-
+    if(general_data.personal.xSre.demographics.races.length > 0){
+        $scope.races = general_data.personal.xSre.demographics.races.join();
+    }else{
+        $scope.races ="";
+    }
     $scope.student = general_data.personal;
     $scope.student._id = student_id;
-    $scope.student.race = general_data.personal.race.split(/(?=[A-Z])/).join(" ");
+    $scope.student.race = general_data.personal.xSre.demographics;
     assignedUsers = ('users' in general_data._embedded) ? general_data._embedded.users : {};
     $scope.case_workers = assignedUsers;
     $scope.academicInfo = {
-        currentSchool: general_data.personal.enrollment.currentSchool || '',
-        expectedGraduationYear: general_data.personal.enrollment.expectedGraduationYear || '',
-        gradeLevel: general_data.personal.enrollment.gradeLevel || '',
+        currentSchool: general_data.personal.xSre.enrollment.schoolName || '',
+        expectedGraduationYear: general_data.personal.xSre.enrollment.projectedGraduationYear || '',
+        gradeLevel: general_data.personal.xSre.enrollment.gradeLevel || '',
         languageSpokenAtHome: general_data.personal.languageHome || '',
         iep: general_data.personal.ideaIndicator || '',
         s504: general_data.personal.section504Status || '',
@@ -863,7 +883,13 @@ function load_transcript_data($http,student_id,AuthenticationService,$rootScope,
 function generate_transcript_data(transcript_data,$scope)
 {
 
-    $scope.visibleProjects = transcript_data.source.history;
+    //$scope.visibleProjects = transcript_data.source.history;
+    //_.each(transcript_data.source.history,function(item,key){
+    //    if(item.nonPromotionalChange === true && $scope.nonPromotionalStatus === false){
+    //        $scope.nonPromotionalStatus = true;
+    //        console.log($scope.nonPromotionalStatus);
+    //    }
+    //});
     var courseTitle = transcript_data.source.info.courseTitle;
     $scope.courses = courseTitle;
     $scope.cumulative_gpa = transcript_data.source.totalCumulativeGpa;
