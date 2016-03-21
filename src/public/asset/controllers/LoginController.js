@@ -37,6 +37,9 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                 }
             })
                 .success(function (response) {
+                    if(response.success === false){
+                        showError(response.error,2);
+                    }
                     $http.get(api_url + 'organizations', {
                         headers: {
                             'Authorization': 'Bearer ' + response.access_token

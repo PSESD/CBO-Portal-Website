@@ -7,7 +7,7 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
         var relationship = {};
         $scope.schoolDistricts = [];
         $scope.relationships = [];
-
+        console.log(localStorage);
         var student_id = $routeParams.student_id;
 
         $.each(schoolDistricts, function (key, value) {
@@ -34,12 +34,11 @@ app.controller('StudentEditController', ['$rootScope', '$scope', '$routeParams',
                     }
                 })
                     .success(function (response) {
-
                         if (response.success === true) {
                             showError(response.message, 2);
-                            $location.path('/student');
+                            $location.path($rootScope.prevURL);
                         } else {
-                            showError(response.message, 1);
+                            showError(response.error, 1);
                         }
                         $scope.working = false;
 
