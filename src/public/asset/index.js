@@ -210,43 +210,48 @@ app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $loc
 
 function showError(message, alert) {
     'use strict';
-    console.log(message);
+    var message_alert;
     var passingClass = 'alert-danger error-color';
     var messages = "";
     var sidebar_width = $("nav.navbar").width();
-    if(message != null){
-        //if(message.indexOf("updateNow") > -1){
-        //    message_alert = message;
-        //}else{
-        //    if (alert === 2) {
-        //        passingClass = 'alert-success';
-        //    }
-        //    if(_.has(message,'error')){
-        //        if(_.has(message.error,'message'))
-        //        {
-        //            messages = message.error.message;
-        //        }
-        //        else
-        //        {
-        //            messages = message.error;
-        //        }
-        //
-        //    }else if(_.has(message,'message'))
-        //    {
-        //        messages = message.message;
-        //    }
-        //    else{
-        //        messages = message;
-        //    }
-        //    var message_alert = '<div style="margin-left:'+sidebar_width+'px" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
-        //}
+    if(message.status === 403){
+        passingClass = 'alert-danger';
+        messages = message.message;
+        message_alert = '<div style="margin-left:'+sidebar_width+'px" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
+    }else if(message != null){
+        if(message.indexOf("updateNow") > -1){
+            message_alert = message;
+        }else{
+            if (alert === 2) {
+                passingClass = 'alert-success';
+            }
+            if(_.has(message,'error')){
+                if(_.has(message.error,'message'))
+                {
+                    messages = message.error.message;
+                }
+                else
+                {
+                    messages = message.error;
+                }
+
+
+            }else if(_.has(message,'message'))
+            {
+                messages = message.message;
+            }
+            else{
+                messages = message;
+            }
+            message_alert = '<div style="margin-left:'+sidebar_width+'px" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
+        }
     }else{
 
         message = "Unknown error has occured";
 
     }
 
-    if(message !== null) {
+    if(message !== null || message_alert !== null) {
         if (window.location.href.indexOf('/login') === -1) {
             jQuery(".error-container").empty().append(message_alert);
             setTimeout(function () {
