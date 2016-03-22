@@ -1277,3 +1277,8 @@ table.listview{
     transform: rotate(45deg);
     color:#d9534f;
 }
+.nav-arrow{
+    float: right;
+    margin-top: 1.7em;
+    margin-left: 1em;
+}
