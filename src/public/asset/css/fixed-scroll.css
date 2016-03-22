@@ -1,0 +1,19 @@
+table{
+    border-collapse:collapse;
+    width:100%;
+}
+.fixed{
+    top:0;
+    position:fixed;
+    width:auto;
+    display:none;
+    border:none;
+}
+
+.scrollMore{
+    margin-top:600px;
+}
+.container{
+    width:100%;
+    margin:auto;
+}

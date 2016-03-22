@@ -64,7 +64,7 @@ $(document).ready(function () {
             $(this).removeClass('in').addClass('collapse');
         }
     });
-    
+
     $('#school-history-close').on('click', function () {
         $('#academic').show();
     });
