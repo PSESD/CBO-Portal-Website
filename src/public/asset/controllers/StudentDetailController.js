@@ -20,7 +20,6 @@ var colors = [
     'rgba(201,255,156,.5)',
     'rgba(210,156,255,.5)',
 ];
-var listEmail = [];
 var refresh_template = '<div class="alert alert-info" role="alert"> ' +
     '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ' +
     '<span class="sr-only">Error:</span> We have not been able to pull this student\'s record from the school district yet. We will try again soon, but you can also try to ' +
@@ -29,7 +28,6 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
     function ($interval,$route, $rootScope, $scope, $routeParams, $http, $location, AuthenticationService, CookieStore, $sce, $window,StudentCache) {
         'use strict';
         $scope.show_content = true;
-        $scope.listEmail = [];
         $rootScope.links = [];
         $scope.editorOptions = {
             lineWrapping : true,
@@ -547,15 +545,27 @@ function load_general_data($http,student_id,AuthenticationService,$rootScope,Coo
 
                 if(response.success === true && response.info !== undefined)
                 {
+                    var email;
+                    var email_district;
+                    var phone;
+                    var phone_district;
                     $scope.lastUpdated = response.info.personal.summary.date.latest;
                     full_name = response.info.personal.firstName + response.info.personal.lastName;
                     $rootScope.doingResolve = false;
                     general_data = response.info;
-                    listEmail.push(_.get(general_data,'personal.email'));
-                    _.forEach(_.get(general_data,'personal.xSre.email'),function(v){
-                        listEmail.push(v);
-                    })
-                   $scope.listEmail = listEmail;
+                    email =  _.get(general_data,'personal.email');
+                    email_district = _.get(general_data,'personal.xSre.email.address');
+                    phone = _.get(general_data,'personal.phone');
+                    phone_district = _.get(general_data,'personal.xSre.phoneNumber.number');
+                    $scope.email = email.length != 0 ? email : "";
+                    $scope.email_district = email_district;
+                    $scope.phone = phone.length != 0 ? phone :"";
+                    $scope.phone_district = phone_district;
+                    //listEmail.push(_.get(general_data,'personal.email'));
+                    //_.forEach(_.get(general_data,'personal.xSre.email'),function(v){
+                    //    listEmail.push(v);
+                    //})
+                   //$scope.listEmail = listEmail;
                     //StudentCache.put(student_id +"general",general_data);
                     generate_general_data(general_data,$scope,student_id);
 
@@ -934,18 +944,10 @@ function load_transcript_data($http,student_id,AuthenticationService,$rootScope,
 
 function generate_transcript_data(transcript_data,$scope)
 {
-
-    //$scope.visibleProjects = transcript_data.source.history;
-    //_.each(transcript_data.source.history,function(item,key){
-    //    if(item.nonPromotionalChange === true && $scope.nonPromotionalStatus === false){
-    //        $scope.nonPromotionalStatus = true;
-    //        console.log($scope.nonPromotionalStatus);
-    //    }
-    //});
-    var courseTitle = transcript_data.source.info.courseTitle;
-    $scope.courses = courseTitle;
+    $scope.courses = transcript_data.source.transcriptTerm.courses;
     $scope.cumulative_gpa = transcript_data.source.totalCumulativeGpa;
     $scope.total_data = _.size(transcript_data.source.subject);
+    $scope.totalCreditsAttempted = transcript_data.source.totalCreditsAttempted;
     $scope.transcripts =
     {
         subjectOrder : []

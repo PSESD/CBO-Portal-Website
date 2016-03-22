@@ -33,44 +33,44 @@
                     <table class="table table-striped listview">
                         <thead>
                         <tr>
-                            <th>
+                            <th class="firstColumn">
                                 <a href="#" ng-click="sortType = 'first_name';sortReverse = !sortReverse">
                                     {{ 'general.name' | i18n }}
                                     <span ng-show="sortType == 'first_name' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
                                     <span ng-show="sortType == 'first_name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                 </a>
                             </th>
-                            <th>
+                            <th class="secondColumn">
                                 <a href="#" ng-click="sortType = 'email';sortReverse = !sortReverse">
                                     {{ 'general.email' | i18n }}
                                     <span ng-show="sortType == 'email' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
                                     <span ng-show="sortType == 'email' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                 </a>
                             </th>
-                            <th>
+                            <th class="thirdColumn">
                                 <a href="#" ng-click="sortType = 'role';sortReverse = !sortReverse">
                                     {{ 'general.role' | i18n }}
                                     <span ng-show="sortType == 'role' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
                                     <span ng-show="sortType == 'role' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                 </a>
                             </th>
-                            <th class="text-center">
+                            <th class="text-center fourthColumn">
                                 <a href="#" ng-click="sortType = 'activate';sortReverse = !sortReverse">
                                     {{ 'general.activate' | i18n }}
                                     <span ng-show="sortType == 'activate' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
                                     <span ng-show="sortType == 'activate' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                 </a>
                             </th>
-                            <th class="text-center">
+                            <th class="text-center fifthColumn">
                                 <a href="#" ng-click="sortType = 'studentCount';sortReverse = !sortReverse">
                                     {{ 'general.assigned_students' | i18n }}
                                     <span ng-show="sortType == 'studentCount' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
                                     <span ng-show="sortType == 'studentCount' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                 </a>
                             </th>
-                            <th class="text-center" style="width:9%;">{{ 'general.permissions' | i18n }}</th>
-                            <th class="text-center" style="width:9%;">{{ 'general.assign_students' | i18n }}</th>
-                            <th class="text-center" style="width:9%;">{{ 'general.delete' | i18n }}</th>
+                            <th class="text-center sixthColumn" style="width:9%;">{{ 'general.permissions' | i18n }}</th>
+                            <th class="text-center seventhColumn" style="width:9%;">{{ 'general.assign_students' | i18n }}</th>
+                            <th class="text-center eigthColumn" style="width:9%;">{{ 'general.delete' | i18n }}</th>
                         </tr>
                         </thead>
                         <tbody>
