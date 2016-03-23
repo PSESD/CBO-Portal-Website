@@ -259,11 +259,9 @@
                 </div>
                 <div class="content">
                     <div ng-repeat="course in courses | orderBy:'timeTablePeriod'">
-                        <span>{{::course.timeTablePeriod}} {{::course.courseTitle}}</span>
+                        <span class="label label-success" ng-show="course.timeTablePeriod">{{::course.timeTablePeriod}}</span> <span> {{::course.courseTitle}}</span>
                         <br/>
                     </div>
-                    <br/>
-                    <em>Current class schedule is ordered by time table period</em>
                 </div>
             </div>
         </div>
@@ -516,7 +514,7 @@
                                                 <dt></dt>
                                                 <dd class="bold bold-title">{{ ::transDetail.schoolName }}</dd>
                                                 <dt class="bold bold-title">
-                                                    <ng-pluralize count="totalCreditsAttempted"
+                                                    <ng-pluralize count="transDetail.academicSummary.termCreditsAttempted"
                                                                   when="{
                                                               '0':'Credit',
                                                               '0.1':'Credit',
@@ -535,7 +533,7 @@
 
                                                 </dt>
                                                 <dd>
-                                                    {{ ::totalCreditsAttempted }}
+                                                    {{ ::transDetail.academicSummary.termCreditsAttempted }}
                                                 </dd>
                                                 <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                                 <dd>{{ ::transDetail.gradeLevel }}</dd>

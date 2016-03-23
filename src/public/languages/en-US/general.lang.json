@@ -106,6 +106,7 @@
     "reinvite_message":"An invitation e-mail has been successfully sent to {1}",
     "day_missed": "{1} Day Missed",
     "trend":"Trend",
+    "wrong_email_password":"Wrong email or password",
     "risk_level":"Risk Level",
     "days_missed": "{1} Days Missed",
     "serving": "Serving",

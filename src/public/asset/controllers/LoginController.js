@@ -1,5 +1,5 @@
-app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($rollbar,$rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore','locale',
+    function ($rollbar,$rootScope, $scope, $http, $location, AuthenticationService, CookieStore,locale) {
         'use strict';
         stop_time_idle();
 
@@ -38,7 +38,8 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
             })
                 .success(function (response) {
                     if(response.success === false){
-                        showError(response.error,2);
+                        var errorMessage = locale.getString('general.wrong_email_password');
+                        showError(errorMessage,1);
                     }
                     $http.get(api_url + 'organizations', {
                         headers: {

@@ -1227,9 +1227,6 @@ h1>.glyphicon.glyphicon-refresh.glyphicon-spin {
     height: 100px;
     word-wrap: break-word;
 }
-table.listview{
-    margin-top: 15px;
-}
 
 .filter-graph {
     border: 2px solid #555;
@@ -1281,4 +1278,18 @@ table.listview{
     float: right;
     margin-top: 1.7em;
     margin-left: 1em;
+}
+.list-last-updated{
+    position: absolute;
+    right: 15px;
+    top: 25px;
+}
+.glyphicon-relative{
+    position: initial;
+}
+.space-bottom{
+    margin-bottom:15px;
+}
+.tableFloatingHeaderOriginal{
+    background: white;
 }
