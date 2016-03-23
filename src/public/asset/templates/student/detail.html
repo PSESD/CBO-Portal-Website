@@ -259,7 +259,7 @@
                 </div>
                 <div class="content">
                     <div ng-repeat="course in courses | orderBy:'timeTablePeriod'">
-                        <span>{{::course.courseTitle}}</span>
+                        <span>{{::course.timeTablePeriod}} {{::course.courseTitle}}</span>
                         <br/>
                     </div>
                     <br/>
