@@ -5,7 +5,7 @@ app.config(function ($routeProvider) {
             templateUrl: 'asset/templates/student/list.html',
             controller: 'StudentController',
             //access: {
-                requiredAuthentication: true
+                requiredAuthentication: true,
             //}
         }).
         when('/student/add', {

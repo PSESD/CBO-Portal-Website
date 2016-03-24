@@ -17,6 +17,26 @@ app.factory('AuthenticationService', function () {
 
 });
 
+app.factory('StudentService',function($http,$q,AuthenticationService){
+    return{
+      getListStudent:function(){
+          return  $http.get(api_url + AuthenticationService.organization_id + '/students', {
+              headers: {
+                  'Authorization': 'Bearer ' + AuthenticationService.token
+              }
+          }).then(function(response){
+              if(typeof response === 'object'){
+                  return response;
+              }else{
+                  return $q.reject(response);
+              }
+          },function(response){
+              return $q.reject(response);
+          });
+      }
+    };
+});
+
 app.factory('CookieStore', function ($rootScope, $http, $window, $cookieStore, $location, AuthenticationService) {
     'use strict';
     var prefix = 'cboAdmin_cookie_';
