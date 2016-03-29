@@ -224,7 +224,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             .success(function (response) {
                 if (response.success === true && response.total > 0) {
                     $scope.list = response.data;
-                } else {
+                } else if(response.success === false) {
                     showError(response.error.message, 1);
                 }
                 $rootScope.doingResolve = false;
