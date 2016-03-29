@@ -337,7 +337,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 };
                 $scope.districtData.push(districtOption);
             });
-        }else{
+        }else if (listStudent.success === false){
             showError(listStudent.error.message, 1);
         }
     }
