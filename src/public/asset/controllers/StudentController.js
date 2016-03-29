@@ -257,8 +257,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
         if(listStudent.success === true && listStudent.total > 0){
             var embedData = [];
             embedData = ('data' in listStudent) ? listStudent.data : [];
-
-
             var data = [];
             var o = 0;
             var studentKeys = {};
@@ -340,7 +338,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 $scope.districtData.push(districtOption);
             });
         }else{
-            showError(response.error.message, 1);
+            showError(listStudent.error.message, 1);
         }
     }
 ]);
