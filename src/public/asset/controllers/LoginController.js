@@ -69,7 +69,6 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                     }
                                 }
                             }
-
                             if (grand_access) {
                                 $http.get(api_url + get_id + '/users', {
                                     headers: {
@@ -110,6 +109,7 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                                     find = true;
                                                 }
                                             }
+
                                             if (find) {
                                                 CookieStore.setData(response.access_token, response.refresh_token, get_id, get_redirect_url, id, send.username, complete_name, role, organization_name, response.expires_in);
                                                 global_redirect_url = get_redirect_url;
@@ -121,6 +121,9 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                                 }
 
 
+                                            }else{
+                                                showError("Your account is not active",2);
+                                                $scope.login.working = false;
                                             }
                                             start_time_idle();
                                             if('intended_url' in localStorage && localStorage.getItem('intended_url')!==''){
