@@ -43,7 +43,7 @@ html, body {
 .loading-jumbo {
     position: absolute;
     top: 5px;
-    transform: translateX(45em);
+    margin: 0 0 0 28em;
     padding: 0.5em 1em;
     /*margin: 5em auto;*/
     font-size: 1.75rem;

@@ -79,6 +79,7 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                     .success(function (responseUser) {
 
                                         if (responseUser.success === true && responseUser.total > 0) {
+                                            $rootScope.doingResolve = false;
                                             var find = false;
                                             var data = responseUser.data;
                                             var id = false;
@@ -132,7 +133,7 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                         } else {
                                             showError(response.error.message, 1);
                                         }
-                                        $rootScope.doingResolve = false;
+                                        //$rootScope.doingResolve = false;
 
                                     })
                                     .error(function (responseUser) {
