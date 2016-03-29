@@ -18,6 +18,7 @@
     "send_password": "Send Password",
     "back_to_login_page": "Back to Log in Page",
     "ok": "OK",
+    "reset_password":"You will receive a reset link in your e-mail if your e-mail is in our system",
     "login": "Log In",
     "remember_username": "Remember Username?",
     "sign_in": "Sign in",

@@ -173,12 +173,12 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                     }
                 })
                     .success(function (response) {
-                        //console.log(response);
-                        if (response.success === true) {
-                            showError(response.message, 2);
-                        } else {
-                            showError(response.message, 1);
-                        }
+                        showError(locale.getString('general.reset_password'),2);
+                        //if (response.success === true) {
+                        //    showError(response.message, 2);
+                        //} else {
+                        //    showError(response.message, 1);
+                        //}
                         $scope.working = false;
 
                     })

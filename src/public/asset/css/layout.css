@@ -41,8 +41,11 @@ html, body {
     font-weight: 400;
 }
 .loading-jumbo {
+    position: absolute;
+    top: 5px;
+    transform: translateX(45em);
     padding: 0.5em 1em;
-    margin: 5em auto;
+    /*margin: 5em auto;*/
     font-size: 1.75rem;
     border-radius: 20px;
     width: 10em;

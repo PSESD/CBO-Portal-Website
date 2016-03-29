@@ -4,9 +4,19 @@ app.config(function ($routeProvider) {
         when('/', {
             templateUrl: 'asset/templates/student/list.html',
             controller: 'StudentController',
-            //access: {
-                requiredAuthentication: true
-            //}
+            resolve:{
+                listStudent:['$q','StudentService',function($q,StudentService){
+                    var deferred = $q.defer();
+                    StudentService.getAll()
+                        .then(function(response){
+                            deferred.resolve(response);
+                        },function(error){
+                            deferred.reject(error);
+                        });
+                    return deferred.promise;
+                }]
+            },
+            requiredAuthentication: true
         }).
         when('/student/add', {
             templateUrl: 'asset/templates/student/add.html',
@@ -60,9 +70,20 @@ app.config(function ($routeProvider) {
         when('/student', {
             templateUrl: 'asset/templates/student/list.html',
             controller: 'StudentController',
-            //access: {
-                requiredAuthentication: true
-            //}
+            resolve:{
+                listStudent:['$q','StudentService',function($q,StudentService){
+                    var deferred = $q.defer();
+                    StudentService.getAll()
+                        .then(function(response){
+                            deferred.resolve(response);
+                        },function(error){
+                            showError("An unknown error occured",1);
+                            deferred.reject(error);
+                        });
+                    return deferred.promise;
+                }]
+            },
+            requiredAuthentication: true
         }).
         when('/report', {
             templateUrl: 'asset/templates/report/index.html',
@@ -130,9 +151,21 @@ app.config(function ($routeProvider) {
         when('/program', {
             templateUrl: 'asset/templates/program/list.html',
             controller: 'ProgramController',
-            //access: {
-                requiredAuthentication: true
-            //}
+            resolve:{
+                listProgram:['$q','ProgramService',function($q,ProgramService){
+                    var deferred = $q.defer();
+                    ProgramService.getAll()
+                        .then(function(response){
+                            deferred.resolve(response);
+                        },function(error){
+                            showError("An unknown error occured",1);
+                            deferred.reject(error);
+                        });
+                    return deferred.promise;
+                }]
+            },
+            requiredAuthentication: true
+
         }).
         when('/tag/add', {
             templateUrl: 'asset/templates/tag/add.html',
@@ -208,6 +241,19 @@ app.config(function ($routeProvider) {
         when('/user', {
             templateUrl: 'asset/templates/user/list.html',
             controller: 'UserController',
+            resolve:{
+                listUser:['$q','UserService',function($q,UserService){
+                    var deferred = $q.defer();
+                    UserService.getAll()
+                        .then(function(response){
+                            deferred.resolve(response);
+                        },function(error){
+                            showError("An unknown error occured",1);
+                            deferred.reject(error);
+                        });
+                    return deferred.promise;
+                }]
+            },
             //access: {
                 requiredAuthentication: true,
                 requiredAdmin: true
@@ -231,9 +277,20 @@ app.config(function ($routeProvider) {
         when('/applications', {
             templateUrl: 'asset/templates/user/application.html',
             controller: 'ApplicationsController',
-            //access: {
+            resolve:{
+                listApplication:['$q','ApplicationService',function($q,ApplicationService){
+                    var deferred = $q.defer();
+                    ApplicationService.getAll()
+                        .then(function(response){
+                            deferred.resolve(response);
+                        },function(error){
+                            showError("An unknown error occured",1);
+                            deferred.reject(error);
+                        });
+                    return deferred.promise;
+                }]
+            },
             requiredAuthentication: true
-            //}
         }).
         when('/applications/add', {
             templateUrl: 'asset/templates/user/application_add.html',
