@@ -80,7 +80,8 @@
 </nav>
 <div class="container-fluid main-content {{ is_logged_in ? 'logged-in' : 'logged-out' }}">
     <div class="error-container"></div>
-    <ng-view ng-class="ng-view" ng-hide="doingResolve"></ng-view>
+    <!--<ng-view ng-class="ng-view" ng-hide="doingResolve"></ng-view>-->
+    <ng-view ng-class="ng-view"></ng-view>
     <div class="separator-content"></div>
     <div ng-if="showNavBar">
         <div class="loading-jumbo text-center center-block" ng-show="doingResolve">
@@ -90,6 +91,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
+            <!--<div class="card confidentiality-footer" ng-show="!showFooter == doingResolve && is_logged_in">-->
             <div class="card confidentiality-footer" ng-show="!showFooter == doingResolve && is_logged_in">
                 {{ 'general.footer_confidentiality1' | i18n }} <a href="http://www2.ed.gov/ferpa/">FERPA</a> {{ 'general.footer_confidentiality2' | i18n }} <a href="mailto:help@studentsuccesslink.org"> help@studentsuccesslink.org.</a>
             </div>
