@@ -1,4 +1,3 @@
 test:
     post:
-        - curl "https://api.ghostinspector.com/v1/suites/57284d14f50adfb315a72a62/?apiKey=7c4660fcd2a82e019235da8f9a5569d31d004437"
-        - curl "https://api.ghostinspector.com/v1/suites/57284d14f50adfb315a72a62/?apiKey=7c4660fcd2a82e019235da8f9a5569d31d004437"
+        - curl "https://api.ghostinspector.com/v1/suites/5729d0a1e06022e03e29247f/?apiKey=7c4660fcd2a82e019235da8f9a5569d31d004437"
