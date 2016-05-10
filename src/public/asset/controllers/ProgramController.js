@@ -1,5 +1,5 @@
-app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore','$filter','$uibModal',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore,$filter,$uibModal) {
+app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore','$filter','$uibModal','listProgram',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore,$filter,$uibModal,listProgram) {
         'use strict';
         $rootScope.full_screen = false;
         $scope.animationsEnabled = true;
@@ -41,41 +41,19 @@ app.controller('ProgramController', ['$rootScope', '$scope', '$http', '$location
 
         };
 
-        $http.get(api_url + AuthenticationService.organization_id + '/programs', {
-            headers: {
-                'Authorization': 'Bearer ' + AuthenticationService.token
-            }
-        })
-            .success(function (response) {
-
-                if (response.success === true && response.total > 0) {
-                    response.data = _.map(response.data,function(value){
-                        value.cohorts = _.map(value.cohorts, function(c){
-                            return "<span class='label label-primary'>"+c+"</span>";
-                        }).join(' ');
-                        return value;
-                    });
-                    $scope.programs = response.data;
-                    $scope.programs = $filter('orderBy')($scope.programs,'name');
-                } else {
-                    showError(_.get(response,'error.message','An unknown error has occurred'),1);
-                }
-                $rootScope.doingResolve = false;
-
-            })
-            .error(function (response, status) {
-
-                showError(response, 1);
-                $rootScope.doingResolve = false;
-                if (status === 401) {
-                    $rootScope.show_footer = false;
-                    CookieStore.clearData();
-                    $location.path('/login');
-                }
-
+        if(listProgram.success === true){
+            listProgram.data = _.map(listProgram.data,function(value){
+                value.cohorts = _.map(value.cohorts, function(c){
+                    return "<span class='label label-primary'>"+c+"</span>";
+                }).join(' ');
+                return value;
             });
-
-
+            $scope.programs = listProgram.data;
+            $scope.programs = $filter('orderBy')($scope.programs,'name');
+            $rootScope.doingResolve = false;
+        }else{
+            showError(_.get(response,'error.message','An unknown error has occurred'),1);
+        }
     }
 ]);
 app.controller('ProgramModalInstanceCtrl', function ($scope, $uibModalInstance, items,AuthenticationService,$rootScope,CookieStore,$location,$http) {

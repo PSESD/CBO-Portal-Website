@@ -36,8 +36,8 @@
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12 col-md-12 text-center">
-                            <button id="sign_in_button " class="btn btn-default" ng-disabled="login.working">{{ 'general.sign_in' | i18n }}</button>
-                            <a id="forgot_button forgot-btn" href="#/forget" class="btn btn-default">{{ 'general.forgot_password' | i18n }}</a>
+                            <button id="sign_in_button " class="btn btn-default" ng-disabled="login.working" analytics-on="click" analytics-event="Login">{{ 'general.sign_in' | i18n }}</button>
+                            <a id="forgot_button forgot-btn" href="#/forget" class="btn btn-default" analytics-on="click" analytics-event="ForgotPassword">{{ 'general.forgot_password' | i18n }}</a>
                         </div>
                     </div>
                     <div class="form-group">
