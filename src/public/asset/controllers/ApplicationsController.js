@@ -1,4 +1,4 @@
-app.controller('ApplicationsController',['$scope','$http','$rootScope','AuthenticationService','$location','$uibModal',function($scope,$http,$rootScope,AuthenticationService,$location,$uibModal){
+app.controller('ApplicationsController',['$scope','$http','$rootScope','AuthenticationService','$location','$uibModal','listApplication',function($scope,$http,$rootScope,AuthenticationService,$location,$uibModal,listApplication){
     $scope.showForm = false;
 $scope.showLoadingIcon = false;
     $scope.openForm = function(){
@@ -8,29 +8,13 @@ $scope.showLoadingIcon = false;
         $scope.showForm = false;
     }
 
-    $http.get(api_url + AuthenticationService.organization_id + '/applications/', {
-        headers: {
-            'Authorization': 'Bearer ' + AuthenticationService.token
-        }
-    }).success(function(response){
-        if(response.success === true){
-            $scope.applications = response.data;
-        }else{
-            showError(response.message,2);
-        }
-        $rootScope.doingResolve = false;
-    }).error(function (response, status) {
-
-        showError(response, 1);
-        $rootScope.doingResolve = false;
-        if (status === 401) {
-            $rootScope.show_footer = false;
-            CookieStore.clearData();
-            $location.path('/login');
-        }
-
-    });
-
+    if(listApplication.success === true)
+    {
+        $scope.applications = listApplication.data;
+        //$rootScope.doingResolve = false;
+    }else{
+        showError(listApplication.message,2);
+    }
     $scope.createKey = function(app){
         $scope.showLoadingIcon = true;
         $http.post(api_url + AuthenticationService.organization_id + '/applications/', $.param(app), {

@@ -947,7 +947,6 @@ function generate_transcript_data(transcript_data,$scope)
     $scope.courses = transcript_data.source.transcriptTerm.courses;
     $scope.cumulative_gpa = transcript_data.source.totalCumulativeGpa;
     $scope.total_data = _.size(transcript_data.source.subject);
-    $scope.totalCreditsAttempted = transcript_data.source.totalCreditsAttempted;
     $scope.transcripts =
     {
         subjectOrder : []
