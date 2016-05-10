@@ -24,43 +24,43 @@
 
         <ul class="nav navbar-nav">
             <li>
-                <a ng-class="{ sidebar_selected: isActive('/student') }" ng-href="#/student">
+                <a ng-class="{ sidebar_selected: isActive('/student') }" ng-href="#/student" analytics-on="click" analytics-event="Students">
                     <span class="glyphicon glyphicon-education"></span>
                     <span>{{ 'general.dashboard' | i18n  }}</span>
                 </a>
             </li>
             <li>
-                <a ng-class="{ sidebar_selected: isActive('/program') }" ng-href="#/program">
+                <a ng-class="{ sidebar_selected: isActive('/program') }" ng-href="#/program" analytics-on="click" analytics-event="Programs">
                     <span class="glyphicon glyphicon-tag"></span>
                     <span>{{ 'general.programs' | i18n  }}</span>
                 </a>
             </li>
             <li>
-                <a ng-class="{ sidebar_selected: isActive('/report') }"  ng-href="#/report">
+                <a ng-class="{ sidebar_selected: isActive('/report') }"  ng-href="#/report" analytics-on="click" analytics-event="Reports">
                     <span class="glyphicon glyphicon-stats"></span>
                     <span>{{ 'general.reports' | i18n  }}</span>
                 </a>
             </li>
             <li>
-                <a ng-class="{ sidebar_selected: isActive('/users') }"  ng-href="#/user">
+                <a ng-class="{ sidebar_selected: isActive('/users') }"  ng-href="#/user" analytics-on="click" analytics-event="Users">
                     <span class="glyphicon glyphicon-lock"></span>
                     <span>{{ 'general.users' | i18n  }}</span>
                 </a>
             </li>
             <li>
-                <a ng-class="{ sidebar_selected: isActive('/applications') }" ng-href="#/applications">
+                <a ng-class="{ sidebar_selected: isActive('/applications') }" ng-href="#/applications" analytics-on="click" analytics-event="Applications">
                     <span class="glyphicon glyphicon-transfer"></span>
                     <span>{{ 'general.applications' | i18n  }}</span>
                 </a>
             </li>
             <li>
-                <a ng-class="{ sidebar_selected: isActive('/profile') }" ng-href="#/profile">
+                <a ng-class="{ sidebar_selected: isActive('/profile') }" ng-href="#/profile" analytics-on="click" analytics-event="Profile">
                     <span class="glyphicon glyphicon-user"></span>
                     <span>{{ 'general.account_settings' | i18n  }}</span>
                 </a>
             </li>
             <li>
-                <a href="#" ng-click="logoutMe()">
+                <a href="#" ng-click="logoutMe()" analytics-on="click" analytics-event="Logout">
                     <span class="glyphicon glyphicon-log-out"></span>
                     <span>{{ 'general.logout' | i18n  }}</span>
                 </a>
