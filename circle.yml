@@ -2,7 +2,7 @@ deployment:
   push_to_server:
     branch: ghost-inspector
     commands:
-      - git clone -b ghost-inspector git@github.com:PSESD/CBO-Portal-Website.git circleci@104.192.103.11:/home/cbo/public
+      - git pull --all circleci@104.192.103.11:/home/cbo/public
 test:
     post:
         - curl "https://api.ghostinspector.com/v1/suites/5729d0a1e06022e03e29247f/?apiKey=7c4660fcd2a82e019235da8f9a5569d31d004437"
