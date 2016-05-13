@@ -178,18 +178,10 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                 })
                     .success(function (response) {
                         showError(locale.getString('general.reset_password'),2);
-                        //if (response.success === true) {
-                        //    showError(response.message, 2);
-                        //} else {
-                        //    showError(response.message, 1);
-                        //}
                         $scope.working = false;
 
                     })
                     .error(function (response, status) {
-
-                        //console.log(response);
-                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status === 401) {

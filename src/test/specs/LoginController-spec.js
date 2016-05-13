@@ -18,7 +18,8 @@ describe("AuthenticationService Unit Tests", function() {
 	});
 
   });
-  
+
+
   beforeEach(inject(function (_AuthenticationService_,_CookieStore_,$httpBackend,$http) {
 	AuthenticationService = _AuthenticationService_;
 	CookieStore = _CookieStore_;

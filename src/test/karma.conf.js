@@ -39,7 +39,8 @@ module.exports = function(config) {
 		'../public/asset/services/services.js',
 		'../public/asset/controllers/LoginController.js',
 		'../public/asset/js/autologout.js',
-		'specs/LoginController-spec.js',
+		//'specs/LoginController-spec.js',
+		'specs/ForgotPasswordServices.js',
     ],
 
 
