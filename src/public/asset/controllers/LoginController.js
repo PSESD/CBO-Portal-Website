@@ -100,10 +100,12 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                                         $rootScope.users_link = true;
                                                         $rootScope.reports_link = true;
                                                         $rootScope.tags_link = true;
+                                                        userStatus = "";
                                                     } else {
                                                         $rootScope.users_link = false;
                                                         $rootScope.reports_link = false;
                                                         $rootScope.tags_link = false;
+                                                        userStatus = "?assign=true";
                                                     }
                                                     $rootScope.completeName = complete_name;
                                                     find = true;

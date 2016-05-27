@@ -34,13 +34,16 @@ module.exports = function(config) {
 		'bower_components/angular-localization/angular-localization.min.js',
 		'bower_components/angular-ui-codemirror/ui-codemirror.min.js',
 		'bower_components/angular-sanitize/angular-sanitize.min.js',
+		'bower_components/jquery-idletimer/dist/idle-timer.1.0.0.min.js',
+		'../public/asset/js/autologout.js',
+		'../public/config/config.js',
 		'../public/asset/index.js',
 		'../public/asset/app.router.js',
 		'../public/asset/services/services.js',
-		'../public/asset/controllers/LoginController.js',
-		'../public/asset/js/autologout.js',
-		//'specs/LoginController-spec.js',
-		'specs/ForgotPasswordServices.js',
+		'../public/asset/services/*.js',
+		'../public/asset/controllers/*.js',
+		'specs/LoginControllerSpec.js',
+
     ],
 
 
