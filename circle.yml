@@ -5,7 +5,7 @@ general:
 
 checkout:
   post:
-    - sudo chmod u+x bin/deploy
+    - sudo chmod u+x bin/deploy.sh
 
 dependencies:
   pre:
