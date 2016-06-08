@@ -5,13 +5,11 @@ general:
 
 checkout:
   post:
-    - sudo chmod u+x bin/deploy.sh
+    - sudo chmod u+x src/bin/deploy
 
 dependencies:
   pre:
     - sudo apt-get install curl
-
-
 
 test:
     post:
@@ -21,4 +19,4 @@ deployment:
   develop:
       branch: develop
       commands:
-        - bin/deploy
+        - src/bin/deploy
