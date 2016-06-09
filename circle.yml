@@ -2,10 +2,17 @@ general:
   branches:
     only:
       - develop # list of branches to build
+      - staging # list of branches to build
+      - production # list of branches to build
+machine:
+  node:
+    version: 0.10.45
+  post:
+    - npm update -g
 
 checkout:
   post:
-    - sudo chmod u+x ./src/bin/deploy
+    - sudo chmod u+x ./bin/$CIRCLE_BRANCH/deploy
 
 dependencies:
   pre:
@@ -19,4 +26,4 @@ deployment:
   develop:
       branch: develop
       commands:
-        - src/bin/deploy
+        - ./bin/$CIRCLE_BRANCH/deploy
