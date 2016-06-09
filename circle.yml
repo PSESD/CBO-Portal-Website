@@ -12,7 +12,7 @@ machine:
 
 checkout:
   post:
-    - sudo chmod u+x bin/$CIRCLE_BRANCH/deploy
+    - sudo chmod u+x ./bin/$CIRCLE_BRANCH/deploy
 
 dependencies:
   pre:
