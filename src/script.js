@@ -14,7 +14,7 @@ if(process.env.CIRCLE_BRANCH === 'circleci_angulartics'){
         .exec('cd /home/cbo/public', {
             out: console.log.bind(console)
         })
-        .exec('git pull origin circleci_angulartics', {
+        .exec('git pull origin develop', {
             out: console.log.bind(console)
         })
         .exec('echo "DONE"', {
