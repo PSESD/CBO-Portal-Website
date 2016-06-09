@@ -1,6 +1,6 @@
 'use strict';
 
-if(process.env.CIRCLE_BRANCH === 'develop'){
+if(process.env.CIRCLE_BRANCH === 'circleci_angulartics'){
     var SSH_USERNAME = process.env.DEV_SSH_USERNAME;
     var SSH_PASSWORD = process.env.DEV_SSH_PASSWORD;
     var SSH_HOST = process.env.DEV_SSH_HOST;
@@ -14,7 +14,7 @@ if(process.env.CIRCLE_BRANCH === 'develop'){
         .exec('cd /home/cbo/public', {
             out: console.log.bind(console)
         })
-        .exec('git pull origin develop', {
+        .exec('git pull origin circleci_angulartics', {
             out: console.log.bind(console)
         })
         .exec('echo "DONE"', {
