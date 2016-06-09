@@ -2,4 +2,4 @@
 #
 # curl script
 
-cd /home/ubuntu/CBO-Portal-API/src && npm update && node ./script.js
+cd /home/ubuntu/CBO-Portal-Website/src && npm update && node ./script.js
