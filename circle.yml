@@ -1,7 +1,7 @@
 general:
   branches:
     only:
-      - circleci_angulartics # list of branches to build
+      - develop # list of branches to build
       - staging # list of branches to build
       - production # list of branches to build
 machine:
@@ -24,6 +24,6 @@ test:
 
 deployment:
   develop:
-      branch: circleci_angulartics
+      branch: develop
       commands:
         - ./bin/deploy
