@@ -12,7 +12,7 @@ machine:
 
 checkout:
   post:
-    - sudo chmod u+x ./bin/$CIRCLE_BRANCH/deploy
+    - sudo chmod u+x ./bin/deploy
 
 dependencies:
   pre:
@@ -26,4 +26,4 @@ deployment:
   develop:
       branch: circleci_angulartics
       commands:
-        - ./bin/$CIRCLE_BRANCH/deploy
+        - ./bin/deploy
