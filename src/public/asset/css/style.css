@@ -1293,3 +1293,63 @@ h1>.glyphicon.glyphicon-refresh.glyphicon-spin {
 .tableFloatingHeaderOriginal{
     background: white;
 }
+h2{
+    line-height: 2;
+}
+
+/*ASSESSMENT CSS*/
+
+
+.map-header-title{
+    background:#F8973A;
+}
+.map-item-title{
+    color:#F8973A;
+    font-size: 16px;
+}
+.state-item-title{
+    color:#45b9cb;
+    font-size: 16px;
+}
+.state-header-title{
+    background: #45b9cb;
+
+}
+.map-header-title,
+.state-header-title{
+    text-align: center;
+    height: 3em;
+    line-height: 3em;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: white;
+    width: 50%;
+    float: left;
+    letter-spacing: 5px;
+    font-weight: 200;
+}
+
+.tab-pane.assessment{
+    padding: 25px;
+}
+.assessment-map,
+.assessment-state{
+    width: 50%;
+    float: left;
+	padding:0 10px 0 10px;
+}
+.assessment-map-container,
+.assessment-state-container{
+	 display: -webkit-box;
+    /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;
+    /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;
+    /* TWEENER - IE 10 */
+    display: -webkit-flex;
+    /* NEW - Chrome */
+    display: flex;
+    /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	flex-wrap:wrap;
+	justify-content: space-between;
+}
