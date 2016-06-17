@@ -1351,5 +1351,10 @@ h2{
     display: flex;
     /* NEW, Spec - Opera 12.1, Firefox 20+ */
 	flex-wrap:wrap;
-	justify-content: space-between;
+	justify-content: flex-start;
+}
+ul.assessment-state-container li,
+ul.assessment-map-container li{
+    margin-top: 10px;
+    margin-right: 15px;
 }

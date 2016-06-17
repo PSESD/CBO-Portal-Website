@@ -245,7 +245,7 @@ function showError(message, alert) {
             else{
                 messages = message;
             }
-            message_alert = '<div style="margin-left:-5px" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
+            message_alert = '<div style="margin-left:-6px" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
 //            message_alert = '<div style="margin-left:'+sidebar_width+'px" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
         }
     }else{
