@@ -79,7 +79,7 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
 
                                         if (responseUser.success === true && responseUser.total > 0) {
                                             $rootScope.doingResolve = false;
-                                            $(".login-form").hide();
+                                            //$(".login-form").hide();
                                             var find = false;
                                             var data = responseUser.data;
                                             var id = false;

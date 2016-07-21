@@ -51,13 +51,12 @@ app.config(['$rollbarProvider', function($rollbarProvider) {
 }]);
 
 app.run(['$window', '$rootScope', '$route',
-function ($window, $rootScope) {
+function ($window, $rootScope,$route) {
     'use strict';
         $rootScope.goBack = function () {
             $window.history.back();
         };
-        $rootScope.data_content = "asset/templates/layout.html";
-
+       // $rootScope.data_content = "asset/templates/layout.html";
 }]);
 
 app.run(function ($analytics,$timeout,$state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
@@ -78,8 +77,18 @@ app.run(function ($analytics,$timeout,$state, $stateParams,$rootScope, $http, $l
         $rootScope.doingResolve = true;
         $rootScope.organization_name = localStorage.getItem('organization_name');
         $rootScope.sidebarButtonOpen = false;
-        $analytics.pageTrack(nextRoute.$$route.originalPath);
-        if (nextRoute !== null && /*nextRoute.access !== null &&  nextRoute.access.requiredAuthentication */nextRoute.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
+        if(nextRoute !== null && 'originalPath' in nextRoute)
+        {
+            if(nextRoute.$$route.originalPath === '/login'){
+                $rootScope.data_content = "asset/templates/login.html";
+            }else if(nextRoute.$$route.originalPath === '/forget'){
+                $rootScope.data_content = "asset/templates/forget.html";
+            }else{
+                $rootScope.data_content = "asset/templates/layout.html";
+            }
+        }
+        if (nextRoute !== null && /*nextRoute.access !== null &&  nextRoute.access.requiredAuthentication */nextRoute.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token && 'originalPath' in nextRoute) {
+            $analytics.pageTrack(nextRoute.$$route.originalPath);
             if(nextRoute.originalPath === "/login")
             {
 
@@ -104,10 +113,11 @@ app.run(function ($analytics,$timeout,$state, $stateParams,$rootScope, $http, $l
             event.preventDefault();
             $rootScope.doingResolve = false;
         }
-
-        if(nextRoute.$$route.originalPath !== '/login' && $rootScope.doingResolve === true){
-            $rootScope.showFooter = false;
-
+        if(nextRoute !== null && 'originalPath' in nextRoute)
+        {
+            if(nextRoute.$$route.originalPath !== '/login' && $rootScope.doingResolve === true){
+                $rootScope.showFooter = false;
+            }
         }
 
         if('$$route' in nextRoute){
