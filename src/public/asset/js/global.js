@@ -1,5 +1,6 @@
 var screen = '';
 var global_redirect_url = '/';
+var userStatus="";
 $(document).ready(function () {
     'use strict';
     var screen_w = $(window).width();

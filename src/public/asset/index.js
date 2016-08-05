@@ -1,6 +1,7 @@
 var __i = false; if(typeof __local !== 'undefined') {__i = __local;}
-
-var app = angular.module('CboPortal', ['ui.mask','anotherpit/angular-rollbar','ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize', 'ui.codemirror',
+var analytics_user = '';
+var rollbar_env = '';
+var app = angular.module('CboPortal', ['angulartics', 'angulartics.google.analytics','ui.mask','anotherpit/angular-rollbar','ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize', 'ui.codemirror',
     'ngLocalize.Config'
 ]).value('localeConf', {
     basePath: 'languages',
@@ -24,9 +25,10 @@ app.factory('headerInjector', [function () {
     return headerInjector;
 }]);
 
-app.config(['$httpProvider', function ($httpProvider) {
+app.config(['$httpProvider','$analyticsProvider', function ($httpProvider,$analyticsProvider) {
     'use strict';
     //Reset headers to avoid OPTIONS request (aka preflight)
+    $analyticsProvider.virtualPageviews(true);
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.get = {};
     $httpProvider.defaults.headers.post = {};
@@ -49,16 +51,15 @@ app.config(['$rollbarProvider', function($rollbarProvider) {
 }]);
 
 app.run(['$window', '$rootScope', '$route',
-function ($window, $rootScope) {
+function ($window, $rootScope,$route) {
     'use strict';
         $rootScope.goBack = function () {
             $window.history.back();
         };
-        $rootScope.data_content = "asset/templates/layout.html";
-
+       // $rootScope.data_content = "asset/templates/layout.html";
 }]);
 
-app.run(function ($timeout,$state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
+app.run(function ($analytics,$timeout,$state, $stateParams,$rootScope, $http, $location, $window, AuthenticationService, CookieStore, locale) {
     'use strict';
     var returnData = CookieStore.getData();
     var checkCookie = CookieStore.checkCookie();
@@ -77,8 +78,18 @@ app.run(function ($timeout,$state, $stateParams,$rootScope, $http, $location, $w
         $rootScope.doingResolve = false;
         $rootScope.organization_name = localStorage.getItem('organization_name');
         $rootScope.sidebarButtonOpen = false;
-
-        if (nextRoute !== null && /*nextRoute.access !== null &&  nextRoute.access.requiredAuthentication */nextRoute.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
+        if(nextRoute !== null && 'originalPath' in nextRoute)
+        {
+            if(nextRoute.$$route.originalPath === '/login'){
+                $rootScope.data_content = "asset/templates/login.html";
+            }else if(nextRoute.$$route.originalPath === '/forget'){
+                $rootScope.data_content = "asset/templates/forget.html";
+            }else{
+                $rootScope.data_content = "asset/templates/layout.html";
+            }
+        }
+        if (nextRoute !== null && /*nextRoute.access !== null &&  nextRoute.access.requiredAuthentication */nextRoute.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token && 'originalPath' in nextRoute) {
+            $analytics.pageTrack(nextRoute.$$route.originalPath);
             if(nextRoute.originalPath === "/login")
             {
 
@@ -103,10 +114,11 @@ app.run(function ($timeout,$state, $stateParams,$rootScope, $http, $location, $w
             event.preventDefault();
             $rootScope.doingResolve = false;
         }
-
-        if(nextRoute.$$route.originalPath !== '/login' && $rootScope.doingResolve === true){
-            $rootScope.showFooter = false;
-
+        if(nextRoute !== null && 'originalPath' in nextRoute)
+        {
+            if(nextRoute.$$route.originalPath !== '/login' && $rootScope.doingResolve === true){
+                $rootScope.showFooter = false;
+            }
         }
 
         if('$$route' in nextRoute){
@@ -244,7 +256,8 @@ function showError(message, alert) {
             else{
                 messages = message;
             }
-            message_alert = '<div style="margin-left:'+sidebar_width+'px" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
+            message_alert = '<div style="margin-left:-6px" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
+//            message_alert = '<div style="margin-left:'+sidebar_width+'px" class="alert ' + passingClass + ' alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' + messages + '</div>';
         }
     }else{
 

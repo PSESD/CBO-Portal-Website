@@ -69,7 +69,6 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                     }
                                 }
                             }
-
                             if (grand_access) {
                                 $http.get(api_url + get_id + '/users', {
                                     headers: {
@@ -79,6 +78,8 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                     .success(function (responseUser) {
 
                                         if (responseUser.success === true && responseUser.total > 0) {
+                                            $rootScope.doingResolve = false;
+                                            //$(".login-form").hide();
                                             var find = false;
                                             var data = responseUser.data;
                                             var id = false;
@@ -100,15 +101,18 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                                         $rootScope.users_link = true;
                                                         $rootScope.reports_link = true;
                                                         $rootScope.tags_link = true;
+                                                        userStatus = "";
                                                     } else {
                                                         $rootScope.users_link = false;
                                                         $rootScope.reports_link = false;
                                                         $rootScope.tags_link = false;
+                                                        userStatus = "?assign=true";
                                                     }
                                                     $rootScope.completeName = complete_name;
                                                     find = true;
                                                 }
                                             }
+
                                             if (find) {
                                                 CookieStore.setData(response.access_token, response.refresh_token, get_id, get_redirect_url, id, send.username, complete_name, role, organization_name, response.expires_in);
                                                 global_redirect_url = get_redirect_url;
@@ -120,6 +124,9 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                                 }
 
 
+                                            }else{
+                                                showError("Your account is not active",2);
+                                                $scope.login.working = false;
                                             }
                                             start_time_idle();
                                             if('intended_url' in localStorage && localStorage.getItem('intended_url')!==''){
@@ -130,9 +137,10 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                             }
 
                                         } else {
+                                            $(".login-form").show();
                                             showError(response.error.message, 1);
                                         }
-                                        $rootScope.doingResolve = false;
+                                        //$rootScope.doingResolve = false;
 
                                     })
                                     .error(function (responseUser) {
@@ -173,19 +181,11 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                     }
                 })
                     .success(function (response) {
-                        //console.log(response);
-                        if (response.success === true) {
-                            showError(response.message, 2);
-                        } else {
-                            showError(response.message, 1);
-                        }
+                        showError(locale.getString('general.reset_password'),2);
                         $scope.working = false;
 
                     })
                     .error(function (response, status) {
-
-                        //console.log(response);
-                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status === 401) {

@@ -1,5 +1,5 @@
-app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$q','$filter','$uibModal',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout,$q,$filter,$uibModal) {
+app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore', 'locale', '$timeout','$q','$filter','$uibModal','listStudent',
+    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore, locale, $timeout,$q,$filter,$uibModal,listStudent) {
         'use strict';
 
         var deferred = $q.defer();
@@ -47,7 +47,6 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                             return true;
                         }
                     }
-
                 }else{
                     $scope.district_counter = 0;
                     return true;
@@ -225,7 +224,7 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
             .success(function (response) {
                 if (response.success === true && response.total > 0) {
                     $scope.list = response.data;
-                } else {
+                } else if(response.success === false) {
                     showError(response.error.message, 1);
                 }
                 $rootScope.doingResolve = false;
@@ -255,120 +254,92 @@ app.controller('StudentController', ['$rootScope', '$scope', '$http', '$location
                 comparison($scope);
             }
         });
+        if(listStudent.success === true && listStudent.total > 0){
+            var embedData = [];
+            embedData = ('data' in listStudent) ? listStudent.data : [];
+            var data = [];
+            var o = 0;
+            var studentKeys = {};
+            angular.forEach(embedData, function (student) {
+                $.each(schoolDistricts, function (key, value) {
+                    if (key === student.school_district || value === student.school_district) {
+                        student.school_district = value;
+                    }
+                });
 
-        $http.get(api_url + AuthenticationService.organization_id + '/students', {
-            headers: {
-                'Authorization': 'Bearer ' + AuthenticationService.token
-            }
-
-        })
-            .success(function (response) {
-                if (response.success === true && response.total > 0) {
-                    var embedData = [];
-                    embedData = ('data' in response) ? response.data : [];
-
-
-                    var data = [];
-                    var o = 0;
-                    var studentKeys = {};
-                    angular.forEach(embedData, function (student) {
-                        $.each(schoolDistricts, function (key, value) {
-                            if (key === student.school_district || value === student.school_district) {
-                                student.school_district = value;
-                            }
-                        });
-
-                        var onTrack = _.get(student,'xsre.onTrackToGraduate');
-                        pluralBehavior = _.get(student,'xsre.behavior.incidents.incidentAcademicYear');
-                        //if(parseInt(_.get(student,'xsre.behavior')) === 0) {
-                        //    pluralBehavior = locale.getString('general.incidents', [_.get(student, 'xsre.behavior')]);
-                        //}else if(parseInt(_.get(student,'xsre.behavior')) === 1){
-                        //    pluralBehavior =  locale.getString('general.incident', [_.get(student,'xsre.behavior')]);
-                        //}else{
-                        //    pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')]);
-                        //}
-                        pluralAttendance = _.get(student,'xsre.attendance.absents.attendanceAcademicYear');
-                        //if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear')) === 0){
-                        //    pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
-                        //}else if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear') === 1)){
-                        //    pluralAttendance = locale.getString('general.day_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
-                        //}else{
-                        //    pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
-                        //}
-                        if(onTrack === 'Y' || onTrack === 'On Track' || onTrack === 'Yes'){
-                            //onTrack = locale.getString('general.on_track');
-                            onTrack = "Y";
-                        } else if(onTrack === 'N' || onTrack === 'Off Track' || onTrack === 'No') {
-                            //onTrack = locale.getString('general.off_track');
-                            onTrack = "N";
-                        } else {
-                            //onTrack = locale.getString('general.unavailable');
-                            onTrack = "U";
-                        }
-                        $rootScope.prevURL = localStorage.getItem("intended_url");
-                        student.gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.grade_unavailable');
-                        student.schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
-                        student.schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.school_unavailable');
-                        student.attendance = _.has(student,'xsre.attendance.absents.attendanceAcademicYear') ? pluralAttendance : locale.getString('general.unavailable');
-                        student.behavior = _.has(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
-                        if(student.gradeLevel === 'N/A') student.gradeLevel =  locale.getString('general.grade_unavailable');
-                        if(student.schoolYear === 'N/A') student.schoolYear =  locale.getString('general.unavailable');
-                        if(student.schoolName === 'N/A') student.schoolName =  locale.getString('general.unavailable');
-                        //if(student.attendance.indexOf('N/A') !== -1) student.attendance =  locale.getString('general.unavailable');
-                        //if(student.behavior.indexOf('N/A') !== -1) student.behavior =  locale.getString('general.unavailable');
-                        student.onTrackGraduate = onTrack;
-                        var find = student.schoolName;
-                        if(find){
-                            find      = String(find).replace(/<[^>]+>/gm, '');
-                            var found = $scope.schoolNameData.some(function(hash){
-                                if(_.includes(hash, find)) {return true;}
-                            });
-                            if(!found){
-                                $scope.schoolNameData.push({ id: find, name: find });
-                            }
-                        }
-
-                        $scope.students.push(student);
-                        studentKeys[student._id] = o;
-                        o++;
-                        if(options.indexOf(student.school_district) === -1){
-                            options.push(student.school_district);
-                        }
-                    });
-                    $scope.students = $filter('orderBy')($scope.students,'first_name');
-                    /**
-                     * Get XSRE
-                     */
-                   // $timeout( function(){ pullXsreStudents(studentKeys); }, 30);
-
-                    angular.forEach(options,function(value){
-                        districtOption = {
-                            id:value,
-                            name:value
-                        };
-                        $scope.districtData.push(districtOption);
-                    });
-
+                var onTrack = _.get(student,'xsre.onTrackToGraduate');
+                pluralBehavior = _.get(student,'xsre.behavior.incidents.incidentAcademicYear');
+                //if(parseInt(_.get(student,'xsre.behavior')) === 0) {
+                //    pluralBehavior = locale.getString('general.incidents', [_.get(student, 'xsre.behavior')]);
+                //}else if(parseInt(_.get(student,'xsre.behavior')) === 1){
+                //    pluralBehavior =  locale.getString('general.incident', [_.get(student,'xsre.behavior')]);
+                //}else{
+                //    pluralBehavior = locale.getString('general.incidents', [_.get(student,'xsre.behavior')]);
+                //}
+                pluralAttendance = _.get(student,'xsre.attendance.absents.attendanceAcademicYear');
+                //if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear')) === 0){
+                //    pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                //}else if(parseInt(_.get(student,'xsre.attendance.absents.attendanceAcademicYear') === 1)){
+                //    pluralAttendance = locale.getString('general.day_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                //}else{
+                //    pluralAttendance = locale.getString('general.days_missed', [_.get(student,'xsre.attendance.absents.attendanceAcademicYear')]);
+                //}
+                if(onTrack === 'Y' || onTrack === 'On Track' || onTrack === 'Yes'){
+                    //onTrack = locale.getString('general.on_track');
+                    onTrack = "Y";
+                } else if(onTrack === 'N' || onTrack === 'Off Track' || onTrack === 'No') {
+                    //onTrack = locale.getString('general.off_track');
+                    onTrack = "N";
                 } else {
-                    showError(response.error.message, 1);
+                    //onTrack = locale.getString('general.unavailable');
+                    onTrack = "U";
                 }
-                $rootScope.doingResolve = false;
-            })
-            .error(function (response, status) {
-
-                //console.log(response);
-                //console.log(status);
-                showError(response, 1);
-                $rootScope.doingResolve = false;
-                if (status === 401) {
-                    $rootScope.show_footer = false;
-                    CookieStore.clearData();
-                    $location.path('/login');
+                $rootScope.prevURL = localStorage.getItem("intended_url");
+                student.gradeLevel = _.get(student, 'xsre.gradeLevel') || locale.getString('general.grade_unavailable');
+                student.schoolYear = _.get(student,'xsre.schoolYear') || locale.getString('general.unavailable');
+                student.schoolName = _.get(student,'xsre.schoolName') || locale.getString('general.school_unavailable');
+                student.attendance = _.has(student,'xsre.attendance.absents.attendanceAcademicYear') ? pluralAttendance : locale.getString('general.unavailable');
+                student.behavior = _.has(student,'xsre.behavior') ? pluralBehavior : locale.getString('general.unavailable');
+                if(student.gradeLevel === 'N/A') student.gradeLevel =  locale.getString('general.grade_unavailable');
+                if(student.schoolYear === 'N/A') student.schoolYear =  locale.getString('general.unavailable');
+                if(student.schoolName === 'N/A') student.schoolName =  locale.getString('general.unavailable');
+                //if(student.attendance.indexOf('N/A') !== -1) student.attendance =  locale.getString('general.unavailable');
+                //if(student.behavior.indexOf('N/A') !== -1) student.behavior =  locale.getString('general.unavailable');
+                student.onTrackGraduate = onTrack;
+                var find = student.schoolName;
+                if(find){
+                    find      = String(find).replace(/<[^>]+>/gm, '');
+                    var found = $scope.schoolNameData.some(function(hash){
+                        if(_.includes(hash, find)) {return true;}
+                    });
+                    if(!found){
+                        $scope.schoolNameData.push({ id: find, name: find });
+                    }
                 }
 
+                $scope.students.push(student);
+                studentKeys[student._id] = o;
+                o++;
+                if(options.indexOf(student.school_district) === -1){
+                    options.push(student.school_district);
+                }
             });
+            $scope.students = $filter('orderBy')($scope.students,'first_name');
+            /**
+             * Get XSRE
+             */
+                // $timeout( function(){ pullXsreStudents(studentKeys); }, 30);
 
-
+            angular.forEach(options,function(value){
+                districtOption = {
+                    id:value,
+                    name:value
+                };
+                $scope.districtData.push(districtOption);
+            });
+        }else if (listStudent.success === false){
+            showError(listStudent.error.message, 1);
+        }
     }
 ]);
 
