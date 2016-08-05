@@ -446,40 +446,7 @@ ul li.transcript-content {
     margin: 0;
     position: relative;
 }
-/*ul li.transcript-content:nth-child(1) {*/
-    /*width: 16%;*/
-/*}*/
 
-/*ul li.transcript-content:nth-child(2) {*/
-    /*width: 16.8%;*/
-    /*padding-top: 2.5%;*/
-    /*padding-left: 15px;*/
-/*}*/
-/*ul li.transcript-content:nth-child(3) {*/
-    /*width: 16.8%;*/
-    /*padding-top: 2.5%;*/
-    /*padding-left: 15px;*/
-/*}*/
-/*ul li.transcript-content:nth-child(4) {*/
-    /*width: 16.8%;*/
-    /*padding-top: 2.5%;*/
-    /*padding-left: 15px;*/
-/*}*/
-/*ul li.transcript-content:nth-child(5) {*/
-    /*width: 16.8%;*/
-    /*padding-top: 2.5%;*/
-    /*padding-left: 15px;*/
-/*}*/
-/*ul li.transcript-content:nth-child(6) {*/
-    /*width: 16.8%;*/
-    /*padding-top: 2.5%;*/
-    /*padding-left: 15px;*/
-/*}*/
-/*ul li.transcript-content:nth-child(7) {*/
-    /*width: 14%;*/
-    /*padding-top: 2.5%;*/
-    /*padding-left: 15px;*/
-/*}*/
 .attempted-credit {
     position: relative;
     margin: 6px 0;
@@ -488,7 +455,6 @@ ul li.transcript-content {
     font-size: 12px;
     font-size: 1.2rem;
     font-weight: bolder;
-/*    letter-spacing: 2px;*/
     margin-bottom: 5px;
     line-height: 16px;
 }
@@ -553,39 +519,12 @@ ul li.transcript-content {
 
 }
 
-/*
-.transcript-content .transcript-descriptor {
-    position: absolute;
-    top: 35%;
-    width: 13%;
-    margin-left: -9px;
-    background-color: #fff;
-    display: none;
-    text-indent: 0px;
-    z-index: 9999;
-    padding-top: 5px;
-    padding-left: 10px;
-    padding-bottom: 30px;
-}
-*/
 .transcript-content{
 	position:relative;
 }
-/*.transcript-descriptor {*/
-    /*position: absolute;*/
-    /*/!*top: 35%;*!/*/
-    /*margin-left: -9px;*/
-    /*background-color: #fff;*/
-    /*display: none;*/
-    /*text-indent: 0px;*/
-    /*z-index: 9999;*/
-    /*padding-top: 5px;*/
-    /*padding-left: 10px;*/
-    /*padding-bottom: 30px;*/
-/*}*/
+
 .transcript-descriptor{
     position: absolute;
-    /* top: 35%; */
     margin-left: 0;
     background-color: #fff;
     display: none;
@@ -697,20 +636,6 @@ ul li.transcript-content {
         background-color: white;
         border: 1px solid #aaa;
     }
-    /*
-	.transcript-content .transcript-descriptor {
-        position: absolute;
-        top: 35%;
-        width: 13%;
-        margin-left: -30px;
-        background-color: #fff;
-        display: none;
-        text-indent: 0px;
-        z-index: 9999;
-        padding-top: 5px;
-        padding-left: 5px;
-        padding-bottom: 10px
-    }*/
 	.transcript-content{
 	position:relative;
 }

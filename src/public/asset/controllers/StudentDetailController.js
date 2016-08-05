@@ -58,8 +58,6 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
 
         }).error(function (response, status) {
 
-            //console.log(response);
-            //console.log(status);
             showError(response, 1);
             $rootScope.doingResolve = false;
             if (status === 401) {
@@ -288,7 +286,7 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
 
         });
         // Save active tab to localStorage
-        $scope.setStudentDetailActiveTab = function (activeTab) {
+        $scope.setStudentDetailActiveTab = function (activeTab)  {
             localStorage.setItem("activeTabStudentDetail", activeTab);
         };
 
@@ -325,13 +323,11 @@ app.controller('StudentDetailController', ['$interval','$route', '$rootScope', '
                         });
                     });
                 }
-                console.log();
+
                 generateLink($scope,_.findIndex($rootScope.links,{'studentId':student_id}),$rootScope);
             })
             .error(function (response, status) {
 
-                //console.log(response);
-                //console.log(status);
                 showError(response, 1);
                 $rootScope.doingResolve = false;
                 if (status === 401) {
@@ -968,7 +964,7 @@ function generate_transcript_data(transcript_data,$scope)
     $scope.grade_level = transcript_data.source.gradeLevel;
 }
 
-function load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope)
+function load_assessment_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope)
 {
     'use strict';
     $http.get(api_url + AuthenticationService.organization_id + '/students/' + student_id + '/assessment', {
@@ -978,7 +974,7 @@ function load_program_participation_data($http,student_id,AuthenticationService,
     }).success(function (response){
         if(response.success === true && response.info !== undefined)
         {
-            program_participation_data = response.info.data;
+            $scope.assessment_data = response.info.data;
         }
         else{
             $rootScope.doingResolve = false;
@@ -1248,7 +1244,7 @@ function load_data($http,student_id,AuthenticationService,$rootScope,CookieStore
     load_general_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
     load_attendance_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache,$interval);
     load_transcript_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,StudentCache);
-    load_program_participation_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
+    load_assessment_data($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope);
     load_graph($http,student_id,AuthenticationService,$rootScope,CookieStore,$location,$scope,$filter);
     //$('.loading-icon').addClass('hide');
 }

@@ -79,6 +79,7 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
 
                                         if (responseUser.success === true && responseUser.total > 0) {
                                             $rootScope.doingResolve = false;
+                                            //$(".login-form").hide();
                                             var find = false;
                                             var data = responseUser.data;
                                             var id = false;
@@ -136,6 +137,7 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                             }
 
                                         } else {
+                                            $(".login-form").show();
                                             showError(response.error.message, 1);
                                         }
                                         //$rootScope.doingResolve = false;

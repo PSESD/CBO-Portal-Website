@@ -283,7 +283,9 @@
                     <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior"><h2><span class="glyphicon glyphicon-calendar"></span> {{ 'general.attendance_and_behavior' | i18n }}</h2></a></li>
                     <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" ><h2><span class="glyphicon glyphicon-list-alt"></span> {{ 'general.transcript' | i18n}}</h2></a></li>
                     <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation"><h2><span class="glyphicon glyphicon-tags"></span> {{ 'general.program_participation' | i18n }}</h2></a></li>
-                    <li ng-class="{active: isStudentDetailActiveTab('#graph', 3)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#graph"><h2 class="stat"><span class="glyphicon glyphicon-stats"></span> </h2></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#assessment', 3)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#assessment"><h2 class="assessment">{{ 'general.assessment' | i18n}} </h2></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#graph', 4)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#graph"><h2 class="stat"><span class="glyphicon glyphicon-stats"></span> </h2></a></li>
+
                 </ul>
 
                 <div id="accordion-container" class="tab-content">
@@ -619,6 +621,73 @@
                         </div>
                     </div>
 
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#assessment" aria-expanded="false" aria-controls="assessment">
+                        <h2>{{ 'general.assessment' | i18n}}</h2>
+                    </a>
+                    <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#assessment', 1)}" class="tab-pane assessment" id="assessment" data-id="assessment_data">
+                        <ul>
+                            <li class="assessment-header-title">
+                                <h4 class="map-header-title">
+                                    map
+                                </h4>
+                            </li>
+                            <li class="assessment-header-title">
+                                <h4 class="state-header-title">
+                                    state
+                                </h4>
+                            </li>
+                        </ul>
+                        <hr class="rainbow"/>
+                        <div class="assessment-map">
+							<ul>
+                                <li ng-repeat="assessment in assessment_data">
+                                    <div>
+                                        <h3>{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</h3>
+                                    </div>
+                                    <ul class="assessment-map-container">
+                                        <li ng-repeat="map in assessment.maps">
+                                            <dl>
+												<dt class="map-item-title">{{map.subTestName}}</dt>
+												<dt class="bold">RIT Score</dt>
+												<dd class="bold">{{map.RITScore}}</dd>
+                                                <dt class="bold">School Name</dt>
+                                                <dd class="bold">{{map.schoolName}}</dd>
+                                                <dt class="bold">Student Grade Level</dt>
+                                                <dd class="bold">{{map.studentGradeLevel}}</dd>
+											</dl>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+						</div>
+                        <div class="assessment-state">
+                            <ul>
+                                <li ng-repeat="assessment in assessment_data">
+                                    <div>
+                                        <h3>{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</h3>
+                                    </div>
+                                    <ul class="assessment-state-container">
+                                        <li ng-repeat="state in assessment.states">
+                                            <dl>
+												<dt class="state-item-title">{{state.subTestName}}</dt>
+												<dt class="bold">Score</dt>
+												<dd class="bold">{{state.Score}}</dd>
+												<dt class="bold bold-title">Attempt Code</dt>
+												<dd class="bold">{{state.attemptCode}}</dd>
+												<dt class="bold bold-title">Attempt Description</dt>
+												<dd class="bold">{{state.attemptCodeDescription}}</dd>
+                                                <dt class="bold bold-title">School Name</dt>
+                                                <dd class="bold">{{state.schoolName}}</dd>
+                                                <dt class="bold bold-title">Grade Level</dt>
+                                                <dd class="bold">{{state.studentGradeLevel}}</dd>
+											</dl>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#graph" aria-expanded="false" aria-controls="graph">
                         <h2 class="stat"></h2>
                     </a>
@@ -649,6 +718,8 @@
                             <div id="student-graph"></div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
