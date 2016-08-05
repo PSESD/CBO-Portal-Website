@@ -1,3 +1,29 @@
+general:
+  branches:
+    only:
+      - circleci_angulartics # list of branches to build
+      - staging # list of branches to build
+      - production # list of branches to build
+machine:
+  node:
+    version: 0.10.45
+  post:
+    - npm update -g
+
+checkout:
+  post:
+    - sudo chmod u+x ./bin/$CIRCLE_BRANCH/deploy
+
+dependencies:
+  pre:
+    - sudo apt-get install curl
+
 test:
     post:
-        - curl "https://api.ghostinspector.com/v1/suites/5729d0a1e06022e03e29247f/?apiKey=7c4660fcd2a82e019235da8f9a5569d31d004437"
+        - curl "https://api.ghostinspector.com/v1/suites/57358484edc5783f61c7754c/execute/?apiKey=71e71e91f628e7ec37b554fe885e3f01a3111542"
+
+deployment:
+  develop:
+      branch: circleci_angulartics
+      commands:
+        - ./bin/$CIRCLE_BRANCH/deploy

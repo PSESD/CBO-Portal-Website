@@ -1,5 +1,6 @@
 var __i = false; if(typeof __local !== 'undefined') {__i = __local;}
-
+var analytics_user = '';
+var rollbar_env = '';
 var app = angular.module('CboPortal', ['angulartics', 'angulartics.google.analytics','ui.mask','anotherpit/angular-rollbar','ui.bootstrap','ui.router','ngLocationUpdate','ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize', 'ui.codemirror',
     'ngLocalize.Config'
 ]).value('localeConf', {

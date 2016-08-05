@@ -226,8 +226,7 @@
     <!--<script src="asset/js/isotope.pkgd.min.js"></script>-->
 
     <script>
-        var analytics_user = '';
-        var rollbar_env = '';
+        
         if (typeof env !== 'undefined' && env == 'production') {
             analytics_user = 'UA-66847660-1';
             rollbar_env='production';
@@ -249,7 +248,7 @@
             a.src = g;
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-//        ga('create', analytics_user, 'auto');
+        ga('create', analytics_user, 'auto');
 
     </script>
 

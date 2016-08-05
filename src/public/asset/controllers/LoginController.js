@@ -100,10 +100,12 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                                                         $rootScope.users_link = true;
                                                         $rootScope.reports_link = true;
                                                         $rootScope.tags_link = true;
+                                                        userStatus = "";
                                                     } else {
                                                         $rootScope.users_link = false;
                                                         $rootScope.reports_link = false;
                                                         $rootScope.tags_link = false;
+                                                        userStatus = "?assign=true";
                                                     }
                                                     $rootScope.completeName = complete_name;
                                                     find = true;
@@ -178,18 +180,10 @@ app.controller('LoginController', ['$rollbar','$rootScope', '$scope', '$http', '
                 })
                     .success(function (response) {
                         showError(locale.getString('general.reset_password'),2);
-                        //if (response.success === true) {
-                        //    showError(response.message, 2);
-                        //} else {
-                        //    showError(response.message, 1);
-                        //}
                         $scope.working = false;
 
                     })
                     .error(function (response, status) {
-
-                        //console.log(response);
-                        //console.log(status);
                         showError(response, 1);
                         $scope.working = false;
                         if (status === 401) {
