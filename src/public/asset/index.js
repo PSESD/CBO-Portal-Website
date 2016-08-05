@@ -73,7 +73,7 @@ app.run(function ($timeout,$state, $stateParams,$rootScope, $http, $location, $w
 
     $rootScope.$on("$routeChangeStart", function (event, nextRoute) {
         //redirect only if both isAuthenticated is false and no token is set
-        //$rootScope.doingResolve = true;
+        
         $rootScope.doingResolve = false;
         $rootScope.organization_name = localStorage.getItem('organization_name');
         $rootScope.sidebarButtonOpen = false;
