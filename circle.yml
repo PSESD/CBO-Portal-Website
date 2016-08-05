@@ -1,7 +1,7 @@
 general:
   branches:
     only:
-      - circleci_angulartics # list of branches to build
+      - develop # list of branches to build
       - staging # list of branches to build
       - production # list of branches to build
 machine:
@@ -12,7 +12,7 @@ machine:
 
 checkout:
   post:
-    - sudo chmod u+x ./bin/$CIRCLE_BRANCH/deploy
+    - sudo chmod u+x ./bin/deploy
 
 dependencies:
   pre:
@@ -24,6 +24,6 @@ test:
 
 deployment:
   develop:
-      branch: circleci_angulartics
+      branch: develop
       commands:
-        - ./bin/$CIRCLE_BRANCH/deploy
+        - ./bin/deploy
