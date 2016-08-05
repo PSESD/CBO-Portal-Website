@@ -68,7 +68,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
 
             });
 
-        $http.get(api_url + AuthenticationService.organization_id + '/students?assign=true', {
+        $http.get(api_url + AuthenticationService.organization_id + '/students'+userStatus, {
             headers: {
                 'Authorization': 'Bearer ' + AuthenticationService.token
             }

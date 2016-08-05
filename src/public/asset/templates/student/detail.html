@@ -95,7 +95,7 @@
                         {{ ::student.firstName }} {{ ::student.lastName }}
                     </h1>
                 <div class="text-right">
-                    <div ng-click="showHistory()" class="btn uppercase" ng-class="nonPromotionalStatus == true ? 'btn-danger' : 'btn-primary'">{{ 'general.see_school' | i18n }}</div>
+                    <div ng-click="showHistory()" class="btn uppercase" ng-class="nonPromotionalStatus == true ? 'btn-danger' : 'btn-primary'" analytics-on="click" analytics-event="Enrollment">{{ 'general.see_school' | i18n }}</div>
                     <a class="btn btn-default" aria-label="Left Align" ng-href="#/student/edit/{{ ::student._id }}">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
                     </a>
@@ -259,11 +259,9 @@
                 </div>
                 <div class="content">
                     <div ng-repeat="course in courses | orderBy:'timeTablePeriod'">
-                        <span>{{::course.courseTitle}}</span>
+                        <span class="label label-success" ng-show="course.timeTablePeriod">{{::course.timeTablePeriod}}</span> <span> {{::course.courseTitle}}</span>
                         <br/>
                     </div>
-                    <br/>
-                    <em>Current class schedule is ordered by time table period</em>
                 </div>
             </div>
         </div>
@@ -285,7 +283,9 @@
                     <li ng-class="{active: isStudentDetailActiveTab('#attendance_and_behavior', 0)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior"><h2><span class="glyphicon glyphicon-calendar"></span> {{ 'general.attendance_and_behavior' | i18n }}</h2></a></li>
                     <li ng-class="{active: isStudentDetailActiveTab('#transcript', 1)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript" ><h2><span class="glyphicon glyphicon-list-alt"></span> {{ 'general.transcript' | i18n}}</h2></a></li>
                     <li ng-class="{active: isStudentDetailActiveTab('#program_participation', 2)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation"><h2><span class="glyphicon glyphicon-tags"></span> {{ 'general.program_participation' | i18n }}</h2></a></li>
-                    <li ng-class="{active: isStudentDetailActiveTab('#graph', 3)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#graph"><h2 class="stat"><span class="glyphicon glyphicon-stats"></span> </h2></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#assessment', 3)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#assessment"><h2 class="assessment">{{ 'general.assessment' | i18n}} </h2></a></li>
+                    <li ng-class="{active: isStudentDetailActiveTab('#graph', 4)}"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#graph"><h2 class="stat"><span class="glyphicon glyphicon-stats"></span> </h2></a></li>
+
                 </ul>
 
                 <div id="accordion-container" class="tab-content">
@@ -516,7 +516,7 @@
                                                 <dt></dt>
                                                 <dd class="bold bold-title">{{ ::transDetail.schoolName }}</dd>
                                                 <dt class="bold bold-title">
-                                                    <ng-pluralize count="totalCreditsAttempted"
+                                                    <ng-pluralize count="transDetail.academicSummary.termCreditsAttempted"
                                                                   when="{
                                                               '0':'Credit',
                                                               '0.1':'Credit',
@@ -535,7 +535,7 @@
 
                                                 </dt>
                                                 <dd>
-                                                    {{ ::totalCreditsAttempted }}
+                                                    {{ ::transDetail.academicSummary.termCreditsAttempted }}
                                                 </dd>
                                                 <dt class="bold bold-title">{{ 'general.grade_level' | i18n }}</dt>
                                                 <dd>{{ ::transDetail.gradeLevel }}</dd>
@@ -621,6 +621,65 @@
                         </div>
                     </div>
 
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#assessment" aria-expanded="false" aria-controls="assessment">
+                        <h2>{{ 'general.assessment' | i18n}}</h2>
+                    </a>
+                    <div role="tabpanel" ng-class="{active: isStudentDetailActiveTab('#assessment', 1)}" class="tab-pane assessment" id="assessment" data-id="assessment_data">
+                        <ul>
+                            <li class="assessment-header-title">
+                                <h4 class="map-header-title">
+                                    map
+                                </h4>
+                            </li>
+                            <li class="assessment-header-title">
+                                <h4 class="state-header-title">
+                                    state
+                                </h4>
+                            </li>
+                        </ul>
+                        <hr class="rainbow"/>
+                        <div class="assessment-map">
+							<ul>
+                                <li ng-repeat="assessment in assessment_data">
+                                    <div>
+                                        <h3>{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</h3>
+                                    </div>
+                                    <ul class="assessment-map-container">
+                                        <li ng-repeat="map in assessment.maps">
+                                            <dl>
+												<dt class="map-item-title">{{map.subTestName}}</dt>
+												<dt class="bold">RIT Score</dt>
+												<dd class="bold">{{map.RITScore}}</dd>
+											</dl>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+						</div>
+                        <div class="assessment-state">
+                            <ul>
+                                <li ng-repeat="assessment in assessment_data">
+                                    <div>
+                                        <h3>{{assessment.schoolYear}} - {{assessment.studentGradeLevel}}</h3>
+                                    </div>
+                                    <ul class="assessment-state-container">
+                                        <li ng-repeat="state in assessment.states">
+                                            <dl>
+												<dt class="state-item-title">{{state.subTestName}}</dt>
+												<dt class="bold">Score</dt>
+												<dd class="bold">{{state.Score}}</dd>
+												<dt class="bold bold-title">Attempt Code</dt>
+												<dd class="bold">{{state.attemptCode}}</dd>
+												<dt class="bold bold-title">Attempt Description</dt>
+												<dd class="bold">{{state.attemptCodeDescription}}</dd>
+											</dl>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-container" data-target="#graph" aria-expanded="false" aria-controls="graph">
                         <h2 class="stat"></h2>
                     </a>
@@ -651,6 +710,8 @@
                             <div id="student-graph"></div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

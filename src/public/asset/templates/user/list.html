@@ -30,47 +30,47 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="table-wrapper">
-                    <table class="table table-striped listview">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th class="firstColumn">
+                            <th class="col-1">
                                 <a href="#" ng-click="sortType = 'first_name';sortReverse = !sortReverse">
                                     {{ 'general.name' | i18n }}
                                     <span ng-show="sortType == 'first_name' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
                                     <span ng-show="sortType == 'first_name' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                 </a>
                             </th>
-                            <th class="secondColumn">
+                            <th class="col-2">
                                 <a href="#" ng-click="sortType = 'email';sortReverse = !sortReverse">
                                     {{ 'general.email' | i18n }}
                                     <span ng-show="sortType == 'email' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
                                     <span ng-show="sortType == 'email' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                 </a>
                             </th>
-                            <th class="thirdColumn">
+                            <th class="col-3">
                                 <a href="#" ng-click="sortType = 'role';sortReverse = !sortReverse">
                                     {{ 'general.role' | i18n }}
                                     <span ng-show="sortType == 'role' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
                                     <span ng-show="sortType == 'role' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                 </a>
                             </th>
-                            <th class="text-center fourthColumn">
+                            <th class="text-center col-4">
                                 <a href="#" ng-click="sortType = 'activate';sortReverse = !sortReverse">
                                     {{ 'general.activate' | i18n }}
                                     <span ng-show="sortType == 'activate' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
                                     <span ng-show="sortType == 'activate' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                 </a>
                             </th>
-                            <th class="text-center fifthColumn">
+                            <th class="text-center col-5">
                                 <a href="#" ng-click="sortType = 'studentCount';sortReverse = !sortReverse">
                                     {{ 'general.assigned_students' | i18n }}
                                     <span ng-show="sortType == 'studentCount' && !sortReverse" class="glyphicon glyphicon-menu-down post-abs"></span>
                                     <span ng-show="sortType == 'studentCount' && sortReverse" class="glyphicon glyphicon-menu-up post-abs"></span>
                                 </a>
                             </th>
-                            <th class="text-center sixthColumn" style="width:9%;">{{ 'general.permissions' | i18n }}</th>
-                            <th class="text-center seventhColumn" style="width:9%;">{{ 'general.assign_students' | i18n }}</th>
-                            <th class="text-center eigthColumn" style="width:9%;">{{ 'general.delete' | i18n }}</th>
+                            <th class="text-center col-6" style="width:9%;">{{ 'general.permissions' | i18n }}</th>
+                            <th class="text-center col-7" style="width:9%;">{{ 'general.assign_students' | i18n }}</th>
+                            <th class="text-center col-8" style="width:9%;">{{ 'general.delete' | i18n }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -85,14 +85,14 @@
                             </td>
                             <td class="text-center">{{ user.studentCount }}</td>
                             <td class="text-center">
-                                <a href="#/user/edit/{{ user._id }}" class="glyphicon glyphicon-lock" ng-disabled="working"></a>
+                                <a href="#/user/edit/{{ user._id }}" class="glyphicon-relative glyphicon glyphicon-lock" ng-disabled="working"></a>
                             </td>
                             <td class="text-center">
-                                <a href="#/user/group/{{ user._id }}" class="glyphicon glyphicon-user" ng-disabled="working"></a>
+                                <a href="#/user/group/{{ user._id }}" class="glyphicon-relative glyphicon glyphicon-user" ng-disabled="working"></a>
                             </td>
                             <td class="text-center">
                                 <!--<a class="glyphicon glyphicon-trash" confirmed-click="deleteUser(user._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working"></a>-->
-                                <a class="glyphicon glyphicon-trash" ng-click="deleteUser(user._id, $index)"  ng-disabled="working"></a>
+                                <a class="glyphicon-relative glyphicon glyphicon-trash" ng-click="deleteUser(user._id, $index)"  ng-disabled="working"></a>
                             </td>
                         </tr>
                         </tbody>
@@ -102,6 +102,7 @@
         </div>
     </div>
 </div>
+
 <script>
     if(document.getElementById("programList")){
         document.getElementById("programList").remove();
@@ -127,4 +128,5 @@
         link.href = 'asset/css/responsive-user-table.css';
         head.appendChild(link);
     }
+    $('table').stickyTableHeaders();
 </script>
