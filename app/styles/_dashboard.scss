@@ -1,0 +1,60 @@
+body.dashboard-page {
+    nav {
+        &.navbar {
+            background: $light-black;
+            min-height: 75px;
+            ul{
+                width: 89%;
+                li{
+                    width: 20%;
+                    &.profile{
+                        width: 12%;
+                    }
+                    a{
+
+                        &.profile{
+                            background: $black;
+                            @include font($font-family-open-sans, 14px, 22px, '', $white);
+                            img{
+                                    margin-right: 18px;
+                            }
+                        }
+                        &.edit-profile{
+                            background: $black;
+                            @include font($font-family-open-sans, 14px, 45px, '', $white);
+                        }
+                        display: block;
+                        min-height: 75px;
+                        border-right : 1px solid $black;
+                        border-left:  1px solid $black;
+                        @include font($font-family-kreon, 14px, 45px, '', $grey);
+                        &:hover{
+                            background: transparent;
+                        }
+                    }
+                    &.edit-profile{
+                        width: 8%;
+                    }
+                }
+            }
+            .navbar-header {
+                a {
+                    position: relative;
+                    bottom: 25px;
+                    h1 {
+                        @include font($font-family-kreon, 18px, 26px, '', $white);
+                    }
+                }
+                img {
+                    float: left;
+                    position: relative;
+                    top: 10px;
+                    margin-right: 15px;
+                }
+                .navbar-brand {
+                    width: 146px;
+                }
+            }
+        }
+    }
+}

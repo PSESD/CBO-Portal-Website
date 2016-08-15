@@ -1,1 +1,0 @@
-cd /home/ubuntu/CBO-Portal-Website/src && npm update && npm install simple-ssh && node ./script.js

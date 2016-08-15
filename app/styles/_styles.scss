@@ -1,0 +1,51 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+::-webkit-input-placeholder { color:$white; }
+::-moz-placeholder { color:$white; } /* firefox 19+ */
+:-ms-input-placeholder { color:$white; } /* ie */
+input:-moz-placeholder { color:$white; }
+
+
+input[type="email"]::-webkit-input-placeholder,
+input[type="password"]::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: $white;
+}
+
+input[type="email"]::-moz-placeholder,
+input[type="password"]::-moz-placeholder {
+    /* Firefox 19+ */
+    color: $white;
+}
+
+input[type="email"]::-ms-input-placeholder,
+input[type="password"]::-ms-input-placeholder {
+    /* IE 10+ */
+    color: $white;
+}
+
+input[type="email"]::-moz-placeholder,
+input[type="password"]::-moz-placeholder {
+    /* Firefox 18- */
+    color: $white;
+}
+
+.inverse {
+    a {
+        color: $white;
+        &:hover {
+            color: $white;
+            text-decoration: underline;
+        }
+    }
+}
+
+.message {
+    position: relative;
+    bottom: 80px;
+}

@@ -1,0 +1,19 @@
+body.forgot-page {
+    @extend body.login-page;
+    .container {
+        a {
+            &.back_btn {
+                color: $white;
+                position: absolute;
+                top: 25px;
+                right: 25px;
+            }
+        }
+        form {
+            padding: 60px 25px;
+            p {
+                @include font($font-family-open-sans, 19px, 24px, normal, $white);
+            }
+        }
+    }
+}

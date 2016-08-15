@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-offset-2 col-sm-8 col-xs-offset-2 col-xs-8">
+            <div class="alert alert-info text-left message" ng-show="false">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Incorrect email or password.</strong> Try entering your information again.
+            </div>
+        </div>
+    </div>
+</div>
+
+<header class="container">
+    <div class="row">
+        <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-12 text-center">
+            <img src="images/logo.png" alt="Logo">
+            <h1>Student <strong>Success</strong> Link</h1>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-12 text-center">
+            <h2>Welcome back Tony!</h2>
+            <p class="title">Sign in to your Student Success Link account:</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12 form-bg">
+             <a class="back_btn" ui-sref="login"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            <form class="text-center" ng-click="vm.auth()">
+                <p>Enter the email associated with your Student Success Link Profile:</p>
+                <div class="form-group">
+                    <label for="email"></label>
+                    <input type="email" class="form-control" id="email" placeholder="Email Address" ng-model="vm.user.email" autocomplete="off">
+                </div>
+                <button type="submit"><span class="hvr-fade text-uppercase">Submit</span></button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-6 col-xs-12">
+            <p class="announcement text-center">Never share your password with anyone. <button popover-placement="right" popover-trigger="'mouseenter'" uib-popover-template="vm.help.templateUrl">?</button></p>
+        </div>
+    </div>
+</div>
+
+<footer class="container inverse">
+    <div class="row">
+        <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">
+            <ul class="text-center" data-spy="affix" data-offset-top="40">
+                <li><a href="">About PSESD</a></li>
+                <li><a href="">About Student Success Link</a></li>
+                <li><a href="">Privacy Policy</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>

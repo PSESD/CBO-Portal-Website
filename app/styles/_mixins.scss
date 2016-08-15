@@ -1,0 +1,16 @@
+@mixin bg-color($color,$opacity:1){
+    background: $color;
+    opacity: $opacity;
+}
+
+@mixin font-color($color){
+    color: $color;
+}
+
+@mixin font($font-family,$font-size,$line-height,$font-weight:"normal",$font-color:"black"){
+    font-family:$font-family;
+    font-size: $font-size;
+    line-height: $line-height;
+    font-weight: unquote($font-weight);
+    color: unquote($font-color);
+}

@@ -1,0 +1,19 @@
+button{
+    @include font($font-family-kreon,18px,26px,bold,$white);
+    padding: 15px 50px;
+    border: 3px solid $white;
+    background: transparent;
+    border-radius: 50px;
+    &:hover{
+        background: $white;
+        color:$cyan;
+    }
+    &:focus,
+    &:active{
+        outline:none!important;
+    }
+}
+.box{
+    display: inline-block;
+    padding: 10px;
+}

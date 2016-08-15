@@ -1,0 +1,244 @@
+.color-system-container,
+.color-system-item {
+    display: flex;
+}
+
+.color-system-container {
+    flex-direction: row;
+    .color-system-item {
+        flex-direction: column;
+        flex-grow: 1;
+    }
+}
+
+.center-horizontal-vertical {
+    justify-content: center;
+}
+
+.font-white {
+    @include font-color($white);
+}
+
+.font-black {
+    @include font-color($black);
+}
+
+.item {
+    height: 50px;
+}
+
+.bg-black {
+    @include bg-color($black);
+}
+
+.bg-black-900 {
+    @include bg-color($black, .9);
+}
+
+.bg-black-800 {
+    @include bg-color($black, .8);
+}
+
+.bg-black-700 {
+    @include bg-color($black, .7);
+}
+
+.bg-black-600 {
+    @include bg-color($black, .6);
+}
+
+.bg-black-500 {
+    @include bg-color($black, .5);
+}
+
+.bg-light-black {
+    @include bg-color($light-black);
+}
+
+.bg-light-black-900 {
+    @include bg-color($light-black, .9);
+}
+
+.bg-light-black-800 {
+    @include bg-color($light-black, .8);
+}
+
+.bg-light-black-700 {
+    @include bg-color($light-black, .7);
+}
+
+.bg-light-black-600 {
+    @include bg-color($light-black, .6);
+}
+
+.bg-light-black-500 {
+    @include bg-color($light-black, .5);
+}
+
+.bg-grey {
+    @include bg-color($grey);
+}
+
+.bg-grey-900 {
+    @include bg-color($grey, .9);
+}
+
+.bg-grey-800 {
+    @include bg-color($grey, .8);
+}
+
+.bg-grey-700 {
+    @include bg-color($grey, .7);
+}
+
+.bg-grey-600 {
+    @include bg-color($grey, .6);
+}
+
+.bg-grey-500 {
+    @include bg-color($grey, .5);
+}
+
+.bg-purple {
+    @include bg-color($purple);
+}
+
+.bg-purple-900 {
+    @include bg-color($purple, .9);
+}
+
+.bg-purple-800 {
+    @include bg-color($purple, .8);
+}
+
+.bg-purple-700 {
+    @include bg-color($purple, .7);
+}
+
+.bg-purple-600 {
+    @include bg-color($purple, .6);
+}
+
+.bg-purple-500 {
+    @include bg-color($purple, .5);
+}
+
+.bg-cyan {
+    @include bg-color($cyan);
+}
+
+.bg-cyan-900 {
+    @include bg-color($cyan, .9);
+}
+
+.bg-cyan-800 {
+    @include bg-color($cyan, .8);
+}
+
+.bg-cyan-700 {
+    @include bg-color($cyan, .7);
+}
+
+.bg-cyan-600 {
+    @include bg-color($cyan, .6);
+}
+
+.bg-cyan-500 {
+    @include bg-color($cyan, .5);
+}
+
+.bg-teal {
+    @include bg-color($teal);
+}
+
+.bg-teal-900 {
+    @include bg-color($teal, .9);
+}
+
+.bg-teal-800 {
+    @include bg-color($teal, .8);
+}
+
+.bg-teal-700 {
+    @include bg-color($teal, .7);
+}
+
+.bg-teal-600 {
+    @include bg-color($teal, .6);
+}
+
+.bg-teal-500 {
+    @include bg-color($teal, .5);
+}
+
+.bg-orange {
+    @include bg-color($orange);
+}
+
+.bg-orange-900 {
+    @include bg-color($orange, .9);
+}
+
+.bg-orange-800 {
+    @include bg-color($orange, .8);
+}
+
+.bg-orange-700 {
+    @include bg-color($orange, .7);
+}
+
+.bg-orange-600 {
+    @include bg-color($orange, .6);
+}
+
+.bg-orange-500 {
+    @include bg-color($orange, .5);
+}
+
+.bg-pink {
+    @include bg-color($pink);
+}
+
+.bg-pink-900 {
+    @include bg-color($pink, .9);
+}
+
+.bg-pink-800 {
+    @include bg-color($pink, .8);
+}
+
+.bg-pink-700 {
+    @include bg-color($pink, .7);
+}
+
+.bg-pink-600 {
+    @include bg-color($pink, .6);
+}
+
+.bg-pink-500 {
+    @include bg-color($pink, .5);
+}
+
+.bg-dark-grey {
+    @include bg-color($dark-grey);
+}
+
+.bg-dark-grey-900 {
+    @include bg-color($dark-grey, .9);
+}
+
+.bg-dark-grey-800 {
+    @include bg-color($dark-grey, .8);
+}
+
+.bg-dark-grey-700 {
+    @include bg-color($dark-grey, .7);
+}
+
+.bg-dark-grey-600 {
+    @include bg-color($dark-grey, .6);
+}
+
+.bg-dark-grey-500 {
+    @include bg-color($dark-grey, .5);
+}

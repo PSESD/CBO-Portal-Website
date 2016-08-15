@@ -1,0 +1,114 @@
+body.login-page {
+    background: url(../images/bg-full-width.jpg) no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100px;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    transform: translateY(20%);
+    .popover {
+        width: 255px;
+        .popover-content {
+            .panel-body {
+                p {
+                    color: black;
+                }
+            }
+            padding: 0;
+            .panel {
+                margin: 0;
+            }
+        }
+    }
+    .container {
+        h1,
+        h2,
+        p {
+            color: $white;
+        }
+        h1 {
+            @include font($font-family-open-sans, 30px, 42px, normal, $white);
+        }
+        h2 {
+            @include font($font-family-open-sans, 20px, 18px, bold, $white);
+        }
+        p {
+            &.title {
+                font-size: 17px;
+            }
+        }
+        form {
+            a {
+                color: $white;
+            }
+            label {
+                &.remember {
+                    color: $white;
+                }
+            }
+            padding: 10px 25px;
+            button {
+                padding: 15px 100px;
+                margin-top: 20px;
+            }
+            input[type=email],
+            input[type=password] {
+                outline: none!important;
+                box-shadow: none;
+                border-radius: 0;
+                background: transparent;
+                border: none;
+                border-bottom: 1px solid $white;
+                text-align: center;
+                color: $white;
+            }
+        }
+        .form-bg {
+            background: url(../images/form-bg.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 10px;
+        }
+        p {
+            &.announcement {
+                margin-top: 10px;
+                button {
+                    @include font($font-family-kreon, 14px, 18px, normal, white);
+                    padding: 0 6px;
+                    border: 1px solid $white;
+                    &:hover {
+                        background: transparent;
+                    }
+                }
+            }
+        }
+        .hvr-fade:hover, .hvr-fade:focus, .hvr-fade:active {
+            background-color:transparent;
+            color:$cyan;
+        }
+    }
+    footer {
+        &.container {
+            ul,
+            li {
+                padding: 0;
+                margin: 0;
+            }
+            ul {
+                width: 100%;
+                left: 0;
+                li {
+                    list-style-type: none;
+                    display: inline-block;
+                    margin: 0 15px 0 15px;
+                    @media(max-width: 767px) {
+                        display: block;
+                        margin: 0;
+                        position: relative;
+                    }
+                }
+            }
+        }
+    }
+}
