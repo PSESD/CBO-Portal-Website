@@ -1,58 +1,125 @@
 body.dashboard-page {
     nav {
         &.navbar {
-            background: $light-black;
-            min-height: 75px;
-            ul{
-                width: 89%;
-                li{
-                    width: 20%;
-                    &.profile{
-                        width: 12%;
+            .container-fluid {
+                background: $light-black;
+                padding: 0;
+                margin: 0;
+                height: 75px;
+                .navbar-header {
+                    width: 11%;
+                    .logo-container {
+                        display: flex;
+                        justify-content: center;
+                        img {
+                            position: relative;
+                            top: 10px;
+                        }
+                        h1 {
+                            position: relative;
+                            bottom: 30px;
+                            font-size: 25px;
+                            color: $white;
+                            line-height: 30px;
+                        }
                     }
-                    a{
-
-                        &.profile{
-                            background: $black;
-                            @include font($font-family-open-sans, 14px, 22px, '', $white);
-                            img{
-                                    margin-right: 18px;
+                }
+                .navbar-collapse {
+                    ul {
+                        &.navbar-nav {
+                            width: 89%;
+                            display: flex;
+                            justify-content: space-around;
+                        }
+                        li {
+                            width: 20%;
+                            a {
+                                height: 75px;
+                                font-family: $font-family-kreon;
+                                font-size: 14px;
+                                color: $grey;
+                                font-weight: bold;
+                                line-height: 40px;
+                                border-left: 1px solid black;
+                                text-align: center;
+                                &:hover {
+                                    background: transparent;
+                                    color: $white;
+                                }
+                            }
+                            &.profile {
+                                display: flex;
+                                background: $black;
+                                justify-content: space-around;
+                                .profile-detail {
+                                    display: flex;
+                                    img,
+                                    p {
+                                        position: relative;
+                                        top: 10px;
+                                    }
+                                    img {
+                                        width: 50px;
+                                        height: 50px;
+                                    }
+                                    p {
+                                        color: $white;
+                                    }
+                                }
+                                .right-container {
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    a {
+                                        &.edit-profile,
+                                        &.logout {
+                                            border: none;
+                                            height: 20px;
+                                            line-height: 0;
+                                        }
+                                        &.edit-profile {
+                                            font-size: 12px;
+                                            color: $cyan;
+                                        }
+                                    }
+                                }
                             }
                         }
-                        &.edit-profile{
-                            background: $black;
-                            @include font($font-family-open-sans, 14px, 45px, '', $white);
-                        }
-                        display: block;
-                        min-height: 75px;
-                        border-right : 1px solid $black;
-                        border-left:  1px solid $black;
-                        @include font($font-family-kreon, 14px, 45px, '', $grey);
-                        &:hover{
-                            background: transparent;
-                        }
-                    }
-                    &.edit-profile{
-                        width: 8%;
                     }
                 }
             }
-            .navbar-header {
-                a {
-                    position: relative;
-                    bottom: 25px;
-                    h1 {
-                        @include font($font-family-kreon, 18px, 26px, '', $white);
-                    }
+        }
+    }
+    footer {
+        position: fixed;
+        bottom: 0;
+        padding:25px 0;
+        background: $light-black;
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            display: flex;
+            justify-content: center;
+            li {
+                width: 45%;
+                list-style-type: none;
+                &.copyright{
+                    padding: 0 10px;
                 }
-                img {
-                    float: left;
-                    position: relative;
-                    top: 10px;
-                    margin-right: 15px;
+                &.copyright,
+                &.help {
+                    width: 10%;
+                    border-left: 1px solid $grey;
                 }
-                .navbar-brand {
-                    width: 146px;
+                &.help{
+                    text-align: center;
+                }
+                p{
+                    font-family: $font-family-kreon;
+                    color:$grey;
                 }
             }
         }
