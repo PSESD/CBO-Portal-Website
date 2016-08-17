@@ -1,85 +1,163 @@
 body.dashboard-page {
     nav {
         &.navbar {
+            background: $light-black;
+            height: 75px;
+            @media(max-width: 767px) {
+                height: 50px;
+            }
             .container-fluid {
-                background: $light-black;
                 padding: 0;
-                margin: 0;
-                height: 75px;
                 .navbar-header {
-                    width: 11%;
-                    .logo-container {
-                        display: flex;
-                        justify-content: center;
-                        img {
-                            position: relative;
-                            top: 10px;
+                    width: 17%;
+                    @media(max-width: 1199px) {
+                        width: 21%;
+                    }
+                    @media(max-width: 991px) {
+                        width: 27%;
+                    }
+                    @media(max-width: 767px) {
+                        width: 100%;
+                    }
+                    .navbar-toggle {
+                        border: 1px solid $grey;
+                        .icon-bar {
+                            border: 1px solid white;
                         }
+                        &:hover {
+                            background: transparent;
+                        }
+                    }
+                    img,
+                    h1 {
+                        position: relative;
+                    }
+                    img {
+                        top: 13px;
+                        margin-right: 5px;
+                        margin-left: 5px;
+                        @media(max-width: 767px) {
+                            display: none;
+                        }
+                    }
+                    a {
+                        width: 159px;
                         h1 {
-                            position: relative;
-                            bottom: 30px;
-                            font-size: 25px;
-                            color: $white;
-                            line-height: 30px;
+                            bottom: 17px;
+                            margin-left: 5px;
+                            @include font($font-family-kreon, 20px, 20px, normal, $white);
+                            @media(max-width: 767px) {
+                                display: none;
+                            }
                         }
                     }
                 }
                 .navbar-collapse {
                     ul {
                         &.navbar-nav {
-                            width: 89%;
-                            display: flex;
-                            justify-content: space-around;
-                        }
-                        li {
-                            width: 20%;
-                            a {
-                                height: 75px;
-                                font-family: $font-family-kreon;
-                                font-size: 14px;
-                                color: $grey;
-                                font-weight: bold;
-                                line-height: 40px;
-                                border-left: 1px solid black;
-                                text-align: center;
-                                &:hover {
-                                    background: transparent;
-                                    color: $white;
-                                }
+                            width: 83%;
+                            @media(max-width: 1199px) {
+                                width: 79%;
                             }
-                            &.profile {
-                                display: flex;
-                                background: $black;
-                                justify-content: space-around;
-                                .profile-detail {
-                                    display: flex;
-                                    img,
-                                    p {
-                                        position: relative;
+                            @media(max-width: 991px) {
+                                width: 73%;
+                            }
+                            @media(max-width: 767px) {
+                                width: 100%;
+                                margin: 0;
+                            }
+                            li {
+                                width: 16.666%;
+                                @media(max-width: 767px) {
+                                    width: 100%;
+                                    background: $light-black;
+                                }
+                                a {
+                                    height: 75px;
+                                    border-left: 1px solid black;
+                                    @include font($font-family-kreon, 16px, 37.5px, bold, $grey);
+                                    &:hover {
+                                        color: $white;
+                                        background: transparent;
+                                    }
+                                    @media(max-width: 991px) {
+                                        @include font($font-family-kreon, 14px, 47.5px, bold, $grey);
+                                    }
+                                }
+                                img {
+                                    width: 50px;
+                                    height: 50px;
+                                    margin-top: 10px;
+                                    margin-left: 30px;
+                                    @media(max-width: 1199px) {
+                                        margin-left: 20px;
+                                    }
+                                    @media(max-width: 991px) {
+                                        margin-left: 5px;
+                                    }
+                                }
+                                span {
+                                    margin-top: 19px;
+                                    @include font($font-family-open-sans, 14px, 16px, normal, $white);
+                                    @media(max-width: 1199px) {
+                                        @include font($font-family-open-sans, 10px, 15px, normal, $white);
+                                    }
+                                    @media(max-width: 991px) {
+                                        @include font($font-family-open-sans, 8px, 15px, normal, $white);
+                                    }
+                                }
+                                &.profile-tab,
+                                &.logout-tab {
+                                    background: $black;
+                                }
+                                &.profile-tab {
+                                    width: 20%;
+                                    height: 75px;
+                                    @media(max-width: 991px) {
+                                        width: 21%;
+                                    }
+                                    @media(max-width: 767px) {
+                                        width: 100%;
+                                        display: none;
+                                    }
+                                }
+                                &.logout-tab {
+                                    width: 13.333%;
+                                    @media(max-width: 991px) {
+                                        width: 12.333%;
+                                    }
+                                    @media(max-width: 767px) {
+                                        width: 100%;
+                                        display: none;
+                                    }
+                                    .separator {
+                                        height: 55px;
+                                        position: absolute;
+                                        background: $grey;
+                                        width: 1px;
                                         top: 10px;
                                     }
-                                    img {
-                                        width: 50px;
-                                        height: 50px;
-                                    }
-                                    p {
-                                        color: $white;
-                                    }
-                                }
-                                .right-container {
-                                    display: flex;
-                                    flex-direction: column;
-                                    justify-content: center;
                                     a {
-                                        &.edit-profile,
-                                        &.logout {
-                                            border: none;
-                                            height: 20px;
-                                            line-height: 0;
+                                        height: 36.5px;
+                                        border: none;
+                                        @include font($font-family-open-sans, 12px, 10px, normal, $cyan);
+                                        &:hover {
+                                            color: $teal;
                                         }
-                                        &.edit-profile {
-                                            font-size: 12px;
-                                            color: $cyan;
+                                        @media(max-width: 991px) {
+                                            @include font($font-family-open-sans, 8px, 10px, normal, $cyan);
+                                        }
+                                    }
+                                    button {
+                                        height: 37.5px;
+                                        padding: 0 20px;
+                                        @include font($font-family-kreon, 14px, 0, bold, $grey);
+                                        position: relative;
+                                        bottom: 7px;
+                                        border: 2px solid white;
+                                        @media(max-width: 991px) {
+                                            padding: 0 10px;
+                                            @include font($font-family-kreon, 8px, 0, bold, $grey);
                                         }
                                     }
                                 }
@@ -91,35 +169,73 @@ body.dashboard-page {
         }
     }
     footer {
+        background: $light-black;
         position: fixed;
         bottom: 0;
-        padding:25px 0;
-        background: $light-black;
-        ul,
-        li {
-            margin: 0;
-            padding: 0;
-        }
-        ul {
-            display: flex;
-            justify-content: center;
+        left: 0;
+        width: 100%;
+        &.container-fluid {
+            padding: 30px 0;
+            ul,
             li {
-                width: 45%;
-                list-style-type: none;
-                &.copyright{
-                    padding: 0 10px;
-                }
-                &.copyright,
-                &.help {
-                    width: 10%;
-                    border-left: 1px solid $grey;
-                }
-                &.help{
-                    text-align: center;
-                }
-                p{
-                    font-family: $font-family-kreon;
-                    color:$grey;
+                padding: 0;
+                margin: 0;
+            }
+            ul {
+                text-align: center;
+                li {
+                    list-style-type: none;
+                    text-align: left;
+                    width: 50%;
+                    display: inline-block;
+                    @media(max-width:1199px){
+                        width: 60%;
+                    }
+                    @media (max-width: 767px) {
+                        text-align: center;
+                        width: 100%;
+                        display: block;
+                    }
+                    p {
+                        @include font($font-family-open-sans, 10px, 15px, normal, $white);
+                        a {
+                            @include font($font-family-open-sans, 10px, 15px, normal, $cyan);
+                        }
+                    }
+                    button {
+                        position: relative;
+                        bottom: 40px;
+                        padding: 5px 15px;
+                        border: 2px solid $white;
+                        @include font($font-family-kreon, 12px, 15px, normal, $grey);
+                        @media (max-width: 767px) {
+                            bottom: 0;
+                        }
+                    }
+                    &.about {
+                        padding: 0 20px;
+                        border-left: 1px solid white;
+                        border-right: 1px solid white;
+                        @media (max-width: 767px) {
+                         border: none;
+                        }
+                    }
+                    &.about,
+                    &.help {
+                        width: 15%;
+                        @media (max-width: 767px) {
+                            width: 100%;
+                            display: block;
+                        }
+                    }
+                    &.about {
+                        a {
+                            @include font($font-family-open-sans, 10px, 15px, normal, $cyan);
+                        }
+                    }
+                    &.help {
+                        text-align: center;
+                    }
                 }
             }
         }

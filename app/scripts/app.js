@@ -23,7 +23,7 @@
 
   function configFunction($httpProvider,$urlRouterProvider) {
 
-    $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.otherwise("/dashboard");
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.get = {};
     $httpProvider.defaults.headers.post = {};
