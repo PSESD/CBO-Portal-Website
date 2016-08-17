@@ -23,7 +23,7 @@
 
   function configFunction($httpProvider,$urlRouterProvider) {
 
-    $urlRouterProvider.otherwise("/dashboard");
+    $urlRouterProvider.otherwise("/login");
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.get = {};
     $httpProvider.defaults.headers.post = {};
@@ -53,12 +53,12 @@
       function(event, toState, toParams, fromState, fromParams, options) {
 
         $rootScope.currentURL = toState.name + '-page';
+        var isLoggedIn = false;
+        if (!isLoggedIn && pathIsProtected(toState.url)) {
+          event.preventDefault();
+          $state.go('login', {}, {reload: true});
 
-        // if (pathIsProtected(toState.url)) {
-
-        //   $state.go('login')
-
-        // }
+        }
 
       });
 
