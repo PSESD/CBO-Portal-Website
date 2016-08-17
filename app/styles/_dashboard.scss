@@ -37,7 +37,9 @@ body.dashboard-page {
                         margin-right: 5px;
                         margin-left: 5px;
                         @media(max-width: 767px) {
-                            display: none;
+                            top:0;
+                            left: 13px;
+                            display: block;
                         }
                     }
                     a {
@@ -47,7 +49,9 @@ body.dashboard-page {
                             margin-left: 5px;
                             @include font($font-family-kreon, 20px, 20px, normal, $white);
                             @media(max-width: 767px) {
-                                display: none;
+                                display: block;
+                                bottom: 30px;
+                                right: 10px;
                             }
                         }
                     }
@@ -156,6 +160,7 @@ body.dashboard-page {
                                         bottom: 7px;
                                         border: 2px solid white;
                                         @media(max-width: 991px) {
+                                            top:0;
                                             padding: 0 10px;
                                             @include font($font-family-kreon, 8px, 0, bold, $grey);
                                         }
@@ -195,6 +200,7 @@ body.dashboard-page {
                         text-align: center;
                         width: 100%;
                         display: block;
+                        padding: 0 15px;
                     }
                     p {
                         @include font($font-family-open-sans, 10px, 15px, normal, $white);

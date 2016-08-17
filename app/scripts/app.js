@@ -6,6 +6,17 @@
       'ui.router',
       'ui.bootstrap'
     ])
+    .factory('httpRequestInterceptor', function ($q, $location) {
+    return {
+        'responseError': function(rejection) {
+            // do something on error
+            if(rejection.status === -1){
+                console.log(rejection);          
+            }
+            return $q.reject(rejection);
+         }
+     };
+})
     .factory('headerInjector', [function() {
       'use strict';
       var headerInjector = {
@@ -32,6 +43,7 @@
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common.Accept = '*/*';
     $httpProvider.interceptors.push('headerInjector');
+    $httpProvider.interceptors.push('httpRequestInterceptor');
     $httpProvider.defaults.timeout = 15000;
 
   }
@@ -53,7 +65,7 @@
       function(event, toState, toParams, fromState, fromParams, options) {
 
         $rootScope.currentURL = toState.name + '-page';
-        var isLoggedIn = false;
+        var isLoggedIn = true;
         if (!isLoggedIn && pathIsProtected(toState.url)) {
           event.preventDefault();
           $state.go('login', {}, {reload: true});

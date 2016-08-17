@@ -1,16 +1,45 @@
-(function(){
-  'use strict';
+;(function () {
+  'use strict'
 
-/**
- * @ngdoc service
- * @name sslv2App.loginService
- * @description
- * # loginService
- * Service in the sslv2App.
- */
-angular.module('sslv2App')
-  .service('loginService', function () {
-    // AngularJS will instantiate a singleton by calling "new" on this function
-  });
-})();
+  angular.module('sslv2App')
+    .service('LoginService', LoginService)
 
+  LoginService.$inject = ['$http', 'RESOURCES']
+
+  function LoginService ($http, RESOURCES) {
+    var service = {
+      authenticate: authenticate,
+      getOrganization: getOrganization,
+      getUsers: getUsers
+    }
+
+    return service
+
+    function authenticate (credentials, key) {
+      
+      return $http.post(RESOURCES.AUTH_URL + 'oauth2/token', $.param(credentials), {
+        headers: {
+          'Authorization': 'Basic ' + key,
+          'Content-type':'text/plain'
+        }
+      });
+      
+    }
+
+    function getOrganization (access_token) {
+     return $http.get(RESOURCES.API_URL + 'organizations', {
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        }
+      });
+    }
+
+    function getUsers (id, access_token) {
+      return $http.get(RESOURCES.API_URL + id + '/users', {
+        headers: {
+          'Authorization': 'Bearer ' + access_token
+        }
+      })
+    }
+  }
+})()
