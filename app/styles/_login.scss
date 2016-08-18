@@ -20,6 +20,9 @@ body.login-page {
             }
         }
     }
+    .page-wrapper {
+        transform: translateY(15%);
+    }
     .container {
         h1,
         h2,
@@ -64,10 +67,8 @@ body.login-page {
             }
         }
         .form-bg {
-            background: url(../images/form-bg.png);
-            background-repeat: no-repeat;
-            background-size: cover;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
         }
         p {
             &.announcement {
@@ -82,13 +83,17 @@ body.login-page {
                 }
             }
         }
-        .hvr-fade:hover, .hvr-fade:focus, .hvr-fade:active {
-            background-color:transparent;
-            color:$cyan;
+        .hvr-fade:hover,
+        .hvr-fade:focus,
+        .hvr-fade:active {
+            background-color: transparent;
+            color: $cyan;
         }
     }
     footer {
         &.container {
+            margin-top: 40px;
+            width: 100%;
             ul,
             li {
                 padding: 0;

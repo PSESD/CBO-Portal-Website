@@ -4,7 +4,8 @@
   angular
     .module('sslv2App', [
       'ui.router',
-      'ui.bootstrap'
+      'ui.bootstrap',
+      'ngCookies'
     ])
     .factory('httpRequestInterceptor', function ($q, $location) {
     return {

@@ -44,6 +44,9 @@ input[type="password"]::-moz-placeholder {
         }
     }
 }
+body{
+    -webkit-font-smoothing: antialiased;
+}
 
 // .message {
 //     position: relative;

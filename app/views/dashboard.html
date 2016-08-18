@@ -20,12 +20,12 @@
             <li><a class="text-center text-uppercase" href="#">Manage</a></li>
             <li class="profile-tab">
               <img class="pull-left" src="images/profile.png" alt="Profile Picture">
-              <span class="pull-left">Logged in as <br/><strong>Tony Chairprasit</strong></span>
+              <span class="pull-left">Logged in as <br/><strong>{{vm.full_name}}</strong></span>
             </li>
             <li class="logout-tab text-center">
               <div class="separator"></div>
               <a href="">Edit Profile</a>
-              <button class="text-uppercase">Logout</button>
+              <button class="text-uppercase" ui-sref="login">Logout</button>
             </li>
           </ul>
         </div>
@@ -33,7 +33,7 @@
 </nav>
 
 <footer class="container-fluid">
-    <ul>
+    <ul class="inverse">
       <li>
         <p>All student data in this system is protected by FERPA and your use of data is subject to your organization's data-sharing agreement with the school district. You may only use student information in this system in ways that are consistent with your program's agreement and in line with the parent consent you have received. Failure to use student data properly will result in revocation of access to data. In the event of a suspected data breach, immediately email <a href="">help@studentsuccesslink.org</a></p>
       </li>

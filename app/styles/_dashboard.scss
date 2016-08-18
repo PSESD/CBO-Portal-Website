@@ -37,7 +37,7 @@ body.dashboard-page {
                         margin-right: 5px;
                         margin-left: 5px;
                         @media(max-width: 767px) {
-                            top:0;
+                            top: 0;
                             left: 13px;
                             display: block;
                         }
@@ -127,6 +127,7 @@ body.dashboard-page {
                                 }
                                 &.logout-tab {
                                     width: 13.333%;
+                                    height: 75px;
                                     @media(max-width: 991px) {
                                         width: 12.333%;
                                     }
@@ -153,14 +154,14 @@ body.dashboard-page {
                                         }
                                     }
                                     button {
-                                        height: 37.5px;
+                                        height: 27.5px;
                                         padding: 0 20px;
-                                        @include font($font-family-kreon, 14px, 0, bold, $grey);
+                                        @include font($font-family-kreon, 12px, 0, bold, $grey);
                                         position: relative;
-                                        bottom: 7px;
+                                        bottom: 5px;
                                         border: 2px solid white;
                                         @media(max-width: 991px) {
-                                            top:0;
+                                            top: 0;
                                             padding: 0 10px;
                                             @include font($font-family-kreon, 8px, 0, bold, $grey);
                                         }
@@ -193,8 +194,11 @@ body.dashboard-page {
                     text-align: left;
                     width: 50%;
                     display: inline-block;
-                    @media(max-width:1199px){
+                    @media(max-width: 1199px) {
                         width: 60%;
+                    }
+                     @media(max-width: 991px) {
+                        width: 65%;
                     }
                     @media (max-width: 767px) {
                         text-align: center;
@@ -203,9 +207,21 @@ body.dashboard-page {
                         padding: 0 15px;
                     }
                     p {
-                        @include font($font-family-open-sans, 10px, 15px, normal, $white);
+                        @include font($font-family-open-sans, 12px, 15px, normal, $white);
+                        padding-right: 75px;
+                         @media(max-width: 1199px) {
+                            padding-left: 20px;
+                            padding-right: 20px;
+                        }
+                        @media (max-width: 991px) {
+                        
+                        }
+                        @media (max-width: 767px) {
+                            padding-left: 20px;
+                            padding-right: 20px;
+                        }
                         a {
-                            @include font($font-family-open-sans, 10px, 15px, normal, $cyan);
+                            @include font($font-family-open-sans, 12px, 15px, normal, $cyan);
                         }
                     }
                     button {
@@ -219,16 +235,29 @@ body.dashboard-page {
                         }
                     }
                     &.about {
-                        padding: 0 20px;
+                        padding: 0 20px 0 34px;
                         border-left: 1px solid white;
                         border-right: 1px solid white;
+                         @media(max-width: 1199px) {
+                            width: 15%;
+                        }
+                        @media(max-width: 991px) {
+                            padding: 0 5px 0 5px;
+                            width: 14%;
+                        }
+                        p {
+                            padding: 0;
+                        }
                         @media (max-width: 767px) {
-                         border: none;
+                            border: none;
                         }
                     }
                     &.about,
                     &.help {
-                        width: 15%;
+                        width: 12%;
+                        @media(max-width: 1199px) {
+                            width: 15%;
+                        }
                         @media (max-width: 767px) {
                             width: 100%;
                             display: block;
@@ -236,11 +265,11 @@ body.dashboard-page {
                     }
                     &.about {
                         a {
-                            @include font($font-family-open-sans, 10px, 15px, normal, $cyan);
+                            @include font($font-family-open-sans, 13px, 15px, normal, $cyan);
                         }
                     }
                     &.help {
-                        text-align: center;
+                        padding-left: 35px
                     }
                 }
             }

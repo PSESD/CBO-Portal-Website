@@ -16,11 +16,9 @@
     return service
 
     function authenticate (credentials, key) {
-      
       return $http.post(RESOURCES.AUTH_URL + 'oauth2/token', $.param(credentials), {
         headers: {
-          'Authorization': 'Basic ' + key,
-          'Content-type':'text/plain'
+          'Authorization': 'Basic ' + key
         }
       });
       
