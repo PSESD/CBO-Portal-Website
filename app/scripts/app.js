@@ -5,21 +5,9 @@
     .module('sslv2App', [
       'ui.router',
       'ui.bootstrap',
-      'ngCookies'
+      'ngCookies',
     ])
-    .factory('httpRequestInterceptor', function ($q, $location) {
-    return {
-        'responseError': function(rejection) {
-            // do something on error
-            if(rejection.status === -1){
-                console.log(rejection);          
-            }
-            return $q.reject(rejection);
-         }
-     };
-})
     .factory('headerInjector', [function() {
-      'use strict';
       var headerInjector = {
         request: function(config) {
           config.headers['X-Cbo-Client-Url'] = 'http://helpinghand.cbo.upward.st';
@@ -44,7 +32,6 @@
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common.Accept = '*/*';
     $httpProvider.interceptors.push('headerInjector');
-    $httpProvider.interceptors.push('httpRequestInterceptor');
     $httpProvider.defaults.timeout = 15000;
 
   }

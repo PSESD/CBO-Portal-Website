@@ -16,4 +16,4 @@
         $cookies.putObject(profile.id,profile);
     }
   }
-})()
+})();

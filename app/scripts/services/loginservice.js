@@ -1,4 +1,4 @@
-;(function () {
+(function () {
   'use strict'
 
   angular.module('sslv2App')
@@ -40,4 +40,4 @@
       })
     }
   }
-})()
+})();

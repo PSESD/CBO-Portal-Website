@@ -46,4 +46,4 @@
       return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3)
     }
   }
-})()
+})();
